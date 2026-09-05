@@ -1,0 +1,32 @@
+job=2414020 host=compute-34-07.mill start=Tue Aug 11 23:48:11 CDT 2026
+==============================================================================
+  probe_oop_shi2014_refine_hits_v1 -- start 2026-08-11 23:48:12
+==============================================================================
+SOLVER_VERSION=2026-07-10.s10 (expect 2026-07-10.s10)  DPS=40
+geometry: R0_2B=1.16666666667  2Theta/pi=0.5  Ri/Ro=0.4  N_DOFS=20  XMAX=18.0
+bars: depth<=-3.5  err<2.0%  bracket-shift<=0.1%  floor=-12.0
+5 targets (38.428 excluded, job 2411852 confirmed genuine near-miss)
+
+  T4: Om*=1.94563581 log_A=-3.8570 Om_lit=53.3407 (pub 53.649) err=0.575% shift=0.5899% -> PARTIAL_UNSTABLE [2965s]
+  T6: Om*=2.58109794 log_A=-5.7009 Om_lit=70.7623 (pub 70.739) err=0.033% shift=0.0019% -> PASS [3056s]
+  T5: Om*=2.30874669 log_A=-4.5341 Om_lit=63.2956 (pub 63.39) err=0.149% shift=0.0029% -> PASS [3063s]
+  T1: Om*=0.57074458 log_A=-5.4571 Om_lit=15.6473 (pub 15.647) err=0.002% shift=0.0019% -> PASS [3107s]
+  T2: Om*=0.85996512 log_A=-4.4574 Om_lit=23.5764 (pub 23.576) err=0.002% shift=0.0040% -> PASS [3150s]
+
+==============================================================================
+  PRE-REGISTERED READING
+==============================================================================
+ lab  published          Om*    Om_lit*    err%    log_A   shift%  verdict
+  T1     15.647   0.57074458    15.6473   0.002  -5.4571   0.0019  PASS
+  T2     23.576   0.85996512    23.5764   0.002  -4.4574   0.0040  PASS
+  T4     53.649   1.94563581    53.3407   0.575  -3.8570   0.5899  PARTIAL_UNSTABLE
+  T5     63.390   2.30874669    63.2956   0.149  -4.5341   0.0029  PASS
+  T6     70.739   2.58109794    70.7623   0.033  -5.7009   0.0019  PASS
+
+  n_PASS = 4/5
+  -> MIXED. Quote err% only for the PASS rows; the rest stay
+     window-confirmed. Do not average over the two classes.
+
+  Reminder: a deeper log_A is not automatically a better root.
+  Anything at or past -12.0 is a degenerate matrix.
+end=Wed Aug 12 00:40:44 CDT 2026

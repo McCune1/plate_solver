@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software or the benchmark spectra it produces, please cite
+  the accompanying paper (currently a draft; see paper/PAPER1_FREEFREE_DRAFT.pdf
+  and paper/PAPER1_FREEFREE_SUPPLEMENTARY.pdf).
+title: >-
+  plate_solver: Exact Free Vibration of Annular and Rectangular Sector Plates
+  by the Wave-Function Boundary-Determinant Method
+type: software
+authors:
+  - given-names: Garrek
+    family-names: McCune
+    affiliation: >-
+      Mechanical and Aerospace Engineering, Missouri University of Science
+      and Technology, Rolla, MO 65409, USA
+  - given-names: Daniel
+    family-names: Stutts
+    affiliation: >-
+      Mechanical and Aerospace Engineering, Missouri University of Science
+      and Technology, Rolla, MO 65409, USA
+preferred-citation:
+  type: article
+  title: >-
+    Exact Wave-Function Solution and Spurious-Mode Discrimination
+    for Completely Free Annular Sector Plates
+  authors:
+    - given-names: Garrek
+      family-names: McCune
+    - given-names: Daniel
+      family-names: Stutts
+  status: preprint
+  notes: >-
+    Draft manuscript, not yet submitted/published. See paper/ for the current
+    LaTeX source and compiled PDF of the main text and the Supplementary
+    Material. That directory is the canonical manuscript location.
+license: MIT
+keywords:
+  - annular sector plate
+  - free vibration
+  - exact solution
+  - boundary determinant
+  - spurious modes
+  - arbitrary-precision
+# --- FILL IN AT RELEASE (both lines), then add the same DOI to the paper's
+# --- Data and code availability section (there is no \todo{} in the .tex).
+repository-code: "https://github.com/TBD/TBD"
+# doi: "10.5281/zenodo.TBD"
+# version: "1.0.0"
+# date-released: "YYYY-MM-DD"

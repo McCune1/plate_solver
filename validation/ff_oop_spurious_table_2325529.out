@@ -1,0 +1,33 @@
+Job 2325529 on compute-33-02.mill
+Start: Sun Jul 19 02:59:34 CDT 2026
+==============================================================================
+  probe_ff_oop_spurious_table -- start 2026-07-19 02:59:34
+==============================================================================
+preflight OK: SOLVER_VERSION=2026-07-10.s8
+N_WORKERS=13
+13 targets: 8 physical + 5 artifact, N_DOFS=20, XI_MAX=20.0
+
+  [1/13] physical Om=2.379886 (lit=93.954) block=ODD rV=0.1376 rM=0.03575 maxW=2.322 log10smin=-4.2093 verdict=REAL-like (expected REAL-like) [87s]
+  [2/13] artifact Om=2.121685 (lit=n/a) block=ODD rV=619.6 rM=348 maxW=0.008633 log10smin=-4.1285 verdict=ARTIFACT-like (expected ARTIFACT-like) [87s]
+  [3/13] physical Om=2.320741 (lit=91.619) block=EVEN rV=0.1091 rM=0.03622 maxW=2.258 log10smin=-2.8131 verdict=REAL-like (expected REAL-like) [89s]
+  [4/13] physical Om=2.602500 (lit=102.743) block=ODD rV=0.1878 rM=0.01712 maxW=2.909 log10smin=-3.6994 verdict=REAL-like (expected REAL-like) [90s]
+  [5/13] physical Om=0.616645 (lit=24.344) block=ODD rV=0.02335 rM=0.00402 maxW=5.28 log10smin=-3.9124 verdict=REAL-like (expected REAL-like) [90s]
+  [6/13] artifact Om=0.320670 (lit=n/a) block=EVEN rV=53.42 rM=74.87 maxW=0.007427 log10smin=-3.6880 verdict=ARTIFACT-like (expected ARTIFACT-like) [90s]
+  [7/13] physical Om=0.383695 (lit=15.148) block=EVEN rV=0.01309 rM=0.002521 maxW=3.117 log10smin=-3.4227 verdict=REAL-like (expected REAL-like) [93s]
+  [8/13] artifact Om=1.602090 (lit=n/a) block=EVEN rV=95.63 rM=75.5 maxW=0.04478 log10smin=-4.7095 verdict=ARTIFACT-like (expected ARTIFACT-like) [95s]
+  [9/13] physical Om=1.752188 (lit=69.174) block=EVEN rV=0.1481 rM=0.02569 maxW=5.144 log10smin=-3.9050 verdict=REAL-like (expected REAL-like) [95s]
+  [10/13] physical Om=0.961312 (lit=37.951) block=ODD rV=0.06249 rM=0.009431 maxW=4.138 log10smin=-3.6858 verdict=REAL-like (expected REAL-like) [97s]
+  [11/13] artifact Om=1.001419 (lit=n/a) block=EVEN rV=454 rM=289.5 maxW=0.006875 log10smin=-5.2889 verdict=ARTIFACT-like (expected ARTIFACT-like) [97s]
+  [12/13] physical Om=1.369611 (lit=54.070) block=EVEN rV=0.08028 rM=0.01315 maxW=3.048 log10smin=-4.7787 verdict=REAL-like (expected REAL-like) [98s]
+  [13/13] artifact Om=0.844488 (lit=n/a) block=ODD rV=75.24 rM=76.04 maxW=0.02028 log10smin=-4.2482 verdict=ARTIFACT-like (expected ARTIFACT-like) [99s]
+
+==============================================================================
+SUMMARY: 13/13 ok, 0 verdict mismatches, 0 failures
+All verdicts matched pre-registered expectations. Safe to transcribe rV/rM/maxW directly into the paper's supplementary spurious-zero table.
+==============================================================================
+
+Diagnostic/data-generation only -- no SOLVER_VERSION action, no package changes.
+End: 2026-07-19 03:01:14
+
+total wall time: 1.7 min
+End: Sun Jul 19 03:01:14 CDT 2026

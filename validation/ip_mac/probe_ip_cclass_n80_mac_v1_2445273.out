@@ -1,0 +1,1522 @@
+dumps for ip_mac_gs_r250_a125_n80: 80/80
+C80_WORKERS=16  N_WORKERS=1  SLURM_CPUS_PER_TASK=16
+
+==============================================================================
+  probe_ip_cclass_n80_mac_v1  r250/a125  nu=0.35
+==============================================================================
+  r0/2b=2.5  2Theta/pi=1.25  PHI=225.0 deg
+  SOLVER_VERSION='2026-07-10.s10'  R40_BC_KIND='free_free'
+  N_WORKERS(plate_solver)='1'  C80_WORKERS=16
+  reconstruction imported; adv.THETA set to 1.963495 (expect 1.963495)
+  mac() identity |d|=0.00e+00
+  dumps 80/80  n_nodes=28033  freqs from /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ip_mac_gs_r250_a125_n80_freqs.txt
+  FE#4 SYMM  miss=0  f=10.4432
+  FE#5 ANTI  miss=0  f=27.8882
+  FE#60 SYMM  miss=0  f=726.5851
+  live parity SYMM=41 ANTI=39 AMBIGUOUS=0
+  FE-vs-FE max off-diag 0.006528 between 5 and 50  (reported, not gated -- new nu/geom)
+  MANIFEST=/home/ghmkfh/PythonMill/Plate_Solver_Package/figures_ff_r250_s10v2/freefree_manifest.json
+  IP accepted at this key: 106
+  scoring 106 candidates on 16 processes
+  progress 1/106  cand 5  dt=165s  ok=True
+  progress 2/106  cand 6  dt=167s  ok=True
+  progress 3/106  cand 8  dt=167s  ok=True
+  progress 4/106  cand 4  dt=168s  ok=True
+  progress 5/106  cand 13  dt=168s  ok=True
+  progress 6/106  cand 7  dt=169s  ok=True
+  progress 7/106  cand 11  dt=170s  ok=True
+  progress 8/106  cand 12  dt=171s  ok=True
+  progress 9/106  cand 9  dt=171s  ok=True
+  progress 10/106  cand 2  dt=171s  ok=True
+  progress 11/106  cand 10  dt=172s  ok=True
+  progress 12/106  cand 3  dt=173s  ok=True
+  progress 13/106  cand 14  dt=174s  ok=True
+  progress 14/106  cand 1  dt=175s  ok=True
+  progress 15/106  cand 16  dt=178s  ok=True
+  progress 16/106  cand 15  dt=180s  ok=True
+  progress 17/106  cand 30  dt=165s  ok=True
+  progress 18/106  cand 28  dt=168s  ok=True
+  progress 19/106  cand 26  dt=170s  ok=True
+  progress 20/106  cand 17  dt=178s  ok=True
+  progress 21/106  cand 27  dt=173s  ok=True
+  progress 22/106  cand 29  dt=171s  ok=True
+  progress 23/106  cand 24  dt=175s  ok=True
+  progress 24/106  cand 32  dt=167s  ok=True
+  progress 25/106  cand 31  dt=169s  ok=True
+  progress 26/106  cand 25  dt=180s  ok=True
+  progress 27/106  cand 23  dt=182s  ok=True
+  progress 28/106  cand 22  dt=199s  ok=True
+  progress 29/106  cand 18  dt=201s  ok=True
+  progress 30/106  cand 20  dt=203s  ok=True
+  progress 31/106  cand 19  dt=207s  ok=True
+  progress 32/106  cand 21  dt=208s  ok=True
+  progress 33/106  cand 34  dt=162s  ok=True
+  progress 34/106  cand 35  dt=163s  ok=True
+  progress 35/106  cand 33  dt=165s  ok=True
+  progress 36/106  cand 36  dt=170s  ok=True
+  progress 37/106  cand 40  dt=178s  ok=True
+  progress 38/106  cand 41  dt=179s  ok=True
+  progress 39/106  cand 37  dt=182s  ok=True
+  progress 40/106  cand 43  dt=177s  ok=True
+  progress 41/106  cand 39  dt=183s  ok=True
+  progress 42/106  cand 38  dt=185s  ok=True
+  progress 43/106  cand 42  dt=189s  ok=True
+  progress 44/106  cand 44  dt=174s  ok=True
+  progress 45/106  cand 46  dt=172s  ok=True
+  progress 46/106  cand 45  dt=176s  ok=True
+  progress 47/106  cand 47  dt=174s  ok=True
+  progress 48/106  cand 48  dt=190s  ok=True
+  progress 49/106  cand 50  dt=174s  ok=True
+  progress 50/106  cand 51  dt=175s  ok=True
+  progress 51/106  cand 49  dt=177s  ok=True
+  progress 52/106  cand 52  dt=174s  ok=True
+  progress 53/106  cand 53  dt=175s  ok=True
+  progress 54/106  cand 54  dt=174s  ok=True
+  progress 55/106  cand 56  dt=171s  ok=True
+  progress 56/106  cand 62  dt=157s  ok=True
+  progress 57/106  cand 63  dt=153s  ok=True
+  progress 58/106  cand 55  dt=175s  ok=True
+  progress 59/106  cand 57  dt=173s  ok=True
+  progress 60/106  cand 58  dt=173s  ok=True
+  progress 61/106  cand 61  dt=161s  ok=True
+  progress 62/106  cand 60  dt=165s  ok=True
+  progress 63/106  cand 59  dt=170s  ok=True
+  progress 64/106  cand 64  dt=155s  ok=True
+  progress 65/106  cand 66  dt=148s  ok=True
+  progress 66/106  cand 67  dt=148s  ok=True
+  progress 67/106  cand 65  dt=150s  ok=True
+  progress 68/106  cand 68  dt=148s  ok=True
+  progress 69/106  cand 77  dt=148s  ok=True
+  progress 70/106  cand 73  dt=151s  ok=True
+  progress 71/106  cand 72  dt=152s  ok=True
+  progress 72/106  cand 78  dt=147s  ok=True
+  progress 73/106  cand 69  dt=156s  ok=True
+  progress 74/106  cand 71  dt=155s  ok=True
+  progress 75/106  cand 76  dt=156s  ok=True
+  progress 76/106  cand 70  dt=160s  ok=True
+  progress 77/106  cand 74  dt=162s  ok=True
+  progress 78/106  cand 75  dt=162s  ok=True
+  progress 79/106  cand 79  dt=160s  ok=True
+  progress 80/106  cand 80  dt=151s  ok=True
+  progress 81/106  cand 83  dt=146s  ok=True
+  progress 82/106  cand 82  dt=147s  ok=True
+  progress 83/106  cand 81  dt=149s  ok=True
+  progress 84/106  cand 84  dt=153s  ok=True
+  progress 85/106  cand 85  dt=142s  ok=True
+  progress 86/106  cand 88  dt=143s  ok=True
+  progress 87/106  cand 87  dt=144s  ok=True
+  progress 88/106  cand 86  dt=147s  ok=True
+  progress 89/106  cand 89  dt=147s  ok=True
+  progress 90/106  cand 91  dt=144s  ok=True
+  progress 91/106  cand 90  dt=148s  ok=True
+  progress 92/106  cand 92  dt=144s  ok=True
+  progress 93/106  cand 93  dt=145s  ok=True
+  progress 94/106  cand 94  dt=147s  ok=True
+  progress 95/106  cand 95  dt=146s  ok=True
+  progress 96/106  cand 96  dt=146s  ok=True
+  progress 97/106  cand 97  dt=148s  ok=True
+  progress 98/106  cand 98  dt=152s  ok=True
+  progress 99/106  cand 99  dt=152s  ok=True
+  progress 100/106  cand 100  dt=160s  ok=True
+  progress 101/106  cand 105  dt=152s  ok=True
+  progress 102/106  cand 101  dt=162s  ok=True
+  progress 103/106  cand 102  dt=160s  ok=True
+  progress 104/106  cand 103  dt=162s  ok=True
+  progress 105/106  cand 104  dt=160s  ok=True
+  progress 106/106  cand 106  dt=156s  ok=True
+
+==============================================================================
+  [1/106]  FF-P2 2.5 1.25  Omega=0.026454
+==============================================================================
+  f_hz=10.4420
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.69492
+  block q1: rTyy=8.32745e-05
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #4 rel=0.012% MAC=0.1361  safe #4 MAC=0.1361
+  max same-class=0.1481 at #8  CALL ARTIFACT-like  tight=True
+  [175s]
+
+==============================================================================
+  [2/106]  FF-P2 2.5 1.25  Omega=0.049440
+==============================================================================
+  f_hz=19.5149
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=8.0182
+  block q1: rTyy=1.66026
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #5 rel=42.907% MAC=0.0135  safe #5 MAC=0.0135
+  max same-class=0.0263 at #21  CALL ARTIFACT-like  tight=False
+  [171s]
+
+==============================================================================
+  [3/106]  FF-P2 2.5 1.25  Omega=0.070654
+==============================================================================
+  f_hz=27.8885
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.000220072
+  block q1: rTyy=1.52246
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #5 rel=0.001% MAC=0.0432  safe #5 MAC=0.0432
+  max same-class=0.1557 at #10  CALL ARTIFACT-like  tight=True
+  [173s]
+
+==============================================================================
+  [4/106]  FF-P2 2.5 1.25  Omega=0.102226
+==============================================================================
+  f_hz=40.3507
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.67024
+  block q1: rTyy=6.63428
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #5 rel=30.885% MAC=0.0965  safe #6 MAC=0.1307
+  max same-class=0.1307 at #6  CALL ARTIFACT-like  tight=False
+  [168s]
+
+==============================================================================
+  [5/106]  FF-P2 2.5 1.25  Omega=0.141213
+==============================================================================
+  f_hz=55.7397
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.53367
+  block q1: rTyy=0.000891532
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #6 rel=0.002% MAC=0.0392  safe #6 MAC=0.0392
+  max same-class=0.2284 at #4  CALL ARTIFACT-like  tight=True
+  [165s]
+
+==============================================================================
+  [6/106]  FF-P2 2.5 1.25  Omega=0.175424
+==============================================================================
+  f_hz=69.2437
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=5.99777
+  block q1: rTyy=1.69416
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #6 rel=19.501% MAC=0.0046  safe #7 MAC=0.0519
+  max same-class=0.2170 at #5  CALL ARTIFACT-like  tight=False
+  [167s]
+
+==============================================================================
+  [7/106]  FF-P2 2.5 1.25  Omega=0.200218
+==============================================================================
+  f_hz=79.0303
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=2.06097
+  block q1: rTyy=10.2272
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #7 rel=13.138% MAC=0.0010  safe #6 MAC=0.1464
+  max same-class=0.1464 at #6  CALL ARTIFACT-like  tight=False
+  [169s]
+
+==============================================================================
+  [8/106]  FF-P2 2.5 1.25  Omega=0.226525
+==============================================================================
+  f_hz=89.4144
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.00194031
+  block q1: rTyy=1.74418
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #7 rel=0.002% MAC=0.0326  safe #7 MAC=0.0326
+  max same-class=0.1337 at #5  CALL ARTIFACT-like  tight=True
+  [167s]
+
+==============================================================================
+  [9/106]  FF-P2 2.5 1.25  Omega=0.296188
+==============================================================================
+  f_hz=116.9118
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.70126
+  block q1: rTyy=7.67483
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #9 rel=8.200% MAC=0.0004  safe #9 MAC=0.0004
+  max same-class=0.3060 at #4  CALL ARTIFACT-like  tight=False
+  [171s]
+
+==============================================================================
+  [10/106]  FF-P2 2.5 1.25  Omega=0.320474
+==============================================================================
+  f_hz=126.4980
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.68607
+  block q1: rTyy=0.00392781
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #9 rel=0.000% MAC=0.0025  safe #9 MAC=0.0025
+  max same-class=0.2924 at #4  CALL ARTIFACT-like  tight=True
+  [172s]
+
+==============================================================================
+  [11/106]  FF-P2 2.5 1.25  Omega=0.376876
+==============================================================================
+  f_hz=148.7608
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.53473
+  block q1: rTyy=10.8589
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #10 rel=0.439% MAC=0.1218  safe #9 MAC=0.0293
+  max same-class=0.2337 at #8  CALL ARTIFACT-like  tight=True
+  [170s]
+
+==============================================================================
+  [12/106]  FF-P2 2.5 1.25  Omega=0.395277
+==============================================================================
+  f_hz=156.0243
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=9.3383
+  block q1: rTyy=1.70319
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #10 rel=4.236% MAC=0.0538  safe #10 MAC=0.0538
+  max same-class=0.1488 at #5  CALL ARTIFACT-like  tight=False
+  [171s]
+
+==============================================================================
+  [13/106]  FF-P2 2.5 1.25  Omega=0.419377
+==============================================================================
+  f_hz=165.5371
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.00647069
+  block q1: rTyy=1.68222
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #11 rel=0.000% MAC=0.0325  safe #11 MAC=0.0325
+  max same-class=0.1206 at #5  CALL ARTIFACT-like  tight=True
+  [168s]
+
+==============================================================================
+  [14/106]  FF-P2 2.5 1.25  Omega=0.492986
+==============================================================================
+  f_hz=194.5919
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.68894
+  block q1: rTyy=9.42863
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #12 rel=3.278% MAC=0.0058  safe #12 MAC=0.0058
+  max same-class=0.3153 at #4  CALL ARTIFACT-like  tight=False
+  [174s]
+
+==============================================================================
+  [15/106]  FF-P2 2.5 1.25  Omega=0.509146
+==============================================================================
+  f_hz=200.9708
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=3.3236
+  block q1: rTyy=0.00599889
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #12 rel=0.000% MAC=0.0157  safe #12 MAC=0.0157
+  max same-class=0.2908 at #4  CALL ARTIFACT-like  tight=True
+  [180s]
+
+==============================================================================
+  [16/106]  FF-P2 2.5 1.25  Omega=0.511853
+==============================================================================
+  f_hz=202.0391
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=8.67697
+  block q1: rTyy=0.295564
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #12 rel=0.528% MAC=0.0222  safe #11 MAC=0.0003
+  max same-class=0.0407 at #15  CALL ARTIFACT-like  tight=False
+  [178s]
+
+==============================================================================
+  [17/106]  FF-P2 2.5 1.25  Omega=0.526190
+==============================================================================
+  f_hz=207.6982
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.6141
+  block q1: rTyy=0.00751563
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #13 rel=0.001% MAC=0.0312  safe #13 MAC=0.0312
+  max same-class=0.3192 at #4  CALL ARTIFACT-like  tight=True
+  [178s]
+
+==============================================================================
+  [18/106]  FF-P2 2.5 1.25  Omega=0.591587
+==============================================================================
+  f_hz=233.5119
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=8.97656
+  block q1: rTyy=1.68543
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #14 rel=4.319% MAC=0.0069  safe #14 MAC=0.0069
+  max same-class=0.1386 at #5  CALL ARTIFACT-like  tight=False
+  [201s]
+
+==============================================================================
+  [19/106]  FF-P2 2.5 1.25  Omega=0.617144
+==============================================================================
+  f_hz=243.5998
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.013232
+  block q1: rTyy=1.65536
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #14 rel=0.001% MAC=0.0075  safe #14 MAC=0.0075
+  max same-class=0.1110 at #5  CALL ARTIFACT-like  tight=True
+  [207s]
+
+==============================================================================
+  [20/106]  FF-P2 2.5 1.25  Omega=0.652590
+==============================================================================
+  f_hz=257.5912
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.72391
+  block q1: rTyy=6.90583
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #15 rel=1.353% MAC=0.0006  safe #16 MAC=0.0049
+  max same-class=0.2474 at #4  CALL ARTIFACT-like  tight=False
+  [203s]
+
+==============================================================================
+  [21/106]  FF-P2 2.5 1.25  Omega=0.692608
+==============================================================================
+  f_hz=273.3872
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.61012
+  block q1: rTyy=8.80261
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #16 rel=3.706% MAC=0.0200  safe #16 MAC=0.0200
+  max same-class=0.2732 at #4  CALL ARTIFACT-like  tight=False
+  [208s]
+
+==============================================================================
+  [22/106]  FF-P2 2.5 1.25  Omega=0.718280
+==============================================================================
+  f_hz=283.5204
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.56183
+  block q1: rTyy=0.0189387
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #16 rel=0.001% MAC=0.0134  safe #16 MAC=0.0134
+  max same-class=0.3043 at #4  CALL ARTIFACT-like  tight=True
+  [199s]
+
+==============================================================================
+  [23/106]  FF-P2 2.5 1.25  Omega=0.778781
+==============================================================================
+  f_hz=307.4014
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=5.60758
+  block q1: rTyy=1.66882
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #17 rel=2.979% MAC=0.0054  safe #18 MAC=0.0027
+  max same-class=0.0997 at #5  CALL ARTIFACT-like  tight=False
+  [182s]
+
+==============================================================================
+  [24/106]  FF-P2 2.5 1.25  Omega=0.808206
+==============================================================================
+  f_hz=319.0161
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=10.0707
+  block q1: rTyy=1.32577
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #17 rel=0.770% MAC=0.0021  safe #18 MAC=0.0013
+  max same-class=0.1837 at #10  CALL ARTIFACT-like  tight=False
+  [175s]
+
+==============================================================================
+  [25/106]  FF-P2 2.5 1.25  Omega=0.816899
+==============================================================================
+  f_hz=322.4475
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.0260674
+  block q1: rTyy=1.47878
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #18 rel=0.000% MAC=0.0017  safe #18 MAC=0.0017
+  max same-class=0.1048 at #5  CALL ARTIFACT-like  tight=True
+  [180s]
+
+==============================================================================
+  [26/106]  FF-P2 2.5 1.25  Omega=0.881810
+==============================================================================
+  f_hz=348.0692
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.47488
+  block q1: rTyy=6.67714
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #19 rel=3.365% MAC=0.0187  safe #19 MAC=0.0187
+  max same-class=0.3441 at #4  CALL ARTIFACT-like  tight=False
+  [170s]
+
+==============================================================================
+  [27/106]  FF-P2 2.5 1.25  Omega=0.911484
+==============================================================================
+  f_hz=359.7823
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.41714
+  block q1: rTyy=0.0297939
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #19 rel=0.000% MAC=0.0124  safe #19 MAC=0.0124
+  max same-class=0.3037 at #4  CALL ARTIFACT-like  tight=True
+  [173s]
+
+==============================================================================
+  [28/106]  FF-P2 2.5 1.25  Omega=0.942826
+==============================================================================
+  f_hz=372.1533
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.11934
+  block q1: rTyy=7.92491
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #20 rel=0.421% MAC=0.0072  safe #19 MAC=0.0010
+  max same-class=0.1455 at #8  CALL ARTIFACT-like  tight=True
+  [168s]
+
+==============================================================================
+  [29/106]  FF-P2 2.5 1.25  Omega=0.979921
+==============================================================================
+  f_hz=386.7956
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=7.00986
+  block q1: rTyy=1.28727
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #21 rel=1.675% MAC=0.0018  safe #21 MAC=0.0018
+  max same-class=0.1086 at #5  CALL ARTIFACT-like  tight=False
+  [171s]
+
+==============================================================================
+  [30/106]  FF-P2 2.5 1.25  Omega=0.996342
+==============================================================================
+  f_hz=393.2774
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.037579
+  block q1: rTyy=1.25194
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #21 rel=0.000% MAC=0.0062  safe #21 MAC=0.0062
+  max same-class=0.0934 at #5  CALL ARTIFACT-like  tight=True
+  [165s]
+
+==============================================================================
+  [31/106]  FF-P2 2.5 1.25  Omega=1.052469
+==============================================================================
+  f_hz=415.4319
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.0386096
+  block q1: rTyy=0.411865
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #22 rel=0.001% MAC=0.0068  safe #22 MAC=0.0068
+  max same-class=0.0943 at #5  CALL ARTIFACT-like  tight=True
+  [169s]
+
+==============================================================================
+  [32/106]  FF-P2 2.5 1.25  Omega=1.061077
+==============================================================================
+  f_hz=418.8298
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.1577
+  block q1: rTyy=0.0511671
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #23 rel=0.003% MAC=0.0037  safe #23 MAC=0.0037
+  max same-class=0.3073 at #4  CALL ARTIFACT-like  tight=True
+  [167s]
+
+==============================================================================
+  [33/106]  FF-P2 2.5 1.25  Omega=1.073554
+==============================================================================
+  f_hz=423.7547
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=3.49655
+  block q1: rTyy=6.15503
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #24 rel=0.424% MAC=0.0005  safe #24 MAC=0.0005
+  max same-class=0.3178 at #4  CALL ARTIFACT-like  tight=True
+  [165s]
+
+==============================================================================
+  [34/106]  FF-P2 2.5 1.25  Omega=1.109067
+==============================================================================
+  f_hz=437.7725
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.06174
+  block q1: rTyy=9.59116
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #25 rel=1.809% MAC=0.0013  safe #25 MAC=0.0013
+  max same-class=0.2918 at #4  CALL ARTIFACT-like  tight=False
+  [162s]
+
+==============================================================================
+  [35/106]  FF-P2 2.5 1.25  Omega=1.129145
+==============================================================================
+  f_hz=445.6975
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.784509
+  block q1: rTyy=0.0407599
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #25 rel=0.001% MAC=0.0238  safe #25 MAC=0.0238
+  max same-class=0.2613 at #4  CALL ARTIFACT-like  tight=True
+  [163s]
+
+==============================================================================
+  [36/106]  FF-P2 2.5 1.25  Omega=1.164650
+==============================================================================
+  f_hz=459.7122
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=7.2514
+  block q1: rTyy=0.912879
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #27 rel=2.095% MAC=0.0004  safe #27 MAC=0.0004
+  max same-class=0.0739 at #5  CALL ARTIFACT-like  tight=False
+  [170s]
+
+==============================================================================
+  [37/106]  FF-P2 2.5 1.25  Omega=1.197760
+==============================================================================
+  f_hz=472.7812
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=11.9173
+  block q1: rTyy=6.44733
+  RULE -> q1 [both LOCAL_MIN -> resid] class SYMM
+  unres #27 rel=0.728% MAC=0.0111  safe #28 MAC=0.0026
+  max same-class=0.1200 at #8  CALL ARTIFACT-like  tight=False
+  [182s]
+
+==============================================================================
+  [38/106]  FF-P2 2.5 1.25  Omega=1.227534
+==============================================================================
+  f_hz=484.5336
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.0452357
+  block q1: rTyy=0.228462
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #29 rel=0.002% MAC=0.0000  safe #29 MAC=0.0000
+  max same-class=0.0755 at #5  CALL ARTIFACT-like  tight=True
+  [185s]
+
+==============================================================================
+  [39/106]  FF-P2 2.5 1.25  Omega=1.259741
+==============================================================================
+  f_hz=497.2466
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.811319
+  block q1: rTyy=6.87589
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #29 rel=2.559% MAC=0.0064  safe #28 MAC=0.0142
+  max same-class=0.2872 at #4  CALL ARTIFACT-like  tight=False
+  [183s]
+
+==============================================================================
+  [40/106]  FF-P2 2.5 1.25  Omega=1.296608
+==============================================================================
+  f_hz=511.7988
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.953648
+  block q1: rTyy=0.03765
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #30 rel=0.001% MAC=0.0170  safe #30 MAC=0.0170
+  max same-class=0.1272 at #8  CALL ARTIFACT-like  tight=True
+  [178s]
+
+==============================================================================
+  [41/106]  FF-P2 2.5 1.25  Omega=1.299769
+==============================================================================
+  f_hz=513.0466
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.05507
+  block q1: rTyy=9.61873
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #30 rel=0.244% MAC=0.0014  safe #30 MAC=0.0014
+  max same-class=0.2671 at #4  CALL ARTIFACT-like  tight=True
+  [179s]
+
+==============================================================================
+  [42/106]  FF-P2 2.5 1.25  Omega=1.308277
+==============================================================================
+  f_hz=516.4047
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=5.78821
+  block q1: rTyy=0.688346
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #30 rel=0.893% MAC=0.0034  safe #31 MAC=0.0000
+  max same-class=0.1335 at #10  CALL ARTIFACT-like  tight=False
+  [189s]
+
+==============================================================================
+  [43/106]  FF-P2 2.5 1.25  Omega=1.320123
+==============================================================================
+  f_hz=521.0807
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.0980412
+  block q1: rTyy=0.376608
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #31 rel=0.009% MAC=0.0596  safe #31 MAC=0.0596
+  max same-class=0.0596 at #31  CALL ARTIFACT-like  tight=True
+  [177s]
+
+==============================================================================
+  [44/106]  FF-P2 2.5 1.25  Omega=1.327517
+==============================================================================
+  f_hz=523.9993
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.535221
+  block q1: rTyy=0.0548485
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #32 rel=0.007% MAC=0.0016  safe #32 MAC=0.0016
+  max same-class=0.1497 at #4  CALL ARTIFACT-like  tight=True
+  [174s]
+
+==============================================================================
+  [45/106]  FF-P2 2.5 1.25  Omega=1.355277
+==============================================================================
+  f_hz=534.9564
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=5.65232
+  block q1: rTyy=0.794601
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #32 rel=2.055% MAC=0.0021  safe #33 MAC=0.0008
+  max same-class=0.0804 at #5  CALL ARTIFACT-like  tight=False
+  [176s]
+
+==============================================================================
+  [46/106]  FF-P2 2.5 1.25  Omega=1.403733
+==============================================================================
+  f_hz=554.0833
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.363621
+  block q1: rTyy=5.16399
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #34 rel=0.755% MAC=0.0008  safe #35 MAC=0.0002
+  max same-class=0.1162 at #8  CALL ARTIFACT-like  tight=False
+  [172s]
+
+==============================================================================
+  [47/106]  FF-P2 2.5 1.25  Omega=1.414738
+==============================================================================
+  f_hz=558.4272
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.0906569
+  block q1: rTyy=1.66001
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #34 rel=0.029% MAC=0.0020  safe #34 MAC=0.0020
+  max same-class=0.1779 at #54  CALL ARTIFACT-like  tight=True
+  [174s]
+
+==============================================================================
+  [48/106]  FF-P2 2.5 1.25  Omega=1.422867
+==============================================================================
+  f_hz=561.6358
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.76322
+  block q1: rTyy=0.0957474
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #35 rel=0.008% MAC=0.0269  safe #35 MAC=0.0269
+  max same-class=0.1837 at #4  CALL ARTIFACT-like  tight=True
+  [190s]
+
+==============================================================================
+  [49/106]  FF-P2 2.5 1.25  Omega=1.444069
+==============================================================================
+  f_hz=570.0048
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.68135
+  block q1: rTyy=0.111412
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #36 rel=0.067% MAC=0.0001  safe #36 MAC=0.0001
+  max same-class=0.0950 at #51  CALL ARTIFACT-like  tight=True
+  [177s]
+
+==============================================================================
+  [50/106]  FF-P2 2.5 1.25  Omega=1.470685
+==============================================================================
+  f_hz=580.5106
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.0962699
+  block q1: rTyy=0.910039
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #37 rel=0.059% MAC=0.0001  safe #37 MAC=0.0001
+  max same-class=0.2160 at #54  CALL ARTIFACT-like  tight=True
+  [174s]
+
+==============================================================================
+  [51/106]  FF-P2 2.5 1.25  Omega=1.477838
+==============================================================================
+  f_hz=583.3339
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.381546
+  block q1: rTyy=0.0823355
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #38 rel=0.012% MAC=0.0001  safe #38 MAC=0.0001
+  max same-class=0.1064 at #51  CALL ARTIFACT-like  tight=True
+  [175s]
+
+==============================================================================
+  [52/106]  FF-P2 2.5 1.25  Omega=1.484970
+==============================================================================
+  f_hz=586.1492
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=6.27202
+  block q1: rTyy=0.490041
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #38 rel=0.493% MAC=0.0038  safe #37 MAC=0.0002
+  max same-class=0.1269 at #10  CALL ARTIFACT-like  tight=True
+  [174s]
+
+==============================================================================
+  [53/106]  FF-P2 2.5 1.25  Omega=1.530035
+==============================================================================
+  f_hz=603.9372
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.0858828
+  block q1: rTyy=4.93501
+  RULE -> q0 [both LOCAL_MIN -> resid] class ANTI
+  unres #39 rel=0.004% MAC=0.0009  safe #39 MAC=0.0009
+  max same-class=0.0383 at #26  CALL ARTIFACT-like  tight=True
+  [175s]
+
+==============================================================================
+  [54/106]  FF-P2 2.5 1.25  Omega=1.534510
+==============================================================================
+  f_hz=605.7035
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.190998
+  block q1: rTyy=0.105817
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #40 rel=0.019% MAC=0.0007  safe #40 MAC=0.0007
+  max same-class=0.2969 at #4  CALL ARTIFACT-like  tight=True
+  [174s]
+
+==============================================================================
+  [55/106]  FF-P2 2.5 1.25  Omega=1.548031
+==============================================================================
+  f_hz=611.0407
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.0592945
+  block q1: rTyy=1.03086
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #41 rel=0.005% MAC=0.0119  safe #41 MAC=0.0119
+  max same-class=0.2247 at #54  CALL ARTIFACT-like  tight=True
+  [175s]
+
+==============================================================================
+  [56/106]  FF-P2 2.5 1.25  Omega=1.557031
+==============================================================================
+  f_hz=614.5932
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.786818
+  block q1: rTyy=11.3281
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #41 rel=0.583% MAC=0.0055  safe #40 MAC=0.0010
+  max same-class=0.1389 at #8  CALL ARTIFACT-like  tight=False
+  [171s]
+
+==============================================================================
+  [57/106]  FF-P2 2.5 1.25  Omega=1.580798
+==============================================================================
+  f_hz=623.9747
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.985286
+  block q1: rTyy=1.55148
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #41 rel=2.077% MAC=0.0001  safe #41 MAC=0.0001
+  max same-class=0.0150 at #5  CALL ARTIFACT-like  tight=False
+  [173s]
+
+==============================================================================
+  [58/106]  FF-P2 2.5 1.25  Omega=1.615503
+==============================================================================
+  f_hz=637.6732
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=3.84108
+  block q1: rTyy=0.0825527
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #43 rel=0.061% MAC=0.0001  safe #42 MAC=0.0029
+  max same-class=0.0579 at #5  CALL ARTIFACT-like  tight=True
+  [173s]
+
+==============================================================================
+  [59/106]  FF-P2 2.5 1.25  Omega=1.622476
+==============================================================================
+  f_hz=640.4257
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.9922
+  block q1: rTyy=0.160448
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #44 rel=0.001% MAC=0.0074  safe #44 MAC=0.0074
+  max same-class=0.2267 at #4  CALL ARTIFACT-like  tight=True
+  [170s]
+
+==============================================================================
+  [60/106]  FF-P2 2.5 1.25  Omega=1.630391
+==============================================================================
+  f_hz=643.5500
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=17.1411
+  block q1: rTyy=1.23068
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #44 rel=0.487% MAC=0.0055  safe #42 MAC=0.0003
+  max same-class=0.1225 at #10  CALL ARTIFACT-like  tight=True
+  [165s]
+
+==============================================================================
+  [61/106]  FF-P2 2.5 1.25  Omega=1.665974
+==============================================================================
+  f_hz=657.5954
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.758348
+  block q1: rTyy=6.4171
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #45 rel=0.186% MAC=0.0000  safe #47 MAC=0.0034
+  max same-class=0.1514 at #4  CALL ARTIFACT-like  tight=True
+  [161s]
+
+==============================================================================
+  [62/106]  FF-P2 2.5 1.25  Omega=1.681414
+==============================================================================
+  f_hz=663.6897
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.29198
+  block q1: rTyy=0.148051
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #49 rel=0.004% MAC=0.0041  safe #49 MAC=0.0041
+  max same-class=0.2528 at #4  CALL ARTIFACT-like  tight=True
+  [157s]
+
+==============================================================================
+  [63/106]  FF-P2 2.5 1.25  Omega=1.698287
+==============================================================================
+  f_hz=670.3498
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=5.8284
+  block q1: rTyy=1.14938
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #50 rel=0.552% MAC=0.0008  safe #50 MAC=0.0008
+  max same-class=0.0587 at #5  CALL ARTIFACT-like  tight=False
+  [153s]
+
+==============================================================================
+  [64/106]  FF-P2 2.5 1.25  Omega=1.710180
+==============================================================================
+  f_hz=675.0442
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.4721
+  block q1: rTyy=8.72845
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #51 rel=0.047% MAC=0.0358  safe #51 MAC=0.0358
+  max same-class=0.0717 at #8  CALL ARTIFACT-like  tight=True
+  [155s]
+
+==============================================================================
+  [65/106]  FF-P2 2.5 1.25  Omega=1.724398
+==============================================================================
+  f_hz=680.6564
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=6.80387
+  block q1: rTyy=0.624961
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #52 rel=0.386% MAC=0.0064  safe #50 MAC=0.0000
+  max same-class=0.1092 at #5  CALL ARTIFACT-like  tight=True
+  [150s]
+
+==============================================================================
+  [66/106]  FF-P2 2.5 1.25  Omega=1.731077
+==============================================================================
+  f_hz=683.2930
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=4.33726
+  block q1: rTyy=0.0573344
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #52 rel=0.001% MAC=0.0251  safe #52 MAC=0.0251
+  max same-class=0.0852 at #51  CALL ARTIFACT-like  tight=True
+  [148s]
+
+==============================================================================
+  [67/106]  FF-P2 2.5 1.25  Omega=1.734481
+==============================================================================
+  f_hz=684.6365
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=9.07489
+  block q1: rTyy=0.214427
+  RULE -> q1 [both LOCAL_MIN -> resid] class SYMM
+  unres #53 rel=0.021% MAC=0.0064  safe #53 MAC=0.0064
+  max same-class=0.1216 at #4  CALL ARTIFACT-like  tight=True
+  [148s]
+
+==============================================================================
+  [68/106]  FF-P2 2.5 1.25  Omega=1.757509
+==============================================================================
+  f_hz=693.7263
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.161022
+  block q1: rTyy=0.081803
+  RULE -> q1 [both LOCAL_MIN -> resid] class SYMM
+  unres #56 rel=0.001% MAC=0.0205  safe #55 MAC=0.0161
+  max same-class=0.1020 at #51  CALL ARTIFACT-like  tight=True
+  [148s]
+
+==============================================================================
+  [69/106]  FF-P2 2.5 1.25  Omega=1.773671
+==============================================================================
+  f_hz=700.1057
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.2074
+  block q1: rTyy=6.69104
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #57 rel=0.811% MAC=0.0224  safe #57 MAC=0.0224
+  max same-class=0.0767 at #4  CALL ARTIFACT-like  tight=False
+  [156s]
+
+==============================================================================
+  [70/106]  FF-P2 2.5 1.25  Omega=1.787500
+==============================================================================
+  f_hz=705.5640
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.27061
+  block q1: rTyy=2.5082
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #57 rel=0.031% MAC=0.0210  safe #57 MAC=0.0210
+  max same-class=0.2874 at #4  CALL ARTIFACT-like  tight=True
+  [160s]
+
+==============================================================================
+  [71/106]  FF-P2 2.5 1.25  Omega=1.797879
+==============================================================================
+  f_hz=709.6609
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.122496
+  block q1: rTyy=1.54228
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #58 rel=0.010% MAC=0.0031  safe #58 MAC=0.0031
+  max same-class=0.0888 at #5  CALL ARTIFACT-like  tight=True
+  [155s]
+
+==============================================================================
+  [72/106]  FF-P2 2.5 1.25  Omega=1.810255
+==============================================================================
+  f_hz=714.5459
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.886571
+  block q1: rTyy=10.4407
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #58 rel=0.694% MAC=0.0165  safe #57 MAC=0.0974
+  max same-class=0.0974 at #57  CALL ARTIFACT-like  tight=False
+  [152s]
+
+==============================================================================
+  [73/106]  FF-P2 2.5 1.25  Omega=1.838940
+==============================================================================
+  f_hz=725.8686
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.94579
+  block q1: rTyy=0.285887
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #59 rel=0.007% MAC=0.0000  safe #59 MAC=0.0000
+  max same-class=0.1887 at #54  CALL ARTIFACT-like  tight=True
+  [151s]
+
+==============================================================================
+  [74/106]  FF-P2 2.5 1.25  Omega=1.846585
+==============================================================================
+  f_hz=728.8862
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.377261
+  block q1: rTyy=12.6747
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #60 rel=0.316% MAC=0.0001  safe #60 MAC=0.0001
+  max same-class=0.0709 at #4  CALL ARTIFACT-like  tight=True
+  [162s]
+
+==============================================================================
+  [75/106]  FF-P2 2.5 1.25  Omega=1.858168
+==============================================================================
+  f_hz=733.4585
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.0804013
+  block q1: rTyy=3.17161
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #61 rel=0.005% MAC=0.0005  safe #61 MAC=0.0005
+  max same-class=0.2050 at #54  CALL ARTIFACT-like  tight=True
+  [162s]
+
+==============================================================================
+  [76/106]  FF-P2 2.5 1.25  Omega=1.870712
+==============================================================================
+  f_hz=738.4096
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=4.43406
+  block q1: rTyy=1.46337
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #62 rel=0.531% MAC=0.0007  safe #61 MAC=0.0010
+  max same-class=0.0844 at #5  CALL ARTIFACT-like  tight=False
+  [156s]
+
+==============================================================================
+  [77/106]  FF-P2 2.5 1.25  Omega=1.880920
+==============================================================================
+  f_hz=742.4390
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=3.86173
+  block q1: rTyy=0.174318
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #62 rel=0.014% MAC=0.0058  safe #62 MAC=0.0058
+  max same-class=0.2561 at #4  CALL ARTIFACT-like  tight=True
+  [148s]
+
+==============================================================================
+  [78/106]  FF-P2 2.5 1.25  Omega=1.885358
+==============================================================================
+  f_hz=744.1909
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=7.65969
+  block q1: rTyy=0.400749
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #62 rel=0.250% MAC=0.0046  safe #61 MAC=0.0026
+  max same-class=0.1678 at #54  CALL ARTIFACT-like  tight=True
+  [147s]
+
+==============================================================================
+  [79/106]  FF-P2 2.5 1.25  Omega=1.927326
+==============================================================================
+  f_hz=760.7567
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.158361
+  block q1: rTyy=0.150147
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #63 rel=0.015% MAC=0.0001  safe #63 MAC=0.0001
+  max same-class=0.0701 at #5  CALL ARTIFACT-like  tight=True
+  [160s]
+
+==============================================================================
+  [80/106]  FF-P2 2.5 1.25  Omega=1.954674
+==============================================================================
+  f_hz=771.5513
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.22578
+  block q1: rTyy=2.4604
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #65 rel=0.961% MAC=0.0006  safe #66 MAC=0.0001
+  max same-class=0.2657 at #4  CALL ARTIFACT-like  tight=False
+  [151s]
+
+==============================================================================
+  [81/106]  FF-P2 2.5 1.25  Omega=1.974844
+==============================================================================
+  f_hz=779.5129
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.796802
+  block q1: rTyy=6.9237
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #65 rel=0.071% MAC=0.0057  safe #66 MAC=0.0000
+  max same-class=0.0544 at #51  CALL ARTIFACT-like  tight=True
+  [149s]
+
+==============================================================================
+  [82/106]  FF-P2 2.5 1.25  Omega=1.998528
+==============================================================================
+  f_hz=788.8615
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=2.6953
+  block q1: rTyy=1.17928
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #67 rel=0.386% MAC=0.0034  safe #67 MAC=0.0034
+  max same-class=0.1755 at #54  CALL ARTIFACT-like  tight=True
+  [147s]
+
+==============================================================================
+  [83/106]  FF-P2 2.5 1.25  Omega=2.006428
+==============================================================================
+  f_hz=791.9797
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.0321921
+  block q1: rTyy=0.550385
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #67 rel=0.009% MAC=0.0111  safe #67 MAC=0.0111
+  max same-class=0.1660 at #54  CALL ARTIFACT-like  tight=True
+  [146s]
+
+==============================================================================
+  [84/106]  FF-P2 2.5 1.25  Omega=2.014801
+==============================================================================
+  f_hz=795.2848
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.867803
+  block q1: rTyy=0.230205
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #68 rel=0.032% MAC=0.0015  safe #68 MAC=0.0015
+  max same-class=0.1967 at #4  CALL ARTIFACT-like  tight=True
+  [153s]
+
+==============================================================================
+  [85/106]  FF-P2 2.5 1.25  Omega=2.033185
+==============================================================================
+  f_hz=802.5411
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=4.0806
+  block q1: rTyy=0.693453
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #69 rel=0.315% MAC=0.0000  safe #69 MAC=0.0000
+  max same-class=0.1039 at #5  CALL ARTIFACT-like  tight=True
+  [142s]
+
+==============================================================================
+  [86/106]  FF-P2 2.5 1.25  Omega=2.042002
+==============================================================================
+  f_hz=806.0216
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=3.70737
+  block q1: rTyy=1.26534
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #69 rel=0.118% MAC=0.0179  safe #69 MAC=0.0179
+  max same-class=0.1092 at #54  CALL ARTIFACT-like  tight=True
+  [147s]
+
+==============================================================================
+  [87/106]  FF-P2 2.5 1.25  Omega=2.068248
+==============================================================================
+  f_hz=816.3813
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=3.12775
+  block q1: rTyy=2.01286
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #70 rel=0.106% MAC=0.0445  safe #70 MAC=0.0445
+  max same-class=0.0569 at #51  CALL ARTIFACT-like  tight=True
+  [144s]
+
+==============================================================================
+  [88/106]  FF-P2 2.5 1.25  Omega=2.077561
+==============================================================================
+  f_hz=820.0574
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=4.4715
+  block q1: rTyy=0.165729
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #71 rel=0.033% MAC=0.0150  safe #72 MAC=0.0000
+  max same-class=0.0902 at #10  CALL ARTIFACT-like  tight=True
+  [143s]
+
+==============================================================================
+  [89/106]  FF-P2 2.5 1.25  Omega=2.100983
+==============================================================================
+  f_hz=829.3025
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=1.26436
+  block q1: rTyy=4.00167
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #73 rel=0.534% MAC=0.0145  safe #73 MAC=0.0145
+  max same-class=0.1738 at #4  CALL ARTIFACT-like  tight=False
+  [147s]
+
+==============================================================================
+  [90/106]  FF-P2 2.5 1.25  Omega=2.112246
+==============================================================================
+  f_hz=833.7483
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.937779
+  block q1: rTyy=0.238046
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #73 rel=0.002% MAC=0.0404  safe #73 MAC=0.0404
+  max same-class=0.1026 at #51  CALL ARTIFACT-like  tight=True
+  [148s]
+
+==============================================================================
+  [91/106]  FF-P2 2.5 1.25  Omega=2.130274
+==============================================================================
+  f_hz=840.8645
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.227942
+  block q1: rTyy=2.14949
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #74 rel=0.035% MAC=0.0013  safe #74 MAC=0.0013
+  max same-class=0.0428 at #5  CALL ARTIFACT-like  tight=True
+  [144s]
+
+==============================================================================
+  [92/106]  FF-P2 2.5 1.25  Omega=2.139442
+==============================================================================
+  f_hz=844.4831
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.687876
+  block q1: rTyy=8.855
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #75 rel=0.128% MAC=0.0076  safe #73 MAC=0.0063
+  max same-class=0.0673 at #4  CALL ARTIFACT-like  tight=True
+  [144s]
+
+==============================================================================
+  [93/106]  FF-P2 2.5 1.25  Omega=2.167293
+==============================================================================
+  f_hz=855.4766
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.809601
+  block q1: rTyy=0.210245
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #76 rel=0.021% MAC=0.0000  safe #76 MAC=0.0000
+  max same-class=0.2513 at #4  CALL ARTIFACT-like  tight=True
+  [145s]
+
+==============================================================================
+  [94/106]  FF-P2 2.5 1.25  Omega=2.186054
+==============================================================================
+  f_hz=862.8819
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=2.04429
+  block q1: rTyy=6.47588
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #77 rel=0.111% MAC=0.0030  safe #76 MAC=0.0007
+  max same-class=0.0779 at #23  CALL ARTIFACT-like  tight=True
+  [147s]
+
+==============================================================================
+  [95/106]  FF-P2 2.5 1.25  Omega=2.199531
+==============================================================================
+  f_hz=868.2016
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.24979
+  block q1: rTyy=3.25566
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #78 rel=0.002% MAC=0.0137  safe #78 MAC=0.0137
+  max same-class=0.1866 at #54  CALL ARTIFACT-like  tight=True
+  [146s]
+
+==============================================================================
+  [96/106]  FF-P2 2.5 1.25  Omega=2.216533
+==============================================================================
+  f_hz=874.9128
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.513504
+  block q1: rTyy=0.434667
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #79 rel=0.077% MAC=0.0005  safe #79 MAC=0.0005
+  max same-class=0.0635 at #57  CALL ARTIFACT-like  tight=True
+  [146s]
+
+==============================================================================
+  [97/106]  FF-P2 2.5 1.25  Omega=2.248462
+==============================================================================
+  f_hz=887.5156
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.216844
+  block q1: rTyy=0.758343
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #80 rel=0.037% MAC=0.0012  safe #80 MAC=0.0012
+  max same-class=0.0743 at #5  CALL ARTIFACT-like  tight=True
+  [148s]
+
+==============================================================================
+  [98/106]  FF-P2 2.5 1.25  Omega=2.275894
+==============================================================================
+  f_hz=898.3435
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=11.7226
+  block q1: rTyy=1.00204
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #81 rel=0.291% MAC=0.0026  safe #80 MAC=0.0004
+  max same-class=0.0920 at #10  CALL ARTIFACT-like  tight=True
+  [152s]
+
+==============================================================================
+  [99/106]  FF-P2 2.5 1.25  Omega=2.296436
+==============================================================================
+  f_hz=906.4520
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=6.38384
+  block q1: rTyy=0.243057
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #83 rel=0.156% MAC=0.0002  safe #80 MAC=0.0005
+  max same-class=0.0890 at #26  CALL ARTIFACT-like  tight=True
+  [152s]
+
+==============================================================================
+  [100/106]  FF-P2 2.5 1.25  Omega=2.310889
+==============================================================================
+  f_hz=912.1569
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=9.21967
+  block q1: rTyy=0.302298
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #83 rel=0.780% MAC=0.0009  safe #80 MAC=0.0001
+  max same-class=0.1149 at #75  CALL ARTIFACT-like  tight=False
+  [160s]
+
+==============================================================================
+  [101/106]  FF-P2 2.5 1.25  Omega=2.330111
+==============================================================================
+  f_hz=919.7442
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.757476
+  block q1: rTyy=0.193961
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #83 rel=1.599% MAC=0.0020  safe #83 MAC=0.0020
+  max same-class=0.2132 at #4  CALL ARTIFACT-like  tight=False
+  [162s]
+
+==============================================================================
+  [102/106]  FF-P2 2.5 1.25  Omega=2.375381
+==============================================================================
+  f_hz=937.6133
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.217461
+  block q1: rTyy=1.08397
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #83 rel=3.474% MAC=0.0007  safe #80 MAC=0.0008
+  max same-class=0.0358 at #5  CALL ARTIFACT-like  tight=False
+  [160s]
+
+==============================================================================
+  [103/106]  FF-P2 2.5 1.25  Omega=2.391176
+==============================================================================
+  f_hz=943.8479
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.401103
+  block q1: rTyy=0.492732
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #83 rel=4.112% MAC=0.0086  safe #83 MAC=0.0086
+  max same-class=0.0831 at #57  CALL ARTIFACT-like  tight=False
+  [162s]
+
+==============================================================================
+  [104/106]  FF-P2 2.5 1.25  Omega=2.396095
+==============================================================================
+  f_hz=945.7894
+  fill state=FILLED cnt=14/14
+  block q0: rTyy=0.379146
+  block q1: rTyy=6.43504
+  RULE -> q1 [single LOCAL_MIN] class SYMM
+  unres #83 rel=4.309% MAC=0.0021  safe #83 MAC=0.0021
+  max same-class=0.0621 at #8  CALL ARTIFACT-like  tight=False
+  [160s]
+
+==============================================================================
+  [105/106]  FF-P2 2.5 1.25  Omega=2.409879
+==============================================================================
+  f_hz=951.2304
+  fill state=SHORT_FILL cnt=12/14
+  block q0: rTyy=0.27389
+  block q1: rTyy=1.33306
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #83 rel=4.856% MAC=0.0014  safe #80 MAC=0.0003
+  max same-class=0.0421 at #10  CALL ARTIFACT-like  tight=False
+  [152s]
+
+==============================================================================
+  [106/106]  FF-P2 2.5 1.25  Omega=2.473509
+==============================================================================
+  f_hz=976.3463
+  fill state=SHORT_FILL cnt=12/14
+  block q0: rTyy=0.334533
+  block q1: rTyy=0.517617
+  RULE -> q0 [single LOCAL_MIN] class ANTI
+  unres #83 rel=7.303% MAC=0.0108  safe #80 MAC=0.0001
+  max same-class=0.1041 at #54  CALL ARTIFACT-like  tight=False
+  [156s]
+
+==============================================================================
+  SUMMARY
+==============================================================================
+  reconstructed 106/106
+          Om         Hz blk  near    rel%    MAC@n   max-sc   at tight call
+    0.026454     10.442 q1      4   0.012   0.1361   0.1481 #8   1 ARTIFACT-like
+    0.049440     19.515 q0      5  42.907   0.0135   0.0263 #21  0 ARTIFACT-like
+    0.070654     27.889 q0      5   0.001   0.0432   0.1557 #10  1 ARTIFACT-like
+    0.102226     40.351 q1      5  30.885   0.0965   0.1307 #6   0 ARTIFACT-like
+    0.141213     55.740 q1      6   0.002   0.0392   0.2284 #4   1 ARTIFACT-like
+    0.175424     69.244 q0      6  19.501   0.0046   0.2170 #5   0 ARTIFACT-like
+    0.200218     79.030 q1      7  13.138   0.0010   0.1464 #6   0 ARTIFACT-like
+    0.226525     89.414 q0      7   0.002   0.0326   0.1337 #5   1 ARTIFACT-like
+    0.296188    116.912 q1      9   8.200   0.0004   0.3060 #4   0 ARTIFACT-like
+    0.320474    126.498 q1      9   0.000   0.0025   0.2924 #4   1 ARTIFACT-like
+    0.376876    148.761 q1     10   0.439   0.1218   0.2337 #8   1 ARTIFACT-like
+    0.395277    156.024 q0     10   4.236   0.0538   0.1488 #5   0 ARTIFACT-like
+    0.419377    165.537 q0     11   0.000   0.0325   0.1206 #5   1 ARTIFACT-like
+    0.492986    194.592 q1     12   3.278   0.0058   0.3153 #4   0 ARTIFACT-like
+    0.509146    200.971 q1     12   0.000   0.0157   0.2908 #4   1 ARTIFACT-like
+    0.511853    202.039 q0     12   0.528   0.0222   0.0407 #15  0 ARTIFACT-like
+    0.526190    207.698 q1     13   0.001   0.0312   0.3192 #4   1 ARTIFACT-like
+    0.591587    233.512 q0     14   4.319   0.0069   0.1386 #5   0 ARTIFACT-like
+    0.617144    243.600 q0     14   0.001   0.0075   0.1110 #5   1 ARTIFACT-like
+    0.652590    257.591 q1     15   1.353   0.0006   0.2474 #4   0 ARTIFACT-like
+    0.692608    273.387 q1     16   3.706   0.0200   0.2732 #4   0 ARTIFACT-like
+    0.718280    283.520 q1     16   0.001   0.0134   0.3043 #4   1 ARTIFACT-like
+    0.778781    307.401 q0     17   2.979   0.0054   0.0997 #5   0 ARTIFACT-like
+    0.808206    319.016 q0     17   0.770   0.0021   0.1837 #10  0 ARTIFACT-like
+    0.816899    322.448 q0     18   0.000   0.0017   0.1048 #5   1 ARTIFACT-like
+    0.881810    348.069 q1     19   3.365   0.0187   0.3441 #4   0 ARTIFACT-like
+    0.911484    359.782 q1     19   0.000   0.0124   0.3037 #4   1 ARTIFACT-like
+    0.942826    372.153 q1     20   0.421   0.0072   0.1455 #8   1 ARTIFACT-like
+    0.979921    386.796 q0     21   1.675   0.0018   0.1086 #5   0 ARTIFACT-like
+    0.996342    393.277 q0     21   0.000   0.0062   0.0934 #5   1 ARTIFACT-like
+    1.052469    415.432 q0     22   0.001   0.0068   0.0943 #5   1 ARTIFACT-like
+    1.061077    418.830 q1     23   0.003   0.0037   0.3073 #4   1 ARTIFACT-like
+    1.073554    423.755 q1     24   0.424   0.0005   0.3178 #4   1 ARTIFACT-like
+    1.109067    437.772 q1     25   1.809   0.0013   0.2918 #4   0 ARTIFACT-like
+    1.129145    445.697 q1     25   0.001   0.0238   0.2613 #4   1 ARTIFACT-like
+    1.164650    459.712 q0     27   2.095   0.0004   0.0739 #5   0 ARTIFACT-like
+    1.197760    472.781 q1     27   0.728   0.0111   0.1200 #8   0 ARTIFACT-like
+    1.227534    484.534 q0     29   0.002   0.0000   0.0755 #5   1 ARTIFACT-like
+    1.259741    497.247 q1     29   2.559   0.0064   0.2872 #4   0 ARTIFACT-like
+    1.296608    511.799 q1     30   0.001   0.0170   0.1272 #8   1 ARTIFACT-like
+    1.299769    513.047 q1     30   0.244   0.0014   0.2671 #4   1 ARTIFACT-like
+    1.308277    516.405 q0     30   0.893   0.0034   0.1335 #10  0 ARTIFACT-like
+    1.320123    521.081 q0     31   0.009   0.0596   0.0596 #31  1 ARTIFACT-like
+    1.327517    523.999 q1     32   0.007   0.0016   0.1497 #4   1 ARTIFACT-like
+    1.355277    534.956 q0     32   2.055   0.0021   0.0804 #5   0 ARTIFACT-like
+    1.403733    554.083 q1     34   0.755   0.0008   0.1162 #8   0 ARTIFACT-like
+    1.414738    558.427 q0     34   0.029   0.0020   0.1779 #54  1 ARTIFACT-like
+    1.422867    561.636 q1     35   0.008   0.0269   0.1837 #4   1 ARTIFACT-like
+    1.444069    570.005 q1     36   0.067   0.0001   0.0950 #51  1 ARTIFACT-like
+    1.470685    580.511 q0     37   0.059   0.0001   0.2160 #54  1 ARTIFACT-like
+    1.477838    583.334 q1     38   0.012   0.0001   0.1064 #51  1 ARTIFACT-like
+    1.484970    586.149 q0     38   0.493   0.0038   0.1269 #10  1 ARTIFACT-like
+    1.530035    603.937 q0     39   0.004   0.0009   0.0383 #26  1 ARTIFACT-like
+    1.534510    605.704 q1     40   0.019   0.0007   0.2969 #4   1 ARTIFACT-like
+    1.548031    611.041 q0     41   0.005   0.0119   0.2247 #54  1 ARTIFACT-like
+    1.557031    614.593 q1     41   0.583   0.0055   0.1389 #8   0 ARTIFACT-like
+    1.580798    623.975 q0     41   2.077   0.0001   0.0150 #5   0 ARTIFACT-like
+    1.615503    637.673 q0     43   0.061   0.0001   0.0579 #5   1 ARTIFACT-like
+    1.622476    640.426 q1     44   0.001   0.0074   0.2267 #4   1 ARTIFACT-like
+    1.630391    643.550 q0     44   0.487   0.0055   0.1225 #10  1 ARTIFACT-like
+    1.665974    657.595 q1     45   0.186   0.0000   0.1514 #4   1 ARTIFACT-like
+    1.681414    663.690 q1     49   0.004   0.0041   0.2528 #4   1 ARTIFACT-like
+    1.698287    670.350 q0     50   0.552   0.0008   0.0587 #5   0 ARTIFACT-like
+    1.710180    675.044 q1     51   0.047   0.0358   0.0717 #8   1 ARTIFACT-like
+    1.724398    680.656 q0     52   0.386   0.0064   0.1092 #5   1 ARTIFACT-like
+    1.731077    683.293 q1     52   0.001   0.0251   0.0852 #51  1 ARTIFACT-like
+    1.734481    684.636 q1     53   0.021   0.0064   0.1216 #4   1 ARTIFACT-like
+    1.757509    693.726 q1     56   0.001   0.0205   0.1020 #51  1 ARTIFACT-like
+    1.773671    700.106 q1     57   0.811   0.0224   0.0767 #4   0 ARTIFACT-like
+    1.787500    705.564 q1     57   0.031   0.0210   0.2874 #4   1 ARTIFACT-like
+    1.797879    709.661 q0     58   0.010   0.0031   0.0888 #5   1 ARTIFACT-like
+    1.810255    714.546 q1     58   0.694   0.0165   0.0974 #57  0 ARTIFACT-like
+    1.838940    725.869 q0     59   0.007   0.0000   0.1887 #54  1 ARTIFACT-like
+    1.846585    728.886 q1     60   0.316   0.0001   0.0709 #4   1 ARTIFACT-like
+    1.858168    733.459 q0     61   0.005   0.0005   0.2050 #54  1 ARTIFACT-like
+    1.870712    738.410 q0     62   0.531   0.0007   0.0844 #5   0 ARTIFACT-like
+    1.880920    742.439 q1     62   0.014   0.0058   0.2561 #4   1 ARTIFACT-like
+    1.885358    744.191 q0     62   0.250   0.0046   0.1678 #54  1 ARTIFACT-like
+    1.927326    760.757 q0     63   0.015   0.0001   0.0701 #5   1 ARTIFACT-like
+    1.954674    771.551 q1     65   0.961   0.0006   0.2657 #4   0 ARTIFACT-like
+    1.974844    779.513 q1     65   0.071   0.0057   0.0544 #51  1 ARTIFACT-like
+    1.998528    788.862 q0     67   0.386   0.0034   0.1755 #54  1 ARTIFACT-like
+    2.006428    791.980 q0     67   0.009   0.0111   0.1660 #54  1 ARTIFACT-like
+    2.014801    795.285 q1     68   0.032   0.0015   0.1967 #4   1 ARTIFACT-like
+    2.033185    802.541 q0     69   0.315   0.0000   0.1039 #5   1 ARTIFACT-like
+    2.042002    806.022 q0     69   0.118   0.0179   0.1092 #54  1 ARTIFACT-like
+    2.068248    816.381 q1     70   0.106   0.0445   0.0569 #51  1 ARTIFACT-like
+    2.077561    820.057 q0     71   0.033   0.0150   0.0902 #10  1 ARTIFACT-like
+    2.100983    829.303 q1     73   0.534   0.0145   0.1738 #4   0 ARTIFACT-like
+    2.112246    833.748 q1     73   0.002   0.0404   0.1026 #51  1 ARTIFACT-like
+    2.130274    840.864 q0     74   0.035   0.0013   0.0428 #5   1 ARTIFACT-like
+    2.139442    844.483 q1     75   0.128   0.0076   0.0673 #4   1 ARTIFACT-like
+    2.167293    855.477 q1     76   0.021   0.0000   0.2513 #4   1 ARTIFACT-like
+    2.186054    862.882 q1     77   0.111   0.0030   0.0779 #23  1 ARTIFACT-like
+    2.199531    868.202 q0     78   0.002   0.0137   0.1866 #54  1 ARTIFACT-like
+    2.216533    874.913 q1     79   0.077   0.0005   0.0635 #57  1 ARTIFACT-like
+    2.248462    887.516 q0     80   0.037   0.0012   0.0743 #5   1 ARTIFACT-like
+    2.275894    898.344 q0     81   0.291   0.0026   0.0920 #10  1 ARTIFACT-like
+    2.296436    906.452 q0     83   0.156   0.0002   0.0890 #26  1 ARTIFACT-like
+    2.310889    912.157 q0     83   0.780   0.0009   0.1149 #75  0 ARTIFACT-like
+    2.330111    919.744 q1     83   1.599   0.0020   0.2132 #4   0 ARTIFACT-like
+    2.375381    937.613 q0     83   3.474   0.0007   0.0358 #5   0 ARTIFACT-like
+    2.391176    943.848 q1     83   4.112   0.0086   0.0831 #57  0 ARTIFACT-like
+    2.396095    945.789 q1     83   4.309   0.0021   0.0621 #8   0 ARTIFACT-like
+    2.409879    951.230 q0     83   4.856   0.0014   0.0421 #10  0 ARTIFACT-like
+    2.473509    976.346 q0     83   7.303   0.0108   0.1041 #54  0 ARTIFACT-like
+
+==============================================================================
+  READING (this key only -- honour the letter)
+==============================================================================
+  tight (rel<0.5%) : 69  MAC-REAL=0  MAC-ART=69
+
+READING: C80-C_SURVIVES
+  Every tight match is still MAC-ART at 80 elastic modes. C-class claim is not extract-limited at this key.
+  key=r250/a125 nu=0.35  n_fe=80  not an 8-key close.
+elapsed_s=1169.5
+End: 2026-08-26 23:24:52
+End: Wed Aug 26 23:24:52 CDT 2026

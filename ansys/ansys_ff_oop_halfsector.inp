@@ -1,0 +1,379 @@
+! ===========================================================================
+!  ansys_ff_oop_halfsector.inp  --  Mechanical APDL batch deck
+!  HALF-SECTOR PARITY CLASSIFICATION of the free-free FF-P1 FE modes.
+!
+!  WHY (addendum 2026-07-11 Sec I; LESSONS_LEARNED Sec 10.7 item 8, never
+!  executed until now): the OOP ceiling item -- solver dip raw=2.828013
+!  (Omega_lit ~= 111.65) vs the one unmatched FE mode Omega_lit = 111.4627
+!  -- exhausted three genuinely different Python-side techniques (basis
+!  bump, sensitivity map, null-vector gap; jobs 2316969/2317010/2317114)
+!  without resolution, and Sec I explicitly names ONE genuinely new lever:
+!  classify the FE mode's PARITY about the sector bisector independently,
+!  sidestepping the rM/gap circularity entirely. The free-free wave
+!  solution's K is block-diagonal in parity (post-B12), so every solver
+!  dip lives in a definite parity block. If the FE 111.4627 mode's parity
+!  matches the block hosting the 2.828013 dip, that is independent
+!  evidence FOR the match; if it is the OTHER parity, the documented
+!  model-vs-FE gap is confirmed structurally (the solver's candidate
+!  cannot be that FE mode at all).
+!
+!  METHOD: model HALF the sector (0..45 deg; full sector is 0..90, bisector
+!  at 45) with the identical SHELL281 setup as ansys_ff_oop_ext.inp, all
+!  outer edges free, and the cut edge at theta=45 given (pass S) SYMMETRY
+!  or (pass A) ANTISYMMETRY conditions about the bisector r-z plane. In
+!  cylindrical nodal coordinates (x=radial, y=hoop, z=axial):
+!     SYMM: UY=0, ROTX=0, ROTZ=0   (DSYM,SYMM,Y,11)
+!     ANTI: UX=0, UZ=0,  ROTY=0    (DSYM,ASYM,Y,11)
+!  Each full-sector FFFF elastic mode appears in EXACTLY ONE of the two
+!  passes at (mesh-convergence-level) the same frequency: SYMM pass = EVEN
+!  parity, ANTI pass = ODD parity. Two mesh passes per BC for the
+!  convergence gate (radial 64 / arc 32, then radial 96 / arc 48 --
+!  element sizes matched to the full-sector mesh64/mesh96 runs).
+!
+!  GEOMETRY/MATERIAL (identical to ansys_ff_oop_ext.inp): R_i=4, R_o=8,
+!  half-angle 45 deg, H=0.08, E=210e9, nu=0.30, rho=7800.
+!  Omega_lit = w*R_o^2*sqrt(rho*H/D), D=E*H^3/(12(1-nu^2)).
+!
+!  MODE-FAMILY SEPARATION: as in ansys_ff_oop_ext.inp -- discard any mode
+!  whose f[Hz] matches the PLANE183 pure-IP list (ip_modes_mesh80.txt, job
+!  2316743) within ~0.5%; discard ~0 Hz rigid modes; the remainder are OOP.
+!  (The IP modes also split cleanly by parity, so the SYMM/ANTI lists
+!  together should reproduce the full-sector inventory -- a free
+!  completeness check.)
+!
+!  PRE-REGISTERED READING (do not reinterpret after the fact):
+!    0. CONVERGENCE GATE: per-BC, mesh64-equiv vs mesh96-equiv elastic
+!       modes must agree <0.3% before anything else is read.
+!    1. CALIBRATION GATE: the four FE OOP modes whose solver-side parity
+!       is already known (Sec 10.6 item H) must classify as:
+!           15.128 (mode 2)  -> EVEN  (SYMM pass)
+!           24.190 (mode 3)  -> ODD   (ANTI pass)
+!           37.818 (mode 5)  -> ODD   (ANTI pass)
+!           53.828 (mode 7)  -> EVEN  (SYMM pass)
+!       If ANY of the four mismatches, the SYMM/ANTI<->parity convention
+!       mapping (or the deck itself) is wrong -- STOP, do not read item 2.
+!       (If all four land consistently INVERTED, the labels are swapped:
+!       fix the mapping, then proceed -- still a pass.)
+!    2. DECISIVE READ: which pass contains Omega_lit ~= 111.46?
+!       Its parity is the FE mode's parity. Compare NEXT SESSION against
+!       the parity block hosting the solver's raw=2.828013 dip (read from
+!       job 2317114's gap-diagnostic output, which records sig_this's
+!       block, or one cheap solver call):
+!         same parity  -> the 0.16% proximity match becomes plausible
+!                         again; a targeted re-adjudication with the
+!                         parity constraint in hand is justified.
+!         other parity -> the model-vs-FE gap is confirmed structurally;
+!                         the item stays CLOSED as documented (Sec I).
+!    3. BONUS INVENTORY: full parity table for every OOP mode up to
+!       ~Omega_lit 120 -- external hardening for the entire FF-P1 table
+!       (Sec 10.7 item 8), archived for future window extensions.
+!
+!  Run headless:
+!    mapdl -b -i ansys_ff_oop_halfsector.inp -o ansys_ff_oop_halfsector_out.txt
+!  Outputs: oop_hs_symm_mesh64.txt, oop_hs_symm_mesh96.txt,
+!           oop_hs_anti_mesh64.txt, oop_hs_anti_mesh96.txt
+! ===========================================================================
+
+! ======================= PASS S1: SYMM, mesh64-equiv =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, half-sector FFFF -- SYMM bisector BC, mesh64-equiv
+
+R_i    = 4.0
+R_o    = 8.0
+PHI_H  = 45.0
+H      = 0.08
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVR  = 64
+NDIVA  = 32
+NMODES = 40
+PI     = 3.14159265358979
+
+/PREP7
+LOCAL, 11, 1, 0,0,0
+CSYS, 11
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI_H
+ESYS, 11
+TYPE,1 $ SECNUM,1 $ MAT,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI_H
+LESIZE, ALL, , , NDIVA
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o
+LESIZE, ALL, , , NDIVR
+ALLSEL, ALL
+CSYS, 0
+MSHKEY, 1 $ AMESH, ALL
+! bisector cut edge (theta = PHI_H): rotate nodes to cylindrical, SYMM set
+CSYS, 11
+NSEL, S, LOC, Y, PHI_H
+NROTAT, ALL
+DSYM, SYMM, Y, 11        ! = D UY,ROTX,ROTZ = 0 in cylindrical nodal coords
+ALLSEL, ALL
+CSYS, 0
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+DD   = E_iso*H**3/(12*(1-NU_iso**2))
+KLIT = R_o**2*SQRT(RHO*H/DD)
+*DIM, FRS1, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRS1(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, oop_hs_symm_mesh64, txt
+*VWRITE
+('mode      f[Hz]           Omega_lit    (half-sector SYMM=EVEN parity; SHELL281 r64/a32; discard ~0Hz rigid + IP-matching modes)')
+*DO, I, 1, NMODES
+  OML = 2*PI*FRS1(I)*KLIT
+  *VWRITE, I, FRS1(I), OML
+(F4.0, 3X, E14.6, 3X, F12.4)
+*ENDDO
+*CFCLOS
+FINISH
+
+! ======================= PASS S2: SYMM, mesh96-equiv =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, half-sector FFFF -- SYMM bisector BC, mesh96-equiv
+
+R_i    = 4.0
+R_o    = 8.0
+PHI_H  = 45.0
+H      = 0.08
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVR  = 96
+NDIVA  = 48
+NMODES = 40
+PI     = 3.14159265358979
+
+/PREP7
+LOCAL, 11, 1, 0,0,0
+CSYS, 11
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI_H
+ESYS, 11
+TYPE,1 $ SECNUM,1 $ MAT,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI_H
+LESIZE, ALL, , , NDIVA
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o
+LESIZE, ALL, , , NDIVR
+ALLSEL, ALL
+CSYS, 0
+MSHKEY, 1 $ AMESH, ALL
+CSYS, 11
+NSEL, S, LOC, Y, PHI_H
+NROTAT, ALL
+DSYM, SYMM, Y, 11
+ALLSEL, ALL
+CSYS, 0
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+DD   = E_iso*H**3/(12*(1-NU_iso**2))
+KLIT = R_o**2*SQRT(RHO*H/DD)
+*DIM, FRS2, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRS2(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, oop_hs_symm_mesh96, txt
+*VWRITE
+('mode      f[Hz]           Omega_lit    (half-sector SYMM=EVEN parity; SHELL281 r96/a48; convergence pass, must agree with r64/a32 <0.3%)')
+*DO, I, 1, NMODES
+  OML = 2*PI*FRS2(I)*KLIT
+  *VWRITE, I, FRS2(I), OML
+(F4.0, 3X, E14.6, 3X, F12.4)
+*ENDDO
+*CFCLOS
+FINISH
+
+! ======================= PASS A1: ANTI, mesh64-equiv =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, half-sector FFFF -- ANTI bisector BC, mesh64-equiv
+
+R_i    = 4.0
+R_o    = 8.0
+PHI_H  = 45.0
+H      = 0.08
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVR  = 64
+NDIVA  = 32
+NMODES = 40
+PI     = 3.14159265358979
+
+/PREP7
+LOCAL, 11, 1, 0,0,0
+CSYS, 11
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI_H
+ESYS, 11
+TYPE,1 $ SECNUM,1 $ MAT,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI_H
+LESIZE, ALL, , , NDIVA
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o
+LESIZE, ALL, , , NDIVR
+ALLSEL, ALL
+CSYS, 0
+MSHKEY, 1 $ AMESH, ALL
+! bisector cut edge: ANTIsymmetry set
+CSYS, 11
+NSEL, S, LOC, Y, PHI_H
+NROTAT, ALL
+DSYM, ASYM, Y, 11        ! = D UX,UZ,ROTY = 0 in cylindrical nodal coords
+ALLSEL, ALL
+CSYS, 0
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+DD   = E_iso*H**3/(12*(1-NU_iso**2))
+KLIT = R_o**2*SQRT(RHO*H/DD)
+*DIM, FRA1, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRA1(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, oop_hs_anti_mesh64, txt
+*VWRITE
+('mode      f[Hz]           Omega_lit    (half-sector ANTI=ODD parity; SHELL281 r64/a32; discard ~0Hz rigid + IP-matching modes)')
+*DO, I, 1, NMODES
+  OML = 2*PI*FRA1(I)*KLIT
+  *VWRITE, I, FRA1(I), OML
+(F4.0, 3X, E14.6, 3X, F12.4)
+*ENDDO
+*CFCLOS
+FINISH
+
+! ======================= PASS A2: ANTI, mesh96-equiv =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, half-sector FFFF -- ANTI bisector BC, mesh96-equiv
+
+R_i    = 4.0
+R_o    = 8.0
+PHI_H  = 45.0
+H      = 0.08
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVR  = 96
+NDIVA  = 48
+NMODES = 40
+PI     = 3.14159265358979
+
+/PREP7
+LOCAL, 11, 1, 0,0,0
+CSYS, 11
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI_H
+ESYS, 11
+TYPE,1 $ SECNUM,1 $ MAT,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI_H
+LESIZE, ALL, , , NDIVA
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o
+LESIZE, ALL, , , NDIVR
+ALLSEL, ALL
+CSYS, 0
+MSHKEY, 1 $ AMESH, ALL
+CSYS, 11
+NSEL, S, LOC, Y, PHI_H
+NROTAT, ALL
+DSYM, ASYM, Y, 11
+ALLSEL, ALL
+CSYS, 0
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+DD   = E_iso*H**3/(12*(1-NU_iso**2))
+KLIT = R_o**2*SQRT(RHO*H/DD)
+*DIM, FRA2, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRA2(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, oop_hs_anti_mesh96, txt
+*VWRITE
+('mode      f[Hz]           Omega_lit    (half-sector ANTI=ODD parity; SHELL281 r96/a48; convergence pass, must agree with r64/a32 <0.3%)')
+*DO, I, 1, NMODES
+  OML = 2*PI*FRA2(I)*KLIT
+  *VWRITE, I, FRA2(I), OML
+(F4.0, 3X, E14.6, 3X, F12.4)
+*ENDDO
+*CFCLOS
+FINISH
+! ---------------------------------------------------------------------------
+!  AFTER RUNNING (order matters -- see PRE-REGISTERED READING in header):
+!   0. Convergence gate per BC (<0.3%).
+!   1. Calibration gate: 15.128->SYMM, 24.190->ANTI, 37.818->ANTI,
+!      53.828->SYMM (or ALL FOUR consistently inverted = swapped labels).
+!      Any mixed result: STOP.
+!   2. Decisive: which pass holds Omega_lit ~= 111.46? Compare its parity
+!      against the solver block hosting raw=2.828013 (job 2317114 output).
+!   3. Archive the full parity table (external hardening, Sec 10.7 item 8).
+! ===========================================================================

@@ -1,0 +1,213 @@
+full-block eigenvector files in Ansys/NewAnsys: 57 (57 expected)
+Job 2432456 on compute-33-02.mill
+Start: Wed Aug 19 15:46:01 CDT 2026
+
+==============================================================================
+  probe_ip_rank8_mac_bar_v1 -- start 2026-08-19 15:46:01
+==============================================================================
+  R40_BC_KIND='free_free'
+  SOLVER_VERSION='2026-07-10.s10'  expect '2026-07-10.s10'
+  reconstruction path: probe_ip_mac_adversarial_fullblock_v1.py (imported, not retyped)
+  mac() identity |ip_mac_bar - adv| = 0.00e+00  (expect 0)
+  parity table /home/ghmkfh/PythonMill/Plate_Solver_Package/ip_mac_r200a100_fe_parity_mesh96.txt  n=57
+  loaded 57/57 FE modes, n_nodes=28033
+  FE-vs-FE max off-diag 0.011518 between 4 and 32 (expect 0.0115 between 4 and 32)
+
+==============================================================================
+  GATE_REAL  Omega=0.304284  published FE#6  role=GATE_REAL
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20
+  block q0: rTyy=12.7592  rTyr=4.52872  sig=-6.626421
+  block q1: rTyy=0.326304  rTyr=0.139187  sig=-2.716739
+  RULE_LOCALMIN_RESID -> q1  [both LOCAL_MIN -> resid]
+       q0 -3.629599/-6.626421/-3.632638   q1 -1.849156/-2.716739/-1.725971
+  class SYMM  unres-near #6 MAC=0.9993  class-safe-near #6 MAC=0.9993
+  max same-class = 0.9993 at #6  max all = 0.9993 at #6
+  verbatim vs #6: 0.9993032962  |d|=1.11e-16
+  top 5: #6:0.9993, #31:0.0074, #24:0.0065, #27:0.0033, #23:0.0032
+  CALL REAL-like  (threshold 0.744)
+  GATE vs published 0.9993: MAC@FE#6=0.9993 (|d|=3.30e-06)  max-same=0.9993 (|d|=3.30e-06)  PASSED
+  [179s]
+
+==============================================================================
+  GATE_ART  Omega=0.117785  published FE#5  role=GATE_ART
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20
+  block q0: rTyy=8.6482  rTyr=3.1131  sig=-6.804278
+  block q1: rTyy=3.74859  rTyr=1.58446  sig=-1.599140
+  RULE_LOCALMIN_RESID -> q0  [single LOCAL_MIN]
+       q0 -3.555162/-6.804278/-3.521742   q1 -1.597052/-1.599140/-1.601569
+  class ANTI  unres-near #5 MAC=0.1969  class-safe-near #5 MAC=0.1969
+  max same-class = 0.1969 at #5  max all = 0.1969 at #5
+  verbatim vs #5: 0.1968866914  |d|=0.00e+00
+  top 5: #5:0.1969, #15:0.0058, #16:0.0057, #35:0.0031, #33:0.0029
+  CALL ARTIFACT-like  (threshold 0.744)
+  GATE vs published 0.1969: MAC@FE#5=0.1969 (|d|=1.33e-05)  max-same=0.1969 (|d|=1.33e-05)  PASSED
+  [188s]
+
+==============================================================================
+  C_REAL  Omega=0.457937  published FE#8  role=CTRL_REAL
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20
+  block q0: rTyy=0.00605783  rTyr=0.00954899  sig=-5.585879
+  block q1: rTyy=3.77814  rTyr=1.53215  sig=-1.883007
+  RULE_LOCALMIN_RESID -> q0  [single LOCAL_MIN]
+       q0 -2.231332/-5.585879/-2.293634   q1 -1.873983/-1.883007/-1.892238
+  class ANTI  unres-near #8 MAC=1.0000  class-safe-near #8 MAC=1.0000
+  max same-class = 1.0000 at #8  max all = 1.0000 at #8
+  verbatim vs #8: 0.9999524980  |d|=5.55e-16
+  top 5: #8:1.0000, #30:0.0083, #26:0.0073, #33:0.0013, #29:0.0012
+  CALL REAL-like  (threshold 0.744)
+  [183s]
+
+==============================================================================
+  F1  Omega=1.568622  published FE#27  role=FLAG
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20
+  block q0: rTyy=4.15757  rTyr=9.8714  sig=-5.276524
+  block q1: rTyy=0.788477  rTyr=0.377091  sig=-2.256883
+  RULE_LOCALMIN_RESID -> q0  [single LOCAL_MIN]
+       q0 -2.411741/-5.276524/-2.424601   q1 -2.560318/-2.256883/-2.041162
+  class ANTI  unres-near #27 MAC=0.0000  class-safe-near #28 MAC=0.0295
+  max same-class = 0.1768 at #26  max all = 0.1768 at #26
+  verbatim vs #26: 0.1768245146  |d|=1.67e-16
+  top 5: #26:0.1768, #22:0.1204, #33:0.1124, #36:0.1098, #29:0.0853
+  CALL ARTIFACT-like  (threshold 0.744)
+  [177s]
+
+==============================================================================
+  F2  Omega=1.652112  published FE#32  role=FLAG
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20
+  block q0: rTyy=8.65562  rTyr=3.41114  sig=-4.906153
+  block q1: rTyy=1.84796  rTyr=0.935565  sig=-1.285755
+  RULE_LOCALMIN_RESID -> q0  [single LOCAL_MIN]
+       q0 -2.062153/-4.906153/-2.098575   q1 -1.465004/-1.285755/-1.217489
+  class ANTI  unres-near #32 MAC=0.0000  class-safe-near #33 MAC=0.5785
+  max same-class = 0.5785 at #33  max all = 0.5785 at #33
+  verbatim vs #33: 0.5785335272  |d|=6.66e-16
+  top 5: #33:0.5785, #35:0.1819, #26:0.0650, #28:0.0453, #21:0.0371
+  CALL ARTIFACT-like  (threshold 0.744)
+  [173s]
+
+==============================================================================
+  F3  Omega=1.667187  published FE#33  role=FLAG
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20
+  block q0: rTyy=0.098829  rTyr=0.102314  sig=-5.031559
+  block q1: rTyy=2.06794  rTyr=1.05699  sig=-1.294465
+  RULE_LOCALMIN_RESID -> q0  [single LOCAL_MIN]
+       q0 -2.372687/-5.031559/-2.365212   q1 -1.259833/-1.294465/-1.358431
+  class ANTI  unres-near #33 MAC=0.9981  class-safe-near #33 MAC=0.9981
+  max same-class = 0.9981 at #33  max all = 0.9981 at #33
+  verbatim vs #33: 0.9981103929  |d|=3.33e-16
+  top 5: #33:0.9981, #5:0.0045, #21:0.0043, #12:0.0040, #35:0.0018
+  CALL REAL-like  (threshold 0.744)
+  GATE vs published 0.9981: MAC@FE#33=0.9981 (|d|=1.04e-05)  max-same=0.9981 (|d|=1.04e-05)  PASSED
+  [169s]
+
+==============================================================================
+  F4  Omega=1.796198  published FE#39  role=FLAG
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20
+  block q0: rTyy=12.6068  rTyr=9.89464  sig=-5.336865
+  block q1: rTyy=3.35768  rTyr=1.59569  sig=-1.407336
+  RULE_LOCALMIN_RESID -> q0  [single LOCAL_MIN]
+       q0 -2.382710/-5.336865/-2.377587   q1 -1.396587/-1.407336/-1.424292
+  class ANTI  unres-near #39 MAC=0.0000  class-safe-near #40 MAC=0.0073
+  max same-class = 0.2984 at #42  max all = 0.2984 at #42
+  verbatim vs #42: 0.2983721529  |d|=1.11e-16
+  top 5: #42:0.2984, #29:0.1274, #46:0.1016, #28:0.0585, #43:0.0561
+  CALL ARTIFACT-like  (threshold 0.744)
+  [181s]
+
+==============================================================================
+  F5  Omega=1.894176  published FE#42  role=FLAG
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20
+  block q0: rTyy=0.068303  rTyr=0.0996758  sig=-6.105410
+  block q1: rTyy=1.92253  rTyr=1.09862  sig=-1.297717
+  RULE_LOCALMIN_RESID -> q0  [single LOCAL_MIN]
+       q0 -2.451057/-6.105410/-2.430139   q1 -1.289956/-1.297717/-1.306378
+  class ANTI  unres-near #42 MAC=0.9953  class-safe-near #42 MAC=0.9953
+  max same-class = 0.9953 at #42  max all = 0.9953 at #42
+  verbatim vs #42: 0.9953165017  |d|=1.11e-16
+  top 5: #42:0.9953, #40:0.0062, #26:0.0044, #46:0.0030, #36:0.0023
+  CALL REAL-like  (threshold 0.744)
+  [185s]
+
+==============================================================================
+  F6  Omega=2.146515  published FE#50  role=FLAG
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20
+  block q0: rTyy=6.05009  rTyr=3.75667  sig=-5.075928
+  block q1: rTyy=1.07285  rTyr=0.614225  sig=-2.164979
+  RULE_LOCALMIN_RESID -> q0  [single LOCAL_MIN]
+       q0 -2.536154/-5.075928/-2.530392   q1 -2.317194/-2.164979/-2.211809
+  class ANTI  unres-near #50 MAC=0.0000  class-safe-near #51 MAC=0.0064
+  max same-class = 0.3473 at #55  max all = 0.3473 at #55
+  verbatim vs #55: 0.3473230853  |d|=1.11e-16
+  top 5: #55:0.3473, #47:0.1510, #43:0.1437, #54:0.0776, #48:0.0736
+  CALL ARTIFACT-like  (threshold 0.744)
+  [178s]
+
+==============================================================================
+  F7  Omega=2.259637  published FE#53  role=FLAG
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20
+  block q0: rTyy=15.1083  rTyr=8.18857  sig=-4.930577
+  block q1: rTyy=2.21149  rTyr=1.13745  sig=-1.479802
+  RULE_LOCALMIN_RESID -> q0  [single LOCAL_MIN]
+       q0 -2.445059/-4.930577/-2.392665   q1 -1.427965/-1.479802/-1.548729
+  class ANTI  unres-near #53 MAC=0.0000  class-safe-near #54 MAC=0.0053
+  max same-class = 0.2458 at #57  max all = 0.2458 at #57
+  verbatim vs #57: 0.2458055113  |d|=1.11e-16
+  top 5: #57:0.2458, #46:0.2155, #55:0.0695, #48:0.0543, #22:0.0248
+  CALL ARTIFACT-like  (threshold 0.744)
+  [185s]
+
+==============================================================================
+  F8  Omega=2.306838  published FE#56  role=FLAG
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20
+  block q0: rTyy=1.65601  rTyr=1.16013  sig=-1.987410
+  block q1: rTyy=6.70675  rTyr=3.23075  sig=-5.384216
+  RULE_LOCALMIN_RESID -> q1  [single LOCAL_MIN]
+       q0 -1.936828/-1.987410/-2.055559   q1 -2.778595/-5.384216/-2.641050
+  class SYMM  unres-near #56 MAC=0.0634  class-safe-near #56 MAC=0.0634
+  max same-class = 0.2175 at #60  max all = 0.2175 at #60
+  verbatim vs #60: 0.2175238601  |d|=8.33e-17
+  top 5: #60:0.2175, #49:0.1937, #50:0.0925, #58:0.0867, #56:0.0634
+  CALL ARTIFACT-like  (threshold 0.744)
+  [186s]
+
+==============================================================================
+  SUMMARY
+==============================================================================
+  name       role       blk cls    near  safe MAC@near   MAC@sc max-same   at call
+  GATE_REAL  GATE_REAL  q1  SYMM      6     6   0.9993   0.9993   0.9993 #6   REAL-like
+  GATE_ART   GATE_ART   q0  ANTI      5     5   0.1969   0.1969   0.1969 #5   ARTIFACT-like
+  C_REAL     CTRL_REAL  q0  ANTI      8     8   1.0000   1.0000   1.0000 #8   REAL-like
+  F1         FLAG       q0  ANTI     27    28   0.0000   0.0295   0.1768 #26  ARTIFACT-like
+  F2         FLAG       q0  ANTI     32    33   0.0000   0.5785   0.5785 #33  ARTIFACT-like
+  F3         FLAG       q0  ANTI     33    33   0.9981   0.9981   0.9981 #33  REAL-like
+  F4         FLAG       q0  ANTI     39    40   0.0000   0.0073   0.2984 #42  ARTIFACT-like
+  F5         FLAG       q0  ANTI     42    42   0.9953   0.9953   0.9953 #42  REAL-like
+  F6         FLAG       q0  ANTI     50    51   0.0000   0.0064   0.3473 #55  ARTIFACT-like
+  F7         FLAG       q0  ANTI     53    54   0.0000   0.0053   0.2458 #57  ARTIFACT-like
+  F8         FLAG       q1  SYMM     56    56   0.0634   0.0634   0.2175 #60  ARTIFACT-like
+
+==============================================================================
+  READING (pre-registered -- honour the letter)
+==============================================================================
+  gate_fail=none
+  flagged MAC-REAL=2  MAC-ART=6  of 8
+  C_REAL max-same=1.0000  call=REAL-like
+
+READING: R8-A_ART
+  6+ of 8 are MAC-ART. Tight FE frequency match is coincidental. Update §6.6.
+Diagnostic only -- no SOLVER_VERSION, no silent table rewrite.
+elapsed_s=1987.4
+End: 2026-08-19 16:19:08
+probe exit 0
+End: Wed Aug 19 16:19:09 CDT 2026

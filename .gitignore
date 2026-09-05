@@ -1,0 +1,31 @@
+# Regenerable / environment
+venv/
+__pycache__/
+*.pyc
+*.egg-info/
+
+# LaTeX build artifacts (only .tex source and the compiled .pdf are tracked)
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+
+# ANSYS scratch/result binaries — regenerate by rerunning the .inp deck
+# through MAPDL. Unreadable without a licensed ANSYS install.
+ansys/**/file.DSP
+ansys/**/file.db
+ansys/**/file.err
+ansys/**/file.esav
+ansys/**/file.full
+ansys/**/file.log
+ansys/**/file.mlv
+ansys/**/file.mode
+ansys/**/file.rst
+ansys/**/file.stat
+
+# OS cruft
+.DS_Store
+Thumbs.db

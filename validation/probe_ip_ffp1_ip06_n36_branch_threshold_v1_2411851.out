@@ -1,0 +1,59 @@
+job=2411851 host=compute-33-02.mill start=Tue Aug 11 00:22:26 CDT 2026
+job start  host=compute-33-02.mill  dps=40
+EXPECT_SOLVER_VERSION=2026-07-10.s10
+package SOLVER_VERSION = '2026-07-10.s10'
+version gate PASS
+
+==============================================================================
+  PART 1  repeatability at fixed Ω=1.19704984  (n_dofs=36, xmax=32.0)
+==============================================================================
+  rep 1/5:  cnt= 30  n_raw=  9  dt=38.1s
+  rep 2/5:  cnt= 30  n_raw=  9  dt=33.7s
+  rep 3/5:  cnt= 30  n_raw=  9  dt=35.4s
+  rep 4/5:  cnt= 30  n_raw=  9  dt=33.2s
+  rep 5/5:  cnt= 30  n_raw=  9  dt=33.1s
+
+  cnt sequence : [30, 30, 30, 30, 30]
+  unique cnt   : [30]
+  n_raw sequence: [9, 9, 9, 9, 9]
+  REPEATABILITY: IDENTICAL across all repeats  →  no per-call randomness
+
+==============================================================================
+  PART 2  dense scan Ω ∈ [1.196, 1.199]  step=0.0002
+==============================================================================
+  Ω=1.196000  cnt= 30  n_raw=  9  dt=33.0s
+  Ω=1.196200  cnt= 30  n_raw=  9  dt=32.7s
+  Ω=1.196400  cnt= 30  n_raw=  9  dt=33.1s
+  Ω=1.196600  cnt= 30  n_raw=  9  dt=33.4s
+  Ω=1.196800  cnt= 30  n_raw=  9  dt=33.2s
+  Ω=1.197000  cnt= 30  n_raw=  9  dt=34.3s
+  Ω=1.197200  cnt= 30  n_raw=  9  dt=34.2s
+  Ω=1.197400  cnt= 30  n_raw=  9  dt=34.9s
+  Ω=1.197600  cnt= 30  n_raw=  9  dt=33.6s
+  Ω=1.197800  cnt= 30  n_raw=  9  dt=33.1s
+  Ω=1.198000  cnt= 30  n_raw=  9  dt=33.1s
+  Ω=1.198200  cnt= 30  n_raw=  9  dt=33.2s
+  Ω=1.198400  cnt= 30  n_raw=  9  dt=33.1s
+  Ω=1.198600  cnt= 30  n_raw=  9  dt=34.5s
+  Ω=1.198800  cnt= 30  n_raw=  9  dt=33.9s
+  Ω=1.199000  cnt= 30  n_raw=  9  dt=34.8s
+
+  scan cnt sequence : [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+  unique scan cnt   : [30]
+  n_raw range       : 9 … 9
+  SCAN: cnt is CONSTANT across the whole window  →  no simple threshold effect
+
+==============================================================================
+  READING (pre-registered)
+==============================================================================
+  Part-1 (fixed-Ω identity) : PASS
+  Part-2 (scan variation)   : FAIL
+
+  VERDICT: FAIL / kill — cnt constant across the scanned window.
+  Simple Ω-threshold sensitivity is ruled out. The original
+  30-vs-34 gap needs a different explanation (e.g. package
+  version / environment difference between the two jobs).
+
+  wall time: 711.8s
+end
+end=Tue Aug 11 00:34:23 CDT 2026

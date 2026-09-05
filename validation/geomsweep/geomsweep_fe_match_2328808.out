@@ -1,0 +1,95 @@
+Job 2328808 on compute-33-02.mill
+Start: Thu Jul 23 22:52:39 CDT 2026
+probe_geomsweep_fe_match.py -- RECONSTRUCTION, not a re-run of an existing
+script. DIAGNOSTIC/DATA-GENERATION ONLY: reads the checked-in manifests and
+ANSYS text results, writes a plain-text log; no package changes, no
+SOLVER_VERSION implications. Standalone -- does not import plate_solver.
+
+CONTEXT: PAPER1_FREEFREE_DRAFT.tex Sec 6.4 reports a python-solver-vs-
+independent-FE nearest-neighbor match across 48 (radius ratio x sector
+angle x part) free-free geometries: "1232 of 1466 candidates (84.0%)
+matched an independent FE mode within 3%, mean of per-geometry means
+0.58%, worst case 3.00%". T
+...
+
+MANIFEST_DIR = .
+FE_DIR       = ../ansys_geomsweep_verification
+==============================================================================
+PUBLISHED (Sec 6.4): 1232/1466 (84.0%) matched within 3%, mean of per-geometry means 0.58%, worst case 3.00%
+==============================================================================
+
+--- contamination tolerance = 0.5% ---
+  n_total (attempted) = 1474  (published: 1466)
+  n matched <=3%      = 1236 (83.9%)  (published: 1232, 84.0%)
+  mean of per-geom means = 0.576%  (published: 0.58%)
+  worst case = 3.000%  (published: 3.00%)
+  n_geometries with >=1 matched candidate = 47 (expected: 48)
+  r0_2b=1.5 2T/pi=0.25 part=1 n_cand=4 n_cutoffs=5 fe_n=34 fe_max=1086.8 n_matched=0
+  r0_2b=1.5 2T/pi=0.25 part=2 n_cand=20 n_cutoffs=4 fe_n=32 fe_max=5384.2 n_matched=16
+  r0_2b=1.5 2T/pi=0.5 part=1 n_cand=13 n_cutoffs=5 fe_n=32 fe_max=488.3 n_matched=8
+  r0_2b=1.5 2T/pi=0.5 part=2 n_cand=34 n_cutoffs=4 fe_n=32 fe_max=3779.1 n_matched=30
+  r0_2b=1.5 2T/pi=0.75 part=1 n_cand=18 n_cutoffs=5 fe_n=32 fe_max=322.7 n_matched=13
+  r0_2b=1.5 2T/pi=0.75 part=2 n_cand=54 n_cutoffs=4 fe_n=32 fe_max=3040.7 n_matched=47
+  r0_2b=1.5 2T/pi=1 part=1 n_cand=28 n_cutoffs=5 fe_n=32 fe_max=247.0 n_matched=23
+  r0_2b=1.5 2T/pi=1 part=2 n_cand=61 n_cutoffs=4 fe_n=32 fe_max=2504.4 n_matched=40
+  r0_2b=1.5 2T/pi=1.25 part=1 n_cand=33 n_cutoffs=5 fe_n=32 fe_max=185.3 n_matched=28
+  r0_2b=1.5 2T/pi=1.25 part=2 n_cand=74 n_cutoffs=4 fe_n=32 fe_max=2206.4 n_matched=40
+  r0_2b=1.5 2T/pi=1.5 part=1 n_cand=38 n_cutoffs=5 fe_n=33 fe_max=144.5 n_matched=33
+  r0_2b=1.5 2T/pi=1.5 part=2 n_cand=79 n_cutoffs=4 fe_n=32 fe_max=2090.1 n_matched=46
+  r0_2b=1.66667 2T/pi=0.25 part=1 n_cand=6 n_cutoffs=5 fe_n=34 fe_max=1134.9 n_matched=1
+  r0_2b=1.66667 2T/pi=0.25 part=2 n_cand=21 n_cutoffs=4 fe_n=32 fe_max=6005.8 n_matched=17
+  r0_2b=1.66667 2T/pi=0.5 part=1 n_cand=14 n_cutoffs=5 fe_n=32 fe_max=559.9 n_matched=9
+  r0_2b=1.66667 2T/pi=0.5 part=2 n_cand=37 n_cutoffs=4 fe_n=32 fe_max=4271.3 n_matched=33
+  r0_2b=1.66667 2T/pi=0.75 part=1 n_cand=22 n_cutoffs=5 fe_n=33 fe_max=332.4 n_matched=17
+  r0_2b=1.66667 2T/pi=0.75 part=2 n_cand=55 n_cutoffs=4 fe_n=32 fe_max=3320.7 n_matched=46
+  r0_2b=1.66667 2T/pi=1 part=1 n_cand=31 n_cutoffs=5 fe_n=33 fe_max=262.8 n_matched=26
+  r0_2b=1.66667 2T/pi=1 part=2 n_cand=67 n_cutoffs=4 fe_n=32 fe_max=2715.7 n_matched=43
+  r0_2b=1.66667 2T/pi=1.25 part=1 n_cand=36 n_cutoffs=5 fe_n=33 fe_max=187.3 n_matched=31
+  r0_2b=1.66667 2T/pi=1.25 part=2 n_cand=87 n_cutoffs=4 fe_n=32 fe_max=2486.1 n_matched=38
+  r0_2b=1.66667 2T/pi=1.5 part=1 n_cand=41 n_cutoffs=5 fe_n=32 fe_max=142.2 n_matched=36
+  r0_2b=1.66667 2T/pi=1.5 part=2 n_cand=77 n_cutoffs=4 fe_n=32 fe_max=2328.6 n_matched=43
+  r0_2b=2 2T/pi=0.25 part=1 n_cand=10 n_cutoffs=5 fe_n=34 fe_max=1235.8 n_matched=5
+  r0_2b=2 2T/pi=0.25 part=2 n_cand=29 n_cutoffs=4 fe_n=32 fe_max=7281.0 n_matched=25
+  r0_2b=2 2T/pi=0.5 part=1 n_cand=18 n_cutoffs=5 fe_n=33 fe_max=589.5 n_matched=13
+  r0_2b=2 2T/pi=0.5 part=2 n_cand=43 n_cutoffs=4 fe_n=32 fe_max=5109.4 n_matched=39
+  r0_2b=2 2T/pi=0.75 part=1 n_cand=29 n_cutoffs=5 fe_n=33 fe_max=385.8 n_matched=24
+  r0_2b=2 2T/pi=0.75 part=2 n_cand=62 n_cutoffs=4 fe_n=32 fe_max=3882.4 n_matched=44
+  r0_2b=2 2T/pi=1 part=1 n_cand=38 n_cutoffs=5 fe_n=32 fe_max=260.1 n_matched=33
+  r0_2b=2 2T/pi=1 part=2 n_cand=70 n_cutoffs=4 fe_n=32 fe_max=3370.7 n_matched=36
+  r0_2b=2 2T/pi=1.25 part=1 n_cand=44 n_cutoffs=5 fe_n=32 fe_max=199.8 n_matched=39
+  r0_2b=2 2T/pi=1.25 part=2 n_cand=90 n_cutoffs=4 fe_n=32 fe_max=3092.8 n_matched=44
+  r0_2b=2 2T/pi=1.5 part=1 n_cand=48 n_cutoffs=5 fe_n=32 fe_max=158.0 n_matched=43
+  r0_2b=2 2T/pi=1.5 part=2 n_cand=90 n_cutoffs=4 fe_n=32 fe_max=2824.1 n_matched=45
+  r0_2b=2.5 2T/pi=0.25 part=1 n_cand=12 n_cutoffs=5 fe_n=34 fe_max=1443.6 n_matched=7
+  r0_2b=2.5 2T/pi=0.25 part=2 n_cand=35 n_cutoffs=4 fe_n=32 fe_max=9504.2 n_matched=31
+  r0_2b=2.5 2T/pi=0.5 part=1 n_cand=26 n_cutoffs=5 fe_n=33 fe_max=645.8 n_matched=21
+  r0_2b=2.5 2T/pi=0.5 part=2 n_cand=53 n_cutoffs=4 fe_n=32 fe_max=6328.8 n_matched=42
+  r0_2b=2.5 2T/pi=0.75 part=1 n_cand=28 n_cutoffs=5 fe_n=32 fe_max=424.4 n_matched=23
+  r0_2b=2.5 2T/pi=0.75 part=2 n_cand=68 n_cutoffs=4 fe_n=32 fe_max=4945.2 n_matched=40
+  r0_2b=2.5 2T/pi=1 part=1 n_cand=49 n_cutoffs=5 fe_n=33 fe_max=285.1 n_matched=44
+  r0_2b=2.5 2T/pi=1 part=2 n_cand=90 n_cutoffs=4 fe_n=32 fe_max=4452.7 n_matched=42
+  r0_2b=2.5 2T/pi=1.25 part=1 n_cand=50 n_cutoffs=5 fe_n=32 fe_max=217.0 n_matched=43
+  r0_2b=2.5 2T/pi=1.25 part=2 n_cand=95 n_cutoffs=4 fe_n=32 fe_max=3972.5 n_matched=41
+  r0_2b=2.5 2T/pi=1.5 part=1 n_cand=61 n_cutoffs=5 fe_n=31 fe_max=196.1 n_matched=46
+  r0_2b=2.5 2T/pi=1.5 part=2 n_cand=99 n_cutoffs=4 fe_n=32 fe_max=3468.2 n_matched=40
+
+--- contamination tolerance = 1.0% ---
+  n_total (attempted) = 1474  (published: 1466)
+  n matched <=3%      = 1231 (83.5%)  (published: 1232, 84.0%)
+  mean of per-geom means = 0.577%  (published: 0.58%)
+  worst case = 3.000%  (published: 3.00%)
+  n_geometries with >=1 matched candidate = 47 (expected: 48)
+
+--- contamination tolerance = 2.0% ---
+  n_total (attempted) = 1474  (published: 1466)
+  n matched <=3%      = 1228 (83.3%)  (published: 1232, 84.0%)
+  mean of per-geom means = 0.577%  (published: 0.58%)
+  worst case = 3.000%  (published: 3.00%)
+  n_geometries with >=1 matched candidate = 47 (expected: 48)
+
+Wrote full per-candidate audit trail (tolerance=1.0%, 2187 rows, every candidate from every geometry -- cutoff-adjacent and beyond-FE-range candidates included and flagged, not silently dropped) to geomsweep_fe_match_consolidated.csv
+
+RESULT (2026-07-23 reconstruction, tol=1.0%): n_total=1474 vs 1466 published, n_matched<=3%=1231 (83.5%) vs 1232 (84.0%) published, mean-of-geom-means=0.577% vs 0.58% published, worst case=3.000% vs 3.00% published, 47/48 geometries contributing (1 geometry -- r0_2b=1.5, 2T/pi=0.25, part=1 -- has only 4 accepted candidates against a 5-mode cutoff-adjacent window, so zero remain to attempt; expected, not a bug).
+
+See module docstring: the extensional-contamination tolerance was never recorded for the original analysis, so exact reproduction of 1232/1466/84.0%/0.58%/3.00% is not expected -- this establishes a transparent, rerunnable procedure in its place, not a byte-for-byte replay. The close agreement above (mean/worst case match to 3 decimal places, counts within <1%) is strong evidence the published statistic is sound and this reconstruction follows the same real procedure, not proof of exact replay.
+End: Thu Jul 23 22:52:39 CDT 2026

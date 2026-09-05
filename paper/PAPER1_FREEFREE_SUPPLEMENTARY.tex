@@ -1,0 +1,1377 @@
+% Supplementary Material for PAPER1_FREEFREE_DRAFT.tex
+% Mapping (main text uses static ``Supplementary Material, §S.n'' pointers):
+%   S.1  former App. A (sec:frobenius-appendix)
+%   S.2  former main-text appendix (B.1 + Green) + (n,s) algebra
+%        (B.3 / B.3$' already lived here; no remaining main-text appendix)
+%   S.3  former App. C minus tab:shi (promoted into main-text §6.2)
+%   S.3.1 / S.3.2 / S.3.3 = conv / instruments / cutoff
+%   S.3.4 / S.3.5 = extensional close-pairs / Shi OOP isolation
+%   S.3.6 = raw-to-physical conversion constants (moved from main-text §6.12)
+%   S.3.7 = SUBDOM numerical procedure and gate detail
+%   Tables S.1--S.8 sit in S.3 (S.8 = flexural spurious zeros, was main Table 7)
+%   S.4  cluster job-number provenance (added 2026-08-25, advisor pass)
+\documentclass[11pt]{article}
+\usepackage[margin=1in,letterpaper]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array,xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{placeins}
+% Match the main draft's float placement so tall tables (e.g. Table S.2) sit at
+% the top of a text page rather than claiming a float page of their own.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{8}
+\emergencystretch=2.5em
+
+\renewcommand{\thesection}{S.\arabic{section}}
+\renewcommand{\thesubsection}{S.\arabic{section}.\arabic{subsection}}
+\renewcommand{\thetable}{S.\arabic{table}}
+\renewcommand{\theequation}{S.\arabic{equation}}
+
+\title{\bfseries Supplementary Material:\\
+Exact Wave-Function Solution and Spurious-Mode Discrimination
+for Completely Free Annular Sector Plates}
+\author{Garrek McCune$^{a,*}$, Daniel Stutts$^{a}$\\
+\small\itshape $^a$Mechanical and Aerospace Engineering,\\
+Missouri University of Science and Technology, Rolla, MO 65409, USA\\
+\small\upshape $^*$Corresponding author. E-mail: ghmkfh@umsystem.edu}
+\date{DRAFT --- \today}
+
+\begin{document}
+\maketitle
+
+\noindent
+This file is the complete Supplementary Material to the companion
+manuscript: §§S.1--S.4, Tables S.1--S.8, and the three references
+cited below. Equation tags (B.1), (B.2), (B.3) and (B.3$'$) retain the
+source-paper numbering. Main-text \S3.3 cites (B.1), (B.2) and
+(B.3$'$); (B.3) appears only here.
+
+\section{Frobenius series construction}\label{sec:frobenius-appendix}
+Following Ref.~\cite{seok1} \S3 (out-of-plane) and Ref.~\cite{seok2} \S3
+(in-plane), the radial ordinary differential equation is expanded in
+Frobenius series about the sector's center radius $r_0$ (equivalently
+$r^{*}=0$) rather than about the singular point $r=0$, so that all four
+independent solutions remain regular on $r^{*}\in[-\pi/2,\pi/2]$:
+\[
+G_q(r^{*},\xi)=\sum_{m=0}^{M}a^{*(q)}_m(\xi)\,r^{*\,\lambda(q)+m},
+\qquad q=1,\dots,4 \quad\text{(Ref.~\cite{seok1} Eq.~(32))}.
+\]
+The indicial equation,
+\[
+\bar r_0^{4}\,a^{*}_0\,\lambda(\lambda-1)(\lambda-2)(\lambda-3)=0
+\quad\text{(Ref.~\cite{seok1} Eq.~(31))},
+\]
+fixes $\lambda(q)=q-1$ for $q=1,\dots,4$, giving the four out-of-plane
+branches their characteristic near-center behavior ($r^{*0},r^{*1},r^{*2},
+r^{*3}$). The paper states the resulting recursion for the coefficients
+$a^{*(q)}_m$ explicitly only through this indicial step, noting it is
+``much too cumbersome to include'' in closed form (Ref.~\cite{seok1} \S3);
+the present implementation carries the recursion numerically to
+convergence at working precision (\texttt{mpmath}, 40 digits) for each
+candidate frequency, rather than truncating at a fixed low order the way
+the papers' fixed-precision (20-significant-digit Maple) calculation could
+tolerate. Truncation order $M$ is chosen so that successive terms no longer
+change the retained digits of the radial function at the working
+precision; no fixed $M$ is hardcoded independent of $\text{dps}$.
+
+The in-plane problem is analogous but vector-valued: the coupled radial
+functions $F,G$ expand as
+\[
+F(r^{*},\zeta)=\sum_{m=0}^{M}a^{*(q)}_m(\zeta)\,r^{*\,\lambda(q)+m},\qquad
+G(r^{*},\zeta)=\sum_{m=0}^{M}b^{*(q)}_m(\zeta)\,r^{*\,\lambda(q)+m}
+\quad\text{(Ref.~\cite{seok2} Eqs.~(28)--(29))},
+\]
+with indicial equations
+\[
+a^{*}_0\,\bar{c}^{*}_{11}\,\bar r_0\,\lambda(\lambda-1)=0,\qquad
+b^{*}_0\,\bar r_0\,\lambda(\lambda-1)=0 \quad\text{(Ref.~\cite{seok2}
+Eq.~(30a,b); \(\bar{c}^{*}_{11}=c^{*}_{11}/c_{66}\))},
+\]
+giving $\lambda=0,1$ (each a double root of the coupled system) and four
+coupled solutions selected by the uncoupled leading-coefficient scheme of
+Ref.~\cite{seok2} Eq.~(32a--d): the two solutions built on $\lambda=0$
+differ in which of $F,G$ carries the non-vanishing leading coefficient, and
+likewise for $\lambda=1$, giving four independent, non-degenerate coupled
+radial functions overall.
+
+In both the out-of-plane and in-plane cases, the transverse wavenumber
+($\xi$ or $\zeta$) that indexes a physically admissible solution is a root
+of the radial-edge dispersion relation, and as the frequency $\Omega$
+varies this root traces a curve that passes through real, imaginary, and
+complex regimes (Ref.~\cite{seok1} Fig.~2 plots several such branches).
+The branch-census construction tracks every branch continuously across
+frequency and re-fills any family a purely local root-finder would drop
+at a branch collision, so that the retained basis at every $\Omega$
+contains one representative from each of the four families with no
+silent gaps, the practically difficult part of the replication,
+independent of the recursion detail above.
+
+\section{Free-edge surface-term algebra}\label{sec:surface-algebra}
+\label{sec:corner-appendix}
+\paragraph{The cantilever's two corner terms (Eq.~(43)).} The tail of
+Ref.~\cite{seok1} Eq.~(43), confirmed directly against the published
+page rather than inferred, reads
+\begin{equation}
++(T-\bar\nu)\left[\frac{\partial^2}{\partial r^{*}\partial\theta}
+\left\{\frac{w}{r^{*}+\bar r_0}\right\}\right]_{r^{*}=-\pi/2,\,\theta=-\Theta}^{r^{*}=\pi/2,\,\theta=-\Theta}
+\;-\;2(T-\bar\nu)\left[\frac{\partial^2}{\partial r^{*}\partial\theta}
+\left\{\frac{w}{r^{*}+\bar r_0}\right\}\right]_{r^{*}=-\pi/2,\,\theta=\Theta}^{r^{*}=\pi/2,\,\theta=\Theta}
+=0, \tag{B.1}
+\end{equation}
+appended to an integral term (over $r^{*}\in[-\pi/2,\pi/2]$, evaluated at
+$\theta=-\Theta$) that enforces the clamped edge's kinematic conditions in
+mixed/Lagrangian form, and a boundary term at $\theta=\Theta$ that gives
+the free edge's own moment condition. Both displayed corner terms are jump
+contributions over the two radial edges $r^{*}=\pm\pi/2$ (i.e., $r=R_o$
+minus $r=R_i$), but at a single, different circumferential edge apiece: the
+$+(T-\bar\nu)$ term at the \emph{clamped} edge $\theta=-\Theta$, and the
+$-2(T-\bar\nu)$ term at the \emph{free} edge $\theta=\Theta$. The two
+coefficients are not a sign-flipped pair of one functional: the clamped-edge
+term is generated by the paper's substitution enforcing $w=\partial
+w/\partial\theta=0$ along $\theta=-\Theta$ (a constraint on the primal
+solution, entering the variational statement through the same
+Lagrangian-substitution mechanism as the integral term above it), while the
+free-edge term is a genuine natural boundary contribution from the free
+edge's own variation. Consequently the free-free extension's second free
+edge ($\theta=-\Theta$, now released rather than clamped) must reuse the
+\emph{free}-edge formula (the $-2(T-\bar\nu)$ structure, correctly
+re-oriented) and cannot reuse Eq.~(43)'s $+(T-\bar\nu)$ coefficient,
+which is specific to a kinematically clamped edge and has no meaning once
+that edge's kinematic constraint is removed.
+
+The asymmetry is not an arbitrary bookkeeping choice: it has a classical-plate-theory origin. The free edge's factor of 2 is the same
+doubling that produces the familiar concentrated corner reaction
+$2M_{r\theta}$ at a free corner in Kirchhoff plate theory, where the two
+adjoining free edges' Kirchhoff shear conditions combine into a single
+term; the clamped edge has no analogous free-variation contribution to
+double, since its kinematic condition removes that degree of freedom from
+the variation entirely, leaving the single-multiplier Lagrangian term
+instead. The link from
+Ref.~\cite{seok1}'s already-published general functional (Eq.~(6)) to this
+specific free-free result is derived explicitly, not asserted by analogy,
+in the algebra below; main-text \S3.3 states the resulting free-free
+corner term and proves the same-parity cancellation of the mis-oriented
+assembly. What is genuinely not
+reproduced here, and is a different and larger undertaking than the above,
+is an independent line-by-line integration-by-parts derivation of
+Eq.~(6)/Eq.~(1a) itself starting from the governing equation: that is
+Ref.~\cite{seok1}'s own foundational derivation, already published and
+peer-reviewed, and identical for the cantilever and free-free cases alike,
+so redoing it here would not add evidence specific to the free-free
+extension.
+
+The intermediate algebra that produces (B.3) and (B.3$'$) from
+Ref.~\cite{seok1} Eq.~(6) follows.
+
+\paragraph{Grounding the corner-term asymmetry in the general functional (Eq.~(6)).}
+Ref.~\cite{seok1} Eq.~(6), confirmed directly against the published
+page rather than inferred, is the true pre-specialization variational
+statement from which Eqs.~(42)--(43) are later obtained by substituting
+the cantilever's specific edge conditions:
+\begin{align}
+&\int_S\!\Big[\Big\{\tfrac{\partial\tau^{(0)}_{rz}}{\partial r}
++\tfrac1r\Big(\tfrac{\partial\tau^{(0)}_{\theta z}}{\partial\theta}
++\tau^{(0)}_{rz}\Big)-2\rho h\ddot w\Big\}\delta w
++\Big\{\tfrac{\partial\tau^{(1)}_{rr}}{\partial r}
++\tfrac1r\tfrac{\partial\tau^{(1)}_{r\theta}}{\partial\theta}
++\tfrac{\tau^{(1)}_{rr}-\tau^{(1)}_{\theta\theta}}{r}
+-\tau^{(0)}_{rz}\Big\}\delta u_r^{(1)} \notag\\
+&\quad+\Big\{\tfrac{\partial\tau^{(1)}_{r\theta}}{\partial r}
++\tfrac1r\Big(\tfrac{\partial\tau^{(1)}_{\theta\theta}}{\partial\theta}
++2\tau^{(1)}_{r\theta}\Big)-\tau^{(0)}_{\theta z}\Big\}\delta u_\theta^{(1)}\Big]\,dS
+-\int_{-\Theta}^{\Theta}\!\Big[r\Big\{\big(\tau^{(0)}_{rz}
++\tfrac1r\tfrac{\partial\tau^{(1)}_{r\theta}}{\partial\theta}\big)\delta w
+-\tau^{(1)}_{rr}\,\delta\big(\tfrac{\partial w}{\partial r}\big)\Big\}\Big]_{r=R_i}^{r=R_o}d\theta \notag\\
+&\quad-\int_{R_i}^{R_o}\!\Big[w\,\delta\tau^{(0)}_{\theta z}
+-\tfrac{\partial w}{\partial r}\delta\tau^{(1)}_{r\theta}\Big]_{\theta=-\Theta}dr
+-\int_{R_i}^{R_o}\!\Big[\big(\tau^{(0)}_{\theta z}
++\tfrac{\partial\tau^{(1)}_{\theta r}}{\partial r}\big)\delta w
+-\tau^{(1)}_{\theta\theta}\,\delta\big(\tfrac1r\tfrac{\partial w}{\partial\theta}\big)\Big]_{\theta=\Theta}dr \notag\\
+&\quad-\big[\tau^{(1)}_{r\theta}\delta w\big]^{r=R_o,\,\theta=-\Theta}_{r=R_i,\,\theta=-\Theta}
++2\big[\tau^{(1)}_{r\theta}\delta w\big]^{r=R_o,\,\theta=\Theta}_{r=R_i,\,\theta=\Theta}=0.
+\tag{B.2, $\equiv$ Ref.~\cite{seok1} Eq.~(6)}
+\end{align}
+Immediately after Eq.~(6), Ref.~\cite{seok1} states that its last two
+surface terms were obtained ``by performing the line integral around the
+contour $C_N$ in Eq.~(1a) along the three free edges'' -- i.e., Eq.~(6) as
+printed is \emph{already} built for a specific edge assignment (both radial
+edges plus $\theta=\Theta$ free; $\theta=-\Theta$ not among the ``three
+free edges''), not a symmetric statement later specialized equally at both
+circumferential edges. This is visible directly in the two circumferential
+boundary terms' structure: the $\theta=\Theta$ term is a stress (dual)
+quantity multiplying a variation of the primal deflection ($\delta w$,
+$\delta(\tfrac1r\partial w/\partial\theta)$) -- the natural form whose
+stationarity under arbitrary $\delta w$ gives the free edge's own moment
+and shear conditions -- while the $\theta=-\Theta$ term instead multiplies
+the primal deflection ($w$, $\partial w/\partial r$) against a variation of
+the dual/stress quantities ($\delta\tau^{(0)}_{\theta z}$,
+$\delta\tau^{(1)}_{r\theta}$), the mixed/Lagrangian form whose
+stationarity under arbitrary $\delta\tau$ instead constrains the primal
+kinematic quantities themselves. This is the level at which Eq.~(B.1)'s
+coefficient asymmetry actually originates: not in Eq.~(43)'s corner
+coefficients as such, but in Eq.~(6) treating $\theta=-\Theta$ and
+$\theta=\Theta$ asymmetrically from the outset, before any constitutive
+substitution.
+
+For the free-free extension, releasing $\theta=-\Theta$ from its clamped
+condition means its Eq.~(6) boundary term must be replaced by the natural
+form. This substitution is carried out here explicitly from Eq.~(1a)'s
+general indicial contour term $n_a\tau^{(1)}_{a\beta}s_\beta$, rather than
+asserted by pattern-matching, by transforming it into $r,\theta$ components
+at $\theta=\Theta$ and $\theta=-\Theta$ and tracking the outward-normal/
+tangent reversal between them through a counterclockwise traversal of the
+sector boundary starting at $(R_i,-\Theta)$: the $\theta=-\Theta$ edge is
+traversed with increasing $r$ (tangent $\hat s=+\hat r$, outward normal
+$\hat n=-\hat\theta$), the $\theta=\Theta$ edge with decreasing $r$ (tangent
+$\hat s=-\hat r$, outward normal $\hat n=+\hat\theta$). At $\theta=\Theta$
+($n=+\hat\theta$, $s=-\hat r$): $n_a t^{(0)}_{a3}=\tau^{(0)}_{\theta z}$,
+$u^{(0)}_{3,n}=\tfrac1r\partial w/\partial\theta$,
+$n_a t^{(1)}_{a\beta}s_\beta=-\tau^{(1)}_{\theta r}$, so
+$(n_a t^{(1)}_{a\beta}s_\beta)_{,s}=\partial\tau^{(1)}_{\theta r}/\partial r$
+(the $s$-derivative along $-\hat r$ flips the sign of the $r$-derivative),
+and $n_a t^{(1)}_{a\beta}n_\beta=\tau^{(1)}_{\theta\theta}$; substituting
+into Eq.~(1a)'s third term and converting $ds\to dr$ (tangent direction and
+integration limits both reverse, canceling) reproduces Eq.~(6)'s printed
+$\theta=\Theta$ bracket exactly, leading minus sign included -- a working
+self-consistency check before the method is trusted at the untested edge.
+At $\theta=-\Theta$ ($n=-\hat\theta$, $s=+\hat r$):
+$n_a t^{(0)}_{a3}=-\tau^{(0)}_{\theta z}$,
+$u^{(0)}_{3,n}=-\tfrac1r\partial w/\partial\theta$,
+$n_a t^{(1)}_{a\beta}s_\beta=-\tau^{(1)}_{\theta r}$ (the same value as at
+$\Theta$, since for a symmetric tensor $n_a\tau_{a\beta}s_\beta$ is
+invariant under simultaneously flipping both $n\to-n$ and $s\to-s$ -- a
+useful independent check), so
+$(n_a t^{(1)}_{a\beta}s_\beta)_{,s}=-\partial\tau^{(1)}_{\theta r}/\partial r$
+(no sign flip this time, since $s=+\hat r$ already matches increasing $r$),
+and $n_a t^{(1)}_{a\beta}n_\beta=\tau^{(1)}_{\theta\theta}$ (two minus signs
+cancel). The integrand becomes the \emph{negative} of the $\theta=\Theta$
+bracket, and with $ds=+dr$ (no limit-flip this time) Eq.~(1a)'s leading
+minus combines with this internal minus to give an overall plus: the
+\emph{same natural-edge bracket} as the $\theta=\Theta$ term, with an
+\emph{opposite overall sign},
+\begin{equation}
++\int_{R_i}^{R_o}\!\Big[\big(\tau^{(0)}_{\theta z}
++\tfrac{\partial\tau^{(1)}_{\theta r}}{\partial r}\big)\delta w
+-\tau^{(1)}_{\theta\theta}\,\delta\big(\tfrac1r\tfrac{\partial w}{\partial\theta}\big)\Big]_{\theta=-\Theta}dr,
+\tag{B.3}
+\end{equation}
+i.e. Eq.~(6)'s $\theta=\pm\Theta$ terms become
+$\big[(\cdot)\delta w-(\cdot)\delta(\cdot)\big]_{-\Theta}^{\Theta}$ in the
+Eq.~(7) bracket sense. This sign-alternation is confirmed two independent
+ways: by the ($n,s$)-orientation bookkeeping above, and by the assembled
+free-edge integral, which uses the same stress/displacement bracket on
+every edge with orientation $+1$ at $\theta=\Theta$ and $-1$ at
+$\theta=-\Theta$: exactly ``same bracket, opposite sign.''
+
+Fully substituting Eq.~(B.3) into explicit deflection terms uses the same
+two constitutive relations Ref.~\cite{seok1} applies at $\theta=\Theta$
+(Eq.~(9c) and Eq.~(15) enter only the clamped edge's superseded
+\emph{mixed}-term substitution, not this one), transcribed directly from
+the source (Ref.~\cite{seok1} pp.~763--764):
+\begin{align}
+\tau^{(1)}_{\theta\theta}&=-\bar D\Big\{\bar\nu\frac{\partial^2w}{\partial r^2}
++\frac{R^{*}}{r}\Big(\frac{\partial w}{\partial r}+\frac1r\frac{\partial^2w}{\partial\theta^2}\Big)\Big\},
+\tag{Ref.~\cite{seok1} Eq.~(14)}\\
+\tau^{(0)}_{\theta z}+\frac{\partial\tau^{(1)}_{\theta r}}{\partial r}
+&=-\bar D\Big\{\frac{R^{*}}{r^3}\frac{\partial^3w}{\partial\theta^3}
+-\frac{(2T-R^{*})}{r^2}\frac{\partial^2w}{\partial r\partial\theta}
++\frac{2T}{r}\Big(\frac{\partial^3w}{\partial r^2\partial\theta}
++\frac1{r^2}\frac{\partial w}{\partial\theta}\Big)\notag\\
+&\qquad-\bar\nu\Big(\frac1r\frac{\partial^3w}{\partial r^2\partial\theta}
++\frac2{r^3}\frac{\partial w}{\partial\theta}
+-\frac2{r^2}\frac{\partial^2w}{\partial r\partial\theta}\Big)\Big\},
+\tag{Ref.~\cite{seok1} Eq.~(20)}
+\end{align}
+together with the nondimensionalization $r=(2b/\pi)(r^{*}+\bar r_0)$
+(Ref.~\cite{seok1} Eqs.~(26)--(28)), so $\partial/\partial
+r=(\pi/2b)\,\partial/\partial r^{*}$ and $1/r=(\pi/2b)/(r^{*}+\bar r_0)$
+($T,R^{*},\bar\nu$ are pure material-constant ratios, unaffected by this
+substitution; $\theta$ itself is not rescaled). Substituting Eqs.~(14) and
+(20) into the $\theta=\Theta$ bracket and factoring reproduces
+Ref.~\cite{seok1}'s own published $\theta=\Theta$ block of Eq.~(43)
+term-for-term (a self-consistency check with no reference to that
+printed result used in the substitution itself), and, since Eqs.~(14) and
+(20) hold pointwise at any $(r,\theta)$ with no reference to $\Theta$ or
+$-\Theta$, the identical algebra applies verbatim at $\theta=-\Theta$ with
+only Eq.~(B.3)'s outer sign flipped. The complete, explicit result, combining both edges in the
+Eq.~(7) bracket sense, is
+\begin{align}
+&\int_{-\pi/2}^{\pi/2}\!dr^{*}\bigg[\frac1{r^{*}+\bar r_0}\frac{\partial}{\partial\theta}
+\Big\{\frac{2Tw+R^{*}\partial_\theta^2w}{(r^{*}+\bar r_0)^2}
++2T\partial_{r^{*}}^2w-\frac{(2T-R^{*})}{r^{*}+\bar r_0}\partial_{r^{*}}w\notag\\
+&\qquad-\bar\nu\Big\{\frac{2w}{(r^{*}+\bar r_0)^2}
++(r^{*}+\bar r_0)^2\partial_{r^{*}}\Big(\frac{\partial_{r^{*}}w}{(r^{*}+\bar r_0)^2}\Big)\Big\}\Big\}\,\delta w\notag\\
+&\qquad-\Big\{\frac{R^{*}}{r^{*}+\bar r_0}\Big(\frac{\partial_\theta^2w}{(r^{*}+\bar r_0)^2}
++\frac{\partial_{r^{*}}w}{r^{*}+\bar r_0}\Big)
++\frac{\bar\nu}{r^{*}+\bar r_0}\partial_{r^{*}}^2w\Big\}\,\delta(\partial_\theta w)\bigg]_{\theta=-\Theta}^{\theta=\Theta}=0,
+\tag{B.3$'$}
+\end{align}
+every term reached by explicit substitution of Eqs.~(14), (20) and the
+nondimensionalization above at both edges, not reused at $\theta=-\Theta$
+by sign-flip analogy from the published $\theta=\Theta$ block.
+
+\paragraph{Closed-contour corner jump.} For the free-free case the
+contour $C_N$ is the full closed boundary, and the corner coefficient
+follows from Eq.~(1a)'s fourth term,
+$\int_{c_N}\!ds\,(n_a\tau^{(1)}_{a\beta}s_\beta\,\delta w)_{,s}$, an
+exact differential along arc length whose segment-by-segment integration
+over a closed contour does not vanish, because $n_a,s_b$ are
+discontinuous at each corner even though the physical stress field
+$\tau^{(1)}_{r\theta}$ is continuous there. Writing
+$F\equiv n_a\tau^{(1)}_{a\beta}s_\beta$ (using each segment's own
+$(n,s)$ convention) and summing the fundamental-theorem contributions
+corner by corner for the four segments traversed counterclockwise from
+$(R_i,-\Theta)$:
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+segment & tangent $\hat s$ & normal $\hat n$ & $F=n_a\tau^{(1)}_{a\beta}s_\beta$\\
+\midrule
+$r=R_o$ arc ($\theta:-\Theta\to\Theta$) & $+\hat\theta$ & $+\hat r$ & $+\tau^{(1)}_{r\theta}$\\
+$\theta=\Theta$ radial ($r:R_o\to R_i$) & $-\hat r$ & $+\hat\theta$ & $-\tau^{(1)}_{r\theta}$\\
+$r=R_i$ arc ($\theta:\Theta\to-\Theta$) & $-\hat\theta$ & $-\hat r$ & $+\tau^{(1)}_{r\theta}$\\
+$\theta=-\Theta$ radial ($r:R_i\to R_o$) & $+\hat r$ & $-\hat\theta$ & $-\tau^{(1)}_{r\theta}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+and taking the jump at each corner as (incoming segment's $F$) minus
+(outgoing segment's $F$),
+\begin{align*}
+(R_o,-\Theta):&\ (-\tau_{r\theta})-(\tau_{r\theta})=-2\tau_{r\theta}\big|_{(R_o,-\Theta)}, &
+(R_o,\Theta):&\ (\tau_{r\theta})-(-\tau_{r\theta})=+2\tau_{r\theta}\big|_{(R_o,\Theta)},\\
+(R_i,\Theta):&\ (-\tau_{r\theta})-(\tau_{r\theta})=-2\tau_{r\theta}\big|_{(R_i,\Theta)}, &
+(R_i,-\Theta):&\ (\tau_{r\theta})-(-\tau_{r\theta})=+2\tau_{r\theta}\big|_{(R_i,-\Theta)}.
+\end{align*}
+Summing the $\theta=\Theta$ pair reproduces Ref.~\cite{seok1}'s own printed
+cantilever corner term exactly,
+$(R_o,\Theta)+(R_i,\Theta)=2\big[\tau^{(1)}_{r\theta}\delta w\big]^{R_o,\Theta}_{R_i,\Theta}$,
+a self-consistency check with no reference to the deployed code; and
+summing the $\theta=-\Theta$ pair, now smooth-turn corners of the closed
+contour rather than the cantilever's open ends, gives
+$(R_o,-\Theta)+(R_i,-\Theta)=-2\big[\tau^{(1)}_{r\theta}\delta w\big]^{R_o,-\Theta}_{R_i,-\Theta}$:
+magnitude 2 at every corner, alternating in sign between the two edge
+pairs. Substituting
+$\tau^{(1)}_{r\theta}=-\bar D(T-\bar\nu)\partial^2(w/r)/\partial r\partial\theta$
+(Ref.~\cite{seok1} Eq.~(15)) and the same nondimensionalization used for
+Eq.~(B.3$'$) produces the free-free analogue of Eq.~(43) stated in
+main-text \S3.3.
+
+\paragraph{Independent confirmation via Green's identity.} The
+closed-contour jump just given fixes the corner term's magnitude (2, every
+corner) and its alternation pattern between the two edge pairs, but not,
+by itself, which edge carries the ``$+$'' label in an isolated equation,
+an overall sign-convention choice rather than physical content. A third,
+code- and FE-independent route settles it: a Green's-identity argument on
+the internal virtual-work bilinear form, evaluated on the classical
+constant pure-twist field ($M_{r\theta}=\text{const}$,
+$M_{rr}=M_{\theta\theta}=0$, which satisfies the free-edge natural
+conditions identically), fixes the corner force to $R=2M_{ns}$ with its
+sign read directly from the outgoing edge under $\partial\Omega$'s
+standard positive (counterclockwise) orientation; applied to the $(n,s)$
+table above, it reproduces the free-edge magnitude and the
+factor of 2. Magnitude and alternation therefore follow from the contour
+and Green arguments. Which isolated edge carries the ``$+$'' label is a
+convention of the overall stationarity equation --- multiplying it by $-1$
+swaps both labels and moves no frequency --- and what is required instead,
+namely that the corner term and the surface term carry the same $\pm1$
+orientation factor within one equation, is what the deployed assembly
+implements (main-text \S3.3).
+
+The free-free corner term is therefore constrained three ways (the
+closed-contour jump of this section, the Green's-identity argument
+just above, and comparison against the deployed assembly) rather than
+asserted by pattern-matching against Eq.~(43) alone. The term-by-term
+factoring behind Eq.~(B.3$'$) is the algebra of this section. The
+same-parity cancellation of the mis-oriented assembly is proved in
+main-text \S3.3.
+
+\section{Additional validation tables}\label{sec:extra-tables}
+The tables and supporting accounts below are referenced from
+main-text \S4--\S6 but collected here so the main validation narrative
+can stay on the tables that carry the paper's primary claims.
+§S.3.6 is the raw-to-physical conversion algebra; §S.3.7 is the SUBDOM
+numerical procedure; Table~S.8 is the
+flexural spurious-zero listing moved from the main text.
+
+\subsection{Basis-size convergence, per mode}\label{sec:conv-appendix}
+The main text's \S4 summary states that 24 of 34 tabulated modes change by
+less than $0.1\%$ across $n=20$, $28$, $36$, with the remainder traced to
+two understood mechanisms. Full detail: nine labels (twelve (label, $n$)
+cells, three labels flagged at two basis sizes each) initially returned a
+value 0.6--12\% away from their own seed at one basis size; re-polishing
+exactly those cells inside a bracket chosen to exclude the specific
+neighboring value the wide-window search had locked onto recovered, in
+every case, a value within $0.5\%$ of the seed (cells marked $^\dagger$
+below use the recovered value). Two further cells, IP-11 at $n{=}20$
+and IP-26 at $n{=}28$, sat just below the diagnostic's original 1\%
+flag threshold and were identified only by a later review pass; their
+tight-bracket re-polish recovered values within $0.03\%$ of the seed.
+Separately, a follow-up diagnostic campaign established that the
+branch-selection step feeding this table frequently does not reach the
+labeled basis size: the routine orders candidate branches by
+$(|\mathrm{Im}\,\xi|,|\xi|)$ and fills greedily until $n$ generalized
+coordinates are reached, which for this geometry's branch inventory can
+leave an even-valued shortfall unfilled. Forcing the routine to reach the
+labeled $n$ anyway was tested against all 34 modes at both $n{=}28$ and
+$n{=}36$, evaluated at each mode's own production frequency: in every
+one of 32 such evaluations where this produced a larger basis than the
+routine's own choice (29 at the modes' initial seed frequencies, and a
+further 3 re-confirmed at their exact converged frequencies),
+$\sigma_{\min}$ degraded from a genuine, deep minimum to a shallow
+wide-window lock-on, confirming the shortfall is the routine correctly
+declining to admit a matrix-corrupting branch, not a defect. At $n{=}28$, all eight
+out-of-plane labels reach the full labeled basis; the in-plane labels
+mostly reach 26 of 28, with IP-05/IP-06 reaching only 22. At $n{=}36$, no
+label reaches the full labeled basis (out-of-plane: 28 or 32; in-plane:
+30 or 34); the ``used'' columns below give the actually achieved size
+per row. IP-06's own $n{=}36$ entry was recorded as 30 in one job and 34
+in another, which an initial reading took for run-to-run irreproducibility.
+It is not: the achieved size is a deterministic but rapidly varying
+function of $\Omega$ in this neighborhood. Five repeat evaluations at the
+tabulated frequency return 30 every time, and a scan across
+$\Omega\in[1.196,1.205]$ returns 30 except inside a band roughly
+$0.001$ wide near $\Omega\approx1.2032$--$1.2040$, where a tenth
+transverse-wavenumber branch enters the search window and, being a
+complex-quadrant pair worth four generalized coordinates, lifts the fill
+from 30 to 34.\footnote{Jobs 2411851 and 2414031; the second covers
+$[1.199,1.205]$, which the first did not reach. Transitions
+$30\!\to\!34$ and back occur between consecutive $2\times10^{-4}$ scan
+points, so the two earlier jobs' slightly different converged $\Omega$
+placed them on opposite sides of one.} The two values are therefore both
+correct, for marginally different frequencies; the range is retained in
+the table rather than collapsed. Consequently the $\Delta_{28\to36}$
+columns compare two sub-maximal bases in every row, and the
+$\Delta_{20\to28}$ column for IP-05/IP-06 is a $20$-to-$22$, not
+$20$-to-$28$, comparison (flagged individually below). The basis size
+actually achieved by basis fill at each mode's own converged
+$\Omega^{*}$, tabulated as the ``used'' columns below, is confirmed by
+jobs 2324817/2324822.
+
+\begin{table}[!htbp]\centering\small
+\caption{Basis-size convergence, out-of-plane modes (raw $\Omega$;
+labels OOP-01--OOP-08 correspond by row order to the main text's
+Table 6, which does not print these labels). $^\dagger$: recovered via a
+tight-bracket re-polish after an initial wide-window lock-on (see text
+above). ``Used'' columns: the basis size actually achieved by
+basis fill at the labeled target, confirmed at each mode's own
+converged $\Omega^{*}$.}
+\label{tab:conv-oop}
+\begin{tabular}{cccccccc}
+\toprule Label & $n{=}20$ & $n{=}28$ & $n{=}36$ & used@28 & used@36 & $\Delta_{20\to28}$(\%) & $\Delta_{28\to36}$(\%)\\ \midrule
+OOP-01 & 0.383601 & 0.383598 & 0.383646 & 28 & 28 & $-0.0007$ & $+0.0125$\\
+OOP-02 & 0.616726$^\dagger$ & 0.616724 & 0.616751 & 28 & 28 & $-0.0003$ & $+0.0044$\\
+OOP-03 & 0.961242$^\dagger$ & 0.961210 & 0.961210 & 28 & 32 & $-0.0033$ & $+0.0000$\\
+OOP-04 & 1.369616 & 1.369586 & 1.370489 & 28 & 28 & $-0.0022$ & $+0.0659$\\
+OOP-05 & 1.752160 & 1.752037 & 1.755174 & 28 & 28 & $-0.0070$ & $+0.1791$\\
+OOP-06 & 2.320817 & 2.320723 & 2.320714 & 28 & 32 & $-0.0041$ & $-0.0004$\\
+OOP-07 & 2.379839 & 2.379688 & 2.379688 & 28 & 28 & $-0.0063$ & $+0.0000$\\
+OOP-08 & 2.602593 & 2.602553 & 2.602553 & 28 & 28 & $-0.0015$ & $+0.0000$\\ \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!t]\centering\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{0.95}
+\caption{Basis-size convergence, in-plane modes (raw $\Omega$; labels
+IP-01--IP-26 correspond by row order to the main text's Table 7, which
+does not print these labels). $^\dagger$: recovered via a
+tight-bracket re-polish after an initial wide-window lock-on (see text
+above). ``Used'' columns: as Table~\ref{tab:conv-oop}. $^\ddagger$: IP-06's
+used@36 is 30 at the tabulated frequency and 34 inside a narrow adjacent
+$\Omega$ band; both jobs are correct for their own converged $\Omega$
+(see text). $^{\S}$:
+$\Delta_{20\to28}$ computed on a 22-, not 28-coordinate basis: a
+$20\to22$ comparison, not $20\to28$.}
+\label{tab:conv-ip}
+\begin{tabular}{cccccccc}
+\toprule Label & $n{=}20$ & $n{=}28$ & $n{=}36$ & used@28 & used@36 & $\Delta_{20\to28}$(\%) & $\Delta_{28\to36}$(\%)\\ \midrule
+IP-01 & 0.401200$^\dagger$ & 0.401185 & 0.401185 & 26 & 30 & $-0.0037$ & $+0.0000$\\
+IP-02 & 0.687385 & 0.687377 & 0.687377 & 26 & 30 & $-0.0011$ & $+0.0000$\\
+IP-03 & 0.764608 & 0.764588 & 0.764580 & 26 & 30 & $-0.0026$ & $-0.0010$\\
+IP-04 & 1.142356$^\dagger$ & 1.143136$^\dagger$ & 1.142313 & 26 & 30 & $+0.0682$ & $-0.0720$\\
+IP-05 & 1.145249 & 1.144393 & 1.145192 & 22 & 30 & $-0.0747^{\S}$ & $+0.0698$\\
+IP-06 & 1.197860 & 1.197592$^\dagger$ & 1.203379 & 22 & 30--34$^\ddagger$ & $-0.0224^{\S}$ & $+0.4833$\\
+IP-07 & 1.416707 & 1.416366 & 1.416355 & 26 & 34 & $-0.0241$ & $-0.0008$\\
+IP-08 & 1.440521 & 1.440118 & 1.440110 & 26 & 34 & $-0.0280$ & $-0.0006$\\
+IP-09 & 1.523138 & 1.522316 & 1.522258 & 26 & 34 & $-0.0540$ & $-0.0038$\\
+IP-10 & 1.598919 & 1.598834 & 1.598826 & 26 & 34 & $-0.0053$ & $-0.0005$\\
+IP-11 & 1.613504$^\dagger$ & 1.613132 & 1.613057 & 26 & 34 & $-0.0230$ & $-0.0046$\\
+IP-12 & 1.690176 & 1.690020 & 1.689972 & 26 & 34 & $-0.0092$ & $-0.0029$\\
+IP-13 & 1.779739$^\dagger$ & 1.779680 & 1.779676 & 26 & 34 & $-0.0033$ & $-0.0002$\\
+IP-14 & 1.832690 & 1.831850 & 1.831788 & 26 & 34 & $-0.0458$ & $-0.0034$\\
+IP-15 & 1.974997 & 1.972955 & 1.972920 & 26 & 34 & $-0.1034$ & $-0.0018$\\
+IP-16 & 1.987420 & 1.987180 & 1.987158 & 26 & 34 & $-0.0121$ & $-0.0011$\\
+IP-17 & 1.997673 & 1.996470 & 1.996243 & 26 & 34 & $-0.0602$ & $-0.0114$\\
+IP-18 & 2.169765 & 2.166997 & 2.166775 & 26 & 34 & $-0.1276$ & $-0.0102$\\
+IP-19 & 2.294238$^\dagger$ & 2.293218$^\dagger$ & 2.293042 & 26 & 34 & $-0.0445$ & $-0.0077$\\
+IP-20 & 2.302741 & 2.301518 & 2.304771 & 26 & 34 & $-0.0531$ & $+0.1413$\\
+IP-21 & 2.389179 & 2.388598 & 2.388507 & 26 & 34 & $-0.0243$ & $-0.0038$\\
+IP-22 & 2.456152 & 2.450795 & 2.450496 & 26 & 34 & $-0.2181$ & $-0.0122$\\
+IP-23 & 2.524864 & 2.521487 & 2.521288 & 26 & 34 & $-0.1337$ & $-0.0079$\\
+IP-24 & 2.570691 & 2.566361 & 2.565772 & 26 & 34 & $-0.1684$ & $-0.0230$\\
+IP-25 & 2.679963 & 2.676029 & 2.674815 & 26 & 34 & $-0.1468$ & $-0.0454$\\
+IP-26 & 2.777863 & 2.772007$^\dagger$ & 2.771646$^\dagger$ & 26 & 34 & $-0.2108$ & $-0.0130$\\ \bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\paragraph{A non-default split/anchor enhancement.}
+Main-text \S4 notes that a fully-default detector pass missed 4 of 26
+tabulated extensional modes, later recovered as genuine roots of the
+same $n=28$ determinant. A candidate enhancement to the blind pipeline
+itself, an opt-in local split/anchor/adaptive-bisection strategy that
+re-examines a coarse candidate's own local zoom for more than one
+distinct minimum before committing to a single bracket, was tested in
+the same whole-range, no-seeding configuration and recovered all four of
+those modes unaided, including the closest pair (${\sim}0.0043$ apart in
+$\Omega$). The same run left a different two-mode pair unrecovered under
+the 0.1\% match tolerance (${\sim}0.0011$ apart, tighter than the
+fine-zoom step itself); a targeted follow-up dense scan subsequently
+confirmed both are genuine, distinct roots. The enhancement therefore
+recovered 24 of 26 tabulated modes. It is not the package default: a
+required second-geometry blind pass (in-plane orthotropic) recovered
+only 1 of 8 known targets, and escalating the search basis left the
+same mixed pattern, so a basis-size difference is not the cause.
+Job-level detail: \S\ref{sec:provenance}.
+
+\subsection{Instrument-by-instrument adjudication of the near-degenerate
+ODD pair}\label{sec:instruments}
+Main-text \S6.3 states the outcome of the eight-instrument suite applied
+to the two candidates (raw $\Omega=2.828013$ and $2.838515$) against the
+single FE target at $\Omega_{\mathrm{lit}}=111.46$. The individual
+instruments and their outcomes are:
+
+\begin{enumerate}\itemsep2pt
+\item \emph{Basis-size bump} ($n_{\mathrm{dofs}}$ $20\to28$): both
+candidates persist, essentially unchanged.
+\item \emph{Sensitivity map}: a fixed-offset scan around each candidate's
+golden-section result found no evidence that either was locking onto a
+nearby artifact rather than a true root.
+\item \emph{Null-vector gap analysis}: no informative separation.
+\item \emph{Parity readout}: at the calibrated basis sizes both read cleanly
+ODD, self-parity correlation $1.0000$, matching the FE target.
+\item \emph{ODD-block topology scan}: no structural difference between the
+two.
+\item \emph{Modal assurance criterion}: the decisive instrument, and the
+only one that compares mode \emph{shape} rather than frequency or matrix
+structure. MAC against the FE eigenvector is $0.9913$ for $2.828013$ and
+$0.9999$ for $2.838515$, a gap of $0.0086$ against the $0.2$ forced-call
+threshold. Both candidates sit in the ``good correlation'' range of
+experimental modal practice \cite{allemang2003} ($\mathrm{MAC}>0.9$; its
+uncorrelated band is $<0.05$), so the absolute-level convention does not
+separate them either, and the observed gap is roughly $20\times$ too small
+to force a call at the gap threshold used here.
+\item \emph{Pure-slope (moment-slope) residual}, applied independently after
+the first six were exhausted: the two candidates' residual ratios differ by
+$6.6\times$ ($2.549\times10^{-4}$ against $1.682\times10^{-3}$) and their
+phase-aligned null-vector cosine is only $0.228$, indicating two radially
+distinct modes rather than one being a numerical echo of the other.
+\begin{sloppypar}
+\item \emph{Enlarged-basis check} ($n_{\mathrm{ret}}=34$/$38$, beyond the
+calibrated $n_{\mathrm{dofs}}=20$/$28$): candidate $2.828013$'s self-parity
+reads ODD at $n_{\mathrm{ret}}=34$ and EVEN at $38$. Follow-up probes traced
+this to a redistribution of null-vector energy onto a different dominant
+root (from a pure-imaginary root carrying 31\% of the energy to a complex
+root carrying 76\%) and ruled out a basis-selection artifact directly:
+removing the single marginal root that crosses the basis-fill
+boundary changes retained energy by under $0.1\%$ and leaves the parity
+unchanged.
+\end{sloppypar}
+\end{enumerate}
+
+\paragraph{MAC/FE nodal correspondence.} Instrument 6 above and the
+two-sided extensional bar of main-text \S6.6 both compare
+the exact solution's reconstructed mode shape against an FE eigenvector
+by MAC, and both build the comparison the same way. The exact
+reconstruction is not evaluated directly at the FE node coordinates; it
+is first evaluated on a dense regular grid in the solver's own natural
+coordinates ($r$ mapped affinely onto $[-\pi/2,\pi/2]$, $\theta$ over
+$[-\Theta,\Theta]$, bisector at $\theta=0$). Each FE node's angular
+coordinate (measured from the FE model's own origin at one
+circumferential edge, not from the bisector) is shifted onto the
+solver's bisector-centered convention before use. The grid's radial and
+transverse displacements are then bilinearly interpolated onto every FE
+node's coordinates; a node whose coordinates fall outside the grid's
+covered domain returns a non-finite value and is excluded from that
+particular MAC evaluation rather than extrapolated. The interpolated
+radial/transverse pair is rotated into the FE model's own Cartesian
+$(U_X,U_Y)$ using each node's own global angle, so the MAC correlation
+of main-text \S6.6 is taken entirely in the FE model's native
+frame.
+
+A separate correspondence step is needed only to classify an FE
+eigenvector's own symmetry class (SYMM/ANTI about the bisector), which
+the two-sided bar's class-safe matching requires so a candidate is never
+compared against an opposite-parity FE target. This pairs each FE node
+with its own mirror-image node across the bisector, within the same
+mesh, and is independent of the exact-solution correspondence above. At
+the half-annulus ($2\Theta=\pi$, the \S6.5 geometry) this pairing is exact:
+a node's reflected polar coordinates coincide with another printed
+node's coordinates to within rounding. At every other sector angle,
+including the primary quarter-annulus $2\Theta=\pi/2$ and the rest of
+the main-text \S6.4 sweep, the FE decks are meshed in Cartesian
+coordinates, so a node's exact polar mirror image generally does not
+land on another node's printed coordinates. The production fallback,
+used at those angles, is a nearest-neighbor spatial search in Cartesian
+coordinates for the closest node to the exact mirror image, accepted
+only within half a typical element edge length; a node with no partner
+inside that radius is dropped from the symmetry calculation rather than
+mis-paired. The primary-geometry MAC calibration of main-text \S6.6
+therefore used this fallback, not exact pairing. At the half-annulus,
+where exact pairing succeeds, forcing the Cartesian fallback instead
+left all 57 FE symmetry labels and all eight calibration MAC calls
+unchanged at threshold $0.744$.
+
+\paragraph{Owning-block scoring and held-out candidates.}
+Two properties of the extensional reconstruction have to be respected
+before MAC means anything. The parity blocks $q{=}0$ and $q{=}1$ of the
+assembled $K$ are the sector's two exact symmetry classes, so a MAC
+taken across them is analytically zero: a reading of $0.0000$ records a
+block-selection outcome, not an absence of correlation. And the smallest
+singular vector of a \emph{non}-singular block varies smoothly with
+$\Omega$, so a block evaluated near a neighboring candidate's root
+reproduces that neighbor's mode shape: one candidate at the primary
+geometry reads $0.9658$ this way without owning a root in that block at
+all. Each candidate must therefore be scored on the parity block that
+owns a root at its own $\Omega$.
+
+Selecting that block requires a rule, and no single criterion suffices.
+Choosing the more singular block misclassifies one candidate at the
+second geometry; choosing the smaller edge residual misclassifies a
+different one at the first. Requiring that a block's
+$\log_{10}\sigma_{\min}$ sit at a local minimum in $\Omega$ before it is
+eligible, and breaking ties on the residual, classifies 24 of 24 against
+23 of 24 for either criterion alone. At $(2.0,\,0.5)$ all three
+selection criteria score 8 of 8, so that geometry confirms the bar
+transfers but supplies no evidence that the rule is better than the
+simpler alternatives; the rule's margin rests on two candidates.
+
+Two candidates were held out of the calibration set entirely, because
+the pointwise residual and the FE evidence disagree about them. At
+$\Omega=1.667187$ the production residual verdict is ARTIFACT-like, the
+independent FE frequency match is $0.011\%$, and MAC on the root-owning
+block reads $0.9981$; at $\Omega=2.117877$ the corresponding figures are
+$0.006\%$ and $0.9980$. Both sit far above any threshold in the window,
+so MAC agrees with the FE evidence where the residual does not.
+This hold-out pair is not the eight residual-unresolved candidates of
+main-text \S6.5: those eight include $\Omega=1.667187$ as one of two
+MAC-REAL calls (the other is $\Omega=1.894176$, MAC $0.9953$);
+$\Omega=2.117877$ is a calibration hold-out only. Main-text \S6.6
+records the production call (midpoint $0.744$ of the $\nu=0.30$
+window); \S6.5 records the outcome on the eight.
+
+The in-plane analogue of Table~\ref{tab:oop-spurious-sm}, listing
+owning-block residuals for these eight calibration candidates, is
+Table~\ref{tab:ip-spurious}.\footnote{Job 2434754. Owning-block residuals
+match the calibration residuals to $10^{-6}$ relative.}
+
+\paragraph{Calibration-window robustness.} Main-text \S6.6 quotes the
+seed-based REAL floor and ARTIFACT ceiling ($0.9079$, $0.5801$) because they
+require no extra refinement step. Evaluating the one calibration
+candidate whose catalogued frequency lies furthest from its own
+converged root at that root instead raises the combined REAL floor from
+$0.9079$ to $0.9869$. The combined window (ARTIFACT ceiling $0.5801$ to
+REAL floor) therefore widens from $0.3278$ to $0.4068$; the
+per-geometry gap at $(2.0,1.0)$ on the seed-based table is already that
+same $0.4068$ and is unchanged to the printed digits. The reported window is
+otherwise insensitive to how the FE comparison target is chosen: MAC
+taken against each candidate's own nearest-frequency FE target gives the
+same window as MAC taken as the best correlation over every sampled
+target, so the calibration does not depend on the nearest-frequency
+pairing being correct. Unrestricted nearest-frequency matching is
+nevertheless not class-safe on its own: at
+$(r_0/2b,2\Theta/\pi)=(2.0,1.0)$ one calibration artifact's
+nearest-frequency FE target belongs to the opposite symmetry class, and
+MAC against that target is identically zero, the wrong-class
+signature described above, not an absence of correlation. This is why
+main-text \S6.6 scores every candidate as the maximum over FE modes of
+the same symmetry class as the root-owning block, not simply the
+nearest frequency.
+
+\subsection{Cut-off-adjacent screening and the extensional basis-packing
+shortfall}\label{sec:cutoff-appendix}
+Main-text \S6.4 sets aside a cut-off-adjacent subset of the 24-geometry
+(48 geometry/motion) sweep and reports only its final tallies. That subset was screened with
+the same \S5 pointwise discriminator used for the primary tables, its
+first application outside the single geometry at which it was calibrated.
+All 119 flexural candidates
+were resolved to their target basis and adjudicated: 57 REAL-like, 62
+ARTIFACT-like, 0 AMBIGUOUS (a 47.9\% REAL-like fraction; these 119 are a
+subset of the 695 flexural candidates screened in main-text \S6.4, whose
+complement reads 272/535, or 50.8\%).\footnote{Direct
+pass: jobs 2416866--2416869. Escalation ladder for the 12 that did not
+reconstruct on a cold search: job 2417234.} The REAL-like and
+ARTIFACT-like populations do not overlap ($r_M\le0.041$ against
+$r_M\ge2.05$ for the directly reconstructed majority, a $\ge50$-fold
+separation, narrower than, but qualitatively identical to, the
+primary geometry's own ${\sim}2000$-fold gap).
+
+The extensional side has no calibrated \emph{residual} verdict bar at any
+geometry, so its figures are raw residual ratios. All 96 extensional
+candidates were resolved: 88 bimodal, 8 middle-band by the same
+$r_{Tyy}<0.3$ / $>4$ split used at the primary geometry ($r_{Tyy}$ and
+$r_{Tyr}$ here are the main text's extensional residual ratios
+$r_{\theta\theta}$ and $r_{\theta r}$, in the solver's own edge-frame
+naming).
+Seventy-one reached their target basis (direct search plus an escalation
+ladder); the remaining 25 were stuck at exactly $n_{\mathrm{dofs}}-2$
+even at a guarded $x_{\max}$ cap of 90 and were evaluated at that
+achieved, smaller basis, following the same used@28/used@36 relabeling
+precedent as \S\ref{sec:conv-appendix} and the IP-06 footnote, with one
+exception: a candidate that reached the labeled fill with a shallow
+$\sigma_{\min}$ ($-2.681$) and is reported at that fill.\footnote{Job
+2419006.}
+
+The 25-candidate shortfall comes from a packing artifact of greedy branch selection; the underlying inventory is not shrinking. Each admitted root contributes
+either 2 degrees of freedom (real or pure-imaginary) or 4 (a
+complex-quadrant pair); the routine fills by ascending
+$(|\mathrm{Im}\,\zeta|,|\zeta|)$ and stops when the next candidate would
+overshoot the target. At each shortfall point the running fill reaches
+exactly $n_{\mathrm{dofs}}-2$ with only 4-dof pairs remaining. The same
+cap arises at a control geometry where 30--34 degrees of freedom are
+available, so a genuine geometry-dependent drop in complex-branch
+inventory with increasing $r_0/2b$ coexists but is not the cause. No
+adjudicated (flexural) conclusion depends on this. The full-sweep match
+recapture behind Table~\ref{tab:geomsweep} is job 2416746 (superseding an
+intermediate figure from an earlier recapture of the same sweep, 1231 of
+1474, 83.5\%, mean 0.578\%, worst 3.000\%, which had itself already
+superseded the original interactively-run, never-committed statistic,
+1232 of 1466, 84.0\%; the per-candidate set is not identical across any
+of these checkpoints, and the aggregate figure is what each recapture
+re-derives). That job also settles how much the one unrecoverable
+methodological choice matters: rerun at extensional-contamination
+tolerances of $0.5\%$, $1.0\%$ and $2.0\%$, it returns $1261$, $1256$ and
+$1253$ matches ($85.5\%$, $85.2\%$, $84.9\%$), with mean-of-per-geometry-means
+$0.573\%$/$0.574\%$/$0.574\%$ and worst case $2.990\%$ in all three --- a
+fourfold change in the unrecorded parameter moves the headline by $0.6$
+percentage points. The reported figures are the $1.0\%$ column. The flexural
+residual screen behind its reconstruction/verdict tallies is jobs
+2428355--2428358.
+
+\begin{table}[!htbp]\centering\small
+\caption{Free-free detector accuracy vs.\ an independent FE benchmark,
+4 radius ratios $\times$ 6 sector angles (both motion types), excluding
+each geometry's cut-off-adjacent candidates; main-text \S6.4.
+$n$: matches within 3\% of 1475 attempted. The sweep produces 2291
+candidates in all (695 flexural, 1596 extensional); 1475 remain after
+removing each geometry's cut-off-adjacent candidates (119 flexural, 96
+extensional) and those lying beyond the FE extraction range (12 flexural,
+589 extensional). Every accepted flexural
+candidate was residual-screened: 654 of 695 reconstructed, 329 REAL-like /
+321 ARTIFACT-like / 4 AMBIGUOUS. Cut-off-adjacent subset and
+extensional packing shortfall: \S\ref{sec:cutoff-appendix}.}
+\label{tab:geomsweep}
+\begin{tabular}{ccccc}
+\toprule $r_0/2b$ & $R_i/R_o$ & $n$ & mean err (\%) & max err (\%)\\ \midrule
+1.5 & 0.500 & 274 & 0.572 & 2.976\\
+1.66667 & 0.538 & 294 & 0.559 & 2.944\\
+2.0 & 0.600 & 336 & 0.576 & 2.965\\
+2.5 & 0.667 & 352 & 0.590 & 2.990\\ \midrule
+all & --- & 1256/1475 & 0.574 & 2.990\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The $\nu=0.35$ flexural candidate $\Omega=1.432743$ in
+Table~\ref{tab:r150a100} below, which job 2347329 could not reconstruct
+at $n{=}16$, was recovered by the cut-off-adjacent escalation ladder
+(job 2421415) as ARTIFACT-like and FE-matched within $3\%$; the table's
+IP FE-matched rates use the 80-mode extract (jobs 2421055/2421056).
+
+\begin{table}[!htbp]\centering\small
+\caption{Second-geometry adjudication summary ($r_0/2b=1.5$,
+$2\Theta/\pi=1.0$), both motion types, both materials; main-text \S6.5.
+FE-matched: within 3\% of an independent FE frequency. The $\nu=0.35$
+flexural candidate $\Omega=1.432743$ was recovered by the
+cut-off-adjacent escalation ladder as ARTIFACT-like and FE-matched
+within $3\%$; it is included. IP FE-matched rates use the 80-mode
+extract.}
+\label{tab:r150a100}
+\begin{tabular}{clccccc}
+\toprule $\nu$ & motion & $N$ & REAL-like & ARTIFACT-like & AMBIG. & FE-matched\\ \midrule
+0.35 & flexural (OOP)    & 28 & 14 & 14 & 0  & 21/28 (75.0\%)\\
+0.35 & extensional (IP)$^\ast$  & 61 & 31 & 19 & 11 & 57/61 (93.4\%)\\
+0.30 & flexural (OOP)    & 30 & 15 & 15 & 0  & 20/30 (66.7\%)\\
+0.30 & extensional (IP)$^\ast$  & 64 & 28 & 18 & 18 & 61/64 (95.3\%)\\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize $^\ast$raw residual-ratio classification, not a calibrated residual verdict (main-text \S6.3; mode-shape bar: \S6.6).}\\
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]\centering\small
+\caption{Second radius-ratio adjudication summary ($r_0/2b=2.0$,
+$R_i/R_o=0.600$, $2\Theta/\pi=1.0$, $\nu=0.30$); main-text \S6.5.
+FE-matched: within 3\% of an independent FE frequency.}
+\label{tab:r200a100}
+\begin{tabular}{clccccc}
+\toprule $\nu$ & motion & $N$ & REAL-like & ARTIFACT-like & AMBIG. & FE-matched\\ \midrule
+0.30 & flexural (OOP)    & 33 & 18 & 15 & 0  & 25/33 (75.8\%)\\
+0.30 & extensional (IP)$^\ast$  & 75 & 35 & 18 & 22 & 68/75 (90.7\%)\\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize $^\ast$raw residual-ratio classification, not a calibrated residual verdict (main-text \S6.3; mode-shape bar: \S6.6).}\\
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]\centering\small
+\caption{Crossed-geometry adjudication summary ($r_0/2b=2.0$,
+$R_i/R_o=0.600$, $2\Theta/\pi=0.5$, $\nu=0.30$); main-text \S6.5.
+FE-matched: within 3\% of an independent FE frequency. All 10 flexural
+REAL-like candidates are among the 11 FE-matched;
+the eleventh is the ARTIFACT-like FE-mode-16 companion discussed in
+main-text \S6.5.}
+\label{tab:r200a50}
+\begin{tabular}{clccccc}
+\toprule $\nu$ & motion & $N$ & REAL-like & ARTIFACT-like & AMBIG. & FE-matched\\ \midrule
+0.30 & flexural (OOP)    & 18 & 10 & 8 & 0  & 11/18 (61.1\%)\\
+0.30 & extensional (IP)$^\ast$  & 47 & 16 & 16 & 15 & 43/47 (91.5\%)\\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize $^\ast$raw residual-ratio classification, not a calibrated residual verdict (main-text \S6.3; mode-shape bar: \S6.6).}\\
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]\centering\small
+\caption{Owning-block traction residuals at $n{=}20$ for the
+primary-geometry MAC calibration set of main-text \S6.6 (the listing
+analogue of Table~\ref{tab:oop-spurious-sm}). Labels are that calibration assignment,
+not a row-by-row application of the \S5 ${\sim}0.3$/${\sim}4$ split.
+The REAL-like half are main-text Table 7 rows 1, 4, 10 and 23; the ARTIFACT-like
+half are catalogued spurious zeros of the same determinant. Residuals
+are on the root-owning parity block (local-minimum residual rule);
+the last numeric column is $\max(r_{Tyy},r_{Tyr})$.}
+\label{tab:ip-spurious}
+\begin{tabular}{lcccccc}
+\toprule Label & $\Omega$ & block & $r_{Tyy}$ & $r_{Tyr}$ & $\max(r_{Tyy},r_{Tyr})$ & Verdict\\ \midrule
+real\_a & 0.401154 & $q{=}1$ & 0.03052 & 0.01808 & 0.03052 & REAL-like\\
+real\_b & 1.142287 & $q{=}0$ & 0.04982 & 0.03534 & 0.04982 & REAL-like\\
+real\_c & 1.598985 & $q{=}1$ & 0.04855 & 0.02166 & 0.04855 & REAL-like\\
+real\_d & 2.521489 & $q{=}1$ & 0.6858 & 0.3205 & 0.6858 & REAL-like\\
+art\_a & 0.542105 & $q{=}0$ & 6.907 & 4.801 & 6.907 & ARTIFACT-like\\
+art\_b & 1.021144 & $q{=}1$ & 6.058 & 8.287 & 8.287 & ARTIFACT-like\\
+art\_c & 1.454616 & $q{=}0$ & 7.035 & 3.288 & 7.035 & ARTIFACT-like\\
+art\_d & 1.603259 & $q{=}0$ & 5.199 & 0.917 & 5.199 & ARTIFACT-like\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]\centering\small
+\caption{FF-P1 flexural spurious zeros ($n_{\mathrm{dofs}}=20$),
+the listing referred to from main-text \S6.3. Depth is
+$\log_{10}\sigma_{\min}$ at the same basis. Physical modes at this
+basis have $r_M$ spanning $0.0025$--$0.037$ and depths $-2.81$ to
+$-4.78$ (main-text Table 6). The last row, raw $\Omega=2.817613$, is
+main-text Fig.~2(e).}
+\label{tab:oop-spurious-sm}
+\begin{tabular}{cccccc}
+\toprule Raw $\Omega$ & Parity & $r_V$ & $r_M$ & depth & Verdict\\ \midrule
+0.320670 & EVEN & 53.4 & 74.9 & $-3.69$ & ARTIFACT-like\\
+0.844488 & ODD & 75.2 & 76.0 & $-4.25$ & ARTIFACT-like\\
+1.001419 & EVEN & 454 & 290 & $-5.29$ & ARTIFACT-like\\
+1.602090 & EVEN & 95.6 & 75.5 & $-4.71$ & ARTIFACT-like\\
+2.121685 & ODD & 620 & 348 & $-4.13$ & ARTIFACT-like\\
+2.817613 & EVEN & 180.6 & 75.52 & $-4.82$ & ARTIFACT-like\\
+\bottomrule
+\end{tabular}
+\end{table}
+\FloatBarrier
+
+\subsection{Extensional close-pair resolutions}\label{sec:closepairs}
+Two extensional benchmark pairs are close enough in frequency that a
+single root is asked to cover both FE or literature targets, for
+opposite reasons. Main-text \S6.3 and \S6.9 state only the outcome; both
+are resolved here in full.
+
+\paragraph{The 1114.9/1115.3~Hz pair (main-text \S6.3, Table 7).}
+Isolated golden-section refinement at the two predicted pair members, in
+brackets that cannot reach each other, finds two shift-stable deep
+minima: $\Omega^{*}=2.772422$ ($1115.18$~Hz, depth $-4.43$) and
+$\Omega^{*}=2.773399$ ($1115.58$~Hz, depth $-4.82$), each $0.015\%$ from
+one FE member. The production detector still returns a single
+singularity ($2.772007$ at $n{=}28$; $2.772924$ at $n{=}36$, between the
+two isolates). MAC against the two isolates assigns both REAL-like to
+the same FE mode (FE\#29, MAC $0.9898$ and $0.9901$); the production
+root $\Omega=2.771955$ is that same shape (MAC $0.9896$). One shape, two
+frequencies; the main-text table is unchanged.
+
+\paragraph{Qin's 4.4293/4.4754 pair (main-text \S6.9, Table 10).}
+This is not Table 7's FE-matched pair (rows 4--5, $\Omega=1.142287$ and
+$1.145158$, $0.25\%$ apart at the nominal wavenumber window). Those two
+roots are the comparison against FE in main-text \S6.3; they are not an
+assignment of Qin's published values, and no claim is made about which
+spacing is correct. The $n_{\mathrm{dofs}}=12$ search lists a single
+nearby root (1.147615) against both published Qin targets. Repeating
+that targeted search at requested $n{=}20$ and $n{=}28$ --- an enlarged
+$x_{\max}$ search that realizes 18 degrees of freedom whichever of the
+two is requested --- still returns one singularity
+($\Omega=1.14274$, $\Omega_{\mathrm{Qin}}=4.4529$), $0.53\%$ and
+$0.50\%$ from the two Qin targets. A second isolated dip sits $0.42\%$ away
+at $\Omega=1.14758$ ($\Omega_{\mathrm{Qin}}=4.4717$, depth $-5.18$ at
+$n{=}20$ and $-6.07$ at $n{=}28$, shift $0.0001\%$); the Qin-targeted
+search still returns only the $1.14274$ root, so Qin's pair remains
+unseparated. Isolation brackets of $\pm0.15\%$ cannot reach the
+neighboring root; this is not a table split, the published row stays
+the $n{=}12$ shared listing. MAC on the two isolates assigns both
+REAL-like to distinct FE modes of opposite parity: $\Omega=1.14274$
+ANTI, MAC $0.9996$ at FE\#7 (Table 7's $459.5$~Hz partner; the isolate
+itself converts to $459.7$~Hz); $\Omega=1.14758$ SYMM, MAC
+$0.9871$ at FE\#8 (Table 7's $460.6$~Hz partner; the isolate itself
+converts to $461.6$~Hz). Here the outcome runs the other way:
+MAC finds two distinct shapes, but the Qin-targeted search still
+returns only the one root.
+
+The two pairs illustrate the same limit from opposite sides: one
+production root can legitimately stand for two nearby targets when
+their mode shapes coincide (the 1114.9/1115.3~Hz pair), or, when they do
+not (Qin's pair), a targeted search still cannot assign a distinct
+production root to each published Qin value even though MAC shows the
+two isolates are physically distinct shapes.
+
+\subsection{Shi et al.\ out-of-plane refinement detail}\label{sec:shi2014-detail}
+Main-text \S6.10 states only the final refined roots
+(Table 11); two of Shi et al.'s six targets needed
+more than the basic window-scan-plus-golden-section pipeline, detailed
+here. The acceptance criteria applied throughout both cases are
+$\log_{10}\sigma_{\min}\le-3.5$, error below 2\%, and both bracket-shift
+replicas within $0.1\%$ of the converged root.
+
+\paragraph{53.649: a genuine near-degenerate pair.} The initial
+$\pm2.5\%$-bracket golden-section refinement failed its bracket-shift
+acceptance test (the refined position moved $0.59\%$ when the bracket
+was nudged), a symptom main-text \S5's instruments treat as lock-on instead of a located root. An unconstrained dense scan of the neighborhood
+isolated two genuine, stable roots $0.59\%$ apart: $\Omega^{*}=1.957111$
+($\Omega_{\mathrm{lit}}=53.6553$, err $0.012\%$, depth $-5.848$) at the
+published frequency, and $\Omega^{*}=1.945645$ ($\Omega_{\mathrm{lit}}=53.341$,
+err $0.574\%$, depth $-3.861$), the wide bracket's lock-on target. Each
+root is stable to $0.0004\%$ or better inside an isolated $\pm0.4\%$
+bracket that cannot reach the other, confirming the original $0.59\%$
+walk was the separation of two roots, not an unlocated singularity. The
+published value is reported in Table 11 against the
+deeper, closer member; the second root stands on its own as a genuine singularity, left unforced to the published value.
+
+\paragraph{38.428: a basis-depth near-miss, not a null result.} At the
+production screening basis $n{=}20$, a dip sits exactly on the
+predicted frequency, 1.9 decades below the local background (deepest
+point $\log_{10}\sigma_{\min}=-3.297$ at raw $\Omega=1.40170$), but
+falls short of the $-3.5$ acceptance depth. A 33-point scan of the
+tight $\pm5\%$ window confirmed this is a genuine depth shortfall, not
+a scan-resolution miss (the unrelated feature 12.5\% away that won the
+original wide window's arg-max lies outside this tighter window).
+Repeating at $n{=}28$/$36$ clears the acceptance bar ($-3.823$,
+$-4.312$); golden-section refinement then gives a shift-stable root at
+$\Omega_{\mathrm{lit}}=38.4295$ (err $0.004\%$, depth $-4.706$ at
+$n{=}28$; $n{=}36$ agrees to $38.4289$, depth $-5.166$), reported in the
+table as a refined root.
+
+\subsection{Raw-to-physical conversion constants}\label{sec:conversion-sm}
+The isotropic free-free benchmark underlying main-text Tables 6 and 7
+(both the SHELL281 flexural and the PLANE183 extensional FE models) is a
+single physical plate: inner radius $R_i=4$~m, outer radius $R_o=8$~m
+(so $R_i/R_o=0.5$ and $r_0/2b=1.5$), thickness $H=0.08$~m, sector angle
+$2\Theta=\pi/2$ (half-angle $\Theta=\pi/4$, the quarter-annulus of
+main-text \S6.2--\S6.3), steel material $E=210$~GPa, $\nu=0.30$,
+$\rho=7800$~kg/m$^3$. The governing slenderness is thickness over the
+smallest in-plane dimension, the radial width $2b=4$~m, giving $H/2b=0.02$
+($H/R_o=0.01$) --- well inside the range where the classical thin-plate
+model applies, though see main-text \S6.3 on the residual theory difference
+against a shear-deformable finite-element benchmark. With $b=(R_o-R_i)/2=2$~m, $c_{66}=G=E/2(1+\nu)$ and
+$\bar c_{11}=E/(1-\nu^2)$, the two nondimensionalizing constants
+entering main-text \S3.1's $\bar\Omega=\omega/\bar\omega$
+(Ref.~\cite{seok1} Eqs.~(26)--(28); Ref.~\cite{seok2} Eqs.~(23)--(25))
+are
+\[
+\bar\omega=\frac{\pi}{2b}\sqrt{\frac{c_{66}}{\rho}}=2527.351\ \mathrm{rad/s},
+\qquad
+\bar k=\frac{2b}{\pi}\sqrt{\frac{3c_{66}}{h^{2}\bar c_{11}}}=32.617,
+\qquad h=\frac{H}{2}.
+\]
+The raw solver output converts to physical Hertz directly for the
+in-plane (extensional) tables, $f=\bar\Omega\bar\omega/2\pi$, verified
+against the FEM entries in main-text Table 7, confirming the in-plane
+raw column already \emph{is} $\bar\Omega=\omega/\bar\omega$ with no
+further conversion needed. The out-of-plane raw column is \emph{not}
+$\bar\Omega$: $\bar\Omega$ enters the flexural dimensionless equation
+only through the product $\bar k\bar\Omega$, which is what
+Ref.~\cite{seok1}'s Table~2 and main-text Table 6 both report.
+Recovering physical frequency from the flexural raw column therefore
+carries one extra division by $\bar k$,
+\[
+f_{\mathrm{OOP}}=\frac{(\bar k\bar\Omega)\,\bar\omega}{2\pi\,\bar k},
+\]
+and this is what populates Table 6's $f$(Hz) column, giving both
+flexural and extensional tables a shared physical-frequency metric even
+though their raw columns are different quantities. Omitting the $\bar k$
+here would inflate every flexural frequency by a factor of $32.617$ for
+this plate and would place the first flexural mode above the first
+extensional one, which is not physical for a plate of these proportions.
+The isotropic out-of-plane table (main-text Table 6) is, in its
+principal frequency column, reported in the classical literature
+convention
+$\Omega_{\mathrm{lit}}=\omega R_o^2\sqrt{\rho H/D}$
+($D=EH^3/12(1-\nu^2)$, the convention Shi, Liang, Wang and Teng and the
+original Seok--Tiersten tables both use), which is linear in the raw
+column $\bar k\bar\Omega$ through the same factor $\bar k$:
+\[
+\Omega_{\mathrm{lit}} \;=\; (\bar k\bar\Omega)\,\frac{\bar\omega}{\bar k}\,R_o^2\sqrt{\frac{\rho H}{D}}
+\;=\; \omega\,R_o^2\sqrt{\frac{\rho H}{D}}.
+\]
+Table 5 uses the same $\Omega_{\mathrm{lit}}$ symbol under the
+orthotropic constants of main-text \S3.4, not this isotropic $\bar k$
+conversion.
+The conversion is cross-checked numerically against all 8 rows of
+main-text Table 6 (e.g.\ raw $0.383695\to\Omega_{\mathrm{lit}}=15.148$,
+raw $0.961312\to37.951$, raw $2.602500\to102.743$, each matching the
+tabulated solver value to the last printed digit). The extra factor of
+$\bar k$ for the out-of-plane case (absent from the in-plane conversion)
+reflects that $\bar\omega$ alone nondimensionalizes the extensional
+(second-order, wave-speed-scaled) problem, while the flexural
+(fourth-order, thickness-scaled) problem's frequency parameter
+additionally carries the thickness-dependent wavenumber scale $\bar k$;
+both constants derive from the same base quantities $b,c_{66},\rho$
+(and, for $\bar k$, $h,\bar c_{11}$), so no new physical input is
+required beyond the geometry and material stated above.
+
+\subsection{SUBDOM: numerical procedure and gate detail}\label{sec:subdom-detail}
+This section gives the computational detail behind main-text \S6.7 at a
+level a reimplementation could follow; the main text states only the
+construction and the results.
+
+\paragraph{Factorization and whitening.} For a fixed $\Omega$, the
+in-plane free-free block assembly is $\mathbf{K}=\mathbf{D}^{\mathsf T}\mathbf{T}$
+(bold denotes the matrices of this construction, distinguishing
+$\mathbf{D},\mathbf{T},\mathbf{M},\mathbf{R}$ from the scalars $D$, $T$,
+$M_{r\theta}$ and $R^{*}$ used elsewhere), verified
+entrywise against the deployed \texttt{\_build\_K\_real} assembly on the
+same basis (gate G1, bar $10^{-30}$, measured $1.21\times10^{-41}$ to
+$8.80\times10^{-41}$ across all geometries reported). $\mathbf{D}$ is
+QR-decomposed, $\mathbf{D}=\mathbf{Q}\mathbf{R}$; the pencil is whitened by
+forming $\mathbf{M}=\mathbf{T}\mathbf{R}^{-1}$; the
+singular value decomposition of $\mathbf{M}$ gives generalized singular values
+$\sigma_1\le\sigma_2\le\cdots\le\sigma_n$, of which $\sigma_1=\eta(\Omega)$
+and the associated right singular vector, mapped back through $\mathbf{R}^{-1}$,
+is the traction-minimizing coefficient vector.
+
+\paragraph{Degeneracy pooling and interior projection.} With $\gamma=4$
+(adopted from the labelled-set window $\gamma=1.5$--$8$ measured before any
+blind run; $\gamma=3.0$ was the original pre-registered value),
+$k=\#\{i:\sigma_i\le G\sigma_1\}$ selects the
+near-degenerate cluster of lowest-traction directions. Each of the $k$
+associated coefficient vectors, together with the null vector
+$c_{\mathrm{null}}$ of the accepted zero, is mapped to an interior
+displacement field via \texttt{field\_of()}/
+\texttt{adv.build\_grid\_from\_cfull} rather than the edge trace (an
+edge-trace version is defeated by the mode-2 bleed-through artifact,
+main-text \S6.7). The $k$ interior fields are Gram--Schmidt
+orthonormalized under the same identity-weighted inner product used for
+the main-text \S6.6 MAC, on the interior $r\times\theta$ grid those
+helpers produce; SUBDOM is the cumulative squared projection of the
+normalized $c_{\mathrm{null}}$ interior field onto that orthonormal span.
+
+\paragraph{Gates, restated with bars.} G1: entrywise
+$\mathbf{K}=\mathbf{D}^{\mathsf T}\mathbf{T}$, bar $10^{-30}$. G2: reproduces the published FF-P1 extensional residual
+ratios, bar $10^{-4}$; applicable only at the primary geometry and
+production basis ($n_{\mathrm{dofs}}=20$, $x_{\max}=20$), reported
+not-applicable elsewhere by design. G3: the algebraic identity
+$\eta(\Omega)\le\eta(c_{\mathrm{null}})$, which must hold exactly since
+$c_{\mathrm{null}}$ is one feasible point of the minimization defining
+$\eta$. G4: cross-checks the edge-trace decomposition SUB1 (not SUBDOM
+itself) against an explicit MAC computation, bar $10^{-9}$; SUB1 and
+SUBDOM are expected to disagree in general, since one is evaluated on the
+edge trace and the other on the interior field. G5: confirms the
+candidate's $\Omega$ is a genuine local minimum of $\sigma_{\min}$
+under this basis, rejecting candidates that moved under the current
+search (reported \texttt{C\_MOVED}, not a failure of the criterion). G6:
+negative-control siting (known non-root points must fail G5 and must
+also read SUBDOM below threshold); not applicable in blind-mode runs,
+where no candidate is pre-labelled.
+
+\paragraph{Calibration set.} The threshold, SUBDOM~$>0.70$, was set at
+$n_{\mathrm{dofs}}=20$ as the midpoint of the window spanned by 52
+labelled points across four
+(geometry, $\nu$) combinations: the primary geometry, the two further
+$\nu=0.30$ geometries of main-text \S6.5, and the $\nu=0.35$ geometry of
+main-text \S6.4. The 52 points
+include the two historical near-degenerate ``killer'' modes (one of
+which, at an enlarged basis $n_{\mathrm{dofs}}=28$/$x_{\max}=60$, is the
+sole exception recorded against this criterion to date, characterized and
+not hidden) and 13 non-root negative controls (points where $K(\Omega)$
+has no accepted zero at all). All 52 classify correctly at that
+cut. It was then frozen: $0.70$ was fixed before any of the cluster runs
+in main-text \S6.7 were submitted --- the four-geometry curated
+confirmation and the 122-candidate blind set alike --- and was not
+retuned afterward. ``Pre-registered'' below refers to that freeze, not to
+a value chosen before the calibration itself. $\gamma=4$ was adopted after a second-geometry blind set showed
+$\gamma=2$--$6$ inert and after the sole $\gamma=3.0$ knife-edge (FE mode 23,
+$\gamma=3.01$) had been identified; it is a value inside the labelled-set
+window. A re-score of the stored blind
+checkpoints at $\gamma=4$ is $45/49$ and $25/28$ with zero duplicates
+accepted (at $\gamma=3.0$, $44/49$ and $25/28$).
+
+\paragraph{Block selection at near-degenerate pairs.} Where two solver
+structures sit within $\lesssim10^{-3}$ in $\Omega$ (as at
+$r_0/2b=2.0$, $2\Theta/\pi=1.0$'s FE mode 35, main-text \S6.7), the
+production pipeline's \texttt{RULE\_LOCALMIN\_RESID} rule selects which
+parity block to reconstruct by which is locally more singular ---
+inherited from main-text \S6.6's own pipeline, not independently
+re-derived for SUBDOM. This is the same style of automatic
+sigma-based selection whose unmodified reuse, in the standalone
+diagnostic probe built to cross-check the FE mode 35 pairing, silently
+reconstructed the same block for both candidates on its first attempt (an
+exact $\mathrm{MAC}=0.0000$/$0.0000$ result for both, later traced to the
+bug and not reported as a finding). The fix there --- an explicit
+\texttt{force\_block} parameter with an in-run fidelity gate proving
+$\texttt{force\_block=None}$ reproduces the original automatic selection
+bit-for-bit --- is specific to that standalone probe; the production
+pipeline's own \texttt{RULE\_LOCALMIN\_RESID} rule is unmodified. Forcing
+both blocks at the remaining disputed modes (main-text \S6.7) shows that
+this inherited rule, not the interior projection, is what misses FE
+modes 32 and 26 at $n_{\mathrm{dofs}}=20$, $x_{\max}=20$: the
+auto-picked block reads $\mathrm{MAC}=0.0000$,
+while the other block at the same $\Omega$ matches the frequency-nearest
+FE mode ($\mathrm{MAC}=0.8528$ and $0.9302$) and, at FE mode 32,
+SUBDOM~$=0.7136$ on that matching block, above the pre-registered cut
+(FE mode 26's matching block reads SUBDOM~$=0.8728$). FE mode 26
+recovers at an enlarged basis, below (main text \S6.7); FE mode 32
+does not. FE mode 50 had no
+owner above $0.744$ in FE modes $4$--$60$ under this first pass (best MAC
+$0.4963$) and neither block certified (SUBDOM~$=0.0894$/$0.4813$); an
+$\Omega$ scan and golden-section refinement subsequently located a
+second, previously uncatalogued structure at $\Omega=2.144291$
+(SUBDOM~$=0.9974$, $\mathrm{MAC}=0.9993$) that resolves this pairing
+(main text \S6.7). FE mode 30's
+auto-picked block is a pairing artifact; the other block reads
+SUBDOM~$=0.7942$ but MAC against FE\#30 and against the eleven existing
+r200/a50 eigenvectors is below $0.3$ --- max-over-blocks would accept
+it, and is not adopted.
+
+\paragraph{A fourth geometry's MAC cross-check.} The $\nu=0.35$
+geometry ($r_0/2b=1.5$, $2\Theta/\pi=1.0$) in the main-text SUBDOM
+calibration table had SUBDOM values only when that table was first
+populated: no ANSYS eigenvector extract existed for it at the time.
+An 80-mode PLANE183 extract (job 2433080, modes $4$--$60$ exported as
+mesh96 eigenvectors) has since made the same SUBDOM-vs-MAC bake-off
+used at the other three geometries (main-text §6.6's
+calibration; jobs 2447412--2447414) available here too. Run in the
+diagnostic container against all 12 of this geometry's labelled
+points ($n_{\mathrm{dofs}}=20$, $x_{\max}=14$, matching the SUBDOM
+table), with $\mathrm{MAC\_XMAX}=14$ set explicitly before loading the
+reconstruction helper (the module-load-time default-binding pitfall
+documented above for \texttt{XMAX0}): all 6 REAL-labelled points read
+$\mathrm{MAC}>0.999$ on the SUBDOM-selected block; all 6
+ARTIFACT-labelled points reject on that block, three below
+$\mathrm{MAC}=0.3$ and three via $\mathrm{SUBDOM}\le0.70$ while their
+MAC sits in the $0.3$--$0.744$ ambiguous band. One ARTIFACT candidate
+($\Omega=0.424067$) shows the same non-selected-block bleed-through
+already documented for ffp1's \texttt{art\_d}: its other block
+independently reads $\mathrm{MAC}=0.7699$, $\mathrm{SUBDOM}=0.8343$,
+both above their respective bars --- confirmation, not a new finding,
+that max-over-blocks is not a safe alternative rule at this geometry
+either.
+
+\section{Cluster job-number provenance}\label{sec:provenance}
+The main text states every result in prose, with no job number in its own
+running text; this section is the audit trail for the handful of findings
+the main text also flags with a footnote marker but does not itself
+enumerate by job. Each entry below is keyed to the main-text location
+that cites this section.
+
+\begin{itemize}\itemsep2pt
+\item \textbf{\S4, split/anchor/adaptive enhancement.} Job 2409241
+recovered 24 of 26 tabulated modes, including the closest pair discussed
+in the main text; jobs 2410035/2410044 independently confirmed the two
+remaining misses as genuine, distinct roots. The required second-geometry
+blind pass (in-plane orthotropic), job 2410036, recovered only 1 of 8
+known targets; a follow-up that escalated the search basis, job 2428927,
+left the same mixed pattern, ruling out a basis-size explanation.
+\item \textbf{\S5, extensional residual portability.} Job 2421896
+confirmed the flexural screen unchanged at $\mathrm{dps}=25/40/60$ on the
+primary and two further geometries. Job 2421904 showed the extensional
+residual ratios still overlap at $r_0/2b=2.0$, the basis for the
+one-sided-only claim.
+\item \textbf{\S5, FF-P1 own-root separation.} Jobs 2409212/2409213
+evaluated the complete FF-P1 REAL-like/ARTIFACT-like set at each
+candidate's own converged root at $n=20$ and $n=28$.
+\item \textbf{\S6.3, the 1114.9/1115.3~Hz pair.} Job 2428351 isolated the
+two golden-section minima in brackets that cannot reach each other; job
+2434752 ran MAC against the two isolates.
+\item \textbf{\S6.3, candidate 2.828013's basis-sensitive self-parity.}
+Jobs 2408715, 2409032, 2409058.
+\item \textbf{\S6.4, geometry-sweep recapture.} Job 2416746 is the full,
+current-\texttt{SOLVER\_VERSION} recapture of all four sweep geometries
+behind Table~\ref{tab:geomsweep}; jobs 2428355--2428358 are the flexural
+residual-screen pass over its 24 out-of-plane keys.
+\item \textbf{\S6.5, FE mode 9 / FE\#10 neighbor.} Job 2428350 re-derived
+the fidelity of the FE\#10 neighbor (reproducing job 2410396's depth);
+job 2410396 is the source per-candidate adjudication data for FE\#23; job
+2421895 is the unconstrained scan that found no second minimum for
+FE\#23.
+\item \textbf{\S6.5, crossed-geometry table.} Jobs 2421898/2421899
+(solver capture), 2421900/2421901 (ANSYS extracts), 2422897 (merge),
+2422898 (adjudication).
+\item \textbf{\S6.6, MAC-bar calibration robustness.} Jobs 2431872,
+2431873 and 2432008 produced the three-geometry calibration table; job
+2432028 independently reproduced job 2432008 bit-for-bit against a
+transcribed gate table; job 2431917 re-evaluated the one off-root
+candidate at its own root instead of its catalogued seed.
+\item \textbf{\S6.6, C-class 80-mode extract.} Jobs 2445267--2445274
+rescored all eight $2\Theta/\pi=1.25$ and $1.50$ keys against an
+80-elastic-mode PLANE183 extract (modes $4$--$83$). Every key printed
+\texttt{C80-C\_SURVIVES}: 0 tight MAC-REAL at threshold $0.744$
+(reconstructed $82$--$115$/$82$--$115$ per key). The tabulated 24-key
+sweep remains the 57-mode Rank~14 extract; this pass only tests whether
+a deeper list creates a REAL side.
+\item \textbf{\S6.7, SUBDOM cluster confirmation.} Job 2445746 scored the
+curated candidate lists at the three non-primary geometries (all
+A\_CONFIRMS, zero \texttt{B\_OVERLAP}); job 2444987 is the primary
+geometry's own curated run (15/15, A\_CONFIRMS) and the source of the two
+\texttt{PROBE} points that prospectively predicted the pairing-defect
+resolution below. Jobs 2445957/2445958 are the full blind-adjudication-set
+test, split across independent SLURM array tasks (8-way at
+$r_0/2b=2.0$, $2\Theta/\pi=1.0$, 75 candidates; 5-way at
+$r_0/2b=2.0$, $2\Theta/\pi=0.5$, 47 candidates; 122 total, the
+count cited in main-text \S6.7) and combined by a dedicated merge
+script that recomputes each row's verdict from its own stored gate
+record. The ANSYS extraction of FE
+mode 35's eigenvector at 682.741~Hz (mesh64/mesh96, cross-converged MAC
+$0.9991$) is unnumbered in this log (a cluster ANSYS job, not a solver
+probe). Job 2446007 is the first MAC cross-check attempt, later found to
+have a block-selection bug (both candidates silently reconstructed the
+same parity block); job 2446128 is the corrected re-run, with an in-run
+fidelity gate proving the fix reproduces the original unforced behavior
+bit-for-bit, giving the cited $\mathrm{MAC}=0.9944$/$0.0000$ result.
+Job 2446328 forced both blocks at the three Rank-8 leftovers (FE modes
+32/50/53) against existing fullblock eigenvectors: FE 53 is a pairing
+artifact (both MAC below $0.3$); FE 32's other block matches at
+$0.8528$; FE 50 is ambiguous (best nearby MAC $0.4963$, job 2446900).
+A later $\Omega$ scan resolved FE 53 as a third pairing defect with a
+replacement root: job 2448570 found a SUBDOM-real local $\sigma_{\min}$
+minimum on the matching parity block at $\Omega=2.265637$; job 2448862
+scored $\mathrm{MAC}=0.9971$ against FE~53 there; job 2448978 found the
+standard unconstrained golden-section primitive unsafe on this window
+(a non-matching-block structure dominates nearby); job 2449358 therefore
+ran a block-constrained golden section on the matching block's own
+$\sigma_{\min}$, converging to $\Omega^{*}=2.265896$; job 2449466
+re-scored $\mathrm{MAC}=0.9978$ against FE~53 at that polished point
+and $\mathrm{MAC}=0.0000$ against the non-matching block.
+Job 2446899 scored SUBDOM on both blocks at FE 32's $\Omega$: the
+matching block reads $0.7136$. Job 2446521 is the r200/a50 FE mode 16
+MAC (both blocks below $0.3$, pairing artifact). Job 2446902 is FE
+modes 26/30 at that geometry (FE 26 other-block $\mathrm{MAC}=0.9302$;
+FE 30 both below $0.3$). Job 2446898 recomputed four labelled FF-P1
+points at $\mathrm{dps}=60$; SUBDOM agrees with the $\mathrm{dps}=40$
+table to the printed digits. Job 2446965 is a duplicate of 2446902.
+Jobs 2447415--2447418 recomputed the full labelled set at all four
+geometries at $\mathrm{dps}=60$ (unique checkpoints); SUBDOM matches
+the $\mathrm{dps}=40$ table to the printed digits. Job 2447410 found no
+FE owner for leftover F6/FE mode 50 in modes $4$--$60$ (best MAC
+$0.4963$); job 2447861 scored both blocks SUBDOM~$=0.0894$/$0.4813$.
+Job 2448321 scanned $\Omega$ across this window and found a second
+structure near $2.144515$; job 2448496 scored $\mathrm{MAC}=0.9974$
+against FE\#50 there; a golden-section refinement (matching
+\texttt{find\_modes\_sigmin}'s own Phase 2 primitive) polished it to
+$\Omega=2.144291$ (SUBDOM~$=0.9974$, $\mathrm{MAC}=0.9993$ on recheck),
+resolving the pairing.
+A stored-data-only search (jobs 2446899, 2446902, 2447411, 2447412,
+2445746; no new solves) found no block-pick rule, other than
+\texttt{RULE\_LOCALMIN\_RESID} itself or max-over-blocks, that
+reaches FE mode 32 or 26 without also certifying a known artifact
+(ffp1 candidate \texttt{art\_d}) REAL; both remained open misses at
+$n_{\mathrm{dofs}}=20$. Jobs 2448222/2448223 then tested basis
+enlargement: FE mode 32 stays a clean miss at $n_{\mathrm{dofs}}=24$,
+$x_{\max}=40$ and $28/60$ (its relocated well is an unrelated mode,
+$\mathrm{MAC}\approx0.06$); FE mode 26 shows a basis-fragile signal
+at $n_{\mathrm{dofs}}=24$ (\texttt{RELOCATED\_REAL},
+$\Omega=2.076435$) that does not reproduce at $28/60$ within a
+$\pm0.04$ window. Job 2448320 widened the $n_{\mathrm{dofs}}=28$,
+$x_{\max}=60$ window to $\pm0.10$ and found a deeper well at
+$\Omega=2.112435$ plus a second, shallower minimum nearby, leaving
+the shape (one valley or two) unresolved. Job 2448501 ran a finer
+$0.002$-step connecting scan across both and resolved it: a single
+continuous $\sigma_{\min}$ valley with its true minimum at
+$\Omega=2.110435$ (SUBDOM~$=0.9985$, $\mathrm{MAC}=0.8919$, a
+single clean qualifying local minimum). A golden-section refinement
+(\texttt{golden\_refine\_ip\_r200a50\_m26\_v1.py}, same primitive
+and bracket-construction convention as the FE-50 refinement above)
+polished this to $\Omega=2.110860724725\ldots$, gated against an
+already-validated same-basis catalogue root (r200/a50 $s_1$, drift
+$1.1\times10^{-3}$ against a $5\times10^{-3}$ bar) and against its
+own scan-grid estimate (shift $4.3\times10^{-4}$ against a $2\times
+10^{-3}$ bracket half-width). The MAC/SUBDOM recheck at this polished
+value first read $\mathrm{MAC}=0.4578$, a sharp, suspicious drop from
+the scan-grid's $0.8919$ over a $4\times10^{-4}$ shift in $\Omega$;
+tracing it found that the recheck script's load of
+\texttt{probe\_ip\_pairing\_defect\_r200a100\_v2.py} had not set the
+\texttt{MAC\_N\_DOFS}/\texttt{MAC\_XMAX} environment variables that
+module reads at import time to bind its own default basis, so the MAC
+reconstruction had silently fallen back to $n_{\mathrm{dofs}}=20$,
+$x_{\max}=20$ instead of the enlarged basis in use --- the same class
+of import-time default-binding pitfall documented earlier in this
+section for \texttt{XMAX0}. Setting those variables before the module
+load, and confirming the fix reproduces job 2448501's stored
+$\mathrm{MAC}=0.8919$ bit-for-bit at the identical scan-grid $\Omega$
+before trusting the polished-$\Omega$ number, gives the corrected
+recheck: SUBDOM~$=0.9991$, $\mathrm{MAC}=0.8906$, a single clean
+qualifying local minimum, both comfortably above their respective
+bars -- the cited FE mode 26 recovery (main text \S6.7).
+Job 2447411 scored FE 26/30 SUBDOM on both blocks (q1 $0.8728$ at FE 26;
+q0 $0.7942$ at FE 30). Jobs 2447412--2447414 are the labelled
+SUBDOM-vs-MAC bake-off (REAL/HELD all same-block; $t6$/$t8$/$s8$
+ARTIFACT-ambiguous). Jobs 2447419/2447420/2447863 are the KILL2
+$n=28$/$x_{\max}=60$ scan: catalogue $\Omega$ remains a local minimum
+at SUBDOM~$=0.1857$; the neighbouring genuine root $1.987180$ relocates
+to $1.981966$ (SUBDOM~$=0.9886$). A stored-checkpoint re-score at
+$\gamma=4$ is $45/49$ and $25/28$ with zero duplicates (jobs
+2445957/2445958 rows). Jobs 2447871--2447874 are the labelled set at
+$n_{\mathrm{dofs}}=24$, $x_{\max}=40$: local-minimum points still
+separate at all four geometries (the in-container r200/a100 window is
+reproduced); r200/a50's printed \texttt{B\_OVERLAP} is a non-root
+negative control sitting on a well that exists at this basis, not a
+labelled-root miss. Jobs 2447875--2447878 are the labelled set at
+$n_{\mathrm{dofs}}=28$, $x_{\max}=60$: KILL2 remains a local minimum at
+SUBDOM~$=0.1857$; the other three geometries confirm on the points that
+are still roots. Jobs 2447879--2447882 repeat $n=28$ at each geometry's
+own production $x_{\max}$ (KILL2 is REAL at $x_{\max}=20$; the miss is
+the $x_{\max}=60$ setting). Jobs 2447883/2447884 are the full blind
+adjudication set at $n=28$/$x_{\max}=60$, merged from the same array
+pattern as 2445957/2445958: $28/31$ and $14/15$ FE modes that still have
+a local-minimum claimant, zero duplicates accepted (many catalogue
+$\Omega$ are \texttt{C\_MOVED} and excluded). Job 2447885 extracted
+r200/a50 fullblock eigenvectors for modes $4$--$60$ (57 files, mesh96);
+job 2447886 found FE mode 30's non-picked block matches FE mode 28 at
+$\mathrm{MAC}=0.7709$, not FE mode 30. Job 2433080 is the 80-mode
+PLANE183 extract (modes $4$--$60$, mesh96) supplying the fourth
+geometry's own SUBDOM-vs-MAC bake-off, above; that bake-off itself ran
+in the diagnostic container, not as a separate SLURM job.
+\item \textbf{\S6.8, Wang orthotropic table.} Job 2408719 (targets 5--8),
+resuming targets 1--4 from job 2408466; an in-run fidelity gate on the
+isotropic reduction was confirmed before either search ran.
+\item \textbf{\S6.9, Qin table.} Job 2409260 is the original $n=12$
+search. Jobs 2421062/2421063 are the Qin-targeted $n=20$/$28$ re-search
+with an enlarged $x_{\max}$, each realizing 18 degrees of freedom.
+Job 2421905 isolated the second nearby dip
+at $\Omega_{\mathrm{Qin}}=4.4717$. Job 2434753 ran MAC on the two
+isolated dips against their respective FE targets.
+\item \textbf{\S6.10, Shi et al.\ out-of-plane table.} Job 2414020
+produced the four directly refined roots and set the acceptance criteria
+(depth $\le-3.5$, error below 2\%, bracket-shift replicas within 0.1\%)
+reused for the remaining two. Job 2421061 resolved the 53.649 entry's
+$0.59\%$ bracket-shift walk into two stable, genuine roots. Job 2411852
+confirmed the 38.428 entry's $n=20$ near-miss was not a scan-resolution
+artifact. Job 2421581 refined 38.428 at $n=28$/$36$ to a shift-stable
+root.
+\end{itemize}
+
+\FloatBarrier
+\begin{thebibliography}{9}\small
+\bibitem{seok1} J. Seok, H.F. Tiersten, ``Free vibrations of annular sector
+cantilever plates. Part 1: out-of-plane motion,'' J. Sound Vib. 271 (2004)
+757--772.
+\bibitem{seok2} J. Seok, H.F. Tiersten, ``Free vibrations of annular sector
+cantilever plates. Part 2: in-plane motion,'' J. Sound Vib. 271 (2004)
+773--787.
+\bibitem{allemang2003} R.J. Allemang, ``The modal assurance criterion --
+twenty years of use and abuse,'' Sound Vib. 37(8) (2003) 14--21.
+\end{thebibliography}
+\end{document}

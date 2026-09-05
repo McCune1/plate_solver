@@ -1,0 +1,326 @@
+! ===========================================================================
+!  ansys_ff_ortho_oop.inp  --  Mechanical APDL batch deck
+!  ORTHOTROPIC free-free (FFFF) flexural benchmark -- independent regen.
+!
+!  WHY (2026-07-19 investigation): PAPER1_FREEFREE_DRAFT.tex's abstract and
+!  Sec 6.2 claim the solver's orthotropic FFFF table (tab:shi) matches "the
+!  published orthotropic free-free tables of Shi, Liang and Wang" 8/8 to
+!  <=1.1%, against 8 targets recorded in LESSONS_LEARNED.md Sec 0 as "Ansys
+!  ortho-FFFF truth (phi=90, R_i/R_o=0.5): 12.40, 15.57, 36.13, 43.65,
+!  66.76, 87.46, 89.82, 95.35". Re-reading the ACTUAL cited paper
+!  (jve18517004.pdf, D. Shi/Q. Liang/Q. Wang/X. Teng, J. Vibroengineering
+!  18(5) 2016, 3138-3152) found these 8 numbers do NOT appear anywhere in
+!  it -- its own Table 2 FFFF row, same geometry (phi=90, R_i/R_o=0.5) and
+!  same orthotropic material, gives 0.0046-0.0479, two to three orders of
+!  magnitude off. This deck does NOT try to resolve that citation question
+!  by more paper archaeology -- it independently regenerates the
+!  orthotropic FFFF spectrum from a fresh FE model so the "Ansys ortho-FFFF
+!  truth" label can actually be checked against a live ANSYS run, not just
+!  trusted from a several-week-old note.
+!
+!  RESULT (job 2325521, first and so far only run): CONFIRMED. Mesh64
+!  (native ANSYS modal frequency printout, hand-converted) and mesh96
+!  (this deck's own ortho_ff_mesh96.txt) agree to <0.01% and both reproduce
+!  12.4037/15.5670/36.1317/43.6501-2/66.7565-6/87.4627-8/89.8192/95.3469 --
+!  matching the disputed target list almost exactly, and matching the
+!  solver's own solved values to 0.40-1.05% (reproducing the historically
+!  recorded 0.38-1.08% almost exactly). The 8 targets are genuine,
+!  mesh-converged FE results -- this was never a data or validity problem,
+!  only a citation-wording one (fixed separately in the paper text).
+!
+!  GEOMETRY: identical physical plate used throughout this project's FF-P1
+!  isotropic benchmark (R_i=4, R_o=8 m, PHI=90 deg sector, H=0.08 m full
+!  thickness) -- R_i/R_o=0.5 matches what both the paper and the disputed
+!  target list claim.
+!
+!  MATERIAL (orthotropic, Shi/Liang/Wang's stated properties, matching
+!  plate_solver.geometry.OrthotropicMaterial's constructor args E_r=40e9,
+!  E_theta=70e9, nu_r=0.30, G_rtheta=3.51e9, rho=7850):
+!    E_r     = 40 GPa   (radial Young's modulus, local element X after ESYS,11)
+!    E_theta = 70 GPa   (tangential Young's modulus, local element Y)
+!    G_rtheta= 3.51 GPa (in-plane shear -- drives the D66/torsional stiffness)
+!    nu_r    = 0.30     (= ANSYS PRXY when X=r, Y=theta: eps_theta=-PRXY*eps_r
+!                         under uniaxial sigma_r; ANSYS derives PRYX via its
+!                         own reciprocity, matching this project's own
+!                         nu_theta = nu_r*E_theta/E_r = 0.525 convention --
+!                         see geometry.py's OrthotropicMaterial.__init__)
+!    rho     = 7850 kg/m^3
+!  Shi's paper gives ONLY these four in-plane/shear constants -- no
+!  through-thickness (Z-direction) data. EZ/PRYZ/PRXZ/GYZ/GXZ below are
+!  placeholders (EZ=E_theta, PRYZ=PRXZ=nu_r, GYZ=GXZ=G_rtheta) that do NOT
+!  affect the result: SHELL281's shell-section stiffness is built from the
+!  plane-stress-reduced EX/EY/PRXY/GXY block (sigma_Z=0 is enforced by the
+!  shell formulation itself), and GYZ/GXZ only set the transverse-shear
+!  stiffness, which is negligible at this plate's H/R_o=0.01 thinness
+!  regardless of its exact value (same uniform-G simplification the
+!  existing validated ansys_ff_oop_ext.inp/ansys_ff_isoval.inp isotropic
+!  decks already use for all three shear planes).
+!
+!  OMEGA_LIT CONVENTION: matches plate_solver.geometry._omega_lit exactly --
+!  Omega_lit = omega * R_o^2 * sqrt(rho*H/D), D = c11_bar*H^3/12, c11_bar =
+!  E_r/(1 - nu_r*nu_theta) (the orthotropic generalization of E/(1-nu^2);
+!  reduces to it when E_r=E_theta). Computed inline below as C11BAR/DD/KLIT.
+!
+!  MODE-FAMILY IDENTIFICATION: a fully free SHELL281 model interleaves
+!  rigid-body, out-of-plane (flexural), and in-plane (extensional) modes in
+!  one spectrum, same as every other FFFF deck in this project. Rather than
+!  needing a companion PLANE183 run to discard IP modes by frequency
+!  matching (as ansys_ff_oop_ext.inp does for the isotropic case), THIS deck
+!  computes an OOP-dominance energy fraction for every extracted mode --
+!  UzFrac = SUM(UZ^2) / SUM(UX^2+UY^2+UZ^2) -- the same *VOPER(MULT) +
+!  *VSCFUN(SUM) idiom already proven working in ansys_ff_isoval_tagged.inp
+!  (job 2313082) and ansys_ff_oop_mac_extract.inp (job 2323990's fix).
+!  UzFrac near 1.0 = OOP-flexural mode (what we want); near 0 = in-plane
+!  mode; intermediate = near-degenerate mixing (flag for manual review).
+!  For this flat (uncurved) sector plate, bending and membrane motion are
+!  exactly decoupled classically, so genuine OOP modes read UzFrac=1.0000
+!  and genuine IP modes read 0.0000 exactly, not just approximately --
+!  confirmed by job 2325521 (no intermediate values anywhere in the
+!  spectrum). Rigid-body modes read Omega_lit~0 and are not otherwise
+!  filtered here -- just skip them by eye when reading the output table.
+!
+!  NMODES=100 (higher than the isotropic decks' NMODES=60): orthotropic
+!  in-plane stiffness here (Er=40/Etheta=70 GPa) is much softer than the
+!  isotropic FF-P1 material (E=210 GPa), so more IP modes were expected to
+!  interleave below the same Omega_lit~100 ceiling -- generous margin so
+!  the 8th OOP target (~95.35) is not cut off by running out of modes.
+!  (Job 2325521 found NO in-plane modes at all within Omega_lit<=1402 for
+!  this material/geometry -- the margin turned out not to be needed, but
+!  is harmless to keep.)
+!
+!  OUTPUT-WRITE FIX (2026-07-19, after job 2325521): the first version of
+!  this deck called *VWRITE with three indexed array arguments
+!  (FRA(I),OMA(I),UZFA(I)) INSIDE the *DO loop, once per mode -- APDL's
+!  *VWRITE auto-loops over the full remaining length of ANY array argument
+!  it is given, so each iteration re-printed every remaining mode from I to
+!  NMODES, producing a 5051-line file (triangular-number cascade,
+!  100+99+...+1+header) with duplicated, mislabeled mode numbers instead of
+!  a clean ~101-line table. The underlying frequency/Omega_lit/UzFrac
+!  VALUES were still correct throughout (cross-checked against ANSYS's own
+!  native modal frequency printout, exact match) -- this was a cosmetic
+!  output-formatting bug, not a physics or data-integrity one. Fixed here
+!  by filling the arrays inside the *DO loop as before, then calling
+!  *VWRITE exactly ONCE per pass, AFTER the loop, over the full arrays
+!  starting at index 1 -- the same "single *VWRITE call over a full array"
+!  idiom already used correctly (and multi-row) in
+!  ansys_ff_oop_mac_extract.inp's nodal eigenvector dump.
+!
+!  Run headless:  mapdl -b -smp -np 8 -i ansys_ff_ortho_oop.inp -o ansys_ff_ortho_oop_out.txt
+!  Outputs: ortho_ff_mesh64.txt, ortho_ff_mesh96.txt (mode, f[Hz], Omega_lit,
+!  UzFrac per mode) -- READ THE UzFrac COLUMN before trusting any row as OOP.
+! ===========================================================================
+
+FINISH
+/CLEAR,NOSTART
+/TITLE, Orthotropic free-free flexural benchmark -- Pass 1: mesh 64
+
+R_i     = 4.0
+R_o     = 8.0
+PHI     = 90.0
+H       = 0.08
+E_r     = 40.0e9
+E_theta = 70.0e9
+NU_r    = 0.30
+G_rth   = 3.51e9
+RHO     = 7850.0
+NDIV    = 64
+NMODES  = 100
+PI      = 3.14159265358979
+
+/PREP7
+LOCAL, 11, 1, 0,0,0
+CSYS, 11
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_r     $ MP, EY,1,E_theta  $ MP, EZ,1,E_theta
+MP, PRXY,1,NU_r  $ MP, PRYZ,1,NU_r   $ MP, PRXZ,1,NU_r
+MP, GXY,1,G_rth  $ MP, GYZ,1,G_rth   $ MP, GXZ,1,G_rth
+MP, DENS,1,RHO
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI
+ESYS, 11
+TYPE,1 $ SECNUM,1 $ MAT,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI
+LESIZE, ALL, , , NDIV
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o
+LESIZE, ALL, , , NDIV
+ALLSEL, ALL
+CSYS, 0
+MSHKEY, 1 $ AMESH, ALL
+! completely free (FFFF): no constraints
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+NU_theta = NU_r*E_theta/E_r
+C11BAR   = E_r/(1 - NU_r*NU_theta)
+DD       = C11BAR*H**3/12
+KLIT     = R_o**2*SQRT(RHO*H/DD)
+/COM, MESH64: NU_theta=%NU_theta%  C11BAR=%C11BAR%  DD=%DD%  KLIT=%KLIT%
+
+CSYS, 11
+ALLSEL, ALL
+*GET, NMX, NODE, 0, NUM, MAX
+
+*DIM, MIDX, ARRAY, NMODES
+*VFILL, MIDX, RAMP, 1, 1
+*DIM, FRA, ARRAY, NMODES
+*DIM, OMA, ARRAY, NMODES
+*DIM, UZFA, ARRAY, NMODES
+*DIM, UXT, ARRAY, NMX
+*DIM, UYT, ARRAY, NMX
+*DIM, UZT, ARRAY, NMX
+*DIM, UX2T, ARRAY, NMX
+*DIM, UY2T, ARRAY, NMX
+*DIM, UZ2T, ARRAY, NMX
+
+*DO, I, 1, NMODES
+  *GET, FRA(I), MODE, I, FREQ
+  OMA(I) = 2*PI*FRA(I)*KLIT
+  SET, 1, I
+  *VGET, UXT(1), NODE, 1, U, X
+  *VGET, UYT(1), NODE, 1, U, Y
+  *VGET, UZT(1), NODE, 1, U, Z
+  *VOPER, UX2T(1), UXT(1), MULT, UXT(1)
+  *VOPER, UY2T(1), UYT(1), MULT, UYT(1)
+  *VOPER, UZ2T(1), UZT(1), MULT, UZT(1)
+  *VSCFUN, SX2, SUM, UX2T(1)
+  *VSCFUN, SY2, SUM, UY2T(1)
+  *VSCFUN, SZ2, SUM, UZ2T(1)
+  UZFA(I) = SZ2/(SX2+SY2+SZ2+1.0E-30)
+*ENDDO
+
+! Single *VWRITE call over the FULL arrays (starting at index 1), OUTSIDE
+! any *DO loop -- writes exactly NMODES rows, no cascading duplication.
+! Same idiom already proven correct (and multi-row) in
+! ansys_ff_oop_mac_extract.inp's nodal eigenvector dump.
+*CFOPEN, ortho_ff_mesh64, txt
+*VWRITE
+('mode      f[Hz]           Omega_lit       UzFrac   (SHELL281 64x64 orthotropic FFFF; UzFrac near 1.0 = OOP-flexural, near 0 = in-plane, skip Omega_lit~0 rigid modes)')
+*VWRITE, MIDX(1), FRA(1), OMA(1), UZFA(1)
+(F4.0, 3X, E14.6, 3X, F12.4, 3X, F8.4)
+*CFCLOS
+FINISH
+
+! ===========================================================================
+FINISH
+/CLEAR,NOSTART
+/TITLE, Orthotropic free-free flexural benchmark -- Pass 2: mesh 96 (convergence)
+
+R_i     = 4.0
+R_o     = 8.0
+PHI     = 90.0
+H       = 0.08
+E_r     = 40.0e9
+E_theta = 70.0e9
+NU_r    = 0.30
+G_rth   = 3.51e9
+RHO     = 7850.0
+NDIV    = 96
+NMODES  = 100
+PI      = 3.14159265358979
+
+/PREP7
+LOCAL, 11, 1, 0,0,0
+CSYS, 11
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_r     $ MP, EY,1,E_theta  $ MP, EZ,1,E_theta
+MP, PRXY,1,NU_r  $ MP, PRYZ,1,NU_r   $ MP, PRXZ,1,NU_r
+MP, GXY,1,G_rth  $ MP, GYZ,1,G_rth   $ MP, GXZ,1,G_rth
+MP, DENS,1,RHO
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI
+ESYS, 11
+TYPE,1 $ SECNUM,1 $ MAT,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI
+LESIZE, ALL, , , NDIV
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o
+LESIZE, ALL, , , NDIV
+ALLSEL, ALL
+CSYS, 0
+MSHKEY, 1 $ AMESH, ALL
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+NU_theta = NU_r*E_theta/E_r
+C11BAR   = E_r/(1 - NU_r*NU_theta)
+DD       = C11BAR*H**3/12
+KLIT     = R_o**2*SQRT(RHO*H/DD)
+/COM, MESH96: NU_theta=%NU_theta%  C11BAR=%C11BAR%  DD=%DD%  KLIT=%KLIT%
+
+CSYS, 11
+ALLSEL, ALL
+*GET, NMX, NODE, 0, NUM, MAX
+
+*DIM, MIDXB, ARRAY, NMODES
+*VFILL, MIDXB, RAMP, 1, 1
+*DIM, FRB, ARRAY, NMODES
+*DIM, OMB, ARRAY, NMODES
+*DIM, UZFB, ARRAY, NMODES
+*DIM, UXTB, ARRAY, NMX
+*DIM, UYTB, ARRAY, NMX
+*DIM, UZTB, ARRAY, NMX
+*DIM, UX2TB, ARRAY, NMX
+*DIM, UY2TB, ARRAY, NMX
+*DIM, UZ2TB, ARRAY, NMX
+
+*DO, I, 1, NMODES
+  *GET, FRB(I), MODE, I, FREQ
+  OMB(I) = 2*PI*FRB(I)*KLIT
+  SET, 1, I
+  *VGET, UXTB(1), NODE, 1, U, X
+  *VGET, UYTB(1), NODE, 1, U, Y
+  *VGET, UZTB(1), NODE, 1, U, Z
+  *VOPER, UX2TB(1), UXTB(1), MULT, UXTB(1)
+  *VOPER, UY2TB(1), UYTB(1), MULT, UYTB(1)
+  *VOPER, UZ2TB(1), UZTB(1), MULT, UZTB(1)
+  *VSCFUN, SX2B, SUM, UX2TB(1)
+  *VSCFUN, SY2B, SUM, UY2TB(1)
+  *VSCFUN, SZ2B, SUM, UZ2TB(1)
+  UZFB(I) = SZ2B/(SX2B+SY2B+SZ2B+1.0E-30)
+*ENDDO
+
+*CFOPEN, ortho_ff_mesh96, txt
+*VWRITE
+('mode      f[Hz]           Omega_lit       UzFrac   (SHELL281 96x96 orthotropic FFFF; convergence pass -- OOP-dominant modes must agree with mesh64 to <0.3% in Omega_lit before comparison)')
+*VWRITE, MIDXB(1), FRB(1), OMB(1), UZFB(1)
+(F4.0, 3X, E14.6, 3X, F12.4, 3X, F8.4)
+*CFCLOS
+FINISH
+! ---------------------------------------------------------------------------
+!  AFTER RUNNING (order matters):
+!   1. Read the /COM MESH64/MESH96 NU_theta/C11BAR/DD/KLIT lines first --
+!      sanity-check NU_theta=0.525, and cross-check KLIT against a hand
+!      calculation before trusting anything downstream.
+!   2. In each of ortho_ff_mesh64.txt / ortho_ff_mesh96.txt (now a clean
+!      NMODES+1 line file), filter to rows with UzFrac > ~0.9 (OOP-dominant)
+!      and Omega_lit not ~0 (skip rigid modes) -- this is the OOP flexural
+!      sequence.
+!   3. Convergence gate: the OOP-dominant Omega_lit sequence from mesh64
+!      must agree with mesh96 to <0.3% (this project's standard gate)
+!      before trusting either.
+!   4. Already confirmed (job 2325521, before this output-write fix -- the
+!      fix only changes file FORMATTING, not the physics): the converged
+!      OOP-dominant sequence reproduces 12.40/15.57/36.13/43.65/66.76/
+!      87.46/89.82/95.35 to <0.01% mesh64-vs-mesh96 agreement.
+! ===========================================================================

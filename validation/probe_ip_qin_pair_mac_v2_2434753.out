@@ -1,0 +1,79 @@
+dumps for ip_mac_ffp1_nu030: 57/57
+Job 2434753 on compute-33-02.mill
+PAIR=qin PREFIX=ip_mac_ffp1_nu030
+Start: Fri Aug 21 14:55:55 CDT 2026
+
+==============================================================================
+  probe_ip_ffp1_close_pair_mac_v2  PAIR=qin  Qin 4.4293/4.4754
+==============================================================================
+  v2: GATE_ART is residual+pick+CALL, not 8-target MAC vs full-block max
+  SOLVER_VERSION='2026-07-10.s10'  expect '2026-07-10.s10'
+  PREFIX=ip_mac_ffp1_nu030  R40_BC_KIND='free_free'
+  adv.THETA=0.785398  expect 0.785398
+  mac() identity |d|=0.00e+00
+  dumps 57/57  n_nodes=28033  /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ip_mac_ffp1_nu030_freqs.txt
+  live parity SYMM=28 ANTI=29 AMBIGUOUS=0
+
+==============================================================================
+  GATE_REAL  Omega=0.401154  expect pick q1 CALL REAL-like
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20  f=161.3603 Hz
+  block q0: rTyy=3.48852  rTyr=1.57244
+  block q1: rTyy=0.0305187  rTyr=0.0180822
+  RULE_LOCALMIN_RESID -> q1  [single LOCAL_MIN]
+  class SYMM  max-same=1.0000 at #4  verbatim=0.999989  CALL REAL-like
+  [184s]
+  residual q0: got 3.48852/1.57244  pub 3.48852/1.57244  rel 2.29e-08/3.75e-07
+  residual q1: got 0.0305187/0.0180822  pub 0.0305187/0.0180822  rel 1.58e-06/6.55e-07
+  GATE_REAL MAC vs 1.0000: 1.0000 |d|=1.09e-05
+
+==============================================================================
+  GATE_ART  Omega=1.454616  expect pick q0 CALL ARTIFACT-like
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20  f=585.1053 Hz
+  block q0: rTyy=7.03462  rTyr=3.28804
+  block q1: rTyy=1.94664  rTyr=1.06654
+  RULE_LOCALMIN_RESID -> q0  [single LOCAL_MIN]
+  class ANTI  max-same=0.6281 at #9  verbatim=0.628148  CALL ARTIFACT-like
+  [180s]
+  residual q0: got 7.03462/3.28804  pub 7.03462/3.28804  rel 1.84e-08/1.05e-06
+  residual q1: got 1.94664/1.06654  pub 1.94664/1.06654  rel 1.68e-06/1.37e-06
+  GATE_ART full-block max-same=0.6281 at #9  (informational; 2434286 was 0.6281; NOT gated against 0.0067)
+
+==============================================================================
+  PROD  Omega=1.14274  production n=20/28, Qin 4.4529
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20  f=459.6562 Hz
+  block q0: rTyy=0.189778  rTyr=0.0915129
+  block q1: rTyy=0.620287  rTyr=0.302728
+  RULE_LOCALMIN_RESID -> q0  [single LOCAL_MIN]
+  class ANTI  max-same=0.9996 at #7  verbatim=0.999650  CALL REAL-like
+  [182s]
+
+==============================================================================
+  ISO_B  Omega=1.14758  isolated dip, Qin 4.4717
+==============================================================================
+  fill state=CAP_REACHED cnt=18/20  f=461.6030 Hz
+  block q0: rTyy=1.7034  rTyr=0.82721
+  block q1: rTyy=0.451023  rTyr=0.209692
+  RULE_LOCALMIN_RESID -> q1  [FALLBACK argmin sigma]
+  class SYMM  max-same=0.9871 at #8  verbatim=0.987116  CALL REAL-like
+  [179s]
+
+==============================================================================
+  SUMMARY
+==============================================================================
+  FE pair Hz (paper): (459.5, 460.6)
+  PROD     Om=1.142740 f=459.656  q0  ANTI   MAC=0.9996 @7  REAL-like
+  ISO_B    Om=1.147580 f=461.603  q1  SYMM   MAC=0.9871 @8  REAL-like
+
+==============================================================================
+  READING (pre-registered -- honour the letter)
+==============================================================================
+
+READING: CP-A TWO_SHAPES
+  Both MAC-REAL, distinct best FE modes. Two shapes; production still one root. Footnote can say so.
+Diagnostic only -- no SOLVER_VERSION, no silent table rewrite.
+elapsed_s=733.4
+probe exit 0
+End: Fri Aug 21 15:08:09 CDT 2026

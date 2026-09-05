@@ -1,0 +1,221 @@
+r200-a100 FE eigenvector files present: mesh96 8/8
+Job 2431873 on compute-34-04.mill
+Start: Tue Aug 18 19:48:20 CDT 2026
+
+==============================================================================
+  probe_ip_block_selection_rule_v1 -- start 2026-08-18 19:48:20
+==============================================================================
+  MAC_GEOM=r200a100   r0/2b=2.0  2Theta/pi=1.0  nu=0.3
+  N_DOFS=20  XMAX0=20.0  DPS=40  deltas=[0.001, 0.002]
+  scoring bars: REAL >= 0.9, ARTIFACT <= 0.6  (from the combined portable window (0.5801, 0.9079) established by jobs 2431870/2431871 -- NOT tuned in this run)
+  gates: reconstruct vs job 2431871 (rel 0.0001 / abs 0.0005); lean sigma path vs verbatim path (abs 1e-09 in log10)
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+  loaded mesh96 FE targets: ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8']
+
+==============================================================================
+  t1_0p304284  (Omega=0.304284, label=REAL)
+==============================================================================
+  basis fill: state=CAP_REACHED  cnt=18/20
+  log10 sigma_min @ Omega: q0=-6.626421  q1=-2.716739  -> argmin sigma = q0
+  block q0: rTyy=12.7592  rTyr=4.52872  MAC=0.0000
+    gate vs job 2431871: PASSED (rel 3.47e-08/8.01e-07, abs MAC 5.18e-18)
+  block q1: rTyy=0.326304  rTyr=0.139187  MAC=0.9993
+    gate vs job 2431871: PASSED (rel 6.03e-07/4.03e-07, abs MAC 3.30e-06)
+  lean-path gate @ Omega: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00, cnt 18 vs 18)
+  sigma @ Omega-0.0020: q0=-3.326416  q1=-1.657928  (cnt=18)
+  sigma @ Omega-0.0010: q0=-3.629599  q1=-1.849156  (cnt=18)
+  sigma @ Omega+0.0010: q0=-3.632638  q1=-1.725971  (cnt=18)
+  sigma @ Omega+0.0020: q0=-3.333813  q1=-1.582918  (cnt=18)
+  LOCAL_MIN @ d=0.001: q0=True  q1=True
+  LOCAL_MIN @ d=0.002: q0=True  q1=True
+  RULE_SIGMA           -> q0  MAC=0.0000  WRONG
+  RULE_RESID           -> q1  MAC=0.9993  CORRECT
+  RULE_LOCALMIN_RESID d=0.001 -> q1  MAC=0.9993  CORRECT   [both LOCAL_MIN -> residual tie-break]
+  RULE_LOCALMIN_RESID d=0.002 -> q1  MAC=0.9993  CORRECT   [both LOCAL_MIN -> residual tie-break]
+  [208s]
+
+==============================================================================
+  t2_0p915784  (Omega=0.915784, label=REAL)
+==============================================================================
+  basis fill: state=CAP_REACHED  cnt=18/20
+  log10 sigma_min @ Omega: q0=-1.688344  q1=-5.682877  -> argmin sigma = q1
+  block q0: rTyy=3.29371  rTyr=1.53835  MAC=0.0000
+    gate vs job 2431871: PASSED (rel 7.73e-07/1.70e-06, abs MAC 2.62e-19)
+  block q1: rTyy=0.0123885  rTyr=0.0137037  MAC=0.9997
+    gate vs job 2431871: PASSED (rel 3.70e-06/4.30e-07, abs MAC 1.06e-05)
+  lean-path gate @ Omega: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00, cnt 18 vs 18)
+  sigma @ Omega-0.0020: q0=-1.679811  q1=-2.459471  (cnt=18)
+  sigma @ Omega-0.0010: q0=-1.684053  q1=-2.770670  (cnt=18)
+  sigma @ Omega+0.0010: q0=-1.692688  q1=-2.807485  (cnt=18)
+  sigma @ Omega+0.0020: q0=-1.697087  q1=-2.530782  (cnt=18)
+  LOCAL_MIN @ d=0.001: q0=False  q1=True
+  LOCAL_MIN @ d=0.002: q0=False  q1=True
+  RULE_SIGMA           -> q1  MAC=0.9997  CORRECT
+  RULE_RESID           -> q1  MAC=0.9997  CORRECT
+  RULE_LOCALMIN_RESID d=0.001 -> q1  MAC=0.9997  CORRECT   [single LOCAL_MIN]
+  RULE_LOCALMIN_RESID d=0.002 -> q1  MAC=0.9997  CORRECT   [single LOCAL_MIN]
+  [211s]
+
+==============================================================================
+  t3_1p420335  (Omega=1.420335, label=REAL)
+==============================================================================
+  basis fill: state=CAP_REACHED  cnt=18/20
+  log10 sigma_min @ Omega: q0=-1.650135  q1=-5.095712  -> argmin sigma = q1
+  block q0: rTyy=2.55399  rTyr=1.23516  MAC=0.0000
+    gate vs job 2431871: PASSED (rel 4.16e-07/2.82e-06, abs MAC 1.25e-17)
+  block q1: rTyy=0.021249  rTyr=0.0208124  MAC=0.9992
+    gate vs job 2431871: PASSED (rel 1.61e-06/1.57e-06, abs MAC 4.68e-05)
+  lean-path gate @ Omega: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00, cnt 18 vs 18)
+  sigma @ Omega-0.0020: q0=-1.649476  q1=-2.366206  (cnt=18)
+  sigma @ Omega-0.0010: q0=-1.649509  q1=-2.664104  (cnt=18)
+  sigma @ Omega+0.0010: q0=-1.651344  q1=-2.657504  (cnt=18)
+  sigma @ Omega+0.0020: q0=-1.653136  q1=-2.356085  (cnt=18)
+  LOCAL_MIN @ d=0.001: q0=False  q1=True
+  LOCAL_MIN @ d=0.002: q0=False  q1=True
+  RULE_SIGMA           -> q1  MAC=0.9992  CORRECT
+  RULE_RESID           -> q1  MAC=0.9992  CORRECT
+  RULE_LOCALMIN_RESID d=0.001 -> q1  MAC=0.9992  CORRECT   [single LOCAL_MIN]
+  RULE_LOCALMIN_RESID d=0.002 -> q1  MAC=0.9992  CORRECT   [single LOCAL_MIN]
+  [214s]
+
+==============================================================================
+  t4_2p286070  (Omega=2.28607, label=REAL)
+==============================================================================
+  basis fill: state=CAP_REACHED  cnt=18/20
+  log10 sigma_min @ Omega: q0=-4.508601  q1=-1.882273  -> argmin sigma = q0
+  block q0: rTyy=0.155679  rTyr=0.0564734  MAC=0.9869
+    gate vs job 2431871: PASSED (rel 2.18e-06/4.05e-07, abs MAC 2.81e-05)
+  block q1: rTyy=1.17725  rTyr=0.635763  MAC=0.0000
+    gate vs job 2431871: PASSED (rel 4.19e-06/5.91e-08, abs MAC 9.82e-20)
+  lean-path gate @ Omega: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00, cnt 18 vs 18)
+  sigma @ Omega-0.0020: q0=-2.514957  q1=-1.801731  (cnt=18)
+  sigma @ Omega-0.0010: q0=-1.822245  q1=-1.840503  (cnt=18)
+  sigma @ Omega+0.0010: q0=-1.860627  q1=-1.927584  (cnt=18)
+  sigma @ Omega+0.0020: q0=-1.723869  q1=-1.977089  (cnt=18)
+  LOCAL_MIN @ d=0.001: q0=True  q1=False
+  LOCAL_MIN @ d=0.002: q0=True  q1=False
+  RULE_SIGMA           -> q0  MAC=0.9869  CORRECT
+  RULE_RESID           -> q0  MAC=0.9869  CORRECT
+  RULE_LOCALMIN_RESID d=0.001 -> q0  MAC=0.9869  CORRECT   [single LOCAL_MIN]
+  RULE_LOCALMIN_RESID d=0.002 -> q0  MAC=0.9869  CORRECT   [single LOCAL_MIN]
+  [198s]
+
+==============================================================================
+  t5_0p117785  (Omega=0.117785, label=ARTIFACT)
+==============================================================================
+  basis fill: state=CAP_REACHED  cnt=18/20
+  log10 sigma_min @ Omega: q0=-6.804278  q1=-1.599140  -> argmin sigma = q0
+  block q0: rTyy=8.6482  rTyr=3.1131  MAC=0.1969
+    gate vs job 2431871: PASSED (rel 3.41e-07/1.45e-06, abs MAC 1.33e-05)
+  block q1: rTyy=3.74859  rTyr=1.58446  MAC=0.0000
+    gate vs job 2431871: PASSED (rel 4.93e-08/2.63e-06, abs MAC 2.92e-19)
+  lean-path gate @ Omega: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00, cnt 18 vs 18)
+  sigma @ Omega-0.0020: q0=-3.271170  q1=-1.595279  (cnt=18)
+  sigma @ Omega-0.0010: q0=-3.555162  q1=-1.597052  (cnt=18)
+  sigma @ Omega+0.0010: q0=-3.521742  q1=-1.601569  (cnt=18)
+  sigma @ Omega+0.0020: q0=-3.203599  q1=-1.604364  (cnt=18)
+  LOCAL_MIN @ d=0.001: q0=True  q1=False
+  LOCAL_MIN @ d=0.002: q0=True  q1=False
+  RULE_SIGMA           -> q0  MAC=0.1969  CORRECT
+  RULE_RESID           -> q1  MAC=0.0000  CORRECT
+  RULE_LOCALMIN_RESID d=0.001 -> q0  MAC=0.1969  CORRECT   [single LOCAL_MIN]
+  RULE_LOCALMIN_RESID d=0.002 -> q0  MAC=0.1969  CORRECT   [single LOCAL_MIN]
+  [217s]
+
+==============================================================================
+  t6_0p443610  (Omega=0.44361, label=ARTIFACT)
+==============================================================================
+  basis fill: state=CAP_REACHED  cnt=18/20
+  log10 sigma_min @ Omega: q0=-5.185072  q1=-1.773491  -> argmin sigma = q0
+  block q0: rTyy=11.5166  rTyr=5.31087  MAC=0.5801
+    gate vs job 2431871: PASSED (rel 2.39e-08/4.56e-07, abs MAC 4.47e-05)
+  block q1: rTyy=3.75486  rTyr=1.53281  MAC=0.0000
+    gate vs job 2431871: PASSED (rel 1.27e-07/2.60e-06, abs MAC 6.27e-19)
+  lean-path gate @ Omega: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00, cnt 18 vs 18)
+  sigma @ Omega-0.0020: q0=-2.163425  q1=-1.760916  (cnt=18)
+  sigma @ Omega-0.0010: q0=-2.460889  q1=-1.767132  (cnt=18)
+  sigma @ Omega+0.0010: q0=-2.465205  q1=-1.779995  (cnt=18)
+  sigma @ Omega+0.0020: q0=-2.173863  q1=-1.786648  (cnt=18)
+  LOCAL_MIN @ d=0.001: q0=True  q1=False
+  LOCAL_MIN @ d=0.002: q0=True  q1=False
+  RULE_SIGMA           -> q0  MAC=0.5801  CORRECT
+  RULE_RESID           -> q1  MAC=0.0000  CORRECT
+  RULE_LOCALMIN_RESID d=0.001 -> q0  MAC=0.5801  CORRECT   [single LOCAL_MIN]
+  RULE_LOCALMIN_RESID d=0.002 -> q0  MAC=0.5801  CORRECT   [single LOCAL_MIN]
+  [208s]
+
+==============================================================================
+  t7_0p507596  (Omega=0.507596, label=ARTIFACT)
+==============================================================================
+  basis fill: state=CAP_REACHED  cnt=18/20
+  log10 sigma_min @ Omega: q0=-1.502121  q1=-6.060717  -> argmin sigma = q1
+  block q0: rTyy=3.5468  rTyr=1.52462  MAC=0.0554
+    gate vs job 2431871: PASSED (rel 9.04e-07/2.12e-08, abs MAC 8.78e-06)
+  block q1: rTyy=8.85535  rTyr=3.93228  MAC=0.0000
+    gate vs job 2431871: PASSED (rel 4.50e-07/5.10e-07, abs MAC 1.45e-17)
+  lean-path gate @ Omega: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00, cnt 18 vs 18)
+  sigma @ Omega-0.0020: q0=-1.505649  q1=-3.114025  (cnt=18)
+  sigma @ Omega-0.0010: q0=-1.503858  q1=-3.412917  (cnt=18)
+  sigma @ Omega+0.0010: q0=-1.500435  q1=-3.405925  (cnt=18)
+  sigma @ Omega+0.0020: q0=-1.498799  q1=-3.102952  (cnt=18)
+  LOCAL_MIN @ d=0.001: q0=False  q1=True
+  LOCAL_MIN @ d=0.002: q0=False  q1=True
+  RULE_SIGMA           -> q1  MAC=0.0000  CORRECT
+  RULE_RESID           -> q0  MAC=0.0554  CORRECT
+  RULE_LOCALMIN_RESID d=0.001 -> q1  MAC=0.0000  CORRECT   [single LOCAL_MIN]
+  RULE_LOCALMIN_RESID d=0.002 -> q1  MAC=0.0000  CORRECT   [single LOCAL_MIN]
+  [221s]
+
+==============================================================================
+  t8_0p590794  (Omega=0.590794, label=ARTIFACT)
+==============================================================================
+  basis fill: state=CAP_REACHED  cnt=18/20
+  log10 sigma_min @ Omega: q0=-1.432466  q1=-5.530435  -> argmin sigma = q1
+  block q0: rTyy=3.46673  rTyr=1.50308  MAC=0.0000
+    gate vs job 2431871: PASSED (rel 1.51e-08/1.31e-06, abs MAC 4.53e-20)
+  block q1: rTyy=12.4486  rTyr=7.13127  MAC=0.5530
+    gate vs job 2431871: PASSED (rel 1.50e-06/2.75e-07, abs MAC 6.90e-06)
+  lean-path gate @ Omega: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00, cnt 18 vs 18)
+  sigma @ Omega-0.0020: q0=-1.432808  q1=-2.548414  (cnt=18)
+  sigma @ Omega-0.0010: q0=-1.432609  q1=-2.842916  (cnt=18)
+  sigma @ Omega+0.0010: q0=-1.432383  q1=-2.828801  (cnt=18)
+  sigma @ Omega+0.0020: q0=-1.432362  q1=-2.522809  (cnt=18)
+  LOCAL_MIN @ d=0.001: q0=False  q1=True
+  LOCAL_MIN @ d=0.002: q0=False  q1=True
+  RULE_SIGMA           -> q1  MAC=0.5530  CORRECT
+  RULE_RESID           -> q0  MAC=0.0000  CORRECT
+  RULE_LOCALMIN_RESID d=0.001 -> q1  MAC=0.5530  CORRECT   [single LOCAL_MIN]
+  RULE_LOCALMIN_RESID d=0.002 -> q1  MAC=0.5530  CORRECT   [single LOCAL_MIN]
+  [247s]
+
+==============================================================================
+  SUMMARY -- rule scoring against published labels
+==============================================================================
+  cand               label      sigma  resid   rule d=0.001   rule d=0.002
+  t1_0p304284        REAL          q0     q1     q1:0.999:C     q1:0.999:C
+  t2_0p915784        REAL          q1     q1     q1:1.000:C     q1:1.000:C
+  t3_1p420335        REAL          q1     q1     q1:0.999:C     q1:0.999:C
+  t4_2p286070        REAL          q0     q0     q0:0.987:C     q0:0.987:C
+  t5_0p117785        ARTIFACT      q0     q1     q0:0.197:C     q0:0.197:C
+  t6_0p443610        ARTIFACT      q0     q1     q0:0.580:C     q0:0.580:C
+  t7_0p507596        ARTIFACT      q1     q0     q1:0.000:C     q1:0.000:C
+  t8_0p590794        ARTIFACT      q1     q0     q1:0.553:C     q1:0.553:C
+
+==============================================================================
+  READING (per pre-registered criteria -- see the docstring)
+==============================================================================
+  Both gates PASSED for every candidate: this run reproduces job 2431871 on both blocks, and the lean sigma path is numerically identical to the verbatim path at every candidate's own Omega.
+
+  RULE_SIGMA: 7/8 correct  MISSES: ['t1_0p304284(q0,MAC=0.0000)']
+
+  RULE_RESID: 8/8 correct
+  RULE_LOCALMIN_RESID d=0.001: 8/8 correct
+  RULE_LOCALMIN_RESID d=0.002: 8/8 correct
+
+  Under RULE_LOCALMIN_RESID (d=0.001): min(MAC_REAL)=0.9869   max(MAC_ARTIFACT)=0.5801   gap=+0.4068  -> separates at this geometry
+
+  A_RULE_WORKS at this geometry: RULE_LOCALMIN_RESID scored every candidate correctly at every delta, and the chosen block never changed with delta. NOT promotable on this run alone -- it needs the same result at the other geometry, a third geometry, and a worker-path integration probe. Report, do not promote.
+
+Diagnostic only -- no SOLVER_VERSION action, no package changes, no promotion of any block-selection rule or MAC bar to production, and no relabelling of any calibration candidate. Does not by itself edit PAPER1_CAVEATS.md, LESSONS_LEARNED.md, or the paper.
+End: 2026-08-18 20:17:05
+End: Tue Aug 18 20:17:05 CDT 2026

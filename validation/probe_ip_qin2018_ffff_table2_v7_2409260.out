@@ -1,0 +1,325 @@
+job=2409260 host=compute-15-05.mill start=Sat Aug  8 14:25:19 CDT 2026
+SLURM_CPUS_PER_TASK=32
+N_WORKERS=32 (should be 32)
+
+==============================================================================
+  probe_ip_qin2018_ffff_table2_v7  start 2026-08-08 14:25:21
+==============================================================================
+DPS=40  N_WORKERS=32  N_DOFS=12  HALF_WIDTH=0.1  N_SCAN=24
+  (N_WORKERS should be 32 under proper SLURM; was 1 in v1–v6)
+
+==============================================================================
+  FIDELITY GATE (project default FreeFreeIP, TWO_T=1.0)
+==============================================================================
+  SOLVER_VERSION=2026-07-10.s10
+  branches at Ω=0.401154: 6 (35.5s)
+  sigma_min_from_K(Ω=0.401154) size=6  log10=-1.418
+  FIDELITY PASS (or soft-pass)
+
+==============================================================================
+  QIN GEOMETRY + MATERIAL (explicit b=0.25, R1=1)
+==============================================================================
+  geometry attrs: {'b': 0.25, 'h': 0.001, 'Theta': 0.7853981633974483}
+  forced R1=1.0  h=0.001  b=0.25
+  omega_bar (native) = 1.984085e+04
+  conversion factors (Qin/native):
+    plain (omega R1 sqrt(rho/E))     = 3.896666
+    with-h (omega R1 sqrt(rho h/E))  = 0.123223
+    (a) (2/pi)(1-nu^2) form          = 2.600475
+
+  predicted native (plain): ['0.4014', '0.6853', '0.7646', '1.1367', '1.1485', '1.1953']
+  (search windows = predicted ± 0.1)
+
+==============================================================================
+  SCALE-FREE SPOT-CHECK
+==============================================================================
+  omega_bar ratio E210/E70 = 1.732051  (expect 1.732)
+
+  local-search seeds (6 plain predictions): [0.4014, 0.6853, 0.7646, 1.1367, 1.1485, 1.1953]
+
+==============================================================================
+  TIGHT LOCAL SEARCHES (real find_modes_sigmin, parallel)
+==============================================================================
+
+  --- local [0.3014, 0.5014]  (seed=0.4014) ---
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[0.3014, 0.5014]  n_dofs=12  M=80  dps=40
+  35 coarse pts (step≈0.0059, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (42 points, full_search-bound) …
+    σ_min range [-2.90, -0.99], baseline≈-1.27
+  2 candidate dip(s) at Ω≈['0.3126', '0.4014']
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 2 dip(s) …
+    accept: σ_min ≤ -2.77 (max of fixed -3.5 and baseline-1.27−1.5)
+    drop Ω=0.310892: ill-conditioned basis (branch-collision or cut-off artifact, geometry/BC-invariant — not a physical mode)
+    mode Ω=0.401508   σ_min(uncon)=1e-5.01  σ_min(con)=1e-5.01  [coincides]
+  Phase 3 (depth 1/1): gap-refinement — 2 gap(s) > 0.0360 wide, rescanning at step=0.00100 …
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[0.3014, 0.4015]  n_dofs=12  M=80  dps=40
+  102 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (123 points, full_search-bound) …
+  Phase 2: refining 1 dip(s) …
+  → 0 singularities found: []
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[0.4015, 0.5014]  n_dofs=12  M=80  dps=40
+  101 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (115 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['0.440135']
+  Phase 3 (depth 1): recovered 1 additional mode(s)
+  → 2 singularities found: ['0.401508', '0.440135']
+  found 2 in 2362.4s: [0.40150835055998646, 0.4401348309216019]
+
+  --- local [0.5853, 0.7853]  (seed=0.6853) ---
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[0.5853, 0.7853]  n_dofs=12  M=80  dps=40
+  35 coarse pts (step≈0.0059, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (42 points, full_search-bound) …
+    σ_min range [-2.15, -0.56], baseline≈-1.11
+  1 candidate dip(s) at Ω≈['0.7441']
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+    accept: σ_min ≤ -2.61 (max of fixed -3.5 and baseline-1.11−1.5)
+    mode Ω=0.742043   σ_min(uncon)=1e-5.17  σ_min(con)=1e-5.17  [coincides]
+  Phase 3 (depth 1/1): gap-refinement — 2 gap(s) > 0.0360 wide, rescanning at step=0.00100 …
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[0.5853, 0.7420]  n_dofs=12  M=80  dps=40
+  158 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (180 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['0.687529']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[0.7420, 0.7853]  n_dofs=12  M=80  dps=40
+  45 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (54 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['0.765497']
+  Phase 3 (depth 1): recovered 2 additional mode(s)
+  → 3 singularities found: ['0.687529', '0.742043', '0.765497']
+  found 3 in 2628.8s: [0.6875293113661354, 0.7420429563616427, 0.7654968344021007]
+
+  --- local [0.6646, 0.8646]  (seed=0.7646) ---
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[0.6646, 0.8646]  n_dofs=12  M=80  dps=40
+  35 coarse pts (step≈0.0059, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (42 points, full_search-bound) …
+    σ_min range [-2.48, -0.54], baseline≈-0.95
+  3 candidate dip(s) at Ω≈['0.6870', '0.7411', '0.7646']
+  Phase 1b: local zoom around 2 candidate(s) (12 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 3 dip(s) …
+    accept: σ_min ≤ -2.45 (max of fixed -3.5 and baseline-0.95−1.5)
+    mode Ω=0.687530   σ_min(uncon)=1e-4.51  σ_min(con)=1e-4.51  [coincides]
+    mode Ω=0.742046   σ_min(uncon)=1e-5.58  σ_min(con)=1e-5.58  [coincides]
+    mode Ω=0.765502   σ_min(uncon)=1e-4.78  σ_min(con)=1e-4.78  [coincides]
+  Phase 3 (depth 1/1): gap-refinement — 2 gap(s) > 0.0360 wide, rescanning at step=0.00100 …
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[0.6875, 0.7420]  n_dofs=12  M=80  dps=40
+  56 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (68 points, full_search-bound) …
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[0.7655, 0.8646]  n_dofs=12  M=80  dps=40
+  101 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (115 points, full_search-bound) …
+  Phase 3 (depth 1): recovered 0 additional mode(s)
+  → 3 singularities found: ['0.687530', '0.742046', '0.765502']
+  found 3 in 1168.2s: [0.6875302713953588, 0.7420457432751729, 0.7655024325749306]
+
+  --- local [1.0367, 1.2367]  (seed=1.1367) ---
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.0367, 1.2367]  n_dofs=12  M=80  dps=40
+  35 coarse pts (step≈0.0059, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (42 points, full_search-bound) …
+    σ_min range [-2.48, -0.47], baseline≈-0.76
+  2 candidate dip(s) at Ω≈['1.1426', '1.1955']
+  Phase 1b: local zoom around 2 candidate(s) (12 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 2 dip(s) …
+    accept: σ_min ≤ -2.26 (max of fixed -3.5 and baseline-0.76−1.5)
+    mode Ω=1.147615   σ_min(uncon)=1e-5.03  σ_min(con)=1e-5.03  [coincides]
+    mode Ω=1.200378   σ_min(uncon)=1e-5.02  σ_min(con)=1e-5.02  [coincides]
+  Phase 3 (depth 1/1): gap-refinement — 3 gap(s) > 0.0360 wide, rescanning at step=0.00100 …
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.0367, 1.1476]  n_dofs=12  M=80  dps=40
+  112 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (135 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (5 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['1.147612']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.1476, 1.2004]  n_dofs=12  M=80  dps=40
+  54 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (62 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['1.194033']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.2004, 1.2367]  n_dofs=12  M=80  dps=40
+  38 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (47 points, full_search-bound) …
+  Phase 3 (depth 1): recovered 1 additional mode(s)
+  → 3 singularities found: ['1.147615', '1.194033', '1.200378']
+  found 3 in 2326.7s: [1.1476148754161994, 1.1940334280928204, 1.200378084481868]
+
+  --- local [1.0485, 1.2485]  (seed=1.1485) ---
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.0485, 1.2485]  n_dofs=12  M=80  dps=40
+  35 coarse pts (step≈0.0059, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (42 points, full_search-bound) …
+    σ_min range [-2.58, -0.47], baseline≈-0.76
+  2 candidate dip(s) at Ω≈['1.1426', '1.1956']
+  Phase 1b: local zoom around 2 candidate(s) (12 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 2 dip(s) …
+    accept: σ_min ≤ -2.26 (max of fixed -3.5 and baseline-0.76−1.5)
+    mode Ω=1.147618   σ_min(uncon)=1e-5.34  σ_min(con)=1e-5.34  [coincides]
+    mode Ω=1.200376   σ_min(uncon)=1e-5.84  σ_min(con)=1e-5.84  [coincides]
+  Phase 3 (depth 1/1): gap-refinement — 3 gap(s) > 0.0360 wide, rescanning at step=0.00100 …
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.0485, 1.1476]  n_dofs=12  M=80  dps=40
+  101 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (115 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (5 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['1.147615']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.1476, 1.2004]  n_dofs=12  M=80  dps=40
+  54 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (62 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['1.194040']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.2004, 1.2485]  n_dofs=12  M=80  dps=40
+  50 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (57 points, full_search-bound) …
+  Phase 3 (depth 1): recovered 1 additional mode(s)
+  → 3 singularities found: ['1.147618', '1.194040', '1.200376']
+  found 3 in 2262.4s: [1.1476176470588235, 1.194039669451055, 1.2003761111593336]
+
+  --- local [1.0953, 1.2953]  (seed=1.1953) ---
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.0953, 1.2953]  n_dofs=12  M=80  dps=40
+  35 coarse pts (step≈0.0059, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (42 points, full_search-bound) …
+    σ_min range [-2.50, -0.52], baseline≈-0.89
+  2 candidate dip(s) at Ω≈['1.1482', '1.2012']
+  Phase 1b: local zoom around 2 candidate(s) (12 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 2 dip(s) …
+    accept: σ_min ≤ -2.39 (max of fixed -3.5 and baseline-0.89−1.5)
+    mode Ω=1.147614   σ_min(uncon)=1e-4.91  σ_min(con)=1e-4.91  [coincides]
+    mode Ω=1.200373   σ_min(uncon)=1e-4.70  σ_min(con)=1e-4.70  [coincides]
+  Phase 3 (depth 1/1): gap-refinement — 3 gap(s) > 0.0360 wide, rescanning at step=0.00100 …
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.0953, 1.1476]  n_dofs=12  M=80  dps=40
+  54 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (62 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (5 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['1.147620']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.1476, 1.2004]  n_dofs=12  M=80  dps=40
+  54 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (62 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['1.194036']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[1.2004, 1.2953]  n_dofs=12  M=80  dps=40
+  96 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (112 points, full_search-bound) …
+  Phase 3 (depth 1): recovered 1 additional mode(s)
+  → 3 singularities found: ['1.147614', '1.194036', '1.200373']
+  found 3 in 2272.4s: [1.1476142787256467, 1.1940363011178783, 1.2003727428261568]
+
+  unique native candidates (17): [0.401508, 0.440135, 0.687529, 0.68753, 0.742043, 0.742046, 0.765497, 0.765502, 1.147614, 1.147615, 1.147618, 1.194033, 1.194036, 1.19404, 1.200373, 1.200376, 1.200378]
+
+==============================================================================
+  CONVERSION + MATCH TO QIN TABLE 2
+==============================================================================
+    native   Qin_plain       Qin_h       Qin_a   nearest_T    rel%_p    rel%_h    rel%_a
+  0.401508      1.5645      0.0495      1.0441      1.5641     0.03%    96.84%    33.25%
+  0.440135      1.7151      0.0542      1.1446      1.5641     9.65%    96.53%    26.82%
+  0.687529      2.6791      0.0847      1.7879      2.6702     0.33%    94.58%    14.31%
+  0.687530      2.6791      0.0847      1.7879      2.6702     0.33%    94.58%    14.31%
+  0.742043      2.8915      0.0914      1.9297      2.9792     2.94%    94.15%    23.37%
+  0.742046      2.8915      0.0914      1.9297      2.9792     2.94%    94.15%    23.37%
+  0.765497      2.9829      0.0943      1.9907      2.9792     0.12%    93.97%    25.45%
+  0.765502      2.9829      0.0943      1.9907      2.9792     0.12%    93.97%    25.45%
+  1.147614      4.4719      0.1414      2.9843      4.4754     0.08%    90.96%     0.17%
+  1.147615      4.4719      0.1414      2.9843      4.4754     0.08%    90.96%     0.17%
+  1.147618      4.4719      0.1414      2.9844      4.4754     0.08%    90.96%     0.17%
+  1.194033      4.6527      0.1471      3.1051      4.6575     0.10%    90.59%     4.22%
+  1.194036      4.6528      0.1471      3.1051      4.6575     0.10%    90.59%     4.22%
+  1.194040      4.6528      0.1471      3.1051      4.6575     0.10%    90.59%     4.22%
+  1.200373      4.6775      0.1479      3.1215      4.6575     0.43%    90.54%     4.78%
+  1.200376      4.6775      0.1479      3.1215      4.6575     0.43%    90.54%     4.78%
+  1.200378      4.6775      0.1479      3.1216      4.6575     0.43%    90.54%     4.78%
+
+==============================================================================
+  PRE-REGISTERED VERDICT
+==============================================================================
+  #candidates native = 17
+  matches within 2%  (plain / h / a) = 14 / 0 / 3
+  matches within 5%  (plain / h / a) = 16 / 0 / 9
+
+  Best formula by hit count: plain (omega R1 sqrt(rho/E))  (2%=14, 5%=16)
+
+  VERDICT: PASS
+  (criteria use the best of the three candidate conversions)
+
+  DEPTH NOTE: inspect the find_modes_sigmin verbose lines above.
+  Genuine hits look like v3's confirmed mode (log10 σ_min ≈ −5).
+  Locked-basis floor (v5/v6) was log10 ≈ −11…−43 everywhere —
+  if that pattern reappears here, the detector itself is still
+  reporting a near-null; otherwise the earlier 'structural'
+  conclusion is overturned.
+
+  total wall 13059.5 s
+
+==============================================================================
+  probe_ip_qin2018_ffff_table2_v7  end
+==============================================================================
+end=Sat Aug  8 18:03:01 CDT 2026

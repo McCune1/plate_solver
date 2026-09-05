@@ -1,0 +1,306 @@
+! ===========================================================================
+!  ansys_ff_oop_mac_extract.inp  --  Mechanical APDL batch deck
+!  MAC eigenvector extraction for the OOP ceiling ambiguity (Sec 20.4).
+!
+!  WHY: the FE mode at Omega_lit=111.4627 (f=34.8186 Hz, from KLIT below --
+!  matches LESSONS_LEARNED.md's own conversion) has TWO parity-consistent
+!  solver candidates, raw Omega=2.828013 and 2.838515, and five prior
+!  techniques (basis bump, sensitivity map, null-vector gap, parity
+!  readout, ODD-block topology scan -- jobs 2316969/2317010/2317114/
+!  2317684/2318031) could not force the assignment between them. NONE of
+!  those five compared mode SHAPE. This deck extracts the FE eigenvector
+!  (nodal out-of-plane displacement UZ, plus UX/UY for an independent
+!  OOP-vs-IP sanity check) for that specific mode, on a dense text grid a
+!  companion Python probe (probe_mac_ambiguity_check.py) can correlate
+!  (Modal Assurance Criterion) against each of the two solver candidates'
+!  reconstructed mode shapes.
+!
+!  MODEL: identical to the validated ansys_ff_oop_ext.inp (same job family
+!  that produced Omega_lit=111.4627 in the first place, job 2316746) --
+!  same geometry/material (R_i=4, R_o=8, PHI=90 deg, H=0.08, E=210e9,
+!  nu=0.30, rho=7800), same two-mesh-pass convergence structure (NDIV=64
+!  then 96, NMODES=60). This deck does NOT re-derive which mode number is
+!  the target -- it LOCATES it dynamically each pass by computing
+!  Omega_lit=2*pi*f*KLIT for every candidate mode (7..NMODES, skipping the
+!  6 rigid-body modes) and keeping the closest to the target, exactly the
+!  same free-search discipline the rest of this project uses (no
+!  hardcoded mode index, which is not recorded anywhere for this run).
+!
+!  IP-vs-OOP SAFETY CHECK: the target frequency (34.82 Hz) sits far below
+!  every known IP mode of this geometry (lowest IP mode: 161.4 Hz, per
+!  ansys_ff_oop_ext.inp's own header comment) -- no in-plane mode could be
+!  mistaken for the target by frequency proximity. As a SECOND, independent
+!  check (not just trusting that frequency gap), this deck also computes
+!  each selected mode's UZ-dominance and prints it for manual confirmation
+!  before the eigenvector is trusted -- as an energy fraction UzFrac =
+!  SUM(UZ^2)/SUM(UX^2+UY^2+UZ^2) via *VOPER(MULT)+*VSCFUN(SUM), the exact
+!  metric already proven working in ansys_ff_isoval_tagged.inp (job 2313082).
+!  An earlier version of this deck used *VSCFUN,...,ABMAX,... instead, which
+!  is not a real APDL function -- it fatally errored (job 2323990, "ABMA is
+!  not a valid *VSCFUN operation") before ever reaching the eigenvector
+!  file-write, which is why mac_eigvec_mesh64/96.txt never appeared. Fixed
+!  2026-07-15; see LESSONS_LEARNED Sec 13.5.
+!
+!  OUTPUT: mac_eigvec_mesh64.txt / mac_eigvec_mesh96.txt, each one header
+!  line plus one row per node: r  theta_deg  UX  UY  UZ (cylindrical CSYS
+!  11, matching this project's existing node-readout convention). Also
+!  printed to the main .out log: which mode was selected, its f/Omega_lit,
+!  and UzFrac -- CHECK THESE before trusting the MAC result. The submit
+!  script (submit_ansys_ff_oop_mac_extract.sh) auto-copies both .txt files up
+!  to the plate_solver package root right after this run finishes -- no
+!  manual copy step needed.
+!
+!  Run headless:  mapdl -b -smp -np 8 -i ansys_ff_oop_mac_extract.inp -o ansys_ff_oop_mac_extract_out.txt
+! ===========================================================================
+
+FINISH
+/CLEAR,NOSTART
+/TITLE, OOP free-free MAC eigenvector extraction -- Pass 1: mesh 64
+
+R_i    = 4.0
+R_o    = 8.0
+PHI    = 90.0
+H      = 0.08
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIV   = 64
+NMODES = 60
+PI     = 3.14159265358979
+OMLIT_TARGET = 111.4627
+
+/PREP7
+LOCAL, 11, 1, 0,0,0
+CSYS, 11
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI
+ESYS, 11
+TYPE,1 $ SECNUM,1 $ MAT,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI
+LESIZE, ALL, , , NDIV
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o
+LESIZE, ALL, , , NDIV
+ALLSEL, ALL
+CSYS, 0
+MSHKEY, 1 $ AMESH, ALL
+! completely free (FFFF): no constraints
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+DD   = E_iso*H**3/(12*(1-NU_iso**2))
+KLIT = R_o**2*SQRT(RHO*H/DD)
+
+*DIM, FRC, ARRAY, NMODES
+BESTI = 0
+BESTD = 1.0E10
+*DO, I, 7, NMODES
+  *GET, FRC(I), MODE, I, FREQ
+  OML = 2*PI*FRC(I)*KLIT
+  DIFF = ABS(OML - OMLIT_TARGET)
+  *IF, DIFF, LT, BESTD, THEN
+    BESTD = DIFF
+    BESTI = I
+  *ENDIF
+*ENDDO
+
+BESTF   = FRC(BESTI)
+BESTOML = 2*PI*BESTF*KLIT
+/COM, ================================================================
+/COM, MESH64: target Omega_lit=111.4627 (f=34.8186 Hz)
+/COM, MESH64: nearest mode = %BESTI%   f=%BESTF% Hz   Omega_lit=%BESTOML%
+/COM, MESH64: proximity (Omega_lit units) = %BESTD%
+/COM, ================================================================
+
+CSYS, 11
+ALLSEL, ALL
+*GET, NMX, NODE, 0, NUM, MAX
+
+*DIM, NRA, ARRAY, NMX
+*DIM, NTA, ARRAY, NMX
+*VGET, NRA(1), NODE, 1, LOC, X
+*VGET, NTA(1), NODE, 1, LOC, Y
+
+SET, 1, BESTI
+*DIM, UXA, ARRAY, NMX
+*DIM, UYA, ARRAY, NMX
+*DIM, UZA, ARRAY, NMX
+*VGET, UXA(1), NODE, 1, U, X
+*VGET, UYA(1), NODE, 1, U, Y
+*VGET, UZA(1), NODE, 1, U, Z
+
+! FIXED 2026-07-15 (job 2323990 root cause): *VSCFUN's Func list does NOT
+! include ABMAX -- APDL fatally errored here ("ABMA is not a valid *VSCFUN
+! operation"), which killed the whole batch stream before mesh64/96 were ever
+! written and before Pass 2 ran at all. Replaced with the energy-fraction
+! idiom already PROVEN on this cluster in ansys_ff_isoval_tagged.inp (job
+! 2313082, completed clean): square each component with *VOPER,...,MULT,...
+! then reduce with *VSCFUN,...,SUM,... (both confirmed-valid ops), instead of
+! inventing a Func value that was never dry-run against a live install.
+*DIM, UZ2, ARRAY, NMX
+*DIM, UX2, ARRAY, NMX
+*DIM, UY2, ARRAY, NMX
+*VOPER, UZ2(1), UZA(1), MULT, UZA(1)
+*VOPER, UX2(1), UXA(1), MULT, UXA(1)
+*VOPER, UY2(1), UYA(1), MULT, UYA(1)
+*VSCFUN, SUZ2, SUM, UZ2(1)
+*VSCFUN, SUX2, SUM, UX2(1)
+*VSCFUN, SUY2, SUM, UY2(1)
+UZFRAC = SUZ2 / (SUX2 + SUY2 + SUZ2 + 1.0E-30)
+/COM, MESH64 UZ-dominance check (energy fraction, same metric as ansys_ff_isoval_tagged.inp job 2313082): UzFrac=%UZFRAC%
+/COM, MESH64: (UzFrac near 1.0 = OOP-dominant; well below ~0.9 = meaningful in-plane content mixed in -- confirm before trusting the MAC result below)
+
+*CFOPEN, mac_eigvec_mesh64, txt
+*VWRITE
+('r            theta_deg      UX              UY              UZ')
+*VWRITE, NRA(1), NTA(1), UXA(1), UYA(1), UZA(1)
+(F10.4, 3X, F10.4, 3X, E14.6, 3X, E14.6, 3X, E14.6)
+*CFCLOS
+FINISH
+
+! ===========================================================================
+FINISH
+/CLEAR,NOSTART
+/TITLE, OOP free-free MAC eigenvector extraction -- Pass 2: mesh 96 (convergence)
+
+R_i    = 4.0
+R_o    = 8.0
+PHI    = 90.0
+H      = 0.08
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIV   = 96
+NMODES = 60
+PI     = 3.14159265358979
+OMLIT_TARGET = 111.4627
+
+/PREP7
+LOCAL, 11, 1, 0,0,0
+CSYS, 11
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI
+ESYS, 11
+TYPE,1 $ SECNUM,1 $ MAT,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI
+LESIZE, ALL, , , NDIV
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o
+LESIZE, ALL, , , NDIV
+ALLSEL, ALL
+CSYS, 0
+MSHKEY, 1 $ AMESH, ALL
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+DD   = E_iso*H**3/(12*(1-NU_iso**2))
+KLIT = R_o**2*SQRT(RHO*H/DD)
+
+*DIM, FRD, ARRAY, NMODES
+BESTI = 0
+BESTD = 1.0E10
+*DO, I, 7, NMODES
+  *GET, FRD(I), MODE, I, FREQ
+  OML = 2*PI*FRD(I)*KLIT
+  DIFF = ABS(OML - OMLIT_TARGET)
+  *IF, DIFF, LT, BESTD, THEN
+    BESTD = DIFF
+    BESTI = I
+  *ENDIF
+*ENDDO
+
+BESTF   = FRD(BESTI)
+BESTOML = 2*PI*BESTF*KLIT
+/COM, ================================================================
+/COM, MESH96: target Omega_lit=111.4627 (f=34.8186 Hz)
+/COM, MESH96: nearest mode = %BESTI%   f=%BESTF% Hz   Omega_lit=%BESTOML%
+/COM, MESH96: proximity (Omega_lit units) = %BESTD%
+/COM, ================================================================
+
+CSYS, 11
+ALLSEL, ALL
+*GET, NMX, NODE, 0, NUM, MAX
+
+*DIM, NRB, ARRAY, NMX
+*DIM, NTB, ARRAY, NMX
+*VGET, NRB(1), NODE, 1, LOC, X
+*VGET, NTB(1), NODE, 1, LOC, Y
+
+SET, 1, BESTI
+*DIM, UXB, ARRAY, NMX
+*DIM, UYB, ARRAY, NMX
+*DIM, UZB, ARRAY, NMX
+*VGET, UXB(1), NODE, 1, U, X
+*VGET, UYB(1), NODE, 1, U, Y
+*VGET, UZB(1), NODE, 1, U, Z
+
+! Same fix as Pass 1 (job 2323990 root cause) -- see that block's comment.
+*DIM, UZ2B, ARRAY, NMX
+*DIM, UX2B, ARRAY, NMX
+*DIM, UY2B, ARRAY, NMX
+*VOPER, UZ2B(1), UZB(1), MULT, UZB(1)
+*VOPER, UX2B(1), UXB(1), MULT, UXB(1)
+*VOPER, UY2B(1), UYB(1), MULT, UYB(1)
+*VSCFUN, SUZ2B, SUM, UZ2B(1)
+*VSCFUN, SUX2B, SUM, UX2B(1)
+*VSCFUN, SUY2B, SUM, UY2B(1)
+UZFRAC = SUZ2B / (SUX2B + SUY2B + SUZ2B + 1.0E-30)
+/COM, MESH96 UZ-dominance check (energy fraction, same metric as ansys_ff_isoval_tagged.inp job 2313082): UzFrac=%UZFRAC%
+/COM, MESH96: (UzFrac near 1.0 = OOP-dominant; well below ~0.9 = meaningful in-plane content mixed in -- confirm before trusting the MAC result below)
+
+*CFOPEN, mac_eigvec_mesh96, txt
+*VWRITE
+('r            theta_deg      UX              UY              UZ')
+*VWRITE, NRB(1), NTB(1), UXB(1), UYB(1), UZB(1)
+(F10.4, 3X, F10.4, 3X, E14.6, 3X, E14.6, 3X, E14.6)
+*CFCLOS
+FINISH
+! ---------------------------------------------------------------------------
+!  AFTER RUNNING (order matters):
+!   1. Read the /COM lines in the .out log FIRST: confirm mesh64 and mesh96
+!      picked the SAME mode index region (Omega_lit within ~0.3% of each
+!      other, the project's standard convergence gate) and both show a
+!      UzFrac near 1.0 -- if either check fails, the extracted eigenvector
+!      is not trustworthy and this deck needs debugging (most likely BESTI
+!      landed on an interleaved IP mode or a rigid mode) before running the
+!      MAC comparison.
+!   2. The submit script auto-copies both mac_eigvec_mesh64.txt and
+!      mac_eigvec_mesh96.txt up to the plate_solver package root right after
+!      this run finishes -- no manual copy step needed (fixed 2026-07-15;
+!      see LESSONS_LEARNED Sec 13.5). mesh96.txt (the converged pass) is what
+!      probe_mac_ambiguity_check.py actually reads; mesh64.txt is copied too
+!      as a cross-check. If you ran this deck directly with mapdl (bypassing
+!      the submit script), you'll still need to copy mesh96.txt up by hand.
+! ===========================================================================

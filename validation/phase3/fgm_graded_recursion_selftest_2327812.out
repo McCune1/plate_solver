@@ -1,0 +1,33 @@
+Job 2327812 on compute-34-04.mill
+Start: Wed Jul 22 21:49:16 CDT 2026
+
+==============================================================================
+  probe_fgm_graded_recursion_selftest -- start 2026-07-22 21:49:17
+==============================================================================
+N=80 series terms, dps=30
+recursion solved (both cases) in 0.030s
+a_0..a_5 graded : [1.0, 0.0, 0.0, 0.0, 0.04615944028227241, -0.004814890749549787]
+a_0..a_5 reduced: [1.0, 0.0, 0.0, 0.0, 0.04615944028227241, -0.004841372236525445]
+a_4 identical between graded/reduced (expected -- T1,R1 first enter at a_5)? PASS
+a_79 graded  = -5.8347378694383785023004226409e-47  (should be small/shrinking)
+
+==============================================================================
+  ODE residual check (series plugged back into the ORIGINAL graded ODE)
+==============================================================================
+  x=+0.05: graded residual=0.0 rel=0.0   reduced residual=0.0 rel=0.0
+  x=+0.15: graded residual=-2.01948e-28 rel=-7.09218e-31   reduced residual=-5.04871e-29 rel=-1.77378e-31
+  x=+0.30: graded residual=1.00974e-28 rel=3.26166e-31   reduced residual=5.04871e-29 rel=1.63227e-31
+  x=-0.10: graded residual=7.57306e-29 rel=3.01635e-31   reduced residual=2.52435e-29 rel=1.00513e-31
+  x=-0.25: graded residual=-1.00974e-28 rel=-4.29598e-31   reduced residual=-5.04871e-29 rel=-2.14587e-31
+
+==============================================================================
+  Verdict
+==============================================================================
+  worst relative residual, graded case:  7.092e-31  PASS (precision-level)
+  worst relative residual, reduced case: 2.146e-31  PASS (precision-level)
+  a_4 cross-check: PASS
+
+==============================================================================
+  probe_fgm_graded_recursion_selftest -- end 2026-07-22 21:49:17
+==============================================================================
+End: Wed Jul 22 21:49:17 CDT 2026

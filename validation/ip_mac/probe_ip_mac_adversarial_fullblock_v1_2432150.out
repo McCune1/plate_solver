@@ -1,0 +1,303 @@
+full-block eigenvector files visible in Ansys/NewAnsys: 57 (57 expected)
+published per-candidate FE targets present: 10/10 (t1-t8 gate the run,
+  t9/t10 are informational)
+Job 2432150 on compute-34-04.mill
+Start: Wed Aug 19 03:50:43 CDT 2026
+
+==============================================================================
+  probe_ip_mac_adversarial_fullblock_v1 -- start 2026-08-19 03:50:44
+==============================================================================
+  geometry r200/a100: r0/2b=2.0  2Theta/pi=1.0  nu=0.3
+  full block: modes 4..60 at mesh96, prefix 'ip_mac_fullblock_r200a100_'
+  published bar (NOT tuned here): combined REAL floor 0.9079, this geometry's floor 0.9869, published ARTIFACT ceiling 0.5801
+  rule delta 0.001; vectorised-MAC gate 1e-12
+  REMINDER: max-over-block is a BIASED upper bound, not the production statistic. Three numbers are printed per candidate; say which one you are quoting.
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+
+==============================================================================
+  SECTION A -- load the full mode block, node-order and duplicate gates
+==============================================================================
+  frequency table: Ansys/NewAnsys/ip_mac_fullblock_r200a100_freqs.txt  (80 modes, f[4]=25.9191 Hz, f[60]=984.0334 Hz)
+  loaded 57/57 mode files
+  AD-0(d) PASSED: all 57 mode files are md5-distinct.
+  NODE-ORDER GATE PASSED: identical r/theta columns across all 57 files (28033 nodes).
+  FE-vs-FE cross-MAC over the block: max off-diagonal 0.0115 between modes 4 and 32 (25.919 vs 663.554 Hz)
+  (reported, NOT gated -- near-degenerate FE modes can legitimately correlate. Compare against 0.0052 for this geometry's 8 targets and 0.0148 for r200/a50's; a much larger value here is information about the FE spectrum, not necessarily a defect.)
+  published per-candidate FE targets loaded: ['t1', 't10', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9']
+
+==============================================================================
+  t1_0p304284  (Omega=0.304284, REAL, target 122.395 Hz, published FE#6)
+==============================================================================
+  basis fill: state=CAP_REACHED cnt=18/20; log10 sigma q0=-6.626421 q1=-2.716739
+  block q0: rTyy=12.7592  rTyr=4.52872
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 3.47e-08/8.01e-07)
+  block q1: rTyy=0.326304  rTyr=0.139187
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 6.03e-07/4.03e-07)
+  RULE_LOCALMIN_RESID (d=0.001) -> q1   [both LOCAL_MIN -> resid]
+       sigma at Omega-d/Omega/Omega+d: q0 -3.629599/-6.626421/-3.632638   q1 -1.849156/-2.716739/-1.725971
+       AD-0(b) pick gate vs job 2431873: PASSED (published q1)
+  vectorised-MAC gate: PASSED (verbatim 0.9993032962 vs vectorised 0.9993032962, |d|=0.00e+00)
+  AD-0(a) MAC gate vs job 2431873 on the selected block: PASSED (got 0.9993, published 0.9993, |d|=3.30e-06)
+
+  nearest-relative-error mode: #6 (122.3533 Hz, rel 0.0341%)  -- published FE#6  MATCHES
+  (1) MAC at nearest mode        = 0.9993   <- production statistic
+  (2) max MAC over 8 published   = 0.9993   <- what 18.22 reports
+  (3) max MAC over modes 4..60 = 0.9993   <- ADVERSARIAL upper bound, at mode #6 (122.3533 Hz, rel 0.034% from target)
+  top 5: #6:0.9993(122.4Hz), #31:0.0074(654.6Hz), #24:0.0065(571.3Hz), #27:0.0033(629.6Hz), #23:0.0032(567.9Hz)
+  sum rule: MAC(own #6)=0.9993, headroom 0.0007, best against any OTHER mode 0.0074 (#31), sum over block 1.0274   ** exceeds headroom **
+  [141s]
+
+==============================================================================
+  t2_0p915784  (Omega=0.915784, REAL, target 368.365 Hz, published FE#13)
+==============================================================================
+  basis fill: state=CAP_REACHED cnt=18/20; log10 sigma q0=-1.688344 q1=-5.682877
+  block q0: rTyy=3.29371  rTyr=1.53835
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 7.73e-07/1.70e-06)
+  block q1: rTyy=0.0123885  rTyr=0.0137037
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 3.70e-06/4.30e-07)
+  RULE_LOCALMIN_RESID (d=0.001) -> q1   [single LOCAL_MIN]
+       sigma at Omega-d/Omega/Omega+d: q0 -1.684053/-1.688344/-1.692688   q1 -2.770670/-5.682877/-2.807485
+       AD-0(b) pick gate vs job 2431873: PASSED (published q1)
+  vectorised-MAC gate: PASSED (verbatim 0.9997105879 vs vectorised 0.9997105879, |d|=2.22e-16)
+  AD-0(a) MAC gate vs job 2431873 on the selected block: PASSED (got 0.9997, published 0.9997, |d|=1.06e-05)
+
+  nearest-relative-error mode: #13 (368.3634 Hz, rel 0.0004%)  -- published FE#13  MATCHES
+  (1) MAC at nearest mode        = 0.9997   <- production statistic
+  (2) max MAC over 8 published   = 0.9997   <- what 18.22 reports
+  (3) max MAC over modes 4..60 = 0.9997   <- ADVERSARIAL upper bound, at mode #13 (368.3634 Hz, rel 0.000% from target)
+  top 5: #13:0.9997(368.4Hz), #25:0.0072(589.5Hz), #39:0.0056(726.1Hz), #53:0.0026(911.1Hz), #17:0.0015(452.2Hz)
+  sum rule: MAC(own #13)=0.9997, headroom 0.0003, best against any OTHER mode 0.0072 (#25), sum over block 1.0252   ** exceeds headroom **
+  [143s]
+
+==============================================================================
+  t3_1p420335  (Omega=1.420335, REAL, target 571.316 Hz, published FE#24)
+==============================================================================
+  basis fill: state=CAP_REACHED cnt=18/20; log10 sigma q0=-1.650135 q1=-5.095712
+  block q0: rTyy=2.55399  rTyr=1.23516
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 4.16e-07/2.82e-06)
+  block q1: rTyy=0.021249  rTyr=0.0208124
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 1.61e-06/1.57e-06)
+  RULE_LOCALMIN_RESID (d=0.001) -> q1   [single LOCAL_MIN]
+       sigma at Omega-d/Omega/Omega+d: q0 -1.649509/-1.650135/-1.651344   q1 -2.664104/-5.095712/-2.657504
+       AD-0(b) pick gate vs job 2431873: PASSED (published q1)
+  vectorised-MAC gate: PASSED (verbatim 0.9991531513 vs vectorised 0.9991531513, |d|=4.44e-16)
+  AD-0(a) MAC gate vs job 2431873 on the selected block: PASSED (got 0.9992, published 0.9992, |d|=4.68e-05)
+
+  nearest-relative-error mode: #24 (571.2908 Hz, rel 0.0044%)  -- published FE#24  MATCHES
+  (1) MAC at nearest mode        = 0.9992   <- production statistic
+  (2) max MAC over 8 published   = 0.9992   <- what 18.22 reports
+  (3) max MAC over modes 4..60 = 0.9992   <- ADVERSARIAL upper bound, at mode #24 (571.2908 Hz, rel 0.004% from target)
+  top 5: #24:0.9992(571.3Hz), #27:0.0054(629.6Hz), #10:0.0049(247.8Hz), #6:0.0045(122.4Hz), #25:0.0038(589.5Hz)
+  sum rule: MAC(own #24)=0.9992, headroom 0.0008, best against any OTHER mode 0.0054 (#27), sum over block 1.0320   ** exceeds headroom **
+  [145s]
+
+==============================================================================
+  t4_2p286070  (Omega=2.28607, REAL, target 919.55 Hz, published FE#55)
+==============================================================================
+  basis fill: state=CAP_REACHED cnt=18/20; log10 sigma q0=-4.508601 q1=-1.882273
+  block q0: rTyy=0.155679  rTyr=0.0564734
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 2.18e-06/4.05e-07)
+  block q1: rTyy=1.17725  rTyr=0.635763
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 4.19e-06/5.91e-08)
+  RULE_LOCALMIN_RESID (d=0.001) -> q0   [single LOCAL_MIN]
+       sigma at Omega-d/Omega/Omega+d: q0 -1.822245/-4.508601/-1.860627   q1 -1.840503/-1.882273/-1.927584
+       AD-0(b) pick gate vs job 2431873: PASSED (published q0)
+  vectorised-MAC gate: PASSED (verbatim 0.9869280963 vs vectorised 0.9869280963, |d|=0.00e+00)
+  AD-0(a) MAC gate vs job 2431873 on the selected block: PASSED (got 0.9869, published 0.9869, |d|=2.81e-05)
+
+  nearest-relative-error mode: #55 (919.5337 Hz, rel 0.0018%)  -- published FE#55  MATCHES
+  (1) MAC at nearest mode        = 0.9869   <- production statistic
+  (2) max MAC over 8 published   = 0.9869   <- what 18.22 reports
+  (3) max MAC over modes 4..60 = 0.9869   <- ADVERSARIAL upper bound, at mode #55 (919.5337 Hz, rel 0.002% from target)
+  top 5: #55:0.9869(919.5Hz), #54:0.0144(911.6Hz), #40:0.0050(740.1Hz), #59:0.0019(980.3Hz), #47:0.0011(824.7Hz)
+  sum rule: MAC(own #55)=0.9869, headroom 0.0131, best against any OTHER mode 0.0144 (#54), sum over block 1.0156   ** exceeds headroom **
+  [134s]
+
+==============================================================================
+  t5_0p117785  (Omega=0.117785, ARTIFACT, target 47.378 Hz, published FE#5)
+==============================================================================
+  basis fill: state=CAP_REACHED cnt=18/20; log10 sigma q0=-6.804278 q1=-1.599140
+  block q0: rTyy=8.6482  rTyr=3.1131
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 3.41e-07/1.45e-06)
+  block q1: rTyy=3.74859  rTyr=1.58446
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 4.93e-08/2.63e-06)
+  RULE_LOCALMIN_RESID (d=0.001) -> q0   [single LOCAL_MIN]
+       sigma at Omega-d/Omega/Omega+d: q0 -3.555162/-6.804278/-3.521742   q1 -1.597052/-1.599140/-1.601569
+       AD-0(b) pick gate vs job 2431873: PASSED (published q0)
+  vectorised-MAC gate: PASSED (verbatim 0.1968866914 vs vectorised 0.1968866914, |d|=0.00e+00)
+  AD-0(a) MAC gate vs job 2431873 on the selected block: PASSED (got 0.1969, published 0.1969, |d|=1.33e-05)
+
+  nearest-relative-error mode: #5 (67.2659 Hz, rel 29.5661%)  -- published FE#5  MATCHES
+  (1) MAC at nearest mode        = 0.1969   <- production statistic
+  (2) max MAC over 8 published   = 0.1969   <- what 18.22 reports
+  (3) max MAC over modes 4..60 = 0.1969   <- ADVERSARIAL upper bound, at mode #5 (67.2659 Hz, rel 29.566% from target)
+  top 5: #5:0.1969(67.3Hz), #15:0.0058(413.7Hz), #16:0.0057(447.4Hz), #35:0.0031(682.7Hz), #33:0.0029(670.5Hz)
+  sum rule: MAC(own #5)=0.1969, headroom 0.8031, best against any OTHER mode 0.0058 (#15), sum over block 0.2256
+  [146s]
+
+==============================================================================
+  t6_0p443610  (Omega=0.44361, ARTIFACT, target 178.438 Hz, published FE#8)
+==============================================================================
+  basis fill: state=CAP_REACHED cnt=18/20; log10 sigma q0=-5.185072 q1=-1.773491
+  block q0: rTyy=11.5166  rTyr=5.31087
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 2.39e-08/4.56e-07)
+  block q1: rTyy=3.75486  rTyr=1.53281
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 1.27e-07/2.60e-06)
+  RULE_LOCALMIN_RESID (d=0.001) -> q0   [single LOCAL_MIN]
+       sigma at Omega-d/Omega/Omega+d: q0 -2.460889/-5.185072/-2.465205   q1 -1.767132/-1.773491/-1.779995
+       AD-0(b) pick gate vs job 2431873: PASSED (published q0)
+  vectorised-MAC gate: PASSED (verbatim 0.5801446599 vs vectorised 0.5801446599, |d|=2.22e-16)
+  AD-0(a) MAC gate vs job 2431873 on the selected block: PASSED (got 0.5801, published 0.5801, |d|=4.47e-05)
+
+  nearest-relative-error mode: #8 (184.1988 Hz, rel 3.1275%)  -- published FE#8  MATCHES
+  (1) MAC at nearest mode        = 0.5801   <- production statistic
+  (2) max MAC over 8 published   = 0.5801   <- what 18.22 reports
+  (3) max MAC over modes 4..60 = 0.5801   <- ADVERSARIAL upper bound, at mode #8 (184.1988 Hz, rel 3.128% from target)
+  top 5: #8:0.5801(184.2Hz), #5:0.0888(67.3Hz), #9:0.0370(216.3Hz), #19:0.0088(506.0Hz), #15:0.0082(413.7Hz)
+  sum rule: MAC(own #8)=0.5801, headroom 0.4199, best against any OTHER mode 0.0888 (#5), sum over block 0.7505
+  [142s]
+
+==============================================================================
+  t7_0p507596  (Omega=0.507596, ARTIFACT, target 204.176 Hz, published FE#9)
+==============================================================================
+  basis fill: state=CAP_REACHED cnt=18/20; log10 sigma q0=-1.502121 q1=-6.060717
+  block q0: rTyy=3.5468  rTyr=1.52462
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 9.04e-07/2.12e-08)
+  block q1: rTyy=8.85535  rTyr=3.93228
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 4.50e-07/5.10e-07)
+  RULE_LOCALMIN_RESID (d=0.001) -> q1   [single LOCAL_MIN]
+       sigma at Omega-d/Omega/Omega+d: q0 -1.503858/-1.502121/-1.500435   q1 -3.412917/-6.060717/-3.405925
+       AD-0(b) pick gate vs job 2431873: PASSED (published q1)
+  vectorised-MAC gate: PASSED (verbatim 0.0000000000 vs vectorised 0.0000000000, |d|=3.08e-33)
+  AD-0(a) MAC gate vs job 2431873 on the selected block: PASSED (got 0.0000, published 0.0000, |d|=1.45e-17)
+
+  nearest-relative-error mode: #9 (216.3029 Hz, rel 5.6064%)  -- published FE#9  MATCHES
+  (1) MAC at nearest mode        = 0.0000   <- production statistic
+  (2) max MAC over 8 published   = 0.0729   <- what 18.22 reports
+  (3) max MAC over modes 4..60 = 0.5689   <- ADVERSARIAL upper bound, at mode #7 (142.0094 Hz, rel 43.776% from target)
+  top 5: #7:0.5689(142.0Hz), #11:0.1695(298.8Hz), #10:0.0729(247.8Hz), #6:0.0320(122.4Hz), #18:0.0087(457.9Hz)
+  sum rule: MAC(own #9)=0.0000, headroom 1.0000, best against any OTHER mode 0.5689 (#7), sum over block 0.8837
+  [149s]
+
+==============================================================================
+  t8_0p590794  (Omega=0.590794, ARTIFACT, target 237.641 Hz, published FE#10)
+==============================================================================
+  basis fill: state=CAP_REACHED cnt=18/20; log10 sigma q0=-1.432466 q1=-5.530435
+  block q0: rTyy=3.46673  rTyr=1.50308
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 1.51e-08/1.31e-06)
+  block q1: rTyy=12.4486  rTyr=7.13127
+       AD-0(a) resid gate vs job 2431873: PASSED (rel 1.50e-06/2.75e-07)
+  RULE_LOCALMIN_RESID (d=0.001) -> q1   [single LOCAL_MIN]
+       sigma at Omega-d/Omega/Omega+d: q0 -1.432609/-1.432466/-1.432383   q1 -2.842916/-5.530435/-2.828801
+       AD-0(b) pick gate vs job 2431873: PASSED (published q1)
+  vectorised-MAC gate: PASSED (verbatim 0.5530069027 vs vectorised 0.5530069027, |d|=1.11e-16)
+  AD-0(a) MAC gate vs job 2431873 on the selected block: PASSED (got 0.5530, published 0.5530, |d|=6.90e-06)
+
+  nearest-relative-error mode: #10 (247.8244 Hz, rel 4.1091%)  -- published FE#10  MATCHES
+  (1) MAC at nearest mode        = 0.5530   <- production statistic
+  (2) max MAC over 8 published   = 0.5530   <- what 18.22 reports
+  (3) max MAC over modes 4..60 = 0.5530   <- ADVERSARIAL upper bound, at mode #10 (247.8244 Hz, rel 4.109% from target)
+  top 5: #10:0.5530(247.8Hz), #4:0.1954(25.9Hz), #6:0.0728(122.4Hz), #11:0.0600(298.8Hz), #17:0.0162(452.2Hz)
+  sum rule: MAC(own #10)=0.5530, headroom 0.4470, best against any OTHER mode 0.1954 (#4), sum over block 0.9361
+  [167s]
+
+==============================================================================
+  t9_2p117877  (Omega=2.117877, HELD_OUT, target 851.896 Hz, published FE#49)
+==============================================================================
+  basis fill: state=CAP_REACHED cnt=18/20; log10 sigma q0=-1.386872 q1=-5.490319
+  block q0: rTyy=2.70109  rTyr=1.03788
+  block q1: rTyy=0.0666625  rTyr=0.089254
+  RULE_LOCALMIN_RESID (d=0.001) -> q1   [single LOCAL_MIN]
+       sigma at Omega-d/Omega/Omega+d: q0 -1.402662/-1.386872/-1.374168   q1 -2.047532/-5.490319/-2.076499
+       (no published pick for t9 -- held out of the calibration set; the gate above is what licenses using the rule here)
+  vectorised-MAC gate: PASSED (verbatim 0.9980306003 vs vectorised 0.9980306003, |d|=2.22e-16)
+  (18.22 quotes t9 at MAC 0.9980; this run reads 0.9980 on its own target. Informational -- t9 is held out, not gated.)
+
+  nearest-relative-error mode: #49 (851.8185 Hz, rel 0.0091%)  -- published FE#49  MATCHES
+  (1) MAC at nearest mode        = 0.9980   <- production statistic
+  (2) max MAC over 8 published   = 0.0001   <- what 18.22 reports
+  (3) max MAC over modes 4..60 = 0.9980   <- ADVERSARIAL upper bound, at mode #49 (851.8185 Hz, rel 0.009% from target)
+  top 5: #49:0.9980(851.8Hz), #34:0.0045(681.0Hz), #37:0.0042(698.6Hz), #52:0.0021(893.7Hz), #32:0.0016(663.6Hz)
+  sum rule: MAC(own #49)=0.9980, headroom 0.0020, best against any OTHER mode 0.0045 (#34), sum over block 1.0152   ** exceeds headroom **
+  [126s]
+
+==============================================================================
+  t10_1p667187  (Omega=1.667187, HELD_OUT, target 670.61 Hz, published FE#33)
+==============================================================================
+  basis fill: state=CAP_REACHED cnt=18/20; log10 sigma q0=-5.031559 q1=-1.294465
+  block q0: rTyy=0.098829  rTyr=0.102314
+  block q1: rTyy=2.06794  rTyr=1.05699
+  RULE_LOCALMIN_RESID (d=0.001) -> q0   [single LOCAL_MIN]
+       sigma at Omega-d/Omega/Omega+d: q0 -2.372687/-5.031559/-2.365212   q1 -1.259833/-1.294465/-1.358431
+       (no published pick for t10 -- held out of the calibration set; the gate above is what licenses using the rule here)
+  vectorised-MAC gate: PASSED (verbatim 0.9981103929 vs vectorised 0.9981103929, |d|=0.00e+00)
+  (18.22 quotes t10 at MAC 0.9981; this run reads 0.9981 on its own target. Informational -- t10 is held out, not gated.)
+
+  nearest-relative-error mode: #33 (670.5293 Hz, rel 0.0120%)  -- published FE#33  MATCHES
+  (1) MAC at nearest mode        = 0.9981   <- production statistic
+  (2) max MAC over 8 published   = 0.0045   <- what 18.22 reports
+  (3) max MAC over modes 4..60 = 0.9981   <- ADVERSARIAL upper bound, at mode #33 (670.5293 Hz, rel 0.012% from target)
+  top 5: #33:0.9981(670.5Hz), #5:0.0045(67.3Hz), #21:0.0043(525.6Hz), #12:0.0040(309.9Hz), #35:0.0018(682.7Hz)
+  sum rule: MAC(own #33)=0.9981, headroom 0.0019, best against any OTHER mode 0.0045 (#5), sum over block 1.0242   ** exceeds headroom **
+  [132s]
+
+==============================================================================
+  SUMMARY (calibration set only; HELD_OUT rows listed separately)
+==============================================================================
+  cand          cls       blk   (1)near  (2)pub8  (3)block best#
+  t1            REAL      q1     0.9993   0.9993    0.9993 #6
+  t2            REAL      q1     0.9997   0.9997    0.9997 #13
+  t3            REAL      q1     0.9992   0.9992    0.9992 #24
+  t4            REAL      q0     0.9869   0.9869    0.9869 #55
+  t5            ARTIFACT  q0     0.1969   0.1969    0.1969 #5
+  t6            ARTIFACT  q0     0.5801   0.5801    0.5801 #8
+  t7            ARTIFACT  q1     0.0000   0.0729    0.5689 #7
+  t8            ARTIFACT  q1     0.5530   0.5530    0.5530 #10
+  t9            HELD_OUT  q1     0.9980   0.0001    0.9980 #49
+  t10           HELD_OUT  q0     0.9981   0.0045    0.9981 #33
+
+==============================================================================
+  READING (per pre-registered criteria -- see the docstring)
+==============================================================================
+  ARTIFACT ceiling, nearest-mode  (production) = 0.5801   [published 0.5801]
+  ARTIFACT ceiling, max over 8 published       = 0.5801
+  ARTIFACT ceiling, max over modes 4..60   = 0.5801   <- the adversarial number
+  REAL floor under full-block scoring          = 0.9869
+  selection effect (adversarial - published)   = +0.0000
+
+  AD-A ROBUST: the ARTIFACT ceiling does not rise materially when every mode in the block is allowed as a target (0.5801 -> 0.5801), and stays well below the REAL floor 0.9079. The two-sided bar survives a target-selection rule far more generous than production's, which retires the 'some unsampled mode might resemble the artifact' objection AT THIS GEOMETRY. This is materially stronger evidence than 18.22 currently has and is worth proposing for it -- with the standing caveat that FF-P1 and r200/a50 have NOT been full-block scored.
+
+==============================================================================
+  AD-D INFORMATIONAL (no pre-registered meaning; motivates follow-ups)
+==============================================================================
+  sum-rule table -- headroom = 1 - MAC(own target); the best MAC against any OTHER mode should not exceed it if the identity-weighted MAC behaves like a projection onto a mass-orthogonal basis (approximate; see the docstring).
+  cand              own  headroom  bestOther     sum  note
+  t1             0.9993    0.0007     0.0074  1.0274  ** EXCEEDS headroom (#31) -- the sum-rule proxy is weaker than assumed; worth a follow-up on the MAC definition, not a failure here
+  t2             0.9997    0.0003     0.0072  1.0252  ** EXCEEDS headroom (#25) -- the sum-rule proxy is weaker than assumed; worth a follow-up on the MAC definition, not a failure here
+  t3             0.9992    0.0008     0.0054  1.0320  ** EXCEEDS headroom (#27) -- the sum-rule proxy is weaker than assumed; worth a follow-up on the MAC definition, not a failure here
+  t4             0.9869    0.0131     0.0144  1.0156  ** EXCEEDS headroom (#54) -- the sum-rule proxy is weaker than assumed; worth a follow-up on the MAC definition, not a failure here
+  t5             0.1969    0.8031     0.0058  0.2256  ok
+  t6             0.5801    0.4199     0.0888  0.7505  ok
+  t7             0.0000    1.0000     0.5689  0.8837  ok
+  t8             0.5530    0.4470     0.1954  0.9361  ok
+  t9             0.9980    0.0020     0.0045  1.0152  ** EXCEEDS headroom (#34) -- the sum-rule proxy is weaker than assumed; worth a follow-up on the MAC definition, not a failure here
+  t10            0.9981    0.0019     0.0045  1.0242  ** EXCEEDS headroom (#5) -- the sum-rule proxy is weaker than assumed; worth a follow-up on the MAC definition, not a failure here
+
+  t1            REAL      nothing notable
+  t2            REAL      nothing notable
+  t3            REAL      nothing notable
+  t4            REAL      nothing notable
+  t5            ARTIFACT  nothing notable
+  t6            ARTIFACT  nothing notable
+  t7            ARTIFACT  best-MAC mode #7 is not the nearest (#9), 43.78% away in f
+  t8            ARTIFACT  nothing notable
+  t9            HELD_OUT  nothing notable
+  t10           HELD_OUT  nothing notable
+
+  HELD-OUT tie-break candidates (18.22's strongest single piece of evidence; NOT part of any arithmetic above):
+  t9            block q1  nearest-mode MAC 0.9980 (18.22 quotes 0.9980)  full-block max 0.9980 at #49
+  t10           block q0  nearest-mode MAC 0.9981 (18.22 quotes 0.9981)  full-block max 0.9981 at #33
+
+Diagnostic only -- no SOLVER_VERSION action, no package changes, no promotion of any rule or bar, no relabelling of any candidate. Does not by itself edit PAPER1_CAVEATS.md, LESSONS_LEARNED.md, or the paper.
+End: 2026-08-19 04:14:34
+End: Wed Aug 19 04:14:34 CDT 2026

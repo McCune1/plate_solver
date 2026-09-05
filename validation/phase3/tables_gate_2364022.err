@@ -1,0 +1,17 @@
+test_detectors_edgekind_import_line (test_validated_tables.TestDeployPresence.test_detectors_edgekind_import_line) ... /home/ghmkfh/PythonMill/Plate_Solver_Package/test_validated_tables.py:216: ResourceWarning: unclosed file <_io.BufferedReader name='/home/ghmkfh/PythonMill/Plate_Solver_Package/plate_solver/detectors.py'>
+  "rb").read().decode("utf-8", "replace")
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_free_free_bc_registry (test_validated_tables.TestDeployPresence.test_free_free_bc_registry) ... ok
+test_gap_refine_defaults (test_validated_tables.TestDeployPresence.test_gap_refine_defaults) ... ok
+test_residual_screen_functions_present (test_validated_tables.TestDeployPresence.test_residual_screen_functions_present) ... ok
+test_shi_orthotropic_constants (test_validated_tables.TestDeployPresence.test_shi_orthotropic_constants) ... ok
+test_solver_version (test_validated_tables.TestDeployPresence.test_solver_version) ... ok
+test_ffp1_ip_scan_table (test_validated_tables.TestFFP1IPTableGate.test_ffp1_ip_scan_table) ... ok
+test_ffp1_oop_11_modes (test_validated_tables.TestFFP1TableGate.test_ffp1_oop_11_modes) ... ok
+test_shi_ortho_table (test_validated_tables.TestShiTableGate.test_shi_ortho_table) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 54250.060s
+
+OK

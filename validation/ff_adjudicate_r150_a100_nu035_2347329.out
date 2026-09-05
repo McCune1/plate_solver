@@ -1,0 +1,217 @@
+Job 2347329 on compute-41-24.mill: cpus-per-task=89, N_WORKERS=89
+Start: Sun Aug  2 01:30:53 CDT 2026
+==============================================================================
+  probe_ff_adjudicate_candidates -- CANDIDATES_JSON=/home/ghmkfh/PythonMill/Plate_Solver_Package/r150_a100_nu035_candidates.json
+  tag=r150_a100_nu035  r0_2b=1.5  two_T_pi=1.0  nu=0.35
+==============================================================================
+  89 candidates total (28 OOP + 61 IP), N_WORKERS=89
+  [IP ] Om=2.157519 f_hz=851.619 verdict=REAL-like (unvalidated) [42s]
+  [IP ] Om=2.169949 f_hz=856.525 verdict=AMBIGUOUS (unvalidated) [43s]
+  [IP ] Om=2.272999 f_hz=897.201 verdict=AMBIGUOUS (unvalidated) [43s]
+  [IP ] Om=2.309544 f_hz=911.626 verdict=REAL-like (unvalidated) [44s]
+  [IP ] Om=2.142058 f_hz=845.516 verdict=AMBIGUOUS (unvalidated) [44s]
+  [IP ] Om=2.255189 f_hz=890.171 verdict=REAL-like (unvalidated) [44s]
+  [IP ] Om=2.116504 f_hz=835.429 verdict=REAL-like (unvalidated) [44s]
+  [IP ] Om=2.144042 f_hz=846.299 verdict=REAL-like (unvalidated) [44s]
+  [IP ] Om=2.332096 f_hz=920.528 verdict=AMBIGUOUS (unvalidated) [44s]
+  [IP ] Om=1.760032 f_hz=694.722 verdict=REAL-like (unvalidated) [44s]
+  [IP ] Om=1.611293 f_hz=636.012 verdict=REAL-like (unvalidated) [45s]
+  [IP ] Om=1.991963 f_hz=786.270 verdict=REAL-like (unvalidated) [45s]
+  [IP ] Om=1.866166 f_hz=736.615 verdict=ARTIFACT-like (unvalidated) [45s]
+  [IP ] Om=2.028739 f_hz=800.786 verdict=ARTIFACT-like (unvalidated) [45s]
+  [IP ] Om=1.741894 f_hz=687.563 verdict=ARTIFACT-like (unvalidated) [45s]
+  [IP ] Om=1.611811 f_hz=636.216 verdict=REAL-like (unvalidated) [45s]
+  [IP ] Om=1.981353 f_hz=782.082 verdict=AMBIGUOUS (unvalidated) [45s]
+  [IP ] Om=1.989211 f_hz=785.184 verdict=AMBIGUOUS (unvalidated) [45s]
+  [IP ] Om=2.018878 f_hz=796.894 verdict=REAL-like (unvalidated) [45s]
+  [IP ] Om=1.452090 f_hz=573.171 verdict=REAL-like (unvalidated) [45s]
+  [IP ] Om=1.528527 f_hz=603.342 verdict=AMBIGUOUS (unvalidated) [45s]
+  [IP ] Om=1.416129 f_hz=558.976 verdict=ARTIFACT-like (unvalidated) [46s]
+  [IP ] Om=1.548908 f_hz=611.387 verdict=REAL-like (unvalidated) [46s]
+  [IP ] Om=2.374914 f_hz=937.429 verdict=ARTIFACT-like (unvalidated) [46s]
+  [IP ] Om=1.357915 f_hz=535.998 verdict=AMBIGUOUS (unvalidated) [46s]
+  [IP ] Om=1.150009 f_hz=453.933 verdict=REAL-like (unvalidated) [46s]
+  [IP ] Om=1.334054 f_hz=526.579 verdict=REAL-like (unvalidated) [46s]
+  [IP ] Om=2.348565 f_hz=927.029 verdict=REAL-like (unvalidated) [46s]
+  [IP ] Om=1.384400 f_hz=546.452 verdict=REAL-like (unvalidated) [46s]
+  [IP ] Om=1.796031 f_hz=708.931 verdict=REAL-like (unvalidated) [46s]
+  [IP ] Om=0.880840 f_hz=347.686 verdict=REAL-like (unvalidated) [46s]
+  [IP ] Om=1.183094 f_hz=466.992 verdict=REAL-like (unvalidated) [46s]
+  [IP ] Om=1.649142 f_hz=650.951 verdict=ARTIFACT-like (unvalidated) [46s]
+  [IP ] Om=1.823017 f_hz=719.583 verdict=AMBIGUOUS (unvalidated) [46s]
+  [IP ] Om=1.852505 f_hz=731.223 verdict=REAL-like (unvalidated) [46s]
+  [IP ] Om=1.021112 f_hz=403.054 verdict=ARTIFACT-like (unvalidated) [46s]
+  [IP ] Om=1.494618 f_hz=589.958 verdict=REAL-like (unvalidated) [46s]
+  [IP ] Om=1.191778 f_hz=470.420 verdict=REAL-like (unvalidated) [46s]
+  [IP ] Om=2.357714 f_hz=930.640 verdict=ARTIFACT-like (unvalidated) [46s]
+  [IP ] Om=2.385013 f_hz=941.415 verdict=AMBIGUOUS (unvalidated) [47s]
+  [IP ] Om=2.419105 f_hz=954.872 verdict=AMBIGUOUS (unvalidated) [47s]
+  [IP ] Om=2.461923 f_hz=971.773 verdict=REAL-like (unvalidated) [47s]
+  [IP ] Om=1.162469 f_hz=458.851 verdict=ARTIFACT-like (unvalidated) [47s]
+  [IP ] Om=1.682447 f_hz=664.097 verdict=REAL-like (unvalidated) [47s]
+  [IP ] Om=0.180181 f_hz=71.121 verdict=ARTIFACT-like (unvalidated) [47s]
+  [IP ] Om=0.442157 f_hz=174.529 verdict=REAL-like (unvalidated) [47s]
+  [IP ] Om=0.424024 f_hz=167.371 verdict=ARTIFACT-like (unvalidated) [47s]
+  [IP ] Om=1.210406 f_hz=477.773 verdict=ARTIFACT-like (unvalidated) [47s]
+  [IP ] Om=1.039600 f_hz=410.352 verdict=REAL-like (unvalidated) [48s]
+  [IP ] Om=1.674021 f_hz=660.772 verdict=ARTIFACT-like (unvalidated) [48s]
+  [IP ] Om=1.681309 f_hz=663.648 verdict=REAL-like (unvalidated) [48s]
+  [IP ] Om=0.460813 f_hz=181.893 verdict=ARTIFACT-like (unvalidated) [48s]
+  [IP ] Om=0.834071 f_hz=329.225 verdict=ARTIFACT-like (unvalidated) [48s]
+  [IP ] Om=0.941928 f_hz=371.799 verdict=REAL-like (unvalidated) [48s]
+  [IP ] Om=0.273773 f_hz=108.064 verdict=ARTIFACT-like (unvalidated) [49s]
+  [OOP] Om=1.432743 FAILED: only 14/16 branches filled [49s]
+  [IP ] Om=0.112654 f_hz=44.467 verdict=REAL-like (unvalidated) [49s]
+  [IP ] Om=0.504960 f_hz=199.318 verdict=REAL-like (unvalidated) [49s]
+  [IP ] Om=0.924678 f_hz=364.990 verdict=ARTIFACT-like (unvalidated) [50s]
+  [IP ] Om=0.719633 f_hz=284.054 verdict=REAL-like (unvalidated) [51s]
+  [IP ] Om=0.668902 f_hz=264.030 verdict=ARTIFACT-like (unvalidated) [51s]
+  [IP ] Om=0.641517 f_hz=253.220 verdict=ARTIFACT-like (unvalidated) [52s]
+  [OOP] Om=0.077134 f_hz=0.969 verdict=ARTIFACT-like [64s]
+  [OOP] Om=2.442466 f_hz=30.674 verdict=REAL-like [64s]
+  [OOP] Om=2.439295 f_hz=30.634 verdict=ARTIFACT-like [64s]
+  [OOP] Om=0.174931 f_hz=2.197 verdict=REAL-like [65s]
+  [OOP] Om=0.692458 f_hz=8.696 verdict=REAL-like [65s]
+  [OOP] Om=0.186183 f_hz=2.338 verdict=REAL-like [65s]
+  [OOP] Om=0.205210 f_hz=2.577 verdict=ARTIFACT-like [65s]
+  [OOP] Om=2.273529 f_hz=28.552 verdict=ARTIFACT-like [65s]
+  [OOP] Om=2.317265 f_hz=29.101 verdict=REAL-like [65s]
+  [OOP] Om=2.297665 f_hz=28.855 verdict=REAL-like [65s]
+  [OOP] Om=1.876386 f_hz=23.565 verdict=ARTIFACT-like [66s]
+  [OOP] Om=0.669404 f_hz=8.407 verdict=ARTIFACT-like [67s]
+  [OOP] Om=1.792391 f_hz=22.510 verdict=ARTIFACT-like [67s]
+  [OOP] Om=0.470111 f_hz=5.904 verdict=ARTIFACT-like [67s]
+  [OOP] Om=1.845109 f_hz=23.172 verdict=REAL-like [67s]
+  [OOP] Om=0.416647 f_hz=5.232 verdict=REAL-like [67s]
+  [OOP] Om=2.031098 f_hz=25.508 verdict=REAL-like [67s]
+  [OOP] Om=0.711624 f_hz=8.937 verdict=REAL-like [68s]
+  [OOP] Om=0.404614 f_hz=5.081 verdict=ARTIFACT-like [70s]
+  [OOP] Om=1.518185 f_hz=19.066 verdict=REAL-like [72s]
+  [OOP] Om=1.335002 f_hz=16.766 verdict=ARTIFACT-like [72s]
+  [OOP] Om=1.410789 f_hz=17.717 verdict=REAL-like [73s]
+  [OOP] Om=1.364221 f_hz=17.133 verdict=ARTIFACT-like [74s]
+  [OOP] Om=1.025159 f_hz=12.874 verdict=REAL-like [75s]
+  [OOP] Om=0.868808 f_hz=10.911 verdict=ARTIFACT-like [76s]
+  [OOP] Om=0.989745 f_hz=12.430 verdict=ARTIFACT-like [76s]
+  [OOP] Om=1.084434 f_hz=13.619 verdict=REAL-like [77s]
+
+  all candidates done in 1.3 min
+
+  FE cross-reference: 34 physical OOP modes (/home/ghmkfh/PythonMill/Plate_Solver_Package/FutureWork/ansys_geomsweep_verification/geomsweep_oop_r150_a100.txt), 32 physical IP modes (/home/ghmkfh/PythonMill/Plate_Solver_Package/FutureWork/ansys_geomsweep_verification/geomsweep_ip_r150_a100.txt)
+
+==============================================================================
+  ADJUDICATED TABLE
+==============================================================================
+  [OOP] Om=0.077134  verdict=ARTIFACT-like            FE#7 err=55.752% no-match
+  [OOP] Om=0.174931  verdict=REAL-like                FE#7 err=0.350% MATCH
+  [OOP] Om=0.186183  verdict=REAL-like                FE#8 err=0.070% MATCH
+  [OOP] Om=0.205210  verdict=ARTIFACT-like            FE#8 err=10.296% no-match
+  [OOP] Om=0.404614  verdict=ARTIFACT-like            FE#10 err=2.736% MATCH
+  [OOP] Om=0.416647  verdict=REAL-like                FE#10 err=0.156% MATCH
+  [OOP] Om=0.470111  verdict=ARTIFACT-like            FE#10 err=13.008% no-match
+  [OOP] Om=0.669404  verdict=ARTIFACT-like            FE#11 err=3.095% no-match
+  [OOP] Om=0.692458  verdict=REAL-like                FE#11 err=0.243% MATCH
+  [OOP] Om=0.711624  verdict=REAL-like                FE#12 err=0.640% MATCH
+  [OOP] Om=0.868808  verdict=ARTIFACT-like            FE#13 err=15.002% no-match
+  [OOP] Om=0.989745  verdict=ARTIFACT-like            FE#13 err=3.170% no-match
+  [OOP] Om=1.025159  verdict=REAL-like                FE#13 err=0.295% MATCH
+  [OOP] Om=1.084434  verdict=REAL-like                FE#14 err=0.544% MATCH
+  [OOP] Om=1.335002  verdict=ARTIFACT-like            FE#15 err=5.029% no-match
+  [OOP] Om=1.364221  verdict=ARTIFACT-like            FE#15 err=2.950% MATCH
+  [OOP] Om=1.410789  verdict=REAL-like                FE#15 err=0.363% MATCH
+  [OOP] Om=1.432743  FAILED: only 14/16 branches filled
+  [OOP] Om=1.518185  verdict=REAL-like                FE#16 err=0.485% MATCH
+  [OOP] Om=1.792391  verdict=ARTIFACT-like            FE#17 err=2.436% MATCH
+  [OOP] Om=1.845109  verdict=REAL-like                FE#17 err=0.433% MATCH
+  [OOP] Om=1.876386  verdict=ARTIFACT-like            FE#17 err=2.136% MATCH
+  [OOP] Om=2.031098  verdict=REAL-like                FE#18 err=0.465% MATCH
+  [OOP] Om=2.273529  verdict=ARTIFACT-like            FE#19 err=0.603% MATCH
+  [OOP] Om=2.297665  verdict=REAL-like                FE#19 err=0.452% MATCH
+  [OOP] Om=2.317265  verdict=REAL-like                FE#20 err=0.199% MATCH
+  [OOP] Om=2.439295  verdict=ARTIFACT-like            FE#21 err=0.238% MATCH
+  [OOP] Om=2.442466  verdict=REAL-like                FE#21 err=0.368% MATCH
+  [IP ] Om=0.112654  verdict=REAL-like (unvalidated)  FE#4 err=0.024% MATCH
+  [IP ] Om=0.180181  verdict=ARTIFACT-like (unvalidated) FE#5 err=34.917% no-match
+  [IP ] Om=0.273773  verdict=ARTIFACT-like (unvalidated) FE#5 err=1.111% MATCH
+  [IP ] Om=0.424024  verdict=ARTIFACT-like (unvalidated) FE#6 err=4.096% no-match
+  [IP ] Om=0.442157  verdict=REAL-like (unvalidated)  FE#6 err=0.005% MATCH
+  [IP ] Om=0.460813  verdict=ARTIFACT-like (unvalidated) FE#6 err=4.225% no-match
+  [IP ] Om=0.504960  verdict=REAL-like (unvalidated)  FE#7 err=0.001% MATCH
+  [IP ] Om=0.641517  verdict=ARTIFACT-like (unvalidated) FE#8 err=2.590% MATCH
+  [IP ] Om=0.668902  verdict=ARTIFACT-like (unvalidated) FE#8 err=1.568% MATCH
+  [IP ] Om=0.719633  verdict=REAL-like (unvalidated)  FE#9 err=0.004% MATCH
+  [IP ] Om=0.834071  verdict=ARTIFACT-like (unvalidated) FE#10 err=5.298% no-match
+  [IP ] Om=0.880840  verdict=REAL-like (unvalidated)  FE#10 err=0.012% MATCH
+  [IP ] Om=0.924678  verdict=ARTIFACT-like (unvalidated) FE#11 err=1.825% MATCH
+  [IP ] Om=0.941928  verdict=REAL-like (unvalidated)  FE#11 err=0.006% MATCH
+  [IP ] Om=1.021112  verdict=ARTIFACT-like (unvalidated) FE#12 err=1.769% MATCH
+  [IP ] Om=1.039600  verdict=REAL-like (unvalidated)  FE#12 err=0.010% MATCH
+  [IP ] Om=1.150009  verdict=REAL-like (unvalidated)  FE#13 err=0.007% MATCH
+  [IP ] Om=1.162469  verdict=ARTIFACT-like (unvalidated) FE#13 err=1.091% MATCH
+  [IP ] Om=1.183094  verdict=REAL-like (unvalidated)  FE#14 err=0.004% MATCH
+  [IP ] Om=1.191778  verdict=REAL-like (unvalidated)  FE#15 err=0.011% MATCH
+  [IP ] Om=1.210406  verdict=ARTIFACT-like (unvalidated) FE#15 err=1.574% MATCH
+  [IP ] Om=1.334054  verdict=REAL-like (unvalidated)  FE#16 err=0.037% MATCH
+  [IP ] Om=1.357915  verdict=AMBIGUOUS (unvalidated)  FE#17 err=1.729% MATCH
+  [IP ] Om=1.384400  verdict=REAL-like (unvalidated)  FE#18 err=0.020% MATCH
+  [IP ] Om=1.416129  verdict=ARTIFACT-like (unvalidated) FE#18 err=2.313% MATCH
+  [IP ] Om=1.452090  verdict=REAL-like (unvalidated)  FE#19 err=0.064% MATCH
+  [IP ] Om=1.494618  verdict=REAL-like (unvalidated)  FE#20 err=0.053% MATCH
+  [IP ] Om=1.528527  verdict=AMBIGUOUS (unvalidated)  FE#21 err=1.259% MATCH
+  [IP ] Om=1.548908  verdict=REAL-like (unvalidated)  FE#21 err=0.058% MATCH
+  [IP ] Om=1.611293  verdict=REAL-like (unvalidated)  FE#23 err=0.012% MATCH
+  [IP ] Om=1.611811  verdict=REAL-like (unvalidated)  FE#23 err=0.020% MATCH
+  [IP ] Om=1.649142  verdict=ARTIFACT-like (unvalidated) FE#24 err=1.896% MATCH
+  [IP ] Om=1.674021  verdict=ARTIFACT-like (unvalidated) FE#24 err=0.416% MATCH
+  [IP ] Om=1.681309  verdict=REAL-like (unvalidated)  FE#24 err=0.018% MATCH
+  [IP ] Om=1.682447  verdict=REAL-like (unvalidated)  FE#25 err=0.001% MATCH
+  [IP ] Om=1.741894  verdict=ARTIFACT-like (unvalidated) FE#26 err=0.071% MATCH
+  [IP ] Om=1.760032  verdict=REAL-like (unvalidated)  FE#28 err=0.004% MATCH
+  [IP ] Om=1.796031  verdict=REAL-like (unvalidated)  FE#30 err=0.080% MATCH
+  [IP ] Om=1.823017  verdict=AMBIGUOUS (unvalidated)  FE#31 err=1.581% MATCH
+  [IP ] Om=1.852505  verdict=REAL-like (unvalidated)  FE#31 err=0.011% MATCH
+  [IP ] Om=1.866166  verdict=ARTIFACT-like (unvalidated) FE#31 err=0.748% MATCH
+  [IP ] Om=1.981353  verdict=AMBIGUOUS (unvalidated)  FE#34 err=0.515% MATCH
+  [IP ] Om=1.989211  verdict=AMBIGUOUS (unvalidated)  FE#34 err=0.120% MATCH
+  [IP ] Om=1.991963  verdict=REAL-like (unvalidated)  FE#34 err=0.018% MATCH
+  [IP ] Om=2.018878  verdict=REAL-like (unvalidated)  FE#35 err=0.029% MATCH
+  [IP ] Om=2.028739  verdict=ARTIFACT-like (unvalidated) FE#35 err=0.518% MATCH
+  [IP ] Om=2.116504  verdict=REAL-like (unvalidated)  FE#35 err=4.866% no-match
+  [IP ] Om=2.142058  verdict=AMBIGUOUS (unvalidated)  FE#35 err=6.132% no-match
+  [IP ] Om=2.144042  verdict=REAL-like (unvalidated)  FE#35 err=6.231% no-match
+  [IP ] Om=2.157519  verdict=REAL-like (unvalidated)  FE#35 err=6.898% no-match
+  [IP ] Om=2.169949  verdict=AMBIGUOUS (unvalidated)  FE#35 err=7.514% no-match
+  [IP ] Om=2.255189  verdict=REAL-like (unvalidated)  FE#35 err=11.738% no-match
+  [IP ] Om=2.272999  verdict=AMBIGUOUS (unvalidated)  FE#35 err=12.620% no-match
+  [IP ] Om=2.309544  verdict=REAL-like (unvalidated)  FE#35 err=14.431% no-match
+  [IP ] Om=2.332096  verdict=AMBIGUOUS (unvalidated)  FE#35 err=15.548% no-match
+  [IP ] Om=2.348565  verdict=REAL-like (unvalidated)  FE#35 err=16.364% no-match
+  [IP ] Om=2.357714  verdict=ARTIFACT-like (unvalidated) FE#35 err=16.818% no-match
+  [IP ] Om=2.374914  verdict=ARTIFACT-like (unvalidated) FE#35 err=17.670% no-match
+  [IP ] Om=2.385013  verdict=AMBIGUOUS (unvalidated)  FE#35 err=18.170% no-match
+  [IP ] Om=2.419105  verdict=AMBIGUOUS (unvalidated)  FE#35 err=19.859% no-match
+  [IP ] Om=2.461923  verdict=REAL-like (unvalidated)  FE#35 err=21.981% no-match
+
+  Near-degenerate / duplicate-FE-match check:
+    !! IP FE mode #23 matched by 2 solver candidates: [1.611293242566729, 1.6118107678315945] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! IP FE mode #34 matched by 3 solver candidates: [1.9919629691444238, 1.9813531019051256, 1.989210657650069] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! IP FE mode #31 matched by 3 solver candidates: [1.8661662202073186, 1.8230168771821138, 1.852505260457883] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! IP FE mode #35 matched by 2 solver candidates: [2.028739392451114, 2.0188775959002543] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! IP FE mode #21 matched by 2 solver candidates: [1.5285267266033926, 1.548907964304037] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! IP FE mode #18 matched by 2 solver candidates: [1.4161294149681252, 1.3843998009078873] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! IP FE mode #13 matched by 2 solver candidates: [1.150008696312708, 1.1624690462401919] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! IP FE mode #24 matched by 3 solver candidates: [1.6491420590151558, 1.6740207855232718, 1.6813085628554902] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! IP FE mode #12 matched by 2 solver candidates: [1.0211117131970058, 1.03960008630407] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! IP FE mode #15 matched by 2 solver candidates: [1.1917784056541036, 1.2104058770094226] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! IP FE mode #11 matched by 2 solver candidates: [0.941928388202502, 0.9246783893045506] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! IP FE mode #8 matched by 2 solver candidates: [0.668901514649419, 0.6415166913998049] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! OOP FE mode #21 matched by 2 solver candidates: [2.442466023333971, 2.439295473471347] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! OOP FE mode #19 matched by 2 solver candidates: [2.2735286825621195, 2.297664979015576] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! OOP FE mode #17 matched by 3 solver candidates: [1.8763857691575014, 1.792390917522886, 1.8451089674094203] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! OOP FE mode #10 matched by 2 solver candidates: [0.41664688252163873, 0.4046136329667267] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+    !! OOP FE mode #15 matched by 2 solver candidates: [1.4107893915197398, 1.3642211311906534] -- flag for multi-instrument treatment like FF-P1's ODD pair (Sec 6.3), do not force-assign here.
+
+  wrote ff_adjudicate_r150_a100_nu035_2347329.json
+
+total wall time: 78.5s
+End: Sun Aug  2 01:32:11 CDT 2026

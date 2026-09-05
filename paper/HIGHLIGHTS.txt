@@ -1,0 +1,5 @@
+Wave-function FFFF spectra; default pass is not a certified complete detector
+Two-edge variational functional decouples the determinant by angular parity
+Weak enforcement creates spurious zeros; flexural screen is the robust one
+Flexural tables FE-validated to 0.64%; extensional MAC bar at 0.744 plus literature
+Arbitrary-precision Python package with a from-scratch regression suite

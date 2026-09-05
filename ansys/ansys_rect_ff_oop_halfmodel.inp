@@ -1,0 +1,377 @@
+! ===========================================================================
+!  ansys_rect_ff_oop_halfmodel.inp  --  Mechanical APDL batch deck
+!  FIRST FE CROSS-CHECK for the rectangular free-free (FFFF) OOP candidates
+!  found by probe_rect_freefree_oop_discovery.py (job 2322815) and confirmed
+!  to deepen under basis enlargement by probe_rect_freefree_oop_basisbump.py
+!  (job 2322845). EXPLORATORY -- first FE pass, NOT yet a validated gate the
+!  way the annular FF-P1 tables are. No SOLVER_VERSION implications.
+!
+!  WHY A HALF-MODEL: the solver's SYM/ANTI classes are parity in x2 (the
+!  breadth direction) about x2=0 -- sin(xi*x2+phin), phin=pi/2 (SYM, even)
+!  or phin=0 (ANTI, odd). A half-model (Y in [0,B], mirror cut at Y=0) with
+!  a SYMM or ANTI boundary condition on the cut isolates exactly one parity
+!  class per pass, the flat-plate analogue of ansys_ff_oop_halfsector.inp's
+!  bisector technique -- except here the mirror plane (global Y=0) is
+!  already aligned with the natural Cartesian axes, so no local coordinate
+!  system or NROTAT is needed: for a shell whose normal is global Z, mirror
+!  symmetry about a Y=0 plane is the standard ANSYS symmetric/antisymmetric
+!  DOF pattern taken directly in GLOBAL Cartesian coordinates:
+!     SYMM (even in x2, matches solver phin=pi/2):  UY=0, ROTX=0, ROTZ=0
+!     ASYM (odd in x2,  matches solver phin=0):      UX=0, UZ=0,  ROTY=0
+!
+!  GEOMETRY/MATERIAL (a chosen benchmark instance -- ANY consistent set of
+!  b,h,E,nu,rho gives the SAME solver Lambda locations; this pins one
+!  physical instance so Ansys can be run and compared in Hz):
+!    half-breadth B=1.0 m, aspect ratio l/b=1.5 (lob, matching the solver
+!    probes AND this project's own validated rect-cantilever l/b=1.5 case,
+!    LESSONS_LEARNED Sec 11.2) so half-length L=1.5 m (full plate 3.0 x 2.0
+!    m), full thickness H=0.04 m (H/(2B)=0.02, thin-plate valid, same order
+!    as the annular FF-P1 benchmark's H/R_o~0.01), E=210 GPa, nu=0.30,
+!    rho=7800 kg/m^3 (identical material constants to every other Ansys
+!    deck in this project, for consistency).
+!
+!  Lambda -> Hz CONVERSION (derived directly from Seok/Tiersten/Scarton 2004
+!  rect Part 1, Eqs. 24-28, 37-38, 41-42; independently re-derived and cross-
+!  checked against this project's own T=1,R=1,mu=2T-nu=1.7 isotropic reduction
+!  in RectOOPAssembler.__init__ -- see LESSONS_LEARNED item 16/Sec 11 for the
+!  solver-side convention):
+!    D_bar = (2*h_half^3/3)*c11_bar,  c11_bar=E/(1-nu^2)  (Eq.24, h_half =
+!      HALF thickness = H/2 -- reduces to the standard D=E*H^3/(12(1-nu^2))
+!      once h_half=H/2 is substituted, confirmed algebraically)
+!    isotropic reduction: R=1, T=1, mu_bar=2T-nu=1.7 (Eqs.26-28, matches
+!      RectOOPAssembler exactly)
+!    omega_bar = (pi/(2*B))*sqrt(c66/rho),  c66=G=E/(2(1+nu))      (Eq.38)
+!    k_bar = (B/(pi*h_half))*sqrt(6*(T-nu)/R) = (B/(pi*h_half))*sqrt(6*(1-nu))
+!      for isotropic T=R=1                                          (Eq.42)
+!    Lambda = k_bar * Omega_bar  (what Table 3 / the solver's Lambda IS)
+!    => f[Hz] = Lambda * (pi*h_half)/(4*B^2) * sqrt(G/(6*rho*(1-nu)))
+!    KFAC (below) IS this Hz-per-unit-Lambda constant, computed from the
+!    SAME E/nu/rho/H/B as the mesh, so LAMBDA_FE = FREQ/KFAC converts every
+!    extracted modal frequency back into the solver's own Lambda units --
+!    the comparison below happens in Lambda space, not Hz, so no rounding
+!    of the conversion constant itself enters the reported error.
+!
+!  SOLVER-SIDE REFERENCE TABLE (job 2322845, corrected n_cpair basis-bump,
+!  6 of 7 candidates confirmed deepening >4 orders of magnitude, both corner
+!  variants agreeing on Lambda* -- see LESSONS_LEARNED item 16):
+!    SYM   Lambda*=0.056   (variant A/B agree)
+!    SYM   Lambda*=0.412   (variant A/B agree)
+!    SYM   Lambda*=0.431   (variant A/B agree)
+!    SYM   Lambda*=0.864   (variant A/B agree)
+!    SYM   Lambda*=0.960-0.962 (variant A/B differ by 0.002, edge-of-window)
+!    ANTI  Lambda*=0.475   (variant A/B agree)
+!  ANTI Lambda*~0.97 is EXCLUDED -- its baseline basis was pathologically
+!  thin (nfull=1) and A/B disagreed on location even before the bump; not
+!  yet trustworthy enough to benchmark. Do not read a "miss" on it as
+!  informative either way.
+!
+!  MODE-FAMILY ASSUMPTION (simplifying vs. the annular deck, stated so it
+!  can be checked): SHELL281 models both flexural and membrane behavior in
+!  one element, but for this thin a plate (H/(2B)=0.02) in-plane extensional
+!  modes are expected roughly an order of magnitude or more above this
+!  window (the annular case's IP modes were ~150-1100 Hz vs OOP ~15-103 Hz,
+!  a similar ratio) -- so a plain frequency-window cutoff (<30 Hz) should
+!  isolate flexural OOP modes without a separate PLANE183 run. If an
+!  unexpected extra mode appears inside the target window with no nearby
+!  solver candidate, do NOT assume it is spurious -- check its mode shape
+!  (dominant UZ = flexural, dominant UX/UY = membrane) before discounting it.
+!
+!  PRE-REGISTERED READING (do not reinterpret after the fact):
+!    0. CONVERGENCE GATE: mesh1-equiv vs mesh2-equiv elastic modes (same
+!       parity pass) must agree <0.3% before anything else is read.
+!    1. Compare each of the 6 SYM/ANTI candidates ONLY against its OWN
+!       parity pass's mode list (SYM candidates vs SYMM pass; the ANTI
+!       candidate vs ASYM pass) -- a match in the WRONG parity pass does
+!       not count.
+!    2. A match within ~1-2% in LAMBDA_FE units at the correct parity is
+!       the first genuine EXTERNAL evidence for that candidate (upgrading
+!       it beyond internal-consistency-only). A candidate with no match in
+!       its own parity pass within a wide window is evidence against it (or
+!       could indicate this specific corner-term construction predicts the
+!       wrong location even though it deepens with basis -- distinguish by
+!       checking if the OTHER variant's Lambda* [not tested by this deck,
+!       see the basisbump job log] would have matched better).
+!    3. If ALL SIX candidates miss by roughly the SAME multiplicative
+!       factor, suspect a KFAC/geometry conversion error, not a physics
+!       problem -- recheck the Lambda-to-Hz derivation before concluding
+!       the candidates are wrong.
+!    This is a FIRST FE PASS on ONE geometry instance -- exploratory, not a
+!    validated gate. No SOLVER_VERSION action, no table promotion from this
+!    alone regardless of outcome.
+!
+!  Run headless (matches project convention, 8 CPU shared-memory):
+!    mapdl -b -smp -np 8 -i ansys_rect_ff_oop_halfmodel.inp -o ansys_rect_ff_oop_halfmodel_out.txt
+!  Outputs: rect_ff_symm_mesh1.txt, rect_ff_symm_mesh2.txt,
+!           rect_ff_asym_mesh1.txt, rect_ff_asym_mesh2.txt
+! ===========================================================================
+
+! ======================= PASS SYMM, mesh1 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect half-model FFFF -- SYMM (even, solver phin=pi/2) cut BC, mesh1
+
+B      = 1.0
+LOB    = 1.5
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 60
+NDIVY  = 20
+NMODES = 30
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ SECNUM,1 $ MAT,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+! mirror cut at Y=0: SYMM (even) pattern in GLOBAL Cartesian (Y already the
+! mirror-normal axis, Z the shell normal -- no local CS needed)
+NSEL, S, LOC, Y, 0
+D, ALL, UY, 0 $ D, ALL, ROTX, 0 $ D, ALL, ROTZ, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+GG2   = E_iso/(2*(1+NU_iso))
+KFAC  = (PI*(H/2))/(4*B*B) * SQRT(GG2/(6*RHO*(1-NU_iso)))
+*DIM, FRS1, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRS1(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, rect_ff_symm_mesh1, txt
+*VWRITE
+('mode      f[Hz]           Lambda_FE    (SYMM=EVEN parity; SHELL281 x60/y20; discard ~0Hz rigid + >30Hz likely-membrane)')
+*DO, I, 1, NMODES
+  LFE = FRS1(I)/KFAC
+  *VWRITE, I, FRS1(I), LFE
+(F4.0, 3X, E14.6, 3X, F12.6)
+*ENDDO
+*CFCLOS
+FINISH
+
+! ======================= PASS SYMM, mesh2 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect half-model FFFF -- SYMM (even) cut BC, mesh2 (convergence)
+
+B      = 1.0
+LOB    = 1.5
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 90
+NDIVY  = 30
+NMODES = 30
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ SECNUM,1 $ MAT,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+NSEL, S, LOC, Y, 0
+D, ALL, UY, 0 $ D, ALL, ROTX, 0 $ D, ALL, ROTZ, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+GG2   = E_iso/(2*(1+NU_iso))
+KFAC  = (PI*(H/2))/(4*B*B) * SQRT(GG2/(6*RHO*(1-NU_iso)))
+*DIM, FRS2, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRS2(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, rect_ff_symm_mesh2, txt
+*VWRITE
+('mode      f[Hz]           Lambda_FE    (SYMM=EVEN parity; SHELL281 x90/y30; must agree with x60/y20 <0.3%)')
+*DO, I, 1, NMODES
+  LFE = FRS2(I)/KFAC
+  *VWRITE, I, FRS2(I), LFE
+(F4.0, 3X, E14.6, 3X, F12.6)
+*ENDDO
+*CFCLOS
+FINISH
+
+! ======================= PASS ASYM, mesh1 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect half-model FFFF -- ASYM (odd, solver phin=0) cut BC, mesh1
+
+B      = 1.0
+LOB    = 1.5
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 60
+NDIVY  = 20
+NMODES = 30
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ SECNUM,1 $ MAT,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+! mirror cut at Y=0: ASYM (odd) pattern in GLOBAL Cartesian
+NSEL, S, LOC, Y, 0
+D, ALL, UX, 0 $ D, ALL, UZ, 0 $ D, ALL, ROTY, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+GG2   = E_iso/(2*(1+NU_iso))
+KFAC  = (PI*(H/2))/(4*B*B) * SQRT(GG2/(6*RHO*(1-NU_iso)))
+*DIM, FRA1, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRA1(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, rect_ff_asym_mesh1, txt
+*VWRITE
+('mode      f[Hz]           Lambda_FE    (ASYM=ODD parity; SHELL281 x60/y20; discard ~0Hz rigid + >30Hz likely-membrane)')
+*DO, I, 1, NMODES
+  LFE = FRA1(I)/KFAC
+  *VWRITE, I, FRA1(I), LFE
+(F4.0, 3X, E14.6, 3X, F12.6)
+*ENDDO
+*CFCLOS
+FINISH
+
+! ======================= PASS ASYM, mesh2 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect half-model FFFF -- ASYM (odd) cut BC, mesh2 (convergence)
+
+B      = 1.0
+LOB    = 1.5
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 90
+NDIVY  = 30
+NMODES = 30
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ SECNUM,1 $ MAT,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+NSEL, S, LOC, Y, 0
+D, ALL, UX, 0 $ D, ALL, UZ, 0 $ D, ALL, ROTY, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+GG2   = E_iso/(2*(1+NU_iso))
+KFAC  = (PI*(H/2))/(4*B*B) * SQRT(GG2/(6*RHO*(1-NU_iso)))
+*DIM, FRA2, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRA2(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, rect_ff_asym_mesh2, txt
+*VWRITE
+('mode      f[Hz]           Lambda_FE    (ASYM=ODD parity; SHELL281 x90/y30; must agree with x60/y20 <0.3%)')
+*DO, I, 1, NMODES
+  LFE = FRA2(I)/KFAC
+  *VWRITE, I, FRA2(I), LFE
+(F4.0, 3X, E14.6, 3X, F12.6)
+*ENDDO
+*CFCLOS
+FINISH
+! ---------------------------------------------------------------------------
+!  AFTER RUNNING (order matters -- see PRE-REGISTERED READING in header):
+!   0. Convergence gate per pass (<0.3%, mesh1 vs mesh2).
+!   1. Compare SYMM pass Lambda_FE list against solver SYM candidates
+!      (0.056, 0.412, 0.431, 0.864, ~0.96); ASYM pass against the ANTI
+!      candidate (0.475) only. Cross-parity matches do not count.
+!   2. Discard near-zero (rigid body) entries and anything with
+!      Lambda_FE implying f>30 Hz (see mode-family assumption above --
+!      spot check one such mode's shape before discounting if unsure).
+!   3. If all six miss by a common factor, suspect the KFAC derivation
+!      before the physics.
+! ===========================================================================

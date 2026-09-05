@@ -1,0 +1,57 @@
+
+==============================================================================
+  probe_ip_fgm_implementation_validation -- start 2026-08-04 20:06:14
+==============================================================================
+SOLVER_VERSION = 2026-07-10.s10
+
+==============================================================================
+  PART A1 -- fresh cantilever IP baseline (isotropic, unchanged path)
+==============================================================================
+  [xmax-grow:CANT] n_dofs_actual=14<16 or xmax=14.0<floor=0.0 at Om=0.12, xmax 14.0->22.0, retrying...
+  [xmax-grow:CANT] n_dofs_actual=14<16 or xmax=22.0<floor=0.0 at Om=0.12, xmax 22.0->30.0, retrying...
+  [xmax-grow:CANT] n_dofs_actual=14<16 or xmax=30.0<floor=0.0 at Om=0.12, xmax 30.0->38.0, retrying...
+  [xmax-grow:CANT] n_dofs_actual=14<16 or xmax=38.0<floor=0.0 at Om=0.12, xmax 38.0->46.0, retrying...
+  [xmax-grow:CANT] n_dofs_actual=14<16 or xmax=46.0<floor=0.0 at Om=0.12, xmax 46.0->54.0, retrying...
+  [xmax-grow:CANT] n_dofs_actual=14<16 or xmax=54.0<floor=0.0 at Om=0.12, xmax 54.0->62.0, retrying...
+  [xmax-grow:CANT] n_dofs_actual=14<16 or xmax=62.0<floor=0.0 at Om=0.12, xmax 62.0->70.0, retrying...
+  cantilever IP sigma_min(0.12) = -4.6185012094077615  (REFERENCE_CANTILEVER -- Part B must reproduce this within PARTB_TOL, see Sec 74)
+
+==============================================================================
+  PART A2 -- FF-P1 pinned REAL point (Omega=1.598922), external cross-check
+==============================================================================
+  [xmax-grow:FFP1] n_dofs_actual=18<20 or xmax=28.0<floor=100.0 at Om=1.598922, xmax 28.0->36.0, retrying...
+  [xmax-grow:FFP1] n_dofs_actual=18<20 or xmax=36.0<floor=100.0 at Om=1.598922, xmax 36.0->44.0, retrying...
+  [xmax-grow:FFP1] n_dofs_actual=18<20 or xmax=44.0<floor=100.0 at Om=1.598922, xmax 44.0->52.0, retrying...
+  [xmax-grow:FFP1] n_dofs_actual=18<20 or xmax=52.0<floor=100.0 at Om=1.598922, xmax 52.0->60.0, retrying...
+  [xmax-grow:FFP1] n_dofs_actual=18<20 or xmax=60.0<floor=100.0 at Om=1.598922, xmax 60.0->68.0, retrying...
+  [xmax-grow:FFP1] n_dofs_actual=18<20 or xmax=68.0<floor=100.0 at Om=1.598922, xmax 68.0->76.0, retrying...
+  [xmax-grow:FFP1] n_dofs_actual=18<20 or xmax=76.0<floor=100.0 at Om=1.598922, xmax 76.0->84.0, retrying...
+  [xmax-grow:FFP1] n_dofs_actual=20<20 or xmax=84.0<floor=100.0 at Om=1.598922, xmax 84.0->92.0, retrying...
+  [xmax-grow:FFP1] n_dofs_actual=20<20 or xmax=92.0<floor=100.0 at Om=1.598922, xmax 92.0->100.0, retrying...
+  FreeFreeIP sigma_min(1.598922) = -4.946585045848601  (ndof=20)  threshold<-3.5  PASS
+
+==============================================================================
+  PART B -- graded material, FLAT profile, must collapse onto A1 within tol
+==============================================================================
+  cantilever IP sigma_min(0.12) [graded-flat] = -4.61690038400583  (reference=-4.6185012094077615, tol=0.05)  PASS
+
+==============================================================================
+  PART C -- mp vs float64 (_Part2Fast) graded series cross-check, c11 grading exercised
+==============================================================================
+  c11 series coeffs: [3.1538461538461537, 0.048970751720583225]
+  R   series coeffs: [1.04, 0.025464790894703278]
+
+  worst relative coefficient disagreement (q=0..3, p=0..11): 1.820e-15  PASS
+
+==============================================================================
+  PART D -- sigma_min sweep, Omega in [0.02,1.0], isotropic vs graded (cantilever IP)
+==============================================================================
+  Omega      iso_log10_smin   graded_log10_smin
+  [xmax-grow:CANT_GRADED] n_dofs_actual=14<16 or xmax=14.0<floor=0.0 at Om=0.02, xmax 14.0->22.0, retrying...
+   0.02000      -4.1800          -1.6550    [734.4s]
+   0.06083      -3.7436          -1.9253    [409.2s]
+   0.10167      -6.2980          -2.4761    [417.9s]
+   0.14250      -4.3689          -1.8691    [448.1s]
+   0.18333      -4.5547          -2.0745    [790.8s]
+   0.22417      -5.2338          -2.3165    [781.9s]
+   0.26500      -3.6545          -3.5035    [790.7s]

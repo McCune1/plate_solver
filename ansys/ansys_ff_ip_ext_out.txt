@@ -1,0 +1,1811 @@
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2025 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2025 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+
+ AFTER YOU HAVE READ, UNDERSTOOD, AND AGREED TO THE PREVIOUS NOTICES,
+ PRESS <CR> OR <ENTER> TO CONTINUE
+ 2025 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2025 R1 
+ AVxcelerate Sensors 2025 R1 
+ AVxcelerate Sensors Library for SCANeR 2025 R1  
+ AVxcelerate Sensors Library for CarMaker 2025 R1
+ TwinAI 2025 R1  
+ Electromagnetics Suite 2025 R1  
+ Electromagnetics RSM 2025 R1
+ Ansys Dynamic Reporting 2025 R1 
+ Core WB Files 2025 R1   
+ BladeModeler 2025 R1
+ CFD-Post only 2025 R1   
+ CFX (includes CFD-Post) 2025 R1 
+ Chemkin 2025 R1 
+ EnSight 2025 R1 
+ FENSAP-ICE 2025 R1  
+ Fluent (includes CFD-Post) 2025 R1  
+ Polyflow (includes CFD-Post) 2025 R1
+ Forte (includes EnSight) 2025 R1
+ ICEM CFD 2025 R1
+ Rocky 2025 R1   
+ TurboGrid 2025 R1   
+ Lumerical 2025 R1   
+ Lumerical Photonic Verilog-A 2025 R1
+ Speos HPC 2025 R1   
+ Speos RPC 2025 R1   
+ optiSLang 2025 R1   
+ Remote Solve Manager Standalone Services 2025 R1
+ Additive 2025 R1
+ Aqwa 2025 R1
+ Autodyn 2025 R1 
+ Customization Files for User Programmable Features 2025 R1  
+ LS-DYNA 2025 R1 
+ Mechanical Products 2025 R1 
+ Motion 2025 R1  
+ Sherlock 2025 R1
+ ACIS Geometry Interface 2025 R1 
+ Catia, Version 5 Geometry Interface 2025 R1 
+ Parasolid Geometry Interface 2025 R1
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  SHARED MEMORY PARALLEL REQUESTED
+    SINGLE PROCESS WITH   8 THREADS REQUESTED
+    TOTAL OF     8 CORES REQUESTED
+  INPUT FILE NAME              = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/ansys_ff_ip_ext.inp
+  OUTPUT FILE NAME             = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/ansys_ff_ip_ext_out.txt
+
+ RELEASE= 2025 R1              BUILD= 25.1      UP20241202   VERSION=LINUX x64   
+ CURRENT JOBNAME=file  02:37:04  JUL 19, 2026 CP=      0.296
+
+     1  ! ===========================================================================   
+     2  !  ansys_ff_ip_ext.inp  --  Mechanical APDL batch deck  
+     3  !  ISOTROPIC free-free (FFFF) EXTENSIONAL (in-plane) benchmark -- recreated 
+     4  !  two-mesh version.
+     5  !   
+     6  !  WHY (2026-07-19 investigation): PAPER1_FREEFREE_DRAFT.tex Sec 6.3 states 
+     7  !  the extensional/in-plane benchmark ("that PLANE183 plane-stress model")  
+     8  !  was "meshed to the same two-mesh <0.3% standard" as the flexural 
+     9  !  (SHELL281) benchmark. The flexural benchmark genuinely has a two-mesh
+    10  !  64/96 pair (ansys_ff_oop_ext.inp). Checking the same claim for the   
+    11  !  extensional side found no PLANE183 deck anywhere in the local project
+    12  !  tree at all -- only its OUTPUT filename (ip_modes_mesh80.txt, job
+    13  !  2316743) is referenced from other decks and from LESSONS_LEARNED.md  
+    14  !  Sec 20.2, and every reference to it names only ONE mesh density  
+    15  !  ("mesh80"), never a second. The deck itself may simply have been lost
+    16  !  in one of this project's several documented cleanup passes (per the  
+    17  !  user) -- this is a recreation, not an accusation that the original   
+    18  !  work was fabricated. 
+    19  !   
+    20  !  This deck recreates that model from scratch as a genuine two-mesh
+    21  !  (64/96) pair, matching the flexural benchmark's own mesh sizes exactly,  
+    22  !  so the "same two-mesh standard" sentence in Sec 6.3 is backed by an  
+    23  !  actual matching two-mesh run rather than a single historical mesh80  
+    24  !  result.  
+    25  !   
+    26  !  GEOMETRY/MATERIAL: identical to the validated ansys_ff_oop_ext.inp / 
+    27  !  ansys_ff_isoval.inp isotropic FF-P1 benchmark (R_i=4, R_o=8, PHI=90 deg, 
+    28  !  H=0.08, E=210e9, nu=0.30, rho=7800) -- same physical plate, same 
+    29  !  material, so the resulting IP spectrum is directly comparable to the 
+    30  !  historical ip_modes_mesh80.txt values recorded in LESSONS_LEARNED.md 
+    31  !  Sec 20.2 (161.4, 276.5, 307.5, 459.5, 460.6, 481.7, 569.7, 579.3, 612.3, 
+    32  !  643.1, 648.8, 679.8, 715.9, 736.8, 793.6, 799.3, 803.0, 871.6, 922.3,
+    33  !  925.7, 960.7, 985.7, 1014.1, 1032.0, 1075.9, 1114.9, 1115.3 Hz -- 27 
+    34  !  values) and to plate_solver's own tab:ip solver column.  
+    35  !   
+    36  !  ELEMENT: PLANE183 in plane-stress mode (KEYOPT(3)=3, thickness via a 
+    37  !  real constant) rather than SHELL281 -- this element has ONLY in-plane
+    38  !  (UX/UY) degrees of freedom, so it cannot represent out-of-plane bending  
+    39  !  at all. Unlike the SHELL281 free-free decks in this project, there is
+    40  !  NO mode-family interleaving to separate here (no UzFrac classifier   
+    41  !  needed) -- every non-rigid mode this model produces is, by   
+    42  !  construction, an extensional/in-plane mode. Isotropic material needs no  
+    43  !  ESYS orientation (unlike the orthotropic SHELL281 deck); CSYS,11 is used 
+    44  !  only for the same LOC,X/LOC,Y line-selection convenience the other   
+    45  !  decks in this project already use for meshing.   
+    46  !   
+    47  !  OUTPUT CONVENTION: the extensional/IP comparison in this paper (Table
+    48  !  tab:ip) is done directly in Hz, not via the Omega_lit conversion used
+    49  !  for the flexural tables (Sec 6.4's own text: "the extensional table  
+    50  !  reports the raw solver Omega directly against FE frequency in Hz...  
+    51  !  since Omega is already the correct in-plane ratio with no further
+    52  !  conversion") -- so this deck just reports mode/f[Hz] per mode, no KLIT   
+    53  !  computation needed.  
+    54  !   
+    55  !  NMODES=35 (3 rigid in-plane modes + all 27 previously catalogued IP  
+    56  !  modes + margin) -- generous but cheap, this is a small 2D plane-stress   
+    57  !  model.   
+    58  !   
+    59  !  *VWRITE DISCIPLINE: fills the result array inside the *DO loop, then 
+    60  !  calls *VWRITE exactly ONCE per pass, AFTER the loop, over the full   
+    61  !  array starting at index 1 -- avoids the array-argument auto-looping  
+    62  !  cascade found and fixed in ansys_ff_ortho_oop.inp on 2026-07-19 (see 
+    63  !  that deck's header for the full explanation). Never call *VWRITE with
+    64  !  an indexed array argument inside a *DO loop in this project again.   
+    65  !   
+    66  !  AFTER RUNNING: compare ip_ext_mesh64.txt vs ip_ext_mesh96.txt mode by
+    67  !  mode (skip the 3 rigid ~0 Hz modes) -- must agree to <0.3% before
+    68  !  either is trusted, exactly the flexural benchmark's own standard. Then   
+    69  !  compare the converged (mesh96) list against the historical 27-value  
+    70  !  ip_modes_mesh80.txt list above: if they match closely, Sec 6.3's claim   
+    71  !  is now genuinely backed by a real two-mesh run; if they diverge  
+    72  !  meaningfully, that is the real finding to report, not something to   
+    73  !  paper over.  
+    74  !   
+    75  !  Run headless:  mapdl -b -smp -np 8 -i ansys_ff_ip_ext.inp -o ansys_ff_ip_ext_out.txt 
+    76  !  Outputs: ip_ext_mesh64.txt, ip_ext_mesh96.txt (mode, f[Hz] per mode).
+    77  ! ===========================================================================   
+    78      
+    79  FINISH  
+    80  /CLEAR,NOSTART  
+    81  /TITLE, Isotropic free-free extensional (in-plane) benchmark -- Pass 1: mesh 64 
+    82      
+    83  R_i    = 4.0
+    84  R_o    = 8.0
+    85  PHI    = 90.0   
+    86  H      = 0.08   
+    87  E_iso  = 210.0e9
+    88  NU_iso = 0.30   
+    89  RHO    = 7800.0 
+    90  NDIV   = 64 
+    91  NMODES = 35 
+    92      
+    93  /PREP7  
+    94  LOCAL, 11, 1, 0,0,0 
+    95  CSYS, 11
+    96  ET, 1, PLANE183 
+    97  KEYOPT, 1, 3, 3 
+    98  R, 1, H 
+    99  MP, EX,1,E_iso  
+   100  MP, PRXY,1,NU_iso   
+   101  MP, DENS,1,RHO  
+   102  CSYS, 0 
+   103  PCIRC, R_i, R_o, 0, PHI 
+   104  TYPE,1 $ MAT,1 $ REAL,1 
+   105  CSYS, 11
+   106  LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI  
+   107  LESIZE, ALL, , , NDIV   
+   108  LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o 
+   109  LESIZE, ALL, , , NDIV   
+   110  ALLSEL, ALL 
+   111  CSYS, 0 
+   112  MSHKEY, 1 $ AMESH, ALL  
+   113  ! completely free (FFFF): no constraints
+   114  ALLSEL, ALL 
+   115  FINISH  
+   116      
+   117  /SOLU   
+   118  ANTYPE, MODAL   
+   119  MODOPT, LANB, NMODES, -1.0, , , ON  
+   120  MXPAND, NMODES, , , YES 
+   121  SOLVE   
+   122  FINISH  
+   123      
+   124  /POST1  
+   125  *DIM, MIDX, ARRAY, NMODES   
+   126  *VFILL, MIDX, RAMP, 1, 1
+   127  *DIM, FRA, ARRAY, NMODES
+   128  *DO, I, 1, NMODES   
+   129    *GET, FRA(I), MODE, I, FREQ   
+   130  *ENDDO  
+   131      
+   132  *CFOPEN, ip_ext_mesh64, txt 
+   133  *VWRITE 
+   134  ('mode      f[Hz]           (PLANE183 64x64 isotropic FFFF, plane stress; modes 1-3 rigid; remainder are the in-plane/extensional spectrum, no family separation needed)')  
+   135  *VWRITE, MIDX(1), FRA(1)
+   136  (F4.0, 3X, E14.6)   
+   137  *CFCLOS 
+   138  FINISH  
+   139      
+   140  ! ===========================================================================   
+   141  FINISH  
+   142  /CLEAR,NOSTART  
+   143  /TITLE, Isotropic free-free extensional (in-plane) benchmark -- Pass 2: mesh 96 (convergence)   
+   144      
+   145  R_i    = 4.0
+   146  R_o    = 8.0
+   147  PHI    = 90.0   
+   148  H      = 0.08   
+   149  E_iso  = 210.0e9
+   150  NU_iso = 0.30   
+   151  RHO    = 7800.0 
+   152  NDIV   = 96 
+   153  NMODES = 35 
+   154      
+   155  /PREP7  
+   156  LOCAL, 11, 1, 0,0,0 
+   157  CSYS, 11
+   158  ET, 1, PLANE183 
+   159  KEYOPT, 1, 3, 3 
+   160  R, 1, H 
+   161  MP, EX,1,E_iso  
+   162  MP, PRXY,1,NU_iso   
+   163  MP, DENS,1,RHO  
+   164  CSYS, 0 
+   165  PCIRC, R_i, R_o, 0, PHI 
+   166  TYPE,1 $ MAT,1 $ REAL,1 
+   167  CSYS, 11
+   168  LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI  
+   169  LESIZE, ALL, , , NDIV   
+   170  LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o 
+   171  LESIZE, ALL, , , NDIV   
+   172  ALLSEL, ALL 
+   173  CSYS, 0 
+   174  MSHKEY, 1 $ AMESH, ALL  
+   175  ALLSEL, ALL 
+   176  FINISH  
+   177      
+   178  /SOLU   
+   179  ANTYPE, MODAL   
+   180  MODOPT, LANB, NMODES, -1.0, , , ON  
+   181  MXPAND, NMODES, , , YES 
+   182  SOLVE   
+   183  FINISH  
+   184      
+   185  /POST1  
+   186  *DIM, MIDXB, ARRAY, NMODES  
+   187  *VFILL, MIDXB, RAMP, 1, 1   
+   188  *DIM, FRB, ARRAY, NMODES
+   189  *DO, I, 1, NMODES   
+   190    *GET, FRB(I), MODE, I, FREQ   
+   191  *ENDDO  
+   192      
+   193  *CFOPEN, ip_ext_mesh96, txt 
+   194  *VWRITE 
+   195  ('mode      f[Hz]           (PLANE183 96x96 isotropic FFFF, plane stress; convergence pass -- must agree with mesh64 to <0.3% before use)') 
+   196  *VWRITE, MIDXB(1), FRB(1)   
+   197  (F4.0, 3X, E14.6)   
+   198  *CFCLOS 
+   199  FINISH  
+   200  ! ---------------------------------------------------------------------------   
+   201  !  AFTER RUNNING (order matters):   
+   202  !   1. Skip modes 1-3 (rigid, ~0 Hz) in both files. 
+   203  !   2. Convergence gate: mesh64 vs mesh96 must agree to <0.3% per mode --   
+   204  !      this project's standard gate, and exactly what Sec 6.3 claims for
+   205  !      this model.  
+   206  !   3. Compare the converged (mesh96) 27-ish-mode list against the  
+   207  !      historical ip_modes_mesh80.txt values quoted in this deck's header   
+   208  !      and in LESSONS_LEARNED.md Sec 20.2 -- confirms (or corrects) that
+   209  !      record independently of whatever happened to the original deck.  
+   210  ! ===========================================================================   
+
+ RUN SETUP PROCEDURE FROM FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans
+
+ /INPUT FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans  LINE=       0
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 1: mesh 64      
+
+
+ PARAMETER R_I =     4.000000000    
+
+ PARAMETER R_O =     8.000000000    
+
+ PARAMETER PHI =     90.00000000    
+
+ PARAMETER H =    0.8000000000E-01
+
+ PARAMETER E_ISO =    0.2100000000E+12
+
+ PARAMETER NU_ISO =    0.3000000000    
+
+ PARAMETER RHO =     7800.000000    
+
+ PARAMETER NDIV =     64.00000000    
+
+ PARAMETER NMODES =     35.00000000    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:37:04  JUL 19, 2026 CP=      0.605
+
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 1: mesh 64      
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ COORDINATE SYSTEM         11 DEFINITION.  TYPE= 1  (CYLINDRICAL)
+   XC,YC,ZC=  0.0000      0.0000      0.0000    
+   ANGLES=    0.00    0.00    0.00   PARAMETERS=   1.000   1.000
+   ORIENTATION=  1.00  0.00  0.00   0.00  1.00  0.00   0.00  0.00  1.00
+
+ ACTIVE COORDINATE SYSTEM SET TO        11  (CYLINDRICAL)
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ ELEMENT TYPE          1 IS PLANE183     2-D 8-NODE PLANE STRS SOLID 
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY  
+  TWO-DIMENSIONAL MODEL
+
+ ELEMENT TYPE       1 IS PLANE183     2-D 8-NODE PLANE STRS SOLID 
+  KEYOPT( 1- 6)=        0      0      3        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY  
+  TWO-DIMENSIONAL MODEL
+
+ REAL CONSTANT SET          1  ITEMS   1 TO   6
+   0.80000E-01   0.0000       0.0000       0.0000       0.0000       0.0000    
+
+ MATERIAL          1     EX   =  0.2100000E+12  
+
+ MATERIAL          1     PRXY =  0.3000000      
+
+ MATERIAL          1     DENS =   7800.000      
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ CREATE A CIRCULAR AREA WITH 
+ INNER RADIUS         =      4.000000000    
+ OUTER RADIUS         =      8.000000000    
+ STARTING THETA ANGLE =      0.000000000    
+ ENDING   THETA ANGLE =      90.00000000    
+
+      OUTPUT AREA =     1
+
+ ELEMENT TYPE SET TO         1
+
+ MATERIAL NUMBER SET TO         1
+
+ REAL CONSTANT NUMBER=        1
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  0.0000     AND   0.0000    
+   KABS=  0.  TOLERANCE= 0.100000E-05
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN  90.000     AND   90.000    
+   KABS=  0.  TOLERANCE= 0.450000    
+
+        2  LINES (OF        4  DEFINED) SELECTED BY LSEL COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   64,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  4.0000     AND   4.0000    
+   KABS=  0.  TOLERANCE= 0.200000E-01
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=X     BETWEEN  8.0000     AND   8.0000    
+   KABS=  0.  TOLERANCE= 0.400000E-01
+
+        2  LINES (OF        4  DEFINED) SELECTED BY LSEL COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   64,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     1 MESHED WITH    4096 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =      12545
+ MAXIMUM ELEMENT NUMBER     =       4096
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.675
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A MODAL ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ USE SYM. BLOCK LANCZOS MODE EXTRACTION METHOD
+  EXTRACT    35 MODES
+  NORMALIZE THE MODE SHAPES TO UNITY
+
+
+ NUMBER OF MODES TO EXPAND=    35
+  CALCULATE ELEMENT RESULTS AND NODAL DOF SOLUTION
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** SELECTION OF ELEMENT TECHNOLOGIES FOR APPLICABLE ELEMENTS ***
+                ---GIVE SUGGESTIONS ONLY---
+
+ ELEMENT TYPE         1 IS PLANE183 WITH PLANE STRESS OPTION. NO SUGGESTION IS
+ AVAILABLE.
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:37:04  JUL 19, 2026 CP=      1.186
+
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 1: mesh 64      
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .2-D                  
+   DEGREES OF FREEDOM. . . . . . UX   UY  
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .MODAL                
+      EXTRACTION METHOD. . . . . . . . . . . . . .BLOCK LANCZOS
+   NUMBER OF MODES TO EXTRACT. . . . . . . . . . .    35
+   SHIFT POINT . . . . . . . . . . . . . . . . . . -1.0000    
+   NORMALIZE MODES TO UNITY. . . . . . . . . . . .YES
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+   NUMBER OF MODES TO EXPAND . . . . . . . . . . .    35
+   ELEMENT RESULTS CALCULATION . . . . . . . . . .ON 
+
+ *** WARNING ***                         CP =       1.238   TIME= 02:37:04
+ No constraints have been defined using the D command.                   
+
+ *** NOTE ***                            CP =       1.248   TIME= 02:37:04
+ The step data was checked and warning messages were found.              
+  Please review output or errors file (                                  
+ /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/file.err ) for       
+ these warning messages.                                                 
+
+ *** NOTE ***                            CP =       1.249   TIME= 02:37:04
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   THERMAL STRAINS INCLUDED IN THE LOAD VECTOR . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS. . . . . . . . . . . .ALL DATA WRITTEN
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =   23524.    
+
+                           MOM. OF INERTIA         MOM. OF INERTIA
+  CENTER OF MASS            ABOUT ORIGIN        ABOUT CENTER OF MASS
+
+  XC =   3.9613          IXX =   0.4705E+06      IXX =   0.1013E+06
+  YC =   3.9613          IYY =   0.4705E+06      IYY =   0.1013E+06
+  ZC =   0.0000          IZZ =   0.9409E+06      IZZ =   0.2027E+06
+                         IXY =  -0.2995E+06      IXY =   0.6959E+05
+                         IYZ =    0.000          IYZ =    0.000    
+                         IZX =    0.000          IZX =    0.000    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   23524.2    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 1.036206226E+11 at element 64.                                
+ Minimum = 3.914986026E+10 at element 4065.                              
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      4096  PLANE183      1.544   0.000377
+ Time at end of element matrix formulation CP = 4.50518084.              
+
+  BLOCK LANCZOS CALCULATION OF UP TO    35 EIGENVECTORS.
+  NUMBER OF EQUATIONS              =        25090
+  MAXIMUM WAVEFRONT                =           42
+  MAXIMUM MODES STORED             =           35
+  MINIMUM EIGENVALUE               = -0.10000E+01
+  MAXIMUM EIGENVALUE               =  0.10000E+31
+
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =    45.011 MB
+  Equation solver memory required for in-core mode     =    42.964 MB
+  Equation solver memory required for out-of-core mode =    14.226 MB
+  Total (solver and non-solver) memory allocated       =   655.187 MB
+
+ *** NOTE ***                            CP =       6.406   TIME= 02:37:05
+ The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+ currently running in the in-core memory mode.  This memory mode uses    
+ the most amount of memory in order to avoid using the hard drive as     
+ much as possible, which most often results in the fastest solution      
+ time.  This mode is recommended if enough physical memory is present    
+ to accommodate all of the solver data.                                  
+
+  Process memory required for in-core LANCZOS Workspace             =     96.959122 MB
+  Process memory required for out-of-core LANCZOS Workspace         =     2.779739 MB
+  Lanczos Memory Mode : INCORE
+
+
+  >> Shift # 1 :  | | | | | |                        : 35 Eigenvalues Converged
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:37:06  JUL 19, 2026 CP=     14.986
+
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 1: mesh 64      
+
+
+ NEGATIVE FREQUENCY OF -0.4351E-04 SET TO ZERO
+
+ *** FREQUENCIES FROM BLOCK LANCZOS ITERATION ***
+
+  MODE    FREQUENCY (HERTZ)      
+
+
+   FREQUENCY RANGE REQUESTED=   35 MODES ABOVE  -1.00000     HERTZ
+
+    1     0.000000000000    
+    2    0.3591747096719E-04
+    3    0.3684368625736E-04
+    4     161.3724443887    
+    5     276.4908188040    
+    6     307.5451859205    
+    7     459.4835218036    
+    8     460.6419707822    
+    9     481.7131746724    
+   10     569.7128562697    
+   11     579.2690807359    
+   12     612.3122083020    
+   13     643.1113494221    
+   14     648.8328398171    
+   15     679.7723246374    
+   16     715.8572707327    
+   17     736.8184473125    
+   18     793.5832188607    
+   19     799.3142852882    
+   20     802.9590170386    
+   21     871.5591212880    
+   22     922.3475183156    
+   23     925.7260535519    
+   24     960.7489555076    
+   25     985.6830759085    
+   26     1014.121432025    
+   27     1032.009199268    
+   28     1075.860410995    
+   29     1114.852426760    
+   30     1115.295996383    
+   31     1145.981445180    
+   32     1148.536364559    
+   33     1191.209100928    
+   34     1201.240053579    
+   35     1215.716632249    
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      4096  PLANE183      1.924   0.000470
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      4096  PLANE183      1.178   0.000288
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:37:09  JUL 19, 2026 CP=     35.479
+
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 1: mesh 64      
+
+
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  X  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     0.00000        0.0000        112.20        1.000000     12588.0        0.535107        0.535107    
+     2    0.359175E-04    27842.        93.571        0.833995     8755.54        0.907299        0.372192    
+     3    0.368437E-04    27142.       -46.698        0.416220     2180.73         1.00000        0.927012E-01
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     7     459.484       0.21764E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    19     799.314       0.12511E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    20     802.959       0.12454E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    21     871.559       0.11474E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    22     922.348       0.10842E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    23     925.726       0.10802E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    24     960.749       0.10409E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    25     985.683       0.10145E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    27     1032.01       0.96898E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    30     1115.30       0.89662E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    31     1145.98       0.87261E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    32     1148.54       0.87067E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    34     1201.24       0.83247E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             23524.2                         1.00000    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Y  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     0.00000        0.0000        7.2823        0.051871     53.0314        0.225433E-02    0.225433E-02
+     2    0.359175E-04    27842.        61.333        0.436871     3761.68        0.162161        0.159907    
+     3    0.368437E-04    27142.        140.39        1.000000     19709.5         1.00000        0.837839    
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     7     459.484       0.21764E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    19     799.314       0.12511E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    20     802.959       0.12454E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    21     871.559       0.11474E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    22     922.348       0.10842E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    23     925.726       0.10802E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    24     960.749       0.10409E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    25     985.683       0.10145E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    27     1032.01       0.96898E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    30     1115.30       0.89662E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    31     1145.98       0.87261E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    32     1148.54       0.87067E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    34     1201.24       0.83247E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             23524.2                         1.00000    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Z  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     0.00000        0.0000        0.0000        0.000000     0.00000         0.00000         0.00000    
+     2    0.359175E-04    27842.        0.0000        0.000000     0.00000         0.00000         0.00000    
+     3    0.368437E-04    27142.        0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     7     459.484       0.21764E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    19     799.314       0.12511E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    20     802.959       0.12454E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    21     871.559       0.11474E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    22     922.348       0.10842E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    23     925.726       0.10802E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    24     960.749       0.10409E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    25     985.683       0.10145E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    27     1032.01       0.96898E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    30     1115.30       0.89662E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    31     1145.98       0.87261E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    32     1148.54       0.87067E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    34     1201.24       0.83247E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTX DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     0.00000        0.0000        0.0000        0.000000     0.00000         0.00000    
+     2    0.359175E-04    27842.        0.0000        0.000000     0.00000         0.00000    
+     3    0.368437E-04    27142.        0.0000        0.000000     0.00000         0.00000    
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         0.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         0.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         0.00000    
+     7     459.484       0.21764E-02    0.0000        0.000000     0.00000         0.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         0.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         0.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         0.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         0.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         0.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         0.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         0.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         0.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         0.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         0.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         0.00000    
+    19     799.314       0.12511E-02    0.0000        0.000000     0.00000         0.00000    
+    20     802.959       0.12454E-02    0.0000        0.000000     0.00000         0.00000    
+    21     871.559       0.11474E-02    0.0000        0.000000     0.00000         0.00000    
+    22     922.348       0.10842E-02    0.0000        0.000000     0.00000         0.00000    
+    23     925.726       0.10802E-02    0.0000        0.000000     0.00000         0.00000    
+    24     960.749       0.10409E-02    0.0000        0.000000     0.00000         0.00000    
+    25     985.683       0.10145E-02    0.0000        0.000000     0.00000         0.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         0.00000    
+    27     1032.01       0.96898E-03    0.0000        0.000000     0.00000         0.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         0.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         0.00000    
+    30     1115.30       0.89662E-03    0.0000        0.000000     0.00000         0.00000    
+    31     1145.98       0.87261E-03    0.0000        0.000000     0.00000         0.00000    
+    32     1148.54       0.87067E-03    0.0000        0.000000     0.00000         0.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         0.00000    
+    34     1201.24       0.83247E-03    0.0000        0.000000     0.00000         0.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTY DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     0.00000        0.0000        0.0000        0.000000     0.00000         0.00000    
+     2    0.359175E-04    27842.        0.0000        0.000000     0.00000         0.00000    
+     3    0.368437E-04    27142.        0.0000        0.000000     0.00000         0.00000    
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         0.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         0.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         0.00000    
+     7     459.484       0.21764E-02    0.0000        0.000000     0.00000         0.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         0.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         0.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         0.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         0.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         0.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         0.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         0.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         0.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         0.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         0.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         0.00000    
+    19     799.314       0.12511E-02    0.0000        0.000000     0.00000         0.00000    
+    20     802.959       0.12454E-02    0.0000        0.000000     0.00000         0.00000    
+    21     871.559       0.11474E-02    0.0000        0.000000     0.00000         0.00000    
+    22     922.348       0.10842E-02    0.0000        0.000000     0.00000         0.00000    
+    23     925.726       0.10802E-02    0.0000        0.000000     0.00000         0.00000    
+    24     960.749       0.10409E-02    0.0000        0.000000     0.00000         0.00000    
+    25     985.683       0.10145E-02    0.0000        0.000000     0.00000         0.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         0.00000    
+    27     1032.01       0.96898E-03    0.0000        0.000000     0.00000         0.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         0.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         0.00000    
+    30     1115.30       0.89662E-03    0.0000        0.000000     0.00000         0.00000    
+    31     1145.98       0.87261E-03    0.0000        0.000000     0.00000         0.00000    
+    32     1148.54       0.87067E-03    0.0000        0.000000     0.00000         0.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         0.00000    
+    34     1201.24       0.83247E-03    0.0000        0.000000     0.00000         0.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTZ DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     0.00000        0.0000       -109.33        0.127164     11953.1        0.127030E-01
+     2    0.359175E-04    27842.       -435.69        0.506761     189828.        0.214440    
+     3    0.368437E-04    27142.        859.76        1.000000     739188.         1.00000    
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         1.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         1.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         1.00000    
+     7     459.484       0.21764E-02    0.0000        0.000000     0.00000         1.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         1.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         1.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         1.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         1.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         1.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         1.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         1.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         1.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         1.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         1.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         1.00000    
+    19     799.314       0.12511E-02    0.0000        0.000000     0.00000         1.00000    
+    20     802.959       0.12454E-02    0.0000        0.000000     0.00000         1.00000    
+    21     871.559       0.11474E-02    0.0000        0.000000     0.00000         1.00000    
+    22     922.348       0.10842E-02    0.0000        0.000000     0.00000         1.00000    
+    23     925.726       0.10802E-02    0.0000        0.000000     0.00000         1.00000    
+    24     960.749       0.10409E-02    0.0000        0.000000     0.00000         1.00000    
+    25     985.683       0.10145E-02    0.0000        0.000000     0.00000         1.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         1.00000    
+    27     1032.01       0.96898E-03    0.0000        0.000000     0.00000         1.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         1.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         1.00000    
+    30     1115.30       0.89662E-03    0.0000        0.000000     0.00000         1.00000    
+    31     1145.98       0.87261E-03    0.0000        0.000000     0.00000         1.00000    
+    32     1148.54       0.87067E-03    0.0000        0.000000     0.00000         1.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         1.00000    
+    34     1201.24       0.83247E-03    0.0000        0.000000     0.00000         1.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         1.00000    
+ ----------------------------------------------------------------------------------------------
+   sum                                                             940970.    
+ ----------------------------------------------------------------------------------------------
+
+
+
+
+
+        ***** MODAL MASSES, KINETIC ENERGIES, AND TRANSLATIONAL EFFECTIVE MASSES SUMMARY *****
+
+                                                                         EFFECTIVE MASS
+  MODE  FREQUENCY   MODAL MASS     KENE      |      X-DIR      RATIO%   Y-DIR      RATIO%   Z-DIR      RATIO% 
+     1   0.000       8648.       0.000       |    0.1259E+05   53.51   53.03        0.23   0.000        0.00
+     2  0.3592E-04   9777.      0.2490E-03   |     8756.       37.22   3762.       15.99   0.000        0.00
+     3  0.3684E-04  0.1440E+05  0.3860E-03   |     2181.        9.27  0.1971E+05   83.78   0.000        0.00
+     4   161.4       7693.      0.3955E+10   |     0.000        0.00   0.000        0.00   0.000        0.00
+     5   276.5       7872.      0.1188E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+     6   307.5       7869.      0.1469E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+     7   459.5       8417.      0.3508E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+     8   460.6       5552.      0.2325E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+     9   481.7      0.1197E+05  0.5483E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    10   569.7       4228.      0.2709E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    11   579.3       2486.      0.1646E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    12   612.3      0.1195E+05  0.8847E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    13   643.1       6871.      0.5609E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    14   648.8       3140.      0.2610E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    15   679.8       5540.      0.5053E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    16   715.9       4132.      0.4179E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    17   736.8       2884.      0.3091E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    18   793.6       4827.      0.6001E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    19   799.3       6169.      0.7780E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    20   803.0       5646.      0.7185E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    21   871.6       2481.      0.3719E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    22   922.3       4968.      0.8342E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    23   925.7       4999.      0.8457E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    24   960.7       4426.      0.8065E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    25   985.7       2039.      0.3910E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    26   1014.       4310.      0.8749E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    27   1032.       2305.      0.4846E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    28   1076.       2532.      0.5785E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    29   1115.       3807.      0.9341E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    30   1115.       2863.      0.7029E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    31   1146.       4031.      0.1045E+12   |     0.000        0.00   0.000        0.00   0.000        0.00
+    32   1149.       4167.      0.1085E+12   |     0.000        0.00   0.000        0.00   0.000        0.00
+    33   1191.       6792.      0.1902E+12   |     0.000        0.00   0.000        0.00   0.000        0.00
+    34   1201.       3881.      0.1105E+12   |     0.000        0.00   0.000        0.00   0.000        0.00
+    35   1216.       4387.      0.1280E+12   |     0.000        0.00   0.000        0.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+   sum                                       |    0.2352E+05  100.00  0.2352E+05  100.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        9.500 MB WRITTEN ON ASSEMBLED MATRIX FILE: file.full
+        6.750 MB WRITTEN ON MODAL MATRIX FILE: file.mode
+       79.688 MB WRITTEN ON RESULTS FILE: file.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        36.514
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:37:09  JUL 19, 2026 CP=     36.534
+
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 1: mesh 64      
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =      36.536   TIME= 02:37:09
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+ SET PARAMETER DIMENSIONS ON  MIDX TYPE=ARRA  DIMENSIONS=    35     1     1
+
+ VECTOR FILL OPERATION  *VFILL  
+  MIDX = RAMP
+ VECTOR LENGTH=      35
+ INITIAL VALUE=  1.0000      STEP INCREMENT=  1.0000    
+
+ SET PARAMETER DIMENSIONS ON  FRA TYPE=ARRA  DIMENSIONS=    35     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  35.000     BY  1.0000    
+
+ *GET  FRA       FROM  MODE      1  ITEM=FREQ       VALUE=  0.00000000    
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= ip_ext_mesh64.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =        36.645
+
+
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 2: mesh 96 (conv
+
+
+ PARAMETER R_I =     4.000000000    
+
+ PARAMETER R_O =     8.000000000    
+
+ PARAMETER PHI =     90.00000000    
+
+ PARAMETER H =    0.8000000000E-01
+
+ PARAMETER E_ISO =    0.2100000000E+12
+
+ PARAMETER NU_ISO =    0.3000000000    
+
+ PARAMETER RHO =     7800.000000    
+
+ PARAMETER NDIV =     96.00000000    
+
+ PARAMETER NMODES =     35.00000000    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:37:09  JUL 19, 2026 CP=     36.782
+
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 2: mesh 96 (conv
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ COORDINATE SYSTEM         11 DEFINITION.  TYPE= 1  (CYLINDRICAL)
+   XC,YC,ZC=  0.0000      0.0000      0.0000    
+   ANGLES=    0.00    0.00    0.00   PARAMETERS=   1.000   1.000
+   ORIENTATION=  1.00  0.00  0.00   0.00  1.00  0.00   0.00  0.00  1.00
+
+ ACTIVE COORDINATE SYSTEM SET TO        11  (CYLINDRICAL)
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ ELEMENT TYPE          1 IS PLANE183     2-D 8-NODE PLANE STRS SOLID 
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY  
+  TWO-DIMENSIONAL MODEL
+
+ ELEMENT TYPE       1 IS PLANE183     2-D 8-NODE PLANE STRS SOLID 
+  KEYOPT( 1- 6)=        0      0      3        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY  
+  TWO-DIMENSIONAL MODEL
+
+ REAL CONSTANT SET          1  ITEMS   1 TO   6
+   0.80000E-01   0.0000       0.0000       0.0000       0.0000       0.0000    
+
+ MATERIAL          1     EX   =  0.2100000E+12  
+
+ MATERIAL          1     PRXY =  0.3000000      
+
+ MATERIAL          1     DENS =   7800.000      
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ CREATE A CIRCULAR AREA WITH 
+ INNER RADIUS         =      4.000000000    
+ OUTER RADIUS         =      8.000000000    
+ STARTING THETA ANGLE =      0.000000000    
+ ENDING   THETA ANGLE =      90.00000000    
+
+      OUTPUT AREA =     1
+
+ ELEMENT TYPE SET TO         1
+
+ MATERIAL NUMBER SET TO         1
+
+ REAL CONSTANT NUMBER=        1
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  0.0000     AND   0.0000    
+   KABS=  0.  TOLERANCE= 0.100000E-05
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN  90.000     AND   90.000    
+   KABS=  0.  TOLERANCE= 0.450000    
+
+        2  LINES (OF        4  DEFINED) SELECTED BY LSEL COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   96,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  4.0000     AND   4.0000    
+   KABS=  0.  TOLERANCE= 0.200000E-01
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=X     BETWEEN  8.0000     AND   8.0000    
+   KABS=  0.  TOLERANCE= 0.400000E-01
+
+        2  LINES (OF        4  DEFINED) SELECTED BY LSEL COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   96,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     1 MESHED WITH    9216 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =      28033
+ MAXIMUM ELEMENT NUMBER     =       9216
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+
+ ***** ROUTINE COMPLETED *****  CP =        36.882
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A MODAL ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ USE SYM. BLOCK LANCZOS MODE EXTRACTION METHOD
+  EXTRACT    35 MODES
+  NORMALIZE THE MODE SHAPES TO UNITY
+
+
+ NUMBER OF MODES TO EXPAND=    35
+  CALCULATE ELEMENT RESULTS AND NODAL DOF SOLUTION
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** SELECTION OF ELEMENT TECHNOLOGIES FOR APPLICABLE ELEMENTS ***
+                ---GIVE SUGGESTIONS ONLY---
+
+ ELEMENT TYPE         1 IS PLANE183 WITH PLANE STRESS OPTION. NO SUGGESTION IS
+ AVAILABLE.
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:37:09  JUL 19, 2026 CP=     37.231
+
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 2: mesh 96 (conv
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .2-D                  
+   DEGREES OF FREEDOM. . . . . . UX   UY  
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .MODAL                
+      EXTRACTION METHOD. . . . . . . . . . . . . .BLOCK LANCZOS
+   NUMBER OF MODES TO EXTRACT. . . . . . . . . . .    35
+   SHIFT POINT . . . . . . . . . . . . . . . . . . -1.0000    
+   NORMALIZE MODES TO UNITY. . . . . . . . . . . .YES
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+   NUMBER OF MODES TO EXPAND . . . . . . . . . . .    35
+   ELEMENT RESULTS CALCULATION . . . . . . . . . .ON 
+
+ *** WARNING ***                         CP =      37.340   TIME= 02:37:09
+ No constraints have been defined using the D command.                   
+
+ *** NOTE ***                            CP =      37.349   TIME= 02:37:09
+ The step data was checked and warning messages were found.              
+  Please review output or errors file (                                  
+ /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/file.err ) for       
+ these warning messages.                                                 
+
+ *** NOTE ***                            CP =      37.350   TIME= 02:37:09
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   THERMAL STRAINS INCLUDED IN THE LOAD VECTOR . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS. . . . . . . . . . . .ALL DATA WRITTEN
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =   23524.    
+
+                           MOM. OF INERTIA         MOM. OF INERTIA
+  CENTER OF MASS            ABOUT ORIGIN        ABOUT CENTER OF MASS
+
+  XC =   3.9612          IXX =   0.4705E+06      IXX =   0.1014E+06
+  YC =   3.9612          IYY =   0.4705E+06      IYY =   0.1014E+06
+  ZC =   0.0000          IZZ =   0.9410E+06      IZZ =   0.2027E+06
+                         IXY =  -0.2995E+06      IXY =   0.6959E+05
+                         IYZ =    0.000          IYZ =    0.000    
+                         IZX =    0.000          IZX =    0.000    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   23524.2    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 1.037553673E+11 at element 96.                                
+ Minimum = 3.887378089E+10 at element 9169.                              
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      9216  PLANE183      1.775   0.000193
+ Time at end of element matrix formulation CP = 40.0617447.              
+
+  BLOCK LANCZOS CALCULATION OF UP TO    35 EIGENVECTORS.
+  NUMBER OF EQUATIONS              =        56066
+  MAXIMUM WAVEFRONT                =           42
+  MAXIMUM MODES STORED             =           35
+  MINIMUM EIGENVALUE               = -0.10000E+01
+  MAXIMUM EIGENVALUE               =  0.10000E+31
+
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =   106.049 MB
+  Equation solver memory required for in-core mode     =   101.214 MB
+  Equation solver memory required for out-of-core mode =    31.890 MB
+  Total (solver and non-solver) memory allocated       =   873.217 MB
+
+ *** NOTE ***                            CP =      42.090   TIME= 02:37:10
+ The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+ currently running in the in-core memory mode.  This memory mode uses    
+ the most amount of memory in order to avoid using the hard drive as     
+ much as possible, which most often results in the fastest solution      
+ time.  This mode is recommended if enough physical memory is present    
+ to accommodate all of the solver data.                                  
+
+  Process memory required for in-core LANCZOS Workspace             =     216.068497 MB
+  Process memory required for out-of-core LANCZOS Workspace         =     5.615677 MB
+  Lanczos Memory Mode : INCORE
+
+
+  >> Shift # 1 :  | | | | | |                        : 35 Eigenvalues Converged
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:37:12  JUL 19, 2026 CP=     56.129
+
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 2: mesh 96 (conv
+
+
+ NEGATIVE FREQUENCY OF -0.4505E-04 SET TO ZERO
+
+ *** FREQUENCIES FROM BLOCK LANCZOS ITERATION ***
+
+  MODE    FREQUENCY (HERTZ)      
+
+
+   FREQUENCY RANGE REQUESTED=   35 MODES ABOVE  -1.00000     HERTZ
+
+    1     0.000000000000    
+    2    0.6455682949491E-04
+    3    0.7214324005687E-04
+    4     161.3724374954    
+    5     276.4908152349    
+    6     307.5451392583    
+    7     459.4834915109    
+    8     460.6418078113    
+    9     481.7130920495    
+   10     569.7128665000    
+   11     579.2689879205    
+   12     612.3119511522    
+   13     643.1111808372    
+   14     648.8325110675    
+   15     679.7720992631    
+   16     715.8571429670    
+   17     736.8177060794    
+   18     793.5829371573    
+   19     799.3132549032    
+   20     802.9580600014    
+   21     871.5567404570    
+   22     922.3468078882    
+   23     925.7234451620    
+   24     960.7481463086    
+   25     985.6796470154    
+   26     1014.120251897    
+   27     1032.003264178    
+   28     1075.857916007    
+   29     1114.851064088    
+   30     1115.292580251    
+   31     1145.975695385    
+   32     1148.526067319    
+   33     1191.207826606    
+   34     1201.237024340    
+   35     1215.716080394    
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      9216  PLANE183      4.259   0.000462
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      9216  PLANE183      2.637   0.000286
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:37:18  JUL 19, 2026 CP=    101.311
+
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 2: mesh 96 (conv
+
+
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  X  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     0.00000        0.0000        35.839        0.262043     1284.42        0.545996E-01    0.545996E-01
+     2    0.645568E-04    15490.        136.77        1.000000     18705.1        0.849741        0.795142    
+     3    0.721432E-04    13861.       -59.454        0.434708     3534.72         1.00000        0.150259    
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     7     459.483       0.21764E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    19     799.313       0.12511E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    20     802.958       0.12454E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    21     871.557       0.11474E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    22     922.347       0.10842E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    23     925.723       0.10802E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    24     960.748       0.10409E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    25     985.680       0.10145E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    27     1032.00       0.96899E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    30     1115.29       0.89663E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    31     1145.98       0.87262E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    32     1148.53       0.87068E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    34     1201.24       0.83248E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             23524.2                         1.00000    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Y  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     0.00000        0.0000        12.838        0.090811     164.809        0.700590E-02    0.700590E-02
+     2    0.645568E-04    15490.        58.090        0.410912     3374.44        0.150451        0.143445    
+     3    0.721432E-04    13861.        141.37        1.000000     19985.0         1.00000        0.849549    
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     7     459.483       0.21764E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    19     799.313       0.12511E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    20     802.958       0.12454E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    21     871.557       0.11474E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    22     922.347       0.10842E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    23     925.723       0.10802E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    24     960.748       0.10409E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    25     985.680       0.10145E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    27     1032.00       0.96899E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    30     1115.29       0.89663E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    31     1145.98       0.87262E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    32     1148.53       0.87068E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    34     1201.24       0.83248E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             23524.2                         1.00000    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Z  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     0.00000        0.0000        0.0000        0.000000     0.00000         0.00000         0.00000    
+     2    0.645568E-04    15490.        0.0000        0.000000     0.00000         0.00000         0.00000    
+     3    0.721432E-04    13861.        0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     7     459.483       0.21764E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    19     799.313       0.12511E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    20     802.958       0.12454E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    21     871.557       0.11474E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    22     922.347       0.10842E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    23     925.723       0.10802E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    24     960.748       0.10409E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    25     985.680       0.10145E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    27     1032.00       0.96899E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    30     1115.29       0.89663E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    31     1145.98       0.87262E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    32     1148.53       0.87068E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    34     1201.24       0.83248E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTX DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     0.00000        0.0000        0.0000        0.000000     0.00000         0.00000    
+     2    0.645568E-04    15490.        0.0000        0.000000     0.00000         0.00000    
+     3    0.721432E-04    13861.        0.0000        0.000000     0.00000         0.00000    
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         0.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         0.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         0.00000    
+     7     459.483       0.21764E-02    0.0000        0.000000     0.00000         0.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         0.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         0.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         0.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         0.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         0.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         0.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         0.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         0.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         0.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         0.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         0.00000    
+    19     799.313       0.12511E-02    0.0000        0.000000     0.00000         0.00000    
+    20     802.958       0.12454E-02    0.0000        0.000000     0.00000         0.00000    
+    21     871.557       0.11474E-02    0.0000        0.000000     0.00000         0.00000    
+    22     922.347       0.10842E-02    0.0000        0.000000     0.00000         0.00000    
+    23     925.723       0.10802E-02    0.0000        0.000000     0.00000         0.00000    
+    24     960.748       0.10409E-02    0.0000        0.000000     0.00000         0.00000    
+    25     985.680       0.10145E-02    0.0000        0.000000     0.00000         0.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         0.00000    
+    27     1032.00       0.96899E-03    0.0000        0.000000     0.00000         0.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         0.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         0.00000    
+    30     1115.29       0.89663E-03    0.0000        0.000000     0.00000         0.00000    
+    31     1145.98       0.87262E-03    0.0000        0.000000     0.00000         0.00000    
+    32     1148.53       0.87068E-03    0.0000        0.000000     0.00000         0.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         0.00000    
+    34     1201.24       0.83248E-03    0.0000        0.000000     0.00000         0.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTY DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     0.00000        0.0000        0.0000        0.000000     0.00000         0.00000    
+     2    0.645568E-04    15490.        0.0000        0.000000     0.00000         0.00000    
+     3    0.721432E-04    13861.        0.0000        0.000000     0.00000         0.00000    
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         0.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         0.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         0.00000    
+     7     459.483       0.21764E-02    0.0000        0.000000     0.00000         0.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         0.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         0.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         0.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         0.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         0.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         0.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         0.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         0.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         0.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         0.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         0.00000    
+    19     799.313       0.12511E-02    0.0000        0.000000     0.00000         0.00000    
+    20     802.958       0.12454E-02    0.0000        0.000000     0.00000         0.00000    
+    21     871.557       0.11474E-02    0.0000        0.000000     0.00000         0.00000    
+    22     922.347       0.10842E-02    0.0000        0.000000     0.00000         0.00000    
+    23     925.723       0.10802E-02    0.0000        0.000000     0.00000         0.00000    
+    24     960.748       0.10409E-02    0.0000        0.000000     0.00000         0.00000    
+    25     985.680       0.10145E-02    0.0000        0.000000     0.00000         0.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         0.00000    
+    27     1032.00       0.96899E-03    0.0000        0.000000     0.00000         0.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         0.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         0.00000    
+    30     1115.29       0.89663E-03    0.0000        0.000000     0.00000         0.00000    
+    31     1145.98       0.87262E-03    0.0000        0.000000     0.00000         0.00000    
+    32     1148.53       0.87068E-03    0.0000        0.000000     0.00000         0.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         0.00000    
+    34     1201.24       0.83248E-03    0.0000        0.000000     0.00000         0.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTZ DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     0.00000        0.0000        345.06        0.430386     119063.        0.126533    
+     2    0.645568E-04    15490.       -423.23        0.527899     179128.        0.316898    
+     3    0.721432E-04    13861.        801.73        1.000000     642779.         1.00000    
+     4     161.372       0.61968E-02    0.0000        0.000000     0.00000         1.00000    
+     5     276.491       0.36168E-02    0.0000        0.000000     0.00000         1.00000    
+     6     307.545       0.32516E-02    0.0000        0.000000     0.00000         1.00000    
+     7     459.483       0.21764E-02    0.0000        0.000000     0.00000         1.00000    
+     8     460.642       0.21709E-02    0.0000        0.000000     0.00000         1.00000    
+     9     481.713       0.20759E-02    0.0000        0.000000     0.00000         1.00000    
+    10     569.713       0.17553E-02    0.0000        0.000000     0.00000         1.00000    
+    11     579.269       0.17263E-02    0.0000        0.000000     0.00000         1.00000    
+    12     612.312       0.16332E-02    0.0000        0.000000     0.00000         1.00000    
+    13     643.111       0.15549E-02    0.0000        0.000000     0.00000         1.00000    
+    14     648.833       0.15412E-02    0.0000        0.000000     0.00000         1.00000    
+    15     679.772       0.14711E-02    0.0000        0.000000     0.00000         1.00000    
+    16     715.857       0.13969E-02    0.0000        0.000000     0.00000         1.00000    
+    17     736.818       0.13572E-02    0.0000        0.000000     0.00000         1.00000    
+    18     793.583       0.12601E-02    0.0000        0.000000     0.00000         1.00000    
+    19     799.313       0.12511E-02    0.0000        0.000000     0.00000         1.00000    
+    20     802.958       0.12454E-02    0.0000        0.000000     0.00000         1.00000    
+    21     871.557       0.11474E-02    0.0000        0.000000     0.00000         1.00000    
+    22     922.347       0.10842E-02    0.0000        0.000000     0.00000         1.00000    
+    23     925.723       0.10802E-02    0.0000        0.000000     0.00000         1.00000    
+    24     960.748       0.10409E-02    0.0000        0.000000     0.00000         1.00000    
+    25     985.680       0.10145E-02    0.0000        0.000000     0.00000         1.00000    
+    26     1014.12       0.98608E-03    0.0000        0.000000     0.00000         1.00000    
+    27     1032.00       0.96899E-03    0.0000        0.000000     0.00000         1.00000    
+    28     1075.86       0.92949E-03    0.0000        0.000000     0.00000         1.00000    
+    29     1114.85       0.89698E-03    0.0000        0.000000     0.00000         1.00000    
+    30     1115.29       0.89663E-03    0.0000        0.000000     0.00000         1.00000    
+    31     1145.98       0.87262E-03    0.0000        0.000000     0.00000         1.00000    
+    32     1148.53       0.87068E-03    0.0000        0.000000     0.00000         1.00000    
+    33     1191.21       0.83948E-03    0.0000        0.000000     0.00000         1.00000    
+    34     1201.24       0.83248E-03    0.0000        0.000000     0.00000         1.00000    
+    35     1215.72       0.82256E-03    0.0000        0.000000     0.00000         1.00000    
+ ----------------------------------------------------------------------------------------------
+   sum                                                             940970.    
+ ----------------------------------------------------------------------------------------------
+
+
+
+
+
+        ***** MODAL MASSES, KINETIC ENERGIES, AND TRANSLATIONAL EFFECTIVE MASSES SUMMARY *****
+
+                                                                         EFFECTIVE MASS
+  MODE  FREQUENCY   MODAL MASS     KENE      |      X-DIR      RATIO%   Y-DIR      RATIO%   Z-DIR      RATIO% 
+     1   0.000       9909.       0.000       |     1284.        5.46   164.8        0.70   0.000        0.00
+     2  0.6456E-04  0.1548E+05  0.1274E-02   |    0.1871E+05   79.51   3374.       14.34   0.000        0.00
+     3  0.7214E-04  0.2658E+05  0.2731E-02   |     3535.       15.03  0.1999E+05   84.95   0.000        0.00
+     4   161.4       7693.      0.3955E+10   |     0.000        0.00   0.000        0.00   0.000        0.00
+     5   276.5       7872.      0.1188E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+     6   307.5       7869.      0.1469E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+     7   459.5       8413.      0.3506E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+     8   460.6       5552.      0.2325E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+     9   481.7      0.1197E+05  0.5483E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    10   569.7       4228.      0.2709E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    11   579.3       2486.      0.1646E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    12   612.3      0.1195E+05  0.8846E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    13   643.1       6871.      0.5609E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    14   648.8       3140.      0.2610E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    15   679.8       5534.      0.5048E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    16   715.9       4132.      0.4179E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    17   736.8       2884.      0.3091E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    18   793.6       4825.      0.5998E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    19   799.3       6165.      0.7775E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    20   803.0       5646.      0.7185E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    21   871.6       2481.      0.3720E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    22   922.3       4968.      0.8343E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    23   925.7       4999.      0.8457E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    24   960.7       4426.      0.8065E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    25   985.7       2039.      0.3910E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    26   1014.       4308.      0.8746E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    27   1032.       2305.      0.4846E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    28   1076.       2532.      0.5785E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    29   1115.       3807.      0.9341E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    30   1115.       2863.      0.7029E+11   |     0.000        0.00   0.000        0.00   0.000        0.00
+    31   1146.       4030.      0.1045E+12   |     0.000        0.00   0.000        0.00   0.000        0.00
+    32   1149.       4168.      0.1085E+12   |     0.000        0.00   0.000        0.00   0.000        0.00
+    33   1191.       6782.      0.1900E+12   |     0.000        0.00   0.000        0.00   0.000        0.00
+    34   1201.       3869.      0.1102E+12   |     0.000        0.00   0.000        0.00   0.000        0.00
+    35   1216.       4387.      0.1280E+12   |     0.000        0.00   0.000        0.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+   sum                                       |    0.2352E+05  100.00  0.2352E+05  100.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+       21.312 MB WRITTEN ON ASSEMBLED MATRIX FILE: file.full
+       15.125 MB WRITTEN ON MODAL MATRIX FILE: file.mode
+      178.750 MB WRITTEN ON RESULTS FILE: file.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =       102.237
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:37:18  JUL 19, 2026 CP=    102.240
+
+  Isotropic free-free extensional (in-plane) benchmark -- Pass 2: mesh 96 (conv
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ SET PARAMETER DIMENSIONS ON  MIDXB TYPE=ARRA  DIMENSIONS=    35     1     1
+
+ VECTOR FILL OPERATION  *VFILL  
+  MIDXB = RAMP
+ VECTOR LENGTH=      35
+ INITIAL VALUE=  1.0000      STEP INCREMENT=  1.0000    
+
+ SET PARAMETER DIMENSIONS ON  FRB TYPE=ARRA  DIMENSIONS=    35     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  35.000     BY  1.0000    
+
+ *GET  FRB       FROM  MODE      1  ITEM=FREQ       VALUE=  0.00000000    
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= ip_ext_mesh96.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =       102.245
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= file.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          2
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2025 R1            Build: 25.1       Update: UP20241202   Platform: LINUX x64   
+Date Run: 07/19/2026   Time: 02:37     Process ID: 2253418
+Operating System: AlmaLinux release 8.10 (Cerulean Leopard)
+
+Processor Model: Intel(R) Xeon(R) Gold 6138 CPU @ 2.00GHz
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303
+
+Number of machines requested            :    1
+Total number of cores available         :   40
+Number of physical cores available      :   40
+Number of processes requested           :    1
+Number of threads per process requested :    8
+Total number of cores requested         :    8 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: file
+Input File: ansys_ff_ip_ext.inp
+Working Directory: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys
+
+Total CPU time for main thread                    :       12.9 seconds
+Total CPU time summed for all threads             :      102.4 seconds
+
+Elapsed time spent obtaining a license            :        1.5 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.1 seconds
+Elapsed time spent solution - preprocessing       :        0.1 seconds
+Elapsed time spent computing solution             :       13.1 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.0 seconds
+ 
+Eigensolver used                                  :            Block Lanczos
+Equation solver computational rate                :       10.3 Gflops
+
+Sum of disk space used on all processes           :      229.9 MB
+
+Sum of memory used on all processes               :      322.0 MB
+Sum of memory allocated on all processes          :     2304.0 MB
+Physical memory available                         :        187 GB
+Total amount of I/O written to disk               :        0.2 GB
+Total amount of I/O read from disk                :        0.1 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+ |  Maximum Database Used      15 MB     Maximum Scratch Memory Used    307 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =        102.368       Time  =  02:37:18          |
+ |        Elapsed Time (sec) =         17.000       Date  =  07/19/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

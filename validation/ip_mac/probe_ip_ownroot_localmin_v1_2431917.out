@@ -1,0 +1,212 @@
+FF-P1 FE eigenvector files present (t2,t3,t4,t8): 4/4
+Job 2431917 on compute-34-07.mill
+Start: Tue Aug 18 23:17:05 CDT 2026
+
+==============================================================================
+  probe_ip_ownroot_localmin_v1 -- start 2026-08-18 23:17:06
+==============================================================================
+  geometry: FF-P1  r0/2b=1.5  2Theta/pi=0.5  nu=0.3
+  scan: coarse +/-0.006 step 0.002; fine +/-0.002 step 0.0005
+  bars: REAL >= 0.9, ARTIFACT <= 0.6 (NOT tuned here)
+  gates: reconstruct vs job 2431872; lean sigma path vs verbatim path (abs 1e-09)
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+  loaded FE targets: ['t2', 't3', 't4', 't8']
+
+==============================================================================
+  real_d_2p521489  (seed Omega=2.521489, label=REAL)
+==============================================================================
+  why this candidate: FALLBACK at both deltas; published seed->own-root delta 3.4e-03
+  job 2409038 find_modes_sigmin own-root: 2.524863 (delta +3.374e-03)
+  @seed  log10 sigma: q0=-2.114398  q1=-2.518814
+  @seed  block q0: rTyy=2.66673  rTyr=2.13439  MAC=0.0000
+         gate vs job 2431872: PASSED (rel 5.97e-07/1.23e-06, abs MAC 2.67e-12)
+  @seed  block q1: rTyy=0.685768  rTyr=0.320466  MAC=0.9079
+         gate vs job 2431872: PASSED (rel 7.10e-07/5.63e-07, abs MAC 4.71e-05)
+  lean-path gate @ seed: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00)
+  --- bracketed scan, block q0 ---
+      coarse 2.515489: -1.962217
+      coarse 2.517489: -2.004776
+      coarse 2.519489: -2.054005
+      coarse 2.521489: -2.114398
+      coarse 2.523489: -2.190227
+      coarse 2.525489: -2.283344
+      coarse 2.527489: -2.402081
+    block q0: minimum at Omega=2.527489 (delta +6.000e-03), depth -2.402081, ENDPOINT
+  --- bracketed scan, block q1 ---
+      coarse 2.515489: -2.343225
+      coarse 2.517489: -2.358702
+      coarse 2.519489: -2.401611
+      coarse 2.521489: -2.518814
+      coarse 2.523489: -2.860539
+      coarse 2.525489: -3.200526
+      coarse 2.527489: -2.617835
+      fine   2.523989: -3.052351
+      fine   2.524489: -3.419191
+      fine   2.524989: -3.893238
+      fine   2.525989: -2.951915
+      fine   2.526489: -2.801220
+      fine   2.526989: -2.696061
+    block q1: minimum at Omega=2.524989 (delta +3.500e-03), depth -3.893238, INTERIOR
+  @own-root(q1, Omega=2.524989) block q1: rTyy=0.349004 (seed 0.685768)  MAC=0.9937 (seed 0.9079)
+  [755s]
+
+==============================================================================
+  art_d_1p603259  (seed Omega=1.603259, label=ARTIFACT)
+==============================================================================
+  why this candidate: FALLBACK at d=0.001, branch flips at d=0.002
+  @seed  log10 sigma: q0=-2.345235  q1=-1.553485
+  @seed  block q0: rTyy=5.19862  rTyr=0.916939  MAC=0.0000
+         gate vs job 2431872: PASSED (rel 8.34e-07/1.19e-07, abs MAC 5.46e-13)
+  @seed  block q1: rTyy=0.735771  rTyr=0.434507  MAC=0.9658
+         gate vs job 2431872: PASSED (rel 4.17e-07/9.83e-07, abs MAC 2.14e-05)
+  lean-path gate @ seed: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00)
+  --- bracketed scan, block q0 ---
+      coarse 1.597259: -1.657024
+      coarse 1.599259: -1.700839
+      coarse 1.601259: -2.036744
+      coarse 1.603259: -2.345235
+      coarse 1.605259: -2.027398
+      coarse 1.607259: -2.086543
+      coarse 1.609259: -2.231837
+      fine   1.601759: -2.269684
+      fine   1.602259: -2.757646
+      fine   1.602759: -2.796893
+      fine   1.603759: -2.166758
+      fine   1.604259: -2.079216
+      fine   1.604759: -2.039772
+    block q0: minimum at Omega=1.602759 (delta -5.000e-04), depth -2.796893, INTERIOR
+  --- bracketed scan, block q1 ---
+      coarse 1.597259: -2.029705
+      coarse 1.599259: -2.690064
+      coarse 1.601259: -1.831794
+      coarse 1.603259: -1.553485
+      coarse 1.605259: -1.393514
+      coarse 1.607259: -1.299208
+      coarse 1.609259: -1.250489
+      fine   1.597759: -2.177473
+      fine   1.598259: -2.414945
+      fine   1.598759: -3.023066
+      fine   1.599759: -2.291213
+      fine   1.600259: -2.082976
+      fine   1.600759: -1.940429
+    block q1: minimum at Omega=1.598759 (delta -4.500e-03), depth -3.023066, INTERIOR
+  @own-root(q0, Omega=1.602759) block q0: rTyy=8.00957 (seed 5.19862)  MAC=0.0000 (seed 0.0000)
+  @own-root(q1, Omega=1.598759) block q1: rTyy=0.0783863 (seed 0.735771)  MAC=0.9999 (seed 0.9658)
+  [947s]
+
+==============================================================================
+  real_b_1p142287  (seed Omega=1.142287, label=REAL)
+==============================================================================
+  why this candidate: CONTROL: published delta 3.0e-03 (outside the window) yet a clean deep LOCAL_MIN sits at the seed -- tests OR-D
+  job 2409038 find_modes_sigmin own-root: 1.145249 (delta +2.962e-03)
+  @seed  log10 sigma: q0=-3.633385  q1=-1.935138
+  @seed  block q0: rTyy=0.0498155  rTyr=0.0353367  MAC=1.0000
+         gate vs job 2431872: PASSED (rel 1.32e-07/1.21e-06, abs MAC 3.05e-05)
+  @seed  block q1: rTyy=0.740035  rTyr=0.35957  MAC=0.0000
+         gate vs job 2431872: PASSED (rel 9.21e-08/7.91e-07, abs MAC 1.79e-13)
+  lean-path gate @ seed: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00)
+  --- bracketed scan, block q0 ---
+      coarse 1.136287: -1.732445
+      coarse 1.138287: -1.889424
+      coarse 1.140287: -2.169488
+      coarse 1.142287: -3.633385
+      coarse 1.144287: -2.182661
+      coarse 1.146287: -1.871348
+      coarse 1.148287: -1.694710
+      fine   1.140787: -2.286691
+      fine   1.141287: -2.450585
+      fine   1.141787: -2.721814
+      fine   1.142787: -2.838949
+      fine   1.143287: -2.502446
+      fine   1.143787: -2.314136
+    block q0: minimum at Omega=1.142287 (delta +0.000e+00), depth -3.633385, INTERIOR
+  --- bracketed scan, block q1 ---
+      coarse 1.136287: -1.479551
+      coarse 1.138287: -1.577991
+      coarse 1.140287: -1.716733
+      coarse 1.142287: -1.935138
+      coarse 1.144287: -2.420368
+      coarse 1.146287: -2.386139
+      coarse 1.148287: -1.921138
+      fine   1.142787: -2.014408
+      fine   1.143287: -2.112122
+      fine   1.143787: -2.239152
+      fine   1.144787: -2.738578
+      fine   1.145287: -3.819791
+      fine   1.145787: -2.671480
+    block q1: minimum at Omega=1.145287 (delta +3.000e-03), depth -3.819791, INTERIOR
+  @own-root(q1, Omega=1.145287) block q1: rTyy=0.0231172 (seed 0.740035)  MAC=0.0000 (seed 0.0000)
+  [911s]
+
+==============================================================================
+  real_c_1p598985  (seed Omega=1.598985, label=REAL)
+==============================================================================
+  why this candidate: CONTROL: published delta exactly 0 -- the scan must land on the seed and change nothing (OR-E)
+  job 2409038 find_modes_sigmin own-root: 1.598985 (delta +0.000e+00)
+  @seed  log10 sigma: q0=-1.693512  q1=-3.406477
+  @seed  block q0: rTyy=1.9065  rTyr=1.00399  MAC=0.0000
+         gate vs job 2431872: PASSED (rel 2.32e-06/4.22e-06, abs MAC 8.14e-13)
+  @seed  block q1: rTyy=0.0485492  rTyr=0.0216588  MAC=0.9999
+         gate vs job 2431872: PASSED (rel 9.28e-08/1.80e-06, abs MAC 4.79e-05)
+  lean-path gate @ seed: PASSED (|dq0|=0.00e+00, |dq1|=0.00e+00)
+  --- bracketed scan, block q0 ---
+      coarse 1.592985: -1.607183
+      coarse 1.594985: -1.624441
+      coarse 1.596985: -1.652113
+      coarse 1.598985: -1.693512
+      coarse 1.600985: -1.945933
+      coarse 1.602985: -2.525890
+      coarse 1.604985: -2.031692
+      fine   1.601485: -2.128033
+      fine   1.601985: -2.431038
+      fine   1.602485: -3.712543
+      fine   1.603485: -2.248531
+      fine   1.603985: -2.119323
+      fine   1.604485: -2.056965
+    block q0: minimum at Omega=1.602485 (delta +3.500e-03), depth -3.712543, INTERIOR
+  --- bracketed scan, block q1 ---
+      coarse 1.592985: -1.562180
+      coarse 1.594985: -1.696549
+      coarse 1.596985: -1.967868
+      coarse 1.598985: -3.406477
+      coarse 1.600985: -1.888125
+      coarse 1.602985: -1.582440
+      coarse 1.604985: -1.410980
+      fine   1.597485: -2.089645
+      fine   1.597985: -2.268169
+      fine   1.598485: -2.593751
+      fine   1.599485: -2.465895
+      fine   1.599985: -2.185218
+      fine   1.600485: -2.013032
+    block q1: minimum at Omega=1.598985 (delta +0.000e+00), depth -3.406477, INTERIOR
+  @own-root(q0, Omega=1.602485) block q0: rTyy=10.4759 (seed 1.9065)  MAC=0.0000 (seed 0.0000)
+  [902s]
+
+==============================================================================
+  SUMMARY
+==============================================================================
+  real_d_2p521489    REAL      seed=2.521489   q0:ENDPOINT@2.527489 q1:INTERIOR@2.524989
+  art_d_1p603259     ARTIFACT  seed=1.603259   q0:INTERIOR@1.602759 q1:INTERIOR@1.598759
+  real_b_1p142287    REAL      seed=1.142287   q0:INTERIOR@1.142287 q1:INTERIOR@1.145287
+  real_c_1p598985    REAL      seed=1.598985   q0:INTERIOR@1.602485 q1:INTERIOR@1.598985
+
+==============================================================================
+  READING (per pre-registered criteria -- see the docstring)
+==============================================================================
+  (note: real_d_2p521489 block(s) ['q0'] unbracketed -- expected when that block simply has no root near this seed; not an OR-B condition.)
+  rule at own roots -- real_d_2p521489    -> q1 @ 2.524989 (nearest seed, |delta|=3.5e-03)  MAC=0.9937  CORRECT
+  rule at own roots -- art_d_1p603259     -> q0 @ 1.602759 (nearest seed, |delta|=5.0e-04)  MAC=0.0000  CORRECT
+  rule at own roots -- real_b_1p142287    -> q0 @ 1.142287 (nearest seed, |delta|=0.0e+00)  MAC=1.0000  CORRECT
+  rule at own roots -- real_c_1p598985    -> q1 @ 1.598985 (nearest seed, |delta|=0.0e+00)  MAC=0.9999  CORRECT
+
+  Every candidate with a located own root still lands on the correct side of its bar when evaluated there.
+
+  OR-E CONTROL OK: real_c's located minimum (['q1']) lands on its seed to within one fine step, as its published delta of exactly 0 requires.
+
+  OR-A FALLBACK ELIMINATED: both former fallback cases (['real_d_2p521489', 'art_d_1p603259']) have an INTERIOR bracketed minimum, so evaluated at their own roots the rule reaches them through a LOCAL_MIN branch rather than argmin sigma. RULE_LOCALMIN_RESID's 16/16 then rests on mechanism everywhere. Still NOT promotable: needs a third geometry (r200/a50) and a worker-path integration probe.
+
+  OR-D (real_b_1p142287, block q0): the located sigma_min minimum is 1.142287, at the SEED, not job 2409038's find_modes_sigmin own-root 1.145249. The two definitions of 'own root' disagree here. Informational -- flagged for sign-off; LESSONS_LEARNED 18.21's own-root table records the find_modes_sigmin result, and anything downstream that read it as 'the nearest sigma_min minimum' needs re-reading. This probe rewrites nothing.
+
+Diagnostic only -- no SOLVER_VERSION action, no package changes, no promotion of any rule or bar, no relabelling of any candidate. Does not by itself edit PAPER1_CAVEATS.md, LESSONS_LEARNED.md, or the paper.
+End: 2026-08-19 00:15:41
+End: Wed Aug 19 00:15:41 CDT 2026

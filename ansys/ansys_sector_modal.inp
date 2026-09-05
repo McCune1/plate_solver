@@ -1,0 +1,156 @@
+! ===========================================================================
+!  ansys_sector_modal.inp  --  Mechanical APDL batch deck (v2)
+!  Modal analysis of a POLAR-ORTHOTROPIC (or isotropic) annular SECTOR plate.
+!  Produces independent "truth" frequencies for the Research42 validation AND
+!  lets you PIN Shi's nondimensional convention by reproducing a known value.
+!
+!  Run headless (single command, no GUI):
+!     mapdl -b -i ansys_sector_modal.inp -o out.txt
+!   (older installs:  ansys242 -b -i ansys_sector_modal.inp -o out.txt)
+!
+!  Shi convention (both Shi 2016 papers):  Omega = omega * b^2 * sqrt(rho*h/D11)
+!     D11 = E_r*H^3 / (12*(1 - mu_r*mu_theta)),  H = full thickness.
+!     b is MOST LIKELY the outer radius R_o (isotropic paper says "outer radius
+!     b").  This deck prints Omega using b = R_o.  If the calibration run below
+!     does NOT match the known value, switch BREF to the width (R_o - R_i).
+!
+!  >>> CALIBRATION FIRST <<<  Before trusting any orthotropic FFFF number, run:
+!     ISO=1, PHI=120, BC=0  (free)  -> first elastic Omega should be ~10.19
+!     (Shi isotropic JVC paper, FFFF annular sector, a/b=0.5, phi=120deg).
+!   If it matches with BREF=R_o, the convention is pinned (Shi Omega = solver
+!   omega_lit).  THEN run the target:  ISO=0, PHI=90, BC=0 (orthotropic FFFF).
+!   Optional published check:  ISO=0, PHI=90, BC=1 (clamped) vs Shi Table 1
+!   (0.1624, 0.1636, 0.1664, 0.1715, 0.1804, 0.1932, 0.2115, 0.2344).
+! ===========================================================================
+
+FINISH
+/CLEAR,NOSTART
+/TITLE, Annular sector modal - Research42 validation (v2)
+
+! ---------------------------- PARAMETERS -----------------------------------
+ISO    = 0            ! 1 = isotropic (calibration);  0 = orthotropic (Shi)
+BC     = 0            ! 0 = completely FREE (FFFF);    1 = completely CLAMPED
+BREF   = 0            ! reference length for Omega: 0 = R_o (outer), 1 = width
+R_i    = 4.0          ! inner radius   (R_i/R_o = 0.5)
+R_o    = 8.0          ! outer radius
+PHI    = 90.0         ! sector angle [deg]  (target 90; calibration 120)
+H      = 0.08         ! full thickness  (H/R_o = 0.01 -> thin/Kirchhoff)
+
+! ---- Shi orthotropic material (CORRECTED per jve18517004) ----
+RHO    = 7850.0       ! was 7800 in code
+E_r    = 40.0e9
+E_th   = 70.0e9
+MU_R   = 0.30         ! = PRXY(x=r,y=theta);  mu_theta = MU_R*E_th/E_r = 0.525
+G_rt   = 3.51e9       ! <-- CORRECTED: paper uses 3.51 GPa (code had 7.3 GPa)
+
+! ---- isotropic calibration material ----
+E_iso  = 210.0e9
+NU_iso = 0.30
+
+! ---- mesh / modes ----
+NRAD   = 48
+NCIRC  = 48
+NMODES = 24           ! 6 rigid-body (if free) + elastic
+PI     = 3.14159265358979
+
+! ----------------------------- PREP7 ---------------------------------------
+/PREP7
+LOCAL, 11, 1, 0,0,0          ! local cylindrical CS (id 11): X=r, Y=theta, Z=z
+CSYS, 11
+
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+
+*IF, ISO, EQ, 1, THEN
+  MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+  MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+  GG = E_iso/(2*(1+NU_iso))
+  MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+*ELSE
+  MP, EX,1,E_r  $ MP, EY,1,E_th $ MP, EZ,1,E_r
+  MP, PRXY,1,MU_R $ MP, PRYZ,1,MU_R $ MP, PRXZ,1,MU_R
+  MP, GXY,1,G_rt $ MP, GYZ,1,G_rt $ MP, GXZ,1,G_rt
+*ENDIF
+MP, DENS,1,RHO
+
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI       ! annular sector, theta = 0..PHI
+
+ESYS, 11                      ! element coord = cylindrical (orthotropy align)
+TYPE,1 $ SECNUM,1 $ MAT,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI     ! radial edges
+LESIZE, ALL, , , NRAD
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o    ! arcs
+LESIZE, ALL, , , NCIRC
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+
+! ---- boundary conditions ----
+*IF, BC, EQ, 1, THEN          ! completely clamped: fix all nodes on all edges
+  CSYS, 11
+  NSEL, S, LOC, X, R_i $ NSEL, A, LOC, X, R_o
+  NSEL, A, LOC, Y, 0   $ NSEL, A, LOC, Y, PHI
+  D, ALL, ALL, 0
+  ALLSEL, ALL
+*ENDIF
+! BC=0 -> no constraints (free-free)
+
+ALLSEL, ALL
+FINISH
+
+! ----------------------------- MODAL ---------------------------------------
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON    ! neg shift handles the ~0 rigid modes
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+! ----------------------------- POST ----------------------------------------
+/POST1
+*IF, ISO, EQ, 1, THEN
+  D11 = E_iso*H**3/(12*(1-NU_iso**2))
+*ELSE
+  MU_TH = MU_R*E_th/E_r
+  D11   = E_r*H**3/(12*(1-MU_R*MU_TH))
+*ENDIF
+*IF, BREF, EQ, 1, THEN
+  BL = R_o - R_i            ! width
+*ELSE
+  BL = R_o                  ! outer radius (default)
+*ENDIF
+KFAC = BL**2*sqrt(RHO*H/D11)            ! Omega = (2*pi*f) * KFAC
+
+*DIM, FR, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FR(I), MODE, I, FREQ
+*ENDDO
+
+*CFOPEN, sector_modes, txt
+*VWRITE
+('mode      f[Hz]              Omega   (BC,ISO,BREF,PHI below)')
+*DO, I, 1, NMODES
+  OM = 2*PI*FR(I)*KFAC
+  *VWRITE, I, FR(I), OM
+(F4.0, 3X, E16.8, 3X, F14.6)
+*ENDDO
+*VWRITE, BC, ISO, BREF, PHI
+('# BC=',F2.0,'  ISO=',F2.0,'  BREF=',F2.0,'  PHI=',F5.0)
+*CFCLOS
+
+*DO, I, 1, NMODES
+  OM = 2*PI*FR(I)*KFAC
+  /COM, MODE %I%  f= %FR(I)% Hz   Omega= %OM%
+*ENDDO
+FINISH
+! ---------------------------------------------------------------------------
+!  AFTER RUNNING:
+!   * sector_modes.txt has f[Hz] and Omega for every mode.
+!   * If BC=0 (free): modes 1-6 ~ 0 (rigid body); elastic start at mode 7.
+!     Tag OOP (bending, Uz-dominant) modes via PLNSOL,U,Z; compare those Omega
+!     to the solver's omega_lit (and to Shi once the convention is pinned).
+!   * Mesh convergence: rerun NRAD=NCIRC=64,80 (Omega stable to <0.5%).
+!   * Thin check: rerun H=0.04 (Omega barely moves -> Kirchhoff regime).
+! ===========================================================================

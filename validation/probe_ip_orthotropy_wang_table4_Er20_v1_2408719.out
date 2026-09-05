@@ -1,0 +1,551 @@
+job=2408719 host=compute-34-04.mill start=Fri Aug  7 21:45:02 CDT 2026
+SLURM_CPUS_PER_TASK=32
+RESUME: targets 5-8 only (1-4 seeded from job 2408466)
+probe_ip_orthotropy_wang_table4_Er20_v1  N_WORKERS=32
+DPS=40  SOLVER_VERSION=2026-07-10.s10
+  geometry: R_i=0.5  R_o=1.0  b=0.25  Theta=1.570796326794896557998981734272092580795
+
+==============================================================================
+  FIDELITY GATE (Orthotropic Er=Et reduction @ Omega=0.401154)
+==============================================================================
+  Orthotropic iso reduction ip_constants() = (mpf('2.8571428571428569558603655748269944265963'), mpf('1.0'), mpf('0.2999999999999999888977697537484345957636833'))
+  mu_theta = 0.2999999999999999888977697537484345957637  nu_theta = 0.2999999999999999888977697537484345957637
+  branches at Ω=0.401154: 6
+  sigma_min_from_K(Ω=0.401154) size=6  log10≈-1.418
+  FIDELITY PASS (or soft-pass)
+
+==============================================================================
+  CORRECT WANG MATERIAL (Er = 20 * Et)
+==============================================================================
+  E_r = 1400000000000.0
+  E_theta = 70000000000.0
+  nu_r = 0.2999999999999999888977697537484345957637  nu_theta = 0.01499999999999999944488848768742172978818
+  c66 = 34842500000.0  mu_theta = 0.01499999999999999944488848768742172978818
+  ip_constants() = (mpf('40.36244466245770455913196592850315299969414'), mpf('0.05000000000000000000000000000000000000000014'), mpf('0.01499999999999999944488848768742172978818417'))
+
+  Conversion derivation (live numbers):
+    Ro=1.0  b=0.25  Ro/b=4.000000
+    Er=1.400000e+12  c66=3.484250e+10  (1-nu_r*nu_th)=0.995500
+    K = (Ro/b) * sqrt(c66*(1-nu..)/Er) = 0.6296094821
+    (old wrong-material K was 1/sqrt(5) ≈ 0.4472135955)
+
+  Converted native targets:
+    mode 1: Wang=1.0311  →  Omega_native=1.637682
+    mode 2: Wang=1.7367  →  Omega_native=2.758377
+    mode 3: Wang=2.0502  →  Omega_native=3.256304
+    mode 4: Wang=3.0618  →  Omega_native=4.863014
+    mode 5: Wang=3.1811  →  Omega_native=5.052497
+    mode 6: Wang=3.4093  →  Omega_native=5.414944
+    mode 7: Wang=4.3023  →  Omega_native=6.833283
+    mode 8: Wang=4.5752  →  Omega_native=7.266727
+  PRIOR target 1: found=1.627054  rel%=0.649  HIT
+  PRIOR target 2: found=2.752718  rel%=0.205  HIT
+  PRIOR target 3: found=3.245723  rel%=0.325  HIT
+  PRIOR target 4: found=4.887221  rel%=0.498  HIT
+  PRIOR target 5: found=5.065838  rel%=0.264  HIT
+  PRIOR target 6: found=5.436615  rel%=0.400  HIT
+
+==============================================================================
+  TARGET 7: Wang=4.3023  →  Ω_native=6.833283  window=[5.4666,8.1999]
+==============================================================================
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[5.4666, 8.1999]  n_dofs=14  M=80  dps=40
+  457 coarse pts (step≈0.0060, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (521 points, full_search-bound) …
+    σ_min range [-3.82, -0.39], baseline≈-1.23
+  24 candidate dip(s) at Ω≈['5.5384', '5.6281', '5.6639', '5.8314', '5.8562', '6.1140', '6.3358', '6.4377', '6.5216', '6.7194', '6.7614', '6.8513', '6.9232', '6.9771', '7.0431', '7.2049', '7.3787', '7.4926', '7.5646', '7.6485', '7.7444', '7.8463', '8.0141', '8.0861']
+  Phase 1b: local zoom around 20 candidate(s) (120 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 24 dip(s) …
+    accept: σ_min ≤ -2.73 (max of fixed -3.5 and baseline-1.23−1.5)
+    drop Ω=6.722946: σ_min (unconstrained) only 1e-2.32 (not a true singularity)
+    mode Ω=5.538837   σ_min(uncon)=1e-4.81  σ_min(con)=1e-4.81  [coincides]
+    mode Ω=5.628591   σ_min(uncon)=1e-4.03  σ_min(con)=1e-4.03  [coincides]
+    mode Ω=5.663841   σ_min(uncon)=1e-3.95  σ_min(con)=1e-3.95  [coincides]
+    mode Ω=5.832765   σ_min(uncon)=1e-4.65  σ_min(con)=1e-4.65  [coincides]
+    mode Ω=5.852961   σ_min(uncon)=1e-4.78  σ_min(con)=1e-4.78  [coincides]
+    mode Ω=6.117148   σ_min(uncon)=1e-4.37  σ_min(con)=1e-4.37  [coincides]
+    mode Ω=6.332136   σ_min(uncon)=1e-5.28  σ_min(con)=1e-5.28  [coincides]
+    mode Ω=6.438299   σ_min(uncon)=1e-3.38  σ_min(con)=1e-3.38  [coincides]
+    mode Ω=6.518512   σ_min(uncon)=1e-5.11  σ_min(con)=1e-5.11  [coincides]
+    mode Ω=6.761083   σ_min(uncon)=1e-6.24  σ_min(con)=1e-6.24  [coincides]
+    mode Ω=6.849105   σ_min(uncon)=1e-4.25  σ_min(con)=1e-4.25  [coincides]
+    mode Ω=6.922240   σ_min(uncon)=1e-5.01  σ_min(con)=1e-5.01  [coincides]
+    mode Ω=6.976989   σ_min(uncon)=1e-5.15  σ_min(con)=1e-5.15  [coincides]
+    mode Ω=7.042851   σ_min(uncon)=1e-4.01  σ_min(con)=1e-4.01  [coincides]
+    mode Ω=7.205643   σ_min(uncon)=1e-4.65  σ_min(con)=1e-4.65  [coincides]
+    mode Ω=7.377740   σ_min(uncon)=1e-5.15  σ_min(con)=1e-5.15  [coincides]
+    mode Ω=7.492141   σ_min(uncon)=1e-4.97  σ_min(con)=1e-4.97  [coincides]
+    mode Ω=7.562507   σ_min(uncon)=1e-6.46  σ_min(con)=1e-6.46  [coincides]
+    mode Ω=7.648211   σ_min(uncon)=1e-4.77  σ_min(con)=1e-4.77  [coincides]
+    mode Ω=7.745015   σ_min(uncon)=1e-4.90  σ_min(con)=1e-4.90  [coincides]
+    mode Ω=7.848212   σ_min(uncon)=1e-3.39  σ_min(con)=1e-3.39  [coincides]
+    mode Ω=8.010900   σ_min(uncon)=1e-4.99  σ_min(con)=1e-4.99  [coincides]
+    mode Ω=8.084408   σ_min(uncon)=1e-6.08  σ_min(con)=1e-6.08  [coincides]
+  Phase 3 (depth 1/1): gap-refinement — 22 gap(s) > 0.0360 wide, rescanning at step=0.00100 …
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[5.4666, 5.5388]  n_dofs=14  M=80  dps=40
+  74 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (89 points, full_search-bound) …
+  Phase 1b: local zoom around 2 candidate(s) (11 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 2 dip(s) …
+  → 2 singularities found: ['5.487023', '5.538837']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[5.5388, 5.6286]  n_dofs=14  M=80  dps=40
+  91 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (110 points, full_search-bound) …
+  Phase 1b: local zoom around 3 candidate(s) (17 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 3 dip(s) …
+  → 3 singularities found: ['5.581698', '5.587080', '5.623641']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[5.6638, 5.8328]  n_dofs=14  M=80  dps=40
+  170 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (207 points, full_search-bound) …
+  Phase 1b: local zoom around 3 candidate(s) (18 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 3 dip(s) …
+  → 3 singularities found: ['5.721890', '5.773571', '5.803215']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[5.8530, 6.1171]  n_dofs=14  M=80  dps=40
+  266 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (303 points, full_search-bound) …
+  Phase 1b: local zoom around 7 candidate(s) (41 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 9 dip(s) …
+  → 8 singularities found: ['5.856233', '5.860030', '5.999809', '6.031224', '6.032313', '6.064609', '6.077274', '6.111787']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.1171, 6.3321]  n_dofs=14  M=80  dps=40
+  216 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (259 points, full_search-bound) …
+  Phase 1b: local zoom around 8 candidate(s) (48 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 9 dip(s) …
+  → 7 singularities found: ['6.124198', '6.171071', '6.182716', '6.241700', '6.252367', '6.296305', '6.322468']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.3321, 6.4383]  n_dofs=14  M=80  dps=40
+  108 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (123 points, full_search-bound) …
+  Phase 1b: local zoom around 4 candidate(s) (24 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 4 dip(s) …
+  → 2 singularities found: ['6.417838', '6.422391']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.4383, 6.5185]  n_dofs=14  M=80  dps=40
+  82 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (94 points, full_search-bound) …
+  Phase 1b: local zoom around 4 candidate(s) (24 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 4 dip(s) …
+  → 4 singularities found: ['6.468161', '6.480380', '6.488282', '6.513144']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.5185, 6.7611]  n_dofs=14  M=80  dps=40
+  244 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (278 points, full_search-bound) …
+  Phase 1b: local zoom around 11 candidate(s) (66 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 13 dip(s) …
+  → 10 singularities found: ['6.521782', '6.562195', '6.592161', '6.595459', '6.626685', '6.637706', '6.652410', '6.668114', '6.703261', '6.737232']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.7611, 6.8491]  n_dofs=14  M=80  dps=40
+  90 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (103 points, full_search-bound) …
+  Phase 1b: local zoom around 4 candidate(s) (24 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 4 dip(s) …
+  → 4 singularities found: ['6.787686', '6.808716', '6.815810', '6.822437']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.8491, 6.9222]  n_dofs=14  M=80  dps=40
+  75 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (86 points, full_search-bound) …
+  Phase 1b: local zoom around 4 candidate(s) (24 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 5 dip(s) …
+  → 5 singularities found: ['6.850933', '6.862295', '6.866908', '6.909826', '6.922234']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.9222, 6.9770]  n_dofs=14  M=80  dps=40
+  56 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (68 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['6.962946']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.9770, 7.0429]  n_dofs=14  M=80  dps=40
+  67 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (80 points, full_search-bound) …
+  Phase 1b: local zoom around 2 candidate(s) (12 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 2 dip(s) …
+  → 1 singularity found: ['6.998810']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.0429, 7.2056]  n_dofs=14  M=80  dps=40
+  164 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (189 points, full_search-bound) …
+  Phase 1b: local zoom around 9 candidate(s) (54 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 9 dip(s) …
+  → 7 singularities found: ['7.071876', '7.103507', '7.120490', '7.148176', '7.161977', '7.173154', '7.190973']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.2056, 7.3777]  n_dofs=14  M=80  dps=40
+  174 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (209 points, full_search-bound) …
+  Phase 1b: local zoom around 10 candidate(s) (60 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 11 dip(s) …
+  → 10 singularities found: ['7.225676', '7.242098', '7.249699', '7.257040', '7.265909', '7.279674', '7.302547', '7.322590', '7.342096', '7.352207']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.3777, 7.4921]  n_dofs=14  M=80  dps=40
+  116 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (140 points, full_search-bound) …
+  Phase 1b: local zoom around 7 candidate(s) (42 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 8 dip(s) …
+  → 6 singularities found: ['7.406100', '7.430488', '7.445397', '7.462065', '7.472622', '7.479311']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.4921, 7.5625]  n_dofs=14  M=80  dps=40
+  72 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (82 points, full_search-bound) …
+  Phase 1b: local zoom around 2 candidate(s) (12 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 2 dip(s) …
+  → 2 singularities found: ['7.532941', '7.537815']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.5625, 7.6482]  n_dofs=14  M=80  dps=40
+  87 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (99 points, full_search-bound) …
+  Phase 1b: local zoom around 3 candidate(s) (18 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 5 dip(s) …
+  → 5 singularities found: ['7.565438', '7.573465', '7.594636', '7.615624', '7.626606']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.6482, 7.7450]  n_dofs=14  M=80  dps=40
+  98 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (118 points, full_search-bound) …
+  Phase 1b: local zoom around 3 candidate(s) (18 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 5 dip(s) …
+  → 2 singularities found: ['7.656313', '7.659248']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.7450, 7.8482]  n_dofs=14  M=80  dps=40
+  105 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (120 points, full_search-bound) …
+  Phase 1b: local zoom around 7 candidate(s) (42 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 7 dip(s) …
+  → 4 singularities found: ['7.765902', '7.775766', '7.785695', '7.818467']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.8482, 8.0109]  n_dofs=14  M=80  dps=40
+  164 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (189 points, full_search-bound) …
+  Phase 1b: local zoom around 3 candidate(s) (18 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 4 dip(s) …
+  → 4 singularities found: ['7.848830', '7.917221', '7.933631', '7.984967']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[8.0109, 8.0844]  n_dofs=14  M=80  dps=40
+  75 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (86 points, full_search-bound) …
+  Phase 1b: local zoom around 3 candidate(s) (18 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 4 dip(s) …
+  → 4 singularities found: ['8.014266', '8.024664', '8.039283', '8.072372']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[8.0844, 8.1999]  n_dofs=14  M=80  dps=40
+  117 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (140 points, full_search-bound) …
+  Phase 1b: local zoom around 5 candidate(s) (30 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 5 dip(s) …
+  → 3 singularities found: ['8.107377', '8.118298', '8.155474']
+  Phase 3 (depth 1): recovered 94 additional mode(s)
+  → 117 singularities found: ['5.487023', '5.538837', '5.581698', '5.587080', '5.623641', '5.628591', '5.663841', '5.721890', '5.773571', '5.803215', '5.832765', '5.852961', '5.856233', '5.860030', '5.999809', '6.031224', '6.032313', '6.064609', '6.077274', '6.111787', '6.117148', '6.124198', '6.171071', '6.182716', '6.241700', '6.252367', '6.296305', '6.322468', '6.332136', '6.417838', '6.422391', '6.438299', '6.468161', '6.480380', '6.488282', '6.513144', '6.518512', '6.521782', '6.562195', '6.592161', '6.595459', '6.626685', '6.637706', '6.652410', '6.668114', '6.703261', '6.737232', '6.761083', '6.787686', '6.808716', '6.815810', '6.822437', '6.849105', '6.850933', '6.862295', '6.866908', '6.909826', '6.922240', '6.962946', '6.976989', '6.998810', '7.042851', '7.071876', '7.103507', '7.120490', '7.148176', '7.161977', '7.173154', '7.190973', '7.205643', '7.225676', '7.242098', '7.249699', '7.257040', '7.265909', '7.279674', '7.302547', '7.322590', '7.342096', '7.352207', '7.377740', '7.406100', '7.430488', '7.445397', '7.462065', '7.472622', '7.479311', '7.492141', '7.532941', '7.537815', '7.562507', '7.565438', '7.573465', '7.594636', '7.615624', '7.626606', '7.648211', '7.656313', '7.659248', '7.745015', '7.765902', '7.775766', '7.785695', '7.818467', '7.848212', '7.917221', '7.933631', '7.984967', '8.010900', '8.014266', '8.024664', '8.039283', '8.072372', '8.084408', '8.107377', '8.118298', '8.155474']
+  found: [5.487023209505113, 5.538836644491729, 5.581697781378437, 5.587079803834836, 5.623641431031157, 5.628590671494747, 5.663840520238352, 5.721890316897865, 5.773571343553545, 5.80321464244077, 5.832764670050404, 5.85296051260314, 5.85623256504585, 5.86002988006002, 5.999808674722883, 6.0312242817059705, 6.032312855961717, 6.064609439409008, 6.077273957521282, 6.111787363472569, 6.117148245554267, 6.12419813662043, 6.171070850174404, 6.182715707512822, 6.241699970576899, 6.252366679609857, 6.29630537410225, 6.322467992144571, 6.332136167452401, 6.417837587741271, 6.422390677424531, 6.438299119438069, 6.468160988960209, 6.480380253377913, 6.488282439784837, 6.513143760795547, 6.518512269257158, 6.521781653181087, 6.562194653280175, 6.5921610432385, 6.59545904387112, 6.626685313785364, 6.63770608646478, 6.652410271087765, 6.668114155866485, 6.703261365301756, 6.737232373451247, 6.761083102306841, 6.787685615262371, 6.808716406004571, 6.815809744116969, 6.822437157514399, 6.8491047154199745, 6.850933474384082, 6.862295242454172, 6.866907849048255, 6.90982599184526, 6.922239931971435, 6.962945739897968, 6.976988665426084, 6.998810203193894, 7.042851133313674, 7.071875960636396, 7.103506852155943, 7.12048985611812, 7.148176289177185, 7.1619774865612715, 7.173153799477962, 7.190972897028985, 7.205642538238109, 7.225675661546044, 7.242098047196784, 7.249699190323004, 7.257039852005379, 7.26590919622342, 7.279673894250838, 7.30254707377544, 7.322590108245391, 7.342096092747494, 7.352206508331697, 7.377739533755339, 7.406099567688129, 7.430488389138496, 7.445396633092537, 7.462065199788141, 7.47262162456007, 7.479311147378716, 7.492141392038608, 7.5329411080713005, 7.537815467512505, 7.562507371535244, 7.565438127422413, 7.573465370897839, 7.594635578106544, 7.615623537101921, 7.626605744197617, 7.6482111179591525, 7.656313178624437, 7.659248372575311, 7.745014710061069, 7.765902281622209, 7.775766071354685, 7.785695081999123, 7.818466631268658, 7.848211823866902, 7.917220600301992, 7.933630773862873, 7.984966539485489, 8.010899769580137, 8.01426568796944, 8.024664409503922, 8.039282998327113, 8.072371792397195, 8.084408088386654, 8.107377224339249, 8.118297823637956, 8.155473900619825]  (19216.5 s)
+  nearest=6.822437157514399  abs_err=1.0846e-02  rel%=0.159  HIT
+
+==============================================================================
+  TARGET 8: Wang=4.5752  →  Ω_native=7.266727  window=[5.8134,8.7201]
+==============================================================================
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[5.8134, 8.7201]  n_dofs=14  M=80  dps=40
+  486 coarse pts (step≈0.0060, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (554 points, full_search-bound) …
+    σ_min range [-4.74, -0.47], baseline≈-1.31
+  24 candidate dip(s) at Ω≈['6.0019', '6.0318', '6.0438', '6.0647', '6.1126', '6.3348', '6.4367', '6.5625', '6.7363', '6.8622', '6.9221', '7.0719', '7.2817', '7.3237', '7.4076', '7.4915', '7.5634', '7.6952', '7.9170', '7.9889', '8.0848', '8.3005', '8.4084', '8.6901']
+  Phase 1b: local zoom around 19 candidate(s) (114 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 24 dip(s) …
+    accept: σ_min ≤ -2.81 (max of fixed -3.5 and baseline-1.31−1.5)
+    mode Ω=6.002005   σ_min(uncon)=1e-4.97  σ_min(con)=1e-4.97  [coincides]
+    mode Ω=6.032313   σ_min(uncon)=1e-4.98  σ_min(con)=1e-4.98  [coincides]
+    mode Ω=6.043603   σ_min(uncon)=1e-3.81  σ_min(con)=1e-3.81  [coincides]
+    mode Ω=6.064609   σ_min(uncon)=1e-5.28  σ_min(con)=1e-5.28  [coincides]
+    mode Ω=6.111787   σ_min(uncon)=1e-4.81  σ_min(con)=1e-4.81  [coincides]
+    mode Ω=6.333557   σ_min(uncon)=1e-3.45  σ_min(con)=1e-3.45  [coincides]
+    mode Ω=6.438300   σ_min(uncon)=1e-3.38  σ_min(con)=1e-3.38  [coincides]
+    mode Ω=6.562189   σ_min(uncon)=1e-4.34  σ_min(con)=1e-4.34  [coincides]
+    mode Ω=6.737233   σ_min(uncon)=1e-4.97  σ_min(con)=1e-4.97  [coincides]
+    mode Ω=6.866904   σ_min(uncon)=1e-4.57  σ_min(con)=1e-4.57  [coincides]
+    mode Ω=6.923865   σ_min(uncon)=1e-5.43  σ_min(con)=1e-5.43  [coincides]
+    mode Ω=7.071479   σ_min(uncon)=1e-4.05  σ_min(con)=1e-4.05  [coincides]
+    mode Ω=7.279672   σ_min(uncon)=1e-5.04  σ_min(con)=1e-5.04  [coincides]
+    mode Ω=7.322589   σ_min(uncon)=1e-5.24  σ_min(con)=1e-5.24  [coincides]
+    mode Ω=7.406100   σ_min(uncon)=1e-4.40  σ_min(con)=1e-4.40  [coincides]
+    mode Ω=7.491396   σ_min(uncon)=1e-4.94  σ_min(con)=1e-4.94  [coincides]
+    mode Ω=7.562507   σ_min(uncon)=1e-6.67  σ_min(con)=1e-6.67  [coincides]
+    mode Ω=7.694810   σ_min(uncon)=1e-4.05  σ_min(con)=1e-4.05  [coincides]
+    mode Ω=7.917220   σ_min(uncon)=1e-4.71  σ_min(con)=1e-4.71  [coincides]
+    mode Ω=7.984966   σ_min(uncon)=1e-5.30  σ_min(con)=1e-5.30  [coincides]
+    mode Ω=8.084411   σ_min(uncon)=1e-4.71  σ_min(con)=1e-4.71  [coincides]
+    mode Ω=8.300711   σ_min(uncon)=1e-3.85  σ_min(con)=1e-3.85  [coincides]
+    mode Ω=8.408273   σ_min(uncon)=1e-5.32  σ_min(con)=1e-5.32  [coincides]
+    mode Ω=8.694648   σ_min(uncon)=1e-4.69  σ_min(con)=1e-4.69  [coincides]
+  Phase 3 (depth 1/1): gap-refinement — 21 gap(s) > 0.0360 wide, rescanning at step=0.00100 …
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[5.8134, 6.0020]  n_dofs=14  M=80  dps=40
+  190 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (217 points, full_search-bound) …
+  Phase 1b: local zoom around 7 candidate(s) (40 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 8 dip(s) …
+  → 7 singularities found: ['5.832768', '5.852960', '5.856229', '5.860029', '5.913112', '5.938076', '5.999807']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.0646, 6.1118]  n_dofs=14  M=80  dps=40
+  49 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (59 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['6.077271']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.1118, 6.3336]  n_dofs=14  M=80  dps=40
+  223 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (267 points, full_search-bound) …
+  Phase 1b: local zoom around 9 candidate(s) (54 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 11 dip(s) …
+  → 9 singularities found: ['6.117147', '6.124198', '6.171280', '6.182716', '6.241702', '6.252362', '6.296304', '6.305350', '6.322468']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.3336, 6.4383]  n_dofs=14  M=80  dps=40
+  106 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (128 points, full_search-bound) …
+  Phase 1b: local zoom around 3 candidate(s) (18 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 3 dip(s) …
+  → 1 singularity found: ['6.417830']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.4383, 6.5622]  n_dofs=14  M=80  dps=40
+  125 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (143 points, full_search-bound) …
+  Phase 1b: local zoom around 6 candidate(s) (36 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 6 dip(s) …
+  → 5 singularities found: ['6.468165', '6.480379', '6.488277', '6.513667', '6.518516']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.5622, 6.7372]  n_dofs=14  M=80  dps=40
+  177 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (214 points, full_search-bound) …
+  Phase 1b: local zoom around 9 candidate(s) (54 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 11 dip(s) …
+  → 8 singularities found: ['6.563399', '6.566699', '6.595460', '6.626683', '6.637701', '6.668114', '6.675174', '6.703257']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.7372, 6.8669]  n_dofs=14  M=80  dps=40
+  131 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (158 points, full_search-bound) …
+  Phase 1b: local zoom around 9 candidate(s) (53 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 9 dip(s) …
+  → 7 singularities found: ['6.761083', '6.787687', '6.808712', '6.815815', '6.823090', '6.849103', '6.862293']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.8669, 6.9239]  n_dofs=14  M=80  dps=40
+  58 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (66 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['6.909825']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[6.9239, 7.0715]  n_dofs=14  M=80  dps=40
+  149 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (179 points, full_search-bound) …
+  Phase 1b: local zoom around 7 candidate(s) (42 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 7 dip(s) …
+  → 6 singularities found: ['6.964234', '6.976986', '6.998811', '7.014510', '7.035493', '7.042846']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.0715, 7.2797]  n_dofs=14  M=80  dps=40
+  210 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (249 points, full_search-bound) …
+  Phase 1b: local zoom around 13 candidate(s) (78 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 15 dip(s) …
+  → 14 singularities found: ['7.077413', '7.098949', '7.103509', '7.116169', '7.147089', '7.161980', '7.173154', '7.190974', '7.205647', '7.225675', '7.242098', '7.249700', '7.257040', '7.266261']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.2797, 7.3226]  n_dofs=14  M=80  dps=40
+  44 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (53 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 2 dip(s) …
+  → 2 singularities found: ['7.285712', '7.303485']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.3226, 7.4061]  n_dofs=14  M=80  dps=40
+  85 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (101 points, full_search-bound) …
+  Phase 1b: local zoom around 3 candidate(s) (18 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 3 dip(s) …
+  → 2 singularities found: ['7.342254', '7.352205']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.4061, 7.4914]  n_dofs=14  M=80  dps=40
+  87 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (99 points, full_search-bound) …
+  Phase 1b: local zoom around 5 candidate(s) (30 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 5 dip(s) …
+  → 5 singularities found: ['7.429285', '7.430489', '7.445397', '7.472620', '7.479314']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.4914, 7.5625]  n_dofs=14  M=80  dps=40
+  73 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (83 points, full_search-bound) …
+  Phase 1b: local zoom around 2 candidate(s) (12 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 2 dip(s) …
+  → 2 singularities found: ['7.532941', '7.537817']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.5625, 7.6948]  n_dofs=14  M=80  dps=40
+  134 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (162 points, full_search-bound) …
+  Phase 1b: local zoom around 7 candidate(s) (42 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 9 dip(s) …
+  → 8 singularities found: ['7.565437', '7.573465', '7.594638', '7.615621', '7.626608', '7.648209', '7.656314', '7.659250']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.6948, 7.9172]  n_dofs=14  M=80  dps=40
+  224 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (269 points, full_search-bound) …
+  Phase 1b: local zoom around 7 candidate(s) (42 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 8 dip(s) …
+  → 8 singularities found: ['7.704193', '7.745017', '7.765901', '7.770117', '7.785696', '7.818465', '7.828683', '7.848379']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.9172, 7.9850]  n_dofs=14  M=80  dps=40
+  69 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (79 points, full_search-bound) …
+  Phase 1b: local zoom around 1 candidate(s) (6 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 1 dip(s) …
+  → 1 singularity found: ['7.933629']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[7.9850, 8.0844]  n_dofs=14  M=80  dps=40
+  101 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (115 points, full_search-bound) …
+  Phase 1b: local zoom around 4 candidate(s) (24 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 4 dip(s) …
+  → 4 singularities found: ['8.014268', '8.024670', '8.039277', '8.072370']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[8.0844, 8.3007]  n_dofs=14  M=80  dps=40
+  218 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (249 points, full_search-bound) …
+  Phase 1b: local zoom around 8 candidate(s) (48 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 9 dip(s) …
+  → 9 singularities found: ['8.107379', '8.118297', '8.153999', '8.167979', '8.225123', '8.240513', '8.244883', '8.249952', '8.262658']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[8.3007, 8.4083]  n_dofs=14  M=80  dps=40
+  109 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (132 points, full_search-bound) …
+  Phase 1b: local zoom around 2 candidate(s) (12 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 2 dip(s) …
+  → 2 singularities found: ['8.364318', '8.387027']
+
+====================================================================
+  σ_min mode search (in-plane):  Ω∈[8.4083, 8.6946]  n_dofs=14  M=80  dps=40
+  288 coarse pts (step≈0.0010, two-stage: coarse + local zoom), prominence≥0.5, accept σ_min≤1e-3.5, 32 workers
+====================================================================
+  Phase 1: σ_min sweep (348 points, full_search-bound) …
+  Phase 1b: local zoom around 6 candidate(s) (36 fine pts; low-zone candidates already fine) …
+  Phase 2: refining 8 dip(s) …
+  → 6 singularities found: ['8.414763', '8.419145', '8.505645', '8.517521', '8.589884', '8.632019']
+  Phase 3 (depth 1): recovered 108 additional mode(s)
+  → 132 singularities found: ['5.832768', '5.852960', '5.856229', '5.860029', '5.913112', '5.938076', '5.999807', '6.002005', '6.032313', '6.043603', '6.064609', '6.077271', '6.111787', '6.117147', '6.124198', '6.171280', '6.182716', '6.241702', '6.252362', '6.296304', '6.305350', '6.322468', '6.333557', '6.417830', '6.438300', '6.468165', '6.480379', '6.488277', '6.513667', '6.518516', '6.562189', '6.563399', '6.566699', '6.595460', '6.626683', '6.637701', '6.668114', '6.675174', '6.703257', '6.737233', '6.761083', '6.787687', '6.808712', '6.815815', '6.823090', '6.849103', '6.862293', '6.866904', '6.909825', '6.923865', '6.964234', '6.976986', '6.998811', '7.014510', '7.035493', '7.042846', '7.071479', '7.077413', '7.098949', '7.103509', '7.116169', '7.147089', '7.161980', '7.173154', '7.190974', '7.205647', '7.225675', '7.242098', '7.249700', '7.257040', '7.266261', '7.279672', '7.285712', '7.303485', '7.322589', '7.342254', '7.352205', '7.406100', '7.429285', '7.430489', '7.445397', '7.472620', '7.479314', '7.491396', '7.532941', '7.537817', '7.562507', '7.565437', '7.573465', '7.594638', '7.615621', '7.626608', '7.648209', '7.656314', '7.659250', '7.694810', '7.704193', '7.745017', '7.765901', '7.770117', '7.785696', '7.818465', '7.828683', '7.848379', '7.917220', '7.933629', '7.984966', '8.014268', '8.024670', '8.039277', '8.072370', '8.084411', '8.107379', '8.118297', '8.153999', '8.167979', '8.225123', '8.240513', '8.244883', '8.249952', '8.262658', '8.300711', '8.364318', '8.387027', '8.408273', '8.414763', '8.419145', '8.505645', '8.517521', '8.589884', '8.632019', '8.694648']
+  found: [5.832767560593681, 5.852959785518188, 5.856228876652603, 5.8600291081653735, 5.913112406582876, 5.938076472133748, 5.999807465657786, 6.002004652821357, 6.032313009481857, 6.043603255208866, 6.064608668961965, 6.077271438635538, 6.11178650824907, 6.11714651664204, 6.124197863794664, 6.171279712503207, 6.182716241956616, 6.241701682160716, 6.252362157381345, 6.296304264983697, 6.305350270337806, 6.322467786281013, 6.3335570918467, 6.417830133120855, 6.438300221261327, 6.468165071842487, 6.480378730933818, 6.488277295836676, 6.513666904842821, 6.518516436459082, 6.562189452644729, 6.5633992188744354, 6.566698788667672, 6.595459814231665, 6.62668290238147, 6.637700588238807, 6.668114065687221, 6.675173590293255, 6.7032567538571755, 6.737232947480403, 6.76108250399224, 6.7876874954878375, 6.80871182710071, 6.815814715131409, 6.823089705467538, 6.849102851970228, 6.862292870729085, 6.866904011468957, 6.909825211620385, 6.923865194470811, 6.964234195504713, 6.97698556984252, 6.9988105508784635, 7.014509688247822, 7.035492649923835, 7.042846037685468, 7.071479374992825, 7.077412550670921, 7.09894942458803, 7.103509128686502, 7.116169428538772, 7.14708928002519, 7.161979502388331, 7.173153736007199, 7.190974253827536, 7.205647020008801, 7.225675051310402, 7.242097838834766, 7.24970006236439, 7.2570399286059875, 7.2662606173037485, 7.2796724924718585, 7.285712460830593, 7.303485075180712, 7.322589100679613, 7.34225439601344, 7.352204783332807, 7.406100371035176, 7.429284695598755, 7.430489042238616, 7.445396737816132, 7.4726200841540855, 7.479313561123895, 7.491396406545638, 7.532940876265265, 7.537817026581115, 7.562506555151977, 7.565437211488403, 7.573464947821472, 7.594637689643974, 7.615620520697248, 7.626607851105998, 7.648209409668441, 7.656314234426953, 7.659249547505193, 7.694809942909947, 7.704192552883864, 7.745016609933025, 7.765900755115176, 7.770117312787779, 7.7856961895805235, 7.8184649104737005, 7.828682934421176, 7.848379335186582, 7.917220003493256, 7.933629354583846, 7.9849663667045805, 8.014267891714473, 8.024670005340468, 8.039277231927825, 8.072369617125746, 8.084411367819527, 8.107378684822015, 8.118296995752532, 8.153999366854748, 8.167979123776107, 8.225123204316956, 8.240512786472848, 8.244882962141187, 8.249951731695306, 8.262658440422634, 8.30071058436812, 8.364318372859437, 8.38702722158866, 8.4082734948874, 8.414763246273761, 8.419144793481866, 8.505645418174524, 8.517520648777538, 8.589883548953201, 8.63201887756685, 8.694647844092579]  (19024.9 s)
+  nearest=7.2662606173037485  abs_err=4.6603e-04  rel%=0.006  HIT
+
+==============================================================================
+  SUMMARY TABLE (all 8)
+==============================================================================
+  #      Wang      target       found     abs_err      rel%   hit
+----------------------------------------------------------------
+  1    1.0311      1.6377    1.627054  1.0628e-02     0.649  YES
+  2    1.7367      2.7584    2.752718  5.6589e-03     0.205  YES
+  3    2.0502      3.2563    3.245723  1.0582e-02     0.325  YES
+  4    3.0618      4.8630    4.887221  2.4207e-02     0.498  YES
+  5    3.1811      5.0525    5.065838  1.3341e-02     0.264  YES
+  6    3.4093      5.4149    5.436615  2.1672e-02     0.400  YES
+  7    4.3023      6.8333    6.822437  1.0846e-02     0.159  YES
+  8    4.5752      7.2667    7.266261  4.6603e-04     0.006  YES
+----------------------------------------------------------------
+  hits: 8 / 8   max_rel% among found = 0.649
+
+==============================================================================
+  READING (pre-registered)
+==============================================================================
+  Conversion K used          : 0.6296094821
+  hits / 8                   : 8
+  max rel% (found targets)   : 0.649
+  VERDICT: STILL-VALID
+    Corrected material also reproduces Wang Table 4 to tight tolerance.
+    Table is safely reproducible under Er=20*Et (and previously under 40).
+
+  total wall time: 38270.6 s
+end of probe_ip_orthotropy_wang_table4_Er20_v1
+end=Sat Aug  8 08:22:54 CDT 2026

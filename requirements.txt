@@ -1,0 +1,12 @@
+numpy
+scipy
+mpmath
+# optional, only needed for plate_solver.plotting:
+matplotlib
+# optional, only needed for plate_solver.io_export.export_summary_xlsx:
+openpyxl
+# optional, only needed for validation/e2_parity_check_step1.py and _step2.py
+# (standalone symbolic algebra checks; nothing in plate_solver/ imports sympy):
+sympy
+# optional, NOT wired into any hot path yet -- see plate_solver/_numba_accel.py:
+# numba

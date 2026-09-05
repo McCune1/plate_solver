@@ -1,0 +1,91 @@
+Job 2324822 on compute-11-26.mill
+Start: Sat Jul 18 13:06:31 CDT 2026
+==============================================================================
+  probe_fillfix_safety_at_omstar -- start 2026-07-18 13:06:31
+==============================================================================
+preflight OK: SOLVER_VERSION=2026-07-10.s8
+--- lscpu (model name) ---
+Model name:          AMD EPYC 7502 32-Core Processor
+--- hostname/partition ---
+compute-11-26.mill
+SLURM_JOB_PARTITION=general
+N_WORKERS=32
+Total work items: 60
+  [1/60] IP-19 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [32.7s]
+  [2/60] IP-18 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [33.2s]
+  [3/60] IP-16 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [33.6s]
+  [4/60] IP-17 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [33.8s]
+  [5/60] IP-15 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [33.9s]
+  [6/60] IP-12 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [34.1s]
+  [7/60] IP-20 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [34.4s]
+  [8/60] IP-05 n_dofs=28 cnt_dep=22 cnt_cor=22 improved=False [34.5s]
+  [9/60] IP-04 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [34.7s]
+  [10/60] IP-09 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [35.0s]
+  [11/60] IP-04 n_dofs=36 cnt_dep=30 cnt_cor=30 improved=False [35.4s]
+  [12/60] IP-01 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [35.5s]
+  [13/60] IP-14 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [35.5s]
+  [14/60] IP-05 n_dofs=36 cnt_dep=30 cnt_cor=30 improved=False [35.6s]
+  [15/60] IP-13 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [35.6s]
+  [16/60] IP-06 n_dofs=28 cnt_dep=22 cnt_cor=22 improved=False [35.8s]
+  [17/60] IP-10 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [35.8s]
+  [18/60] IP-24 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [35.9s]
+  [19/60] IP-06 n_dofs=36 FAILED: REPRODUCTION MISMATCH: expected cnt=34 from job 2324817 but got 30 here -- do not trust this point without investigating why the reproduction differs [35.9s]
+  [20/60] IP-01 n_dofs=36 cnt_dep=30 cnt_cor=30 improved=False [36.2s]
+  [21/60] IP-11 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [36.5s]
+  [22/60] IP-07 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [36.6s]
+  [23/60] IP-22 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [36.8s]
+  [24/60] IP-08 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [37.0s]
+  [25/60] IP-03 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [38.4s]
+  [26/60] IP-21 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [38.4s]
+  [27/60] IP-03 n_dofs=36 cnt_dep=30 cnt_cor=30 improved=False [39.1s]
+  [28/60] IP-02 n_dofs=28 cnt_dep=26 cnt_cor=26 improved=False [42.5s]
+  [29/60] IP-02 n_dofs=36 cnt_dep=30 cnt_cor=30 improved=False [43.2s]
+  [30/60] IP-23 n_dofs=28 cnt_dep=26 cnt_cor=28 improved=True log10smin_dep=-6.189 log10smin_cor=-2.549 **SHALLOW-COR** [36.6s]
+  [31/60] IP-25 n_dofs=28 cnt_dep=26 cnt_cor=28 improved=True log10smin_dep=-6.544 log10smin_cor=-1.978 **SHALLOW-COR** [36.7s]
+  [32/60] IP-26 n_dofs=28 cnt_dep=26 cnt_cor=28 improved=True log10smin_dep=-2.565 log10smin_cor=-2.103 **SHALLOW-COR** [38.2s]
+  [33/60] IP-12 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [35.0s]
+  [34/60] IP-07 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [36.5s]
+  [35/60] IP-08 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [36.5s]
+  [36/60] IP-10 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [35.9s]
+  [37/60] IP-09 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [36.2s]
+  [38/60] IP-15 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [35.2s]
+  [39/60] IP-16 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [34.9s]
+  [40/60] IP-18 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [34.5s]
+  [41/60] IP-17 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [34.6s]
+  [42/60] IP-14 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [36.2s]
+  [43/60] IP-13 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [36.3s]
+  [44/60] IP-11 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [37.2s]
+  [45/60] IP-20 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [36.0s]
+  [46/60] IP-19 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [36.3s]
+  [47/60] IP-25 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [38.6s]
+  [48/60] IP-24 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [39.1s]
+  [49/60] IP-26 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [39.0s]
+  [50/60] IP-23 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [39.7s]
+  [51/60] IP-22 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [39.9s]
+  [52/60] IP-21 n_dofs=36 cnt_dep=34 cnt_cor=34 improved=False [40.0s]
+  [53/60] OOP-01 n_dofs=36 cnt_dep=28 cnt_cor=28 improved=False [51.3s]
+  [54/60] OOP-06 n_dofs=36 cnt_dep=32 cnt_cor=32 improved=False [49.9s]
+  [55/60] OOP-07 n_dofs=36 cnt_dep=28 cnt_cor=28 improved=False [49.6s]
+  [56/60] OOP-02 n_dofs=36 cnt_dep=28 cnt_cor=28 improved=False [52.4s]
+  [57/60] OOP-05 n_dofs=36 cnt_dep=28 cnt_cor=28 improved=False [52.4s]
+  [58/60] OOP-08 n_dofs=36 cnt_dep=28 cnt_cor=28 improved=False [51.3s]
+  [59/60] OOP-03 n_dofs=36 cnt_dep=32 cnt_cor=32 improved=False [59.5s]
+  [60/60] OOP-04 n_dofs=36 cnt_dep=28 cnt_cor=28 improved=False [60.3s]
+
+All 60 points done in 1.6 min wall clock.
+
+==============================================================================
+  SUMMARY
+==============================================================================
+  59/60 points completed / reproduced job 2324817's cnt exactly.
+  1 point(s) FAILED (reproduction mismatch or exception) -- do not trust those without investigating.
+  3/59 points: corrected fill reaches a higher dof count than deployed select_fill (at Om_star).
+  Of those: 3 went SHALLOW (>-3.0), 0 STAYED DEEP (<=-3.0).
+
+CONFIRMED: Component A's safety finding IS Omega-independent -- every recovered point at the TRUE Om_star also went shallow, exactly matching the seed-based result. select_fill's undershoot should be treated as protective at Om_star too, not just at the seed. Safe to finalize the paper caveat using job 2324817's fill numbers without further hedging on this point.
+
+Diagnostic-data generation, not a hypothesis test -- no SOLVER_VERSION action, no package changes regardless of outcome.
+End: 2026-07-18 13:08:09
+
+total wall time: 1.6 min
+End: Sat Jul 18 13:08:09 CDT 2026

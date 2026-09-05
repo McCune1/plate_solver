@@ -1,0 +1,100 @@
+
+==============================================================================
+  probe_ip_mac_bar_deploy_gate_v1 -- start 2026-08-19 15:33:10
+==============================================================================
+  PKG_PATH=/home/ghmkfh/PythonMill/Plate_Solver_Package
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package
+
+==============================================================================
+  G0 -- required closeout files
+==============================================================================
+  OK    ip_mac_bar.py  -> /home/ghmkfh/PythonMill/Plate_Solver_Package/ip_mac_bar.py
+  OK    ip_mac_r200a100_fe_parity_mesh96.txt  -> /home/ghmkfh/PythonMill/Plate_Solver_Package/ip_mac_r200a100_fe_parity_mesh96.txt
+  OK    probe_ff_adjudicate_candidates.py  -> /home/ghmkfh/PythonMill/Plate_Solver_Package/probe_ff_adjudicate_candidates.py
+
+==============================================================================
+  G1 -- SOLVER_VERSION
+==============================================================================
+  SOLVER_VERSION='2026-07-10.s10'  (expect '2026-07-10.s10')
+
+==============================================================================
+  G2 -- ip_mac_bar constants and rule
+==============================================================================
+  MAC_ART_CEILING=0.5801  expect 0.5801  OK
+  MAC_REAL_FLOOR_SEED=0.9079  expect 0.9079  OK
+  MAC_REAL_FLOOR_OWNROOT=0.9869  expect 0.9869  OK
+  MAC_THRESHOLD=0.744  expect 0.744  OK
+  class map OK  q0=ANTI  q1=SYMM
+  classify_mac(0.9869)=REAL-like  expect REAL-like  OK
+  classify_mac(0.9993)=REAL-like  expect REAL-like  OK
+  classify_mac(0.5801)=ARTIFACT-like  expect ARTIFACT-like  OK
+  classify_mac(0.5689)=ARTIFACT-like  expect ARTIFACT-like  OK
+  classify_mac(0.0)=ARTIFACT-like  expect ARTIFACT-like  OK
+  classify_mac(0.744)=REAL-like  expect REAL-like  OK
+  classify_mac(0.743999)=ARTIFACT-like  expect ARTIFACT-like  OK
+  classify_mac(nan)=INVALID  expect INVALID  OK
+  t7 RULE_LOCALMIN_RESID -> q1 [single LOCAL_MIN]  OK
+
+==============================================================================
+  G3 -- parity table and class-safe nearest
+==============================================================================
+  modes in table: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60]
+  counts SYMM=29 ANTI=28 AMBIGUOUS=0  (expect 29/28/0 over modes 4..60)
+  table #7 SYMM  expect SYMM  OK
+  table #9 ANTI  expect ANTI  OK
+  table #11 SYMM  expect SYMM  OK
+  cand  blk class unres  safe pub_near pub_best note
+  t1    q1  SYMM      6     6        6        6 OK
+  t2    q1  SYMM     13    13       13       13 OK
+  t3    q1  SYMM     24    24       24       24 OK
+  t4    q0  ANTI     55    55       55       55 OK
+  t5    q0  ANTI      5     5        5        5 OK
+  t6    q0  ANTI      8     8        8        8 OK
+  t7    q1  SYMM      9    10        9        7 OK
+  t8    q1  SYMM     10    10       10       10 OK
+  t9    q1  SYMM     49    49       49       49 OK
+  t10   q0  ANTI     33    33       33       33 OK
+  nearest-vs-best class mismatches: 1  (expect 1 = t7)
+
+==============================================================================
+  G4/G5 -- live FE dumps (optional if absent, required to use the bar)
+==============================================================================
+  full-block eigenvector files found: 57/57
+  n_nodes=28033  (expect 28033)
+  classified through mode 4
+  live #7 SYMM  table SYMM  missing_pairs=0  OK
+  live #9 ANTI  table ANTI  missing_pairs=0  OK
+  classified through mode 10
+  live #11 SYMM  table SYMM  missing_pairs=0  OK
+  classified through mode 20
+  classified through mode 30
+  classified through mode 40
+  classified through mode 50
+  classified through mode 60
+  live vs table disagreements: 0  
+
+==============================================================================
+  G5 -- FE-vs-FE cross-MAC gate
+==============================================================================
+  max off-diagonal MAC = 0.011518 between modes 4 and 32  (expect 0.0115 between 4 and 32)
+  G5 PASS
+
+==============================================================================
+  G6 -- R40_BC_KIND wiring
+==============================================================================
+  adjudicator free_free assignments: 2  (expect >= 2)
+  adjudicator docstring OK
+  _worker_bc default token='clamped_free'  (expect 'clamped_free')
+  after ensure_free_free_worker_bc: 'free_free'  (expect 'free_free')
+
+==============================================================================
+  READING (pre-registered -- honour the letter)
+==============================================================================
+  fails=none
+  skips=none
+
+READING: PASS_DEPLOYED
+Diagnostic only -- no SOLVER_VERSION action, no table relabel.
+elapsed_s=5.8
+End: 2026-08-19 15:33:16
+probe exit 0

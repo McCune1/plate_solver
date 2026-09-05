@@ -1,0 +1,84 @@
+job=2411852 host=compute-33-02.mill start=Tue Aug 11 00:22:26 CDT 2026
+probe_oop_shi2014_table3_t3_local_v1  start=2026-08-11 00:22:31
+EXPECT_SOLVER_VERSION=2026-07-10.s10  DPS=40
+SOLVER_VERSION=2026-07-10.s10
+  geometry R0_2B=1.16666666667  Ri=2.666666667  Ro=6.666666667  Ri/Ro=0.4
+
+==============================================================================
+  SANITY (Omega=0.50)
+==============================================================================
+  log_A=-2.094845  n_br=10  n_ret=20
+  sanity PASS
+
+==============================================================================
+  REFERENCE: known coarse points (NOT re-evaluated)
+==============================================================================
+  Om=1.36664323  log_A=-1.329  Om_lit=37.46730  rel%=2.500
+  Om=1.40168536  log_A=-3.264  Om_lit=38.42800  rel%=0.000
+  Om=1.43672749  log_A=-1.922  Om_lit=39.38870  rel%=2.500
+
+==============================================================================
+  STAGE 1: 15-pt linspace [1.3316, 1.4718]
+==============================================================================
+  [ 1/15] Om=1.33160000  log_A=  -1.288  n_br=  9 n_ret=20  Om_lit=  36.50657  rel%= 5.000  dt=60.3s
+  [ 2/15] Om=1.34161429  log_A=  -1.300  n_br=  9 n_ret=20  Om_lit=  36.78112  rel%= 4.286  dt=58.7s
+  [ 3/15] Om=1.35162857  log_A=  -1.312  n_br=  9 n_ret=20  Om_lit=  37.05566  rel%= 3.571  dt=57.6s
+  [ 4/15] Om=1.36164286  log_A=  -1.323  n_br=  9 n_ret=20  Om_lit=  37.33021  rel%= 2.857  dt=57.4s
+  [ 5/15] Om=1.37165714  log_A=  -1.334  n_br=  9 n_ret=20  Om_lit=  37.60476  rel%= 2.142  dt=58.6s
+  [ 6/15] Om=1.38167143  log_A=  -1.345  n_br=  9 n_ret=20  Om_lit=  37.87931  rel%= 1.428  dt=59.0s
+  [ 7/15] Om=1.39168571  log_A=  -1.556  n_br=  9 n_ret=20  Om_lit=  38.15385  rel%= 0.713  dt=59.5s
+  [ 8/15] Om=1.40170000  log_A=  -3.297  n_br=  9 n_ret=20  Om_lit=  38.42840  rel%= 0.001  dt=56.6s
+  [ 9/15] Om=1.41171429  log_A=  -1.610  n_br=  9 n_ret=20  Om_lit=  38.70295  rel%= 0.715  dt=57.3s
+  [10/15] Om=1.42172857  log_A=  -1.400  n_br=  9 n_ret=20  Om_lit=  38.97750  rel%= 1.430  dt=57.5s
+  [11/15] Om=1.43174286  log_A=  -2.246  n_br= 10 n_ret=20  Om_lit=  39.25204  rel%= 2.144  dt=58.3s
+  [12/15] Om=1.44175714  log_A=  -1.763  n_br= 10 n_ret=20  Om_lit=  39.52659  rel%= 2.859  dt=57.1s
+  [13/15] Om=1.45177143  log_A=  -1.586  n_br= 10 n_ret=20  Om_lit=  39.80114  rel%= 3.573  dt=57.3s
+  [14/15] Om=1.46178571  log_A=  -1.489  n_br= 10 n_ret=20  Om_lit=  40.07569  rel%= 4.288  dt=57.0s
+  [15/15] Om=1.47180000  log_A=  -1.449  n_br= 10 n_ret=20  Om_lit=  40.35023  rel%= 5.002  dt=56.5s
+
+  Stage-1 deepest: Om=1.4017  log_A=-3.2972
+
+==============================================================================
+  STAGE 2: 11-pt denser grid around Stage-1 min  [1.389700, 1.413700]
+==============================================================================
+  [ 1/11] Om=1.38970000  log_A=  -1.484  n_br=  9 n_ret=20  Om_lit=  38.09941  rel%= 0.855  dt=56.8s
+  [ 2/11] Om=1.39210000  log_A=  -1.573  n_br=  9 n_ret=20  Om_lit=  38.16521  rel%= 0.684  dt=57.3s
+  [ 3/11] Om=1.39450000  log_A=  -1.690  n_br=  9 n_ret=20  Om_lit=  38.23101  rel%= 0.513  dt=57.0s
+  [ 4/11] Om=1.39690000  log_A=  -1.858  n_br=  9 n_ret=20  Om_lit=  38.29681  rel%= 0.341  dt=56.2s
+  [ 5/11] Om=1.39930000  log_A=  -2.143  n_br=  9 n_ret=20  Om_lit=  38.36260  rel%= 0.170  dt=56.2s
+  [ 6/11] Om=1.40170000  log_A=  -3.297  n_br=  9 n_ret=20  Om_lit=  38.42840  rel%= 0.001  dt=56.6s
+  [ 7/11] Om=1.40410000  log_A=  -2.217  n_br=  9 n_ret=20  Om_lit=  38.49420  rel%= 0.172  dt=56.0s
+  [ 8/11] Om=1.40650000  log_A=  -1.908  n_br=  9 n_ret=20  Om_lit=  38.56000  rel%= 0.343  dt=56.3s
+  [ 9/11] Om=1.40890000  log_A=  -1.738  n_br=  9 n_ret=20  Om_lit=  38.62579  rel%= 0.515  dt=56.3s
+  [10/11] Om=1.41130000  log_A=  -1.626  n_br=  9 n_ret=20  Om_lit=  38.69159  rel%= 0.686  dt=56.9s
+  [11/11] Om=1.41370000  log_A=  -1.546  n_br=  9 n_ret=20  Om_lit=  38.75739  rel%= 0.857  dt=57.1s
+
+  Stage-2 deepest: Om=1.4017  log_A=-3.2972
+
+==============================================================================
+  STAGE 3: 7-pt ultra-local around Stage-2 min  [1.397700, 1.405700]
+==============================================================================
+  [ 1/7] Om=1.39770000  log_A=  -1.934  n_br=  9 n_ret=20  Om_lit=  38.31874  rel%= 0.284  dt=57.3s
+  [ 2/7] Om=1.39903333  log_A=  -2.101  n_br=  9 n_ret=20  Om_lit=  38.35529  rel%= 0.189  dt=56.9s
+  [ 3/7] Om=1.40036667  log_A=  -2.376  n_br=  9 n_ret=20  Om_lit=  38.39185  rel%= 0.094  dt=56.7s
+  [ 4/7] Om=1.40170000  log_A=  -3.297  n_br=  9 n_ret=20  Om_lit=  38.42840  rel%= 0.001  dt=56.8s
+  [ 5/7] Om=1.40303333  log_A=  -2.499  n_br=  9 n_ret=20  Om_lit=  38.46496  rel%= 0.096  dt=57.0s
+  [ 6/7] Om=1.40436667  log_A=  -2.169  n_br=  9 n_ret=20  Om_lit=  38.50151  rel%= 0.191  dt=57.1s
+  [ 7/7] Om=1.40570000  log_A=  -1.987  n_br=  9 n_ret=20  Om_lit=  38.53806  rel%= 0.286  dt=56.0s
+
+  Stage-3 deepest: Om=1.4017  log_A=-3.2972
+
+==============================================================================
+  READING (pre-registered)
+==============================================================================
+  Tight window: [1.3316, 1.4718]  (±5% of 1.40168536)
+  Depth threshold for PASS: log_A <= -3.5
+  Deepest found: Om=1.4017  log_A=-3.2972
+  Mapped Om_lit=38.42840  rel% to lit=38.428 = 0.001%
+
+  VERDICT: FAIL / KILL
+  Densest feasible scan still bottoms out shallower than -3.5 everywhere in the tight window. Target 3 is confirmed a genuine sub-threshold near-miss; no paper text changes.
+
+  wall_time=1950.4s
+end of probe_oop_shi2014_table3_t3_local_v1
+end=Tue Aug 11 00:55:02 CDT 2026
