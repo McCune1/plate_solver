@@ -41,9 +41,10 @@ keywords:
   - boundary determinant
   - spurious modes
   - arbitrary-precision
-# --- FILL IN AT RELEASE (both lines), then add the same DOI to the paper's
-# --- Data and code availability section (there is no \todo{} in the .tex).
-repository-code: "https://github.com/TBD/TBD"
+repository-code: "https://github.com/McCune1/plate_solver"
+version: "1.0.0"
+date-released: "2026-09-05"
+# --- DOI still pending: mint via the GitHub-Zenodo integration, then fill
+# --- this in and add the same DOI to the paper's Data and code availability
+# --- section (there is no \todo{} in the .tex).
 # doi: "10.5281/zenodo.TBD"
-# version: "1.0.0"
-# date-released: "YYYY-MM-DD"

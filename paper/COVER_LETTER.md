@@ -1,7 +1,8 @@
 # Cover letter (draft)
 
-Addressed to the JSV Editor-in-Chief. Keep to one page. Insert the
-GitHub/Zenodo DOI in the last paragraph when that archive is minted.
+Addressed to the JSV Editor-in-Chief. Keep to one page. The GitHub
+repository is public (see the last paragraph); insert the Zenodo DOI there
+too once that archive is minted.
 
 ---
 
@@ -63,8 +64,9 @@ Flexural tables are FE-checked under a portable residual screen;
 extensional tables are currently FE-dependent for the discrimination step.
 
 The solver, the finite-element decks, the validated tables and a from-scratch
-regression suite will be released under an MIT license as a public GitHub
-repository with a Zenodo DOI at submission. The manuscript is original,
+regression suite are released under an MIT license as a public GitHub
+repository, https://github.com/McCune1/plate_solver; a Zenodo DOI will be
+added at submission. The manuscript is original,
 is not under consideration elsewhere, and all authors have approved this
 submission.
 
