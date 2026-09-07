@@ -1,0 +1,564 @@
+! ===========================================================================
+!  ansys_rect_ff_oop_mac_extract_lob150.inp -- Mechanical APDL batch deck
+!  Rectangular free-free (FFFF) OOP MAC/eigenvector extraction, l/b=1.5
+!  half-model. Generated 2026-09-06 by a scripted template
+!  (gen_mac_decks.py), NOT hand-retyped, copying the validated geometry/
+!  material/mesh convention of ansys_rect_ff_oop_halfmodel_lob150.inp
+!  (mesh2 only -- frequency convergence already established there) and
+!  adding a per-mode nodal UZ (out-of-plane) eigenvector dump for MAC
+!  computation against this project's analytical mode shapes, following
+!  the same explicit-per-mode-block pattern as the validated
+!  ansys_ip_r150_a100_mac_fullblock.inp (never *VWRITE inside a *DO loop).
+!
+!  PURPOSE: Paper 2 rigor addition (2026-09) -- an FE eigenvector cross-
+!  check (MAC) analogous to Paper 1's SUBDOM/MAC bakeoff, requested by the
+!  user as the third of three rigor items (literature comparison, Related
+!  Work section, MAC cross-check). This deck produces the FE side only:
+!  frequencies (for indexing) + nodal UZ mode shapes. The analytical side
+!  (this project's own solver mode shapes) and the actual MAC computation
+!  happen in Python afterward, off-cluster, exactly like Paper 1's bakeoff.
+!
+!  GEOMETRY/MATERIAL: half-breadth B=1.0 m, l/b=1.5 (full length
+!  3 m, full breadth 2.0 m), H=0.04 m, E=210 GPa, nu=0.30,
+!  rho=7800 kg/m^3 -- IDENTICAL to every other deck in this family.
+!
+!  MESH: NDIVX=90, NDIVY=30 (the finer "mesh2" of the original
+!  two-mesh convergence decks for this l/b -- already validated <0.3%
+!  against mesh1 there, not re-checked here).
+!
+!  NMODES=20 (reduced from the original 30): comfortably covers
+!  every published Lambda* in this paper's Tables 1-2 (max ~6.4) with
+!  margin, while keeping the per-mode eigenvector dump disk cost bounded.
+!  If a mode you need is NOT in the frequency table this deck produces,
+!  raise NMODES and rerun rather than guessing.
+!
+!  OUTPUT FILES (all plain text, written to the CURRENT directory --
+!  i.e. Ansys/NewAnsys/, per this project's own execution-directory rule):
+!    rect_ff_oop_mac_symm_freqs_lob150.txt   -- SYM-parity freq/Lambda table
+!    rect_ff_oop_mac_asym_freqs_lob150.txt   -- ANTI-parity freq/Lambda table
+!    rect_ff_oop_mac_symm_m<N>_lob150.txt    -- SYM mode N: X, Y, UZ per node
+!    rect_ff_oop_mac_asym_m<N>_lob150.txt    -- ANTI mode N: X, Y, UZ per node
+!  (20 modes x 2 parities = 40 mode-shape files per aspect
+!  ratio, each a few hundred KB at this mesh size -- small compared to the
+!  annular MAC deck's ~1.6 MB/file, since this mesh has far fewer nodes.)
+!
+!  Run via the Ansys/NewAnsys/ one-seat queue (see submit_ansys_queue.sh /
+!  run_ansys_queue.sh / ansys_queue_manifest_rect_ff_oop_mac.txt) -- do NOT
+!  submit this or its siblings as separate sbatch jobs (this project has
+!  exactly one ANSYS license seat; see project memory
+!  ansys-newansys-execution-dir.md).
+! ===========================================================================
+
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect half-model FFFF l/b=1.5 -- SYMM cut BC (SYM parity), MAC-extraction mesh
+
+B      = 1.0
+LOB    = 1.5
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.3
+RHO    = 7800.0
+NDIVX  = 90
+NDIVY  = 30
+NMODES = 20
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ SECNUM,1 $ MAT,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+! mirror cut at Y=0: SYMM (SYM) pattern in GLOBAL Cartesian
+NSEL, S, LOC, Y, 0
+D, ALL, UY, 0 $ D, ALL, ROTX, 0 $ D, ALL, ROTZ, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+GG2   = E_iso/(2*(1+NU_iso))
+KFAC  = (PI*(H/2))/(4*B*B) * SQRT(GG2/(6*RHO*(1-NU_iso)))
+*DIM, FRQ, ARRAY, NMODES
+*DIM, MIDX, ARRAY, NMODES
+*DIM, LAM, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRQ(I), MODE, I, FREQ
+  MIDX(I) = I
+  LAM(I) = FRQ(I)/KFAC
+*ENDDO
+*CFOPEN, rect_ff_oop_mac_symm_freqs_lob150, txt
+*VWRITE
+('mode       f_Hz              Lambda_FE   (SYMM=SYM parity, l/b=1.5, SHELL281 mesh2)')
+*VWRITE, MIDX(1), FRQ(1), LAM(1)
+(F8.0, 3X, E16.8, 3X, F12.6)
+*CFCLOS
+
+ALLSEL, ALL
+*GET, NMX, NODE, 0, NUM, MAX
+*DIM, NRX, ARRAY, NMX
+*DIM, NRY, ARRAY, NMX
+*VGET, NRX(1), NODE, 1, LOC, X
+*VGET, NRY(1), NODE, 1, LOC, Y
+*DIM, UZW, ARRAY, NMX
+
+! one explicit dump block per mode -- never *VWRITE inside a *DO loop (see this project's own established APDL discipline; the OLD ansys_rect_ff_oop_halfmodel_lob*.inp decks' POST1 breaks this rule and their Lambda_FE columns are garbled as a result -- confirmed while building this generator, not assumed).
+
+SET, 1, 1
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m1_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 2
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m2_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 3
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m3_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 4
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m4_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 5
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m5_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 6
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m6_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 7
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m7_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 8
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m8_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 9
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m9_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 10
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m10_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 11
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m11_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 12
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m12_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 13
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m13_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 14
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m14_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 15
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m15_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 16
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m16_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 17
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m17_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 18
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m18_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 19
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m19_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 20
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_symm_m20_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+FINISH
+
+! ======================= PASS ASYM =======================
+
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect half-model FFFF l/b=1.5 -- ASYM cut BC (ANTI parity), MAC-extraction mesh
+
+B      = 1.0
+LOB    = 1.5
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.3
+RHO    = 7800.0
+NDIVX  = 90
+NDIVY  = 30
+NMODES = 20
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ SECNUM,1 $ MAT,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+! mirror cut at Y=0: ASYM (ANTI) pattern in GLOBAL Cartesian
+NSEL, S, LOC, Y, 0
+D, ALL, UX, 0 $ D, ALL, UZ, 0 $ D, ALL, ROTY, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+GG2   = E_iso/(2*(1+NU_iso))
+KFAC  = (PI*(H/2))/(4*B*B) * SQRT(GG2/(6*RHO*(1-NU_iso)))
+*DIM, FRQ, ARRAY, NMODES
+*DIM, MIDX, ARRAY, NMODES
+*DIM, LAM, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRQ(I), MODE, I, FREQ
+  MIDX(I) = I
+  LAM(I) = FRQ(I)/KFAC
+*ENDDO
+*CFOPEN, rect_ff_oop_mac_asym_freqs_lob150, txt
+*VWRITE
+('mode       f_Hz              Lambda_FE   (ASYM=ANTI parity, l/b=1.5, SHELL281 mesh2)')
+*VWRITE, MIDX(1), FRQ(1), LAM(1)
+(F8.0, 3X, E16.8, 3X, F12.6)
+*CFCLOS
+
+ALLSEL, ALL
+*GET, NMX, NODE, 0, NUM, MAX
+*DIM, NRX, ARRAY, NMX
+*DIM, NRY, ARRAY, NMX
+*VGET, NRX(1), NODE, 1, LOC, X
+*VGET, NRY(1), NODE, 1, LOC, Y
+*DIM, UZW, ARRAY, NMX
+
+! one explicit dump block per mode -- never *VWRITE inside a *DO loop (see this project's own established APDL discipline; the OLD ansys_rect_ff_oop_halfmodel_lob*.inp decks' POST1 breaks this rule and their Lambda_FE columns are garbled as a result -- confirmed while building this generator, not assumed).
+
+SET, 1, 1
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m1_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 2
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m2_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 3
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m3_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 4
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m4_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 5
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m5_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 6
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m6_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 7
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m7_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 8
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m8_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 9
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m9_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 10
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m10_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 11
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m11_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 12
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m12_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 13
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m13_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 14
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m14_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 15
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m15_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 16
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m16_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 17
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m17_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 18
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m18_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 19
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m19_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+SET, 1, 20
+*VGET, UZW(1), NODE, 1, U, Z
+*CFOPEN, rect_ff_oop_mac_asym_m20_lob150, txt
+*VWRITE
+('X               Y               UZ')
+*VWRITE, NRX(1), NRY(1), UZW(1)
+(F10.5, 3X, F10.5, 3X, E14.6)
+*CFCLOS
+
+FINISH

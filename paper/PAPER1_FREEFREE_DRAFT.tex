@@ -152,6 +152,9 @@ clamped edge's exact kinematic satisfaction leaves no room for it to arise there
 Discriminating these spurious zeros from genuine modes is therefore the
 central problem the FFFF extension must solve; the
 instruments developed in \S5 address it directly.
+A companion paper \cite{mccune2026rect} treats the rectangular FFFF
+problem, which needs a new assembler (closed-form axial waves, four free
+corners) rather than a change of this paper's boundary list.
 
 This paper (i) documents an arbitrary-precision reimplementation, to be
 released as open source alongside this paper, that reproduces the
@@ -1400,7 +1403,10 @@ ceiling is $0.6803$ ($r_0/2b=2.5$, $2\Theta/\pi=1.0$). Both sit inside
 the $\nu=0.30$ calibration window: that window does not survive a change
 of Poisson ratio, radius ratio, or sector angle, and the production
 midpoint was not retuned. What travels is the call at $0.744$, which still splits every tight
-candidate on all 24 keys. So a two-sided extensional bar does exist, with a
+candidate on all 24 keys. The rectangular companion \cite{mccune2026rect}
+reuses that same unre-tuned call as a conservative shape-confirmation
+threshold on flexural half-model eigenvectors; it is not a recalibration.
+So a two-sided extensional bar does exist, with a
 measured reach; it is simply not carried by the pointwise residual.
 
 Figure~\ref{fig:macsummary} makes both tables above visible at a glance:
@@ -2079,20 +2085,19 @@ short of an enlarged basis, 26) --- are detailed in \S\ref{sec:subdom} and
 \S7, along with the resolved FE 23 knife-edge and the two pairing
 artifacts (FE modes 16 and 30) with no replacement found.
 
-The natural sequel is general boundary conditions beyond the two
-classical extremes treated here: simply supported and elastically
-restrained circumferential edges, annular and rectangular. The
-rectangular assemblers have no boundary-condition abstraction, so a rectangular free-free extension calls for a new assembler built from scratch, not a transplant of the annular one. Bardell, Langley and Dunsdon
-\cite{bardell1996} are a candidate check for that case: their Rayleigh--Ritz
-letter gives the first six non-zero in-plane frequencies of isotropic
-F--F--F--F and C--C--C--C rectangular plates at aspect ratios $a/b=1$ and $2$,
-non-dimensionalized as $\Omega=\omega a/C_L$ with $C_L^2=E/[\rho(1-\nu^2)]$,
-printed with the mode plots rather than tabulated (their one table is a
-simply-supported convergence study). The validated
-baseline here is the intended foundation for functionally graded
-materials, in-plane orthotropy, piezoelectric constitutive coupling
-and the inverse use of exact frequencies to identify those constants,
-multi-input multi-output excitation, and transient shock response.
+The rectangular FFFF extension is not a transplant of the present
+assembler: the axial solution is closed-form rather than Frobenius, and
+four free corners replace the sector's two. That case --- the
+four-corner Kirchhoff checkerboard, a persistence screen in place of
+the two-edge residual taxonomy, and independent flexural and in-plane
+literature tables --- is the subject of a companion paper
+\cite{mccune2026rect}. The natural sequel of both papers together is
+general boundary conditions beyond the two classical extremes treated
+here (simply supported and elastically restrained edges), then
+functionally graded materials, in-plane orthotropy, piezoelectric
+constitutive coupling and the inverse use of exact frequencies to
+identify those constants, multi-input multi-output excitation, and
+transient shock response.
 
 \small
 \section*{Data and code availability}
@@ -2201,9 +2206,10 @@ ANSYS, Inc., Canonsburg, PA, USA (2025). Used for finite-element validation
 only.
 \bibitem{allemang2003} R.J. Allemang, ``The modal assurance criterion --
 twenty years of use and abuse,'' Sound Vib. 37(8) (2003) 14--21.
-\bibitem{bardell1996} N.S. Bardell, R.S. Langley, J.M. Dunsdon, ``On the
-free in-plane vibration of isotropic rectangular plates,'' J. Sound Vib. 191 (1996)
-459--467. \url{https://doi.org/10.1006/jsvi.1996.0134}.
+\bibitem{mccune2026rect} G. McCune, D. Stutts, ``Exact wave-function
+solution of completely free rectangular plates: four-corner Kirchhoff
+jump and mode screening,'' companion paper, submitted simultaneously
+to this journal (2026).
 \bibitem{mill2024} Missouri University of Science and Technology, ``The
 Mill HPC Cluster,'' \emph{The Mill} (2024), Article 1.
 \url{https://scholarsmine.mst.edu/the-mill/1},

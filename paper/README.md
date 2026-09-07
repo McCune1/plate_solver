@@ -1,9 +1,30 @@
 # paper/
 
-**This directory is the canonical Paper 1 manuscript.** If any other
-`PAPER1_FREEFREE_*` copy in the broader working tree disagrees with the
-files here, these win. The working-tree pointer map
-(`Project Knowledge/CURRENT_PAPER.md`) is not shipped in this snapshot.
+**This directory is the canonical manuscript folder.** Paper 1
+(`PAPER1_FREEFREE_*`) is submit-ready. Paper 2
+(`PAPER2_RECT_FREEFREE_*`) is the rectangular companion, submitted
+simultaneously; do not fold it into Paper 1. If any other copy in the
+broader working tree disagrees with the files here, these win. The
+working-tree pointer map (`Project Knowledge/CURRENT_PAPER.md`) is not
+shipped in this snapshot.
+
+Paper 2 (rectangular FFFF, OOP+IP; companion of Paper 1):
+- `PAPER2_RECT_FREEFREE_DRAFT.tex` / `.pdf` — main text.
+- `PAPER2_RECT_FREEFREE_SUPPLEMENTARY.tex` / `.pdf` — S.1 corner, S.2
+  Bardell conversion, S.3 92-row IP match list, S.4 job provenance,
+  S.5 flexural MAC table.
+- `PAPER2_IP_MATCH_ROWS.tex` / `PAPER2_OOP_MAC_ROWS.tex` — longtable
+  bodies `\input` by the SM.
+- `PAPER2_HIGHLIGHTS.txt` — 5 Elsevier highlights, each ≤85 characters.
+- `PAPER2_GRAPHICAL_ABSTRACT.pdf` / `.png` — JSV graphical abstract
+  (standalone; not embedded). Built from Figs. 1–2 by
+  `scripts/make_paper2_graphical_abstract.py`.
+- `COVER_LETTER_PAPER2.md` — one-page JSV cover-letter draft; names the
+  annular companion and the shared repository.
+- `PAPER2_RECT_FREEFREE_DRAFT.md` / `_SUPPLEMENTARY_DRAFT.md` /
+  `PAPER2_IP_MATCH_TABLE.md` — working notes, not the manuscript.
+
+Paper 1:
 
 - `PAPER1_FREEFREE_DRAFT.tex` — LaTeX source (draft; standard `article`
   class, `amsmath`/`amssymb`/`booktabs`/`graphicx`/`tikz`/`hyperref`, no custom
@@ -35,12 +56,15 @@ files here, these win. The working-tree pointer map
   add `*_tight.pdf` copies of the titled files — pdflatex would pick them
   over the crops.
 
-To recompile the manuscript: `pdflatex PAPER1_FREEFREE_DRAFT.tex` (run
-twice for cross-references), from inside this directory so the relative
+To recompile Paper 1: `pdflatex PAPER1_FREEFREE_DRAFT.tex` (run twice
+for cross-references), from inside this directory so the relative
 `\graphicspath{{paper_figures/}{./}}` resolves correctly. Compile
-`PAPER1_FREEFREE_SUPPLEMENTARY.tex` the same way, as a second PDF. No
-external `.bib` file — the bibliography is a `thebibliography` environment
-inline in each `.tex` source.
+`PAPER1_FREEFREE_SUPPLEMENTARY.tex` the same way, as a second PDF.
+Paper 2 is the same pattern
+(`PAPER2_RECT_FREEFREE_DRAFT.tex` +
+`PAPER2_RECT_FREEFREE_SUPPLEMENTARY.tex`). No external `.bib` file —
+the bibliography is a `thebibliography` environment inline in each
+`.tex` source.
 
 The `.aux` / `.log` / `.out` files in this directory are pdflatex debris
 and may lag the current `.tex`; ignore them. After a local two-pass

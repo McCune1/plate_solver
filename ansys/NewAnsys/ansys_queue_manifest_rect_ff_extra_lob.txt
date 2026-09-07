@@ -1,0 +1,18 @@
+# ansys_queue_manifest_rect_ff_extra_lob.txt -- ISOLATED manifest, separate
+# from ansys_queue_manifest.txt (the shared project queue) and from
+# ansys_queue_manifest_rect_ff_p5phaseA.txt (l/b=1.0 and 2.5, already run).
+# Kept separate so these two new rect free-free decks (l/b=2.0 and 3.0)
+# do not get interleaved with -- or silently skip -- anything else.
+#
+# This project has exactly ONE ANSYS license seat: do NOT submit this
+# queue at the same time as submit_ansys_queue.sh, the p5phaseA queue,
+# or any other MAPDL job. Run one queue to completion, then the other.
+#
+# Added 2026-09-04. Both decks are formula-agnostic FE ground truth for
+# rectangular free-free (FFFF) OOP at the extra-lob PAPER_CANDIDATES from
+# job 2453876. Copied from ansys_rect_ff_oop_halfmodel_lob100.inp via
+# generate_ansys_rect_ff_extra_lob.py (LOB, NDIVX, *CFOPEN, /TITLE only).
+# After the run: convert the first mode-1 *VWRITE Hz block with
+# KFAC=24.6644; do not use the deck Lambda_FE column.
+ansys_rect_ff_oop_halfmodel_lob200.inp
+ansys_rect_ff_oop_halfmodel_lob300.inp

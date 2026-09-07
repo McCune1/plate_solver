@@ -1,0 +1,290 @@
+! ===========================================================================
+!  ansys_rect_ff_ip_halfmodel_lob150.inp  --  Mechanical APDL batch deck
+!  Rectangular free-free (FFFF) IN-PLANE FE ground truth, l/b=1.5
+!  half-model, PLANE183 plane-stress.
+!
+!  GENERATED 2026-09-05. Geometry/material match the OOP half-model family
+!  (B=1 m, H=0.04 m, E=210 GPa, nu=0.30, rho=7800). Element is PLANE183
+!  KEYOPT(3)=3 (plane stress), thickness via R,1,H -- same as the validated
+!  annular FFFF IP deck ansys_ff_ip_ext.inp (Paper 1 §6.3).
+!
+!  *VWRITE DISCIPLINE: fill the result array inside the *DO, then *VWRITE
+!  once AFTER the loop over the full array from index 1 (ansys_ff_ip_ext.inp).
+!  Never *VWRITE an indexed array inside a *DO. Hz only -- do not write an
+!  Omega column from APDL (runtime SQRT is untrusted; OOP decks hit this).
+!
+!  Omega_bar CONVERSION (Seok/Tiersten/Scarton 2004 rect Part 2 Eqs.22-23):
+!    omega_bar = (pi/(2B)) * sqrt(c66/rho),  c66 = E/(2(1+nu))
+!    Omega = omega/omega_bar = 4*B*f[Hz] / sqrt(c66/rho)
+!  For this material and B=1 m: OFAC = 804.481 Hz per unit Omega.
+!  Convert the first mode-1 *VWRITE Hz block: Omega = f / 804.481.
+!  Independent of LOB.
+!
+!  HALF-MODEL mirror BC (matches RectIPAssembler sph):
+!    SYMM: UY=0 on Y=0  -- solver SYM (u1 even, u2 odd)
+!    ASYM: UX=0 on Y=0  -- solver ANTI (u1 odd, u2 even)
+!  Mesh: NDIVX = round(2*LOB*20) = 60 (mesh1), round(2*LOB*30) = 90
+!  (mesh2); NDIVY = 20 / 30. Same element size as the OOP decks.
+!
+!  READING:
+!    0. Convergence: mesh1 vs mesh2 Hz, same parity, <0.3%.
+!    1. Discard near-zero rigid (half-model keeps one in-plane rigid
+!       translation per parity). Convert survivors with OFAC=804.481.
+!    2. Pair SYMM vs solver SYM, ASYM vs ANTI only.
+!    Formula-agnostic FE. No SOLVER_VERSION action from this deck.
+!
+!  MUST run from Ansys/NewAnsys/ via submit_ansys_queue_rect_ff_ip.sh
+!  (one ANSYS license seat). Do NOT submit concurrent with any other MAPDL.
+!    mapdl -b -smp -np 8 -i ansys_rect_ff_ip_halfmodel_lob150.inp -o ansys_rect_ff_ip_halfmodel_lob150_out.txt
+!  Outputs: rect_ff_ip_{symm,asym}_mesh{1,2}_lob150.txt
+! ===========================================================================
+
+! ======================= PASS SYMM, mesh1 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect IP FFFF l/b=1.5 SYMM mesh1
+
+B      = 1.0
+LOB    = 1.5
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 60
+NDIVY  = 20
+NMODES = 35
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, PLANE183
+KEYOPT, 1, 3, 3
+R, 1, H
+MP, EX,1,E_iso
+MP, PRXY,1,NU_iso
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ MAT,1 $ REAL,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+! mirror cut at Y=0: SYMM=EVEN; UY=0 on Y=0 (solver SYM, u2 odd)
+NSEL, S, LOC, Y, 0
+D, ALL, UY, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+*DIM, MIDXS1, ARRAY, NMODES
+*VFILL, MIDXS1, RAMP, 1, 1
+*DIM, FRS1, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRS1(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, rect_ff_ip_symm_mesh1_lob150, txt
+*VWRITE
+('mode      f[Hz]           (PLANE183 SYMM mesh1 l/b=1.5 x60/y20; discard ~0 Hz rigid)')
+*VWRITE, MIDXS1(1), FRS1(1)
+(F4.0, 3X, E14.6)
+*CFCLOS
+FINISH
+
+! ======================= PASS SYMM, mesh2 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect IP FFFF l/b=1.5 SYMM mesh2
+
+B      = 1.0
+LOB    = 1.5
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 90
+NDIVY  = 30
+NMODES = 35
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, PLANE183
+KEYOPT, 1, 3, 3
+R, 1, H
+MP, EX,1,E_iso
+MP, PRXY,1,NU_iso
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ MAT,1 $ REAL,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+! mirror cut at Y=0: SYMM=EVEN; UY=0 on Y=0 (solver SYM, u2 odd)
+NSEL, S, LOC, Y, 0
+D, ALL, UY, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+*DIM, MIDXS2, ARRAY, NMODES
+*VFILL, MIDXS2, RAMP, 1, 1
+*DIM, FRS2, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRS2(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, rect_ff_ip_symm_mesh2_lob150, txt
+*VWRITE
+('mode      f[Hz]           (PLANE183 SYMM mesh2 l/b=1.5 x90/y30; convergence pass; must agree with mesh1 <0.3%)')
+*VWRITE, MIDXS2(1), FRS2(1)
+(F4.0, 3X, E14.6)
+*CFCLOS
+FINISH
+
+! ======================= PASS ASYM, mesh1 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect IP FFFF l/b=1.5 ASYM mesh1
+
+B      = 1.0
+LOB    = 1.5
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 60
+NDIVY  = 20
+NMODES = 35
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, PLANE183
+KEYOPT, 1, 3, 3
+R, 1, H
+MP, EX,1,E_iso
+MP, PRXY,1,NU_iso
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ MAT,1 $ REAL,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+! mirror cut at Y=0: ASYM=ODD; UX=0 on Y=0 (solver ANTI, u1 odd)
+NSEL, S, LOC, Y, 0
+D, ALL, UX, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+*DIM, MIDXA1, ARRAY, NMODES
+*VFILL, MIDXA1, RAMP, 1, 1
+*DIM, FRA1, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRA1(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, rect_ff_ip_asym_mesh1_lob150, txt
+*VWRITE
+('mode      f[Hz]           (PLANE183 ASYM mesh1 l/b=1.5 x60/y20; discard ~0 Hz rigid)')
+*VWRITE, MIDXA1(1), FRA1(1)
+(F4.0, 3X, E14.6)
+*CFCLOS
+FINISH
+
+! ======================= PASS ASYM, mesh2 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect IP FFFF l/b=1.5 ASYM mesh2
+
+B      = 1.0
+LOB    = 1.5
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 90
+NDIVY  = 30
+NMODES = 35
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, PLANE183
+KEYOPT, 1, 3, 3
+R, 1, H
+MP, EX,1,E_iso
+MP, PRXY,1,NU_iso
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ MAT,1 $ REAL,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+! mirror cut at Y=0: ASYM=ODD; UX=0 on Y=0 (solver ANTI, u1 odd)
+NSEL, S, LOC, Y, 0
+D, ALL, UX, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+*DIM, MIDXA2, ARRAY, NMODES
+*VFILL, MIDXA2, RAMP, 1, 1
+*DIM, FRA2, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRA2(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, rect_ff_ip_asym_mesh2_lob150, txt
+*VWRITE
+('mode      f[Hz]           (PLANE183 ASYM mesh2 l/b=1.5 x90/y30; convergence pass; must agree with mesh1 <0.3%)')
+*VWRITE, MIDXA2(1), FRA2(1)
+(F4.0, 3X, E14.6)
+*CFCLOS
+FINISH
+
+! ---------------------------------------------------------------------------
+!  AFTER RUNNING:
+!   0. Convergence gate per pass (<0.3%, mesh1 vs mesh2).
+!   1. Convert the first mode-1 Hz block: Omega = f[Hz] / 804.481
+!      (l/b=1.5; OFAC independent of LOB).
+!   2. SYMM -> SYM, ASYM -> ANTI. Discard rigid (~0 Hz).
+!   3. If every candidate misses by a common factor, suspect OFAC
+!      / Hz extraction before the physics.
+! ===========================================================================

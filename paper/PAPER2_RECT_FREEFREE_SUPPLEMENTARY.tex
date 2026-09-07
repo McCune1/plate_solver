@@ -1,0 +1,429 @@
+% Supplementary Material for PAPER2_RECT_FREEFREE_DRAFT.tex
+%   S.1  closed-contour four-corner Kirchhoff jump
+%   S.2  in-plane conversion and Bardell (1996) mapping
+%   S.3  full 92-row in-plane FE match list
+%   S.4  cluster job-number provenance
+%   S.5  flexural MAC against half-model SHELL281 eigenvectors
+\documentclass[11pt]{article}
+\usepackage[margin=1in,letterpaper]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array,xcolor}
+\usepackage{textcomp}
+\usepackage[hidelinks]{hyperref}
+\usepackage{placeins}
+\usepackage{longtable}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{8}
+\emergencystretch=2.5em
+
+\renewcommand{\thesection}{S.\arabic{section}}
+\renewcommand{\thesubsection}{S.\arabic{section}.\arabic{subsection}}
+\renewcommand{\thetable}{S.\arabic{table}}
+\renewcommand{\theequation}{S.\arabic{equation}}
+
+\title{\bfseries Supplementary Material:\\
+Exact Wave-Function Solution of Completely Free Rectangular Plates:
+Four-Corner Kirchhoff Jump and Mode Screening}
+\author{Garrek McCune$^{a,*}$, Daniel Stutts$^{a}$\\
+\small\itshape $^a$Mechanical and Aerospace Engineering,\\
+Missouri University of Science and Technology, Rolla, MO 65409, USA\\
+\small\upshape $^*$Corresponding author. E-mail: ghmkfh@umsystem.edu}
+\date{DRAFT --- \today}
+
+\begin{document}
+\maketitle
+
+\noindent
+This file is the complete Supplementary Material to the companion
+manuscript: \S\S{}S.1--S.5. Main-text \S3.2 cites \S{}S.1; \S5.2--\S5.4 cite
+\S\S{}S.2--S.3 (Gorman uses the same conversion as Bardell); the flexural
+MAC of \S4.3 cites \S{}S.5; footnotes that read ``Job-level detail'' point
+here at \S{}S.4.
+Equation tags (16), (1) and (36) retain the source-paper numbering of
+Seok, Tiersten and Scarton.
+
+\section{Closed-contour four-corner Kirchhoff jump}\label{sec:sm-corner}
+
+\subsection{The exact-differential term of Eq.~(16)}\label{sec:sm-eq16}
+Seok, Tiersten and Scarton's rectangular Part~1 Eq.~(16) is a
+closed-contour weak-form identity on the plate boundary
+$\partial\Omega=c_C\cup c_N$ (clamped and natural portions). Written out
+in full,
+\begin{equation}
+\begin{aligned}
+&\int_{c_C}\Bigl\{u_3^{(0)}\,\delta\bigl(n_a t_{a3}^{(0)}\bigr)
+  - u_{3,b}^{(0)}\,\delta\bigl(n_a t_{ab}^{(1)}\bigr)\Bigr\}\,ds \\
+&\quad-\int_{c_N}\Bigl\{\bigl(n_a t_{a3}^{(0)}+(n_a t_{ab}^{(1)} s_b)_{,s}\bigr)\,
+  \delta u_3^{(0)} - n_a t_{ab}^{(1)} n_b\,\delta u_{3,n}^{(0)}\Bigr\}\,ds \\
+&\quad+\int_{c_N}\bigl(n_a t_{ab}^{(1)} s_b\,\delta u_3^{(0)}\bigr)_{,s}\,ds = 0 .
+\end{aligned}
+\label{eq:sm-16}
+\end{equation}
+Only the third integral is an exact differential in the arclength $s$.
+Writing $\varphi := n_a t_{ab}^{(1)} s_b$ (the traction-moment contraction
+that reduces to the twisting moment $M_{xy}$ on a smooth edge),
+\begin{equation}
+\int_{c_N}(\varphi\,\delta u_3^{(0)})_{,s}\,ds
+= \sum_{\mathrm{corners}}\Bigl[\varphi\,\delta u_3^{(0)}\Bigr]_{\mathrm{end}}
+  - \Bigl[\varphi\,\delta u_3^{(0)}\Bigr]_{\mathrm{start}},
+\label{eq:sm-phi}
+\end{equation}
+the sum running over every free--free corner where two arcs of $c_N$
+meet; interior-arc contributions cancel against the $\varphi_{,s}$ term
+already present in the second integral (the usual Kirchhoff
+effective-shear reduction). A completely free rectangle has
+$c_C=\varnothing$ and four such corners.
+
+Place one corner at the local origin with both positive local axes
+pointing into the plate, so the two free edges meeting there are the
+local $+x$ and $+y$ half-axes. Consistent counterclockwise orientation
+of $\partial\Omega$ gives, on the vertical edge ($x=0^+$, $s$ increasing
+in $+y$), $\mathbf{n}=+\mathbf{e}_x$, $\mathbf{s}=+\mathbf{e}_y$, so
+$\varphi_V=t_{xy}^{(1)}$; on the horizontal edge ($y=0^+$, $s$ increasing
+in $-x$), $\mathbf{n}=+\mathbf{e}_y$, $\mathbf{s}=-\mathbf{e}_x$, so
+$\varphi_H=-t_{yx}^{(1)}$. Because $t_{ab}^{(1)}$ is symmetric,
+$\varphi_V-\varphi_H=2\,t_{xy}^{(1)}$, so the corner's contribution to
+the first variation is $+2\,t_{xy}^{(1)}\,\delta u_3^{(0)}$. In the
+isotropic Kirchhoff limit $t_{xy}^{(1)}$ is the classical twisting
+moment $M_{xy}$, so the natural condition is $2M_{xy}=0$ --- Timoshenko's
+concentrated corner reaction $R=2M_{xy}$. This single-corner trace and its
+classical-limit check were carried out and passed against that
+pre-registered criterion before any four-corner assembly was attempted.
+
+The overall sign of that contribution is a convention rather than a
+result. Which edge of $\partial\Omega$ carries the $+$ label is fixed by
+the global orientation chosen for Eq.~\eqref{eq:sm-16}, and reversing that
+choice reverses every boundary term of the stationarity statement
+together. Only the \emph{relative} sign between the corner term and the
+surface terms it is added to is physical, and that relative sign is set by
+the same $\pm 1$ orientation factor applied corner-by-corner in
+\S\ref{sec:sm-four}. Fixing $\varphi$'s sign as the project's other
+free--free derivations do (annular, variational and Green forms) writes
+the corner contribution as
+\begin{equation}
+\text{corner contribution} = -2\,t_{xy}^{(1)}\,\delta u_3^{(0)}\Big|_{\mathrm{corner}}.
+\label{eq:sm-single}
+\end{equation}
+
+\subsection{Four corners, and the discrete trial/test evaluation}\label{sec:sm-four}
+In the discrete basis, the twisting-moment factor at a corner is the
+trial function's mixed second derivative
+$\partial^2 w/\partial x_1\partial x_2$ there, and the paired test factor
+is the test function's value $w$ there. Direct differentiation confirms
+that every corner term is
+$M_{xy}^{\mathrm{trial}}(\mathrm{corner})\cdot
+w^{\mathrm{test}}(\mathrm{corner})$, matching the already-validated
+clamped-free tip-corner term. Define, for a given trial branch $\xi'$
+and test branch $\xi''$,
+\begin{equation}
+\begin{aligned}
+p_{1t}&=\left.\frac{\partial\psi_1'}{\partial x_2}\right|_{x_2=+\pi/2},&
+p_{1b}&=\left.\frac{\partial\psi_1'}{\partial x_2}\right|_{x_2=-\pi/2},\\
+q_{0t}&=\left.\psi_0''\right|_{x_2=+\pi/2},&
+q_{0b}&=\left.\psi_0''\right|_{x_2=-\pi/2},
+\end{aligned}
+\label{eq:sm-pq}
+\end{equation}
+and, with $U_{t1},V_{t0}$ the $x_1=+L$ (tip) trial/test factors and
+$U_{w1},V_{w0}$ the $x_1=-L$ (wall) factors, the four raw corner terms
+\begin{equation}
+\begin{aligned}
+\mathrm{TT}&=p_{1t}U_{t1}q_{0t}V_{t0},&
+\mathrm{TB}&=p_{1b}U_{t1}q_{0b}V_{t0},\\
+\mathrm{WT}&=p_{1t}U_{w1}q_{0t}V_{w0},&
+\mathrm{WB}&=p_{1b}U_{w1}q_{0b}V_{w0}.
+\end{aligned}
+\label{eq:sm-tt}
+\end{equation}
+TT and WB share the local orientation used above (outward normal along
+the trial axis, $+2$ sense) and are themselves a diagonal pair; TB and WT
+sit at the other diagonal, where the same closed-contour threading picks
+up the opposite sense,
+because the inward-axis Jacobian there is $-1$ --- the discrete
+restatement of the classical alternating-sign corner-reaction pattern at
+the four corners of a free rectangular plate.
+
+\subsection{The parity identity, in both symmetry classes}\label{sec:sm-parity}
+The half-model SYM/ANTI mirror conditions fix the phase of the $m=0$ and
+$m=1$ $x_2$-profiles at $x_2=\pm\pi/2$. Direct evaluation of that phase
+algebra gives:
+\begin{itemize}\itemsep2pt
+\item \textbf{SYM} ($m=1$, extra $\pi/2$ phase flips sign under
+$x_2\to-x_2$; $m=0$ does not): $p_{1b}=-p_{1t}$ exactly,
+$q_{0b}=q_{0t}$ exactly.
+\item \textbf{ANTI} (roles of the two profiles swap): $p_{1b}=p_{1t}$
+exactly, $q_{0b}=-q_{0t}$ exactly.
+\end{itemize}
+Both were confirmed numerically to working precision (the bracket
+$p_{1t}q_{0t}+p_{1b}q_{0b}$ reproduces $0$ to ${\sim}10^{-27}$ at
+25 decimal digits, independent of branch, $\Lambda$, $\ell/b$ or $\nu$).
+\textbf{The same two relations force $\mathrm{TB}=-\mathrm{TT}$ and
+$\mathrm{WB}=-\mathrm{WT}$ in both classes}, term by term rather than
+only in the combined bracket: in SYM,
+$\mathrm{TB}=p_{1b}U_{t1}q_{0b}V_{t0}=(-p_{1t})U_{t1}(q_{0t})V_{t0}=-\mathrm{TT}$,
+and identically $\mathrm{WB}=-\mathrm{WT}$; in ANTI,
+$\mathrm{TB}=p_{1t}U_{t1}(-q_{0t})V_{t0}=-\mathrm{TT}$ and again
+$\mathrm{WB}=-\mathrm{WT}$.
+
+\textbf{Consequence 1 --- why the original four-term same-sign sum is
+identically zero.} The first free-free corner term ever assembled was the
+naive $\mathrm{TT}+\mathrm{TB}+\mathrm{WT}+\mathrm{WB}$. Substituting
+$\mathrm{TB}=-\mathrm{TT}$, $\mathrm{WB}=-\mathrm{WT}$ gives
+$\mathrm{TT}-\mathrm{TT}+\mathrm{WT}-\mathrm{WT}\equiv 0$ in both
+classes --- confirmed numerically to $1.6\times 10^{-24}$ (SYM) and
+$2.8\times 10^{-23}$ (ANTI) on real assembled matrices, i.e.\ exactly
+zero to precision, not merely small. That combination contributed
+nothing to $\mathbf{K}$ regardless of $\Lambda$, $\ell/b$, or branch.
+
+\textbf{Consequence 2 --- the surviving checkerboard is exactly twice the
+single-point shorthand.} The deployed corner term flips the sign of the
+diagonal pair instead of summing everything the same way:
+\begin{equation}
+\mathrm{corner}_{ff} = (T-\nu)(-2)\,(\mathrm{TT}-\mathrm{TB}-\mathrm{WT}+\mathrm{WB}).
+\label{eq:sm-checkerboard}
+\end{equation}
+Substituting the same two relations: in SYM,
+$\mathrm{TT}-\mathrm{TB}-\mathrm{WT}+\mathrm{WB}
+=\mathrm{TT}-(-\mathrm{TT})-\mathrm{WT}+(-\mathrm{WT})
+=2(\mathrm{TT}-\mathrm{WT})$; in ANTI the identical substitution gives
+the identical result, $2(\mathrm{TT}-\mathrm{WT})$. So the checkerboard
+bracket equals \textbf{twice} the earlier single-point candidate
+$\mathrm{TT}-\mathrm{WT}$ --- in both symmetry classes, by the same
+two-line substitution.
+
+\subsection{Numerical checks}\label{sec:sm-checks}
+\begin{itemize}\itemsep2pt
+\item \textbf{Regression on the unmodified path.} The clamped-free branch
+of the out-of-plane assembler is untouched by this term (it uses its own
+corner, not the free-free corner). A diagnostic swap of the free-free
+formula into the clamped-free path reproduces the parent
+byte-for-byte ($\max|\mathbf{K}-\mathbf{K}_{\mathrm{parent}}|=0$ at the
+validated Seok Part~1 Table~3 SYM benchmark, $\ell/b=1.5$,
+$\Lambda=0.1551$). The
+solver version identifier is unchanged; only the free-free corner
+formula moved.
+\item \textbf{Algebraic gate.} Before any FE comparison was trusted, a
+pre-registered three-way comparison required: the naive sum genuinely
+$\equiv 0$; the single-point and checkerboard candidates genuinely
+nonzero; and
+$\mathbf{K}_{\mathrm{checkerboard}}-\mathbf{K}_{\mathrm{naive}}
+=2\,(\mathbf{K}_{\mathrm{single}}-\mathbf{K}_{\mathrm{naive}})$
+to ${\sim}10^{-10}$ relative. All three passed.
+\item \textbf{Independent finite-element cross-check.} At the production
+basis, the checkerboard's nearest-to-FE dip beat both the naive-sum term
+(which contributes nothing) and the single-point candidate at every
+finite-element anchor available at the time (four points across
+$\ell/b=1.5,2.5$, SYM and ANTI). Main-text \S4's five-aspect-ratio
+table is a later, larger-sample confirmation of the same formula.
+\end{itemize}
+
+\subsection{What this section does not claim}\label{sec:sm-limits}
+The single-corner Eq.~(16) trace is a first-principles derivation,
+checked against the classical $R=2M_{xy}$ limit. The extension from one
+corner to the specific four-corner checkerboard sign pattern is argued
+from the closed-contour orientation logic plus the classical
+alternating-corner-reaction pattern, and is \emph{validated} rather than
+independently re-derived corner-by-corner from Eq.~(16) a second time ---
+the same status the annular companion's corner term has relative to its
+own Green-identity cross-check. The parity identity is a fully
+first-principles algebraic fact about this project's specific
+$(m=0,m=1)$ trial-function evaluations, exact in both classes. Nothing
+here is a claim about the in-plane formulation, which has no Kirchhoff
+jump term at all (Part~2 Eq.~(1)/(36); see main-text \S5).
+
+\section{In-plane nondimensionalization and Bardell mapping}\label{sec:sm-ip}
+
+\subsection{This project's
+\texorpdfstring{$\bar\Omega$}{Omega-bar}}\label{sec:sm-ombar}
+Seok, Tiersten and Scarton Part~2 Eqs.~(22)--(23):
+$\bar\omega=(\pi/(2b))\sqrt{c_{66}/\rho}$, $c_{66}=E/(2(1+\nu))$,
+$\bar\Omega=\omega/\bar\omega$. For the FE decks ($b=1\,\mathrm{m}$,
+$E=210\,\mathrm{GPa}$, $\nu=0.30$, $\rho=7800\,\mathrm{kg\,m^{-3}}$)
+this is $\bar\Omega=f[\mathrm{Hz}]/804.481$, independent of $\ell/b$.
+Half-model PLANE183, mesh-conv max $0.004\%$.
+
+\subsection{Bardell, Langley and Dunsdon (1996)}\label{sec:sm-bardell}
+N.~S. Bardell, R.~S. Langley and J.~M. Dunsdon, \emph{J.\ Sound Vib.}
+\textbf{191}(3) (1996) 459--467 \cite{bardell1996}. Their parameter is
+$\Omega_B=\omega a/C_L$ with $C_L^2=E/[\rho(1-\nu^2)]$, frequencies
+printed under Figure~1 (F--F--F--F) rather than tabulated. Poisson ratio
+is not stated numerically. Their own Table~1, an exact S--S--S--S
+convergence study, gives the square pair $(0,1)=(1,0)=1.859$, which equals
+$\pi\sqrt{(1-\nu)/2}=1.8586$ at $\nu=0.30$.
+
+Plates identify as $a=2\ell$, so $a/b=\ell/b$ and
+\begin{equation}
+\Omega_B=\bar\Omega\cdot\pi\cdot(\ell/b)\cdot\sqrt{(1-\nu)/2}.
+\label{eq:sm-bardell}
+\end{equation}
+Figure~1 caption: ``(a) $a/b=1$; (b) $a/b=2$''. Panel (a) is drawn 2:1
+with unique frequencies $\{1.954, 2.961, 3.267, 4.726, 4.784, 5.205\}$;
+panel (b) is square with the repeated pair $2.472,2.472$. Body text
+(p.~462) assigns repeats to $a/b=1$. Mapping follows the rendered
+proportions, not the caption letters. The source's own Table~1 does not
+have this swap.
+
+Printed F--F--F--F first six, assigned that way:
+\begin{itemize}\itemsep2pt
+\item $a/b=1$ (square, Fig.~1(b)): $2.321$, $2.472$, $2.472$, $2.628$,
+$2.987$, $3.452$.
+\item $a/b=2$ (2:1, Fig.~1(a)): $1.954$, $2.961$, $3.267$, $4.726$,
+$4.784$, $5.205$.
+\end{itemize}
+All twelve convert onto matched $\bar\Omega^{*}$ in main-text Table~4
+(solver max miss $1.69\%$; independent FE max miss $0.019\%$).
+
+\section{Full in-plane FE match list}\label{sec:sm-92}
+Window $\bar\Omega\in[0.02,2.50]$, five aspect ratios, both parities.
+Count $5+4+8+6+10+7+13+10+16+13=92$ is every non-rigid FE target in
+that window. Table~\ref{tab:ip92} lists the unique MATCH after collapsing
+double-dips onto the same FE partner. Production discovery used
+$n_{\mathrm{cpair}}=3$ and a $3\%$ cut; sixteen remaining targets were
+recovered at $n_{\mathrm{cpair}}=5$ in a $\pm 0.05$ window centred on
+the FE value.
+
+\input{PAPER2_IP_MATCH_ROWS}
+
+\section{Cluster job-number provenance}\label{sec:provenance}
+The main text states every result in prose, with no job number in its own
+running text; this section is the audit trail. Each entry is keyed to the
+main-text location that cites this section.
+
+\begin{itemize}\itemsep2pt
+\item \textbf{\S3.2 / \S{}S.1, checkerboard corner.} Deployed in the
+out-of-plane assembler under the free-free option only. Algebraic gate
+and four-point FE cross-check:
+\path{probe_rect_ff_oop_derived_vs_fix_2026-09-03.py}. Clamped-free
+regression at $\ell/b=1.5$, $\Lambda=0.1551$:
+$\max|\mathbf{K}-\mathbf{K}_{\mathrm{parent}}|=0$.
+\texttt{SOLVER\_VERSION} \texttt{2026-07-10.s10}, unbumped.
+\item \textbf{\S3.3, Screen~B freeze.} Persist $n_{\mathrm{cpair}}=3$,
+$|\Delta\Lambda|\le 0.01$, frozen before the extra-$\ell/b$ geometries
+were run. Not retuned against FE. Post-hoc continuum sensitivity check:
+job 2457815 rescored all 148 published flexural and in-plane matches
+against the frozen fixed-step scan (all pass); job 2458006 re-scanned
+the three that sat at the scan's outer edge with a $4\times$ finer grid;
+job 2458121 settled them with a golden-section continuum minimisation.
+Two main-text Table~2 entries ($\ell/b=1.5$ SYM $5.380$,
+$\ell/b=2.5$ ANTI $6.260$) exceed the frozen cut at the continuum
+optimum ($|\Delta\Lambda|=0.0103$, $0.0110$); one in-plane entry
+($\ell/b=3.0$ ANTI $\bar\Omega^{*}=2.2400$, Table~\ref{tab:ip92}) does
+not ($|\Delta\bar\Omega|=0.0094$).
+\item \textbf{\S4, flexural FE.} $\ell/b=1.5$ half-model, job 2398617
+lineage; $\ell/b=1.0,2.5$, P5 Phase~A queue; $\ell/b=2.0,3.0$, job
+2454654. Primary refine $1.0/1.5/2.5$: job 2453874 (12 unique MATCH at
+$3\%$); $2.0/3.0$: job 2454701 (12 unique MATCH at $3\%$). Persist-only
+SYM hits at $0.543$ and $0.670$: job 2454702, both HIT at $0.00\%$.
+High-$\Lambda$ $1.0/1.5/2.5$: job 2453875; $2.0/3.0$: job 2454703
+(machine zeros tagged \texttt{ZERO\_ART}).
+\item \textbf{\S4.4, $\Lambda_{\mathrm{FE}}=1.982$ unmatched
+curiosity.} Job 2455675 reopened $\ell/b=1.0$ SYM $1.98249$ at persist
+basis $(6,3)$, step $0.0002$ in $[1.96249,2.00249]$: global min
+$\sigma=1.702\times 10^{-6}$ at the window's right edge, not flanked
+(pre-registered reopen test failed; miss $1.009\%$). Job 2456003 widened
+the scan to $[1.73,2.23]$ (step $0.002$): $\sigma$ stays within one
+order of magnitude of its floor (ratio $3.12$), no dip within $3\%$ of
+$1.98249$. Flat-plateau confirmed; Screen~B not retuned.
+\item \textbf{\S4.5, Leissa 1973.} Conversion of Table~C15
+$\lambda=\omega a^2\sqrt{\rho h/D}$ through the same
+$K=24.6644\,\mathrm{Hz}$ as \S4; no cluster job. Fifteen overlapping
+entries, each paired with its own parity under Leissa's $(m,n)$ rather
+than with the nearest frequency; three named near-misses (square
+$\lambda=19.789$; $\ell/b=1.5$ $\lambda=58.201$ and $\lambda=67.494$)
+discussed in the main text.
+\item \textbf{\S5.1, in-plane no-corner.} Seok Part~2 Eq.~(1)/(36);
+assembler is wall$+$tip only. Free-free option is an edge-list swap.
+Default clamped-free bit-identical (sandbox
+$\max|\mathbf{K}_{\mathrm{default}}-\mathbf{K}_{\mathrm{cf}}|=0$).
+\item \textbf{\S5.2, in-plane FE.} Job 2455569, PLANE183 half-model at
+five aspect ratios, $5/5$ OK, mesh-conv max $0.004\%$,
+$\bar\Omega=f/804.481$.
+\item \textbf{\S5.2, in-plane discovery.} Job 2455570
+($n_{\mathrm{cpair}}=0$, $5\%$ cut): 38 unique MATCH, ANTI branch weak.
+Jobs 2455676/77/78 traced this to basis starvation, not missing physics.
+Job 2456002 (production re-discovery at $n_{\mathrm{cpair}}=3$, $3\%$
+cut): 76 unique MATCH. Job 2456013 (targeted mop-up,
+$n_{\mathrm{cpair}}=5$, $\pm 0.05$ on the remaining 16 FE values):
+$16/16$ recovered, $0.00$--$0.14\%$ miss. Net $92/92$ in
+$\bar\Omega\in[0.02,2.50]$. Two apparent losses between the 38- and
+76-match passes, $(2.0,\mathrm{ANTI},1.27148)$ and
+$(3.0,\mathrm{SYM},1.66346)$, are both present in the 92
+(root-crowding). Job 2455677's three ANTI ``NO DIP'' results
+($\ell/b=1.0$ ANTI) are the same seeding artifact: their true FE
+targets $1.24858/2.00319/2.31523$ are clean matches in the 92.
+\item \textbf{\S5.3, Bardell 1996.} Frequencies read from Figure~1 of
+the source PDF (mode-plot labels, not a table). Aspect-ratio mapping by
+plate proportions and repeated-frequency physics, not the caption
+letters. Conversion Eq.~\eqref{eq:sm-bardell} at $\nu=0.30$, confirmed
+by the source's Table~1 S--S--S--S exact $1.859$. Matched
+$\bar\Omega^{*}$ from jobs
+2456002 and 2456013; FE from job 2455569. $12/12$ published F--F--F--F
+first-six values matched.
+\item \textbf{\S5.4, Gorman 2004.} Tabulated $\lambda^2$ doubled before
+Eq.~\eqref{eq:sm-bardell} (Gorman's $a$ is the half-length); nineteen
+in-window eigenvalues, no cluster job.
+\item \textbf{\S4.3, flexural MAC.} Eigenvectors from job 2456738 (five
+SHELL281 MAC-extract decks, $5/5$ \texttt{QUEUE\_OK}). Convert
+$f_{\mathrm{Hz}}/24.6644$ in Python; the deck-printed $\Lambda$ column
+is Instance~3 of the project's \texttt{*VWRITE}/KFAC bug and is not
+used. Off-cluster reconstruction:
+\path{probe_rect_ff_oop_mac_2026-09-05.py} and
+\path{probe_rect_ff_oop_mac_strengthen_2026-09-05.py}. Bar $0.744$
+is the annular companion's production call, unre-tuned. Job 2456779
+(dps$=40$ persist golden section on the seven main-text Table~1 ANTI rows
+that do not meet the bar): interior minima within $8\times 10^{-4}$ of the
+published
+$\Lambda^{*}$; persist MAC against the frequency partner does not
+cross $0.744$ (gate~A of that probe; the bar is not retuned).
+\texttt{SOLVER\_VERSION} \texttt{2026-07-10.s10}, unbumped.
+\end{itemize}
+
+\section{Flexural MAC against half-model eigenvectors}\label{sec:sm-mac}
+The identity-weighted MAC is
+$\mathrm{MAC}=|\langle u_Z,w\rangle|^2/(\|u_Z\|^2\|w\|^2)$ on the
+phase-aligned real part of the reconstructed analytical $w$, evaluated
+at the FE nodes of the half-model ($X\in[-\ell,\ell]$, $Y\in[0,b]$,
+$x_1=X\pi/(2b)$, $x_2=Y\pi/(2b)$). The bar $0.744$ is the annular companion's production call
+\cite{mccune2026annular}, not retuned against these data.
+Table~\ref{tab:oop-mac}
+lists every main-text Tables~1--2 pair that meets the bar against its
+frequency-matched same-parity FE mode: $36$ of the $56$ published rows,
+$25$ of $29$ symmetric and $11$ of $27$ antisymmetric. Included are three
+persist-basis recoveries, six $n_{\mathrm{cpair}}=6$ recoveries (three of those after
+discarding a machine-zero singular vector at $\sigma\sim 10^{-14}$,
+the known $\Lambda=4,6$ artifact), and the persist-only
+$\ell/b=3.0$ SYM $0.6698$ row whose persist kernel is two-dimensional
+(the next singular vector is the physical shape). Known Screen~B leaks
+are not in the table: SYM $0.41$ has MAC${}\le 0.05$ against every FE
+mode of that parity; ANTI $0.46$ stays below the bar. Rows that remain
+below the bar --- twenty rows, including the $\ell/b=2.5$ first ANTI (MAC
+saturates at $0.655$), the $\ell/b=1.5$ ANTI $2.124$ weakest primary, and
+both $^\ddagger$-marked rows of main-text Table~2 --- are frequency
+matches only. The lowest MAC in the table is $0.751$ and the highest value
+reached by any excluded row is $0.655$, so the confirmed set is unchanged
+for any bar between those two.
+
+\input{PAPER2_OOP_MAC_ROWS}
+
+\begin{thebibliography}{99}\small
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\bibitem{seok3} J. Seok, H.F. Tiersten, H.A. Scarton, ``Free vibrations of
+rectangular cantilever plates. Part 1: out-of-plane motion,'' J. Sound
+Vib. 271 (2004) 131--146. \url{https://doi.org/10.1016/S0022-460X(03)00365-1}.
+\bibitem{seok4} J. Seok, H.F. Tiersten, H.A. Scarton, ``Free vibrations of
+rectangular cantilever plates. Part 2: in-plane motion,'' J. Sound Vib.
+271 (2004) 147--158. \url{https://doi.org/10.1016/S0022-460X(03)00366-3}.
+\bibitem{bardell1996} N.S. Bardell, R.S. Langley, J.M. Dunsdon, ``On the
+free in-plane vibration of isotropic rectangular plates,'' J. Sound Vib.
+191 (3) (1996) 459--467. \url{https://doi.org/10.1006/jsvi.1996.0134}.
+\bibitem{mccune2026annular} G. McCune, D. Stutts, ``Exact wave-function
+solution and spurious-mode discrimination for completely free annular
+sector plates,'' companion paper, submitted simultaneously to this
+journal (2026).
+\end{thebibliography}
+\end{document}

@@ -1,15 +1,16 @@
 # Paper 2 draft — Completely free rectangular plates
 
-**Status (2026-09-04).** Working manuscript, not LaTeX, not submitted.
-Out-of-plane (flexure) is validated against independent ANSYS at five
-aspect ratios and is ready to draft. In-plane (extension) is **not
-started** (no `bc` on `RectIPAssembler`, no FE decks, no Bardell
-comparison). The intended paper is **one paper covering both motions**,
-matching Paper 1’s annular structure. This file is the OOP half plus an
-honest IP placeholder.
+**Status (2026-09-05).** LaTeX first compile done, not submitted.
+Live sources: `github_repo/paper/PAPER2_RECT_FREEFREE_DRAFT.tex` (9 pp)
+and `PAPER2_RECT_FREEFREE_SUPPLEMENTARY.tex` (7 pp). This markdown is
+the working notes / remaining-work tracker, not the manuscript.
+OOP and IP both validated (FE 92/92, Bardell 12/12). Remaining: item 8
+review pass with `PAPER_REVIEWER_PROMPT.md`.
 
-Live location: `github_repo/paper/PAPER2_RECT_FREEFREE_DRAFT.md`.
-Do not treat this as part of Paper 1 (`PAPER1_FREEFREE_DRAFT.tex`).
+Live manuscript: `github_repo/paper/PAPER2_RECT_FREEFREE_DRAFT.tex` +
+`PAPER2_RECT_FREEFREE_SUPPLEMENTARY.tex` (compiled `.pdf` pair). This
+`.md` file is the remaining-work tracker. Do not treat this as part of
+Paper 1 (`PAPER1_FREEFREE_DRAFT.tex`).
 
 Job numbers belong in a later Supplementary provenance list, not in the
 submitted main text. They are kept here only while the draft is internal.
@@ -22,11 +23,10 @@ submitted main text. They are kept here only while the draft is internal.
 Mechanical and Aerospace Engineering, Missouri University of Science
 and Technology, Rolla, MO 65409, USA
 
-*Companion to Paper 1 (annular-sector FFFF). Draft, OOP half complete.*
+*Companion to Paper 1 (annular-sector FFFF). Draft, OOP and IP both
+validated; not yet LaTeX.*
 
 ## Abstract
-
-*(OOP written; IP sentences marked.)*
 
 The Seok–Tiersten–Scarton wave-function boundary-determinant method for
 rectangular plates is extended from the cantilever (clamped-free) to
@@ -57,12 +57,20 @@ matches lie mostly inside \(1\%\), often a few tenths of a percent.
 Two low symmetric modes are invisible to the production basis
 (no complex pairs) and appear at \(0.00\%\) miss once the persist
 basis is used; one symmetric target at \(\ell/b=1.0\)
-(\(\Lambda_{\mathrm{FE}}=1.982\)) remains unmatched. Default
-clamped-free assembly is unchanged.
+(\(\Lambda_{\mathrm{FE}}=1.982\)) is a named unmatched curiosity,
+not a missing mode.
 
-*[IP to add: in-plane FFFF assembly has no Kirchhoff corner jump;
-validation against ANSYS and against Bardell, Langley and Dunsdon
-(1996) at \(a/b=1,2\).]*
+In-plane (extensional) FFFF assembly has no Kirchhoff corner jump:
+Seok/Tiersten/Scarton Part 2 Eq. (1) retains only the traction
+integrals, and Eq. (36) is wall plus tip. Independent half-model
+PLANE183 calculations at the same five aspect ratios match every
+non-rigid target in \(\bar\Omega\in[0.02,2.50]\) (92 unique
+frequencies, both parities). The first six non-zero in-plane
+frequencies of Bardell, Langley and Dunsdon (1996) at \(a/b=1\) and
+\(a/b=2\), converted from their \(\Omega_B=\omega a/C_L\) to this
+paper’s \(\bar\Omega=\omega/\bar\omega\), agree with the matched
+roots to at most \(1.69\%\) (independent FE vs Bardell at most
+\(0.018\%\)). Default clamped-free assembly is unchanged.
 
 **Keywords:** rectangular plate; free vibration; exact solution;
 free boundary; Kirchhoff corner; spurious modes.
@@ -95,8 +103,9 @@ four-term sum is identically zero and why the surviving combination
 is a checkerboard; (iii) defines a persistence screen that does not
 retune a threshold to chase FE; (iv) reports FFFF flexural tables
 at five aspect ratios against independent half-model finite
-elements; (v) *[IP]* extends the in-plane assembler to four free
-edges and compares with FE and with Bardell et al. (1996).
+elements; (v) extends the in-plane assembler to four free edges
+(no corner jump) and compares with FE at the same five aspect
+ratios and with Bardell, Langley and Dunsdon (1996) at \(a/b=1,2\).
 
 The rectangular cantilever tables of Parts 1 and 2 are already
 reproduced by the same package (default `bc='clamped_free'`); that
@@ -145,9 +154,14 @@ that had been used as an undervived stand-in. The default cantilever
 assembly (three free edges, one clamped) is a different contour and
 is not altered; `SOLVER_VERSION` is unchanged.
 
-*[SM to write: line-by-line Eq. (16) trace, corner table TT/TB/WT/WB,
-identity \(p_{1t}q_{0t}+p_{1b}q_{0b}\equiv 0\), numerical check that
-clamped-free Table 3 is bit-stable.]*
+**SM drafted 2026-09-05** (`PAPER2_RECT_FREEFREE_SUPPLEMENTARY_DRAFT.md`
+S.1): line-by-line Eq. (16) trace, corner table TT/TB/WT/WB, the parity
+identity in both classes (and the stronger term-by-term
+\(\mathrm{TB}=-\mathrm{TT}\), \(\mathrm{WB}=-\mathrm{WT}\) restatement of
+it), why the naive same-sign sum is identically zero, why the checkerboard
+is exactly twice the single-point candidate in both classes, and the
+existing byte-identical clamped-free regression / FE cross-check
+citations.
 
 ### 2.3 Screen B
 
@@ -270,9 +284,12 @@ is physical at other aspect ratios.
 
 ### 3.3 Open flexural items (report, do not hide)
 
-- \(\ell/b=1.0\) SYM \(\Lambda_{\mathrm{FE}}=1.982\): still unmatched.
-  A persist dip at \(2.08\) is \(4.9\%\) off; the second FE at \(2.454\)
-  is matched separately by \(\Lambda=2.460\).
+- \(\ell/b=1.0\) SYM \(\Lambda_{\mathrm{FE}}=1.982\): unmatched, closed
+  as a numerical curiosity. A persist-basis scan over
+  \([1.73,2.23]\) stays within one order of magnitude of its floor
+  (ratio \(3.12\)), with no dip near \(1.982\) and no tail toward
+  the next SYM root at \(2.454\) (matched separately by
+  \(\Lambda=2.460\)). Not a missing mode; Screen B is not retuned.
 - Several FE modes near \(2.5\)–\(2.9\) fail Screen B even when a
   production dip is within ~1.5% (e.g. \(2.0\) SYM \(2.622\), \(3.0\)
   SYM \(2.887\), \(1.5\) SYM \(2.588\), \(2.5\) SYM \(2.467\)). The
@@ -281,34 +298,115 @@ is physical at other aspect ratios.
   \(\ell/b=3.0\) coincidence above; ANTI \(\sim 1.65\); shallow SYM
   \(\sim 1.92\); \(\Lambda=4,6\) machine zeros.
 
-## 4. In-plane motion (to be completed)
+## 4. In-plane motion
 
-**Not started.** `RectIPAssembler` has no `bc` parameter; it is
-cantilever-only. Expected structure, to be confirmed rather than
-assumed:
+### 4.1 No Kirchhoff corner jump
 
-- In-plane motion is second-order plane elasticity. There is no
-  Kirchhoff twisting moment and no corner-jump analogue of §2.2
-  (same argument as the annular in-plane case).
-- Implementation is an edge-list change: all four edges natural,
-  same unconstrained \(\sigma_{\min}\) assembly, plus a `bc`
-  switch that leaves clamped-free bit-identical.
-- Independent FE: full-plate or half-model PLANE183, same five
-  aspect ratios if the OOP set is reused; mesh convergence required.
-- Literature: Bardell, Langley and Dunsdon, *J. Sound Vib.* **191**
-  (1996) 459–467, first six non-zero in-plane frequencies of
-  isotropic F–F–F–F (and C–C–C–C) rectangles at \(a/b=1,2\),
-  \(\Omega=\omega a/C_L\) with \(C_L^2=E/[\rho(1-\nu^2)]\). Paper 1
-  already warns that the source’s (a)/(b) sub-labels appear swapped
-  relative to its captions; any comparison must read the figures,
-  not assume the labels.
-- Discrimination: do not copy Screen B blindly. In-plane artifacts,
-  if they appear, need their own pre-registered test (basis
-  enlargement and/or a residual/MAC instrument). Paper 1’s SUBDOM
-  is annular-IP-specific until shown otherwise.
+Seok Part 2 Eq. (1) is Part 1 Eq. (16) with flexure set to zero: only
+\(\int_{c_N} n_a t^{(0)}_{ab}\delta u_b\,ds\) and
+\(\int_{c_C} u_b\delta(n_a t^{(0)}_{ab})\,ds\) remain on the boundary.
+The twisting-moment exact differential that produces the OOP corner
+jump is absent. After the long free edges are satisfied exactly,
+Eq. (36) is wall (clamped) plus tip (free traction) only.
+`RectIPAssembler.assemble` is that form (`K = wall + tip`); the
+class has no corner term. FFFF IP is the same two traction integrals
+on both short edges — still no jump. The code change is
+`bc='free_free'` as an edge-list swap, not a new formula. Default
+`bc='clamped_free'` is bit-identical to the cantilever path;
+`assemble_constrained` remains cantilever-only.
+`SOLVER_VERSION` is unbumped.
 
-Until those items exist, Paper 2 is not submittable. The OOP half
-above is the manuscript they land in.
+### 4.2 Finite-element comparison
+
+Half-model PLANE183, same geometry and material as §3
+(\(E=210\,\mathrm{GPa}\), \(\nu=0.30\), \(\rho=7800\,\mathrm{kg\,m^{-3}}\),
+\(H=0.04\,\mathrm{m}\), \(b=1\,\mathrm{m}\)), at
+\(\ell/b=1.0,1.5,2.0,2.5,3.0\). Mesh 1 vs mesh 2 agrees to
+\(0.004\%\). Rigid-body (near-zero Hz) entries are discarded.
+The Seok/Tiersten/Scarton in-plane parameter is
+\(\bar\Omega=\omega/\bar\omega\) with
+\(\bar\omega=(\pi/(2b))\sqrt{c_{66}/\rho}\) and
+\(c_{66}=E/(2(1+\nu))\). Finite-element comparisons convert ANSYS
+cyclic frequencies by \(\bar\Omega=f/804.481\,\mathrm{Hz}\),
+independent of \(\ell/b\). SYM \(\leftrightarrow\) \(UY=0\) on the
+cut; ANTI \(\leftrightarrow\) \(UX=0\).
+
+Production IP discovery uses the persist-sized basis
+(\(n_{\mathrm{real}}=5\), \(n_{\mathrm{cpair}}=3\)) directly, not
+the cantilever default \(n_{\mathrm{cpair}}=0\): that default
+starves the FFFF spectrum (a band of real FE targets produced no
+dip at all until the basis was enlarged). A candidate is a
+**MATCH** if a same-basis local minimum after a \(\pm 0.02\),
+step-\(0.002\) polish lies within \(3\%\) of a same-parity FE
+\(\bar\Omega\). Sixteen FE targets that the \(n_{\mathrm{cpair}}=3\)
+scan left uncovered recover at \(n_{\mathrm{cpair}}=5\) in a
+\(\pm 0.05\) window centred on the FE value itself (15 at
+\(0.00\%\) miss, one at \(0.14\%\)). This is **not** Screen B and
+is not adopted as a portable residual screen. Paper 1’s SUBDOM
+instrument remains annular-IP-specific.
+
+After collapsing double-dips onto the same FE partner, **every**
+one of the 92 unique non-rigid FE targets in
+\(\bar\Omega\in[0.02,2.50]\) (5+4+8+6+10+7+13+10+16+13 across the
+five aspect ratios and both parities) has a matched root. Zero
+remain uncovered. First-mode travel is regular: SYM
+\(1.330\to 1.046\to 0.797\to 0.640\to 0.535\) and ANTI
+\(1.249\to 0.788\to 0.526\to 0.376\to 0.282\) as \(\ell/b\) goes
+\(1.0\to 1.5\to 2.0\to 2.5\to 3.0\).
+
+### 4.3 Comparison with Bardell, Langley and Dunsdon (1996)
+
+Bardell, Langley and Dunsdon, *J. Sound Vib.* **191**(3) (1996)
+459–467, give the first six non-zero in-plane frequencies of
+isotropic F–F–F–F rectangles at \(a/b=1\) and \(2\), printed under
+Figure 1 mode plots rather than tabulated (their one table is a
+simply-supported convergence study). Their parameter is
+\(\Omega_B=\omega a/C_L\) with \(C_L^2=E/[\rho(1-\nu^2)]\). The
+letter does not state \(\nu\) numerically; Table 1’s exact S–S–S–S
+square-plate pair \((0,1)=(1,0)=1.859\) equals
+\(\pi\sqrt{(1-\nu)/2}=1.8586\) at \(\nu=0.30\), so the conversion
+uses that value.
+
+The plates identify as \(a=2\ell\), so \(a/b=\ell/b\) and
+
+\[
+\Omega_B=\bar\Omega\cdot\pi\cdot(\ell/b)\cdot\sqrt{(1-\nu)/2}.
+\]
+
+Figure 1’s caption reads “(a) \(a/b=1\); (b) \(a/b=2\)”, but the
+(a) panel is drawn 2:1 with unique frequencies and the (b) panel
+is square with the repeated pair \(2.472,2.472\). The body text
+assigns repeats to \(a/b=1\) and unique frequencies to \(a/b=2\).
+The mapping below follows the rendered proportions and that
+physics, not the caption letters (Paper 1 §7 recorded the same
+defect; Table 1 of the source does not have it).
+
+| \(\ell/b\) | class | Bardell \(\Omega_B\) | \(\Omega_B\to\bar\Omega\) | \(\bar\Omega^*\) | \(\bar\Omega_{\mathrm{FE}}\) | miss |
+| ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| 1.0 | ANTI | 2.321 | 1.24880 | 1.2400 | 1.24858 | 0.70% |
+| 1.0 | SYM | 2.472 | 1.33004 | 1.3300 | 1.32984 | 0.00% |
+| 1.0 | ANTI | 2.472 | 1.33004 | 1.3298 | 1.32984 | 0.02% |
+| 1.0 | SYM | 2.628 | 1.41397 | 1.4100 | 1.41422 | 0.28% |
+| 1.0 | SYM | 2.987 | 1.60713 | 1.6100 | 1.60733 | 0.18% |
+| 1.0 | SYM | 3.452 | 1.85732 | 1.8600 | 1.85745 | 0.14% |
+| 2.0 | ANTI | 1.954 | 0.52567 | 0.5200 | 0.52557 | 1.08% |
+| 2.0 | SYM | 2.961 | 0.79657 | 0.8100 | 0.79652 | 1.69% |
+| 2.0 | ANTI | 3.267 | 0.87889 | 0.8800 | 0.87891 | 0.13% |
+| 2.0 | ANTI | 4.726 | 1.27139 | 1.2715 | 1.27148 | 0.01% |
+| 2.0 | ANTI | 4.784 | 1.28700 | 1.2800 | 1.28703 | 0.54% |
+| 2.0 | SYM | 5.205 | 1.40025 | 1.4000 | 1.40011 | 0.02% |
+
+All twelve published F–F–F–F values are matched. Solver vs
+converted Bardell: max miss \(1.69\%\), eight of twelve inside
+\(0.3\%\). Independent FE vs converted Bardell: max miss
+\(0.018\%\). The three largest solver misses sit on
+\(n_{\mathrm{cpair}}=3\) roots that already passed the \(3\%\) FE
+cut on the refine grid (printed \(\bar\Omega^*\) to \(0.01\));
+the two \(n_{\mathrm{cpair}}=5\) mop-up roots that fall inside
+Bardell’s first six sit at \(0.01\)–\(0.02\%\). The repeated
+square-plate pair \(2.472,2.472\) is the SYM/ANTI degeneracy at
+\(\bar\Omega_{\mathrm{FE}}=1.32984\). Full 92-row FE match list:
+`PAPER2_IP_MATCH_TABLE.md`.
 
 ## 5. Discussion
 
@@ -319,19 +417,20 @@ the annular flexural tables claimed. The remaining flexural issues
 are named misses and named artifacts, which is the same honesty
 standard Paper 1 used.
 
-What this paper does *not* claim: that production-basis discovery is
-complete; that Screen B is a portable residual screen in the annular
-sense; that in-plane FFFF is validated; that clamped-free frequencies
-changed (`SOLVER_VERSION` unbumped).
+What this paper does *not* claim: that production-basis flexural
+discovery is complete; that Screen B is a portable residual screen
+in the annular sense; that the IP \(n_{\mathrm{cpair}}=3\) discovery
+basis is a residual screen; that clamped-free frequencies changed
+(`SOLVER_VERSION` unbumped).
 
 The natural place for this work is a companion paper, not an
 expansion of the annular manuscript. The annular paper’s contribution
 is the two-edge FFFF detector and its discrimination instruments on
 a sector. This paper’s contribution is the four-free-edge rectangular
-jump and the tables that follow from it, in both motions once IP is
-done.
+jump, the in-plane edge-list extension that needs no jump, and the
+tables that follow from both.
 
-## 6. Conclusions *(flexure only, until §4 is filled)*
+## 6. Conclusions
 
 The Seok–Tiersten–Scarton rectangular method extends to completely
 free flexure once the closed-contour Kirchhoff jump is assembled as
@@ -340,12 +439,18 @@ complex-pair persistence screen, checked against half-model SHELL281
 at \(\ell/b=1.0,1.5,2.0,2.5,3.0\), yields a set of even- and
 odd-parity frequencies that match FE typically inside \(1\%\). Two
 symmetric modes require the persist basis to appear; one square-plate
-symmetric target remains open. In-plane FFFF is the other half of
-the same paper and is not yet in hand. The elastic FFFF baseline on
-both the annular and rectangular geometries is the intended foundation
-for piezoelectric constitutive coupling and for using the exact
-frequencies to identify those constants; that is later work, not a
-claim of this paper.
+symmetric target is a named unmatched curiosity, not a missing mode.
+The same assembler extends to completely free in-plane motion with
+no corner term. Half-model PLANE183 at the five flexural aspect
+ratios matches every non-rigid target in \(\bar\Omega\in[0.02,2.50]\)
+(92 unique frequencies). Bardell, Langley and Dunsdon’s 1996 first
+six F–F–F–F frequencies at \(a/b=1,2\), converted onto
+\(\bar\Omega\), agree with those roots to at most \(1.69\%\)
+(independent FE vs Bardell at most \(0.018\%\)). The elastic FFFF
+baseline on both the annular and rectangular geometries is the
+intended foundation for piezoelectric constitutive coupling and for
+using the exact frequencies to identify those constants; that is
+later work, not a claim of this paper.
 
 ## Internal provenance (strip before submission)
 
@@ -362,6 +467,11 @@ claim of this paper.
 | high-\(\Lambda\) 1.0/1.5/2.5 | job 2453875 |
 | high-\(\Lambda\) 2.0/3.0 | job 2454703, zeros tagged ZERO_ART |
 | G0 | `SOLVER_VERSION=2026-07-10.s10`, checkerboard present, old sum absent |
+| IP FE \(\ell/b=1.0\)–\(3.0\) | job 2455569, \(\bar\Omega=f/804.481\), mesh conv max \(0.004\%\) |
+| IP discovery \(n_{\mathrm{cpair}}=3\), 76 MATCH | job 2456002 |
+| IP mop-up \(n_{\mathrm{cpair}}=5\), last 16 | job 2456013 |
+| IP 92-row master list | `PAPER2_IP_MATCH_TABLE.md` |
+| Bardell 1996 F–F–F–F | Figure 1 of `Project Knowledge/papers/Bardell.pdf`; (a)/(b) mapped by plate proportions, not caption |
 
 ## Remaining work (order, tools)
 
@@ -370,33 +480,86 @@ Do these in order. OOP FE is done; do not retune Screen B; do not bump
 Piezoelectric coupling is **not** on this list (later paper, after
 the elastic FFFF baseline exists on both geometries).
 
-1. **IP no-corner confirmation.** Show rectangular in-plane FFFF has
-   no Kirchhoff jump (second-order plane elasticity). Tool:
-   `grok-handoff` plus `GENERAL_BC_CORNER_DERIVATION.md` / Seok Part 2.
-   Sandbox algebra, not a cluster job.
-2. **`RectIPAssembler(bc='free_free')`.** Add `bc` without changing
-   default cantilever assembly. Tools: `plate-solver-sandbox-probe`
-   (CRLF, worker-path gate), `test_validated_tables.py` / clamped-free
-   IP regression.
-3. **Rectangular FFFF IP FE decks.** PLANE183, half- or full-model,
-   same `ℓ/b` set as OOP if possible. Tools: copy annular IP deck
-   pattern in `Ansys/NewAnsys/`; isolated manifest;
-   `submit_ansys_queue.sh` discipline (one MAPDL seat). Convert Hz
-   with a documented factor; do not trust a broken `Lambda_FE` column.
-4. **IP discovery + screen + pair.** Production scan, a
-   *pre-registered* IP persist/residual test (do not copy Screen B
-   by default), pair to FE, then Bardell et al. (1996) at `a/b=1,2`
-   reading the figures not the swapped captions. Tools:
-   `plate-solver-cluster-probes`, `p5_rect_ff_lib.py`-style FE lists,
-   Mill venv (`module load python/3.12.1`).
-5. **Optional OOP leftover.** One persist-window on `ℓ/b=1.0` SYM
-   FE 1.982, no Screen B retune. Cluster CPU, not ANSYS.
-6. **Supplementary derivation.** Line-by-line Eq. (16) checkerboard
-   (TT/TB/WT/WB, parity identity). Can overlap with 1–4. Tool: the
-   existing `FFFF_VARIATIONAL_DERIVATION.md` / Paper 1 SM §S.2 style.
-7. **Promote this markdown to LaTeX** (`PAPER2_RECT_FREEFREE_DRAFT.tex`
-   + SM), strip job numbers from the main text, fill §4 from steps
-   1–4. Compile in `github_repo/paper/`.
+1. **IP no-corner confirmation.** DONE 2026-09-05 (Part 2 Eq. (1)/(36);
+   assembler is wall+tip only). See §4 and
+   `GENERAL_BC_CORNER_DERIVATION.md`.
+2. **`RectIPAssembler(bc='free_free')`.** DONE 2026-09-05. Default
+   remains `clamped_free` (sandbox: max|K_default-K_cf|=0). FFFF is
+   traction form at both short edges, no corner. `assemble_constrained`
+   is cantilever-only. `SOLVER_VERSION` unbumped.
+3. **Rectangular FFFF IP FE decks.** DONE job 2455569 (5/5 OK). Mesh
+   conv max 0.004%. Omega = f/804.481. Lists in `p5_rect_ff_lib.IP_FE_LISTS`
+   (Omega<=2.50).
+4. **IP discovery + screen + pair. FULLY DONE 2026-09-05.** Discovery
+   job 2455570 (5% cut, n_cpair=0 discovery) found 38/92 unique
+   matches, ANTI branch weak. Diagnostics (2455676/77/78, see
+   `LESSONS_LEARNED.md` §18.87) traced this to basis starvation in
+   the n_cpair=0 discovery step, not missing physics -- IP has no
+   Kirchhoff corner regardless (Part 2 Eq. 1/36). Production
+   re-discovery at n_cpair=3 directly (job 2456002, 3% cut) raised
+   this to 76/92 unique MATCH. A final targeted mop-up (job 2456013,
+   n_cpair=5, +/-0.05 window centered on each of the remaining 16 FE
+   values) recovered **all 16, 16/16, every one at 0.00-0.14% miss**.
+   **Net: 92/92 IP FE targets in Omega in [0.02,2.50], across all 5
+   l/b and both parities, now MATCH -- zero UNCOVERED.** (92 is the
+   full count of `IP_FE_LISTS` entries in this range: 5+4+8+6+10+7+13+
+   10+16+13.) The 2 apparent "losses" between the 38- and 76-match
+   passes ((2.0,ANTI,1.27148), (3.0,SYM,1.66346)) are both present and
+   clean in the final 92 (root-crowding in the n_cpair=3 pass, not a
+   real gap -- resolved). The 3 ANTI targets job 2455677 could not
+   recover by widening around a bad discovery seed
+   (l/b=1.0 ANTI Omega0=1.40/1.94/2.10) are also resolved: their true
+   FE targets (1.24858/2.00319/2.31523) are all clean MATCHes in the
+   final list -- those "NO DIP" results were a wrong-seed artifact of
+   searching around the discovery dip instead of the FE value itself,
+   not evidence of anything missing. **This closes the IP discovery
+   step outright. Informal-roadmap step 3 (Bardell 1996 at
+   `a/b=1,2`) proceeded from this list and is DONE 2026-09-05
+   (see §4.3 and `PAPER2_IP_MATCH_TABLE.md`).**
+5. **Optional OOP leftover.** DONE and CLOSED 2026-09-05. Job 2455675
+   reopened `ℓ/b=1.0` SYM FE 1.982 at persist basis (6,3), step 0.0002
+   in [1.96249,2.00249]: global min sigma=1.702e-6 sits at the window's
+   right edge, flat (~1.70-1.704e-6), not flanked. Pre-registered REOPEN
+   test failed (miss%=1.009 just over, flanked=False) -> **MISS
+   CONFIRMED**. Job 2456003 then widened the scan to [1.73,2.23] (step
+   0.002, same basis) to settle the flat-plateau ambiguity: sigma stays
+   within one order of magnitude of its floor across the whole 0.5-wide
+   gap (4.24e-6 down to 1.36e-6, ratio 3.12), no 10x-rise wall anywhere,
+   no dip within 3% of 1.98249 (one unrelated dip at Omega=2.078, not
+   near the target). **FLAT-PLATEAU CONFIRMED** -- neither a hidden
+   mode nor a tail toward the next SYM root at 2.45439, just an unusually
+   broad, shallow numerical floor. Table 3 MISS stands; flag as a
+   numerical curiosity worth one sentence in the SM/discussion. No
+   further OOP probing planned on this item. No Screen B retune.
+6. **Supplementary derivation.** DONE 2026-09-05 (drafted, not yet
+   LaTeX). `PAPER2_RECT_FREEFREE_SUPPLEMENTARY_DRAFT.md` S.1: line-by-line
+   Eq. (16) trace, corner table TT/TB/WT/WB, parity identity in both
+   classes, why the naive sum vanishes, why the checkerboard is exactly
+   twice the single-point candidate, numerical checks cited (regression,
+   Part-A algebraic gate, FE cross-check). Sourced from
+   `GrokCode/.../RectangularFF.txt`, `P5_PHASE_A_SIGN_AUDIT_2026-09-02.md`,
+   `P5_PHASE_A_ADDENDUM_2026-09-02.md`, `LESSONS_LEARNED.md` §18.75-18.83,
+   and `core_solvers.py` itself — nothing new derived, only written up and
+   cross-checked for internal consistency (the TB=-TT/WB=-WT term-by-term
+   step is this pass's own contribution, verified algebraically against
+   the cited parity relations, not previously written out explicitly).
+
+**Informal-roadmap step 3 (Bardell 1996 \(a/b=1,2\)). DONE 2026-09-05.**
+Source PDF `Project Knowledge/papers/Bardell.pdf` (real PDF, not
+zip-as-pdf). Figure 1 F–F–F–F frequencies read from the mode-plot
+labels; (a)/(b) mapped by plate proportions and repeated-frequency
+physics, not the caption. Conversion
+\(\Omega_B=\bar\Omega\cdot\pi\cdot(\ell/b)\cdot\sqrt{(1-\nu)/2}\)
+at \(\nu=0.30\) (confirmed by Table 1 SSSS exact \(1.859\)).
+12/12 published values matched; solver max miss \(1.69\%\), FE max
+miss \(0.018\%\). Master list: `PAPER2_IP_MATCH_TABLE.md`.
+
+7. **Promote this markdown to LaTeX.** DONE 2026-09-05.
+   `github_repo/paper/PAPER2_RECT_FREEFREE_DRAFT.tex` (9 pp) +
+   `PAPER2_RECT_FREEFREE_SUPPLEMENTARY.tex` (7 pp, S.1 corner / S.2
+   conversion / S.3 92-row list / S.4 job provenance). Job numbers
+   stripped from the main text. Compiled clean (0 errors, 0 undefined
+   references) with tectonic; matching `.pdf` pair in the same folder.
 8. **Review pass** with `PAPER_REVIEWER_PROMPT.md`. Pipeline wiring
    (Phase D) is nice-to-have for IP sweeps, not a publication gate if
    the IP jobs stay single-process like the OOP overnight probes.

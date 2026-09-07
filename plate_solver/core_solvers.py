@@ -2444,12 +2444,11 @@ class RectOOPAssembler:
         self.nu = mpf(str(nu_b)); self.R = mpf(str(R)); self.T = mpf(str(T))
         self.mu = 2 * self.T - self.nu
         # BC at the x1=-L end -- 'clamped_free' (default, BYTE-IDENTICAL to
-        # every pre-2026-08-02 call site) or 'free_free' (NEW, 2026-08-02,
-        # see LESSONS_LEARNED.md Sec 71 / GrokCode/CornerBlock.txt's "Follow
-        # Up" PASS derivation -- structurally sane, sandbox-checked, but NOT
-        # yet validated against any FE/literature benchmark on the cluster,
-        # treat as experimental until probe_rect_freefree_validation.py runs).
-        # x2=+/-b stay free in both cases (unchanged, per Eq.46/53).
+        # every pre-2026-08-02 call site) or 'free_free'. The free_free
+        # corner jump is the 2026-09-03 closed-contour checkerboard
+        # (assemble() else-branch); sandbox FE-checked against 4 ANSYS
+        # anchors, not yet a cluster production table. x2=+/-b stay free
+        # in both cases.
         if bc not in ('clamped_free', 'free_free'):
             raise ValueError(f"RectOOPAssembler: unknown bc={bc!r}")
         self.bc = bc
@@ -2516,18 +2515,28 @@ class RectOOPAssembler:
                                                  - 2 * p1t * Ut1 * q0t * Vt0)
                             K[2 * ppi + (rp - 1), 2 * pi_ + (r - 1)] = tip + wall + corner
                         else:
-                            # ---- 'free_free', NEW 2026-08-02 (GrokCode/CornerBlock.txt
-                            # "Follow Up" PASS): left = orientation-reversed primal at
-                            # x1=-L (mirrors `tip`'s own formula exactly, L -> -L, sign
-                            # flip from the reversed outward normal); corner_ff = all
-                            # four free corners at the settled -2 coefficient (LESSONS
-                            # Sec 59/71), replacing the asymmetric clamped-free `corner`.
+                            # ---- 'free_free' Kirchhoff corner jump ----
+                            # left = orientation-reversed primal at x1=-L (same
+                            # formula as tip, L -> -L, minus from reversed n).
+                            # corner_ff is the closed-contour Eq.(16) jump at all
+                            # four free corners (LESSONS Sec 18.75/18.81-18.83,
+                            # 2026-09-03 Grok trace). Naive same-sign 4-term sum
+                            # vanishes identically (p1t*q0t + p1b*q0b == 0).
+                            # Checkerboard: TB and WT flip because the inward-axis
+                            # Jacobian is -1 there (F_in - F_out = -2 t_12).
+                            # Under the parity identity this is exactly 2*FIX.
+                            # Sandbox FE check (probe_rect_ff_oop_derived_vs_fix_
+                            # 2026-09-03.py): 4/4 ANSYS anchors closer than FIX
+                            # and CURRENT. clamped_free `corner` above is
+                            # untouched. SOLVER_VERSION not bumped: default
+                            # bc remains clamped_free; prior free_free scans
+                            # (zero corner term) are stale.
                             Uw3 = U(xip, r, 3, -L); Uw2 = U(xip, r, 2, -L)
                             left = -(Uw3 * Vw0 * I[(0, 0)] + mu * Uw1 * Vw0 * I[(2, 0)]
                                      - Uw2 * Vw1 * I[(0, 0)] - nu * Uw0 * Vw1 * I[(2, 0)])
                             corner_ff = (T - nu) * (-2) * (
-                                p1t * Ut1 * q0t * Vt0 + p1b * Ut1 * q0b * Vt0
-                                + p1t * Uw1 * q0t * Vw0 + p1b * Uw1 * q0b * Vw0)
+                                p1t * Ut1 * q0t * Vt0 - p1b * Ut1 * q0b * Vt0
+                                - p1t * Uw1 * q0t * Vw0 + p1b * Uw1 * q0b * Vw0)
                             K[2 * ppi + (rp - 1), 2 * pi_ + (r - 1)] = tip + left + corner_ff
         return K
 
@@ -2583,21 +2592,32 @@ class RectOOPAssembler:
 class RectIPAssembler:
     """mpmath rectangular in-plane Eq.41 UNCONSTRAINED variational assembler +
     equilibrated sigma_min detector with two-sided conjugate-pair realification.
-    Frequencies are double roots of det K (Eq.36) found from scratch."""
+    Frequencies are double roots of det K (Eq.36) found from scratch.
 
-    def __init__(self, nu_b=0.3, R=1.0, c11s=None, dps=30):
+    bc='clamped_free' (default) is the Part 2 cantilever: wall at x1=-L plus
+    free tip at x1=+L. bc='free_free' makes both short edges natural (same
+    traction bilinear form at +/-L). No Kirchhoff corner jump exists for
+    in-plane motion (Part 2 Eq.(1)/(36); 2026-09-05 confirmation). Default
+    path is unchanged; SOLVER_VERSION is not bumped."""
+
+    def __init__(self, nu_b=0.3, R=1.0, c11s=None, dps=30, bc='clamped_free'):
         mp.dps = dps
         self.dps = dps
         self.eng_sym = RectangularCartesianIP(nu_b, R, c11s, sym=True)
         self.eng_anti = RectangularCartesianIP(nu_b, R, c11s, sym=False)
         self.nu = mpf(str(nu_b)); self.R = mpf(str(R))
         self.c11s = mpf(str(self.eng_sym.c11s))
+        if bc not in ('clamped_free', 'free_free'):
+            raise ValueError(f"RectIPAssembler: unknown bc={bc!r}")
+        self.bc = bc
 
     def eng(self, sym):
         return self.eng_sym if sym else self.eng_anti
 
     def assemble(self, full, Om, sym, lob):
-        """2P x 2P unconstrained K (Eq.41 wall+tip), indexed K[test, trial]."""
+        """2P x 2P unconstrained K, indexed K[test, trial].
+        clamped_free: Eq.41 wall+tip. free_free: free-edge form at both x1=+/-L,
+        no corner term."""
         nu, _R, c11s = self.nu, self.R, self.c11s
         sph = mp.pi / 2 if sym else mpf(0)
         L = mp.pi * mpf(str(lob)) / 2
@@ -2668,17 +2688,30 @@ class RectIPAssembler:
                 I_u2j_u2i_t = I_u2j_u2i      # tip  t4: u2_trial,1 * u2_test
                 for r in (1, 2):                              # trial r' index
                     for rr in (1, 2):                         # test  r' index
-                        # WALL at x1=-L (clamped): trial value * test derivative
-                        wall = (c11s * (xfac(gj, r, -L, "u1") * xfac(gi, rr, -L, "u1_1") * I_u1j_u1i
-                                        + nu * xfac(gj, r, -L, "u1") * xfac(gi, rr, -L, "u2") * I_u1j_du2i)
-                                + (xfac(gj, r, -L, "u2") * xfac(gi, rr, -L, "u1") * I_u2j_du1i
-                                   + xfac(gj, r, -L, "u2") * xfac(gi, rr, -L, "u2_1") * I_u2j_u2i))
                         # TIP at x1=+L (free): -(trial traction * test value)
+                        # Unchanged for both bc values (x2=+/-b and x1=+L stay free).
                         tip = -(c11s * (xfac(gj, r, L, "u1_1") * xfac(gi, rr, L, "u1") * I_u1j_u1i_t
                                         + nu * xfac(gj, r, L, "u2") * xfac(gi, rr, L, "u1") * I_du2j_u1i)
                                 + (xfac(gj, r, L, "u1") * xfac(gi, rr, L, "u2") * I_du1j_u2i
                                    + xfac(gj, r, L, "u2_1") * xfac(gi, rr, L, "u2") * I_u2j_u2i_t))
-                        K[2 * pi_ + (rr - 1), 2 * pj + (r - 1)] = wall + tip
+                        if self.bc == 'clamped_free':
+                            # WALL at x1=-L (clamped): trial value * test derivative
+                            # EXACT pre-bc path, formula unchanged.
+                            wall = (c11s * (xfac(gj, r, -L, "u1") * xfac(gi, rr, -L, "u1_1") * I_u1j_u1i
+                                            + nu * xfac(gj, r, -L, "u1") * xfac(gi, rr, -L, "u2") * I_u1j_du2i)
+                                    + (xfac(gj, r, -L, "u2") * xfac(gi, rr, -L, "u1") * I_u2j_du1i
+                                       + xfac(gj, r, -L, "u2") * xfac(gi, rr, -L, "u2_1") * I_u2j_u2i))
+                            K[2 * pi_ + (rr - 1), 2 * pj + (r - 1)] = wall + tip
+                        else:
+                            # free_free: both short edges natural. Same traction
+                            # bilinear form as tip, at x1=-L. Contour sign: both
+                            # free ends contribute -int t_1b delta u_b dx2
+                            # (Part 2 Eq.(1); n=+/-e1 is in n_a t_ab). No corner.
+                            left = -(c11s * (xfac(gj, r, -L, "u1_1") * xfac(gi, rr, -L, "u1") * I_u1j_u1i_t
+                                            + nu * xfac(gj, r, -L, "u2") * xfac(gi, rr, -L, "u1") * I_du2j_u1i)
+                                    + (xfac(gj, r, -L, "u1") * xfac(gi, rr, -L, "u2") * I_du1j_u2i
+                                       + xfac(gj, r, -L, "u2_1") * xfac(gi, rr, -L, "u2") * I_u2j_u2i_t))
+                            K[2 * pi_ + (rr - 1), 2 * pj + (r - 1)] = left + tip
         return K
 
     @staticmethod
@@ -2770,7 +2803,12 @@ class RectIPAssembler:
 
     def assemble_constrained(self, full, Om, sym, lob):
         """(2P+1)x(2P+1) augmented matrix: unconstrained Eq.41 block + one
-        symmetric Lagrange border (mean-displacement constraint, Eq.40)."""
+        symmetric Lagrange border (mean-displacement constraint, Eq.40).
+        Cantilever-only: the constraint is a wall-mean at x1=-L."""
+        if self.bc != 'clamped_free':
+            raise ValueError(
+                "RectIPAssembler.assemble_constrained is cantilever-only "
+                f"(bc='clamped_free'), not bc={self.bc!r}")
         K2 = self.assemble(full, Om, sym, lob)
         P = len(full)
         n = 2 * P

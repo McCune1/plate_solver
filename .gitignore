@@ -29,3 +29,6 @@ ansys/**/file.stat
 # OS cruft
 .DS_Store
 Thumbs.db
+
+# Review scratch: rendered page PNGs, one-off patch scripts. Never shipped.
+paper/_scratch_to_delete/

@@ -10,3 +10,21 @@ openpyxl
 sympy
 # optional, NOT wired into any hot path yet -- see plate_solver/_numba_accel.py:
 # numba
+
+# ---------------------------------------------------------------------------
+# Dependency versions, recorded 2026-09-07.
+#
+# Nothing is pinned here, and as of this date nothing needs to be: every
+# numeric anchor in tests/test_solver.py was re-derived on two independent
+# environments -- scipy 1.17.1 / numpy 2.4.4 / mpmath 1.3.0 and 1.4.1, and the
+# Mill cluster venv at scipy 1.18.0 / numpy 2.5.1 / mpmath 1.4.1 -- and agreed
+# to roughly 15 significant digits, against tolerances of 1e-5. A 2026-09-07
+# review pass briefly suspected library sensitivity when three annular gates
+# failed; running them on the cluster disproved it, because both machines
+# returned the same wrong-looking numbers. The gates were asserting stale
+# values, not reading a moving solver. See the tests/test_solver.py module
+# docstring and LESSONS_LEARNED Sec. 18.109b.
+#
+# If a numeric gate ever does fail, check that provenance first. Do not pin
+# versions to make one pass, and do not edit an anchor to make one pass.
+# ---------------------------------------------------------------------------

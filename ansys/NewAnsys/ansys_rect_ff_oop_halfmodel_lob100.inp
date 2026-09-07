@@ -1,0 +1,375 @@
+! ===========================================================================
+!  ansys_rect_ff_oop_halfmodel_lob100.inp  --  Mechanical APDL batch deck
+!  Rectangular free-free (FFFF) OOP FE ground truth, l/b=1.0 half-model.
+!
+!  GENERATED 2026-09-02 by copying the validated, already-debugged
+!  ansys_rect_ff_oop_halfmodel.inp (l/b=1.5, job 2398617, corrected
+!  2026-08-05) and changing ONLY: LOB (geometry), NDIVX (mesh divisions
+!  along the length, rescaled to keep the SAME element size as the l/b=1.5
+!  deck -- elem size 1/20 of B for mesh1, 1/30 of B for mesh2, i.e.
+!  NDIVX = round(2*LOB*20) for mesh1 and round(2*LOB*30) for mesh2 -- and
+!  the *CFOPEN output file basenames (tagged _lob100 so this deck's output
+!  files don't collide with the l/b=1.5 deck's or the other new geometry's
+!  when run from the same NewAnsys/ directory). The *VWRITE/*DO structure,
+!  half-model mirror-BC setup (SYMM/ASYM parity passes), material constants,
+!  and Lambda<->Hz conversion (KFAC) are BYTE-IDENTICAL to the validated
+!  l/b=1.5 deck -- this file was produced by a scripted find/replace on
+!  those 3 items only, not hand-retyped, specifically to avoid
+!  reintroducing the known *VWRITE-inside-a-*DO-loop trap this project has
+!  hit (and fixed) twice before in other decks.
+!
+!  REFRAMED FROM THE l/b=1.5 DECK'S OWN HEADER (P5 Phase A audit,
+!  2026-09-02, LESSONS_LEARNED Sec 18.75/18.76): the l/b=1.5 deck's own
+!  "SOLVER-SIDE REFERENCE TABLE" / "PRE-REGISTERED READING" sections
+!  compared against SIX specific candidate Lambda values from a since-
+!  RETIRED, ad-hoc 2026-07 corner formula -- not this project's current
+!  bc='free_free' corner_ff term (confirmed 2026-09-02 to be identically
+!  zero as deployed) nor the untested-at-scale FIX candidate derived the
+!  same day. Neither of those has any confirmed candidate Lambda list at
+!  l/b=1.0 yet (that is exactly what the Step 4 cluster rescan,
+!  submit_rect_ff_p5phaseA_rescan.sh, was launched to produce, in parallel
+!  with this deck, for CURRENT and FIX at l/b=1.0/1.5/2.5, both SYM/ANTI).
+!  So THIS deck makes NO candidate-comparison claim -- it is deliberately
+!  formula-agnostic: extract the genuine FE mode list for a free-free
+!  rectangular plate at l/b=1.0, both parities, mesh-converged, and leave
+!  the comparison against solver candidates for whichever formula (CURRENT,
+!  FIX, or a future replacement) the Step 4 job's output and any later
+!  corner re-derivation settle on. Read this deck's raw Lambda_FE list
+!  alongside that job's checkpoint files once both are available -- do not
+!  assume either the old six-candidate list or this session's FIX candidate
+!  is what you're checking against.
+!
+!  GEOMETRY/MATERIAL (same convention as every other deck in this family):
+!    half-breadth B=1.0 m, aspect ratio l/b=1.0 (full length 2.0 m,
+!    full breadth 2.0 m), full thickness H=0.04 m (H/(2B)=0.02, thin-plate
+!    valid), E=210 GPa, nu=0.30, rho=7800 kg/m^3.
+!
+!  Lambda -> Hz CONVERSION: identical KFAC derivation to the l/b=1.5 deck
+!  (Seok/Tiersten/Scarton 2004 rect Part 1 Eqs.24-28,37-38,41-42) --
+!  KFAC = (pi*(H/2))/(4*B^2) * sqrt(G/(6*rho*(1-nu))), independent of LOB,
+!  so unchanged from the validated deck.
+!
+!  WHY A HALF-MODEL / mirror BC pattern: unchanged from the l/b=1.5 deck --
+!  SYMM (UY=0,ROTX=0,ROTZ=0) matches solver phin=pi/2 (SYM, even);
+!  ASYM (UX=0,UZ=0,ROTY=0) matches solver phin=0 (ANTI, odd).
+!
+!  READING THIS DECK'S OUTPUT:
+!    0. CONVERGENCE GATE FIRST: mesh1 vs mesh2 Lambda_FE lists (same parity
+!       pass) must agree <0.3% before reading anything else.
+!    1. Discard near-zero (rigid body) entries and anything with Lambda_FE
+!       implying f>30 Hz (membrane-mode window, per the l/b=1.5 deck's own
+!       mode-family assumption -- unchanged physics, just a different L).
+!    2. Compare the surviving SYMM-pass Lambda_FE list against SYM
+!       candidates, ASYM-pass against ANTI candidates ONLY -- cross-parity
+!       matches do not count -- once those candidate lists exist for this
+!       l/b from the Step 4 job / later corner-formula work.
+!    EXPLORATORY. No SOLVER_VERSION action, no table promotion from this
+!    deck alone regardless of outcome.
+!
+!  Run headless (matches project convention, 8 CPU shared-memory) --
+!  or, preferably, via the Ansys/NewAnsys/ queue (see submit_ansys_queue.sh
+!  / ansys_queue_manifest.txt) alongside the other new-geometry deck, since
+!  this project has exactly one ANSYS license seat:
+!    mapdl -b -smp -np 8 -i ansys_rect_ff_oop_halfmodel_lob100.inp -o ansys_rect_ff_oop_halfmodel_lob100_out.txt
+!  Outputs: rect_ff_symm_mesh1_lob100.txt, rect_ff_symm_mesh2_lob100.txt,
+!           rect_ff_asym_mesh1_lob100.txt, rect_ff_asym_mesh2_lob100.txt
+! ===========================================================================
+
+! ======================= PASS SYMM, mesh1 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect half-model FFFF l/b=1.0 -- SYMM cut BC, mesh1
+
+B      = 1.0
+LOB    = 1.0
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 40
+NDIVY  = 20
+NMODES = 30
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ SECNUM,1 $ MAT,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+! mirror cut at Y=0: SYMM (even) pattern in GLOBAL Cartesian (Y already the
+! mirror-normal axis, Z the shell normal -- no local CS needed)
+NSEL, S, LOC, Y, 0
+D, ALL, UY, 0 $ D, ALL, ROTX, 0 $ D, ALL, ROTZ, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+GG2   = E_iso/(2*(1+NU_iso))
+KFAC  = (PI*(H/2))/(4*B*B) * SQRT(GG2/(6*RHO*(1-NU_iso)))
+*DIM, FRS1, ARRAY, NMODES
+*DIM, MIDX, ARRAY, NMODES
+*DIM, LFEA, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRS1(I), MODE, I, FREQ
+  MIDX(I) = I
+  LFEA(I) = FRS1(I)/KFAC
+*ENDDO
+! FIXED 2026-09-06: single whole-array *VWRITE call -- NEVER *VWRITE
+! inside a *DO loop. The old per-iteration-scalar *VWRITE call this
+! replaced silently garbled its own output (confirmed: this exact
+! block's Lambda_FE column was all-zero on disk with non-monotonic
+! mode numbering before this fix). See project memory
+! ansys-kfac-runtime-bug.md and paper2-literature-review-gap-2026-09-05.md.
+*CFOPEN, rect_ff_symm_mesh1_lob100, txt
+*VWRITE
+('mode      f[Hz]           Lambda_FE    (SYMM=EVEN parity; SHELL281 x60/y20; discard ~0Hz rigid + >30Hz likely-membrane)')
+*VWRITE, MIDX(1), FRS1(1), LFEA(1)
+(F4.0, 3X, E14.6, 3X, F12.6)
+*CFCLOS
+FINISH
+
+! ======================= PASS SYMM, mesh2 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect half-model FFFF l/b=1.0 -- SYMM cut BC, mesh2 (convergence)
+
+B      = 1.0
+LOB    = 1.0
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 60
+NDIVY  = 30
+NMODES = 30
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ SECNUM,1 $ MAT,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+NSEL, S, LOC, Y, 0
+D, ALL, UY, 0 $ D, ALL, ROTX, 0 $ D, ALL, ROTZ, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+GG2   = E_iso/(2*(1+NU_iso))
+KFAC  = (PI*(H/2))/(4*B*B) * SQRT(GG2/(6*RHO*(1-NU_iso)))
+*DIM, FRS2, ARRAY, NMODES
+*DIM, MIDX, ARRAY, NMODES
+*DIM, LFEA, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRS2(I), MODE, I, FREQ
+  MIDX(I) = I
+  LFEA(I) = FRS2(I)/KFAC
+*ENDDO
+! FIXED 2026-09-06: single whole-array *VWRITE call -- NEVER *VWRITE
+! inside a *DO loop. The old per-iteration-scalar *VWRITE call this
+! replaced silently garbled its own output (confirmed: this exact
+! block's Lambda_FE column was all-zero on disk with non-monotonic
+! mode numbering before this fix). See project memory
+! ansys-kfac-runtime-bug.md and paper2-literature-review-gap-2026-09-05.md.
+*CFOPEN, rect_ff_symm_mesh2_lob100, txt
+*VWRITE
+('mode      f[Hz]           Lambda_FE    (SYMM=EVEN parity; SHELL281 x90/y30; must agree with x60/y20 <0.3%)')
+*VWRITE, MIDX(1), FRS2(1), LFEA(1)
+(F4.0, 3X, E14.6, 3X, F12.6)
+*CFCLOS
+FINISH
+
+! ======================= PASS ASYM, mesh1 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect half-model FFFF l/b=1.0 -- ASYM cut BC, mesh1
+
+B      = 1.0
+LOB    = 1.0
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 40
+NDIVY  = 20
+NMODES = 30
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ SECNUM,1 $ MAT,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+! mirror cut at Y=0: ASYM (odd) pattern in GLOBAL Cartesian
+NSEL, S, LOC, Y, 0
+D, ALL, UX, 0 $ D, ALL, UZ, 0 $ D, ALL, ROTY, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+GG2   = E_iso/(2*(1+NU_iso))
+KFAC  = (PI*(H/2))/(4*B*B) * SQRT(GG2/(6*RHO*(1-NU_iso)))
+*DIM, FRA1, ARRAY, NMODES
+*DIM, MIDX, ARRAY, NMODES
+*DIM, LFEA, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRA1(I), MODE, I, FREQ
+  MIDX(I) = I
+  LFEA(I) = FRA1(I)/KFAC
+*ENDDO
+! FIXED 2026-09-06: single whole-array *VWRITE call -- NEVER *VWRITE
+! inside a *DO loop. The old per-iteration-scalar *VWRITE call this
+! replaced silently garbled its own output (confirmed: this exact
+! block's Lambda_FE column was all-zero on disk with non-monotonic
+! mode numbering before this fix). See project memory
+! ansys-kfac-runtime-bug.md and paper2-literature-review-gap-2026-09-05.md.
+*CFOPEN, rect_ff_asym_mesh1_lob100, txt
+*VWRITE
+('mode      f[Hz]           Lambda_FE    (ASYM=ODD parity; SHELL281 x60/y20; discard ~0Hz rigid + >30Hz likely-membrane)')
+*VWRITE, MIDX(1), FRA1(1), LFEA(1)
+(F4.0, 3X, E14.6, 3X, F12.6)
+*CFCLOS
+FINISH
+
+! ======================= PASS ASYM, mesh2 =======================
+FINISH
+/CLEAR,NOSTART
+/TITLE, rect half-model FFFF l/b=1.0 -- ASYM cut BC, mesh2 (convergence)
+
+B      = 1.0
+LOB    = 1.0
+L      = LOB*B
+H      = 0.04
+E_iso  = 210.0e9
+NU_iso = 0.30
+RHO    = 7800.0
+NDIVX  = 60
+NDIVY  = 30
+NMODES = 30
+PI     = 3.14159265358979
+
+/PREP7
+ET, 1, SHELL281
+SECTYPE, 1, SHELL
+SECDATA, H, 1
+MP, EX,1,E_iso $ MP, EY,1,E_iso $ MP, EZ,1,E_iso
+MP, PRXY,1,NU_iso $ MP, PRYZ,1,NU_iso $ MP, PRXZ,1,NU_iso
+GG = E_iso/(2*(1+NU_iso))
+MP, GXY,1,GG $ MP, GYZ,1,GG $ MP, GXZ,1,GG
+MP, DENS,1,RHO
+RECTNG, -L, L, 0, B
+TYPE,1 $ SECNUM,1 $ MAT,1
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, B
+LESIZE, ALL, , , NDIVX
+LSEL, S, LOC, X, -L $ LSEL, A, LOC, X, L
+LESIZE, ALL, , , NDIVY
+ALLSEL, ALL
+MSHKEY, 1 $ AMESH, ALL
+NSEL, S, LOC, Y, 0
+D, ALL, UX, 0 $ D, ALL, UZ, 0 $ D, ALL, ROTY, 0
+ALLSEL, ALL
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, -1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+GG2   = E_iso/(2*(1+NU_iso))
+KFAC  = (PI*(H/2))/(4*B*B) * SQRT(GG2/(6*RHO*(1-NU_iso)))
+*DIM, FRA2, ARRAY, NMODES
+*DIM, MIDX, ARRAY, NMODES
+*DIM, LFEA, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRA2(I), MODE, I, FREQ
+  MIDX(I) = I
+  LFEA(I) = FRA2(I)/KFAC
+*ENDDO
+! FIXED 2026-09-06: single whole-array *VWRITE call -- NEVER *VWRITE
+! inside a *DO loop. The old per-iteration-scalar *VWRITE call this
+! replaced silently garbled its own output (confirmed: this exact
+! block's Lambda_FE column was all-zero on disk with non-monotonic
+! mode numbering before this fix). See project memory
+! ansys-kfac-runtime-bug.md and paper2-literature-review-gap-2026-09-05.md.
+*CFOPEN, rect_ff_asym_mesh2_lob100, txt
+*VWRITE
+('mode      f[Hz]           Lambda_FE    (ASYM=ODD parity; SHELL281 x90/y30; must agree with x60/y20 <0.3%)')
+*VWRITE, MIDX(1), FRA2(1), LFEA(1)
+(F4.0, 3X, E14.6, 3X, F12.6)
+*CFCLOS
+FINISH
+! ---------------------------------------------------------------------------
+!  AFTER RUNNING (order matters -- see PRE-REGISTERED READING in header):
+!   0. Convergence gate per pass (<0.3%, mesh1 vs mesh2).
+!   1. Compare SYMM pass Lambda_FE list against solver SYM candidates
+!      (0.056, 0.412, 0.431, 0.864, ~0.96); ASYM pass against the ANTI
+!      candidate (0.475) only. Cross-parity matches do not count.
+!   2. Discard near-zero (rigid body) entries and anything with
+!      Lambda_FE implying f>30 Hz (see mode-family assumption above --
+!      spot check one such mode's shape before discounting if unsure).
+!   3. If all six miss by a common factor, suspect the KFAC derivation
+!      before the physics.
+! ===========================================================================

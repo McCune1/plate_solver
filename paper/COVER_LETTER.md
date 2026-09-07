@@ -63,6 +63,15 @@ is not a universal floor; the production threshold was not retuned.
 Flexural tables are FE-checked under a portable residual screen;
 extensional tables are currently FE-dependent for the discrimination step.
 
+**Companion paper.** A rectangular FFFF companion, *Exact Wave-Function
+Solution of Completely Free Rectangular Plates: Four-Corner Kirchhoff
+Jump and Mode Screening*, is submitted simultaneously to this journal.
+It is not an expansion of the present manuscript: the rectangular
+assembler is closed-form with four free corners, and it uses a
+persistence screen rather than the residual/SUBDOM instruments
+developed here. Both papers share the public repository below; this
+manuscript matches tag `v1.0.0`.
+
 The solver, the finite-element decks, the validated tables and a from-scratch
 regression suite are released under an MIT license as a public GitHub
 repository, https://github.com/McCune1/plate_solver; a Zenodo DOI will be
