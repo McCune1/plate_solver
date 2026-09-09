@@ -20,6 +20,8 @@ sandbox can't run more than this):
     sigma_min anchors (out-of-plane and in-plane, ~2s total) plus a
     source-level guard that the four-corner Kirchhoff jump is the
     checkerboard and not the naive same-sign sum that vanishes.
+  * TestRingDisk -- Paper 3 Phase 0/D: disk path is 2x2; Sec. 18.38
+    F-F anchors; Phase D F-C/C-F vs Table 2.16; SS still raises.
   * TestWorkerPath   -- multiprocessing worker-side scalar reconstruction
     (fast, no ProcessPoolExecutor) is always run; the ProcessPoolExecutor
     end-to-end variant is skipped by default (SLOW_TESTS=1 to include it)
@@ -66,6 +68,7 @@ Do NOT edit a stored anchor merely to make a gate pass. Change one only when
 an independent record says what the new value should be and why, as above.
 """
 from __future__ import annotations
+import math
 import os
 import sys
 import unittest
@@ -83,6 +86,16 @@ from plate_solver.detectors import (
 from plate_solver.boundary import FreeFreeOOP, FreeFreeIP
 from plate_solver.dispersion import cutoff_frequencies_part1, cutoff_frequencies_part2
 from plate_solver.geometry import _make_geom_mat, MaterialModel
+from plate_solver.ring_disk import (
+    DISK_4X4_AT_RI0_IS_NOT_THE_DISK,
+    FFP1_MODE7_ANSYS_LIT, FFP1_MODE7_NATIVE,
+    SECTION_18_38_N0_LOGABSDET, SECTION_18_38_N0_OM,
+    SECTION_18_38_N2_LOGABSDET, SECTION_18_38_N2_OM,
+    UnsupportedRingBC,
+    disk_L_mp, flexural_lambda2, illegal_ri0_4x4_rank, inplane_lambda_irie,
+    make_annulus_solver, make_disk_solver, native_from_flexural_lambda2,
+    ring_L_mp, ring_logabsdet, ring_search,
+)
 
 SLOW = os.environ.get("SLOW_TESTS", "0") == "1"
 
@@ -297,6 +310,160 @@ class TestRectangularFreeFree(unittest.TestCase):
         self.assertGreater(abs(s_cf - s_ff) / s_cf, 0.5)
         with self.assertRaises(ValueError):
             ps.RectIPAssembler(nu_b=0.3, R=1.0, dps=mp.dps, bc="nonsense")
+
+class TestRingDisk(unittest.TestCase):
+    """Closed-ring / solid-disk gates for Paper 3 Phase 0 and Phase D.
+
+    Pre-registered verdicts (do not retune M, dps, or the screen to make
+    a row pass):
+
+      PASS              all checks below hold
+      FAIL_DISK_IS_4x4  disk path is the 4x4 at R_i=0, or disk_L_mp is not 2x2
+      FAIL_ANCHOR       a Sec. 18.38 |det L| anchor moved -- do not edit it
+      FAIL_IP_LMAT      in-plane `_Lmat_mp` at integer n is not finite
+      FAIL_PHASE_D      mixed F-C/C-F miss Table 2.16, or SS no longer raises
+
+    Anchors are identical at dps 26/30/40 (captured 2026-09-08). If one
+    ever moves, that is a changed computed frequency: do not edit the
+    stored value.
+    """
+
+    def test_disk_path_is_2x2_not_4x4_at_ri0(self):
+        import plate_solver.ring_disk as rd
+        with open(rd.__file__, encoding="utf-8") as fh:
+            src = fh.read()
+        self.assertTrue(
+            DISK_4X4_AT_RI0_IS_NOT_THE_DISK,
+            "FAIL_DISK_IS_4x4: the rank-3 job-2339453 flag was flipped")
+        self.assertIn("DISK_4X4_AT_RI0_IS_NOT_THE_DISK", src)
+        self.assertIn("matrix(2, 2)", src)
+        self.assertIn("is NOT the disk", src)
+        self.assertNotRegex(
+            src,
+            r"def disk_det_mp[\s\S]{0,400}solver\._det_mp",
+            "FAIL_DISK_IS_4x4: disk_det_mp calls the 4x4 _det_mp")
+        mp.dps = 26
+        solver, _g, _m = make_disk_solver(nu=0.30, motion="oop")
+        self.assertEqual(float(solver.geom.R_i), 0.0)
+        L2 = disk_L_mp(solver, 2, 0.5)
+        self.assertEqual(L2.rows, 2, "FAIL_DISK_IS_4x4")
+        self.assertEqual(L2.cols, 2, "FAIL_DISK_IS_4x4")
+        rank0, _ = illegal_ri0_4x4_rank(solver, 0, 0.5)
+        rank1, _ = illegal_ri0_4x4_rank(solver, 1, 0.5)
+        self.assertEqual(rank0, 2, "job 2339453: 4x4 at R_i=0 is rank 2 at n=0")
+        self.assertEqual(
+            rank1, 3,
+            "FAIL_DISK_IS_4x4 / job 2339453: 4x4 at R_i=0 is rank 3 "
+            "(not 2) at n>=1; do not 'fix' this")
+
+    def test_ring_oop_ff_n2_anchor(self):
+        """OOP F-F n=2, Omega* = 0.1081885366 (Sec. 18.38 confirmed pair)."""
+        for dps in (26, 30, 40):
+            mp.dps = dps
+            solver, _g, _m = make_annulus_solver(0.5, nu=0.30, motion="oop")
+            logd = ring_logabsdet(solver, 2, SECTION_18_38_N2_OM)
+            self.assertAlmostEqual(
+                logd / SECTION_18_38_N2_LOGABSDET, 1.0, places=9,
+                msg="FAIL_ANCHOR n=2 at dps=%s: log10|det|=%s stored=%s"
+                    % (dps, logd, SECTION_18_38_N2_LOGABSDET))
+
+    def test_ring_oop_ff_n0_anchor(self):
+        """OOP F-F n=0, Omega* = 0.2359132157 (Sec. 18.38 confirmed pair)."""
+        for dps in (26, 30, 40):
+            mp.dps = dps
+            solver, _g, _m = make_annulus_solver(0.5, nu=0.30, motion="oop")
+            logd = ring_logabsdet(solver, 0, SECTION_18_38_N0_OM)
+            self.assertAlmostEqual(
+                logd / SECTION_18_38_N0_LOGABSDET, 1.0, places=9,
+                msg="FAIL_ANCHOR n=0 at dps=%s: log10|det|=%s stored=%s"
+                    % (dps, logd, SECTION_18_38_N0_LOGABSDET))
+
+    def test_ip_lmat_live_at_integer_n(self):
+        """In-plane `_Lmat_mp` at integer n is finite. Not a full IP table."""
+        mp.dps = 26
+        solver, _g, _m = make_annulus_solver(0.5, nu=0.30, motion="ip")
+        L = ring_L_mp(solver, 2, 0.5)
+        self.assertEqual(L.rows, 4)
+        self.assertEqual(L.cols, 4)
+        for i in range(4):
+            for j in range(4):
+                z = complex(L[i, j])
+                self.assertTrue(
+                    math.isfinite(z.real) and math.isfinite(z.imag),
+                    "FAIL_IP_LMAT: L[%s,%s]=%s" % (i, j, z))
+
+    def test_flexural_conversion_ffp1_mode7(self):
+        """FF-P1 mode 7 native 1.369611 -> Ansys Omega_lit 54.0755 at ~0.01%.
+
+        The factor 39.478... is geometry-specific (job 2406948), not a
+        universal constant: b/a=0.3 must not reuse it. IP Irie lambda is
+        a different symbol and must not reuse the flexural factor.
+        """
+        import math as _math
+        _solver, geom, mat = make_annulus_solver(0.5, nu=0.30, motion="oop")
+        om_lit = flexural_lambda2(FFP1_MODE7_NATIVE, geom, mat)
+        rel = abs(om_lit - FFP1_MODE7_ANSYS_LIT) / FFP1_MODE7_ANSYS_LIT
+        self.assertLess(rel, 2.0e-4,  # 0.02%; measured 0.010%
+                        "FF-P1 mode 7 conversion %s vs Ansys %s rel=%s"
+                        % (om_lit, FFP1_MODE7_ANSYS_LIT, rel))
+        factor_ba05 = flexural_lambda2(1.0, geom, mat)
+        _s3, geom3, mat3 = make_annulus_solver(0.3, nu=0.30, motion="oop")
+        factor_ba03 = flexural_lambda2(1.0, geom3, mat3)
+        self.assertGreater(abs(factor_ba05 - factor_ba03) / factor_ba05, 0.3)
+        self.assertAlmostEqual(factor_ba05 / (4.0 * _math.pi ** 2), 1.0,
+                               places=9)
+        lam_ip = inplane_lambda_irie(1.0, geom, mat)
+        self.assertGreater(lam_ip, 0.0)
+        self.assertGreater(abs(lam_ip - factor_ba05) / factor_ba05, 0.5)
+
+    def test_ss_and_ip_mixed_still_unsupported(self):
+        """SS and IP mixed-edge stay Phase F / not Phase D."""
+        mp.dps = 26
+        slv, _g, _m = make_annulus_solver(0.5, nu=0.30, motion="oop")
+        with self.assertRaises(UnsupportedRingBC):
+            ring_L_mp(slv, 2, 0.5, bc_inner="S", bc_outer="F")
+        with self.assertRaises(UnsupportedRingBC):
+            ring_L_mp(slv, 2, 0.5, bc_inner="F", bc_outer="SS")
+        slv_ip, _gi, _mi = make_annulus_solver(0.5, nu=0.30, motion="ip")
+        with self.assertRaises(UnsupportedRingBC):
+            ring_L_mp(slv_ip, 2, 0.5, bc_inner="C", bc_outer="F")
+
+    def test_fc_cf_lmat_is_4x4_finite(self):
+        """Phase D mixed L is 4x4 and finite; F-F L is unchanged in shape."""
+        mp.dps = 26
+        slv, _g, _m = make_annulus_solver(0.5, nu=0.30, motion="oop")
+        Lff = ring_L_mp(slv, 2, 0.5, "F", "F")
+        self.assertEqual((Lff.rows, Lff.cols), (4, 4))
+        for bi, bo in (("F", "C"), ("C", "F"), ("C", "C")):
+            L = ring_L_mp(slv, 2, 0.5, bi, bo)
+            self.assertEqual((L.rows, L.cols), (4, 4), (bi, bo))
+            for i in range(4):
+                for j in range(4):
+                    z = complex(L[i, j])
+                    self.assertTrue(
+                        math.isfinite(z.real) and math.isfinite(z.imag),
+                        "L[%s,%s]=%s for %s-%s" % (i, j, z, bi, bo))
+
+    def test_phase_d_table216_axisym_fc_cf(self):
+        """Table 2.16 exact n=0 b/a=0.5 nu=1/3: F-C 17.51 and C-F 13.05.
+
+        F-C = inner F, outer C (Leissa 'Clamped, Free'). C-F = inner C,
+        outer F (Leissa 'Free, Clamped'). Rel < 1% vs the exact column.
+        """
+        mp.dps = 26
+        slv, geom, mat = make_annulus_solver(0.5, nu=1.0 / 3.0, motion="oop")
+        for inner, outer, printed in (("F", "C", 17.51), ("C", "F", 13.05)):
+            native = native_from_flexural_lambda2(printed, geom, mat)
+            res = ring_search(
+                0, (max(1e-4, native - 0.03), native + 0.03),
+                bc_inner=inner, bc_outer=outer, motion="oop",
+                solver=slv, geom=geom, mat=mat,
+                coarse_step=0.0005, polish=True)
+            rel = abs(res.lambda2 - printed) / printed
+            self.assertLess(
+                rel, 0.01,
+                "Table 2.16 %s-%s printed=%s lam2=%s rel=%s log|det|=%s"
+                % (inner, outer, printed, res.lambda2, rel, res.log_abs_det))
 
 if __name__ == "__main__":
     unittest.main()

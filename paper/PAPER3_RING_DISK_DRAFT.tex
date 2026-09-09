@@ -1,0 +1,967 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in,letterpaper]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array,xcolor}
+\usepackage{textcomp}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\graphicspath{{paper_figures/}{./}{../paper_figures/}}
+\usepackage{tabularx}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,skip=4pt}
+\usepackage{placeins}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{8}
+\emergencystretch=2.5em
+
+\newcommand{\lamsq}{\lambda^{2}}
+\newcommand{\ba}{b/a}
+
+\title{\bfseries Exact Radial-Determinant Frequencies of Annular and
+Circular Plates: the Closed-Ring and Solid-Disk Limits of the
+Sector Wave-Function Method}
+\author{Garrek McCune$^{a,*}$, Daniel Stutts$^{a}$\\
+\small\itshape $^a$Mechanical and Aerospace Engineering,\\
+Missouri University of Science and Technology, Rolla, MO 65409, USA\\
+\small\upshape $^*$Corresponding author. E-mail: ghmkfh@umsystem.edu}
+\date{DRAFT --- \today}
+% Supplementary Material mapping (PAPER3_RING_DISK_SUPPLEMENTARY.tex):
+%   S.1  Bessel span of the four Frobenius branches
+%   S.2  disk regularity, the inner jet, and the rank-3 trap
+%   S.3  conversion algebra (one flexural number, one in-plane number)
+%   S.4  full match lists at the second Poisson ratio
+%   S.5  cluster job provenance
+%   S.6  Southwell inverse-b/a table and predicted-versus-observed figure
+% Main text contains no job numbers.
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Seok--Tiersten--Scarton wave-function method for annular-sector plates
+has two classical limits that never form the two-edge Galerkin determinant.
+At sector angle $2\Theta=2\pi$ there are no radial walls: circumferential
+order is an integer $n$, and each frequency is a zero of a $4\times4$ radial
+edge-determinant already present in the sector assembler. At inner radius
+$R_i=0$ the two origin-singular branches drop out and the same operator
+becomes a $2\times2$ at the outer radius --- the classical Kirchhoff disk.
+Because there are no $\theta$-edges, the Kirchhoff corner jump that blocks
+simply supported sectors never appears, and the nine inner/outer edge
+combinations of Vogel and Skinner become different row pairs of one matrix.
+Frequencies are found from $\det L(n,\Omega)=0$ from scratch; published
+tables enter only post hoc. A frozen sign-flip ladder (inner five of five
+real-part flips, with positive and negative controls in the same run)
+replaces the sector residual bar, which does not travel to this geometry.
+Out-of-plane free--free annuli recover NASA SP-160 Table~2.35 at $80/80$
+(MATCH${}+{}$WEAK) across five radius ratios and both $\nu=0.30$ and
+$\nu=1/3$, and Narita's four five-figure hold-outs at $\ba=0.3$. The solid-disk
+$2\times2$ recovers Narita Table~2(b) at $4/4$ and SP-160 Table~2.5 at $6/6$;
+a naive $4\times4$ at $R_i=0$ has rank three for $n\ge1$ and is not the disk.
+Mixed-edge Tables~2.22 and~2.30 pass at $80/80$ and $72/76$, the $n=0$ column
+at $\ba=0.9$ of Table~2.30 being a named source defect internally inconsistent
+with Vogel's own $n=1$ column. Southwell's Table~2.31 scores $13/18$ under the
+same bar; the five direct misses are a sensitivity to the printed radius ratio
+rather than a solver defect, and independent SHELL281 finite elements at
+$\ba=0.840$, $n=0$ give $\lamsq=132.549$ against the solver's $132.990$
+($+0.333\%$) and Southwell's printed $81.0$ ($-63.6\%$). Eighteen
+solver-versus-FE points across three mixed-edge geometries agree to better
+than $0.8\%$ with a one-sided Kirchhoff-versus-Mindlin offset that grows
+monotonically in $n$. In-plane free--free rings recover Irie, Yamada and
+Muramoto's Table~2 at $48/48$. Default clamped-free sector assembly is
+unchanged.
+\end{abstract}
+
+\noindent\textbf{Keywords:} annular plate; circular plate; free vibration;
+exact solution; radial determinant; mixed boundary conditions; in-plane
+vibration.
+
+\section{Introduction}\label{sec:intro}
+Annular and circular plates are the $2\Theta=2\pi$ and $R_i=0$ limits of the
+annular-sector geometry treated in the companion paper
+\cite{mccune2026annular}. Classical Kirchhoff tables for those limits have
+existed for decades: Leissa's monograph \cite{leissaSP160} compiles the exact
+annular results of Vogel and Skinner \cite{vogelSkinner}, Southwell's
+inner-clamped annulus as compiled in SP-160 Table~2.31 \cite{southwell},
+and the axisymmetric work of Raju \cite{raju}; Narita \cite{narita1984} added
+five-figure free--free values for both the annulus and the solid disk; Irie,
+Yamada and Muramoto \cite{irie1984} tabulated the in-plane annular spectrum.
+The contribution here is not another Bessel catalogue. It is the reduction of
+a \emph{validated sector solver} onto those tables, in both motions, with a
+screen that does not use the sector residual bar, together with the mixed
+inner/outer edge combinations that the sector corner problem blocks.
+
+Seok, Tiersten and Scarton \cite{seok1,seok2,seok3,seok4} gave
+exact-wave-function solutions for annular-sector and rectangular plates,
+out-of-plane and in-plane, at clamped-free. The first companion paper
+\cite{mccune2026annular} extended the annular-sector flexural assembler to
+completely free sectors and built a residual screen against independent finite
+elements; the second \cite{mccune2026rect} did the rectangular analogue, where
+the Kirchhoff corner jump is load-bearing. Neither takes the $2\pi$ or $R_i=0$
+limit as a production entry point. That limit is cheaper than the sector:
+circumferential order is an integer, the characteristic matrix is $4\times4$
+(ring) or $2\times2$ (disk), there are no $\theta$-walls, and there is no
+corner jump. It is also the elastic forward model that a later piezoelectric
+identification will need on the free--free and clamped-free ring.
+
+The detector remains paper-faithful. Frequencies are zeros of
+$\det L(n,\Omega)=0$ built from the same Frobenius radial content as the
+sector assembler. Published values never seed a search; they enter only when a
+converged root is scored against them. The sign-flip ladder described in
+\S\ref{sec:screen} was frozen before the production sweeps and was not retuned
+to admit a published match. Independent cyclic-symmetry SHELL281 calculations
+\cite{ansys} are a third method, not a fitted target.
+
+What this paper is not: McGee's solid \emph{sector} (that is the sector
+assembler with a coordinate singularity); elliptical plates; simply supported
+or guided sector edges (the open corner-jump problem); piezoelectric coupling,
+which appears only as one sentence of future work; or a splice into either
+companion paper.
+
+\section{Reductions}\label{sec:reduce}
+
+\subsection{Closed ring, out-of-plane}\label{sec:ring}
+Requiring $2\pi$-periodicity of the transverse displacement forces the
+circumferential order to an integer, $n\in\mathbb{N}_0$. For $n\ge1$ the
+$\cos n\theta$ and $\sin n\theta$ solutions are degenerate and share a
+frequency; for $n=0$ the mode is a singleton. Rigid-body motions on a
+completely free ring are $n=0$, $s=0$ (translation) and $n=1$, $s=0$
+(rotation). They are excluded from the elastic tables here, as in both
+companion papers.
+
+The radial operator is the $4\times4$ characteristic matrix already assembled
+for the sector at a fixed separation constant. Its rows are, in order,
+\begin{equation}
+0=M_r(\text{inner}),\quad 1=M_r(\text{outer}),\quad
+2=V_r(\text{inner}),\quad 3=V_r(\text{outer}),
+\label{eq:rowmap}
+\end{equation}
+and searching $\det L(n,\Omega)=0$ at fixed integer $n$ \emph{is} the closed
+ring: no $\theta$-edge condition is weakly enforced, so no residual is
+generated and no residual bar is meaningful. The four Frobenius branches span
+$\{J_n,Y_n,I_n,K_n\}$ under the radial map used throughout the series
+(Supplementary Material, \S{}S.1).
+
+Boundary conditions enter as row swaps on \eqref{eq:rowmap}:
+\begin{itemize}\itemsep2pt
+\item \textbf{Free (F).} Leave that edge's $M_r$ and $V_r$ rows in place.
+\item \textbf{Clamped (C).} Replace \emph{both} of that edge's rows by $W$ and
+      $W'$ evaluated at the same radius.
+\item \textbf{Simply supported (S).} Replace only the $V_r$ row by $W$, leaving
+      $M_r$. This case is admitted by the same construction but is not
+      exercised in the production tables below.
+\end{itemize}
+Two conventions must be kept straight. Leissa's table titles list the
+\emph{outer} edge first, while the interface used here is
+$(\mathrm{bc}_{\text{inner}},\mathrm{bc}_{\text{outer}})$; SP-160
+Table~2.22 (``Clamped, Free'') is therefore inner~F / outer~C, and
+Tables~2.30 and~2.31 (``Free, Clamped'') are inner~C / outer~F. Clamped--clamped
+is admitted by the same row map and was checked against the clamped--clamped
+strip limit $\lamsq\to22.3733\,(a/w)^2$ for a thin ring of width $w$, giving
+ratios $0.9999$, $1.0000$ and $1.0000$ at $\ba=0.90$, $0.94$ and $0.97$; it is
+not among this paper's production tables.
+
+\subsection{Solid disk, out-of-plane}\label{sec:disk}
+Boundedness at $r=0$ removes $Y_n$ and $K_n$. Two surviving coefficients and
+two outer-edge conditions give a $2\times2$ characteristic matrix. The
+practical difficulty is that the four series columns are mid-radius Taylor
+initial conditions rather than the Bessel pair itself, and a truncated series
+is finite at the origin, so ``smallest $|W|$ at $r=0$'' does not isolate the
+regular branches. Regular solutions behave as $r^{|n|}$, which supplies two
+homogeneous conditions --- an inner jet --- whose two-dimensional kernel
+\emph{is} the regular pair:
+\begin{equation}
+n=0:\; W'=W'''=0;\qquad
+n=1:\; W=W''=0;\qquad
+n\ge2:\; W=W'=0.
+\label{eq:jet}
+\end{equation}
+Projecting the two outer rows of the $4\times4$ onto that kernel gives the
+production $2\times2$ (\S{}S.2).
+
+A documented failure is worth naming, because it is the natural thing to try.
+Evaluating the \emph{$4\times4$} at $R_i=0$ and looking for its zeros gives a
+matrix of rank~2 at $n=0$ but rank~3 --- not~2 --- for $n\ge1$
+(Table~\ref{tab:ranks}). Frequencies extracted from that matrix are not
+Leissa's disk. The production path is the $2\times2$. A tiny-hole $4\times4$
+at $\ba=10^{-3}$ is a check on that path, not the path itself, and it is a
+check the implementation fails on two of four rows against a pre-registered
+$10^{-3}$ relative bar (\S\ref{sec:disk-results}). That bar is not loosened.
+
+\subsection{In-plane ring}\label{sec:ipring}
+The in-plane characteristic matrix is $N_r$ and $N_{r\theta}$ at both arcs,
+and the same substitution applies: fix $\xi=n$ at an integer, search $\Omega$.
+There is no Kirchhoff corner term to reduce. The in-plane frequency parameter
+of Irie, Yamada and Muramoto is defined from the extensional rigidity
+$D_{\mathrm{ext}}=Eh/(1-\nu^2)$ as
+$\lambda^2=\rho h a^2\omega^2/D_{\mathrm{ext}}$, that is
+\begin{equation}
+\lambda=\omega a\sqrt{\rho(1-\nu^{2})/E},
+\label{eq:irielam}
+\end{equation}
+which is a different symbol from the flexural $\lamsq$ of
+\eqref{eq:lam2} and must not reuse the flexural conversion factor. Their
+``circular'' column is $\beta=b/a=0.01$, a tiny-hole control, and is not
+claimed here as $R_i=0$.
+
+\subsection{Conversion}\label{sec:conv}
+All flexural comparisons use
+\begin{equation}
+\lamsq=\omega a^{2}\sqrt{\rho/D},\qquad a=R_o,\qquad
+D=\frac{Eh^{3}}{12(1-\nu^{2})},
+\label{eq:lam2}
+\end{equation}
+with $h$ the full thickness. The map from the solver's native $\Omega$ to
+\eqref{eq:lam2} is recomputed from the geometry and material of each run and
+is \emph{not} a universal constant. On the free--free steel plate used as the
+fidelity anchor in \cite{mccune2026annular} ($R_o=8$~m, thickness $0.08$~m,
+$\ba=0.5$) the factor happens to be $4\pi^{2}\approx39.478$; at $\ba=0.3$ it
+is a different number, and reusing it is an error the series has made once and
+now regression-tests against. The unit test is the anchor's mode~7: native
+$\Omega=1.369611$ converts to $\lamsq=54.0755$, matching the finite-element
+value to $0.01\%$. Native $\Omega$ is never printed with a $\lamsq$ label.
+
+Poisson ratios are not mixed in a single comparison. Table~2.34 states
+$\nu=1/3$ in its caption and is compared only at that value. Narita and the
+finite-element models use the $\nu$ printed in their own captions ($0.30$ or
+$0.33$); Irie's table is $\nu=0.3$. Tables~2.35, 2.22 and~2.30 print no
+Poisson ratio, so every sweep that touches those tables was run at both
+$\nu=0.30$ and $\nu=1/3$. The paper-facing comparison for Table~2.35 is the
+$\nu=0.30$ column; Table~2.35's $\nu$ is not asserted to be the $1/3$ of
+Table~2.34.
+
+\section{Screen}\label{sec:screen}
+The depth-and-gap residual bar used for completely free \emph{sectors}
+\cite{mccune2026annular} does not travel to this geometry: applied unchanged
+it rejects five genuine full-ring roots. The ring and disk therefore use a
+different instrument, fixed before the production sweeps were launched:
+
+\begin{enumerate}\itemsep2pt
+\item A coarse scan of $\log_{10}|\det L|$ on a window local to each
+      literature target, \emph{and} a gap-free coarse scan per $n$. Both, not
+      either: the free--free wells at the anchor geometry are narrower than
+      $5\times10^{-4}$ in $\Omega$, and a target-local window alone once
+      missed a whole band.
+\item Golden-section polish of each candidate minimum.
+\item A real-part sign-flip ladder at
+      $\delta=10^{-2},10^{-3},10^{-4},10^{-5},10^{-6}$ about the polished
+      root. CLEAN means all five inner flips are present. FLOOR means the only
+      inner miss is at $\delta=10^{-6}$ with all five outer flips present and
+      the residual shrinking --- the arbitrary-precision working floor at
+      $40$ digits, already named in \cite{mccune2026annular}. NOT means any
+      inner miss at $\delta\ge10^{-5}$, or a broken outer/shrinking pattern.
+\item Positive controls must come back CLEAN and negative controls must come
+      back NOT, evaluated in the same run as the production rows.
+\end{enumerate}
+
+Scoring against a published number is separate from the ladder and is applied
+to the relative miss alone: MATCH below $1\%$, WEAK below $3\%$, MISS
+otherwise. FLOOR never converts a MATCH into a MISS. The ladder is never
+retuned to include a published value, and the $1\%/3\%$ thresholds are not
+adjusted table by table. This screen is neither the persistence screen of
+\cite{mccune2026rect} nor the sector subdomain instrument of
+\cite{mccune2026annular}; those names do not apply here.
+
+\paragraph{A search window is a hypothesis.}
+If $\log|\det L|$ falls monotonically to an endpoint of the scanned window,
+the minimiser can return that endpoint. The returned value is then a property
+of the window, not of the plate: it is $n$-independent and meaningless. The
+sign-flip ladder catches this --- every such case in this work came back NOT
+--- but the MATCH/WEAK/MISS gate above, computed from the relative miss alone,
+does not. A post-hoc label (EXACT if the returned $\Omega$ is a window
+endpoint, NEAR if within one coarse step of one, NONE otherwise) is therefore
+attached to every result. The label only labels: it never moves the returned
+$\Omega$, so no computed frequency changes and the solver's checkpoint version
+key is unaffected. An audit of all $342$ stored rows of this study found $12$
+endpoint returns and no near-misses, every one of them in the mixed-edge sweep
+of \S\ref{sec:mixed}, which is the only sweep combining a steep
+$\mathrm{d}\lamsq/\mathrm{d}(\ba)$ with a fixed absolute half-window. Those
+cells are re-searched on a wide window where a root exists, and are marked in
+the tables below. Endpoint values are not frequencies and are not printed as
+such anywhere in this paper.
+
+\section{Out-of-plane free--free annulus}\label{sec:ff-annulus}
+
+\subsection{SP-160 Table 2.35}\label{sec:t235}
+Table~2.35 of \cite{leissaSP160}, from Vogel and Skinner \cite{vogelSkinner},
+gives eight $(n,s)$ rows at five radius ratios. Every one of the $80$ cells
+across both Poisson ratios is MATCH or WEAK. At $\nu=0.30$
+(Table~\ref{tab:t235-nu30}) all $40$ cells are MATCH, the largest miss being
+$0.454\%$ at $(1,1)$, $\ba=0.1$, against a three-figure printed value. At
+$\nu=1/3$ (Supplementary Material, \S{}S.4) $20$ cells are MATCH and $20$ are
+WEAK, the largest miss $2.220\%$ at $(2,1)$, $\ba=0.9$. The WEAK cells at
+$\nu=1/3$ cluster on the $(2,0)$ and $(3,0)$ branches, and those printed
+values coincide with SP-160 Table~2.34, which is Raju's $\nu=1/3$ set
+\cite{raju}, not Vogel's Table~2.35. Since Table~2.35 prints no Poisson ratio,
+the paper-facing comparison for this table is the $\nu=0.30$ column, and
+Table~2.35's $\nu$ is not asserted to be the $1/3$ of Table~2.34.
+
+\begin{table}[htbp]\centering\footnotesize
+\caption{Free--free annulus, $\nu=0.30$. Printed values are
+SP-160 Table~2.35 \cite{leissaSP160,vogelSkinner}; solver values are
+$\lamsq$ from $\det L(n,\Omega)=0$ on the $4\times4$ of
+\S\ref{sec:ring}. All $40$ cells MATCH ($<1\%$); largest miss $0.454\%$.
+Rigid-body $n=0,1$ at $s=0$ are excluded.}
+\label{tab:t235-nu30}
+\begin{tabular}{lcccccccccc}
+\toprule
+& \multicolumn{2}{c}{$\ba=0.1$} & \multicolumn{2}{c}{$\ba=0.3$}
+& \multicolumn{2}{c}{$\ba=0.5$} & \multicolumn{2}{c}{$\ba=0.7$}
+& \multicolumn{2}{c}{$\ba=0.9$}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+$(n,s)$ & printed & solver & printed & solver & printed & solver
+& printed & solver & printed & solver\\
+\midrule
+$(2,0)$ & 5.30 & 5.3039 & 4.91 & 4.9060 & 4.28 & 4.2711 & 3.57 & 3.5725 & 2.94 & 2.9351 \\
+$(3,0)$ & 12.4 & 12.437 & 12.26 & 12.266 & 11.4 & 11.425 & 9.86 & 9.8589 & 8.14 & 8.1449 \\
+$(0,1)$ & 8.77 & 8.7747 & 8.36 & 8.3534 & 9.32 & 9.3135 & 13.2 & 13.163 & 34.9 & 34.834 \\
+$(1,1)$ & 20.5 & 20.407 & 18.3 & 18.292 & 17.2 & 17.198 & 22.0 & 21.914 & 55.7 & 55.719 \\
+$(2,1)$ & 34.9 & 34.930 & 33.0 & 32.973 & 31.1 & 31.115 & 37.8 & 37.841 & 93.8 & 93.794 \\
+$(3,1)$ & 53.0 & 52.965 & 51.0 & 51.005 & 47.4 & 47.462 & 55.7 & 55.701 & 135.0 & 135.41 \\
+$(0,2)$ & 38.2 & 38.236 & 50.4 & 50.353 & 92.3 & 92.308 & 251.0 & 250.58 & 2238.0 & 2238.9 \\
+$(1,2)$ & 59.0 & 59.072 & 58.8 & 58.784 & 96.3 & 96.266 & 253.0 & 253.13 & 2240.0 & 2240.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Narita's five-figure hold-out}\label{sec:narita2a}
+Table~2.35 is a three-figure table, so it cannot discriminate at the level the
+determinant actually resolves. Narita's Table~2(a) \cite{narita1984} at
+$\ba=0.3$, $\nu=0.3$ is the hold-out: four five-figure values that were not
+used in any development decision. All four are recovered to between
+$3.7\times10^{-6}$ and $1.6\times10^{-5}$ relative
+(Table~\ref{tab:narita2a}); the printed five figures hold in every case. The
+$(3,0)$ row is FLOOR rather than CLEAN --- its only inner miss is at
+$\delta=10^{-6}$, with all five outer flips present and shrinking --- which is
+the precision floor of the ladder, not a missing frequency.
+
+\begin{table}[htbp]\centering\small
+\caption{Narita Table~2(a) \cite{narita1984} five-figure hold-out,
+free--free annulus, $\ba=0.3$, $\nu=0.3$.}
+\label{tab:narita2a}
+\begin{tabular}{lcccc}
+\toprule
+$(n,s)$ & printed $\lamsq$ & solver $\lamsq$ & rel.\ miss & ladder\\
+\midrule
+$(2,0)$ & 4.9060 & 4.9060 & 6.4e-06 & CLEAN \\
+$(0,1)$ & 8.3535 & 8.3535 & 3.7e-06 & CLEAN \\
+$(3,0)$ & 12.266 & 12.266 & 1.6e-05 & FLOOR \\
+$(1,1)$ & 18.292 & 18.292 & 1.1e-05 & CLEAN \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Fidelity anchors and finite elements}\label{sec:ff-fe}
+Five free--free roots at $\ba=0.5$, $\nu=0.30$ are carried forward from
+\cite{mccune2026annular} as a fidelity gate on the production interface rather
+than as a new result: the ring path must reproduce them in native $\Omega$
+before any table is believed. It does, to between $2.9\times10^{-6}$ and
+$1.4\times10^{-5}$ (Table~\ref{tab:five}).
+
+Independent cyclic-symmetry SHELL281 models at the same geometry give the
+elastic listing $4.2645$, $9.3114$, $11.4082$, $17.0973$, $21.0296$, agreeing
+with the solver to between $0.023\%$ and $0.591\%$. Mesh convergence at that
+geometry is $4.264506$, $4.264461$, $4.264453$ for $64$, $96$ and $128$
+circumferential divisions --- a relative change of $10^{-5}$ between the two
+finest meshes. Contour plots of $U_Z$ confirm the published $(n,s)$
+assignment on every mode in the plotted set, including the $(3,0)$, $(1,1)$
+and $(4,0)$ rows whose labels had previously been inferred from frequency
+ordering alone. At $\ba=0.9$ the finite-element modes $15$--$16$ are in-plane
+($|U_Z|\sim10^{-13}$) and must not be given a flexural $n$; the flexural
+$(0,1)$ mode at that geometry is the first axisymmetric elastic mode above
+that pair.
+
+\begin{table}[htbp]\centering\small
+\caption{Free--free annulus at $\ba=0.5$, $\nu=0.30$: the five fidelity
+anchors of \cite{mccune2026annular} in native $\Omega$, and the same modes
+against independent SHELL281 \cite{ansys} in $\lamsq$. Ladder FLOOR here is
+the $40$-digit working floor, not a missing root.}
+\label{tab:five}
+\begin{tabular}{lccccccc}
+\toprule
+$(n,s)$ & anchor $\Omega$ & solver $\Omega$ & rel. & ladder
+& FE $\lamsq$ & solver $\lamsq$ & rel.\ (\%)\\
+\midrule
+$(2,0)$ & 0.1081885366 & 0.1081900894 & 1.4e-05 & FLOOR & 4.2645 & 4.2711 & 0.155 \\
+$(0,1)$ & 0.2359132157 & 0.2359147685 & 6.6e-06 & FLOOR & 9.3114 & 9.3135 & 0.023 \\
+$(3,0)$ & 0.2894098129 & 0.2894082601 & 5.4e-06 & FLOOR & 11.4082 & 11.4254 & 0.151 \\
+$(1,1)$ & 0.4356362253 & 0.4356346725 & 3.6e-06 & FLOOR & 17.0973 & 17.1983 & 0.591 \\
+$(4,0)$ & 0.5336384799 & 0.5336400327 & 2.9e-06 & FLOOR & 21.0296 & 21.067 & 0.178 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+\section{Out-of-plane free disk}\label{sec:disk-results}
+The solid disk uses the $2\times2$ of \S\ref{sec:disk}. Narita's Table~2(b)
+\cite{narita1984} at $\nu=0.33$ is again the five-figure hold-out and is
+recovered $4/4$ at between $1.7\times10^{-6}$ and $9.4\times10^{-6}$ relative
+(Table~\ref{tab:narita2b}). The $(2,0)$ hold-out is MATCH on the relative miss
+and NOT on the sign-flip ladder; it is trusted because the finite elements sit
+on the same value ($5.2584$ against the solver's $5.2620$, $0.069\%$). SP-160
+Table~2.5 \cite{leissaSP160}, six rows at the same Poisson ratio, is recovered
+$6/6$ (Table~\ref{tab:leissa25}); its largest disagreement is the
+$(2,0)$ row, printed $5.253$ against the solver's $5.262$, a $0.172\%$
+difference that sits inside the $1\%$ bar appropriate to a four-figure table
+and is resolved in the solver's favour by the five-figure hold-out and by the
+finite elements, both of which give $5.262$ and $5.2584$ respectively. The
+Table~2.5 $(0,1)$ row is likewise MATCH on error and NOT on the ladder, and is
+read the same way.
+
+Independent SHELL281 models of the free disk at $\nu=0.33$ give $5.2584$,
+$9.0679$, $12.2284$ and $20.5010$ for the four Narita modes: $0.068\%$,
+$0.011\%$, $0.13\%$ and $0.058\%$ from the printed values and $0.069\%$,
+$0.011\%$, $0.13\%$ and $0.059\%$ from the $2\times2$. Contours confirm the
+published $(n,s)$ on all six Table~2.5 rows.
+
+\begin{table}[htbp]\centering\small
+\caption{Free solid disk, $\nu=0.33$, from the $2\times2$ of \S\ref{sec:disk},
+against Narita Table~2(b) \cite{narita1984} (five-figure hold-out) and
+independent SHELL281 \cite{ansys}.}
+\label{tab:narita2b}
+\begin{tabular}{lcccccc}
+\toprule
+$(n,s)$ & printed $\lamsq$ & solver $\lamsq$ & rel.\ miss & FE $\lamsq$
+& solver vs FE (\%) & ladder\\
+\midrule
+$(2,0)$ & 5.262 & 5.2620 & 2.9e-06 & 5.2584 & 0.069 & NOT \\
+$(0,1)$ & 9.0689 & 9.0689 & 1.7e-06 & 9.0679 & 0.011 & FLOOR \\
+$(3,0)$ & 12.244 & 12.244 & 9.4e-06 & 12.2284 & 0.127 & CLEAN \\
+$(1,1)$ & 20.513 & 20.513 & 4.7e-06 & 20.5010 & 0.059 & CLEAN \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering\small
+\caption{Free solid disk, $\nu=0.33$, against SP-160 Table~2.5
+\cite{leissaSP160}. All six MATCH. The $(2,0)$ row is the largest
+disagreement at $0.172\%$; the five-figure hold-out and the finite elements
+both sit on the solver's value.}
+\label{tab:leissa25}
+\begin{tabular}{lccccc}
+\toprule
+$(n,s)$ & printed $\lamsq$ & solver $\lamsq$ & rel.\ (\%) & FE $\lamsq$
+& ladder\\
+\midrule
+$(2,0)$ & 5.253 & 5.2620 & 0.172 & 5.2584 & CLEAN \\
+$(3,0)$ & 12.23 & 12.244 & 0.114 & 12.2284 & CLEAN \\
+$(4,0)$ & 21.6 & 21.527 & 0.337 & 21.4890 & CLEAN \\
+$(0,1)$ & 9.084 & 9.0689 & 0.166 & 9.0679 & NOT \\
+$(1,1)$ & 20.52 & 20.513 & 0.034 & 20.5010 & CLEAN \\
+$(2,1)$ & 35.25 & 35.243 & 0.021 & 35.1988 & CLEAN \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Why the \texorpdfstring{$4\times4$}{4x4} at
+\texorpdfstring{$R_i=0$}{Ri=0} is not the disk}\label{sec:rank}
+Substituting $R_i=0$ into the ring $4\times4$ and looking for its zeros is the
+obvious shortcut and it is wrong. Table~\ref{tab:ranks} lists the ordered
+$\log_{10}$ singular values of that matrix at a representative frequency: at
+$n=0$ there are two small values and the rank is~2, but at $n=1,2,3$ only one
+singular value collapses and the rank is~3. A rank-3 $4\times4$ has a
+one-dimensional kernel that is not the two-dimensional regular subspace, and
+its determinant zeros are not the plate's frequencies. This is the reason the
+production disk path is the $2\times2$ and why that fact is enforced by a
+regression test rather than by convention.
+
+\begin{table}[htbp]\centering\small
+\caption{Ordered $\log_{10}$ singular values of the ring $4\times4$ evaluated
+at $R_i=0$, with the observed and expected numerical rank. Rank~3 for
+$n\ge1$ is why this matrix is not the disk.}
+\label{tab:ranks}
+\begin{tabular}{lcccccc}
+\toprule
+& $\sigma_1$ & $\sigma_2$ & $\sigma_3$ & $\sigma_4$ & rank & expected\\
+\midrule
+$n=0$ & 0.43 & -0.96 & -16.09 & -31.88 & 2 & 2 \\
+$n=1$ & 0.60 & -2.41 & -2.88 & -15.51 & 3 & 3 \\
+$n=2$ & 0.60 & -1.38 & -3.81 & -16.94 & 3 & 3 \\
+$n=3$ & 0.60 & -1.89 & -4.91 & -16.61 & 3 & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{A named failure: the tiny-hole control}\label{sec:tinyhole}
+A separate control asks whether the $4\times4$ at a very small hole,
+$\ba=10^{-3}$, reproduces the $2\times2$ disk to a pre-registered $10^{-3}$
+relative tolerance. It does not (Table~\ref{tab:tinyhole}): $(2,\cdot)$ and
+$(0,\cdot)$ differ by $0.940\%$ and $0.545\%$, and the control is reported as
+a FAIL. The hole roots are real and deep, and both failing rows have ladder
+NOT while the two passing rows are CLEAN, so this is the residual physical
+difference between a punctured and a solid plate at that hole size, not a
+missed disk frequency. The tolerance is not loosened to make the control pass.
+
+\begin{table}[htbp]\centering\small
+\caption{Tiny-hole control, $\ba=10^{-3}$, $\nu=0.33$: the $4\times4$ at a
+small hole against the production $2\times2$. Pre-registered bar $10^{-3}$
+relative; the control is a named FAIL and the bar is not loosened.}
+\label{tab:tinyhole}
+\begin{tabular}{lccccc}
+\toprule
+mode & disk $2\times2$ & hole $4\times4$ & rel.\ (\%) & ladder & control\\
+\midrule
+$(2,\cdot)$ & 5.2620 & 5.3115 & 0.940 & NOT & \textbf{FAIL} \\
+$(0,\cdot)$ & 9.0689 & 9.1183 & 0.545 & NOT & \textbf{FAIL} \\
+$(3,\cdot)$ & 12.244 & 12.245 & 0.007 & CLEAN & PASS \\
+$(1,\cdot)$ & 20.513 & 20.524 & 0.054 & CLEAN & PASS \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+\section{Mixed inner and outer edges}\label{sec:mixed}
+Mixed inner/outer conditions are the content of this paper that is not a
+free--free echo of the companion papers, and they are reached by the row swap
+of \S\ref{sec:ring} with no new derivation. Clamping one arc of a ring is also
+the mechanical boundary condition of a stator disk; that observation is a
+statement about the boundary condition only, and no electromechanical claim is
+made here.
+
+\subsection{Vogel and Skinner, Tables 2.22 and 2.30}\label{sec:t222}
+Table~2.22 (inner~F, outer~C) is recovered at $80/80$ across both Poisson
+ratios and all five radius ratios including $\ba=0.9$, with $78$ cells MATCH
+and $2$ WEAK (Table~\ref{tab:t222-nu30}; the $\nu=1/3$ half is \S{}S.4). The
+thin-ring column is worth naming explicitly: the $4\times4$ does not degrade
+at $\ba=0.9$, where the printed values run to $6183$ and the solver returns
+$6185.1$.
+
+\begin{table}[htbp]\centering\footnotesize
+\caption{Mixed edges, inner free / outer clamped, $\nu=0.30$. Printed values
+are SP-160 Table~2.22 \cite{leissaSP160,vogelSkinner} (Leissa's title lists
+the outer edge first). $80/80$ MATCH${}+{}$WEAK over both Poisson ratios.}
+\label{tab:t222-nu30}
+\begin{tabular}{lcccccccccc}
+\toprule
+& \multicolumn{2}{c}{$\ba=0.1$} & \multicolumn{2}{c}{$\ba=0.3$}
+& \multicolumn{2}{c}{$\ba=0.5$} & \multicolumn{2}{c}{$\ba=0.7$}
+& \multicolumn{2}{c}{$\ba=0.9$}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+$(n,s)$ & printed & solver & printed & solver & printed & solver
+& printed & solver & printed & solver\\
+\midrule
+$(0,0)$ & 10.2 & 10.159 & 11.4 & 11.424 & 17.7 & 17.715 & 43.1 & 43.142 & 360 & 360.35 \\
+$(1,0)$ & 21.1 & 21.195 & 19.5 & 19.540 & 22.0 & 22.015 & 45.3 & 45.333 & 362 & 361.50 \\
+$(2,0)$ & 34.5 & 34.535 & 32.5 & 32.594 & 32.0 & 32.115 & 51.5 & 51.585 & 365 & 364.96 \\
+$(3,0)$ & 51.0 & 50.989 & 49.1 & 49.069 & 45.8 & 45.812 & 61.3 & 61.289 & 370 & 370.70 \\
+$(0,1)$ & 39.5 & 39.521 & 51.7 & 51.745 & 93.8 & 93.847 & 253 & 251.64 & 2219 & 2219.5 \\
+$(1,1)$ & 60.0 & 60.061 & 59.8 & 59.759 & 97.3 & 97.376 & 254 & 253.72 & 2220 & 2220.9 \\
+$(2,1)$ & 83.4 & 83.478 & 79.0 & 79.061 & 108.0 & 107.49 & 259 & 259.91 & 2225 & 2225.2 \\
+$(0,2)$ & 90.4 & 90.445 & 132.0 & 132.41 & 253.0 & 252.19 & 692 & 692.01 & 6183 & 6185.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~2.30 (inner~C, outer~F) is reported here as $72/76$
+(Table~\ref{tab:t230-nu30}). Four cells are excluded as one named source
+defect and four are direct misses. Both need justifying.
+
+The excluded cells are the whole $n=0$ column at $\ba=0.9$, at both Poisson
+ratios. At that radius ratio the thin-ring $n=0$ and $n=1$ branches are nearly
+degenerate, and Vogel's \emph{own} Table~2.22 at the same $\ba$ prints that
+degeneracy: $360$ against $362$ for $s=0$, and $2219$ against $2220$ for
+$s=1$. Table~2.30 at the same $\ba$ instead prints $51.5$ against $345$ and
+$970$ against $2189$. The $n=1$ entries agree with the $4\times4$ to $0.06\%$;
+the $n=0$ entries agree with nothing, and no confident root exists anywhere in
+$\lamsq\in[15,155]$ at the first of them. The argument for excluding that
+column is therefore internal to the source --- Vogel's other table plus the
+physical degeneracy --- and not ``the solver disagrees''. The MATCH/WEAK bar
+is unchanged. For the record, the production sweep scored this table $72/78$,
+excluding only the printed $51.5$; the paper's denominator differs from the
+sweep's by treating the column as one skip rather than one cell.
+
+The four direct misses are the $(1,0)$ entries at $\ba=0.1$ and $\ba=0.3$, at
+both Poisson ratios: printed $3.14$ against solver $3.478$ ($10.8\%$) and
+printed $6.33$ against solver $6.552$ ($3.5\%$). They are named, not dropped, and
+they remain open: both lie on the $n=1$, $s=0$ branch at the two smallest
+radius ratios, where the printed values are also the smallest and coarsest in
+the table.
+Combining the two mixed-edge tables gives $152/156$.
+
+\begin{table}[htbp]\centering\footnotesize
+\caption{Mixed edges, inner clamped / outer free, $\nu=0.30$. Printed values
+are SP-160 Table~2.30 \cite{leissaSP160,vogelSkinner}. $^{\dagger}$~the $n=0$
+column at $\ba=0.9$ is excluded as one named source defect, on the
+source-internal grounds given in the text. $\S$~the production search returned
+its window endpoint at this cell; an endpoint is not a frequency and is not
+printed (\S\ref{sec:screen}). The re-searched $(1,1)$ root at $\ba=0.1$ is
+WEAK at $1.37\%$ ($\nu=0.30$) and $1.56\%$ ($\nu=1/3$) and is scored WEAK, as
+the stored value was. Paper score $72/76$.}
+\label{tab:t230-nu30}
+\begin{tabular}{lcccccccccc}
+\toprule
+& \multicolumn{2}{c}{$\ba=0.1$} & \multicolumn{2}{c}{$\ba=0.3$}
+& \multicolumn{2}{c}{$\ba=0.5$} & \multicolumn{2}{c}{$\ba=0.7$}
+& \multicolumn{2}{c}{$\ba=0.9$}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+$(n,s)$ & printed & solver & printed & solver & printed & solver
+& printed & solver & printed & solver\\
+\midrule
+$(1,0)$ & 3.14 & 3.4776 & 6.33 & 6.5523 & 13.3 & 13.290 & 37.5 & 37.498 & 345 & 345.17 \\
+$(0,0)$ & 4.23 & 4.2373 & 6.66 & 6.6604 & 13.0 & 13.024 & 37.0 & 36.953 & 51.5$^{\dagger}$ & \S \\
+$(2,0)$ & 5.62 & 5.6202 & 7.96 & 7.9565 & 14.7 & 14.704 & 39.3 & 39.277 & 347 & 347.47 \\
+$(3,0)$ & 12.4 & 12.448 & 13.27 & 13.276 & 18.5 & 18.562 & 42.6 & 42.655 & 352 & 351.32 \\
+$(0,1)$ & 25.3 & 25.262 & 42.6 & 42.614 & 85.1 & 85.033 & 239 & 239.84 & 970$^{\dagger}$ & \S \\
+$(1,1)$ & 27.3 & \S & 44.6 & 44.631 & 86.7 & 86.706 & 241 & 241.28 & 2189 & 2190.1 \\
+$(2,1)$ & 37.0 & 36.943 & 50.9 & 50.947 & 91.7 & 91.738 & 246 & 245.59 & 2194 & 2193.9 \\
+$(3,1)$ & 53.2 & 53.207 & 62.1 & 62.053 & 100 & 100.17 & 253 & 252.73 & 2200 & 2200.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The axisymmetric exact values}\label{sec:t216}
+SP-160 Table~2.16 collects exact axisymmetric frequencies at $\ba=0.5$,
+$\nu=1/3$. Both mixed-edge entries are MATCH (Table~\ref{tab:t216}): printed
+$17.51$ against $17.598$ for inner~F / outer~C, and printed $13.05$ against
+$13.089$ for inner~C / outer~F. These are three- and four-figure printed
+values and the agreement is well inside the bar.
+
+\begin{table}[htbp]\centering\small
+\caption{Exact axisymmetric mixed-edge values, SP-160 Table~2.16
+\cite{leissaSP160}, $\ba=0.5$, $\nu=1/3$, $n=0$.}
+\label{tab:t216}
+\begin{tabular}{lcccc}
+\toprule
+inner--outer & printed $\lamsq$ & solver $\lamsq$ & rel.\ (\%) & ladder\\
+\midrule
+F--C & 17.51 & 17.598 & 0.503 & CLEAN \\
+C--F & 13.05 & 13.089 & 0.302 & CLEAN \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Southwell's Table 2.31}\label{sec:southwell}
+Southwell's values for the free-outer, clamped-inner annulus
+\cite{southwell}, compiled as SP-160 Table~2.31 at $\nu=0.3$, are the hardest
+comparison in this paper and are reported as such:
+\textbf{$13/18$} under the same $1\%/3\%$ bar as every other table
+(Table~\ref{tab:southwell}). No second, table-specific metric is substituted
+for that score.
+
+\begin{table}[htbp]\centering\small
+\caption{Southwell's values \cite{southwell} as compiled in SP-160
+Table~2.31 \cite{leissaSP160}, inner clamped / outer free, $\nu=0.3$, lowest
+root per $n$. Score $13/18$ under the same bar as every other table.
+$^{\ddagger}$~the production search returned its window endpoint at this cell;
+the value shown is from a wide re-search and is CLEAN with $s=0$. All three
+re-searched rows were, and remain, MISS, so the score is unchanged.}
+\label{tab:southwell}
+\begin{tabular}{cccccc}
+\toprule
+$n$ & $\ba$ & printed $\lamsq$ & solver $\lamsq$ & rel.\ (\%) & gate\\
+\midrule
+0 & 0.276 & 6.25 & 6.2426 & 0.119 & MATCH \\
+0 & 0.642 & 25.0 & 25.745 & 2.981 & WEAK \\
+0 & 0.84 & 81.0 & 132.99$^{\ddagger}$ & 64.185 & MISS \\
+1 & 0.06 & 2.82 & 2.8148 & 0.184 & MATCH \\
+1 & 0.397 & 9.00 & 9.0207 & 0.230 & MATCH \\
+1 & 0.603 & 21.2 & 21.258 & 0.275 & MATCH \\
+1 & 0.634 & 25.0 & 25.068 & 0.274 & MATCH \\
+1 & 0.771 & 64.0 & 64.762 & 1.191 & WEAK \\
+1 & 0.827 & 121.0 & 114.17 & 5.642 & MISS \\
+2 & 0.186 & 6.25 & 6.2947 & 0.715 & MATCH \\
+2 & 0.349 & 9.00 & 9.0294 & 0.327 & MATCH \\
+2 & 0.522 & 16.0 & 16.011 & 0.072 & MATCH \\
+2 & 0.769 & 64.0 & 65.583 & 2.473 & WEAK \\
+2 & 0.81 & 100 & 96.526 & 3.474 & MISS \\
+3 & 0.43 & 16.0 & 15.785 & 1.342 & WEAK \\
+3 & 0.59 & 25.0 & 24.964 & 0.146 & MATCH \\
+3 & 0.71 & 49.0 & 45.346$^{\ddagger}$ & 7.457 & MISS \\
+3 & 0.82 & 100 & 111.04$^{\ddagger}$ & 11.041 & MISS \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The split is a sensitivity, not an accuracy.}
+Southwell's method assumed round values of the Bessel argument and inverted
+for the radius ratio, so his tabulated $\ba$ is a computed quantity printed to
+two or three decimals while his $\lamsq$ is exact by construction. Holding the
+printed $\lamsq$ fixed and root-finding on $\ba$ instead recovers a CLEAN,
+$s=0$ root on \emph{all eighteen} rows. Every row then carries a radius-ratio
+discrepancy of order $10^{-3}$ --- including the rows that match. For the
+thirteen MATCH and WEAK rows that discrepancy spans
+$1.6\times10^{-4}$ to $6.9\times10^{-3}$, a band that overlaps the misses.
+What separates the two groups is not the size of the discrepancy but the local
+sensitivity: the predicted forward error
+\begin{equation}
+\left(\frac{\mathrm{d}\lamsq}{\mathrm{d}(\ba)}\right)
+\frac{|\delta(\ba)|}{\lamsq}
+\label{eq:pred}
+\end{equation}
+reproduces the observed relative miss of every row to within a factor of two,
+$18/18$, over three decades of predicted error (Supplementary Material
+\S{}S.6, Fig.~S.1 of that section). The five direct misses are the rows where
+$\mathrm{d}\lamsq/\mathrm{d}(\ba)$ is largest.
+
+This is a unification, and on its own it would be only an internal one. What
+settles the question is an independent third method.
+
+\paragraph{Finite elements settle the disputed cell.}
+The most extreme disagreement is at inner~C / outer~F, $\ba=0.840$, $n=0$,
+where the table prints $81.0$ and the solver returns a root near $133$. A
+criterion was fixed before the finite-element run: a lowest FE mode within
+about $2\%$ of $133$ vindicates the solver; one within about $2\%$ of $81$
+means the solver misses a real mode.
+
+At C--F, $\ba=0.840$, $n=0$ the lowest flexural FE mode is $\lamsq=132.549$.
+The solver gives $132.990$ ($+0.333\%$). Southwell prints $81.0$ ($-63.6\%$).
+Nothing in the $40$-mode FE spectrum lies below $132.549$. A refined mesh
+(radial divisions $16\to24$, circumferential $256\to384$) reproduces that
+value as $132.548973$ against $132.548990$, a relative change of
+$1.3\times10^{-7}$. That row is a source error, confirmed externally, and not
+a solver defect, a conditioning artifact, a basis truncation, or an
+$n$-labelling mistake.
+
+The deck's positive control is the F--C, $\ba=0.5$, $n=0$ cell of Table~2.22,
+where the printed value is $17.7$, the solver gives $17.715$ and the finite
+elements give $17.7072$: $0.041\%$ against the printed value and $0.044\%$
+against the solver. The clamped-edge machinery is therefore correct and the
+remaining decks are readable.
+
+\paragraph{Eighteen mixed-edge points.}
+Table~\ref{tab:fe18} is the full solver-versus-FE comparison at three C--F
+geometries, $n=0$ to $5$, every point sign-ladder CLEAN with $s=0$. All
+eighteen agree to better than $0.8\%$; the solver sits \emph{uniformly above}
+the finite elements, and the gap grows monotonically with $n$ at every
+geometry, from $+0.040\%$ to $+0.757\%$. That is the expected
+Kirchhoff-versus-Mindlin signature --- the $4\times4$ is thin-plate while
+SHELL281 carries transverse shear, which softens higher-$n$ modes more --- and
+it is the same one-sided offset reported in \cite{mccune2026annular}.
+Mixed-sign scatter of this magnitude would have been the worrying result;
+one-signed monotone growth is not. Two of Southwell's disputed rows are
+covered by this set: at $n=3$, $\ba=0.820$ the printed $100$ is $-10.5\%$ from
+the FE value while the solver is $+0.451\%$; and the MATCH control at $n=2$,
+$\ba=0.522$ has the printed $16.0$ within $0.081\%$ of the FE value.
+
+\begin{table}[htbp]\centering\small
+\caption{Solver against independent SHELL281 \cite{ansys} at three inner
+clamped / outer free geometries, $\nu=0.30$. Every point is sign-ladder CLEAN
+with $s=0$. The offset is one-signed and grows monotonically in $n$:
+Kirchhoff versus Mindlin.}
+\label{tab:fe18}
+\begin{tabular}{lccccccccc}
+\toprule
+& \multicolumn{3}{c}{$\ba=0.522$} & \multicolumn{3}{c}{$\ba=0.820$}
+& \multicolumn{3}{c}{$\ba=0.840$}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+$n$ & FE & solver & rel.\ (\%) & FE & solver & rel.\ (\%)
+& FE & solver & rel.\ (\%)\\
+\midrule
+0 & 14.2651 & 14.2708 & $+0.040$ & 104.4191 & 104.6938 & $+0.263$ & 132.5490 & 132.9899 & $+0.333$ \\
+1 & 14.5602 & 14.5707 & $+0.072$ & 105.0768 & 105.3775 & $+0.286$ & 133.2228 & 133.6945 & $+0.354$ \\
+2 & 15.9871 & 16.0115 & $+0.153$ & 107.0848 & 107.4618 & $+0.352$ & 135.2700 & 135.8325 & $+0.416$ \\
+3 & 19.7175 & 19.7624 & $+0.228$ & 110.5422 & 111.0411 & $+0.451$ & 138.7636 & 139.4725 & $+0.511$ \\
+4 & 26.5058 & 26.5756 & $+0.263$ & 115.5950 & 116.2545 & $+0.570$ & 143.8146 & 144.7185 & $+0.629$ \\
+5 & 36.3693 & 36.4717 & $+0.282$ & 122.4130 & 123.2632 & $+0.695$ & 150.5566 & 151.6958 & $+0.757$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A secondary differential test was also run, comparing the residual radius-ratio
+discrepancies of Southwell's table with those of Vogel's on the same footing.
+It passed a bar fixed in advance, but its own distribution is heavy-tailed and
+it does not control for radius ratio, which the two tables sample differently;
+it is reported in \S{}S.6 as corroboration only. The finite-element result,
+not that test, is what carries the conclusion of this subsection.
+
+\FloatBarrier
+\section{In-plane free--free ring}\label{sec:inplane}
+The in-plane reduction of \S\ref{sec:ipring} is compared with Table~2 of
+Irie, Yamada and Muramoto \cite{irie1984} at $\nu=0.3$ and
+$\beta=0.2,0.4,0.6,0.8$: the first two frequencies at $n=1,2,3,4$ together
+with the $n=0$ radial and $n=0$ torsional pairs, $48$ cells in all.
+\textbf{All $48$ are MATCH}, the largest relative miss being $0.222\%$ at
+$\beta=0.8$, $n=2$, first mode (Table~\ref{tab:irie}; the full $48$-row list
+is \S{}S.4). Both $n=0$ families are recovered, which matters because the
+radial and torsional branches interleave differently as $\beta$ grows.
+A handful of those MATCH cells classify NOT on the sign-flip ladder
+($\beta=0.4$ and $0.6$ in Table~\ref{tab:irie}); scoring is from the relative
+miss alone, as frozen in \S\ref{sec:screen}, and no in-plane finite-element
+check is claimed.
+
+Comparison here is frequency-only. No in-plane eigenvector cross-check is
+presented and none is promised: the same comparison was attempted for
+rectangular in-plane modes in \cite{mccune2026rect} and was not informative,
+for reasons that apply unchanged to this geometry. The in-plane disk is not
+claimed: Irie's ``circular'' column is $\beta=0.01$, a tiny-hole control, and
+until the in-plane $2\times2$ is built and agrees with it, calling that column
+$R_i=0$ would be an assumption rather than a result. The out-of-plane disk of
+\S\ref{sec:disk-results} is a genuine $R_i=0$ result, so the omission is
+specific to the in-plane motion.
+
+\begin{table}[htbp]\centering\small
+\caption{In-plane free--free ring against Irie, Yamada and Muramoto
+Table~2 \cite{irie1984}, $\nu=0.3$, with
+$\lambda=\omega a\sqrt{\rho(1-\nu^{2})/E}$ of \eqref{eq:irielam}. Twelve
+cells per radius ratio; all $48$ MATCH. ``worst'' names the branch carrying
+the largest relative miss at that $\beta$.}
+\label{tab:irie}
+\begin{tabular}{lccccc}
+\toprule
+$\beta$ & cells & gate & worst branch & worst rel.\ (\%) & ladder classes\\
+\midrule
+0.2 & 12 & MATCH & $n=1$ & 0.050 & CLEAN,FLOOR \\
+0.4 & 12 & MATCH & $n=2$ & 0.053 & CLEAN,FLOOR,NOT \\
+0.6 & 12 & MATCH & $n=2$ & 0.031 & CLEAN,FLOOR,NOT \\
+0.8 & 12 & MATCH & $n=2$ & 0.222 & CLEAN,FLOOR \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+\section{Discussion}\label{sec:discussion}
+What travels from the two companion papers is the Frobenius radial content,
+the conversion hygiene of \S\ref{sec:conv}, independent finite elements as a
+third method rather than a fitted target, and the discipline of freezing a
+screen before the production sweep. What does not travel is the sector
+residual bar --- which rejects five genuine full-ring roots --- the sector
+subdomain instrument, the rectangular persistence screen, and the Kirchhoff
+corner jump, which has no $\theta$-edge to live on.
+
+The limits of the present tables are worth stating plainly.
+
+\begin{itemize}\itemsep3pt
+\item Some SP-160 tables state $\nu=1/3$ in their captions and some state no
+      Poisson ratio at all. Every sweep that touches an unlabelled table was
+      run at both $\nu=0.30$ and $\nu=1/3$, and the two are never mixed in a
+      single comparison.
+\item Table~2.35 does not print $n=4$; the finite elements carry that branch
+      at $\ba=0.5$ as $(4,0)$ and it appears here only through the fidelity
+      anchors.
+\item The $n=0$ column of Table~2.30 at $\ba=0.9$ is excluded as a source
+      defect, on grounds internal to Vogel's own tables. The paper score is
+      $72/76$.
+\item The $(1,0)$ misses of Table~2.30 at $\ba=0.1$ and $0.3$ are open and
+      named.
+\item Southwell's Table~2.31 is $13/18$ direct. The sensitivity analysis
+      explains the split; the finite elements, not that analysis, are what
+      resolve the extreme cell.
+\item The disk tiny-hole control at $10^{-3}$ is a named FAIL and its bar is
+      not loosened.
+\item Search-window endpoint returns are labelled and excluded, never quoted
+      as frequencies.
+\item Clamped--clamped rings, the remaining Vogel edge combinations, simply
+      supported edges, and polar-orthotropic free--free rings
+      \cite{narita1984} are reachable from the same row map with little or no
+      new derivation. They are not in this paper's production tables, and the
+      cost of adding them is validation rather than theory.
+\end{itemize}
+
+\section{Conclusions}\label{sec:conclusions}
+A validated annular-sector solver reduces, without a new differential
+equation, to the classical closed ring and solid disk. The $4\times4$ radial
+determinant recovers Vogel and Skinner's free--free and mixed-edge tables and
+Irie, Yamada and Muramoto's in-plane free--free table; the $2\times2$ recovers
+the free solid disk, and the $4\times4$ evaluated at $R_i=0$ demonstrably does
+not. Independent finite elements confirm the flexural spine at three
+free--free geometries, on the disk, and at three mixed-edge geometries, with a
+one-sided Kirchhoff-versus-Mindlin offset below $0.8\%$ throughout ---
+including the cell where a century-old table prints $81$ and the plate
+vibrates at $133$. Piezoelectric identification, using the free--free and
+clamped-free ring as its elastic forward model, is later work.
+
+\small
+\section*{Data and code availability}
+The solver is released under an MIT license as a public GitHub repository,
+\url{https://github.com/McCune1/plate_solver}. For this paper that tree
+includes the ring and disk entry point
+(\texttt{plate\_solver/ring\_disk.py}), the sign-flip ladder and
+window-endpoint labelling, the \texttt{TestRingDisk} regression suite that
+keeps the disk on the $2\times2$ path, and the tabulated
+solver-versus-literature JSON under \texttt{data/paper3/}. Cluster probe
+scripts and mixed-edge APDL decks remain in the working package that
+produced the tables; they are not part of the Paper~1 or Paper~2 tags.
+Tables here were captured under
+\texttt{SOLVER\_VERSION} \texttt{2026-07-10.s10}, the same solver as the two
+companion papers; results under a different version should be checked against
+the clamped-free regression gates first. Printed literature values are
+transcribed from the sources cited and are held in one shared module, so that
+every table cell in this paper is either a transcription or a computed result
+and none is retyped by hand. The Bessel span is Supplementary Material,
+\S{}S.1; disk regularity and the rank-3 trap are \S{}S.2; the conversion
+algebra is \S{}S.3; the full match lists at the second Poisson ratio are
+\S{}S.4; cluster job numbers are \S{}S.5; the Southwell inverse radius-ratio
+analysis is \S{}S.6.
+
+\section*{Declaration of competing interests}
+The authors declare that they have no known competing financial interests or
+personal relationships that could have appeared to influence the work reported
+in this paper.
+
+\section*{Funding}
+This research did not receive any specific grant from funding agencies in the
+public, commercial, or not-for-profit sectors.
+
+\section*{Acknowledgments}
+The computation for this work was performed on The Mill HPC cluster at
+Missouri University of Science and Technology \cite{mill2024}. GPU resources
+were not used.
+
+\section*{CRediT authorship contribution statement}
+\textbf{Garrek McCune:} Conceptualization, Methodology, Software, Validation,
+Formal analysis, Investigation, Writing -- original draft, Writing -- review \&
+editing, Visualization. \textbf{Daniel Stutts:} Conceptualization,
+Supervision.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+During the preparation of this work, the authors used generative AI tools to
+assist with manuscript and code organization, drafting, editing, and
+formatting. After using these tools, the authors reviewed and edited the
+content as needed and take full responsibility for the content of this
+publication.
+\normalsize
+
+\begin{thebibliography}{99}\small
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\bibitem{seok1} J. Seok, H.F. Tiersten, ``Free vibrations of annular sector
+cantilever plates. Part 1: out-of-plane motion,'' J. Sound Vib. 271 (2004)
+757--772. \url{https://doi.org/10.1016/S0022-460X(03)00414-0}.
+\bibitem{seok2} J. Seok, H.F. Tiersten, ``Free vibrations of annular sector
+cantilever plates. Part 2: in-plane motion,'' J. Sound Vib. 271 (2004)
+773--787. \url{https://doi.org/10.1016/S0022-460X(03)00415-2}.
+\bibitem{seok3} J. Seok, H.F. Tiersten, H.A. Scarton, ``Free vibrations of
+rectangular cantilever plates. Part 1: out-of-plane motion,'' J. Sound
+Vib. 271 (2004) 131--146. \url{https://doi.org/10.1016/S0022-460X(03)00365-1}.
+\bibitem{seok4} J. Seok, H.F. Tiersten, H.A. Scarton, ``Free vibrations of
+rectangular cantilever plates. Part 2: in-plane motion,'' J. Sound Vib.
+271 (2004) 147--158. \url{https://doi.org/10.1016/S0022-460X(03)00366-3}.
+\bibitem{leissaSP160} A.W. Leissa, \emph{Vibration of Plates}, NASA SP-160,
+Office of Technology Utilization, National Aeronautics and Space
+Administration, U.S. Government Printing Office, Washington, D.C., 1969.
+\bibitem{vogelSkinner} S.M. Vogel, D.W. Skinner, ``Natural frequencies of
+transversely vibrating uniform annular plates,'' J. Appl. Mech. 32 (1965)
+926--931. The values compared here are as compiled in \cite{leissaSP160},
+Tables~2.22, 2.30 and~2.35; the original paper was not re-read for this work.
+\bibitem{southwell} R.V. Southwell, ``On the free transverse vibrations of a
+uniform circular disc clamped at its centre; and on the effects of rotation,''
+Proc. Roy. Soc. London Ser.~A 101 (1922) 133--153. The values compared here
+are as compiled in \cite{leissaSP160}, Table~2.31; the original paper was not
+re-read for this work.
+\bibitem{raju} P.N. Raju, ``Vibrations of annular plates,'' J. Aeron. Soc.
+India 14 (2) (1962) 37--52. Cited via \cite{leissaSP160}, Tables~2.21,
+2.29 and~2.34.
+\bibitem{narita1984} Y. Narita, ``Natural frequencies of completely free
+annular and circular plates having polar orthotropy,'' J. Sound Vib. 92 (1)
+(1984) 33--38.
+\bibitem{irie1984} T. Irie, G. Yamada, Y. Muramoto, ``Natural frequencies of
+in-plane vibration of annular plates'' (Letter to the Editor), J. Sound Vib.
+97 (1) (1984) 171--175.
+\bibitem{mccune2026annular} G. McCune, D. Stutts, ``Exact wave-function
+solution and spurious-mode discrimination for completely free annular sector
+plates,'' companion paper, submitted (2026).
+\bibitem{mccune2026rect} G. McCune, D. Stutts, ``Exact wave-function solution
+of completely free rectangular plates: four-corner Kirchhoff jump and mode
+screening,'' companion paper, submitted (2026).
+\bibitem{ansys} ANSYS, Inc., \emph{ANSYS Mechanical APDL}, Release 2025 R1,
+ANSYS, Inc., Canonsburg, PA, USA (2025). Used for finite-element validation
+only.
+\bibitem{mill2024} Missouri University of Science and Technology, ``The Mill
+HPC Cluster,'' \emph{The Mill} (2024), Article 1.
+\url{https://scholarsmine.mst.edu/the-mill/1},
+\url{https://doi.org/10.71674/PH64-N397}.
+\end{thebibliography}
+\end{document}

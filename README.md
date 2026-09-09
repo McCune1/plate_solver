@@ -72,17 +72,19 @@ contain the full exploratory/debugging history (see
 ```
 plate_solver/    the package: geometry, boundary conditions, dispersion
                  relations, K-matrix assembly, root detection, plotting,
-                 validation, CLI
-tests/           unit tests (unittest, no pytest dependency)
+                 validation, CLI; ring/disk entry point in ring_disk.py
+tests/           unit tests (unittest, no pytest dependency), including
+                 TestRingDisk
 validation/      reproduction scripts + evidence backing the paper's
                  validated tables and specific claims (see validation/README.md)
 scripts/         figure-generation scripts for the paper's figures
 cluster/         SLURM launchers for the full overnight batch (HPC-specific;
                  adapt the SBATCH header to your own scheduler)
 data/checkpoints/  checkpoint JSON files consumed by the figure scripts
+data/paper3/     Paper 3 tabulated JSON + literature transcription module
 ansys/           ANSYS APDL decks and text results used as FE benchmarks
-paper/           CANONICAL Paper 1 manuscript: LaTeX + compiled PDF of the
-                 draft and of its Supplementary Material. See paper/README.md.
+paper/           CANONICAL manuscripts: Papers 1, 2 and 3 (LaTeX + PDF).
+                 See paper/README.md.
 ```
 
 Each subfolder has its own README with more detail.

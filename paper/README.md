@@ -3,7 +3,10 @@
 **This directory is the canonical manuscript folder.** Paper 1
 (`PAPER1_FREEFREE_*`) is submit-ready. Paper 2
 (`PAPER2_RECT_FREEFREE_*`) is the rectangular companion, submitted
-simultaneously; do not fold it into Paper 1. If any other copy in the
+simultaneously; do not fold it into Paper 1. **Paper 3 (closed ring
+and solid disk) now has a live `.tex`/`.pdf` pair:**
+`PAPER3_RING_DISK_DRAFT.tex` + `PAPER3_RING_DISK_SUPPLEMENTARY.tex`.
+Do not fold Paper 3 into Paper 1 or 2. If any other copy in the
 broader working tree disagrees with the files here, these win. The
 working-tree pointer map (`Project Knowledge/CURRENT_PAPER.md`) is not
 shipped in this snapshot.
@@ -23,6 +26,25 @@ Paper 2 (rectangular FFFF, OOP+IP; companion of Paper 1):
   annular companion and the shared repository.
 - `PAPER2_RECT_FREEFREE_DRAFT.md` / `_SUPPLEMENTARY_DRAFT.md` /
   `PAPER2_IP_MATCH_TABLE.md` — working notes, not the manuscript.
+
+Paper 3 (closed ring + solid disk; not folded into 1 or 2):
+- `PAPER3_RING_DISK_DRAFT.tex` / `.pdf` — main text (14 pp, first LaTeX
+  pass 2026-09-09). Sections: reductions (4×4 ring, 2×2 disk, in-plane,
+  conversion), the sign-flip screen, free–free annulus, free disk, mixed
+  inner/outer edges including Southwell 2.31 and the mixed-edge FE, and
+  the in-plane ring.
+- `PAPER3_RING_DISK_SUPPLEMENTARY.tex` / `.pdf` — S.1 Bessel span, S.2
+  disk regularity and the rank-3 trap, S.3 conversion algebra, S.4 full
+  match lists at the second Poisson ratio, S.5 job provenance, S.6
+  Southwell inverse-b/a analysis and Fig.~S.1 (predicted vs observed).
+  Compile separately (9 pp).
+- `paper_figures/southwell_pred_vs_obs.pdf` — SM Fig.~S.1. Generator:
+  `github_repo/scripts/make_paper3_southwell_predobs.py`.
+- `PAPER3_RING_DISK_DRAFT.md` — working prose that preceded the LaTeX;
+  no longer the manuscript. Writing contract (working tree):
+  `Project Knowledge/PAPER3_TEX_WRITING_BRIEF.md`.
+- Still to come: graphical abstract, highlights, cover letter, and a
+  review pass.
 
 Paper 1:
 
@@ -62,9 +84,10 @@ for cross-references), from inside this directory so the relative
 `PAPER1_FREEFREE_SUPPLEMENTARY.tex` the same way, as a second PDF.
 Paper 2 is the same pattern
 (`PAPER2_RECT_FREEFREE_DRAFT.tex` +
-`PAPER2_RECT_FREEFREE_SUPPLEMENTARY.tex`). No external `.bib` file —
-the bibliography is a `thebibliography` environment inline in each
-`.tex` source.
+`PAPER2_RECT_FREEFREE_SUPPLEMENTARY.tex`). Paper 3 is the same
+pattern. No external `.bib`
+file — the bibliography is a `thebibliography` environment inline in
+each `.tex` source.
 
 The `.aux` / `.log` / `.out` files in this directory are pdflatex debris
 and may lag the current `.tex`; ignore them. After a local two-pass

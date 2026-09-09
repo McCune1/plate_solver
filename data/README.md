@@ -1,3 +1,10 @@
+# data/
+
+- `checkpoints/` — overnight cantilever / free-free sweep checkpoints
+  (Paper 1 figure scripts).
+- `paper3/` — Paper 3 tabulated JSON and the literature transcription
+  module. See `paper3/README.md`.
+
 # data/checkpoints/
 
 Checkpoint JSON files written by `plate_solver.cli` / `run_overnight.py`
