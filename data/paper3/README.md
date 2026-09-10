@@ -18,3 +18,4 @@ in the Paper 1/2 tags.
 | `p3_phaseD_thinring_diag.json` | Tables 2.22 / 2.30 / 2.31 production |
 | `p3_phaseD_inverse_ba_close.json` | Southwell inverse b/a (Fig. S.1) |
 | `p3_phaseE_irie.json` | Irie Table 2 |
+| `p3_phaseF_vogel_ss_narita.json` | mill job 2472653: remaining Vogel 2.18/2.20/2.24/2.26/2.28/2.33, Table 2.16, Narita 3 |

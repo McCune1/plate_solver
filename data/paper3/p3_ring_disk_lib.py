@@ -6,11 +6,19 @@ SOLVER_VERSION implication). Probes at the package root import this.
 
 Literature numbers are transcribed from the source PDFs, not reconstructed:
   SP-160 Table 2.35  -- Leissa_SP160.pdf printed p. 32 (Vogel & Skinner)
+  SP-160 Table 2.16  -- printed p. 20, nu=1/3, b/a=0.5, n=0 exact
+  SP-160 Table 2.18  -- printed p. 22, outer C inner C (Vogel)
+  SP-160 Table 2.20  -- printed p. 22, outer C inner S
   SP-160 Table 2.22  -- printed p. 23, outer C inner F
+  SP-160 Table 2.24  -- printed p. 25, outer S inner C
+  SP-160 Table 2.26  -- printed p. 26, outer S inner S
+  SP-160 Table 2.28  -- printed p. 27, outer S inner F
   SP-160 Table 2.30  -- printed p. 29, outer F inner C
+  SP-160 Table 2.33  -- printed p. 30, outer F inner S
   SP-160 Table 2.31  -- printed p. 29, Southwell nu=0.3
   SP-160 Table 2.5   -- printed p. 11, nu=0.33
   Narita 1984 Table 2 -- Narita1984.pdf p. 3
+  Narita 1984 Table 3 -- Narita1984.pdf p. 5 (polar orthotropic F-F)
   Irie 1984 Table 2   -- Irie1984.pdf p. 3 (F-F in-plane)
 
 Screen freeze (2026-09-08, after job 2461443). Named, not retuned to
@@ -109,8 +117,20 @@ VOGEL_222_FC = {
     (0, 2): (90.4, 132.0, 253.0, 692, 6183),
 }
 # Table 2.16 (Joga-Rao / Pickett), nu=1/3, b/a=0.5, n=0 axisym exact.
+# Leissa r=a is OUTER, r=b is INNER. Keys are (bc_inner, bc_outer).
+# F-F is omitted in the source ("all but the free-free cases").
 TABLE_216_FC_N0 = 17.51   # outer C, inner F
 TABLE_216_CF_N0 = 13.05   # outer F, inner C
+TABLE_216_EXACT = {
+    ("C", "C"): 89.30,
+    ("S", "C"): 64.06,
+    ("F", "C"): 17.51,
+    ("C", "S"): 59.91,
+    ("S", "S"): 40.01,
+    ("F", "S"): 5.040,
+    ("C", "F"): 13.05,
+    ("S", "F"): 4.060,
+}
 
 # Table 2.30 (Vogel ref. 2.46): "Free, Clamped" = outer F, inner C.
 # n=1 s=0 is below n=0 s=0 at small b/a (Raju Table 2.29).
@@ -147,6 +167,153 @@ def is_vogel_230_named_skip(n, s, ba, printed):
     printed denominator 78.
     """
     return (int(n), int(s), float(ba), float(printed)) in VOGEL_230_NAMED_SKIPS
+
+
+# ---------------------------------------------------------------------------
+# Phase F remaining Vogel combinations (ref. 2.46). Leissa titles list
+# OUTER first. API is (bc_inner, bc_outer). None = a blank printed cell;
+# skip, do not invent. Transcribed from Leissa_SP160.pdf pages 22, 25,
+# 26, 27, 30 (PDF 30, 33, 34, 35, 38).
+# ---------------------------------------------------------------------------
+# Table 2.18 "Clamped, Clamped" = inner C / outer C.
+# (2,0) and (2,1) at b/a=0.9 are blank in the source.
+VOGEL_218_CC = {
+    (0, 0): (27.3, 45.2, 89.2, 248, 2237),
+    (1, 0): (28.4, 46.6, 90.2, 249, 2238),
+    (2, 0): (36.7, 51.0, 93.3, 251, None),
+    (3, 0): (51.2, 60.0, 99.0, 256, 2243),
+    (0, 1): (75.3, 125.0, 246.0, 686, 6167),
+    (1, 1): (78.6, 127.0, 248.0, 686, 6167),
+    (2, 1): (90.5, 134.0, 253.0, 689, None),
+    (3, 1): (112.0, 145.0, 259.0, 694, 6174),
+}
+# Table 2.20 "Clamped, Simply Supported" = inner S / outer C.
+VOGEL_220_SC = {
+    (0, 0): (22.6, 33.7, 63.9, 175, 1550),
+    (1, 0): (25.1, 35.8, 65.4, 175, 1551),
+    (2, 0): (35.4, 42.8, 70.0, 178, 1553),
+    (3, 0): (51.0, 54.7, 78.1, 185, 1558),
+    (0, 1): (65.6, 104.0, 202.0, 558, 5004),
+    (1, 1): (70.5, 107.0, 203.0, 560, 5004),
+    (2, 1): (86.7, 116.0, 210.0, 563, 5007),
+    (3, 1): (111.0, 130.0, 218.0, 570, 5012),
+}
+# Table 2.24 "Simply Supported, Clamped" = inner C / outer S.
+VOGEL_224_CS = {
+    (0, 0): (17.8, 29.9, 59.8, 168, 1535),
+    (1, 0): (19.0, 31.4, 61.0, 170, 1536),
+    (2, 0): (26.8, 36.2, 64.6, 172, 1538),
+    (3, 0): (40.0, 45.4, 71.0, 177, 1541),
+    (0, 1): (60.1, 100.0, 198.0, 552, 4989),
+    (1, 1): (62.8, 102.0, 200.0, 553, 4989),
+    (2, 1): (74.7, 109.0, 205.0, 557, 4992),
+    (3, 1): (95.3, 120.0, 211.0, 563, 4997),
+}
+# Table 2.26 "Simply Supported, Simply Supported" = inner S / outer S.
+# (2,1) at b/a=0.3 prints 933; neighbouring s=1 cells are 81.8 / 84.6 /
+# 108, so 93.3 is the physically expected value. Transcribe 933; name
+# the cell if the solver recovers ~93.3. Do not retune freq_gate.
+VOGEL_226_SS = {
+    (0, 0): (14.5, 21.1, 40.0, 110, 988),
+    (1, 0): (16.7, 23.3, 41.8, 112, 988),
+    (2, 0): (25.9, 30.2, 47.1, 116, 993),
+    (3, 0): (40.0, 42.0, 56.0, 122, 998),
+    (0, 1): (51.7, 81.8, 159.0, 439, 3948),
+    (1, 1): (56.5, 84.6, 161.0, 441, 3948),
+    (2, 1): (71.7, 933.0, 167.0, 444, 3952),
+    (3, 1): (94.7, 108.0, 177.0, 453, 3958),
+}
+VOGEL_226_NAMED_SKIPS = (
+    (2, 1, 0.3, 933.0),
+)
+# Table 2.28 "Simply Supported, Free" = inner F / outer S.
+VOGEL_228_FS = {
+    (0, 0): (4.86, 4.66, 5.07, 6.93, 17.7),
+    (1, 0): (13.9, 12.8, 11.6, 13.3, 29.7),
+    (2, 0): (25.4, 24.1, 22.3, 24.3, 51.2),
+    (3, 0): (40.0, 38.8, 35.7, 37.2, 74.5),
+    (0, 1): (29.4, 37.0, 65.8, 175, 1550),
+    (1, 1): (48.0, 45.8, 69.9, 178, 1553),
+    (2, 1): (69.2, 65.1, 81.1, 185, 1558),
+    (0, 2): (74.8, 107.0, 203.0, 558, 5004),
+}
+# Table 2.33 "Free, Simply Supported" = inner S / outer F.
+# n=1 s=0 is below n=0 s=0 at small b/a (same pattern as Table 2.30).
+VOGEL_233_SF = {
+    (1, 0): (2.30, 3.32, 4.86, 8.34, 25.9),
+    (0, 0): (3.45, 3.42, 4.11, 6.18, 17.2),
+    (2, 0): (5.42, 6.08, 7.98, 13.4, 42.6),
+    (3, 0): (12.4, 12.6, 14.0, 20.5, 61.4),
+    (0, 1): (20.8, 31.6, 61.0, 170, 1535),
+    (1, 1): (24.1, 34.5, 63.3, 172, 1536),
+    (2, 1): (35.8, 43.0, 69.7, 177, 1541),
+    (3, 1): (53.0, 56.7, 80.3, 185, 1548),
+}
+
+# Production list for the nine-combination claim. F-F / F-C / C-F are
+# Phases A and D; the rest is Phase F. inner/outer as the local API.
+VOGEL_NINE = (
+    ("2.35", "F", "F", None),          # already Phase A; not re-swept here
+    ("2.22", "F", "C", None),          # already Phase D
+    ("2.30", "C", "F", None),          # already Phase D
+    ("2.18", "C", "C", VOGEL_218_CC),
+    ("2.20", "S", "C", VOGEL_220_SC),
+    ("2.24", "C", "S", VOGEL_224_CS),
+    ("2.26", "S", "S", VOGEL_226_SS),
+    ("2.28", "F", "S", VOGEL_228_FS),
+    ("2.33", "S", "F", VOGEL_233_SF),
+)
+PHASE_F_VOGEL = tuple(t for t in VOGEL_NINE if t[3] is not None)
+
+
+def is_vogel_226_named_skip(n, s, ba, printed):
+    """True for Table 2.26 (2,1) at b/a=0.3 printed 933 -- source typeset."""
+    return (int(n), int(s), float(ba), float(printed)) in VOGEL_226_NAMED_SKIPS
+
+
+# Narita 1984 Table 3. Omega = omega a^2 sqrt(rho h / D_r), F-F.
+# Parameters [D_theta/D_r, H/D_r, nu_theta]. Roadmap: one material, two
+# b/a. High-modulus graphite epoxy is Table 1's material.
+NARITA_3_HMGE = {
+    "name": "high modulus graphite epoxy",
+    "params": (0.04, 0.055, 0.012),
+    "ba": {
+        0.5: {
+            (2, 0): 0.935,
+            (0, 1): 1.918,
+            (3, 0): 2.503,
+            (4, 0): 4.636,
+            (1, 1): 3.961,
+        },
+        0.3: {
+            (2, 0): 1.132,
+            (0, 1): 1.693,
+            (3, 0): 2.897,
+            (4, 0): 5.180,
+            (1, 1): 4.519,
+        },
+    },
+}
+
+
+def make_narita_orthotropic(Dth_Dr, H_Dr, nu_th, E_r=210e9, rho=7800.0):
+    """Build OrthotropicMaterial from Narita's (D_theta/D_r, H/D_r, nu_theta).
+
+    R = E_theta/E_r = D_theta/D_r. Reciprocity gives nu_r = nu_theta / R.
+    Narita H = D_r nu_theta + 2 D_G, so H/D_r is the ring T:
+      T = nu_theta + 2 G (1-nu_r nu_theta)/E_r
+    and G follows. flexural_lambda2 then uses D = D_r, matching Narita Omega
+    on the isotropic reduction (Table 2).
+    """
+    from plate_solver.geometry import OrthotropicMaterial
+    R = float(Dth_Dr)
+    nu_th = float(nu_th)
+    H_Dr = float(H_Dr)
+    nu_r = nu_th / R
+    G = float(E_r) * (H_Dr - nu_th) / (2.0 * (1.0 - nu_r * nu_th))
+    return OrthotropicMaterial(
+        E_r=E_r, E_theta=R * float(E_r), nu_r=nu_r, G_rtheta=G, rho=rho)
+
 
 # Table 2.31 Southwell (ref. 2.37), nu=0.3, same BC as 2.30 (inner C,
 # outer F). Not on the Vogel b/a grid. Lowest root per n (s=0).
