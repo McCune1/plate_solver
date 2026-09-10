@@ -45,13 +45,12 @@ flexural to 0.64%; 8 of 8 orthotropic flexural to 1.08%; 26 extensional
 roots accounting for 27 FE frequencies below 1120 Hz, one root covering
 the 1114.9/1115.3 Hz pair, worst unique-partner error 0.052%) and, for the
 in-plane spectra, against two independently published semi-analytical
-solutions with no shared code or mesh. One-to-one flexural adjudication
-with zero false negatives among REAL-like candidates holds at all four
-corners of {Ri/Ro = 0.5, 0.6} × {2Θ = π/2, π}. The
-mode-shape bar classifies the same way at three ν=0.30 geometries and
-at all 24 extensional keys of the ν=0.35 geometry sweep (it still
-splits for 2Θ/π ≤ 1.0; at 225° and 270° every tight FE-frequency match
-is ARTIFACT-like).
+solutions with no shared code or mesh. One-to-one flexural REAL-like
+adjudication holds at all four corners of {Ri/Ro = 0.5, 0.6} ×
+{2Θ = π/2, π}. The mode-shape bar classifies the same way at three
+ν=0.30 geometries and at all 24 extensional keys of the ν=0.35
+geometry sweep (it still splits for 2Θ/π ≤ 1.0; at 225° and 270° every
+tight FE-frequency match is ARTIFACT-like).
 
 **What we report against ourselves.** A fully default single blind pass of
 our own detector misses 4 of the 26 in-plane modes; all four are shown to be
@@ -60,8 +59,11 @@ discrimination instruments are part of the method, not optional
 diagnostics. One near-degenerate assignment above the validated window is
 left unforced rather than resolved. The ν=0.30 MAC calibration window
 is not a universal floor; the production threshold was not retuned.
-Flexural tables are FE-checked under a portable residual screen;
-extensional tables are currently FE-dependent for the discrimination step.
+Flexural tables are FE-checked under a portable residual screen.
+Extensional discrimination has a FE-dependent mode-shape bar (0.744)
+and a second, FE-free criterion (SUBDOM) that certifies a root from
+the boundary determinant alone, cluster-confirmed on a 122-candidate
+blind set.
 
 **Companion paper.** A rectangular FFFF companion, *Exact Wave-Function
 Solution of Completely Free Rectangular Plates: Four-Corner Kirchhoff
@@ -70,7 +72,7 @@ It is not an expansion of the present manuscript: the rectangular
 assembler is closed-form with four free corners, and it uses a
 persistence screen rather than the residual/SUBDOM instruments
 developed here. Both papers share the public repository below; this
-manuscript matches tag `v1.0.0`.
+manuscript matches tag `v1.0.0` (equivalently `paper1-jsv`).
 
 The solver, the finite-element decks, the validated tables and a from-scratch
 regression suite are released under an MIT license as a public GitHub

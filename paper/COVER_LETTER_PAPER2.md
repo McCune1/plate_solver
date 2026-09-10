@@ -2,8 +2,9 @@
 
 Addressed to the JSV Editor-in-Chief. Keep to one page. Submit together
 with Paper 1 (annular FFFF); both share https://github.com/McCune1/plate_solver.
-Paper 1 matches tag `v1.0.0`; add a rectangular manuscript-matching tag
-at submission. Do not invent a second Zenodo DOI story.
+Paper 1 matches tag `v1.0.0` (equivalently `paper1-jsv`); this
+manuscript matches `v1.1.0` (equivalently `paper2-jsv`). Do not invent
+a second Zenodo DOI story.
 
 ---
 
@@ -45,28 +46,34 @@ Kirchhoff jump at all: the assembler is an edge-list swap.
 
 **Evidence.** Independent half-model SHELL281 calculations at five
 aspect ratios, mesh-converged to <0.02%, confirm the screened flexural
-candidates (typically inside 1%). Twelve of Leissa's (1973) F–F–F–F
-Ritz values convert onto those matches within 1.65%. An identity-
-weighted MAC against the same half-model eigenvectors confirms the
-isolated primary matches (every first symmetric mode MAC ≥ 0.959);
-known Screen B leaks match no FE shape. The MAC bar 0.744 is the
-annular companion's production call, applied unre-tuned as a
+candidates (typically inside 1%). Fifteen of Leissa's (1973) F–F–F–F
+Ritz values convert onto those matches within 1.10%. An identity-
+weighted MAC against the same half-model eigenvectors confirms 36 of
+the 56 published flexural rows (every first symmetric mode
+MAC ≥ 0.959); known Screen B leaks stay below the bar except where a
+leak frequency coincides with a physical mode. The MAC bar 0.744 is
+the annular companion's production call, applied unre-tuned as a
 conservative shape-confirmation threshold, not recalibrated here.
 In-plane, half-model PLANE183 matches every non-rigid target in
-Ω̄ ∈ [0.02, 2.50] (92 unique frequencies). Bardell, Langley and
-Dunsdon's 1996 first six F–F–F–F frequencies at a/b = 1 and 2 agree
-to at most 1.69% (independent FE versus Bardell at most 0.018%);
-nineteen of Gorman's (2004) superposition eigenvalues in the same
-window agree to at most 0.11%. Default clamped-free assembly is
-unchanged (`SOLVER_VERSION` 2026-07-10.s10).
+Ω̄ ∈ [0.02, 2.50] (92 unique frequencies, 16 recovered at an enlarged
+basis in a window centred on the finite-element value). No in-plane
+eigenvector cross-check is presented: the in-plane result is a
+frequency census. Bardell, Langley and Dunsdon's 1996 first six
+F–F–F–F frequencies at a/b = 1 and 2 agree to at most 1.69%
+(independent FE versus Bardell at most 0.019%); nineteen of Gorman's
+(2004) superposition eigenvalues in the same window agree to at most
+1.72% (independent FE versus Gorman at most 0.11%). Default
+clamped-free assembly is unchanged (`SOLVER_VERSION` 2026-07-10.s10).
 
 **What we report against ourselves.** Production-basis flexural
 discovery is a floor, not a census: two genuine symmetric modes appear
 only on the persist basis; one square-plate symmetric target
 (Λ_FE = 1.982) is a named unmatched curiosity, not a missing mode.
 Several higher-Λ reconstructions do not MAC-confirm; those frequency
-rows are kept and the shapes are not claimed. Screen B is not a
-portable residual screen in the annular sense.
+rows are kept and the shapes are not claimed. Two Table 2 rows fail
+Screen B at the continuum optimum and are retained on independent FE
+agreement. Screen B is not a portable residual screen in the annular
+sense.
 
 The solver, finite-element decks, validated tables and a from-scratch
 regression suite are released under an MIT license as a public GitHub

@@ -1,5 +1,5 @@
 Four-corner Kirchhoff jump is a checkerboard; naive four-term sum vanishes
 Screen B frozen before extra aspect ratios; known leaks reported, not published
-Flexural FFFF at five aspect ratios; primaries MAC-confirmed vs SHELL281
-In-plane 92/92 FE; Bardell ≤1.69%; Gorman ≤0.11%; Leissa flexural ≤1.65%
+Flexural FFFF at five aspect ratios; 36/56 rows MAC-confirmed vs SHELL281
+In-plane 92/92 FE, frequency only; Bardell 1.69%; Gorman 1.72%; Leissa 1.10%
 Same unre-tuned MAC bar 0.744 and solver as the annular companion
