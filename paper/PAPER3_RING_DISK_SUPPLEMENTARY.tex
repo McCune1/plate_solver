@@ -2,7 +2,7 @@
 %   S.1  Bessel span of the four Frobenius branches
 %   S.2  disk regularity, the inner jet, and the rank-3 trap
 %   S.3  conversion algebra (one flexural number, one in-plane number)
-%   S.4  full match lists at the second Poisson ratio
+%   S.4  full match lists at the second Poisson ratio, remaining Vogel
 %   S.5  cluster job provenance
 %   S.6  Southwell inverse-b/a analysis, predicted versus observed
 %        (Table S.5 + Fig. S.1)
@@ -25,6 +25,10 @@
 \setcounter{bottomnumber}{4}
 \setcounter{totalnumber}{8}
 \emergencystretch=2.5em
+\raggedbottom
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
 
 \renewcommand{\thesection}{S.\arabic{section}}
 \renewcommand{\thesubsection}{S.\arabic{section}.\arabic{subsection}}
@@ -33,7 +37,8 @@
 \renewcommand{\theequation}{S.\arabic{equation}}
 
 \newcommand{\lamsq}{\lambda^{2}}
-\newcommand{\ba}{b/a}
+\newcommand{\ba}{\mbox{b/a}}
+\newcommand{\winend}{\mbox{\textsection}}
 
 \title{\bfseries Supplementary Material:\\
 Exact Radial-Determinant Frequencies of Annular and Circular Plates:
@@ -50,10 +55,10 @@ Missouri University of Science and Technology, Rolla, MO 65409, USA\\
 \noindent
 This file is the complete Supplementary Material to the companion
 manuscript, \S\S{}S.1--S.6. The main text's \S2.1 cites \S{}S.1; \S2.2 and
-\S5.1 cite \S{}S.2; \S2.4 cites \S{}S.3; \S\S4.1, 6.1 and~7 cite \S{}S.4;
-job-level provenance for every reported sweep is \S{}S.5; and \S6.3 cites
-\S{}S.6. The two files compile separately, so cross-references here are by
-section rather than by table number.
+\S5.1 cite \S{}S.2; \S2.4 cites \S{}S.3; \S\S4.1, 6.1, 6.3 and~7 cite
+\S{}S.4; job-level provenance for every reported sweep is \S{}S.5; and
+\S6.4 cites \S{}S.6. The two files compile separately, so cross-references
+here are by section rather than by table number.
 
 \section{Bessel span of the four Frobenius branches}\label{sec:sm-bessel}
 The radial content of the sector assembler is a four-term Frobenius series
@@ -100,7 +105,7 @@ constructive.
 
 \section{Disk regularity, the inner jet, and the rank-3 trap}\label{sec:sm-disk}
 
-\subsection{Why ``smallest $|W|$ at the origin'' fails}\label{sec:sm-naive}
+\subsection{Why ``smallest \texorpdfstring{$|W|$}{|W|} at the origin'' fails}\label{sec:sm-naive}
 The obvious way to isolate the regular pair is to evaluate the four columns
 near $r=0$ and discard the two with the largest magnitude. This does not work,
 and the reason is worth recording because the failure is silent. The series
@@ -217,10 +222,11 @@ Irie's printed $1.802$, a relative miss of $3.0\times10^{-4}$.
 
 \section{Full match lists}\label{sec:sm-lists}
 The main text reports each table at the Poisson ratio appropriate to its
-caption. This section carries the second Poisson ratio for the two unlabelled
-SP-160 tables, and the full in-plane list.
+caption. This section carries the second Poisson ratio for the unlabelled
+SP-160 tables, the four simply-supported mixed combinations at $\nu=0.30$,
+and the full in-plane list.
 
-\subsection{SP-160 Table 2.35 at $\nu=1/3$}\label{sec:sm-t235}
+\subsection{SP-160 Table 2.35 at \texorpdfstring{$\nu=1/3$}{nu=1/3}}\label{sec:sm-t235}
 Twenty of the forty cells are MATCH and twenty are WEAK; none is a MISS, so
 this half contributes $40/40$ to the $80/80$ reported in the main text. The
 largest miss is $2.220\%$ at $(2,1)$, $\ba=0.9$. The WEAK cells sit on the
@@ -254,7 +260,7 @@ $(1,2)$ & 59.0 & 59.063 & 58.8 & 58.456 & 96.3 & 96.044 & 253.0 & 252.97 & 2240.
 \end{tabular}
 \end{table}
 
-\subsection{Mixed edges at $\nu=1/3$}\label{sec:sm-mixed}
+\subsection{Mixed edges at \texorpdfstring{$\nu=1/3$}{nu=1/3}}\label{sec:sm-mixed}
 Table~\ref{tab:sm-t222-nu13} is the inner-free / outer-clamped set and
 Table~\ref{tab:sm-t230-nu13} the inner-clamped / outer-free set, both at
 $\nu=1/3$. The $\nu=1/3$ half of Table~2.22 contributes $40/40$; its two WEAK
@@ -292,7 +298,7 @@ $(0,2)$ & 90.4 & 90.161 & 132.0 & 132.14 & 253.0 & 251.94 & 692 & 691.70 & 6183 
 \begin{table}[htbp]\centering\footnotesize
 \caption{Mixed edges, inner clamped / outer free, $\nu=1/3$, against SP-160
 Table~2.30. $^{\dagger}$~named source-defect column (see main text).
-$\S$~search-window endpoint return; not a frequency and not printed.}
+\winend~search-window endpoint return; not a frequency and not printed.}
 \label{tab:sm-t230-nu13}
 \begin{tabular}{lcccccccccc}
 \toprule
@@ -304,28 +310,168 @@ $(n,s)$ & printed & solver & printed & solver & printed & solver
 & printed & solver & printed & solver\\
 \midrule
 $(1,0)$ & 3.14 & 3.4793 & 6.33 & 6.5601 & 13.3 & 13.313 & 37.5 & 37.566 & 345 & 345.47 \\
-$(0,0)$ & 4.23 & 4.2629 & 6.66 & 6.7012 & 13.0 & 13.089 & 37.0 & 37.069 & 51.5$^{\dagger}$ & \S \\
+$(0,0)$ & 4.23 & 4.2629 & 6.66 & 6.7012 & 13.0 & 13.089 & 37.0 & 37.069 & 51.5$^{\dagger}$ & \winend \\
 $(2,0)$ & 5.62 & 5.5139 & 7.96 & 7.8550 & 14.7 & 14.608 & 39.3 & 39.208 & 347 & 347.62 \\
 $(3,0)$ & 12.4 & 12.230 & 13.27 & 13.050 & 18.5 & 18.310 & 42.6 & 42.383 & 352 & 351.22 \\
-$(0,1)$ & 25.3 & 25.346 & 42.6 & 42.721 & 85.1 & 85.179 & 239 & 240.08 & 970$^{\dagger}$ & \S \\
-$(1,1)$ & 27.3 & \S & 44.6 & 44.706 & 86.7 & 86.821 & 241 & 241.49 & 2189 & 2190.8 \\
+$(0,1)$ & 25.3 & 25.346 & 42.6 & 42.721 & 85.1 & 85.179 & 239 & 240.08 & 970$^{\dagger}$ & \winend \\
+$(1,1)$ & 27.3 & \winend & 44.6 & 44.706 & 86.7 & 86.821 & 241 & 241.49 & 2189 & 2190.8 \\
 $(2,1)$ & 37.0 & 36.925 & 50.9 & 50.941 & 91.7 & 91.766 & 246 & 245.71 & 2194 & 2194.5 \\
 $(3,1)$ & 53.2 & 53.110 & 62.1 & 61.949 & 100 & 100.07 & 253 & 252.71 & 2200 & 2200.7 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\subsection{Remaining Vogel combinations}\label{sec:sm-nine}
+Tables~\ref{tab:sm-t220-nu30}--\ref{tab:sm-t233-nu30} are the four
+combinations that mix a simply-supported edge with free or clamped, at
+the paper-facing $\nu=0.30$. Tables~2.20, 2.24 and~2.28 are $40/40$ at
+this $\nu$ (and $40/40$ at $\nu=1/3$). Table~2.33 is $39/40$ here; the
+miss is $(1,0)$ at $\ba=0.1$, printed $2.30$ against $2.438$
+($6.02\%$, FLOOR, $s=0$). At $\nu=1/3$ the same cell is $2.409$
+($4.72\%$, CLEAN). Table~\ref{tab:sm-t226-nu13} is Table~2.26 at
+$\nu=1/3$; Table~2.18 is omitted at $\nu=1/3$ because a fully clamped
+Kirchhoff $\lamsq$ does not depend on $\nu$ and the two mill halves are
+identical to the printed precision.
+
+\begin{table}[htbp]\centering\footnotesize
+\caption{Inner simply supported / outer clamped, $\nu=0.30$, against
+SP-160 Table~2.20. 80/80 MATCH${}+{}$WEAK over both Poisson ratios.}
+\label{tab:sm-t220-nu30}
+\begin{tabular}{lcccccccccc}
+\toprule
+& \multicolumn{2}{c}{$\ba=0.1$} & \multicolumn{2}{c}{$\ba=0.3$}
+& \multicolumn{2}{c}{$\ba=0.5$} & \multicolumn{2}{c}{$\ba=0.7$}
+& \multicolumn{2}{c}{$\ba=0.9$}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+$(n,s)$ & printed & solver & printed & solver & printed & solver
+& printed & solver & printed & solver\\
+\midrule
+$(0,0)$ & 22.6 & 22.701 & 33.7 & 33.765 & 63.9 & 63.973 & 175 & 174.41 & 1550 & 1549.7 \\
+$(1,0)$ & 25.1 & 25.283 & 35.8 & 35.905 & 65.4 & 65.485 & 175 & 175.52 & 1551 & 1550.6 \\
+$(2,0)$ & 35.4 & 35.406 & 42.8 & 42.731 & 70.0 & 70.136 & 178 & 178.87 & 1553 & 1553.1 \\
+$(3,0)$ & 51.0 & 51.065 & 54.7 & 54.609 & 78.1 & 78.182 & 185 & 184.53 & 1558 & 1557.4 \\
+$(0,1)$ & 65.6 & 65.639 & 104 & 104.22 & 202 & 202.07 & 558 & 558.10 & 5004 & 5004.0 \\
+$(1,1)$ & 70.5 & 70.689 & 107 & 107.03 & 203 & 203.85 & 560 & 559.37 & 5004 & 5004.9 \\
+$(2,1)$ & 86.7 & 86.716 & 116 & 115.58 & 210 & 209.21 & 563 & 563.17 & 5007 & 5007.8 \\
+$(3,1)$ & 111 & 111.27 & 130 & 130.11 & 218 & 218.24 & 570 & 569.53 & 5012 & 5012.7 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering\footnotesize
+\caption{Inner clamped / outer simply supported, $\nu=0.30$, against
+SP-160 Table~2.24. 80/80 MATCH${}+{}$WEAK over both Poisson ratios.}
+\label{tab:sm-t224-nu30}
+\begin{tabular}{lcccccccccc}
+\toprule
+& \multicolumn{2}{c}{$\ba=0.1$} & \multicolumn{2}{c}{$\ba=0.3$}
+& \multicolumn{2}{c}{$\ba=0.5$} & \multicolumn{2}{c}{$\ba=0.7$}
+& \multicolumn{2}{c}{$\ba=0.9$}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+$(n,s)$ & printed & solver & printed & solver & printed & solver
+& printed & solver & printed & solver\\
+\midrule
+$(0,0)$ & 17.8 & 17.789 & 29.9 & 29.978 & 59.8 & 59.820 & 168 & 168.52 & 1535 & 1534.1 \\
+$(1,0)$ & 19.0 & 19.366 & 31.4 & 31.403 & 61.0 & 60.987 & 170 & 169.49 & 1536 & 1534.9 \\
+$(2,0)$ & 26.8 & 26.717 & 36.2 & 36.243 & 64.6 & 64.631 & 172 & 172.41 & 1538 & 1537.4 \\
+$(3,0)$ & 40.0 & 40.062 & 45.4 & 45.459 & 71.0 & 71.107 & 177 & 177.38 & 1541 & 1541.4 \\
+$(0,1)$ & 60.1 & 60.144 & 100 & 100.42 & 198 & 198.05 & 552 & 552.51 & 4989 & 4989.2 \\
+$(1,1)$ & 62.8 & 63.166 & 102 & 102.48 & 200 & 199.54 & 553 & 553.67 & 4989 & 4990.2 \\
+$(2,1)$ & 74.7 & 74.631 & 109 & 108.92 & 205 & 204.05 & 557 & 557.14 & 4992 & 4993.0 \\
+$(3,1)$ & 95.3 & 95.302 & 120 & 120.34 & 211 & 211.71 & 563 & 562.96 & 4997 & 4997.7 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering\footnotesize
+\caption{Inner free / outer simply supported, $\nu=0.30$, against
+SP-160 Table~2.28. 80/80 MATCH${}+{}$WEAK over both Poisson ratios.}
+\label{tab:sm-t228-nu30}
+\begin{tabular}{lcccccccccc}
+\toprule
+& \multicolumn{2}{c}{$\ba=0.1$} & \multicolumn{2}{c}{$\ba=0.3$}
+& \multicolumn{2}{c}{$\ba=0.5$} & \multicolumn{2}{c}{$\ba=0.7$}
+& \multicolumn{2}{c}{$\ba=0.9$}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+$(n,s)$ & printed & solver & printed & solver & printed & solver
+& printed & solver & printed & solver\\
+\midrule
+$(0,0)$ & 4.86 & 4.8533 & 4.66 & 4.6641 & 5.07 & 5.0769 & 6.93 & 6.9311 & 17.7 & 17.709 \\
+$(1,0)$ & 13.9 & 13.872 & 12.8 & 12.816 & 11.6 & 11.607 & 13.3 & 13.311 & 29.7 & 29.769 \\
+$(2,0)$ & 25.4 & 25.394 & 24.1 & 24.116 & 22.3 & 22.357 & 24.3 & 24.329 & 51.2 & 51.181 \\
+$(3,0)$ & 40.0 & 39.935 & 38.8 & 38.775 & 35.7 & 35.636 & 37.2 & 37.097 & 74.5 & 74.561 \\
+$(0,1)$ & 29.4 & 29.438 & 37.0 & 37.042 & 65.8 & 65.842 & 175 & 175.64 & 1550 & 1550.6 \\
+$(1,1)$ & 48.0 & 48.012 & 45.8 & 45.837 & 69.9 & 69.890 & 178 & 178.07 & 1553 & 1552.3 \\
+$(2,1)$ & 69.2 & 69.259 & 65.1 & 65.038 & 81.1 & 81.100 & 185 & 185.24 & 1558 & 1557.4 \\
+$(0,2)$ & 74.8 & 74.823 & 107 & 107.47 & 203 & 203.84 & 558 & 559.28 & 5004 & 5004.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering\footnotesize
+\caption{Inner simply supported / outer free, $\nu=0.30$, against
+SP-160 Table~2.33. 78/80 MATCH${}+{}$WEAK over both Poisson ratios.
+The $(1,0)$ cell at $\ba=0.1$ is the named miss.}
+\label{tab:sm-t233-nu30}
+\begin{tabular}{lcccccccccc}
+\toprule
+& \multicolumn{2}{c}{$\ba=0.1$} & \multicolumn{2}{c}{$\ba=0.3$}
+& \multicolumn{2}{c}{$\ba=0.5$} & \multicolumn{2}{c}{$\ba=0.7$}
+& \multicolumn{2}{c}{$\ba=0.9$}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+$(n,s)$ & printed & solver & printed & solver & printed & solver
+& printed & solver & printed & solver\\
+\midrule
+$(1,0)$ & 2.30 & 2.4384 & 3.32 & 3.3738 & 4.86 & 4.8616 & 8.34 & 8.3506 & 25.9 & 25.894 \\
+$(0,0)$ & 3.45 & 3.4497 & 3.42 & 3.4223 & 4.11 & 4.1210 & 6.18 & 6.1868 & 17.2 & 17.112 \\
+$(2,0)$ & 5.42 & 5.4289 & 6.08 & 6.0804 & 7.98 & 7.9861 & 13.4 & 13.427 & 42.6 & 42.619 \\
+$(3,0)$ & 12.4 & 12.442 & 12.6 & 12.611 & 14.0 & 14.035 & 20.5 & 20.453 & 61.4 & 61.398 \\
+$(0,1)$ & 20.8 & 20.889 & 31.6 & 31.603 & 61.0 & 61.009 & 170 & 169.49 & 1535 & 1535.0 \\
+$(1,1)$ & 24.1 & 24.244 & 34.5 & 34.458 & 63.3 & 63.227 & 172 & 171.31 & 1536 & 1536.5 \\
+$(2,1)$ & 35.8 & 35.773 & 43.0 & 42.937 & 69.7 & 69.766 & 177 & 176.70 & 1541 & 1541.2 \\
+$(3,1)$ & 53.0 & 53.043 & 56.7 & 56.704 & 80.3 & 80.375 & 185 & 185.56 & 1548 & 1548.9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering\footnotesize
+\caption{Simply supported--simply supported annulus, $\nu=1/3$, against
+SP-160 Table~2.26. $^{\dagger}$~printed $933$ is a lost decimal; solver
+value is the $s=1$ root from a search at $93.3$.}
+\label{tab:sm-t226-nu13}
+\begin{tabular}{lcccccccccc}
+\toprule
+& \multicolumn{2}{c}{$\ba=0.1$} & \multicolumn{2}{c}{$\ba=0.3$}
+& \multicolumn{2}{c}{$\ba=0.5$} & \multicolumn{2}{c}{$\ba=0.7$}
+& \multicolumn{2}{c}{$\ba=0.9$}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+$(n,s)$ & printed & solver & printed & solver & printed & solver
+& printed & solver & printed & solver\\
+\midrule
+$(0,0)$ & 14.5 & 14.439 & 21.1 & 21.036 & 40.0 & 40.011 & 110 & 110.04 & 988 & 987.25 \\
+$(1,0)$ & 16.7 & 16.764 & 23.3 & 23.287 & 41.8 & 41.769 & 112 & 111.42 & 988 & 988.36 \\
+$(2,0)$ & 25.9 & 25.966 & 30.2 & 30.271 & 47.1 & 47.070 & 116 & 115.56 & 993 & 991.68 \\
+$(3,0)$ & 40.0 & 40.013 & 42.0 & 41.928 & 56.0 & 55.950 & 122 & 122.48 & 998 & 997.22 \\
+$(0,1)$ & 51.7 & 51.654 & 81.8 & 81.663 & 159 & 158.59 & 439 & 439.14 & 3948 & 3948.2 \\
+$(1,1)$ & 56.5 & 56.431 & 84.6 & 84.569 & 161 & 160.52 & 441 & 440.56 & 3948 & 3949.3 \\
+$(2,1)$ & 71.7 & 71.690 & 933$^{\dagger}$ & 93.371 & 167 & 166.30 & 444 & 444.80 & 3952 & 3952.7 \\
+$(3,1)$ & 94.7 & 94.744 & 108 & 108.18 & 177 & 175.98 & 453 & 451.88 & 3958 & 3958.2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
 \subsection{In-plane free--free ring, all 48 cells}\label{sec:sm-irie}
 Table~\ref{tab:sm-irie} is the complete comparison with Irie, Yamada and
 Muramoto's Table~2: two frequencies per branch at each of four radius ratios,
 $48$ cells, all MATCH.
 
-\begin{table}[htbp]\centering\footnotesize
+\begin{center}\footnotesize
+\begin{longtable}{lcccccccc}
 \caption{In-plane free--free ring against Irie, Yamada and Muramoto Table~2,
 $\nu=0.3$, in the parameter of \eqref{eq:sm-irie}. Two frequencies per branch
 per $\beta$; all $48$ cells MATCH, largest relative miss $0.222\%$.}
-\label{tab:sm-irie}
-\begin{tabular}{lcccccccc}
+\label{tab:sm-irie}\\
 \toprule
 & \multicolumn{4}{c}{$\beta=0.2$} & \multicolumn{4}{c}{$\beta=0.4$}\\
 \cmidrule(lr){2-5}\cmidrule(lr){6-9}
@@ -355,10 +501,9 @@ $n=2$ & 0.418 & 0.4181 & 2.474 & 2.4737 & 0.178 & 0.1784 & 2.339 & 2.3389 \\
 $n=3$ & 1.043 & 1.0430 & 3.433 & 3.4324 & 0.487 & 0.4870 & 3.299 & 3.2985 \\
 $n=4$ & 1.752 & 1.7519 & 4.386 & 4.3850 & 0.892 & 0.8923 & 4.290 & 4.2895 \\
 \bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\end{center}
 
-\FloatBarrier
 \section{Cluster job provenance}\label{sec:sm-jobs}
 Every production number in the main text comes from a numbered batch job on
 The Mill. Main-text sections carry no job numbers; they are collected here.
@@ -378,6 +523,7 @@ Mixed edges, SP-160 Tables 2.22, 2.30, 2.16 and Southwell Table 2.31; thin-ring 
 Finite elements, mixed inner/outer edges at three geometries plus a refined mesh and a positive control & \texttt{2469112}\\
 Secondary differential test against Vogel's table (\S{}S.6.4) & \texttt{2469111}\\
 In-plane free--free ring, Irie Table 2 & \texttt{2461505}\\
+Remaining Vogel combinations (Tables 2.18, 2.20, 2.24, 2.26, 2.28, 2.33), Table 2.16 all eight, Narita Table 3 & \texttt{2472653}\\
 Southwell inverse radius-ratio analysis and the window-endpoint audit & \texttt{container, no batch job}\\
 \bottomrule
 \end{tabular}
@@ -428,7 +574,8 @@ a three-decade spread to within a factor of two is doing real work. The five
 direct misses are exactly the rows with the largest
 $\mathrm{d}\lamsq/\mathrm{d}(\ba)$.
 
-\begin{table}[htbp]\centering\small
+\begin{center}\small
+\begin{longtable}{ccccccccc}
 \caption{Southwell Table~2.31, inverse radius-ratio analysis.
 $|\delta(\ba)|$ is the difference between the printed radius ratio and the one
 that reproduces the printed $\lamsq$ exactly; ``pred'' is
@@ -436,12 +583,22 @@ that reproduces the printed $\lamsq$ exactly; ``pred'' is
 $^{\ddagger}$~the stored forward value at this row was a search-window
 endpoint; the observed error shown is recomputed from the wide re-search,
 which is CLEAN with $s=0$. Ratio within a factor of two on all $18$ rows.}
-\label{tab:sm-inverse}
-\begin{tabular}{ccccccccc}
+\label{tab:sm-inverse}\\
 \toprule
 $n$ & $\ba$ & printed $\lamsq$ & $|\delta(\ba)|$
 & $\mathrm{d}\lamsq/\mathrm{d}(\ba)$ & pred & obs & ratio & gate\\
 \midrule
+\endfirsthead
+\multicolumn{9}{l}{\textit{Table~\ref{tab:sm-inverse} continued}}\\
+\toprule
+$n$ & $\ba$ & printed $\lamsq$ & $|\delta(\ba)|$
+& $\mathrm{d}\lamsq/\mathrm{d}(\ba)$ & pred & obs & ratio & gate\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\bottomrule
+\endlastfoot
 0 & 0.276 & 6.25 & 0.00045 & 16.79 & 0.001206 & 0.00119 & 1.01 & MATCH \\
 0 & 0.642 & 25.0 & 0.00518 & 142.8 & 0.02959 & 0.02981 & 0.99 & WEAK \\
 0 & 0.84 & 81.0 & 0.04420 & 819.5 & 0.4472 & 0.6419$^{\ddagger}$ & 0.70 & MISS \\
@@ -460,13 +617,12 @@ $n$ & $\ba$ & printed $\lamsq$ & $|\delta(\ba)|$
 3 & 0.59 & 25.0 & 0.00037 & 99.95 & 0.00149 & 0.001459 & 1.02 & MATCH \\
 3 & 0.71 & 49.0 & 0.01209 & 327.4 & 0.08081 & 0.07457$^{\ddagger}$ & 1.08 & MISS \\
 3 & 0.82 & 100 & 0.01008 & 1025 & 0.1033 & 0.1104$^{\ddagger}$ & 0.94 & MISS \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\end{center}
 
-\begin{figure}[htbp]\centering
-\includegraphics[width=0.78\linewidth]{southwell_pred_vs_obs}
-\caption{Predicted versus observed relative miss on Southwell
+\begin{center}
+\includegraphics[width=0.68\linewidth]{southwell_pred_vs_obs}
+\captionof{figure}{Predicted versus observed relative miss on Southwell
 Table~2.31, all eighteen rows, log--log. The solid line is identity;
 the shaded band is a factor of two. Markers follow the same
 MATCH/WEAK/MISS gate as the main-text table. Open squares are the three
@@ -475,8 +631,7 @@ observed error plotted is from the wide re-search (daggers in
 Table~\ref{tab:sm-inverse}). Ratio of predicted to observed error lies
 between $0.70$ and $1.13$ on $18/18$.}
 \label{fig:sm-predobs}
-\end{figure}
-\FloatBarrier
+\end{center}
 
 \subsection{Three rows were window endpoints}\label{sec:sm-inv-edge}
 An audit of all $342$ stored rows in this study against each row's own search
