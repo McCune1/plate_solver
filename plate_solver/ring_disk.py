@@ -33,11 +33,12 @@ Do not "fix" the rank-3 result. Production disk_search / disk_L_mp is a
 2x2 on the regular pair. A tiny-hole 4x4 at b/a = 1e-3 may exist later
 as a *control*, not as the production disk.
 
-Phase D implements OOP F and C on each ring edge (F-F, F-C, C-F,
-C-C). SS still raises UnsupportedRingBC (Phase F). F-F still calls
-the validated `_det_mp`. Mixed-edge replaces the clamped Mr,Vr rows
-by W, W'. Disk remains free-outer only. In-plane mixed-edge and IP
-disk 2x2 are not Phase D.
+Phase D implemented OOP F and C on each ring edge (F-F, F-C, C-F,
+C-C). Phase F adds simply-supported edges: an S edge keeps Mr and
+replaces only Vr with W. F-F still calls the validated `_det_mp`.
+A clamped edge still replaces Mr,Vr by W, W'. Disk remains
+free-outer only. In-plane mixed-edge and IP disk 2x2 are not
+implemented.
 """
 from __future__ import annotations
 
@@ -80,7 +81,7 @@ _RANK_TOL = 1e-12  # job 2339453 matrix_rank_mp
 
 
 class UnsupportedRingBC(NotImplementedError):
-    """SS (and IP mixed-edge) row-swaps are not Phase D."""
+    """IP mixed-edge (and any BC the ring path does not implement)."""
 
 
 class DiskPathError(RuntimeError):
@@ -173,24 +174,20 @@ def _norm_bc(bc):
 
 
 def _require_ring_bc(bc_inner, bc_outer, motion="oop"):
-    """OOP F/C on each edge (Phase D). F-F always allowed. SS is Phase F."""
+    """OOP F/C/S on each edge. F-F always allowed. IP mixed-edge is not."""
     inner = _norm_bc(bc_inner)
     outer = _norm_bc(bc_outer)
-    if inner == "S" or outer == "S":
-        raise UnsupportedRingBC(
-            "SS row-swaps are Paper 3 Phase F, not Phase D; "
-            "got inner=%r outer=%r" % (bc_inner, bc_outer))
     if (inner, outer) == ("F", "F"):
         return inner, outer
     motion = _norm_motion(motion)
     if motion != "oop":
         raise UnsupportedRingBC(
-            "IP mixed-edge is not Phase D; got motion=%r inner=%r outer=%r"
+            "IP mixed-edge is not implemented; got motion=%r inner=%r outer=%r"
             % (motion, bc_inner, bc_outer))
-    if inner in ("F", "C") and outer in ("F", "C"):
+    if inner in ("F", "C", "S") and outer in ("F", "C", "S"):
         return inner, outer
     raise UnsupportedRingBC(
-        "Phase D OOP allows F/C on each edge; got inner=%r outer=%r"
+        "OOP ring allows F/C/S on each edge; got inner=%r outer=%r"
         % (bc_inner, bc_outer))
 
 
@@ -217,7 +214,8 @@ def ring_L_mp(solver, n, Om, bc_inner="F", bc_outer="F"):
     """4x4 characteristic matrix at integer n.
 
     F-F uses `_Lmat_mp` as-is (Mr, Vr at both arcs). A clamped edge
-    replaces that arc's Mr, Vr rows by W, W' (G, G' at x=±π/2).
+    replaces that arc's Mr, Vr rows by W, W' (G, G' at x=±π/2). A
+    simply-supported edge keeps Mr and replaces only Vr with W.
     """
     motion = _solver_motion(solver)
     inner, outer = _require_ring_bc(bc_inner, bc_outer, motion)
@@ -227,15 +225,18 @@ def ring_L_mp(solver, n, Om, bc_inner="F", bc_outer="F"):
     if (inner, outer) == ("F", "F"):
         return L
     hp = mp.pi / 2
-    for edge, x, row_w, row_wp in (
+    for edge, x, row_m, row_v in (
             (inner, -hp, 0, 2),
             (outer, hp, 1, 3)):
-        if edge != "C":
+        if edge == "F":
             continue
         for q in range(4):
             a = sols[q]
-            L[row_w, q] = solver._ev_mp(a, x, 0)
-            L[row_wp, q] = solver._ev_mp(a, x, 1)
+            if edge == "C":
+                L[row_m, q] = solver._ev_mp(a, x, 0)
+                L[row_v, q] = solver._ev_mp(a, x, 1)
+            elif edge == "S":
+                L[row_v, q] = solver._ev_mp(a, x, 0)
     return L
 
 
@@ -693,7 +694,7 @@ def ring_search(n, Om_window, bc_inner="F", bc_outer="F", motion="oop",
     controls  : optional sequence of ControlSpec; POS and NEG are
                 evaluated with the same sign-flip ladder in this call.
 
-    OOP F/C on each edge (Phase D). F-F still uses `_det_mp`. Does not
+    OOP F/C/S on each edge. F-F still uses `_det_mp`. Does not
     use the sector residual/depth bar.
     """
     motion = _norm_motion(motion)

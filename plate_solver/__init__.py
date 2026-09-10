@@ -33,6 +33,10 @@ from .core_solvers import (
     OutOfPlaneSolver, InPlaneSolver, RectOOPAssembler, RectIPAssembler,
     AnnulusRadialOOP, AnnulusRadialIP,
 )
+from .ring_disk import (
+    ring_search, disk_search, flexural_lambda2, inplane_lambda_irie,
+    UnsupportedRingBC,
+)
 from .plotting import plot_dispersion_curves, plot_mode_shape
 from .validation import (
     compare_and_collect, print_summary, run_shi_validation,
@@ -53,6 +57,8 @@ __all__ = [
     "equilibrated_logdet", "equilibrated_nullvec_mp",
     "OutOfPlaneSolver", "InPlaneSolver", "RectOOPAssembler", "RectIPAssembler",
     "AnnulusRadialOOP", "AnnulusRadialIP",
+    "ring_search", "disk_search", "flexural_lambda2", "inplane_lambda_irie",
+    "UnsupportedRingBC",
     "plot_dispersion_curves", "plot_mode_shape",
     "compare_and_collect", "print_summary", "run_shi_validation",
     "run_mcgee_validation", "run_rect_validation", "run_rect_ip_validation",

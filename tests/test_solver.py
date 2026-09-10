@@ -20,8 +20,11 @@ sandbox can't run more than this):
     sigma_min anchors (out-of-plane and in-plane, ~2s total) plus a
     source-level guard that the four-corner Kirchhoff jump is the
     checkerboard and not the naive same-sign sum that vanishes.
-  * TestRingDisk -- Paper 3 Phase 0/D: disk path is 2x2; Sec. 18.38
-    F-F anchors; Phase D F-C/C-F vs Table 2.16; SS still raises.
+  * TestRingDisk -- Paper 3 Phase 0/D/F: disk path is 2x2 (4x4 at R_i=0
+    is not the disk); two full-ring OOP F-F |det L| anchors from Sec.
+    18.38; in-plane `_Lmat_mp` liveness at integer n; flexural conversion
+    of FF-P1 mode 7; Phase D F-C/C-F and Phase F C-C/S-S vs Table 2.16.
+    Cheap 4x4/2x2 probes, not a K-build.
   * TestWorkerPath   -- multiprocessing worker-side scalar reconstruction
     (fast, no ProcessPoolExecutor) is always run; the ProcessPoolExecutor
     end-to-end variant is skipped by default (SLOW_TESTS=1 to include it)
@@ -32,12 +35,11 @@ Slow tier: SLOW_TESTS=1 python -m unittest tests.test_solver -v
 
 The summary line's test count is interpreter-dependent and is NOT a
 completeness signal. Python 3.11 counts the one @skipUnless test in
-"Ran N"; Python 3.12 does not, so the same 14 collected tests report
-"Ran 14" and "Ran 13" respectively, both with skipped=1 (measured
-2026-09-07 on 3.11.15 and 3.12.1). To ask whether every gate is actually
-present on a given machine, run diag_test_collection.sh at the package
-root -- it enumerates what the loader collects -- rather than reading the
-count off this summary.
+"Ran N"; Python 3.12 does not. After TestRingDisk (2026-09-08) the
+loader collects 22 tests (21 run + 1 skip on 3.14). To ask whether every gate is actually present on a
+given machine, run diag_test_collection.sh at the package root -- it
+enumerates what the loader collects -- rather than reading the count
+off this summary.
 
 ANCHOR PROVENANCE (all three annular gates re-derived 2026-09-07). Every
 value below reproduces to ~15 significant digits on two independent
@@ -311,8 +313,9 @@ class TestRectangularFreeFree(unittest.TestCase):
         with self.assertRaises(ValueError):
             ps.RectIPAssembler(nu_b=0.3, R=1.0, dps=mp.dps, bc="nonsense")
 
+
 class TestRingDisk(unittest.TestCase):
-    """Closed-ring / solid-disk gates for Paper 3 Phase 0 and Phase D.
+    """Closed-ring / solid-disk gates for Paper 3 Phase 0, D and F.
 
     Pre-registered verdicts (do not retune M, dps, or the screen to make
     a row pass):
@@ -321,7 +324,8 @@ class TestRingDisk(unittest.TestCase):
       FAIL_DISK_IS_4x4  disk path is the 4x4 at R_i=0, or disk_L_mp is not 2x2
       FAIL_ANCHOR       a Sec. 18.38 |det L| anchor moved -- do not edit it
       FAIL_IP_LMAT      in-plane `_Lmat_mp` at integer n is not finite
-      FAIL_PHASE_D      mixed F-C/C-F miss Table 2.16, or SS no longer raises
+      FAIL_PHASE_D      mixed F-C/C-F miss Table 2.16, or IP mixed no longer raises
+      FAIL_PHASE_F      C-C or S-S miss Table 2.16 exact n=0 b/a=0.5 nu=1/3
 
     Anchors are identical at dps 26/30/40 (captured 2026-09-08). If one
     ever moves, that is a changed computed frequency: do not edit the
@@ -416,17 +420,19 @@ class TestRingDisk(unittest.TestCase):
         self.assertGreater(lam_ip, 0.0)
         self.assertGreater(abs(lam_ip - factor_ba05) / factor_ba05, 0.5)
 
-    def test_ss_and_ip_mixed_still_unsupported(self):
-        """SS and IP mixed-edge stay Phase F / not Phase D."""
+    def test_ip_mixed_still_unsupported(self):
+        """IP mixed-edge stays unimplemented; OOP S is now a live row-swap."""
         mp.dps = 26
         slv, _g, _m = make_annulus_solver(0.5, nu=0.30, motion="oop")
-        with self.assertRaises(UnsupportedRingBC):
-            ring_L_mp(slv, 2, 0.5, bc_inner="S", bc_outer="F")
-        with self.assertRaises(UnsupportedRingBC):
-            ring_L_mp(slv, 2, 0.5, bc_inner="F", bc_outer="SS")
+        Lsf = ring_L_mp(slv, 2, 0.5, bc_inner="S", bc_outer="F")
+        self.assertEqual((Lsf.rows, Lsf.cols), (4, 4))
+        Lfs = ring_L_mp(slv, 2, 0.5, bc_inner="F", bc_outer="SS")
+        self.assertEqual((Lfs.rows, Lfs.cols), (4, 4))
         slv_ip, _gi, _mi = make_annulus_solver(0.5, nu=0.30, motion="ip")
         with self.assertRaises(UnsupportedRingBC):
             ring_L_mp(slv_ip, 2, 0.5, bc_inner="C", bc_outer="F")
+        with self.assertRaises(UnsupportedRingBC):
+            ring_L_mp(slv_ip, 2, 0.5, bc_inner="S", bc_outer="S")
 
     def test_fc_cf_lmat_is_4x4_finite(self):
         """Phase D mixed L is 4x4 and finite; F-F L is unchanged in shape."""
@@ -434,7 +440,9 @@ class TestRingDisk(unittest.TestCase):
         slv, _g, _m = make_annulus_solver(0.5, nu=0.30, motion="oop")
         Lff = ring_L_mp(slv, 2, 0.5, "F", "F")
         self.assertEqual((Lff.rows, Lff.cols), (4, 4))
-        for bi, bo in (("F", "C"), ("C", "F"), ("C", "C")):
+        for bi, bo in (("F", "C"), ("C", "F"), ("C", "C"),
+                       ("S", "S"), ("S", "F"), ("F", "S"),
+                       ("C", "S"), ("S", "C")):
             L = ring_L_mp(slv, 2, 0.5, bi, bo)
             self.assertEqual((L.rows, L.cols), (4, 4), (bi, bo))
             for i in range(4):
@@ -464,6 +472,27 @@ class TestRingDisk(unittest.TestCase):
                 rel, 0.01,
                 "Table 2.16 %s-%s printed=%s lam2=%s rel=%s log|det|=%s"
                 % (inner, outer, printed, res.lambda2, rel, res.log_abs_det))
+
+    def test_phase_f_table216_axisym_cc_ss(self):
+        """Table 2.16 exact n=0 b/a=0.5 nu=1/3: C-C 89.30 and S-S 40.01.
+
+        Leissa r=a is outer, r=b is inner. Rel < 1% vs the exact column.
+        """
+        mp.dps = 26
+        slv, geom, mat = make_annulus_solver(0.5, nu=1.0 / 3.0, motion="oop")
+        for inner, outer, printed in (("C", "C", 89.30), ("S", "S", 40.01)):
+            native = native_from_flexural_lambda2(printed, geom, mat)
+            res = ring_search(
+                0, (max(1e-4, native - 0.03), native + 0.03),
+                bc_inner=inner, bc_outer=outer, motion="oop",
+                solver=slv, geom=geom, mat=mat,
+                coarse_step=0.0005, polish=True)
+            rel = abs(res.lambda2 - printed) / printed
+            self.assertLess(
+                rel, 0.01,
+                "FAIL_PHASE_F Table 2.16 %s-%s printed=%s lam2=%s rel=%s "
+                "log|det|=%s" % (inner, outer, printed, res.lambda2, rel,
+                                 res.log_abs_det))
 
 if __name__ == "__main__":
     unittest.main()
