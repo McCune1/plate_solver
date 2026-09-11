@@ -170,24 +170,32 @@ def _norm_bc(bc):
         return "C"
     if s in ("S", "SS", "SIMPLY", "SIMPLY-SUPPORTED", "SIMPLY_SUPPORTED"):
         return "S"
-    raise ValueError("bc must be F, C, or S; got %r" % (bc,))
+    if s in ("G", "GUIDED", "ROLLER", "SLIDING"):
+        return "G"
+    raise ValueError("bc must be F, C, S, or G; got %r" % (bc,))
 
 
 def _require_ring_bc(bc_inner, bc_outer, motion="oop"):
-    """OOP F/C/S on each edge. F-F always allowed. IP mixed-edge is not."""
+    """OOP F/C/S/G on each edge. IP F/C on each edge. F-F always allowed.
+
+    IP simply-supported / guided still raise (Irie 1984 tabulates F and C
+    only). SOLVER_VERSION is unbumped: default F-F still uses `_det_mp`.
+    """
     inner = _norm_bc(bc_inner)
     outer = _norm_bc(bc_outer)
     if (inner, outer) == ("F", "F"):
         return inner, outer
     motion = _norm_motion(motion)
-    if motion != "oop":
+    if motion == "ip":
+        if inner in ("F", "C") and outer in ("F", "C"):
+            return inner, outer
         raise UnsupportedRingBC(
-            "IP mixed-edge is not implemented; got motion=%r inner=%r outer=%r"
-            % (motion, bc_inner, bc_outer))
-    if inner in ("F", "C", "S") and outer in ("F", "C", "S"):
+            "IP ring allows F/C on each edge; got inner=%r outer=%r"
+            % (bc_inner, bc_outer))
+    if inner in ("F", "C", "S", "G") and outer in ("F", "C", "S", "G"):
         return inner, outer
     raise UnsupportedRingBC(
-        "OOP ring allows F/C/S on each edge; got inner=%r outer=%r"
+        "OOP ring allows F/C/S/G on each edge; got inner=%r outer=%r"
         % (bc_inner, bc_outer))
 
 
@@ -213,9 +221,12 @@ def _require_ri0(solver):
 def ring_L_mp(solver, n, Om, bc_inner="F", bc_outer="F"):
     """4x4 characteristic matrix at integer n.
 
-    F-F uses `_Lmat_mp` as-is (Mr, Vr at both arcs). A clamped edge
-    replaces that arc's Mr, Vr rows by W, W' (G, G' at x=±π/2). A
-    simply-supported edge keeps Mr and replaces only Vr with W.
+    F-F uses `_Lmat_mp` as-is (Mr, Vr at both arcs for OOP; Nr, Nrθ
+    for IP). A clamped OOP edge replaces that arc's Mr, Vr rows by
+    W, W'. A simply-supported OOP edge keeps Mr and replaces only Vr
+    with W. A guided OOP edge keeps Vr and replaces Mr with W'
+    (JOSM 2016: w,r = 0 and Vr = 0). A clamped IP edge replaces Nr,
+    Nrθ with ur, uθ (Irie: u = v = 0).
     """
     motion = _solver_motion(solver)
     inner, outer = _require_ring_bc(bc_inner, bc_outer, motion)
@@ -232,11 +243,17 @@ def ring_L_mp(solver, n, Om, bc_inner="F", bc_outer="F"):
             continue
         for q in range(4):
             a = sols[q]
-            if edge == "C":
+            if motion == "ip":
+                fa, fb = a
+                L[row_m, q] = solver._ev_mp(fa, x, 0)
+                L[row_v, q] = solver._ev_mp(fb, x, 0)
+            elif edge == "C":
                 L[row_m, q] = solver._ev_mp(a, x, 0)
                 L[row_v, q] = solver._ev_mp(a, x, 1)
             elif edge == "S":
                 L[row_v, q] = solver._ev_mp(a, x, 0)
+            elif edge == "G":
+                L[row_m, q] = solver._ev_mp(a, x, 1)
     return L
 
 
@@ -307,27 +324,49 @@ def _regular_column_weights(solver, sols, n):
 
 
 def disk_L_mp(solver, n, Om, bc_outer="F"):
-    """2x2 outer-edge matrix on the regular pair. Not the 4x4 at R_i=0."""
+    """2x2 outer-edge matrix on the regular pair. Not the 4x4 at R_i=0.
+
+    OOP outer F (Mr, Vr), C (W, W'), or S (Mr, W). IP disk is still
+    tiny-hole (a ring at Ri/Ro=0.01), not this 2x2.
+    """
     if not DISK_4X4_AT_RI0_IS_NOT_THE_DISK:
         raise DiskPathError("DISK_4X4_AT_RI0_IS_NOT_THE_DISK must stay True")
     _require_ri0(solver)
-    if str(bc_outer).upper() != "F":
+    if _solver_motion(solver) != "oop":
+        raise UnsupportedRingBC("disk_L_mp is OOP only; IP disk is tiny-hole")
+    outer = _norm_bc(bc_outer)
+    if outer not in ("F", "C", "S"):
         raise UnsupportedRingBC(
-            "Phase 0 disk implements free outer only; got bc_outer=%r"
-            % (bc_outer,))
+            "OOP disk outer allows F/C/S; got bc_outer=%r" % (bc_outer,))
     xi = mpc(n)
     sols = solver._series_mp(xi, mpf(Om))
-    # Outer rows of the 4x4: row 1 = M_r (OOP) / N_r (IP) at outer;
-    # row 3 = V_r / N_r theta at outer. Inner rows are regularity, not BCs.
     L4 = solver._Lmat_mp(xi, sols)
     C = _regular_column_weights(solver, sols, n)
     L2 = matrix(2, 2)
+    x_outer = mp.pi / 2
     for j in range(2):
-        for i, row4 in enumerate((1, 3)):
-            acc = mpc(0)
+        if outer == "F":
+            for i, row4 in enumerate((1, 3)):
+                acc = mpc(0)
+                for q in range(4):
+                    acc += L4[row4, q] * C[q][j]
+                L2[i, j] = acc
+        elif outer == "C":
+            acc0 = mpc(0)
+            acc1 = mpc(0)
             for q in range(4):
-                acc += L4[row4, q] * C[q][j]
-            L2[i, j] = acc
+                acc0 += solver._ev_mp(sols[q], x_outer, 0) * C[q][j]
+                acc1 += solver._ev_mp(sols[q], x_outer, 1) * C[q][j]
+            L2[0, j] = acc0
+            L2[1, j] = acc1
+        else:
+            acc0 = mpc(0)
+            acc1 = mpc(0)
+            for q in range(4):
+                acc0 += L4[1, q] * C[q][j]
+                acc1 += solver._ev_mp(sols[q], x_outer, 0) * C[q][j]
+            L2[0, j] = acc0
+            L2[1, j] = acc1
     if L2.rows != 2 or L2.cols != 2:
         raise DiskPathError(
             "FAIL_DISK_IS_4x4: disk_L_mp produced %sx%s, not 2x2"
@@ -694,8 +733,8 @@ def ring_search(n, Om_window, bc_inner="F", bc_outer="F", motion="oop",
     controls  : optional sequence of ControlSpec; POS and NEG are
                 evaluated with the same sign-flip ladder in this call.
 
-    OOP F/C/S on each edge. F-F still uses `_det_mp`. Does not
-    use the sector residual/depth bar.
+    OOP F/C/S/G and IP F/C on each edge. F-F still uses `_det_mp`.
+    Does not use the sector residual/depth bar.
     """
     motion = _norm_motion(motion)
     bc_inner, bc_outer = _require_ring_bc(bc_inner, bc_outer, motion)
@@ -723,16 +762,16 @@ def disk_search(n, Om_window, bc_outer="F", motion="oop",
                 controls=None):
     """Fix integer n, search Omega on det L = 0 of the 2x2 regular disk.
 
-    Asserts the 4x4 at R_i=0 is not used. OOP F (outer) only in Phase 0.
+    Asserts the 4x4 at R_i=0 is not used. OOP outer F/C/S.
     """
     motion = _norm_motion(motion)
     if motion != "oop":
         raise NotImplementedError(
-            "IP disk 2x2 is Paper 3 Phase E; Phase 0 is OOP only")
-    if str(bc_outer).upper() != "F":
+            "IP disk 2x2 is not implemented; use a tiny-hole ring")
+    outer = _norm_bc(bc_outer)
+    if outer not in ("F", "C", "S"):
         raise UnsupportedRingBC(
-            "Phase 0 disk implements free outer only; got bc_outer=%r"
-            % (bc_outer,))
+            "OOP disk outer allows F/C/S; got bc_outer=%r" % (bc_outer,))
     if not DISK_4X4_AT_RI0_IS_NOT_THE_DISK:
         raise DiskPathError("FAIL_DISK_IS_4x4")
     if solver is None:
@@ -742,5 +781,5 @@ def disk_search(n, Om_window, bc_outer="F", motion="oop",
         _require_ri0(solver)
         geom = geom if geom is not None else getattr(solver, "geom", None)
         mat = mat if mat is not None else getattr(solver, "mat", None)
-    return _search_impl(n, Om_window, solver, geom, mat, "F", "F",
+    return _search_impl(n, Om_window, solver, geom, mat, "F", outer,
                         motion, True, coarse_step, polish, controls)

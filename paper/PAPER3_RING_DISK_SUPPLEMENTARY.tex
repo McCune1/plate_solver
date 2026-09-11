@@ -2,10 +2,11 @@
 %   S.1  Bessel span of the four Frobenius branches
 %   S.2  disk regularity, the inner jet, and the rank-3 trap
 %   S.3  conversion algebra (one flexural number, one in-plane number)
-%   S.4  full match lists at the second Poisson ratio, remaining Vogel
+%   S.4  full match lists at the second Poisson ratio, remaining Vogel,
+%        Irie Tables 3--5
 %   S.5  cluster job provenance
 %   S.6  Southwell inverse-b/a analysis, predicted versus observed
-%        (Table S.5 + Fig. S.1)
+%        (Table S.13 + Fig. S.1)
 \documentclass[11pt]{article}
 \usepackage[margin=1in,letterpaper]{geometry}
 \usepackage{amsmath,amssymb,booktabs,array,xcolor}
@@ -55,8 +56,8 @@ Missouri University of Science and Technology, Rolla, MO 65409, USA\\
 \noindent
 This file is the complete Supplementary Material to the companion
 manuscript, \S\S{}S.1--S.6. The main text's \S2.1 cites \S{}S.1; \S2.2 and
-\S5.1 cite \S{}S.2; \S2.4 cites \S{}S.3; \S\S4.1, 6.1, 6.3 and~7 cite
-\S{}S.4; job-level provenance for every reported sweep is \S{}S.5; and
+\S5.2 cite \S{}S.2; \S2.4 cites \S{}S.3; \S\S4.1, 6.1, 6.3, 7 and~7.1
+cite \S{}S.4; job-level provenance for every reported sweep is \S{}S.5; and
 \S6.4 cites \S{}S.6. The two files compile separately, so cross-references
 here are by section rather than by table number.
 
@@ -504,6 +505,109 @@ $n=4$ & 1.752 & 1.7519 & 4.386 & 4.3850 & 0.892 & 0.8923 & 4.290 & 4.2895 \\
 \end{longtable}
 \end{center}
 
+\subsection{In-plane mixed-edge ring, Tables 3--5, all 144 cells}\label{sec:sm-irie-mixed}
+Tables~\ref{tab:sm-irie-t3}--\ref{tab:sm-irie-t5} are the complete
+comparisons with Irie, Yamada and Muramoto's Tables~3, 4 and~5: free inner
+/ clamped outer, clamped inner / free outer, and clamped--clamped, each two
+frequencies per branch at four radius ratios, $48$ cells per table, $144$
+in all, every cell MATCH.
+
+\begin{center}\footnotesize
+\begin{longtable}{lcccccccc}
+\caption{In-plane mixed-edge (Table~3, free inner / clamped outer) ring against Irie, Yamada and Muramoto, $\nu=0.3$, in the parameter of \eqref{eq:sm-irie}. Two frequencies per branch per $\beta$; all $48$ cells MATCH.}
+\label{tab:sm-irie-t3}\\
+\toprule
+& \multicolumn{4}{c}{$\beta=0.2$} & \multicolumn{4}{c}{$\beta=0.4$}\\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+& \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second} & \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second}\\
+branch & printed & solver & printed & solver & printed & solver & printed & solver\\
+\midrule
+$n=0$ radial & 3.303 & 3.3026 & 6.482 & 6.4820 & 3.300 & 3.2999 & 8.086 & 8.0860 \\
+$n=0$ torsional & 2.284 & 2.2840 & 4.283 & 4.2818 & 2.464 & 2.4639 & 5.127 & 5.1271 \\
+$n=1$ & 2.104 & 2.1033 & 3.303 & 3.3019 & 2.517 & 2.5169 & 3.508 & 3.5081 \\
+$n=2$ & 2.553 & 2.5531 & 3.948 & 3.9476 & 2.721 & 2.7206 & 4.147 & 4.1470 \\
+$n=3$ & 3.688 & 3.6883 & 4.859 & 4.8584 & 3.214 & 3.2141 & 4.998 & 4.9978 \\
+$n=4$ & 4.712 & 4.7110 & 5.894 & 5.8935 & 3.955 & 3.9556 & 5.874 & 5.8730 \\
+\midrule
+& \multicolumn{4}{c}{$\beta=0.6$} & \multicolumn{4}{c}{$\beta=0.8$}\\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+& \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second} & \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second}\\
+branch & printed & solver & printed & solver & printed & solver & printed & solver\\
+\midrule
+$n=0$ radial & 4.306 & 4.3057 & 11.906 & 11.9056 & 8.073 & 8.0735 & 23.635 & 23.6349 \\
+$n=0$ torsional & 3.084 & 3.0836 & 7.298 & 7.2982 & 5.295 & 5.2948 & 14.182 & 14.1823 \\
+$n=1$ & 3.260 & 3.2604 & 4.355 & 4.3550 & 5.402 & 5.4017 & 8.074 & 8.0740 \\
+$n=2$ & 3.630 & 3.6299 & 4.614 & 4.6143 & 5.708 & 5.7077 & 8.080 & 8.0800 \\
+$n=3$ & 3.942 & 3.9421 & 5.243 & 5.2427 & 6.174 & 6.1739 & 8.106 & 8.1056 \\
+$n=4$ & 4.250 & 4.2500 & 6.110 & 6.1095 & 6.741 & 6.7411 & 8.181 & 8.1812 \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\begin{center}\footnotesize
+\begin{longtable}{lcccccccc}
+\caption{In-plane mixed-edge (Table~4, clamped inner / free outer) ring against Irie, Yamada and Muramoto, $\nu=0.3$, in the parameter of \eqref{eq:sm-irie}. Two frequencies per branch per $\beta$; all $48$ cells MATCH.}
+\label{tab:sm-irie-t4}\\
+\toprule
+& \multicolumn{4}{c}{$\beta=0.2$} & \multicolumn{4}{c}{$\beta=0.4$}\\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+& \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second} & \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second}\\
+branch & printed & solver & printed & solver & printed & solver & printed & solver\\
+\midrule
+$n=0$ radial & 2.204 & 2.2039 & 6.095 & 6.0941 & 2.714 & 2.7135 & 7.922 & 7.9220 \\
+$n=0$ torsional & 0.352 & 0.3524 & 3.446 & 3.4460 & 0.823 & 0.8235 & 4.522 & 4.5216 \\
+$n=1$ & 0.919 & 0.9194 & 2.121 & 2.1208 & 1.281 & 1.2811 & 2.691 & 2.6907 \\
+$n=2$ & 1.542 & 1.5415 & 2.605 & 2.6045 & 1.965 & 1.9644 & 2.908 & 2.9070 \\
+$n=3$ & 2.157 & 2.1567 & 3.473 & 3.4715 & 2.445 & 2.4450 & 3.604 & 3.6029 \\
+$n=4$ & 2.778 & 2.7774 & 4.408 & 4.4056 & 2.911 & 2.9105 & 4.492 & 4.4908 \\
+\midrule
+& \multicolumn{4}{c}{$\beta=0.6$} & \multicolumn{4}{c}{$\beta=0.8$}\\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+& \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second} & \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second}\\
+branch & printed & solver & printed & solver & printed & solver & printed & solver\\
+\midrule
+$n=0$ radial & 3.924 & 3.9237 & 11.790 & 11.7900 & 7.780 & 7.7795 & 23.539 & 23.5391 \\
+$n=0$ torsional & 1.662 & 1.6623 & 6.809 & 6.8087 & 4.038 & 4.0377 & 13.761 & 13.7606 \\
+$n=1$ & 1.952 & 1.9519 & 3.912 & 3.9119 & 4.161 & 4.1611 & 7.774 & 7.7739 \\
+$n=2$ & 2.608 & 2.6077 & 3.929 & 3.9292 & 4.510 & 4.5102 & 7.760 & 7.7604 \\
+$n=3$ & 3.294 & 3.2936 & 4.139 & 4.1381 & 5.036 & 5.0359 & 7.748 & 7.7479 \\
+$n=4$ & 3.722 & 3.7223 & 4.764 & 4.7630 & 5.684 & 5.6841 & 7.750 & 7.7503 \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\begin{center}\footnotesize
+\begin{longtable}{lcccccccc}
+\caption{In-plane clamped--clamped (Table~5) ring against Irie, Yamada and Muramoto, $\nu=0.3$, in the parameter of \eqref{eq:sm-irie}. Two frequencies per branch per $\beta$; all $48$ cells MATCH.}
+\label{tab:sm-irie-t5}\\
+\toprule
+& \multicolumn{4}{c}{$\beta=0.2$} & \multicolumn{4}{c}{$\beta=0.4$}\\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+& \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second} & \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second}\\
+branch & printed & solver & printed & solver & printed & solver & printed & solver\\
+\midrule
+$n=0$ radial & 4.236 & 4.2357 & 8.056 & 8.0554 & 5.391 & 5.3912 & 10.558 & 10.5577 \\
+$n=0$ torsional & 2.506 & 2.5059 & 4.766 & 4.7656 & 3.189 & 3.1895 & 6.246 & 6.2460 \\
+$n=1$ & 2.783 & 2.7833 & 4.060 & 4.0600 & 3.429 & 3.4292 & 5.306 & 5.3064 \\
+$n=2$ & 3.378 & 3.3778 & 4.360 & 4.3595 & 4.023 & 4.0224 & 5.311 & 5.3111 \\
+$n=3$ & 4.066 & 4.0653 & 5.104 & 5.1033 & 4.707 & 4.7066 & 5.619 & 5.6190 \\
+$n=4$ & 4.802 & 4.8001 & 6.003 & 6.0015 & 5.287 & 5.2864 & 6.289 & 6.2880 \\
+\midrule
+& \multicolumn{4}{c}{$\beta=0.6$} & \multicolumn{4}{c}{$\beta=0.8$}\\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+& \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second} & \multicolumn{2}{c}{first} & \multicolumn{2}{c}{second}\\
+branch & printed & solver & printed & solver & printed & solver & printed & solver\\
+\midrule
+$n=0$ radial & 7.930 & 7.9301 & 15.747 & 15.7473 & 15.738 & 15.7375 & 31.431 & 31.4308 \\
+$n=0$ torsional & 4.692 & 4.6915 & 9.316 & 9.3162 & 9.310 & 9.3105 & 18.595 & 18.5947 \\
+$n=1$ & 4.835 & 4.8346 & 7.888 & 7.8878 & 9.370 & 9.3703 & 15.721 & 15.7209 \\
+$n=2$ & 5.237 & 5.2365 & 7.818 & 7.8182 & 9.547 & 9.5473 & 15.676 & 15.6763 \\
+$n=3$ & 5.832 & 5.8318 & 7.802 & 7.8022 & 9.835 & 9.8350 & 15.617 & 15.6167 \\
+$n=4$ & 6.541 & 6.5408 & 7.891 & 7.8909 & 10.223 & 10.2232 & 15.557 & 15.5569 \\
+\bottomrule
+\end{longtable}
+\end{center}
+
 \section{Cluster job provenance}\label{sec:sm-jobs}
 Every production number in the main text comes from a numbered batch job on
 The Mill. Main-text sections carry no job numbers; they are collected here.
@@ -524,6 +628,7 @@ Finite elements, mixed inner/outer edges at three geometries plus a refined mesh
 Secondary differential test against Vogel's table (\S{}S.6.4) & \texttt{2469111}\\
 In-plane free--free ring, Irie Table 2 & \texttt{2461505}\\
 Remaining Vogel combinations (Tables 2.18, 2.20, 2.24, 2.26, 2.28, 2.33), Table 2.16 all eight, Narita Table 3 & \texttt{2472653}\\
+In-plane mixed-edge ring (Irie Tables 3--5), Irie's circular column as a tiny-hole ring, free disk outer clamped and simply supported (SP-160 Tables 2.1, 2.3), guided--guided closed ring & \texttt{2473295}\\
 Southwell inverse radius-ratio analysis and the window-endpoint audit & \texttt{container, no batch job}\\
 \bottomrule
 \end{tabular}
@@ -634,7 +739,8 @@ between $0.70$ and $1.13$ on $18/18$.}
 \end{center}
 
 \subsection{Three rows were window endpoints}\label{sec:sm-inv-edge}
-An audit of all $342$ stored rows in this study against each row's own search
+An audit of the $342$ stored mixed-edge Vogel/Southwell rows against each
+row's own search
 window found twelve endpoint returns and no near-misses, all of them in the
 mixed-edge sweep. Three of them are Southwell rows, and all three had been
 counted as MISS, so correcting them does not change the $13/18$ score. It does

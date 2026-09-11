@@ -28,16 +28,21 @@ Paper 2 (rectangular FFFF, OOP+IP; companion of Paper 1):
   `PAPER2_IP_MATCH_TABLE.md` — working notes, not the manuscript.
 
 Paper 3 (closed ring + solid disk; not folded into 1 or 2):
-- `PAPER3_RING_DISK_DRAFT.tex` / `.pdf` — main text (14 pp, first LaTeX
-  pass 2026-09-09). Sections: reductions (4×4 ring, 2×2 disk, in-plane,
-  conversion), the sign-flip screen, free–free annulus, free disk, mixed
-  inner/outer edges including Southwell 2.31 and the mixed-edge FE, and
-  the in-plane ring.
-- `PAPER3_RING_DISK_SUPPLEMENTARY.tex` / `.pdf` — S.1 Bessel span, S.2
-  disk regularity and the rank-3 trap, S.3 conversion algebra, S.4 full
-  match lists at the second Poisson ratio, S.5 job provenance, S.6
-  Southwell inverse-b/a analysis and Fig.~S.1 (predicted vs observed).
-  Compile separately (9 pp).
+- `PAPER3_RING_DISK_DRAFT.tex` / `.pdf` (19 pp) — main text. Sections:
+  reductions (4×4 ring, 2×2 disk, in-plane, conversion), the sign-flip
+  screen, free–free annulus including Narita Table 3, free disk plus its
+  clamped/simply-supported outer edge (SP-160 Tables 2.1, 2.3, 12/12),
+  all nine Vogel inner/outer combinations (704/710) including Southwell
+  2.31 and the mixed-edge FE, guided–guided closed ring vs. Bhaskara Rao
+  and Kameswara Rao (29/29), and the in-plane ring (Irie Tables 2–5,
+  192/192, plus the circular column recovered as a tiny-hole ring,
+  24/24).
+- `PAPER3_RING_DISK_SUPPLEMENTARY.tex` / `.pdf` (12 pp) — S.1 Bessel
+  span, S.2 disk regularity and the rank-3 trap, S.3 conversion algebra,
+  S.4 full match lists at the second Poisson ratio, remaining Vogel
+  tables, and the in-plane mixed-edge Tables 3–5, S.5 job provenance
+  (includes mill 2472653 and 2473295), S.6 Southwell inverse-b/a
+  analysis and Fig.~S.1 (predicted vs observed). Compile separately.
 - `paper_figures/southwell_pred_vs_obs.pdf` — SM Fig.~S.1. Generator:
   `github_repo/scripts/make_paper3_southwell_predobs.py`.
 - `PAPER3_RING_DISK_DRAFT.md` — working prose that preceded the LaTeX;

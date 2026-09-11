@@ -34,7 +34,7 @@ Missouri University of Science and Technology, Rolla, MO 65409, USA\\
 %   S.1  Bessel span of the four Frobenius branches
 %   S.2  disk regularity, the inner jet, and the rank-3 trap
 %   S.3  conversion algebra (one flexural number, one in-plane number)
-%   S.4  full match lists at the second Poisson ratio, and remaining Vogel
+%   S.4  full match lists: second Poisson ratio, remaining Vogel, Irie 3-5
 %   S.5  cluster job provenance
 %   S.6  Southwell inverse-b/a table and predicted-versus-observed figure
 % Main text contains no job numbers.
@@ -61,14 +61,14 @@ $4\times4$ at $R_i=0$ has rank three for $n\ge1$ and is not the disk.
 Southwell's Table~2.31 scores 13/18; independent SHELL281 finite elements
 at $b/a=0.840$, $n=0$ give $\lamsq=132.549$ against the solver's $132.990$
 ($+0.333\%$) and Southwell's printed $81.0$ ($-63.6\%$). Polar-orthotropic
-free--free rings recover Narita Table~3 at 10/10. In-plane free--free rings
-recover Irie, Yamada and Muramoto's Table~2 at 48/48. Default clamped-free
-sector assembly is unchanged.
+free--free rings recover Narita Table~3 at 10/10. In-plane free--free and
+mixed-edge rings recover Irie, Yamada and Muramoto's Tables~2--5 at
+192/192. Default clamped-free sector assembly is unchanged.
 \end{abstract}
 
 \noindent\textbf{Keywords:} annular plate; circular plate; free vibration;
-exact solution; radial determinant; mixed boundary conditions; polar
-orthotropy; in-plane vibration.
+exact solution; radial determinant; mixed boundary conditions; guided
+edges; polar orthotropy; in-plane vibration.
 
 \section{Introduction}\label{sec:intro}
 Annular and circular plates are the $2\Theta=2\pi$ and $R_i=0$ limits of the
@@ -144,6 +144,9 @@ Boundary conditions enter as row swaps on \eqref{eq:rowmap}:
       $W'$ evaluated at the same radius.
 \item \textbf{Simply supported (S).} Replace only the $V_r$ row by $W$, leaving
       $M_r$.
+\item \textbf{Guided (G).} Replace only the $M_r$ row by $W'$, leaving $V_r$;
+      the guided edge enforces zero slope and zero shear,
+      $\partial w/\partial r=0$ and $V_r=0$.
 \end{itemize}
 Two conventions must be kept straight. Leissa's table titles list the
 \emph{outer} edge first, while the interface used here is
@@ -171,7 +174,10 @@ n\ge2:\; W=W'=0.
 \label{eq:jet}
 \end{equation}
 Projecting the two outer rows of the $4\times4$ onto that kernel gives the
-production $2\times2$ (\S{}S.2).
+production $2\times2$ (\S{}S.2). That outer edge is not free-only: the same
+clamped and simply-supported row substitutions used on the ring
+(\S\ref{sec:ring}) apply to the two disk rows, and \S\ref{sec:disk-results}
+validates both against SP-160 Tables~2.1 and 2.3.
 
 A documented failure is worth naming, because it is the natural thing to try.
 Evaluating the \emph{$4\times4$} at $R_i=0$ and looking for its zeros gives a
@@ -185,7 +191,13 @@ $10^{-3}$ relative bar (\S\ref{sec:disk-results}). That bar is not loosened.
 \subsection{In-plane ring}\label{sec:ipring}
 The in-plane characteristic matrix is $N_r$ and $N_{r\theta}$ at both arcs,
 and the same substitution applies: fix $\xi=n$ at an integer, search $\Omega$.
-There is no Kirchhoff corner term to reduce. The in-plane frequency parameter
+There is no Kirchhoff corner term to reduce. Boundary conditions are again
+row swaps: free (F) leaves the traction rows $N_r$, $N_{r\theta}$ in place,
+and clamped (C) replaces both of that edge's rows by $u=v=0$ at the same
+radius. Irie, Yamada and Muramoto's four inner/outer combinations ---
+free--free, free--clamped, clamped--free and clamped--clamped --- are
+therefore all production entries of one $4\times4$, not a free--free-only
+reduction (\S\ref{sec:inplane}). The in-plane frequency parameter
 of Irie, Yamada and Muramoto is defined from the extensional rigidity
 $D_{\mathrm{ext}}=Eh/(1-\nu^2)$ as
 $\lambda^2=\rho h a^2\omega^2/D_{\mathrm{ext}}$, that is
@@ -214,8 +226,13 @@ is a different number, and reusing it is an error the series has made once and
 now regression-tests against. The unit test is the anchor's mode~7: native
 $\Omega=1.369611$ converts to $\lamsq=54.0755$, matching the finite-element
 value to $0.01\%$. Native $\Omega$ is never printed with a $\lamsq$ label.
-The full conversion algebra, including the separate in-plane map, is
-Supplementary Material, \S{}S.3.
+A third flexural parameter appears once, for the guided--guided ring of
+\S\ref{sec:guided}: Bhaskara Rao and Kameswara Rao \cite{bhaskararao2016}
+report $k=a(\rho h\omega^{2}/D)^{1/4}$, so $\lamsq=k^{2}$ under
+\eqref{eq:lam2}; this is a restatement of the same $\lamsq$, not a fourth
+independent parameter, and is not reused for any other table. The full
+conversion algebra, including the separate in-plane map, is Supplementary
+Material, \S{}S.3.
 
 Poisson ratios are not mixed in a single comparison. Table~2.34 states
 $\nu=1/3$ in its caption and is compared only at that value. Narita and the
@@ -269,8 +286,9 @@ does not. A post-hoc label (EXACT if the returned $\Omega$ is a window
 endpoint, NEAR if within one coarse step of one, NONE otherwise) is therefore
 attached to every result. The label only labels: it never moves the returned
 $\Omega$, so no computed frequency changes and the solver's checkpoint version
-key is unaffected. An audit of all $342$ stored rows of this study found $12$
-endpoint returns and no near-misses, every one of them in the mixed-edge sweep
+key is unaffected. An audit of the $342$ stored mixed-edge Vogel/Southwell
+rows found $12$ endpoint returns and no near-misses, every one of them in
+the mixed-edge sweep
 of \S\ref{sec:mixed}, which is the only sweep combining a steep
 $\mathrm{d}\lamsq/\mathrm{d}(\ba)$ with a fixed absolute half-window. Those
 cells are re-searched on a wide window where a root exists, and are marked in
@@ -483,6 +501,53 @@ $(4,0)$ & 21.6 & 21.527 & 0.337 & 21.4890 & CLEAN \\
 $(0,1)$ & 9.084 & 9.0689 & 0.166 & 9.0679 & NOT \\
 $(1,1)$ & 20.52 & 20.513 & 0.034 & 20.5010 & CLEAN \\
 $(2,1)$ & 35.25 & 35.243 & 0.021 & 35.1988 & CLEAN \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Clamped and simply supported outer edge}\label{sec:disk-cs}
+The free disk of the preceding paragraphs is one outer-edge choice on the
+same $2\times2$; clamping or simply supporting that edge is the same row
+substitution used on the ring (\S\ref{sec:ring}), applied to the two disk
+rows rather than four. Against SP-160 Table~2.1, clamped and
+$\nu$-independent, all six cells are MATCH (Table~\ref{tab:disk-clamped}).
+Against Table~2.3, simply supported at $\nu=0.3$, all six cells are MATCH
+(Table~\ref{tab:disk-ss}), the largest miss $0.841\%$ at $(0,0)$.
+Comparison here is frequency-only, as for the free disk in the preceding
+subsection; no new finite-element check is claimed.
+
+\begin{table}[htbp]\centering\small
+\caption{Solid disk, outer clamped, $\nu$-independent, against SP-160
+Table~2.1 \cite{leissaSP160}. All six tabulated $(n,s)$ pairs MATCH.}
+\label{tab:disk-clamped}
+\begin{tabular}{lcccc}
+\toprule
+$(n,s)$ & printed $\lamsq$ & solver $\lamsq$ & rel.\ (\%) & ladder\\
+\midrule
+$(0,0)$ & 10.2158 & 10.2158 & 0.000 & FLOOR \\
+$(1,0)$ & 21.26 & 21.2604 & 0.002 & CLEAN \\
+$(2,0)$ & 34.88 & 34.8770 & 0.008 & CLEAN \\
+$(0,1)$ & 39.771 & 39.7711 & 0.000 & CLEAN \\
+$(1,1)$ & 60.82 & 60.8287 & 0.014 & CLEAN \\
+$(2,1)$ & 84.58 & 84.5827 & 0.003 & NOT \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering\small
+\caption{Solid disk, outer simply supported, $\nu=0.3$, against SP-160
+Table~2.3 \cite{leissaSP160}. All six tabulated $(n,s)$ pairs MATCH.}
+\label{tab:disk-ss}
+\begin{tabular}{lcccc}
+\toprule
+$(n,s)$ & printed $\lamsq$ & solver $\lamsq$ & rel.\ (\%) & ladder\\
+\midrule
+$(0,0)$ & 4.977 & 4.9351 & 0.841 & NOT \\
+$(1,0)$ & 13.94 & 13.8982 & 0.300 & FLOOR \\
+$(2,0)$ & 25.65 & 25.6133 & 0.143 & NOT \\
+$(0,1)$ & 29.76 & 29.7200 & 0.134 & FLOOR \\
+$(1,1)$ & 48.51 & 48.4789 & 0.064 & CLEAN \\
+$(2,1)$ & 70.14 & 70.1170 & 0.033 & CLEAN \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -922,8 +987,65 @@ it does not control for radius ratio, which the two tables sample differently;
 it is reported in \S{}S.6 as corroboration only. The finite-element result,
 not that test, is what carries the conclusion of this subsection.
 
+\subsection{Guided--guided ring}\label{sec:guided}
+A guided edge enforces zero slope and zero shear, $\partial w/\partial r=0$
+and $V_r=0$: the row substitution of \S\ref{sec:ring} keeps the $V_r$ row and
+replaces only $M_r$ by $W'$. Guided--guided is therefore a fourth
+axisymmetric-style combination alongside free--free, clamped--clamped and
+simply-supported--simply-supported. It is a ring result, not the open sector
+simply-supported/guided corner-jump problem of \S\ref{sec:intro}, which has
+no closed-ring analogue because there is no $\theta$-edge here. Bhaskara Rao
+and Kameswara Rao \cite{bhaskararao2016} tabulate the guided--guided annulus
+in $k=a(\rho h\omega^{2}/D)^{1/4}$; the conversion $\lamsq=k^{2}$ is recorded
+once, in \S\ref{sec:conv}, and is not reused for any other table. Their
+Table~1 at $\nu=0.1$, four radius ratios and $n=0$
+through $5$, is recovered at $24/24$ (Table~\ref{tab:guided-guided}); a
+Poisson-ratio sweep at $\ba=0.1$, $n=1$ over $\nu=0.1$ through $0.5$ is
+recovered at $5/5$ (Table~\ref{tab:guided-guided-nu}). Combined, $29/29$.
+
+\begin{table}[htbp]\centering\footnotesize
+\caption{Guided--guided closed ring, $\nu=0.1$, against Bhaskara Rao and
+Kameswara Rao \cite{bhaskararao2016} Table~1. Their table prints
+$k=a(\rho h\omega^{2}/D)^{1/4}$; the printed column here is $k^{2}=\lamsq$
+so both columns are this paper's $\lamsq$. All $24$ cells MATCH.}
+\label{tab:guided-guided}
+\begin{tabular}{lcccccccc}
+\toprule
+& \multicolumn{2}{c}{$\ba=0.1$} & \multicolumn{2}{c}{$\ba=0.2$}
+& \multicolumn{2}{c}{$\ba=0.3$} & \multicolumn{2}{c}{$\ba=0.5$}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+$n$ & printed $k^{2}$ & solver $\lamsq$ & printed $k^{2}$ & solver $\lamsq$
+& printed $k^{2}$ & solver $\lamsq$ & printed $k^{2}$ & solver $\lamsq$\\
+\midrule
+0 & 15.531 & 15.5309 & 17.9416 & 17.9416 & 22.1444 & 22.1443 & 40.8725 & 40.8724 \\
+1 & 4.51716 & 4.5164 & 4.54794 & 4.5479 & 4.15401 & 4.1540 & 3.10732 & 3.1073 \\
+2 & 8.72671 & 8.7249 & 8.95901 & 8.9590 & 9.08775 & 9.0878 & 8.23472 & 8.2347 \\
+3 & 16.6841 & 16.6826 & 16.7219 & 16.7219 & 16.7851 & 16.7850 & 16.046 & 16.0459 \\
+4 & 27.0687 & 27.0679 & 27.0728 & 27.0728 & 27.0867 & 27.0867 & 26.4635 & 26.4636 \\
+5 & 39.7316 & 39.7313 & 39.732 & 39.7320 & 39.7341 & 39.7341 & 39.2749 & 39.2750 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering\small
+\caption{Guided--guided ring, $\ba=0.1$, $n=1$, Poisson-ratio sweep against
+Bhaskara Rao and Kameswara Rao \cite{bhaskararao2016}. All five cells MATCH.}
+\label{tab:guided-guided-nu}
+\begin{tabular}{lcccc}
+\toprule
+$\nu$ & printed $\lamsq$ & solver $\lamsq$ & rel.\ (\%) & ladder\\
+\midrule
+0.1 & 4.51716 & 4.5164 & 0.0168 & CLEAN \\
+0.2 & 4.46878 & 4.4680 & 0.0178 & FLOOR \\
+0.3 & 4.40916 & 4.4084 & 0.0181 & FLOOR \\
+0.4 & 4.33577 & 4.3349 & 0.0189 & CLEAN \\
+0.5 & 4.24504 & 4.2442 & 0.0193 & CLEAN \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \FloatBarrier
-\section{In-plane free--free ring}\label{sec:inplane}
+\section{In-plane ring}\label{sec:inplane}
 The in-plane reduction of \S\ref{sec:ipring} is compared with Table~2 of
 Irie, Yamada and Muramoto \cite{irie1984} at $\nu=0.3$ and
 $\beta=0.2,0.4,0.6,0.8$: the first two frequencies at $n=1,2,3,4$ together
@@ -936,16 +1058,6 @@ A handful of those MATCH cells classify NOT on the sign-flip ladder
 ($\beta=0.4$ and $0.6$ in Table~\ref{tab:irie}); scoring is from the relative
 miss alone, as frozen in \S\ref{sec:screen}, and no in-plane finite-element
 check is claimed.
-
-Comparison here is frequency-only. No in-plane eigenvector cross-check is
-presented and none is promised: the same comparison was attempted for
-rectangular in-plane modes in \cite{mccune2026rect} and was not informative,
-for reasons that apply unchanged to this geometry. The in-plane disk is not
-claimed: Irie's ``circular'' column is $\beta=0.01$, a tiny-hole control, and
-until the in-plane $2\times2$ is built and agrees with it, calling that column
-$R_i=0$ would be an assumption rather than a result. The out-of-plane disk of
-\S\ref{sec:disk-results} is a genuine $R_i=0$ result, so the omission is
-specific to the in-plane motion.
 
 \begin{table}[htbp]\centering\small
 \caption{In-plane free--free ring against Irie, Yamada and Muramoto
@@ -965,6 +1077,105 @@ $\beta$ & cells & gate & worst branch & worst rel.\ (\%) & ladder classes\\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\subsection{Mixed and doubly clamped edges}\label{sec:ip-mixed}
+Irie, Yamada and Muramoto's Tables~3--5 extend the same comparison to the
+three remaining in-plane combinations at the same four $\beta$ and
+$\nu=0.3$: free inner / clamped outer (Table~3), clamped inner / free outer
+(Table~4), and clamped--clamped (Table~5). Clamped is $u=v=0$ at that radius
+(\S\ref{sec:ipring}); free leaves the traction rows in place. All $144$
+cells across the three tables are MATCH (Tables~\ref{tab:irie-t3}--\ref{tab:irie-t5};
+the full $48$-row lists are \S{}S.4), the largest miss $0.109\%$ at Table~4,
+$\beta=0.2$, $n=0$ torsional, first mode --- smaller than Table~2's own worst
+cell. Irie's four combinations are therefore all production entries of one
+$4\times4$, not a free--free-only reduction.
+
+\begin{table}[htbp]\centering\small
+\caption{In-plane mixed-edge (free inner / clamped outer) ring against Irie, Yamada and Muramoto Table~3, $\nu=0.3$, with $\lambda=\omega a\sqrt{\rho(1-\nu^{2})/E}$ of \eqref{eq:irielam}. Twelve cells per radius ratio; all $48$ MATCH.\ ``worst'' names the branch carrying the largest relative miss at that $\beta$.}
+\label{tab:irie-t3}
+\begin{tabular}{lccccc}
+\toprule
+$\beta$ & cells & gate & worst branch & worst rel.\ (\%) & ladder classes\\
+\midrule
+0.2 & 12 & MATCH & $n=1$ & 0.034 & CLEAN,FLOOR,NOT \\
+0.4 & 12 & MATCH & $n=4$ & 0.017 & CLEAN,FLOOR,NOT \\
+0.6 & 12 & MATCH & $n=0$ tor & 0.014 & CLEAN,FLOOR,NOT \\
+0.8 & 12 & MATCH & $n=1$ & 0.006 & CLEAN,FLOOR,NOT \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering\small
+\caption{In-plane mixed-edge (clamped inner / free outer) ring against Irie, Yamada and Muramoto Table~4, $\nu=0.3$, with $\lambda=\omega a\sqrt{\rho(1-\nu^{2})/E}$ of \eqref{eq:irielam}. Twelve cells per radius ratio; all $48$ MATCH.\ ``worst'' names the branch carrying the largest relative miss at that $\beta$.}
+\label{tab:irie-t4}
+\begin{tabular}{lccccc}
+\toprule
+$\beta$ & cells & gate & worst branch & worst rel.\ (\%) & ladder classes\\
+\midrule
+0.2 & 12 & MATCH & $n=0$ tor & 0.109 & CLEAN,FLOOR,NOT \\
+0.4 & 12 & MATCH & $n=0$ tor & 0.064 & CLEAN,FLOOR \\
+0.6 & 12 & MATCH & $n=3$ & 0.022 & CLEAN,FLOOR,NOT \\
+0.8 & 12 & MATCH & $n=0$ tor & 0.006 & CLEAN,FLOOR,NOT \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]\centering\small
+\caption{In-plane clamped--clamped ring against Irie, Yamada and Muramoto Table~5, $\nu=0.3$, with $\lambda=\omega a\sqrt{\rho(1-\nu^{2})/E}$ of \eqref{eq:irielam}. Twelve cells per radius ratio; all $48$ MATCH.\ ``worst'' names the branch carrying the largest relative miss at that $\beta$.}
+\label{tab:irie-t5}
+\begin{tabular}{lccccc}
+\toprule
+$\beta$ & cells & gate & worst branch & worst rel.\ (\%) & ladder classes\\
+\midrule
+0.2 & 12 & MATCH & $n=4$ & 0.039 & CLEAN,FLOOR,NOT \\
+0.4 & 12 & MATCH & $n=4$ & 0.016 & CLEAN,FLOOR,NOT \\
+0.6 & 12 & MATCH & $n=0$ tor & 0.010 & CLEAN,FLOOR,NOT \\
+0.8 & 12 & MATCH & $n=0$ tor & 0.005 & CLEAN,FLOOR,NOT \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The circular column as a tiny-hole ring}\label{sec:ip-tinyhole}
+Irie's ``circular'' column is printed at $\beta=0.01$, a tiny hole rather
+than $R_i=0$, on both Table~2 (free--free) and Table~3 (free inner / clamped
+outer). Recovering it from the ring $4\times4$ at that $\beta$ is therefore a
+direct check, not an assumption: all $24$ cells are MATCH
+(Table~\ref{tab:irie-tinyhole}), the largest miss $0.953\%$. The column is
+recovered as a tiny-hole ring, not as $R_i=0$. The
+in-plane $2\times2$ at $R_i=0$ is still not built and is still not claimed
+here; the out-of-plane disk of \S\ref{sec:disk-results} remains the only
+genuine $R_i=0$ result in this paper.
+
+\begin{table}[htbp]\centering\small
+\caption{Irie's circular column, $\beta=b/a=0.01$, recovered as a tiny-hole ring: Table~2 (free--free) and Table~3 (free inner / clamped outer), $\nu=0.3$. All $24$ cells MATCH.}
+\label{tab:irie-tinyhole}
+\begin{tabular}{lcccccc}
+\toprule
+& \multicolumn{3}{c}{Table~2, F--F} & \multicolumn{3}{c}{Table~3, F--C}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+branch & printed & solver & rel.\ (\%) & printed & solver & rel.\ (\%)\\
+\midrule
+$n=0$ radial (first) & 2.049 & 2.0654 & 0.799 & 3.831 & 3.8259 & 0.132 \\
+$n=0$ radial (second) & 5.388 & 5.3518 & 0.671 & 7.013 & 6.9935 & 0.278 \\
+$n=0$ torsional (first) & 3.039 & 3.0383 & 0.024 & 2.267 & 2.2669 & 0.006 \\
+$n=0$ torsional (second) & 4.981 & 4.9797 & 0.026 & 4.151 & 4.1505 & 0.013 \\
+$n=1$ (first) & 1.618 & 1.6177 & 0.018 & 1.958 & 1.9576 & 0.023 \\
+$n=1$ (second) & 3.532 & 3.5306 & 0.040 & 3.180 & 3.1789 & 0.035 \\
+$n=2$ (first) & 1.387 & 1.3738 & 0.953 & 3.046 & 3.0453 & 0.023 \\
+$n=2$ (second) & 2.511 & 2.5002 & 0.430 & 4.085 & 4.0843 & 0.016 \\
+$n=3$ (first) & 2.131 & 2.1299 & 0.054 & 3.964 & 3.9630 & 0.024 \\
+$n=3$ (second) & 3.452 & 3.4513 & 0.019 & 5.024 & 5.0239 & 0.003 \\
+$n=4$ (first) & 2.774 & 2.7740 & 0.000 & 4.777 & 4.7768 & 0.005 \\
+$n=4$ (second) & 4.401 & 4.4007 & 0.006 & 5.977 & 5.9766 & 0.006 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Comparison throughout this section is frequency-only. No in-plane
+eigenvector cross-check is presented and none is promised: the same
+comparison was attempted for rectangular in-plane modes in
+\cite{mccune2026rect} and was not informative, for reasons that apply
+unchanged to this geometry.
 
 \FloatBarrier
 \section{Discussion}\label{sec:discussion}
@@ -994,8 +1205,18 @@ The limits of the present tables are worth stating plainly.
 \item Southwell's Table~2.31 is $13/18$ direct. The sensitivity analysis
       explains the split; the finite elements, not that analysis, are what
       resolve the extreme cell.
-\item The disk tiny-hole control at $10^{-3}$ is a named FAIL and its bar is
-      not loosened.
+\item The out-of-plane disk tiny-hole control at $10^{-3}$ is a named FAIL
+      and its bar is not loosened. Irie's in-plane circular column at
+      $\beta=0.01$ is MATCH; those are different hole sizes and different
+      motions, and the MATCH is not read as $R_i=0$.
+\item Disk outer clamped and simply supported (SP-160 Tables~2.1 and~2.3)
+      is frequency-only on the six tabulated $(n,s)$ pairs; no new
+      finite-element check is claimed.
+\item Irie Tables~3--5 are frequency-only, as is Table~2. The in-plane
+      $2\times2$ at $R_i=0$ is not built.
+\item Guided--guided is scored at the source's $\nu=0.1$, with a five-point
+      Poisson sweep at $b/a=0.1$, $n=1$. It is a closed-ring result, not
+      the open sector guided-edge problem.
 \item Search-window endpoint returns are labelled and excluded, never quoted
       as frequencies.
 \item Table~2.18 leaves $(2,0)$ and $(2,1)$ at $\ba=0.9$ blank; those cells
@@ -1013,15 +1234,22 @@ A validated annular-sector solver reduces, without a new differential
 equation, to the classical closed ring and solid disk. The $4\times4$ radial
 determinant recovers all nine of Vogel and Skinner's inner/outer combinations
 at $704/710$ MATCH${}+{}$WEAK, Narita's polar-orthotropic free--free
-Table~3 at $10/10$, and Irie, Yamada and Muramoto's in-plane free--free
-table; the $2\times2$ recovers the free solid disk, and the $4\times4$
-evaluated at $R_i=0$ demonstrably does not. Independent finite elements
-confirm the flexural spine at three free--free geometries, on the disk, and
-at three mixed-edge geometries, with a one-sided Kirchhoff-versus-Mindlin
-offset below $0.8\%$ throughout --- including the cell where a century-old
-table prints $81$ and the plate vibrates at $133$. Piezoelectric
-identification, using the free--free and clamped-free ring as its elastic
-forward model, is later work.
+Table~3 at $10/10$, a guided--guided closed ring against Bhaskara Rao and
+Kameswara Rao at $29/29$, and Irie, Yamada and Muramoto's in-plane
+free--free and mixed-edge Tables~2--5 at $192/192$, with their circular
+column recovered as a tiny-hole ring at $24/24$. The $2\times2$ recovers
+the free disk and further reduces to clamped and simply supported outer
+edges at $12/12$ on the six tabulated $(n,s)$ pairs of SP-160
+Tables~2.1 and~2.3; the $4\times4$ evaluated at $R_i=0$ demonstrably does
+not.
+Independent finite elements confirm the flexural spine at three free--free
+geometries, on the disk, and at three mixed-edge geometries, with a
+one-sided Kirchhoff-versus-Mindlin offset below $0.8\%$ throughout ---
+including the cell where a century-old table prints $81$ and the plate
+vibrates at $133$. The elastic forward model for a later piezoelectric
+identification now includes the in-plane clamped-free ring (Irie Table~4)
+alongside the free--free ring. Piezoelectric identification itself, using
+that elastic forward model, is later work.
 
 \small
 \section*{Data and code availability}
@@ -1029,9 +1257,14 @@ forward model, is later work.
 The solver is released under an MIT license as a public GitHub repository,
 \url{https://github.com/McCune1/\allowbreak plate_solver}.
 For this paper that tree includes the ring and disk entry point
-(\texttt{plate\_solver/ring\_disk.py}), the sign-flip ladder and
-window-endpoint labelling, the \texttt{TestRingDisk} regression suite that
-keeps the disk on the $2\times2$ path, and the tabulated
+(\texttt{plate\_solver/ring\_disk.py}, which now carries in-plane free and
+clamped row swaps and out-of-plane free, clamped, simply-supported and
+guided row swaps on the ring, and free, clamped and simply-supported row
+swaps on the disk), the sign-flip ladder and window-endpoint labelling, the
+\texttt{TestRingDisk} regression suite that keeps the disk on the
+$2\times2$ path (its in-plane test now asserts that the clamped/free
+combinations are live while in-plane simply-supported and guided edges
+still raise), and the tabulated
 solver-versus-literature JSON under \texttt{data/paper3/}. Cluster probe
 scripts and mixed-edge APDL decks remain in the working package that
 produced the tables; they are not part of the Paper~1 or Paper~2 tags.
@@ -1043,9 +1276,10 @@ transcribed from the sources cited and are held in one shared module, so that
 every table cell in this paper is either a transcription or a computed result
 and none is retyped by hand. The Bessel span is Supplementary Material,
 \S{}S.1; disk regularity and the rank-3 trap are \S{}S.2; the conversion
-algebra is \S{}S.3; the full match lists at the second Poisson ratio and the
-remaining Vogel combinations are \S{}S.4; cluster job numbers are \S{}S.5;
-the Southwell inverse radius-ratio analysis is \S{}S.6.
+algebra is \S{}S.3; the full match lists at the second Poisson ratio, the
+remaining Vogel combinations, and the in-plane mixed-edge Tables~3--5 are
+\S{}S.4; cluster job numbers are \S{}S.5; the Southwell inverse
+radius-ratio analysis is \S{}S.6.
 \end{sloppypar}
 
 \section*{Declaration of competing interests}
@@ -1096,8 +1330,10 @@ Office of Technology Utilization, National Aeronautics and Space
 Administration, U.S. Government Printing Office, Washington, D.C., 1969.
 \bibitem{vogelSkinner} S.M. Vogel, D.W. Skinner, ``Natural frequencies of
 transversely vibrating uniform annular plates,'' J. Appl. Mech. 32 (1965)
-926--931. The values compared here are as compiled in \cite{leissaSP160},
-Tables~2.22, 2.30 and~2.35; the original paper was not re-read for this work.
+926--931. The nine inner/outer combinations compared here (SP-160
+Tables~2.18, 2.20, 2.22, 2.24, 2.26, 2.28, 2.30, 2.33 and~2.35) are as
+compiled in \cite{leissaSP160}; the original paper was not re-read for
+this work.
 \bibitem{southwell} R.V. Southwell, ``On the free transverse vibrations of a
 uniform circular disc clamped at its centre; and on the effects of rotation,''
 Proc. Roy. Soc. London Ser.~A 101 (1922) 133--153. The values compared here
@@ -1112,6 +1348,9 @@ annular and circular plates having polar orthotropy,'' J. Sound Vib. 92 (1)
 \bibitem{irie1984} T. Irie, G. Yamada, Y. Muramoto, ``Natural frequencies of
 in-plane vibration of annular plates'' (Letter to the Editor), J. Sound Vib.
 97 (1) (1984) 171--175.
+\bibitem{bhaskararao2016} L. Bhaskara Rao, C. Kameswara Rao, ``Frequency
+Analysis of Annular Plates Having a Small Core and Guided Edges at Both
+Inner and Outer Boundaries,'' J. Solid Mech. 8 (1) (2016) 168--174.
 \bibitem{mccune2026annular} G. McCune, D. Stutts, ``Exact wave-function
 solution and spurious-mode discrimination for completely free annular sector
 plates,'' companion paper, submitted (2026).

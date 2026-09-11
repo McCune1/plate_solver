@@ -20,11 +20,13 @@ sandbox can't run more than this):
     sigma_min anchors (out-of-plane and in-plane, ~2s total) plus a
     source-level guard that the four-corner Kirchhoff jump is the
     checkerboard and not the naive same-sign sum that vanishes.
-  * TestRingDisk -- Paper 3 Phase 0/D/F: disk path is 2x2 (4x4 at R_i=0
-    is not the disk); two full-ring OOP F-F |det L| anchors from Sec.
-    18.38; in-plane `_Lmat_mp` liveness at integer n; flexural conversion
-    of FF-P1 mode 7; Phase D F-C/C-F and Phase F C-C/S-S vs Table 2.16.
-    Cheap 4x4/2x2 probes, not a K-build.
+  * TestRingDisk -- Paper 3 Phase 0/D/F plus mill 2473295 BCs: disk path
+    is 2x2 (4x4 at R_i=0 is not the disk), including outer C/S; two
+    full-ring OOP F-F |det L| anchors from Sec. 18.38; in-plane
+    `_Lmat_mp` liveness at integer n; flexural conversion of FF-P1
+    mode 7; Phase D F-C/C-F and Phase F C-C/S-S vs Table 2.16; IP F/C
+    live, IP S/G still raise; OOP G live. Cheap 4x4/2x2 probes, not a
+    K-build.
   * TestWorkerPath   -- multiprocessing worker-side scalar reconstruction
     (fast, no ProcessPoolExecutor) is always run; the ProcessPoolExecutor
     end-to-end variant is skipped by default (SLOW_TESTS=1 to include it)
@@ -324,7 +326,7 @@ class TestRingDisk(unittest.TestCase):
       FAIL_DISK_IS_4x4  disk path is the 4x4 at R_i=0, or disk_L_mp is not 2x2
       FAIL_ANCHOR       a Sec. 18.38 |det L| anchor moved -- do not edit it
       FAIL_IP_LMAT      in-plane `_Lmat_mp` at integer n is not finite
-      FAIL_PHASE_D      mixed F-C/C-F miss Table 2.16, or IP mixed no longer raises
+      FAIL_PHASE_D      mixed F-C/C-F miss Table 2.16, or IP C/F L is not 4x4
       FAIL_PHASE_F      C-C or S-S miss Table 2.16 exact n=0 b/a=0.5 nu=1/3
 
     Anchors are identical at dps 26/30/40 (captured 2026-09-08). If one
@@ -352,6 +354,9 @@ class TestRingDisk(unittest.TestCase):
         L2 = disk_L_mp(solver, 2, 0.5)
         self.assertEqual(L2.rows, 2, "FAIL_DISK_IS_4x4")
         self.assertEqual(L2.cols, 2, "FAIL_DISK_IS_4x4")
+        for bo in ("C", "S"):
+            Lcs = disk_L_mp(solver, 2, 0.5, bc_outer=bo)
+            self.assertEqual((Lcs.rows, Lcs.cols), (2, 2), bo)
         rank0, _ = illegal_ri0_4x4_rank(solver, 0, 0.5)
         rank1, _ = illegal_ri0_4x4_rank(solver, 1, 0.5)
         self.assertEqual(rank0, 2, "job 2339453: 4x4 at R_i=0 is rank 2 at n=0")
@@ -420,19 +425,30 @@ class TestRingDisk(unittest.TestCase):
         self.assertGreater(lam_ip, 0.0)
         self.assertGreater(abs(lam_ip - factor_ba05) / factor_ba05, 0.5)
 
-    def test_ip_mixed_still_unsupported(self):
-        """IP mixed-edge stays unimplemented; OOP S is now a live row-swap."""
+    def test_ip_mixed_cf_is_4x4_ip_ss_still_raises(self):
+        """IP C/F is a live row-swap; IP S/G still raise. OOP S and G live."""
         mp.dps = 26
         slv, _g, _m = make_annulus_solver(0.5, nu=0.30, motion="oop")
         Lsf = ring_L_mp(slv, 2, 0.5, bc_inner="S", bc_outer="F")
         self.assertEqual((Lsf.rows, Lsf.cols), (4, 4))
         Lfs = ring_L_mp(slv, 2, 0.5, bc_inner="F", bc_outer="SS")
         self.assertEqual((Lfs.rows, Lfs.cols), (4, 4))
+        Lgg = ring_L_mp(slv, 2, 0.5, bc_inner="G", bc_outer="G")
+        self.assertEqual((Lgg.rows, Lgg.cols), (4, 4))
         slv_ip, _gi, _mi = make_annulus_solver(0.5, nu=0.30, motion="ip")
-        with self.assertRaises(UnsupportedRingBC):
-            ring_L_mp(slv_ip, 2, 0.5, bc_inner="C", bc_outer="F")
+        for bi, bo in (("C", "F"), ("F", "C"), ("C", "C")):
+            L = ring_L_mp(slv_ip, 2, 0.5, bc_inner=bi, bc_outer=bo)
+            self.assertEqual((L.rows, L.cols), (4, 4), (bi, bo))
+            for i in range(4):
+                for j in range(4):
+                    z = complex(L[i, j])
+                    self.assertTrue(
+                        math.isfinite(z.real) and math.isfinite(z.imag),
+                        "IP L[%s,%s]=%s for %s-%s" % (i, j, z, bi, bo))
         with self.assertRaises(UnsupportedRingBC):
             ring_L_mp(slv_ip, 2, 0.5, bc_inner="S", bc_outer="S")
+        with self.assertRaises(UnsupportedRingBC):
+            ring_L_mp(slv_ip, 2, 0.5, bc_inner="G", bc_outer="F")
 
     def test_fc_cf_lmat_is_4x4_finite(self):
         """Phase D mixed L is 4x4 and finite; F-F L is unchanged in shape."""
@@ -442,7 +458,8 @@ class TestRingDisk(unittest.TestCase):
         self.assertEqual((Lff.rows, Lff.cols), (4, 4))
         for bi, bo in (("F", "C"), ("C", "F"), ("C", "C"),
                        ("S", "S"), ("S", "F"), ("F", "S"),
-                       ("C", "S"), ("S", "C")):
+                       ("C", "S"), ("S", "C"),
+                       ("G", "G"), ("G", "F"), ("F", "G")):
             L = ring_L_mp(slv, 2, 0.5, bi, bo)
             self.assertEqual((L.rows, L.cols), (4, 4), (bi, bo))
             for i in range(4):
