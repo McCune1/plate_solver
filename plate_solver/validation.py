@@ -243,7 +243,15 @@ def _cantilever_spotcheck(mat):
     print("\n" + "=" * 70)
     print("  (1) CANTILEVER REGRESSION SPOT-CHECK  (Step-3/6 neutrality)")
     print("=" * 70)
-    REF = {(1.25, 1.0): {0.033238: -4.59, 0.080443: -5.25, 0.243557: -4.11}}
+    # 2026-09-22 (LESSONS Sec 18.226): the old REF points 0.033238/0.080443/
+    # 0.243557 (log -4.59/-5.25/-4.11) were s8 mode locations. The s10 CLAMPED-
+    # orientation fix (2026-07-28) moved every cantilever mode, so under s10
+    # those points are off-mode and this check printed DRIFT (-4.30/-4.26/
+    # -4.58 measured). New points are Paper 1's printed s10 Table 3 values;
+    # the refs are log10 sigma_min measured there at dps=26 with this exact
+    # fresh-basis routine. The true fixed-basis zeros are 0.0331553 and
+    # 0.0803592 (log sigma_min < -10).
+    REF = {(1.25, 1.0): {0.033153: -5.85, 0.080358: -6.10, 0.243521: -6.16}}
     all_ok = True
     for (r0_2b, two_T), modes in REF.items():
         geom = make_geometry(r0_2b, two_T)

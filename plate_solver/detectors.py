@@ -1897,3 +1897,295 @@ def weak_enforcement_residual_ip(solver, Omega, brs, n_dofs=None, ngrid=41):
     return dict(ok=True, block=block_name, sig0=sig0, sig1=sig1, maxDisp=maxDisp,
                 rTyy=rmsTyy/maxDisp if maxDisp else float('inf'),
                 rTyr=rmsTyr/maxDisp if maxDisp else float('inf'))
+
+
+# ════════════════════════════════════════════════════════════════════════════
+#  SECTION 5c -- CLAMPED-EDGE WEAK-ENFORCEMENT RESIDUAL SCREEN (P2-easy lever 1,
+#  2026-09-14, SANDBOX-EXPERIMENTAL -- not yet cluster-validated)
+# ════════════════════════════════════════════════════════════════════════════
+#
+# Essential-BC mirror of Section 5b's natural-BC (FREE-edge moment/shear)
+# screen. EdgeKind.CLAMPED is "essential: W=dW/dtheta=0 (OOP) / u=0 (IP),
+# weakly imposed" (boundary.py) -- the SAME truncated-basis Galerkin
+# enforcement mechanism that produces FREE-edge weak-enforcement artifacts
+# can in principle admit a CLAMPED-edge dip that satisfies the discrete
+# det K(Omega)=0 without W (OOP) / u,v (IP) actually vanishing pointwise
+# along the clamped wall.
+#
+# No new field formula is introduced: _build_K_real's own edata already
+# computes, at every edge regardless of kind, both the natural pair
+# (a_=Qy, b_=Tyy stress) and the essential pair (A_=W, B_=xi*csg*W/rr disp)
+# for OOP, and (Ft/Gt disp, Tyyt/Tyrt stress) for IP. Section 5b's FREE
+# screen treats stress as the residual (->0) and max|W| as the amplitude
+# reference. This section is the role swap for a CLAMPED edge: displacement
+# is the residual (->0 at a true clamped wall), and the co-located stress
+# magnitude is the amplitude reference (a real mode generally carries
+# substantial bending moment/shear right at a clamped root; a near-zero
+# stress there alongside near-zero W is not evidence of a clean essential-BC
+# match, it is evidence of a near-trivial null vector, so maxQM/maxT ->0 is
+# reported, not divided-through-and-hidden).
+#
+# UNLIKE Section 5b, NO real_/artifact_ thresholds are supplied here.
+# Section 5b's bar was cluster-calibrated against an independent FE
+# benchmark (11/11 OOP). This screen has not yet been calibrated at all --
+# LESSONS_LEARNED.md Sec 18.130 / P2_EASY_STATUS.md Sec 6 lever 1 explicitly
+# warn "FFFF Screen / SUBDOM does not travel by assumption" and "freeze the
+# screen before scoring". These functions return raw ratios only; verdict
+# thresholds are pre-registered separately (see
+# probe_p2easy_cc_residual_screen_2026-09-14.py) BEFORE they are looked up
+# against the 5 OOP-matched / 15 IP-matched mill rows, so the freeze is not
+# contaminated by having already seen which label it produces.
+#
+# NOT WIRED INTO find_modes_sigmin'S DEFAULT PATH -- purely opt-in.
+# Adding these functions changes no existing default output; SOLVER_VERSION
+# not bumped (Sec 1 hard invariant).
+
+def weak_enforcement_residual_oop_clamped(solver, Omega, brs, n_dofs=None, ngrid=41,
+                                           real_rRot_max=0.010, artifact_rRot_min=0.018):
+    """Pointwise CLAMPED-edge displacement/rotation residual, evaluated at
+    EVERY clamped theta-edge in solver.bc (both, for ClampedClampedOOP; one,
+    for FreeClampedOOP's +Theta wall). solver must be an OutOfPlaneSolver;
+    brs is the root set at Omega that found the dip (as for Section 5b).
+
+    Returns a list of one dict per clamped edge: edge_sign, block, sig_this,
+    sig_other, rmsW, rmsRot, maxQM, rW (=rmsW/maxQM), rRot (=rmsRot/maxQM),
+    verdict ('REAL-like' if rRot<=real_rRot_max, 'ARTIFACT-like' if
+    rRot>=artifact_rRot_min, else 'AMBIGUOUS').
+
+    VALIDATION STATUS (2026-09-14, sandbox dps=26, ffp1 geometry r0/2b=1.5,
+    2Theta/pi=0.5, nu=0.30, n_dofs=20, all 13 known roots from mill job
+    2478210_0 / p2easy_cc_oop_ffp1.json): rRot cleanly separates the 5
+    SHELL281-matched rows (max rRot=0.00861: modes 2,5,6,9,12) from the 8
+    unmatched rows (min rRot=0.02090: modes 1,3,4,7,8,10,11,13) with a
+    ~2.4x gap and ZERO overlap -- 13/13 correctly classified at the frozen
+    default thresholds, including both named extras (mode 1, Omega_lit=4.20:
+    rRot=0.513; the widest margin of the set). rW alone is NOT a clean
+    separator (mode 4's rW=0.0120 overlaps mode 2's matched rW=0.0127) --
+    rRot is the discriminator, rW is diagnostic-only here. Both clamped
+    edges (+Theta/-Theta) gave IDENTICAL numbers at every point tested (a
+    mirror-symmetry self-consistency check, same spirit as the Geo-2
+    41-point acceptance test). This is a SANDBOX finding at dps=26 against
+    ALREADY-mill-computed Omega roots, not yet independently reconfirmed at
+    dps=40 on the cluster -- see probe_p2easy_cc_residual_screen_2026-09-14.py
+    for the pending cluster confirmation. Freeze predates any look at IP
+    (IP's naive port of this screen hit a degenerate sig0=-300 sentinel on
+    every point tried, matched and extra alike -- NOT usable yet, see
+    weak_enforcement_residual_ip_clamped's docstring). Do not retune these
+    thresholds to chase a different split.
+    """
+    n_dofs = n_dofs or len(brs)
+    sel = brs if len(brs) == n_dofs else select_fill(brs, n_dofs)[0]
+    K, n = solver._build_K_real(Omega, sel, fast_scan=False)
+    items = real_basis_items(sel)
+    if len(items) != n:
+        return [dict(ok=False, reason=f"item/K dimension mismatch ({len(items)} vs {n})")]
+
+    block_idx, block_name, block_K, sig_other, sig_this = _weak_enforcement_null_block(K, items, n)
+    nv = equilibrated_nullvec_mp(block_K, len(block_idx))
+    if nv is None:
+        return [dict(ok=False, reason="no null vector", block=block_name)]
+
+    c_full = [mpf(0)] * n
+    for li, gi in enumerate(block_idx):
+        c_full[gi] = mpf(float(nv[li]))
+
+    clamped_edges = [e for e in solver.bc.edges if e.kind == EdgeKind.CLAMPED]
+    Th, nu, T, R, r0 = solver.Theta, solver.nu, solver.T, solver.R, solver.r0b
+    xs = [mp.pi/2 * (2*k/(ngrid-1) - 1) for k in range(ngrid)]
+
+    cache = {}
+    for z in {it[0] for it in items}:
+        zr = solver._refine_root_mp(mpc(z), Omega)
+        sols = solver._series_mp(zr, Omega)
+        A = solver._amp_mp(zr, Omega, sols)
+        cache[z] = (zr, sols, A)
+
+    out = []
+    for e_this in clamped_edges:
+        Wtot, Qtot, Mtot, Rtot = [], [], [], []
+        for x in xs:
+            Wt = mpf(0); Qt = mpf(0); Mt = mpf(0); Rt = mpf(0)
+            for i, (z, q, P) in enumerate(items):
+                ci = c_full[i]
+                if ci == 0:
+                    continue
+                xi, sols, A = cache[z]
+                xi2 = xi**2; ph = q*mp.pi/2
+                sg = e_this.sign
+                ssg = mp.sin(sg*xi*Th + ph); csg = mp.cos(sg*xi*Th + ph)
+                rr = x + r0
+                W = solver._W_mp(x, sols, A, 0)
+                Wp = solver._W_mp(x, sols, A, 1)
+                Wpp = solver._W_mp(x, sols, A, 2)
+                Tyy = nu*Wpp + R*Wp/rr - R*xi2*W/rr**2
+                Qy = ((2*T-nu)*Wpp/rr + (R-2*T+2*nu)*Wp/rr**2 + (2*T-2*nu-R*xi2)*W/rr**3)
+                # essential pair (A_, B_ in _build_K_real's edata)
+                Wt += ci * mp_proj(ssg*W, P)
+                Rt += ci * mp_proj(xi*csg*W/rr, P)
+                # natural pair, SAME point -- amplitude reference only
+                Qt += ci * mp_proj(xi*csg*Qy, P)
+                Mt += ci * mp_proj(ssg*Tyy, P)
+            Wtot.append(Wt); Qtot.append(Qt); Mtot.append(Mt); Rtot.append(Rt)
+
+        maxQ = float(max(abs(q) for q in Qtot))
+        maxM = float(max(abs(m) for m in Mtot))
+        maxQM = max(maxQ, maxM)
+        rmsW = float((sum(w*w for w in Wtot) / ngrid) ** mpf('0.5'))
+        rmsRot = float((sum(r*r for r in Rtot) / ngrid) ** mpf('0.5'))
+
+        rW = rmsW/maxQM if maxQM else float('inf')
+        rRot = rmsRot/maxQM if maxQM else float('inf')
+        if rRot <= real_rRot_max:
+            verdict = "REAL-like"
+        elif rRot >= artifact_rRot_min:
+            verdict = "ARTIFACT-like"
+        else:
+            verdict = "AMBIGUOUS"
+        out.append(dict(ok=True, edge_sign=e_this.sign, block=block_name,
+                         sig_this=sig_this, sig_other=sig_other,
+                         maxQ=maxQ, maxM=maxM, maxQM=maxQM,
+                         rmsW=rmsW, rmsRot=rmsRot, rW=rW, rRot=rRot,
+                         verdict=verdict))
+    return out
+
+
+def weak_enforcement_residual_ip_clamped(solver, Omega, brs, n_dofs=None, ngrid=41,
+                                          real_rG_max=0.026, artifact_rG_min=0.030):
+    """In-plane analog of weak_enforcement_residual_oop_clamped. solver must
+    be an InPlaneSolver; evaluated at every clamped theta-edge. SCOUT-grade:
+    IP CLAMPED still hardcodes orient=+1 (pre-E.2), same caveat as the mill
+    C-C IP table itself.
+
+    Returns a list of one dict per clamped edge: edge_sign, maxT, rmsF,
+    rmsG, rF (=rmsF/maxT), rG (=rmsG/maxT), verdict ('REAL-like' if
+    rG<=real_rG_max, 'ARTIFACT-like' if rG>=artifact_rG_min, else
+    'AMBIGUOUS'). rF is diagnostic-only, NOT the discriminator -- see
+    VALIDATION STATUS.
+
+    REDESIGNED 2026-09-14 (this is the fix for the sig0=-300 dead screen
+    the module note above and this docstring's own history describe). The
+    original copy of Sec 5b's q0/q1 null-vector block split silently
+    dropped the per-clamped-edge Lagrange row core_solvers.py's
+    InPlaneSolver._build_K_real adds (`size = len(items) + n_clamp`,
+    weakly imposing u_r=F=0 there) -- that split is only valid when
+    n_clamp=0 (FreeFreeIP, Sec 5b's own use), because a single theta-edge's
+    Lagrange row is evaluated at ONE fixed angle and so is not q-parity-
+    pure the way the item space is; it couples both q0 and q1 items. A
+    first attempt folded the Lagrange row into BOTH candidate q-blocks and
+    picked whichever was more singular, but hit a SECOND, still-Omega-
+    independent degeneracy (one of the two augmented blocks is
+    structurally singular regardless of frequency) and, even guarding
+    against that with a -300-floor check, still returned near-identical
+    rF/rG across matched and extra rows -- no discrimination.
+
+    The fix that actually works: stop splitting into q-blocks at all. A
+    single clamped edge's Lagrange row is not q-pure, so there is no clean
+    symmetric/antisymmetric decoupling to exploit here the way there is
+    for FreeFreeIP -- extract the null vector directly from the FULL,
+    Lagrange-CONSTRAINED K (`_build_K_real(..., lagrange=True)`, the exact
+    same matrix `InPlaneSolver.sigma_min` itself uses), no submatrix at
+    all. This is simpler than Sec 5b's split, not a workaround of it.
+
+    VALIDATION STATUS (2026-09-14, sandbox dps=26, ffp1 geometry
+    r0/2b=1.5, 2Theta/pi=0.5, nu=0.30, n_dofs=20, 11 of the 38 known roots
+    in p2easy_cc_ip_ffp1.json -- 6 PLANE183-matched modes 2,3,5,7,11,12
+    and 5 unmatched modes 1,4,6,8,9 incl. the named 161Hz/mode-1 extra):
+    `rG` cleanly separates the 6 matched rows (max rG=0.0238) from the 5
+    unmatched rows (min rG=0.0311) -- zero overlap, 11/11 correct, though
+    the ~1.3x gap is much thinner than the OOP screen's ~2.4x and only 11
+    of 38 rows have been checked (not all 38, for sandbox time reasons).
+    `rF` alone is NOT a clean separator (mode 11 matched rF=0.0231 exceeds
+    mode 6 extra rF=0.0229) -- same qualitative pattern as the OOP screen,
+    where the "rotation"/tangential quantity discriminates and the plain
+    radial-displacement quantity does not. Given the thin margin, treat
+    this as a WEAKER result than the OOP screen (which the mill itself
+    reconfirmed at dps=40, LESSONS_LEARNED Sec 18.132) -- reconfirm on the
+    remaining 27 rows and at dps=40 before leaning on it for a paper-facing
+    table. Do not retune real_rG_max/artifact_rG_min to chase a wider gap.
+    """
+    n_dofs = n_dofs or len(brs)
+    sel = brs if len(brs) == n_dofs else select_fill(brs, n_dofs)[0]
+    K, size = solver._build_K_real(Omega, sel, lagrange=True, fast_scan=False)
+
+    cache = {}
+    for z in set(sel):
+        zr = solver._refine_root_mp(mpc(z), Omega)
+        sols = solver._series_mp(zr, Omega)
+        A = solver._amp_mp(zr, Omega, sols)
+        cache[z] = (zr, sols, A)
+
+    imag_proj = {}
+    for z, (zr, sols, A) in cache.items():
+        if abs(z.real) < 1e-9 and abs(z.imag) > 1e-9:
+            x0 = solver.nodes[0]
+            F0 = solver._F_mp(x0, sols, A, 0)
+            f_is_real = abs(mp.im(F0)) < abs(mp.re(F0)) * 1e-6 + mpf('1e-30')
+            imag_proj[z] = ('im', 're') if f_is_real else ('re', 'im')
+
+    items = []
+    for z in sel:
+        if abs(z.imag) < 1e-9:
+            items += [(z, 0, 'asis'), (z, 1, 'asis')]
+        elif abs(z.real) < 1e-9:
+            p0, p1 = imag_proj[z]
+            items += [(z, 0, p0), (z, 1, p1)]
+        else:
+            items += [(z, 0, 're'), (z, 0, 'im'), (z, 1, 're'), (z, 1, 'im')]
+    n_clamp = sum(1 for e in solver.bc.edges if e.kind == EdgeKind.CLAMPED)
+    if len(items) + n_clamp != size:
+        return [dict(ok=False,
+                     reason=f"item/K dimension mismatch ({len(items)}+{n_clamp} vs {size})")]
+
+    nv = equilibrated_nullvec_mp(K, size)
+    if nv is None:
+        return [dict(ok=False, reason="no null vector")]
+    # nv's trailing n_clamp entries are the Lagrange-multiplier values, not
+    # physical dofs -- only the first len(items) map to a basis coefficient.
+    c_full = [mpf(float(nv[i])) for i in range(len(items))]
+
+    clamped_edges = [e for e in solver.bc.edges if e.kind == EdgeKind.CLAMPED]
+    Th, c11, nu, R, r0 = solver.Theta, solver.c11, solver.nu, solver.R, solver.r0b
+    xs = [mp.pi/2 * (2*k/(ngrid-1) - 1) for k in range(ngrid)]
+
+    out = []
+    for e_this in clamped_edges:
+        Ftot, Gtot, Tyytot, Tyrtot = [], [], [], []
+        for x in xs:
+            Ft = mpf(0); Gt = mpf(0); Tyyt = mpf(0); Tyrt = mpf(0)
+            for i, (z, q, P) in enumerate(items):
+                ci = c_full[i]
+                if ci == 0:
+                    continue
+                ze, sols, A = cache[z]
+                ph = q*mp.pi/2
+                sg = e_this.sign
+                ssg = mp.sin(sg*ze*Th + ph); csg = mp.cos(sg*ze*Th + ph)
+                rr = x + r0
+                F = solver._F_mp(x, sols, A, 0); Fp = solver._F_mp(x, sols, A, 1)
+                G = solver._G_mp(x, sols, A, 0); Gp = solver._G_mp(x, sols, A, 1)
+                tyy = c11*(nu*Fp + R*(F - ze*G)/rr)
+                tyr = Gp - G/rr + ze*F/rr
+                Ft += ci * mp_proj(F*ssg, P)
+                Gt += ci * mp_proj(G*csg, P)
+                Tyyt += ci * mp_proj(tyy*ssg, P)
+                Tyrt += ci * mp_proj(tyr*csg, P)
+            Ftot.append(Ft); Gtot.append(Gt); Tyytot.append(Tyyt); Tyrtot.append(Tyrt)
+
+        maxTyy = float(max(abs(t) for t in Tyytot))
+        maxTyr = float(max(abs(t) for t in Tyrtot))
+        maxT = max(maxTyy, maxTyr)
+        rmsF = float((sum(f*f for f in Ftot) / ngrid) ** mpf('0.5'))
+        rmsG = float((sum(g*g for g in Gtot) / ngrid) ** mpf('0.5'))
+        rF = rmsF/maxT if maxT else float('inf')
+        rG = rmsG/maxT if maxT else float('inf')
+        if rG <= real_rG_max:
+            verdict = "REAL-like"
+        elif rG >= artifact_rG_min:
+            verdict = "ARTIFACT-like"
+        else:
+            verdict = "AMBIGUOUS"
+
+        out.append(dict(ok=True, edge_sign=e_this.sign,
+                         maxTyy=maxTyy, maxTyr=maxTyr, maxT=maxT,
+                         rmsF=rmsF, rmsG=rmsG, rF=rF, rG=rG, verdict=verdict))
+    return out

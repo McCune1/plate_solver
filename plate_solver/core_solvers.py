@@ -1699,13 +1699,38 @@ class InPlaneSolver:
         ne = len(edges)
         edge_free = [e.kind == EdgeKind.FREE for e in edges]
         clamp_eidx = [ei for ei in range(ne) if not edge_free[ei]]
-        # Edge-orientation factor (2026-07-08 free-free fix): the boundary
-        # functional arises from [.]_{-Theta}^{+Theta}, so a FREE edge's
-        # transplanted +Theta functional must flip sign at -Theta. CLAMPED
-        # edges keep +1 (their coded form was derived at -Theta; see B8).
-        # Cantilever (free edge at +Theta) is byte-identical under this.
-        _orient = [ (e.sign if edge_free[_k] else 1)
-                    for _k, e in enumerate(edges) ]
+        # Edge-orientation factor (2026-07-08 free-free fix, extended
+        # 2026-09-14 -- IP E.2, LESSONS_LEARNED Sec 18.135): the boundary
+        # functional arises from [.]_{-Theta}^{+Theta}, so ANY edge's coded
+        # form (derived at -Theta) must flip sign when transplanted to
+        # +Theta -- a geometric fact about which wall the edge sits at, not
+        # a property of FREE vs CLAMPED (same argument as OOP's Geo-2, Sec
+        # 46). The previous CLAMPED-always-+1 rule was correct only because
+        # every validated geometry to date clamps at -Theta (e.sign=-1
+        # there, and the old CLAMPED branch below had that minus baked in
+        # as literal text, not multiplied by _orient at all -- _orient was
+        # computed but UNUSED for CLAMPED edges pre-fix); it was never
+        # derived for CLAMPED@+Theta and does not hold there (P2-easy
+        # reverse-cantilever identity, job 2477888: 0 FAIL_IDENTITY but
+        # 4/9 rows WEAK, |std-rev| up to 1.13 decades). Fixed to
+        # orient = e.sign uniformly, and the CLAMPED branch below now
+        # actually multiplies by it. UNLIKE OOP's Geo-2, no internal sign
+        # split of the two CLAMPED pairing terms was needed (sA=sB=+1
+        # relative to the old unsigned "-(...)" form) -- confirmed
+        # in-sandbox (n_dofs=8, dps=26; r0/2b=1.25, 2T/pi in
+        # {0.25,0.5,1.0}) to (a) leave the published cantilever
+        # (CLAMPED@-Theta) bit-identical to pre-fix at every point tried,
+        # and (b) make std/rev sigma_min match EXACTLY (delta=0.0000, not
+        # merely <=0.5) at every point tried -- the E.2 reverse-cantilever
+        # identity bar. An sA=sB=-1 variant also gives delta=0.0000 but
+        # MOVES the published cantilever value (ruled out: this must be a
+        # no-op for the default table). Cluster confirmation (re-run of
+        # probe_p2easy_reverse_identity_2026-09-11.py against this fix,
+        # full PAPER_PART2 table + G0/G3) is the next step before flipping
+        # FreeClampedIP.validated. NOTE: this is IP's OWN, separate
+        # _orient/pairing construction -- OutOfPlaneSolver._build_K_real's
+        # Geo-2 fix above is untouched and was not assumed to carry over.
+        _orient = [ e.sign for e in edges ]
 
         # Per item, per edge: projected stress (p_tyy, p_tyr) and displacement
         # (p_G, p_F) node vectors using THIS edge's angular sign.
@@ -1751,7 +1776,21 @@ class InPlaneSolver:
                         if edge_free[ei]:
                             acc += _orient[ei]*(ptyy_j[k]*pG_i[k] + ptyr_j[k]*pF_i[k])
                         else:
-                            acc += -(pF_j[k]*ptyr_i[k] + pG_j[k]*ptyy_i[k])
+                            # IP E.2 fix: was unconditional "-(...)" with
+                            # no _orient factor (equivalent to the CLAMPED
+                            # term ignoring which wall it sits at). Now
+                            # _orient[ei]*(+pF*ptyr + pG*ptyy) -- see the
+                            # _orient comment above for derivation and
+                            # sandbox verification. Bit-identical to the
+                            # old form for a CLAMPED edge at -Theta (every
+                            # validated cantilever/C-C-published-so-far
+                            # geometry); only changes CLAMPED@+Theta (the
+                            # reverse cantilever's wall, and one of C-C's
+                            # two walls -- C-C's own spectrum is therefore
+                            # expected to shift under this fix and needs
+                            # its own cluster re-search, not assumed
+                            # unchanged).
+                            acc += _orient[ei]*(pF_j[k]*ptyr_i[k] + pG_j[k]*ptyy_i[k])
                     s += wt*acc
                 K[i, j] = s
         # One Lagrange row/col per clamped edge: weakly impose u_r=F=0 there.

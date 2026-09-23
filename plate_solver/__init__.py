@@ -19,7 +19,8 @@ from .geometry import (
 )
 from .boundary import (
     EdgeKind, EdgeSpec, BoundaryCondition, ClampedFreeOOP, ClampedFreeIP,
-    FreeFreeOOP, FreeFreeIP, make_bc,
+    FreeFreeOOP, FreeFreeIP, FreeClampedOOP, FreeClampedIP,
+    ClampedClampedOOP, ClampedClampedIP, make_bc,
 )
 from .dispersion import (
     ExactEdgeSolver, cutoff_frequencies_part1, cutoff_frequencies_part2,
@@ -37,6 +38,8 @@ from .ring_disk import (
     ring_search, disk_search, flexural_lambda2, inplane_lambda_irie,
     UnsupportedRingBC,
 )
+from .piezo_solver import PiezoOutOfPlaneSolver
+from .piezo_monolithic import PiezoMonolithicOutOfPlaneSolver
 from .plotting import plot_dispersion_curves, plot_mode_shape
 from .validation import (
     compare_and_collect, print_summary, run_shi_validation,
@@ -50,7 +53,8 @@ __all__ = [
     "PlateGeometry", "MaterialModel", "IsotropicMaterial", "OrthotropicMaterial",
     "FGMPlateProperties", "RadialFGMMaterial", "make_geometry",
     "EdgeKind", "EdgeSpec", "BoundaryCondition", "ClampedFreeOOP", "ClampedFreeIP",
-    "FreeFreeOOP", "FreeFreeIP", "make_bc",
+    "FreeFreeOOP", "FreeFreeIP", "FreeClampedOOP", "FreeClampedIP",
+    "ClampedClampedOOP", "ClampedClampedIP", "make_bc",
     "ExactEdgeSolver", "cutoff_frequencies_part1", "cutoff_frequencies_part2",
     "RectangularCartesianOOP", "RectangularCartesianIP",
     "full_search", "track", "select_fill", "find_modes_sigmin", "sigma_min_from_K",
@@ -59,6 +63,8 @@ __all__ = [
     "AnnulusRadialOOP", "AnnulusRadialIP",
     "ring_search", "disk_search", "flexural_lambda2", "inplane_lambda_irie",
     "UnsupportedRingBC",
+    "PiezoOutOfPlaneSolver",
+    "PiezoMonolithicOutOfPlaneSolver",
     "plot_dispersion_curves", "plot_mode_shape",
     "compare_and_collect", "print_summary", "run_shi_validation",
     "run_mcgee_validation", "run_rect_validation", "run_rect_ip_validation",

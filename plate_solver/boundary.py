@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 plate_solver.boundary -- boundary-condition registry (EdgeKind/EdgeSpec,
-BoundaryCondition and the four concrete Clamped/Free x OOP/IP classes) and
-the worker-side BC token lookup.
+BoundaryCondition and the Clamped/Free x OOP/IP classes) and the
+worker-side BC token lookup.
 
 Extracted verbatim from Research50.py; no numeric behaviour changed.
+P2-easy (2026-09-11): free_clamped (reverse cantilever) and
+clamped_clamped (both theta-edges clamped, arcs still free) added.
+Corner coefficients are the already-validated CLAMPED=+1 / FREE=-2
+pair; SOLVER_VERSION is not bumped. IP clamped-at-+Theta orientation
+is still the pre-E.2 rule -- see probe_p2easy_reverse_identity.
 """
 from __future__ import annotations
 import os
@@ -80,17 +85,93 @@ class FreeFreeIP(BoundaryCondition):
     def __init__(self):
         super().__init__([EdgeSpec(+1, EdgeKind.FREE), EdgeSpec(-1, EdgeKind.FREE)])
 
+class FreeClampedOOP(BoundaryCondition):
+    """Reverse cantilever: FREE at -Theta, CLAMPED at +Theta.
+
+    OOP Geo-2 (E.2, SOLVER_VERSION s10) made this the mirror of
+    ClampedFreeOOP. validated=False until the identity probe closes it
+    through the worker path; it is not a new frequency table.
+    """
+    token = "free_clamped"
+    name = "free(-Theta)-clamped(+Theta)"
+    validated = False
+    def __init__(self):
+        super().__init__([EdgeSpec(+1, EdgeKind.CLAMPED), EdgeSpec(-1, EdgeKind.FREE)])
+
+class FreeClampedIP(BoundaryCondition):
+    """Reverse cantilever, in-plane.
+
+    IP E.2 (2026-09-14, SOLVER_VERSION s10 -- LESSONS_LEARNED Sec 18.135)
+    ported Geo-2 to InPlaneSolver._build_K_real: CLAMPED edges now use
+    orient=e.sign uniformly (was hardcoded +1, and unused for CLAMPED
+    edges at all), with NO internal sign split of the CLAMPED pairing
+    term needed (unlike OOP's sA=+1/sB=-1 -- confirmed empirically, not
+    assumed to carry over). Sandbox-verified (n_dofs=8, dps=26,
+    r0/2b=1.25, 2T/pi in {0.25,0.5,1.0}): the published cantilever
+    (ClampedFreeIP, CLAMPED@-Theta) is bit-identical to pre-fix, and
+    std/rev sigma_min now match EXACTLY (delta=0.0000) at every point
+    tried. validated=False until the cluster reverse-identity probe
+    (re-run of probe_p2easy_reverse_identity_2026-09-11.py against this
+    fix) confirms G2 PASS on real hardware -- see that probe's own
+    pre-registered G2 reading.
+    """
+    token = "free_clamped"
+    name = "free(-Theta)-clamped(+Theta)"
+    validated = False
+    def __init__(self):
+        super().__init__([EdgeSpec(+1, EdgeKind.CLAMPED), EdgeSpec(-1, EdgeKind.FREE)])
+
+class ClampedClampedOOP(BoundaryCondition):
+    """Both radial walls clamped; inner/outer arcs stay free.
+
+    Corner coefficient +1 on both walls (same pairing as the cantilever
+    mixed corner). Not a published table in this project.
+    """
+    token = "clamped_clamped"
+    name = "clamped(-Theta)-clamped(+Theta)"
+    validated = False
+    def __init__(self):
+        super().__init__([EdgeSpec(+1, EdgeKind.CLAMPED), EdgeSpec(-1, EdgeKind.CLAMPED)])
+
+class ClampedClampedIP(BoundaryCondition):
+    """Both radial walls clamped, in-plane.
+
+    IP E.2 (2026-09-14) changes THIS BC's own spectrum, not just the
+    reverse cantilever's: one of the two clamped walls sits at +Theta, and
+    that wall's contribution sign-flips under the fix (the -Theta wall is
+    bit-identical to pre-fix; see FreeClampedIP). Sandbox spot-check
+    (n_dofs=8, ffp1 geometry) shows sigma_min at the OLD 15-matched-mode
+    Omega_native values shifts by a non-trivial amount at that basis size
+    -- the roots likely move and the P2_EASY_STATUS.md Sec 5.2 "15 matched
+    C-C IP Hz" table is NOT assumed unchanged. A cluster re-search of the
+    C-C IP window against this fix, re-scored against cc_ip_mesh64/96.txt
+    FE data the same way as Sec 5.2, is required before quoting a revised
+    (or confirmed-unchanged) C-C IP table. Scout only until that job runs
+    AND the reverse-cantilever identity (FreeClampedIP) is cluster-
+    confirmed.
+    """
+    token = "clamped_clamped"
+    name = "clamped(-Theta)-clamped(+Theta)"
+    validated = False
+    def __init__(self):
+        super().__init__([EdgeSpec(+1, EdgeKind.CLAMPED), EdgeSpec(-1, EdgeKind.CLAMPED)])
+
 _BC_REGISTRY = {
     ("clamped_free", "out_of_plane"): ClampedFreeOOP,
     ("clamped_free", "in_plane"):     ClampedFreeIP,
     ("free_free",    "out_of_plane"): FreeFreeOOP,
     ("free_free",    "in_plane"):     FreeFreeIP,
+    ("free_clamped", "out_of_plane"): FreeClampedOOP,
+    ("free_clamped", "in_plane"):     FreeClampedIP,
+    ("clamped_clamped", "out_of_plane"): ClampedClampedOOP,
+    ("clamped_clamped", "in_plane"):     ClampedClampedIP,
 }
 
 def make_bc(kind, motion):
-    """Factory: kind in {'clamped_free','free_free'}, motion in
-    {'out_of_plane','in_plane'}.  Lets a BC token be threaded through worker
-    scalars (Step 6) so parallel free-free reconstruction picks the right BC."""
+    """Factory: kind in {'clamped_free','free_free','free_clamped',
+    'clamped_clamped'}, motion in {'out_of_plane','in_plane'}.  Lets a BC
+    token be threaded through worker scalars (Step 6) so parallel
+    reconstruction picks the right BC."""
     try:
         return _BC_REGISTRY[(kind, motion)]()
     except KeyError:

@@ -38,6 +38,24 @@ def _get_detectors():
     from . import detectors as _dt
     return _dt.full_search, _dt.select_fill, _dt.track, _dt._min_root_spacing
 
+# Third lazy accessor, same rationale: plate_solver.piezo_solver is a
+# self-contained mpmath-only module (no geometry.py/core_solvers.py/
+# detectors.py dependency at all), so importing it at module scope here
+# carries no circular-import risk the way core_solvers/detectors do -- this
+# stays lazy anyway, for the same reason those two do: worker functions are
+# what other modules import FROM this file, so this file keeps every
+# heavier import deferred to call time as a matter of course, not because
+# piezo_solver specifically needs it.
+def _get_piezo_solver():
+    from .piezo_solver import PiezoOutOfPlaneSolver
+    return PiezoOutOfPlaneSolver
+
+
+def _get_piezo_mono_solver():
+    from .piezo_monolithic import PiezoMonolithicOutOfPlaneSolver
+    return PiezoMonolithicOutOfPlaneSolver
+
+
 _WORKER_EXC_SURFACED = False
 
 class _StaleCheckpoint(Exception):
@@ -398,3 +416,483 @@ def _preflight_probe_worker(args):
         return (part, key, float(Om), -1, -1, float("nan"), float("nan"))
 
 
+# ── Paper 4 piezoelectric-ring worker (elastic-limit slice only) ─────────────
+
+def _piezo_elastic_ff_root_worker(args):
+    """Bisect PiezoOutOfPlaneSolver's elastic F-F determinant in a worker
+    process, rebuilding the solver from plain scalars -- the same
+    worker-reconstruction-path discipline every other *_worker function in
+    this module follows (LESSONS_LEARNED's repeated worker-reconstruction
+    warning, the sandbox-probe skill Sec 4). Unlike the Part 1/2 workers
+    above, PiezoOutOfPlaneSolver needs no _make_geom_mat reconstruction at
+    all -- it takes plain dimensional scalars directly (module docstring:
+    no PlateGeometry/MaterialModel dependency) -- so this worker is a
+    direct, minimal analogue: build the solver from the scalars in `args`,
+    bisect, return a plain float.
+
+    args = (r_i, r_o, h, E, nu, rho, h1, C11E, C12E, rho_pzt, dps,
+            n, lo, hi, iters)
+        r_i, r_o, h, E, nu, rho : host geometry/material (see
+            PiezoOutOfPlaneSolver.__init__).
+        h1, C11E, C12E, rho_pzt : piezo layer params; h1=0.0 with
+            C11E=C12E=rho_pzt=None is the bare-host elastic-limit case.
+        dps   : mpmath working precision (mp.workdps, instance-scoped).
+        n     : circumferential order (int).
+        lo, hi, iters : bisection window (rad/s) and iteration count.
+    Returns : Om_star:float (the bisected root, rad/s), or float('nan') on
+              any exception (matching the other workers' fail-soft contract
+              -- the caller sees a NaN rather than a dead worker process).
+    """
+    (r_i, r_o, h, E, nu, rho, h1, C11E, C12E, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, rho_pzt=rho_pzt, dps=dps)
+        return float(solver.elastic_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_elastic_ff_root_worker')
+        return float('nan')
+
+
+def _piezo_coupled_ff_root_worker(args):
+    """Bisect PiezoOutOfPlaneSolver's full 3-branch piezo-coupled F-F
+    determinant (coupled_det/coupled_bisect) in a worker process,
+    rebuilding the solver from plain scalars -- same worker-reconstruction-
+    path discipline as _piezo_elastic_ff_root_worker above and every other
+    *_worker function in this module. h1 must be > 0 (coupled_det's own
+    invariant: h1=0 is a genuine chi-cubic singularity, Sec 18.149/Sec
+    18.172 -- use _piezo_elastic_ff_root_worker with h1=0.0 for that limit
+    instead).
+
+    args = (r_i, r_o, h, E, nu, rho, h1,
+            C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+            n, lo, hi, iters)
+        r_i, r_o, h, E, nu, rho : host geometry/material (see
+            PiezoOutOfPlaneSolver.__init__).
+        h1 : piezo layer thickness (m), must be > 0 for this worker.
+        C11E, C12E, C13E, C33E : piezo layer RAW elastic stiffness (Pa),
+            Duan2005 Table 1 sourcing directly (Sec 18.172 convention).
+        e31, e33, X11, X33 : piezoelectric stress (C/m^2) and permittivity
+            (F/m) constants, needed only by the coupled model.
+        rho_pzt : piezo layer density (kg/m^3).
+        dps   : mpmath working precision (mp.workdps, instance-scoped).
+        n     : circumferential order (int).
+        lo, hi, iters : bisection window (rad/s) and iteration count.
+    Returns : Om_star:float (the bisected root, rad/s), or float('nan') on
+              any exception (matching every other worker's fail-soft
+              contract -- the caller sees a NaN rather than a dead worker
+              process).
+    """
+    (r_i, r_o, h, E, nu, rho, h1,
+     C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E,
+            e31=e31, e33=e33, X11=X11, X33=X33, rho_pzt=rho_pzt, dps=dps)
+        return float(solver.coupled_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_coupled_ff_root_worker')
+        return float('nan')
+
+
+def _piezo_elastic_cc_root_worker(args):
+    """C-C counterpart of _piezo_elastic_ff_root_worker: bisect
+    PiezoOutOfPlaneSolver.elastic_cc_bisect in a worker process, same
+    plain-scalar reconstruction discipline. args layout identical to
+    _piezo_elastic_ff_root_worker's own:
+
+    args = (r_i, r_o, h, E, nu, rho, h1, C11E, C12E, rho_pzt, dps,
+            n, lo, hi, iters)
+    """
+    (r_i, r_o, h, E, nu, rho, h1, C11E, C12E, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, rho_pzt=rho_pzt, dps=dps)
+        return float(solver.elastic_cc_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_elastic_cc_root_worker')
+        return float('nan')
+
+
+def _piezo_coupled_cc_root_worker(args):
+    """C-C counterpart of _piezo_coupled_ff_root_worker: bisect
+    PiezoOutOfPlaneSolver.cc_coupled_bisect in a worker process, same
+    plain-scalar reconstruction discipline. args layout identical to
+    _piezo_coupled_ff_root_worker's own:
+
+    args = (r_i, r_o, h, E, nu, rho, h1,
+            C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+            n, lo, hi, iters)
+    """
+    (r_i, r_o, h, E, nu, rho, h1,
+     C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E,
+            e31=e31, e33=e33, X11=X11, X33=X33, rho_pzt=rho_pzt, dps=dps)
+        return float(solver.cc_coupled_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_coupled_cc_root_worker')
+        return float('nan')
+
+
+def _piezo_oc_ff_root_worker(args):
+    """Bisect PiezoOutOfPlaneSolver.oc_ff_bisect in a worker process,
+    same plain-scalar reconstruction discipline as the other piezo
+    workers. args layout identical to _piezo_coupled_ff_root_worker's
+    own (needs the full piezo constant set because the n=0 h1>0 path
+    uses e31_bar and Xi33_bar):
+
+    args = (r_i, r_o, h, E, nu, rho, h1,
+            C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+            n, lo, hi, iters)
+    """
+    (r_i, r_o, h, E, nu, rho, h1,
+     C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E,
+            e31=e31, e33=e33, X11=X11, X33=X33, rho_pzt=rho_pzt, dps=dps)
+        return float(solver.oc_ff_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_oc_ff_root_worker')
+        return float('nan')
+
+
+def _piezo_oc_sine_ff_root_worker(args):
+    """Bisect PiezoOutOfPlaneSolver.oc_ff_sine_bisect in a worker
+    process, same plain-scalar reconstruction discipline as the other
+    piezo workers. args layout identical to
+    _piezo_coupled_ff_root_worker's own (the same-ansatz OC model needs
+    the full piezo constant set -- it is built on coupled_det's own
+    chi/lambda branches, LESSONS_LEARNED.md Sec 18.182):
+
+    args = (r_i, r_o, h, E, nu, rho, h1,
+            C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+            n, lo, hi, iters)
+    """
+    (r_i, r_o, h, E, nu, rho, h1,
+     C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E,
+            e31=e31, e33=e33, X11=X11, X33=X33, rho_pzt=rho_pzt, dps=dps)
+        return float(solver.oc_ff_sine_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_oc_sine_ff_root_worker')
+        return float('nan')
+
+
+def _piezo_elastic_cf_root_worker(args):
+    """Bisect PiezoOutOfPlaneSolver.elastic_cf_bisect (inner C, outer F).
+    args = (r_i, r_o, h, E, nu, rho, h1, C11E, C12E, C13E, C33E, rho_pzt,
+            dps, n, lo, hi, iters)
+    C13E/C33E are required whenever h1>0 (constructor forms c11_bar from
+    the raw constants). h1=0 may pass Cij=rho_pzt=None.
+    """
+    (r_i, r_o, h, E, nu, rho, h1, C11E, C12E, C13E, C33E, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E,
+            rho_pzt=rho_pzt, dps=dps)
+        return float(solver.elastic_cf_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_elastic_cf_root_worker')
+        return float('nan')
+
+
+def _piezo_elastic_fc_root_worker(args):
+    """Bisect PiezoOutOfPlaneSolver.elastic_fc_bisect (inner F, outer C).
+    args layout identical to _piezo_elastic_cf_root_worker.
+    """
+    (r_i, r_o, h, E, nu, rho, h1, C11E, C12E, C13E, C33E, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E,
+            rho_pzt=rho_pzt, dps=dps)
+        return float(solver.elastic_fc_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_elastic_fc_root_worker')
+        return float('nan')
+
+
+def _piezo_coupled_cf_root_worker(args):
+    """Bisect PiezoOutOfPlaneSolver.cf_coupled_bisect.
+    args = (r_i, r_o, h, E, nu, rho, h1,
+            C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+            n, lo, hi, iters)
+    """
+    (r_i, r_o, h, E, nu, rho, h1,
+     C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E,
+            e31=e31, e33=e33, X11=X11, X33=X33, rho_pzt=rho_pzt, dps=dps)
+        return float(solver.cf_coupled_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_coupled_cf_root_worker')
+        return float('nan')
+
+
+def _piezo_coupled_fc_root_worker(args):
+    """Bisect PiezoOutOfPlaneSolver.fc_coupled_bisect.
+    args layout identical to _piezo_coupled_cf_root_worker.
+    """
+    (r_i, r_o, h, E, nu, rho, h1,
+     C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E,
+            e31=e31, e33=e33, X11=X11, X33=X33, rho_pzt=rho_pzt, dps=dps)
+        return float(solver.fc_coupled_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_coupled_fc_root_worker')
+        return float('nan')
+
+
+def _piezo_oc_cf_root_worker(args):
+    """Bisect PiezoOutOfPlaneSolver.oc_cf_bisect.
+    args layout identical to _piezo_coupled_cf_root_worker.
+    """
+    (r_i, r_o, h, E, nu, rho, h1,
+     C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E,
+            e31=e31, e33=e33, X11=X11, X33=X33, rho_pzt=rho_pzt, dps=dps)
+        return float(solver.oc_cf_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_oc_cf_root_worker')
+        return float('nan')
+
+
+def _piezo_oc_fc_root_worker(args):
+    """Bisect PiezoOutOfPlaneSolver.oc_fc_bisect.
+    args layout identical to _piezo_coupled_cf_root_worker.
+    """
+    (r_i, r_o, h, E, nu, rho, h1,
+     C11E, C12E, C13E, C33E, e31, e33, X11, X33, rho_pzt, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoOutOfPlaneSolver = _get_piezo_solver()
+        solver = PiezoOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, h=h, E=E, nu=nu, rho=rho,
+            h1=h1, C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E,
+            e31=e31, e33=e33, X11=X11, X33=X33, rho_pzt=rho_pzt, dps=dps)
+        return float(solver.oc_fc_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_oc_fc_root_worker')
+        return float('nan')
+
+
+def _piezo_mono_elastic_ff_root_worker(args):
+    """Bisect PiezoMonolithicOutOfPlaneSolver.elastic_bisect from scalars.
+
+    args = (r_i, r_o, H, C11E, C12E, C13E, C33E, rho, dps, n, lo, hi, iters)
+    """
+    (r_i, r_o, H, C11E, C12E, C13E, C33E, rho, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoMonolithicOutOfPlaneSolver = _get_piezo_mono_solver()
+        solver = PiezoMonolithicOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, H=H,
+            C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E, rho=rho,
+            dps=dps)
+        return float(solver.elastic_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_mono_elastic_ff_root_worker')
+        return float('nan')
+
+
+def _piezo_mono_coupled_ff_root_worker(args):
+    """Bisect PiezoMonolithicOutOfPlaneSolver.coupled_bisect from scalars.
+
+    args = (r_i, r_o, H, C11E, C12E, C13E, C33E, rho,
+            e31, e33, X11, X33, dps, n, lo, hi, iters)
+    """
+    (r_i, r_o, H, C11E, C12E, C13E, C33E, rho,
+     e31, e33, X11, X33, dps, n, lo, hi, iters) = args
+    try:
+        PiezoMonolithicOutOfPlaneSolver = _get_piezo_mono_solver()
+        solver = PiezoMonolithicOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, H=H,
+            C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E, rho=rho,
+            e31=e31, e33=e33, X11=X11, X33=X33, dps=dps)
+        return float(solver.coupled_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_mono_coupled_ff_root_worker')
+        return float('nan')
+
+
+def _piezo_mono_elastic_cc_root_worker(args):
+    """Bisect PiezoMonolithicOutOfPlaneSolver.elastic_cc_bisect from scalars.
+
+    args layout identical to _piezo_mono_elastic_ff_root_worker.
+    """
+    (r_i, r_o, H, C11E, C12E, C13E, C33E, rho, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoMonolithicOutOfPlaneSolver = _get_piezo_mono_solver()
+        solver = PiezoMonolithicOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, H=H,
+            C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E, rho=rho,
+            dps=dps)
+        return float(solver.elastic_cc_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_mono_elastic_cc_root_worker')
+        return float('nan')
+
+
+def _piezo_mono_coupled_cc_root_worker(args):
+    """Bisect PiezoMonolithicOutOfPlaneSolver.cc_coupled_bisect from scalars.
+
+    args layout identical to _piezo_mono_coupled_ff_root_worker.
+    """
+    (r_i, r_o, H, C11E, C12E, C13E, C33E, rho,
+     e31, e33, X11, X33, dps, n, lo, hi, iters) = args
+    try:
+        PiezoMonolithicOutOfPlaneSolver = _get_piezo_mono_solver()
+        solver = PiezoMonolithicOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, H=H,
+            C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E, rho=rho,
+            e31=e31, e33=e33, X11=X11, X33=X33, dps=dps)
+        return float(solver.cc_coupled_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_mono_coupled_cc_root_worker')
+        return float('nan')
+
+
+def _piezo_mono_elastic_cf_root_worker(args):
+    """Bisect PiezoMonolithicOutOfPlaneSolver.elastic_cf_bisect from scalars
+    (inner clamped, outer free). args layout identical to
+    _piezo_mono_elastic_ff_root_worker.
+    """
+    (r_i, r_o, H, C11E, C12E, C13E, C33E, rho, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoMonolithicOutOfPlaneSolver = _get_piezo_mono_solver()
+        solver = PiezoMonolithicOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, H=H,
+            C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E, rho=rho,
+            dps=dps)
+        return float(solver.elastic_cf_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_mono_elastic_cf_root_worker')
+        return float('nan')
+
+
+def _piezo_mono_elastic_fc_root_worker(args):
+    """Bisect PiezoMonolithicOutOfPlaneSolver.elastic_fc_bisect from scalars
+    (inner free, outer clamped). args layout identical to
+    _piezo_mono_elastic_ff_root_worker.
+    """
+    (r_i, r_o, H, C11E, C12E, C13E, C33E, rho, dps,
+     n, lo, hi, iters) = args
+    try:
+        PiezoMonolithicOutOfPlaneSolver = _get_piezo_mono_solver()
+        solver = PiezoMonolithicOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, H=H,
+            C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E, rho=rho,
+            dps=dps)
+        return float(solver.elastic_fc_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_mono_elastic_fc_root_worker')
+        return float('nan')
+
+
+def _piezo_mono_coupled_cf_root_worker(args):
+    """Bisect PiezoMonolithicOutOfPlaneSolver.cf_coupled_bisect from scalars
+    (inner clamped, outer free). args layout identical to
+    _piezo_mono_coupled_ff_root_worker.
+    """
+    (r_i, r_o, H, C11E, C12E, C13E, C33E, rho,
+     e31, e33, X11, X33, dps, n, lo, hi, iters) = args
+    try:
+        PiezoMonolithicOutOfPlaneSolver = _get_piezo_mono_solver()
+        solver = PiezoMonolithicOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, H=H,
+            C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E, rho=rho,
+            e31=e31, e33=e33, X11=X11, X33=X33, dps=dps)
+        return float(solver.cf_coupled_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_mono_coupled_cf_root_worker')
+        return float('nan')
+
+
+def _piezo_mono_coupled_fc_root_worker(args):
+    """Bisect PiezoMonolithicOutOfPlaneSolver.fc_coupled_bisect from scalars
+    (inner free, outer clamped). args layout identical to
+    _piezo_mono_coupled_ff_root_worker.
+    """
+    (r_i, r_o, H, C11E, C12E, C13E, C33E, rho,
+     e31, e33, X11, X33, dps, n, lo, hi, iters) = args
+    try:
+        PiezoMonolithicOutOfPlaneSolver = _get_piezo_mono_solver()
+        solver = PiezoMonolithicOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, H=H,
+            C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E, rho=rho,
+            e31=e31, e33=e33, X11=X11, X33=X33, dps=dps)
+        return float(solver.fc_coupled_bisect(lo, hi, n, iters=iters))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_mono_coupled_fc_root_worker')
+        return float('nan')
+
+
+def _piezo_mono_driven_force_sc_worker(args):
+    """Evaluate PiezoMonolithicOutOfPlaneSolver.Y_sense from scalars
+    (F-F, short-circuit, force-driven ring-load sensing admittance --
+    PAPER5_YOMEGA_SENSE_DERIVATION.md, LESSONS_LEARNED.md Sec 18.21x).
+    Unlike every other worker in this module, this is a POINT
+    EVALUATION of a complex transfer function at one omega, not a root
+    bisection, so it returns (Re, Im) as two floats rather than a
+    single float.
+
+    args = (r_i, r_o, H, C11E, C12E, C13E, C33E, rho,
+            e31, e33, X11, X33, dps, omega, r_F, r_star, F, n)
+    """
+    (r_i, r_o, H, C11E, C12E, C13E, C33E, rho,
+     e31, e33, X11, X33, dps, omega, r_F, r_star, F, n) = args
+    try:
+        PiezoMonolithicOutOfPlaneSolver = _get_piezo_mono_solver()
+        solver = PiezoMonolithicOutOfPlaneSolver(
+            r_i=r_i, r_o=r_o, H=H,
+            C11E=C11E, C12E=C12E, C13E=C13E, C33E=C33E, rho=rho,
+            e31=e31, e33=e33, X11=X11, X33=X33, dps=dps)
+        y = solver.Y_sense(omega, r_F, r_star, F=F, n=n)
+        yc = complex(y)
+        return (float(yc.real), float(yc.imag))
+    except Exception as _e:
+        _surface_worker_exc(_e, 'piezo_mono_driven_force_sc_worker')
+        return (float('nan'), float('nan'))
