@@ -8,7 +8,8 @@
 %   S.3.4 / S.3.5 = extensional close-pairs / Shi OOP isolation
 %   S.3.6 = raw-to-physical conversion constants (moved from main-text §6.12)
 %   S.3.7 = SUBDOM numerical procedure and gate detail
-%   Tables S.1--S.8 sit in S.3 (S.8 = flexural spurious zeros, was main Table 7)
+%   S.3.8 = cantilever replication basis-size convergence (Table S.9, 2026-09-23)
+%   Tables S.1--S.9 sit in S.3 (S.8 = flexural spurious zeros, was main Table 7; S.9 = cantilever convergence)
 %   S.4  cluster job-number provenance (added 2026-08-25, advisor pass)
 \documentclass[11pt]{article}
 \usepackage[margin=1in,letterpaper]{geometry}
@@ -45,7 +46,7 @@ Missouri University of Science and Technology, Rolla, MO 65409, USA\\
 
 \noindent
 This file is the complete Supplementary Material to the companion
-manuscript: §§S.1--S.4, Tables S.1--S.8, and the three references
+manuscript: §§S.1--S.4, Tables S.1--S.9, and the three references
 cited below. Equation tags (B.1), (B.2), (B.3) and (B.3$'$) retain the
 source-paper numbering. Main-text \S3.3 cites (B.1), (B.2) and
 (B.3$'$); (B.3) appears only here.
@@ -1169,6 +1170,90 @@ independently reads $\mathrm{MAC}=0.7699$, $\mathrm{SUBDOM}=0.8343$,
 both above their respective bars --- confirmation, not a new finding,
 that max-over-blocks is not a safe alternative rule at this geometry
 either.
+
+\subsection{Cantilever replication: basis-size convergence}\label{sec:cantilever-conv}
+The main text's cantilever tables (\S6.1) are computed at the production
+basis sizes ($n=20$ for $2\Theta/\pi\le0.5$; otherwise $n=16$
+out-of-plane and $n=14$ in-plane). Table~\ref{tab:cantilever-conv}
+re-runs every row at larger bases. For each row, a fresh
+transverse-wavenumber search is done at the printed frequency. At each
+basis size the production fill rule then selects the basis, which is
+tracked in $\Omega$, and $\log_{10}\sigma_{\min}$ of the boundary matrix
+is minimised by golden section over $[0.99,1.01]$ times the printed
+value. In-plane rows use the unconstrained matrix, as in production, and
+labeled in-plane sizes fill to $n$ or $n-2$, as in production.
+
+At the production size this fixed-basis re-run reproduces the printed
+value to within $0.03\%$, except in the three in-plane rows marked
+$^{a}$. There, the re-run's own value at the production size differs
+from the printed one by $0.11$--$0.77\%$, because the production
+pipeline re-selects its basis at every frequency point. For those rows
+the ``converged'' column is the fixed-basis value at the largest basis.
+``Last step'' is the change between the two largest bases; a value above
+about $0.05\%$ means the row is still moving at the largest basis tried.
+Rows marked n.r.\ have no clean $\sigma_{\min}$ minimum inside $\pm1\%$
+of the printed value at any basis size: the depth stays at
+$\log_{10}\sigma_{\min}\ge-3.5$, or the minimiser runs to the edge of
+the window.
+
+The clamped edge converges more slowly with basis size than the free
+edges of the main study. Across the 27 resolved rows the printed values
+move by $0.01$--$0.96\%$ (median $0.28\%$). Every out-of-plane row moves
+upward except $2\Theta/\pi=0.25$, mode~2. Each mode jumps once, when the
+transverse branch that shapes it enters the basis, and then plateaus.
+Out-of-plane, the converged values agree with \cite{seok1} to within
+$2.14\%$. The largest residual is the narrowest sector's fundamental,
+which is still changing by $0.07\%$ per four added coordinates at
+$n=44$; every other out-of-plane row is within $1.51\%$. In-plane, the
+resolved rows agree with \cite{seok2} to within $1.89\%$. The published
+values are themselves finite-truncation results, so a converged row's
+residual measures both truncations together, not an error of either.
+
+\begin{table}[!htbp]\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Cantilever replication (main-text Tables~3--4):
+basis-size convergence of every row. $n_{\mathrm{p}}$: production basis
+size. Printed: the main-text value (at $n_{\mathrm{p}}$). Converged:
+value at the largest basis $n_{\max}$ tried. Last step: change between
+the two largest bases (\%). Err: signed deviation from
+\cite{seok1,seok2} (\%). $^{a}$: the fixed-basis re-run does not
+reproduce the printed digit at $n_{\mathrm{p}}$ (see text). n.r.: not
+resolved.}
+\label{tab:cantilever-conv}
+\begin{tabular}{ccccccccccc}
+\toprule Motion & $r_0/(2b)$ & $2\Theta/\pi$ & Mode & $n_{\mathrm{p}}$ & Printed & Converged & $n_{\max}$ & Last step & Err printed & Err conv.\\ \midrule
+OOP & 1.25 & 0.25 & 1 & 20 & 0.345324 & 0.348425 & 44 & $+0.070$ & $+1.23$ & $+2.14$\\
+OOP & 1.25 & 0.25 & 2 & 20 & 1.018530 & 1.016853 & 44 & $-0.001$ & $+0.50$ & $+0.34$\\
+OOP & 1.25 & 0.25 & 3 & 20 & 1.722434 & 1.724811 & 44 & $+0.008$ & $+0.22$ & $+0.35$\\
+OOP & 1.25 & 0.50 & 1 & 20 & 0.099419 & 0.099942 & 44 & $+0.036$ & $+0.36$ & $+0.89$\\
+OOP & 1.25 & 0.50 & 2 & 20 & 0.343742 & 0.345096 & 44 & $+0.024$ & $+0.90$ & $+1.30$\\
+OOP & 1.25 & 0.50 & 3 & 20 & 0.605904 & 0.605980 & 32 & $+0.004$ & $+0.28$ & $+0.29$\\
+OOP & 1.25 & 0.75 & 1 & 16 & 0.050717 & 0.050906 & 28 & $+0.018$ & $-0.22$ & $+0.15$\\
+OOP & 1.25 & 0.75 & 2 & 16 & 0.151458 & 0.152134 & 28 & $-0.001$ & $+1.06$ & $+1.51$\\
+OOP & 1.25 & 0.75 & 3 & 16 & 0.376503 & 0.376825 & 28 & $+0.008$ & $+0.06$ & $+0.14$\\
+OOP & 1.25 & 1.00 & 1 & 16 & 0.033153 & 0.033279 & 28 & $+0.023$ & $-0.20$ & $+0.18$\\
+OOP & 1.25 & 1.00 & 2 & 16 & 0.080358 & 0.080623 & 28 & $-0.004$ & $+0.74$ & $+1.07$\\
+OOP & 1.25 & 1.00 & 3 & 16 & 0.243521 & 0.243723 & 28 & $+0.002$ & $+0.16$ & $+0.25$\\
+OOP & 1.25 & 1.25 & 1 & 16 & 0.024652 & 0.024746 & 28 & $+0.021$ & $+0.05$ & $+0.43$\\
+OOP & 1.25 & 1.25 & 2 & 16 & 0.049473 & 0.049595 & 28 & $+0.001$ & $+0.27$ & $+0.52$\\
+OOP & 1.25 & 1.25 & 3 & 16 & 0.151555 & 0.151757 & 28 & $+0.000$ & $+0.26$ & $+0.39$\\
+OOP & 1.25 & 1.50 & 1 & 16 & 0.019790 & 0.019854 & 28 & $+0.013$ & $+0.30$ & $+0.63$\\
+OOP & 1.25 & 1.50 & 2 & 16 & 0.034523 & 0.034602 & 28 & $+0.008$ & $-0.08$ & $+0.15$\\
+OOP & 1.25 & 1.50 & 3 & 16 & 0.097470 & 0.097629 & 28 & $+0.002$ & $+0.22$ & $+0.38$\\
+OOP & 5/3 & 1.00 & 1 & 16 & 0.018023 & 0.018073 & 24 & $+0.004$ & $-0.15$ & $+0.13$\\
+OOP & 5/2 & 1.00 & 1 & 16 & 0.007762 & 0.007776 & 28 & $+0.008$ & $-0.10$ & $+0.07$\\
+IP & 1.25 & 0.25 & 1 & 20 & 0.341243 & 0.339343$^{a}$ & 32 & $+0.005$ & $-1.34$ & $-1.89$\\
+IP & 1.25 & 0.25 & 2 & 20 & 0.808929 & -- & -- & -- & $-1.25$ & n.r.\\
+IP & 1.25 & 0.25 & 3 & 20 & 0.940032 & -- & -- & -- & $-0.01$ & n.r.\\
+IP & 1.25 & 0.50 & 1 & 20 & 0.120677 & 0.120472$^{a}$ & 32 & $+0.003$ & $-0.17$ & $-0.34$\\
+IP & 1.25 & 0.50 & 2 & 20 & 0.347033 & 0.350357 & 28 & $+0.004$ & $-1.39$ & $-0.44$\\
+IP & 1.25 & 0.50 & 3 & 20 & 0.529239 & 0.529361$^{a}$ & 32 & $-0.145$ & $-0.01$ & $+0.01$\\
+IP & 1.25 & 1.00 & 1 & 14 & 0.039466 & 0.039520 & 26 & $+0.007$ & $-0.04$ & $+0.10$\\
+IP & 1.25 & 1.00 & 2 & 14 & 0.106529 & 0.106136 & 26 & $+0.017$ & $+0.92$ & $+0.55$\\
+IP & 1.25 & 1.00 & 3 & 14 & 0.263049 & 0.260998 & 26 & $+0.010$ & $+0.67$ & $-0.11$\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Cluster job-number provenance}\label{sec:provenance}
 The main text states every result in prose, with no job number in its own

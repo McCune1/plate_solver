@@ -43,7 +43,8 @@ Missouri University of Science and Technology, Rolla, MO 65409, USA\\
 %   S.3.4 / S.3.5 = extensional close-pairs / Shi OOP isolation
 %   S.3.6 = raw-to-physical conversion constants (moved from §6.12)
 %   S.3.7 = SUBDOM numerical procedure and gate detail
-%   Tables S.1--S.8 sit in S.3 (S.8 = flexural spurious zeros, was Table 7)
+%   S.3.8 = cantilever replication basis-size convergence (Table S.9, 2026-09-23)
+%   Tables S.1--S.9 sit in S.3 (S.8 = flexural spurious zeros, was Table 7; S.9 = cantilever convergence)
 %   S.4  cluster job-number provenance (added 2026-08-25, advisor pass:
 %        every main-text footnote job number moved here)
 %   No remaining main-text appendix.
@@ -872,8 +873,16 @@ The implementation reproduces the tabulated frequencies of
 (Table~\ref{tab:cantilever-oop}, Table~\ref{tab:cantilever-ip}) was
 regenerated from scratch under the deployed
 \texttt{SOLVER\_VERSION} \texttt{2026-07-10.s10}, one geometry per task,
-with no value carried over from an earlier capture: every published entry
-matches, to $1.23\%$ out-of-plane and $1.39\%$ in-plane.
+with no value carried over from an earlier capture. At the production
+basis sizes ($n=20$ for $2\Theta/\pi\le0.5$; otherwise $n=16$ out-of-plane
+and $n=14$ in-plane) every published entry matches, to $1.23\%$
+out-of-plane and $1.39\%$ in-plane. These production values are not
+basis-converged at the clamped edge. A re-run of every row at larger
+bases (Supplementary Material, §S.3.8, Table~S.9) moves them by
+$0.01$--$0.96\%$ (median $0.28\%$). The converged values still agree
+with \cite{seok1,seok2}, to $2.14\%$ out-of-plane and $1.89\%$ in-plane,
+for every row the re-run resolves. It does not resolve two narrow-sector
+in-plane rows ($2\Theta/\pi=0.25$, modes 2 and 3).
 
 \begin{table}[!htbp]
 \centering
@@ -881,7 +890,7 @@ matches, to $1.23\%$ out-of-plane and $1.39\%$ in-plane.
 \centering\scriptsize
 \setlength{\tabcolsep}{2.6pt}
 \captionsetup{width=\linewidth,justification=raggedright,singlelinecheck=false}
-\caption{Cantilever replication, OOP vs.\ \cite{seok1}.}
+\caption{Cantilever replication, OOP vs.\ \cite{seok1}, production basis (converged values: Supplementary Table~S.9).}
 \label{tab:cantilever-oop}
 \begin{tabular}{cccccc}
 \toprule $r_0/(2b)$ & $2\Theta/\pi$ & Mode & Computed & Paper & Err (\%)\\ \midrule
@@ -912,7 +921,7 @@ matches, to $1.23\%$ out-of-plane and $1.39\%$ in-plane.
 \centering\scriptsize
 \setlength{\tabcolsep}{2.6pt}
 \captionsetup{width=\linewidth,justification=raggedright,singlelinecheck=false}
-\caption{Cantilever replication, IP vs.\ \cite{seok2}.}
+\caption{Cantilever replication, IP vs.\ \cite{seok2}, production basis (converged values: Supplementary Table~S.9).}
 \label{tab:cantilever-ip}
 \begin{tabular}{cccccc}
 \toprule $r_0/(2b)$ & $2\Theta/\pi$ & Mode & Computed & Paper & Err (\%)\\ \midrule
@@ -930,12 +939,17 @@ matches, to $1.23\%$ out-of-plane and $1.39\%$ in-plane.
 \end{minipage}
 \end{table}
 The largest out-of-plane residual is $1.23\%$, at the narrowest sector
-$2\Theta/\pi=0.25$; the thin-ring row $r_0/(2b)=5/2$, where the source
-papers reported slower convergence, agrees to $0.10\%$.
+$2\Theta/\pi=0.25$. That row is also the slowest to converge: at $n=44$
+it has moved to $0.348425$ ($2.14\%$ from \cite{seok1}) and is still
+changing by about $0.07\%$ per four added coordinates. The thin-ring row
+$r_0/(2b)=5/2$, where the source papers reported slower convergence,
+agrees to $0.10\%$ at the production basis and $0.07\%$ converged.
 The cantilever table does not contain the
-primary free-free geometry ($r_0/(2b)=1.5$, $2\Theta/\pi=0.5$); the
+primary free-free geometry ($r_0/(2b)=1.5$, $2\Theta/\pi=0.5$). The
 nearest tabulated rows are $r_0/(2b)=1.25$, $2\Theta/\pi=0.50$
-(0.28--0.90\%) and $r_0/(2b)=5/3$ (0.15\%). Supplementary
+(0.28--0.90\% at the production basis, 0.29--1.30\% converged) and
+$r_0/(2b)=5/3$ (0.15\%; 0.13\% converged). The clamped edge converges
+more slowly with basis size than the free edges do. Supplementary
 Table~S.1 shows all eight free-free flexural labels move by less than
 0.18\% from $n=20$ to $n=36$, so the 0.64\% FE residual of
 Table~\ref{tab:oop} is larger than the documented basis-size movement at
