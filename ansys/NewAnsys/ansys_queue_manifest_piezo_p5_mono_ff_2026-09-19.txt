@@ -1,0 +1,45 @@
+# Paper 5 Option A -- F-F monolithic PZT-4 FE queue
+# elastic/e0, both-faces SC, then OC. Same mesh.
+# Clone of Paper 4 F-F epsrel LANB (jobs 2491761 / 2491831):
+# mesh density / units / TB,PIEZ layout / LANB unchanged.
+# LESSONS_LEARNED.md Sec 18.201 / PAPER5_DERIVATION.md Sec 4.
+#
+# PUSH to /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/
+# then from that directory:
+#   sbatch submit_ansys_queue_piezo_p5_mono_ff_2026-09-19.sh
+#
+# Pre-registered PASS -- read each deck's _modes.txt,
+# _discriminator.txt, and _out.txt. Judge MAPDL from NUMBER OF
+# ERROR MESSAGES ENCOUNTERED and RUN COMPLETED in the transcript,
+# not the queue script's own pass/fail label. Never trust .QUEUE_OK
+# alone. Do not retune mesh/units/TBDATA/LANB.
+#
+# Closed-form (PiezoMonolithicOutOfPlaneSolver, dps=60):
+#   elastic F-F n=0  462.398 rad/s = 73.577 Hz
+#   SC      F-F n=0  473.250 rad/s = 75.304 Hz
+#   OC flexure coincides with SC (Phase 0 theorem).
+# F-F: mode 1 near 0 Hz (rigid body) is expected and correct.
+# First bending is typically mode 2. Discriminator: UY same sign,
+# UX opposite, at r=RO z=+-H.
+#
+#   1. ansys_p5_epsrel_ff_lanb_e0_2026-09-19.inp
+#      Coupling-off (TB,PIEZ zero). Target: first bending near 73.577 Hz.
+#      0 Hz rigid body present. Bending discriminator.
+#      FAIL if the first non-zero mode is near 75.3 Hz (coupling still on).
+#
+#   2. ansys_p5_epsrel_ff_lanb_scboth_2026-09-19.inp
+#      Both-faces SC. Target: first bending near 75.304 Hz, ABOVE this
+#      queue's own e0 on the same mesh. 0 Hz rigid body present.
+#      Same discriminator.
+#      FAIL if SC reproduces e0 -- coupling did not take.
+#
+#   3. ansys_p5_epsrel_ff_lanb_oc_2026-09-19.inp
+#      OC (bottom VOLT=0, top CP floating). Target: first bending AGREES
+#      with this queue's own scboth (not above it). Near 75.304 Hz.
+#      0 Hz rigid body present. Same discriminator.
+#      FAIL if OC is well above SC (Paper 4 sandwich split -- stacking
+#      still a host-plus-skins clone). FAIL if OC reproduces e0.
+#
+ansys_p5_epsrel_ff_lanb_e0_2026-09-19.inp
+ansys_p5_epsrel_ff_lanb_scboth_2026-09-19.inp
+ansys_p5_epsrel_ff_lanb_oc_2026-09-19.inp

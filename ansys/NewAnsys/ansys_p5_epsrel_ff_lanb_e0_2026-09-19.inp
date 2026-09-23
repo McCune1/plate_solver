@@ -1,0 +1,141 @@
+! ansys_p5_epsrel_ff_lanb_e0_2026-09-19.inp
+! Paper 5 Option A -- homogeneous thickness-poled PZT-4 annulus, F-F, p=0.
+! Clone of Paper 4 F-F epsrel LANB (jobs 2491761 / 2491831): same units,
+! element, mesh density, TB,PIEZ layout, LANB. Do not retune those.
+! Geometry: ONE ceramic |z|<=H, electrodes on the two faces only.
+! Not a flag on PiezoOutOfPlaneSolver. Not Parashar d15.
+!
+! UNITS: mm-N-s-tonne, real volts. Same conversion as
+! ansys_p4_epsrel_ff_lanb_scboth_2026-09-16.inp (do not re-derive).
+! Frequencies come out in Hz.
+!
+! Closed-form (plate_solver.piezo_monolithic, LESSONS Sec 18.201):
+!   elastic 73.577 Hz   SC 75.304 Hz   OC = SC (Phase 0 theorem)
+!
+! F-F: unconstrained. Expect a rigid-body mode near 0 Hz, then bending.
+! Discriminator at r=RO, z=+-H: bending has UY same sign, UX opposite.
+!
+! Do not put the MAPDL failure token in this file (queue grep false-fail).
+! ============================================================
+FINISH
+/CLEAR,NOSTART
+/TITLE, Paper 5 F-F monolithic PZT-4 coupling-off e=0, p=0, mm-N-s-tonne (2026-09-19)
+
+RI     = 100.0
+RO     = 600.0
+H      = 10.0
+NDIV_R = 40
+NDIV_Z = 6
+NMODES = 20
+
+C11E = 1.320E5
+C12E = 7.100E4
+C13E = 7.300E4
+C33E = 1.150E5
+C44E = 7.300E4
+C66E = (C11E-C12E)/2
+E31  = 4.1E-3
+E33  = 1.41E-2
+E15  = 1.05E-2
+EPS0   = 8.854E-12
+X11ABS = 7.124E-9
+X33ABS = 5.841E-9
+X11    = X11ABS/EPS0
+X33    = X33ABS/EPS0
+RHO_PZT = 7.500E-9
+
+/PREP7
+ET,1,PLANE223
+KEYOPT,1,1,1001
+KEYOPT,1,3,1
+
+TB,ANEL,1,1,,0
+TBDATA,1,C11E,C13E,C12E,0,0,0
+TBDATA,7,C33E,C13E,0,0,0
+TBDATA,12,C11E,0,0,0
+TBDATA,16,C44E,0,0
+TBDATA,19,C66E,0
+TBDATA,21,C44E
+TB,PIEZ,1
+TBDATA,1,0,0,0,0,0,0
+TBDATA,7,0,0,0,0,0,0
+TBDATA,13,0,0,0,0,0,0
+MP,PERX,1,X11
+MP,PERY,1,X33
+MP,PERZ,1,X11
+MP,DENS,1,RHO_PZT
+
+RECTNG,RI,RO,-H,H
+ASEL,S,AREA,,1
+AATT,1,,1
+LSLA,S
+LSEL,R,LOC,X,RI
+LESIZE,ALL,,,NDIV_Z,,,,,1
+LSLA,S
+LSEL,R,LOC,X,RO
+LESIZE,ALL,,,NDIV_Z,,,,,1
+LSLA,S
+LSEL,R,LOC,Y,-H
+LESIZE,ALL,,,NDIV_R,,,,,1
+LSLA,S
+LSEL,R,LOC,Y,H
+LESIZE,ALL,,,NDIV_R,,,,,1
+ALLSEL,ALL
+ASEL,S,AREA,,1
+MSHAPE,0,2D
+MSHKEY,1
+AMESH,ALL
+ALLSEL,ALL
+FINISH
+
+/SOLU
+ANTYPE,MODAL
+MODOPT,LANB,NMODES,-1.0,,,ON
+MXPAND,NMODES,,,NO
+! Coupling-off control: TB,PIEZ is zero. Both faces VOLT=0 so VOLT
+! stays well-posed. Mechanical spectrum must match elastic 4x4.
+NSEL,S,LOC,Y,H
+NSEL,A,LOC,Y,-H
+D,ALL,VOLT,0
+ALLSEL,ALL
+SOLVE
+FINISH
+
+/POST1
+*DIM,FR1,ARRAY,NMODES
+*DIM,IDXARR,ARRAY,NMODES
+*DO,I,1,NMODES
+  *GET,FR1(I),MODE,I,FREQ
+  IDXARR(I)=I
+*ENDDO
+*CFOPEN,ansys_p5_epsrel_ff_lanb_e0_modes,txt
+*VWRITE
+('mode f[Hz] tag=p5_ff_e0 target=73.577Hz')
+*VWRITE,IDXARR(1),FR1(1)
+(F4.0, 3X, E16.8)
+*CFCLOS
+NSEL,S,LOC,X,RO
+NSEL,R,LOC,Y,H
+*GET,NTOP,NODE,0,NUM,MIN
+NSEL,S,LOC,X,RO
+NSEL,R,LOC,Y,-H
+*GET,NBOT,NODE,0,NUM,MIN
+ALLSEL,ALL
+*DIM,UXT,ARRAY,NMODES
+*DIM,UYT,ARRAY,NMODES
+*DIM,UXB,ARRAY,NMODES
+*DIM,UYB,ARRAY,NMODES
+*DO,I,1,NMODES
+  SET,1,I
+  *GET,UXT(I),NODE,NTOP,U,X
+  *GET,UYT(I),NODE,NTOP,U,Y
+  *GET,UXB(I),NODE,NBOT,U,X
+  *GET,UYB(I),NODE,NBOT,U,Y
+*ENDDO
+*CFOPEN,ansys_p5_epsrel_ff_lanb_e0_discriminator,txt
+*VWRITE
+('mode   UX_top        UY_top        UX_bot        UY_bot      (bending: UY_top~UY_bot, UX_top~-UX_bot)')
+*VWRITE,IDXARR(1),UXT(1),UYT(1),UXB(1),UYB(1)
+(F4.0,3X,E12.4,3X,E12.4,3X,E12.4,3X,E12.4)
+*CFCLOS
+FINISH

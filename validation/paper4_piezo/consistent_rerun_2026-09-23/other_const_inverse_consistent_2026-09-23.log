@@ -1,0 +1,7 @@
+job start: dps=40 iters=40 outer=26
+preflight OK
+X33_C0: C0=9.988093e-06 X33_hat=5.841e-09 g0_rel=1.416e-16 g0=True (algebraic)
+X33_freq: omega=750.079499 p_hat=5.841000035e-09 g0_rel=6.061e-09 g0=True g1=True G2@0.01%=4.6732% expect=poor (27.4s)
+nu: omega=750.079499 p_hat=0.3000000015 g0_rel=4.967e-09 g0=True g1=True G2@0.01%=0.1073% expect=good (27.9s)
+C11E: omega=750.079499 p_hat=1.320000003e+11 g0_rel=2.484e-09 g0=True g1=True G2@0.01%=0.0723% expect=moderate (27.0s)
+SENTINEL PASS_ALL g0=True g1=True

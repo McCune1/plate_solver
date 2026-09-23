@@ -1,0 +1,7 @@
+job=2494866 host=compute-33-02.mill start=Wed Sep 16 16:04:04 CDT 2026
+job start: dps=40 iters=40 outer=26
+preflight OK
+E_el: omega=747.986395 E_hat=2.000000009e+11 g0_rel=4.470e-09 g0=True g1=True G2@0.01%=0.0246% vs C-C 0.0246% (ratio=0.999) (31.5s)
+E_oc: omega=750.239421 E_hat=2.000000009e+11 g0_rel=4.470e-09 g0=True g1=True G2@0.01%=0.0247% vs C-C 0.0246% (ratio=1.005) (31.5s)
+SENTINEL PASS_ALL g0=True g1=True g2_order=True
+end=Wed Sep 16 16:05:08 CDT 2026

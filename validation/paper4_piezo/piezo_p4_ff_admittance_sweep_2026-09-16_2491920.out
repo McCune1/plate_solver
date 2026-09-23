@@ -1,0 +1,13 @@
+job=2491920 host=compute-33-02.mill start=Wed Sep 16 01:35:34 CDT 2026
+job start: dps=60
+preflight OK: SOLVER_VERSION=2026-07-10.s10 driven_ff_qv present
+C0=9.988093e-06 F
+G_n: n!=0 q/v==C0 pass=True
+G_pole: sign_flip=True |qv|/C0 lo=5.543 hi=3.530 pass=True
+G_zero: qv_bisect=750.2394210586 oc_ff=750.2394210586 rel=1.3334998719989414e-14 pass=True
+G_shape: Ceff/C0 @400=1.0137 @800=0.9632 pass=True
+G_keff: k2_from_Y=5.997133e-03 k2_anchor=5.997133e-03 pass=True
+sweep 140 points
+wrote /home/ghmkfh/PythonMill/Plate_Solver_Package/Paper4_Piezo/piezo_p4_ff_admittance_sweep.png
+SENTINEL PASS_ALL all_pass=True k2=5.997133e-03
+end=Wed Sep 16 01:35:45 CDT 2026

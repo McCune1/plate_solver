@@ -1,0 +1,4 @@
+job=2491661 host=compute-34-04.mill start=Wed Sep 16 00:54:33 CDT 2026
+job start: dps=60 iters=40 outer_iters=26
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+end=Wed Sep 16 00:54:35 CDT 2026

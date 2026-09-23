@@ -1,0 +1,10 @@
+job start: dps=60 iters=40 scan=[800,15000]/400
+follow-up to 2494865; does not re-score that job's G_found
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+G_n1: n=1 oc==elastic True
+scan: 2 elastic flips, 2 OC flips (62.9s)
+elastic roots: ['3504.952818', '8515.061211']
+OC roots:      ['3509.420531', '8516.383298']
+overtone 1: el=3504.952818 oc=3509.420531 split=0.1275% k2=0.002545 G2@0.01%=4.659% above4000=False
+overtone 2: el=8515.061211 oc=8516.383298 split=0.0155% k2=0.000310 G2@0.01%=38.169% above4000=True
+SENTINEL PASS_ALL n1=True anchor=True more=True pair=True n=2

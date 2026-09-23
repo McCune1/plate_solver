@@ -1,0 +1,184 @@
+{
+  "rel_prec_grid": [
+    1e-05,
+    3e-05,
+    0.0001,
+    0.0003,
+    0.001,
+    0.00102,
+    0.003,
+    0.01
+  ],
+  "rel_prec_lab": 0.00102,
+  "lab_floor_source": "BoeringaMcCune2026.pdf Table 3, mean of printed impedance-vs-SLDV frequency-discrepancy percentages across 5 axial modes of a free-free PZT rod (0.12, 0.10, 0.09, 0.11, 0.09 -> mean 0.102%). Not a Boeringa-McCune ring or e31 number; used as a same-lab, same-material-system cross-instrument frequency floor. The '-2' draft PDF was checked and rejected as a source (internally inconsistent Table 4/5, explicit placeholder text).",
+  "ff": {
+    "omega_target": 750.0794987774498,
+    "g0_p_hat": 4.100000016391277,
+    "g0_rel_err": 3.997872602074095e-09,
+    "g0_pass": true,
+    "domega_de31": -0.8576507247109876,
+    "curve": [
+      {
+        "rel_prec": 1e-05,
+        "rel_prec_pct": 0.001,
+        "propagated_de31": 0.00874574552514035,
+        "rel_unc_pct": 0.21331086646683783,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 3e-05,
+        "rel_prec_pct": 0.003,
+        "propagated_de31": 0.02623723657542105,
+        "rel_unc_pct": 0.6399325994005135,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 0.0001,
+        "rel_prec_pct": 0.01,
+        "propagated_de31": 0.0874574552514035,
+        "rel_unc_pct": 2.133108664668378,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 0.0003,
+        "rel_prec_pct": 0.03,
+        "propagated_de31": 0.26237236575421047,
+        "rel_unc_pct": 6.3993259940051335,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 0.001,
+        "rel_prec_pct": 0.1,
+        "propagated_de31": 0.874574552514035,
+        "rel_unc_pct": 21.331086646683783,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 0.00102,
+        "rel_prec_pct": 0.10200000000000001,
+        "propagated_de31": 0.8920660435643157,
+        "rel_unc_pct": 21.75770837961746,
+        "is_lab_floor": true
+      },
+      {
+        "rel_prec": 0.003,
+        "rel_prec_pct": 0.3,
+        "propagated_de31": 2.6237236575421052,
+        "rel_unc_pct": 63.99325994005135,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 0.01,
+        "rel_prec_pct": 1.0,
+        "propagated_de31": 8.74574552514035,
+        "rel_unc_pct": 213.3108664668378,
+        "is_lab_floor": false
+      }
+    ],
+    "g_anchor_pass": true,
+    "linearity_pass": true,
+    "log": [
+      "omega_target(e31_true)=750.0794987774 (2.3s)",
+      "G0 round-trip: p_hat=4.100000016 rel_err=3.998e-09 sign_flip=True pass=True (67.4s)",
+      "forward FD: domega/de31=-8.576507e-01 rad/s per C/m^2 (4.5s)",
+      "rel_prec=0.00100% -> e31 unc=0.2133%",
+      "rel_prec=0.00300% -> e31 unc=0.6399%",
+      "rel_prec=0.01000% -> e31 unc=2.1331%",
+      "rel_prec=0.03000% -> e31 unc=6.3993%",
+      "rel_prec=0.10000% -> e31 unc=21.3311%",
+      "rel_prec=0.10200% -> e31 unc=21.7577%  <-- Boeringa-McCune impedance/SLDV floor",
+      "rel_prec=0.30000% -> e31 unc=63.9933%",
+      "rel_prec=1.00000% -> e31 unc=213.3109%",
+      "G_anchor rel_prec=0.0100%: computed=2.1331% published=2.1300% rel_diff=1.4595e-03 pass=True",
+      "G_anchor rel_prec=0.1000%: computed=21.3311% published=21.3000% rel_diff=1.4595e-03 pass=True",
+      "linearity self-check pass=True"
+    ]
+  },
+  "cf": {
+    "omega_target": 423.0008413290079,
+    "g0_p_hat": 4.100000016391277,
+    "g0_rel_err": 3.997872602074095e-09,
+    "g0_pass": true,
+    "domega_de31": -0.4532235557346168,
+    "curve": [
+      {
+        "rel_prec": 1e-05,
+        "rel_prec_pct": 0.001,
+        "propagated_de31": 0.009333160996969327,
+        "rel_unc_pct": 0.22763807309681286,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 3e-05,
+        "rel_prec_pct": 0.003,
+        "propagated_de31": 0.02799948299090798,
+        "rel_unc_pct": 0.6829142192904386,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 0.0001,
+        "rel_prec_pct": 0.01,
+        "propagated_de31": 0.09333160996969327,
+        "rel_unc_pct": 2.2763807309681288,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 0.0003,
+        "rel_prec_pct": 0.03,
+        "propagated_de31": 0.27999482990907976,
+        "rel_unc_pct": 6.829142192904385,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 0.001,
+        "rel_prec_pct": 0.1,
+        "propagated_de31": 0.9333160996969326,
+        "rel_unc_pct": 22.763807309681287,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 0.00102,
+        "rel_prec_pct": 0.10200000000000001,
+        "propagated_de31": 0.9519824216908713,
+        "rel_unc_pct": 23.219083455874912,
+        "is_lab_floor": true
+      },
+      {
+        "rel_prec": 0.003,
+        "rel_prec_pct": 0.3,
+        "propagated_de31": 2.7999482990907976,
+        "rel_unc_pct": 68.29142192904385,
+        "is_lab_floor": false
+      },
+      {
+        "rel_prec": 0.01,
+        "rel_prec_pct": 1.0,
+        "propagated_de31": 9.333160996969326,
+        "rel_unc_pct": 227.63807309681283,
+        "is_lab_floor": false
+      }
+    ],
+    "g_anchor_pass": true,
+    "linearity_pass": true,
+    "log": [
+      "omega_target(e31_true)=423.0008413290 (2.3s)",
+      "G0 round-trip: p_hat=4.100000016 rel_err=3.998e-09 sign_flip=True pass=True (63.9s)",
+      "forward FD: domega/de31=-4.532236e-01 rad/s per C/m^2 (4.5s)",
+      "rel_prec=0.00100% -> e31 unc=0.2276%",
+      "rel_prec=0.00300% -> e31 unc=0.6829%",
+      "rel_prec=0.01000% -> e31 unc=2.2764%",
+      "rel_prec=0.03000% -> e31 unc=6.8291%",
+      "rel_prec=0.10000% -> e31 unc=22.7638%",
+      "rel_prec=0.10200% -> e31 unc=23.2191%  <-- Boeringa-McCune impedance/SLDV floor",
+      "rel_prec=0.30000% -> e31 unc=68.2914%",
+      "rel_prec=1.00000% -> e31 unc=227.6381%",
+      "G_anchor rel_prec=0.0100%: computed=2.2764% published=2.2800% rel_diff=1.5874e-03 pass=True",
+      "G_anchor rel_prec=0.1000%: computed=22.7638% published=22.8000% rel_diff=1.5874e-03 pass=True",
+      "linearity self-check pass=True"
+    ]
+  },
+  "lab_floor_row_ff_pct": 21.75770837961746,
+  "lab_floor_row_cf_pct": 23.219083455874912,
+  "all_pass": true,
+  "elapsed_s": 144.85852599143982
+}

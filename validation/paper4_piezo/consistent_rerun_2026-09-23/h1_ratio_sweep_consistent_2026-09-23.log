@@ -1,0 +1,16 @@
+job start: dps=40 iters=40
+preflight OK: SOLVER_VERSION=2026-07-10.s10 oc_ff_bisect present
+ratio=1/40  h1=0.000500  el=731.400098 oc=732.037922  split=0.0872%  k2=0.001742  G2@0.01%=6.802%  split/ratio=0.03488  (7.4s)
+ratio=1/30  h1=0.000667  el=733.287801 oc=734.136630  split=0.1158%  k2=0.002311  G2@0.01%=5.129%  split/ratio=0.03473  (7.4s)
+ratio=1/24  h1=0.000833  el=735.344966 oc=736.403868  split=0.1440%  k2=0.002874  G2@0.01%=4.127%  split/ratio=0.03456  (7.2s)
+ratio=1/20  h1=0.001000  el=737.566082 oc=738.834062  split=0.1719%  k2=0.003429  G2@0.01%=3.460%  split/ratio=0.03438  (6.9s)
+ratio=1/16  h1=0.001250  el=741.193585 oc=742.773170  split=0.2131%  k2=0.004249  G2@0.01%=2.795%  split/ratio=0.03410  (6.9s)
+ratio=1/12  h1=0.001667  el=747.986395 oc=750.079499  split=0.2798%  k2=0.005573  G2@0.01%=2.133%  split/ratio=0.03358  (7.3s) anchor_split=True (exp 0.280) anchor_k2=True anchor_g2=True (exp 2.13)
+ratio=1/10  h1=0.002000  el=754.050298 oc=756.548544  split=0.3313%  k2=0.006593  G2@0.01%=1.805%  split/ratio=0.03313  (7.4s)
+ratio=1/8   h1=0.002500  el=764.113327 oc=767.209120  split=0.4051%  k2=0.008054  G2@0.01%=1.479%  split/ratio=0.03241  (7.4s) anchor_split=True (exp 0.405) anchor_k2=True anchor_g2=True (exp 1.48)
+ratio=1/6   h1=0.003333  el=783.200951 oc=787.263849  split=0.5188%  k2=0.010295  G2@0.01%=1.160%  split/ratio=0.03113  (6.7s)
+ratio=1/5   h1=0.004000  el=800.302692 oc=805.112363  split=0.6010%  k2=0.011912  G2@0.01%=1.004%  split/ratio=0.03005  (7.5s) anchor_split=True (exp 0.601) anchor_k2=True anchor_g2=True (exp 1.00)
+ratio=1/4   h1=0.005000  el=828.555783 oc=834.440529  split=0.7102%  k2=0.014055  G2@0.01%=0.852%  split/ratio=0.02841  (7.2s)
+wrote /home/claude/scw/after/Plate_Solver_Package/Paper4_Piezo/piezo_p4_h1_ratio_sweep.png
+thin-layer split/(h1/2h) at 1/40,1/30,1/24 = [0.03488238833756865, 0.034726946412606485, 0.034560195995048004]
+SENTINEL PASS_ALL split=True k2=True g2=True mono=True thin=True

@@ -1,0 +1,21 @@
+job start: dps=60
+preflight OK: SOLVER_VERSION=2026-07-10.s10 driven_ff_qv present
+---- 1/8  h1=0.002500  C0=6.658729e-06 F ----
+G_n: n!=0 q/v==C0 pass=True
+G_pole: sign_flip=True |qv|/C0 lo=7.257 hi=5.239 pass=True
+G_zero: qv_bisect=767.2091198988 oc_ff=767.2091198988 rel=2.4894632039502905e-14 pass=True
+G_shape: Ceff/C0 @420.3=1.0187 @828.6=0.9606 pass=True
+G_keff: k2_from_Y=8.053990e-03 k2_anchor=8.050000e-03 pass=True
+sweep 101 points
+wrote /home/claude/scw/after/Plate_Solver_Package/Paper4_Piezo/piezo_p4_ff_admittance_sweep_h18.png
+---- 1/5  h1=0.004000  C0=4.161705e-06 F ----
+G_n: n!=0 q/v==C0 pass=True
+G_pole: sign_flip=True |qv|/C0 lo=10.764 hi=8.737 pass=True
+G_zero: qv_bisect=805.1123631871 oc_ff=805.1123631872 rel=9.587899322200414e-14 pass=True
+G_shape: Ceff/C0 @440.2=1.0278 @869.5=0.9431 pass=True
+G_keff: k2_from_Y=1.191214e-02 k2_anchor=1.191000e-02 pass=True
+sweep 101 points
+wrote /home/claude/scw/after/Plate_Solver_Package/Paper4_Piezo/piezo_p4_ff_admittance_sweep_h15.png
+SENTINEL PASS_ALL all_pass=True
+  1/8 C0=6.6587e-06 k2=8.053990e-03 G_n=True G_pole=True G_zero=True G_shape=True G_keff=True
+  1/5 C0=4.1617e-06 k2=1.191214e-02 G_n=True G_pole=True G_zero=True G_shape=True G_keff=True

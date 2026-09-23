@@ -1,0 +1,82 @@
+{
+  "ff": {
+    "g_worker_pass": true,
+    "omega_true_inprocess": 471.36460219209937,
+    "omega_true_worker": 471.36460219209937,
+    "e31_hat": 4.100000001024455,
+    "g0_rel": 2.4986711886546206e-10,
+    "g0_sign_flip": true,
+    "g0_pass": true,
+    "g1_neg_bracket_sign_flip": false,
+    "g1_wrong_sign_omega": 519.8388116516725,
+    "g1_wrong_sign_far": true,
+    "g1_e31_zero_raises": true,
+    "g1_pass": true,
+    "g2_domega_de31": -3.617563020714265,
+    "g2_propagated": {
+      "0.0001": {
+        "assumed_omega_rel_precision": 0.0001,
+        "propagated_de31": 0.013029893314727422,
+        "propagated_de31_rel": 0.0031780227596896154
+      },
+      "0.001": {
+        "assumed_omega_rel_precision": 0.001,
+        "propagated_de31": 0.1302989331472742,
+        "propagated_de31_rel": 0.03178022759689615
+      }
+    },
+    "reflection_twin": 13.800869565217392,
+    "omega_at_twin": 471.36460219209937,
+    "reflection_rel": 0.0,
+    "leg_pass": true
+  },
+  "cc": {
+    "g_worker_pass": true,
+    "omega_true_inprocess": 1757.6943048734272,
+    "omega_true_worker": 1757.6943048734272,
+    "e31_hat": 4.100000001024455,
+    "g0_rel": 2.4986711886546206e-10,
+    "g0_sign_flip": true,
+    "g0_pass": true,
+    "g1_neg_bracket_sign_flip": false,
+    "g1_wrong_sign_omega": 1938.8608732892728,
+    "g1_wrong_sign_far": true,
+    "g1_e31_zero_raises": true,
+    "g1_pass": true,
+    "g2_domega_de31": -12.590357814410599,
+    "g2_propagated": {
+      "0.0001": {
+        "assumed_omega_rel_precision": 0.0001,
+        "propagated_de31": 0.013960638218411996,
+        "propagated_de31_rel": 0.003405033711807804
+      },
+      "0.001": {
+        "assumed_omega_rel_precision": 0.001,
+        "propagated_de31": 0.13960638218411997,
+        "propagated_de31_rel": 0.03405033711807805
+      }
+    },
+    "reflection_twin": 13.800869565217392,
+    "omega_at_twin": 1757.6943048734272,
+    "reflection_rel": 0.0,
+    "leg_pass": true
+  },
+  "elapsed_s": 635.0358169078827,
+  "log": [
+    "REFLECTION_TWIN(e31=4.1000) = 13.8008695652  (2*(C13E/C33E)*e33 - e31)",
+    "FF G_worker: in_process=471.3646021921 worker=471.3646021921 rel=0.000e+00 pass=True (15.3s)",
+    "FF G0: e31_hat=4.100000001 e31_true=4.1 rel_err=2.499e-10 sign_flip=True pass=True (235.6s)",
+    "FF G1: neg_bracket_sign_flip=False (want False) wrong_sign_omega=519.838812 vs target=471.364602 (far=True) e31=0_raises=True pass=True (22.1s)",
+    "FF G2 forward FD: domega/de31=-3.617563e+00 rad/s per C/m^2 (14.7s)",
+    "FF G2 propagated: 0.0100% freq -> de31=0.0130299 (0.3178% of e31_true)",
+    "FF G2 propagated: 0.1000% freq -> de31=0.130299 (3.1780% of e31_true)",
+    "FF G_reflection: twin=13.8008695652 omega(twin)=471.3646021921 vs true=471.3646021921 rel=0.000e+00 (7.4s)",
+    "CC G_worker: in_process=1757.6943048734 worker=1757.6943048734 rel=0.000e+00 pass=True (15.1s)",
+    "CC G0: e31_hat=4.100000001 e31_true=4.1 rel_err=2.499e-10 sign_flip=True pass=True (280.0s)",
+    "CC G1: neg_bracket_sign_flip=False (want False) wrong_sign_omega=1938.860873 vs target=1757.694305 (far=True) e31=0_raises=True pass=True (22.6s)",
+    "CC G2 forward FD: domega/de31=-1.259036e+01 rad/s per C/m^2 (14.8s)",
+    "CC G2 propagated: 0.0100% freq -> de31=0.0139606 (0.3405% of e31_true)",
+    "CC G2 propagated: 0.1000% freq -> de31=0.139606 (3.4050% of e31_true)",
+    "CC G_reflection: twin=13.8008695652 omega(twin)=1757.6943048734 vs true=1757.6943048734 rel=0.000e+00 (7.3s)"
+  ]
+}

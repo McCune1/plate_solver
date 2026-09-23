@@ -1,0 +1,74 @@
+{
+  "E": {
+    "param": "E",
+    "p_true": 200000000000.0,
+    "omega_target": 2791.7826080021746,
+    "g0_p_hat": 200000000894.06967,
+    "g0_rel_err": 4.470348358154297e-09,
+    "g0_pass": true,
+    "g1_positive_sign_flip": true,
+    "g1_negative_control_no_flip": true,
+    "g1_pass": true,
+    "g2_domega_dp_forward": 5.678191820898519e-09,
+    "g2_dp_domega_onbranch": 176113808.50887814,
+    "g2_cross_check_ratio": 1.0000079870224,
+    "g2_propagated": {
+      "0.0001": {
+        "assumed_omega_rel_precision": 0.0001,
+        "propagated_dp": 49166754.06644508,
+        "propagated_dp_rel_to_p_true": 0.0002458337703322254
+      },
+      "0.001": {
+        "assumed_omega_rel_precision": 0.001,
+        "propagated_dp": 491667540.6644508,
+        "propagated_dp_rel_to_p_true": 0.0024583377033222543
+      }
+    },
+    "elapsed_s": 576.9212467670441,
+    "log": [
+      "forward target: omega(E=2e+11) = 2791.7826080022 rad/s (6.5s)",
+      "G0 self-consistency: p_hat=2.000000009e+11 p_true=2e+11 rel_err=4.470e-09 sign_flip=True pass=True (204.3s)",
+      "G1 root quality: positive_bracket_sign_flip=True negative_control(hi-side only)_no_flip=True pass=True (17.6s)",
+      "G2 forward FD: domega/dE = 5.678192e-09 rad/s per unit (16.3s)",
+      "G2 on-branch inverse FD: dp/domega = 1.761138e+08, cross_check (domega/dp)*(dp/domega) = 1.000008 (expect ~1.0) (332.3s)",
+      "G2 propagated uncertainty: 0.0100% freq precision -> dE=4.91668e+07 (0.0246% of E_true)",
+      "G2 propagated uncertainty: 0.1000% freq precision -> dE=4.91668e+08 (0.2458% of E_true)"
+    ]
+  },
+  "e31": {
+    "param": "e31",
+    "p_true": 4.1,
+    "omega_target": 2791.7826080020586,
+    "g0_p_hat": 4.100000016391277,
+    "g0_rel_err": 3.997872602074095e-09,
+    "g0_pass": true,
+    "g1_positive_sign_flip": true,
+    "g1_negative_control_no_flip": true,
+    "g1_pass": true,
+    "g2_domega_dp_forward": -0.007663658790278999,
+    "g2_dp_domega_onbranch": -130.48718931556655,
+    "g2_cross_check_ratio": 1.0000092954170414,
+    "g2_propagated": {
+      "0.0001": {
+        "assumed_omega_rel_precision": 0.0001,
+        "propagated_dp": 36.42884794849305,
+        "propagated_dp_rel_to_p_true": 8.88508486548611
+      },
+      "0.001": {
+        "assumed_omega_rel_precision": 0.001,
+        "propagated_dp": 364.2884794849305,
+        "propagated_dp_rel_to_p_true": 88.85084865486111
+      }
+    },
+    "elapsed_s": 526.1463799476624,
+    "log": [
+      "forward target: omega(e31=4.1) = 2791.7826080021 rad/s (6.0s)",
+      "G0 self-consistency: p_hat=4.100000016 p_true=4.1 rel_err=3.998e-09 sign_flip=True pass=True (164.3s)",
+      "G1 root quality: positive_bracket_sign_flip=True negative_control(hi-side only)_no_flip=True pass=True (11.6s)",
+      "G2 forward FD: domega/de31 = -7.663659e-03 rad/s per unit (11.9s)",
+      "G2 on-branch inverse FD: dp/domega = -1.304872e+02, cross_check (domega/dp)*(dp/domega) = 1.000009 (expect ~1.0) (332.5s)",
+      "G2 propagated uncertainty: 0.0100% freq precision -> de31=36.4288 (888.5085% of e31_true)",
+      "G2 propagated uncertainty: 0.1000% freq precision -> de31=364.288 (8885.0849% of e31_true)"
+    ]
+  }
+}

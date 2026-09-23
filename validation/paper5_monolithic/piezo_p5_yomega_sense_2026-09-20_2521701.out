@@ -1,0 +1,31 @@
+job=2521701 host=compute-34-04.mill start=Sun Sep 20 20:29:52 CDT 2026
+job start: dps=60 dps_hi=80 inner_iters=60
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+preflight OK: Y_sense present
+G1 identity(G): lhs=-0.0000001666666666666666631972197147130525500652 rhs=-0.0000001666666666666666631972197147130525500652 rel_err=1.112761845206226438883529731070421985636e-61 -> True (171.0s)
+G2 pole: coupled_bisect=473.2496088764241 driven12=473.2496088764241 rel_err=0.0 -> True (51.8s)
+G3 scale=1e+00 Q_in=6.050054141033202e-12
+G3 scale=1e-01 Q_in=8.055953165362559e-13
+G3 scale=1e-02 Q_in=8.082646810291142e-14
+G3 scale=1e-03 Q_in=8.082914625222975e-15
+G3 scale=1e-04 Q_in=8.082917303460424e-16
+G3 decade ratios (Q_in[k]/Q_in[k+1]): [7.510041353077949, 9.966974129199118, 9.999668665395776, 9.999996686546023]
+G3 log-log slope (scale=1e-2..1e-4) = 0.999993 -> True (8.1s)
+G_mu elastic mu=10.250145149520318  small-e31_bar branches=[(10.250145149520318+0j), (-10.250145149520318+0j)]  rel_errs=[0.0, 0.0] -> True (0.0s)
+G_mu note: this is the check that catches the 'scale e31 but not e33' harness bug -- that mistake gives branches converging to ~9.557 (WRONG) instead of 10.250145 (correct), because e31_bar = e31-(C13E/C33E)*e33 never actually reaches 0 when only e31 is scaled.
+G_worker at omega=200.0: direct=(6.050054141033202e-12+0j) worker=(6.050054141033202e-12+0j) -> True
+G_worker near pole omega=473.0: direct=(-4.722386572372143e-09+0j) worker=(-4.722386572372143e-09+0j) -> True (5.1s)
+sweep omega=460.0000 Y_sense=(-7.809857144659516e-11+0j)
+sweep omega=468.0000 Y_sense=(-2.1397278503011941e-10+0j)
+sweep omega=471.0000 Y_sense=(-5.141088803871653e-10+0j)
+sweep omega=472.7496 Y_sense=(-2.3519368757963883e-09+0j)
+sweep omega=473.2396 Y_sense=(-1.1814113114647586e-07+0j)
+sweep omega=473.2596 Y_sense=(1.1816334954769507e-07+0j)
+sweep omega=473.7496 Y_sense=(2.3741552773478456e-09+0j)
+sweep omega=478.0000 Y_sense=(2.598423498961497e-10+0j)
+sweep omega=485.0000 Y_sense=(1.1169082385296818e-10+0j)
+sweep done (11.5s)
+--- summary ---
+  G1=True G2=True G3=True G_mu=True G_worker=True
+SENTINEL PASS_ALL (247.5s total)
+end=Sun Sep 20 20:34:00 CDT 2026

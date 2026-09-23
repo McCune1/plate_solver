@@ -1,0 +1,101 @@
+{
+  "cf": {
+    "name": "CF",
+    "el_root": 1605.4427637454191,
+    "sc_root": 1637.922125577067,
+    "split": 0.020230781542080665,
+    "found": true,
+    "theorem": true,
+    "n_el_flips": 1,
+    "n_sc_flips": 1
+  },
+  "fc": {
+    "name": "FC",
+    "el_root": 556.8844158380273,
+    "sc_root": 564.9003213461376,
+    "split": 0.014394199730024055,
+    "found": true,
+    "theorem": true,
+    "n_el_flips": 1,
+    "n_sc_flips": 1
+  },
+  "reduce_pass": true,
+  "reduce_rows": [
+    {
+      "n": 0,
+      "omega": 500.0,
+      "label": "elastic FF",
+      "equal": true
+    },
+    {
+      "n": 0,
+      "omega": 500.0,
+      "label": "elastic CC",
+      "equal": true
+    },
+    {
+      "n": 0,
+      "omega": 500.0,
+      "label": "coupled FF",
+      "equal": true
+    },
+    {
+      "n": 0,
+      "omega": 500.0,
+      "label": "coupled CC",
+      "equal": true
+    },
+    {
+      "n": 2,
+      "omega": 1500.0,
+      "label": "elastic FF",
+      "equal": true
+    },
+    {
+      "n": 2,
+      "omega": 1500.0,
+      "label": "elastic CC",
+      "equal": true
+    },
+    {
+      "n": 2,
+      "omega": 1500.0,
+      "label": "coupled FF",
+      "equal": true
+    },
+    {
+      "n": 2,
+      "omega": 1500.0,
+      "label": "coupled CC",
+      "equal": true
+    }
+  ],
+  "g_found": true,
+  "g_theorem": true,
+  "g1_pass": true,
+  "worker_pass": true,
+  "all_pass": true,
+  "elapsed_s": 183.37835788726807,
+  "log": [
+    "G_reduce n=0 elastic FF: old==new -> True",
+    "G_reduce n=0 elastic CC: old==new -> True",
+    "G_reduce n=0 coupled FF: old==new -> True",
+    "G_reduce n=0 coupled CC: old==new -> True",
+    "G_reduce n=2 elastic FF: old==new -> True",
+    "G_reduce n=2 elastic CC: old==new -> True",
+    "G_reduce n=2 coupled FF: old==new -> True",
+    "G_reduce n=2 coupled CC: old==new -> True",
+    "G_reduce: all_equal=True (2.0s)",
+    "CF scan: 1 elastic flips, 1 coupled flips in [1000.0, 2000.0] (62.4s)",
+    "CF: el=1605.442764 sc=1637.922126 split=2.02308% found=True theorem=True (71.8s)",
+    "FC scan: 1 elastic flips, 1 coupled flips in [400.0, 900.0] (62.0s)",
+    "FC: el=556.884416 sc=564.900321 split=1.43942% found=True theorem=True (71.0s)",
+    "G1 neg control (CF) PASS: coupled methods need e31, e33, X11, X33; use elastic_det / elastic_cc_",
+    "G1 neg control (FC) PASS: coupled methods need e31, e33, X11, X33; use elastic_det / elastic_cc_",
+    "G_worker CF: elastic in==worker True; coupled in==worker True",
+    "G_worker FC: elastic in==worker True; coupled in==worker True",
+    "G_worker: all_pass=True (38.5s)",
+    "CF elastic frequency is 90.40% of the way from FF (462.3976) to CC (1726.8898)",
+    "FC elastic frequency is 7.47% of the way from FF (462.3976) to CC (1726.8898)"
+  ]
+}

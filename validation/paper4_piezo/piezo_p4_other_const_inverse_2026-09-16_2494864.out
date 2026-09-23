@@ -1,0 +1,9 @@
+job=2494864 host=compute-12-16.mill start=Wed Sep 16 16:03:32 CDT 2026
+job start: dps=40 iters=40 outer=26
+preflight OK
+X33_C0: C0=9.988093e-06 X33_hat=5.841e-09 g0_rel=1.416e-16 g0=True (algebraic)
+X33_freq: omega=750.239421 p_hat=5.841000035e-09 g0_rel=6.061e-09 g0=True g1=True G2@0.01%=4.3445% expect=poor (30.7s)
+nu: omega=750.239421 p_hat=0.3000000015 g0_rel=4.967e-09 g0=True g1=True G2@0.01%=0.1074% expect=good (30.6s)
+C11E: omega=750.239421 p_hat=1.320000003e+11 g0_rel=2.484e-09 g0=True g1=True G2@0.01%=0.0724% expect=moderate (30.7s)
+SENTINEL PASS_ALL g0=True g1=True
+end=Wed Sep 16 16:05:06 CDT 2026

@@ -1,0 +1,16 @@
+job=2491764 host=compute-33-02.mill start=Wed Sep 16 01:06:55 CDT 2026
+job start: dps=60 iters=40 outer_iters=26
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+preflight OK: oc_ff_det present
+G0 identities: n!=0 oc==elastic True; h1=0 oc==elastic True pass=True (0.2s)
+G_stiffen: omega_el=747.9863950952 omega_oc=750.2394210586 drel=3.012122e-03 pass=True (3.5s)
+G3 k_eff: k2_from_elastic=5.997133e-03 k2_from_sine_SC=5.979730e-03 omega_sc_sine=747.9929429356 pass=True (2.3s)
+G4 inverse G0: p_hat=4.100000016 p_true=4.1 rel_err=3.998e-09 sign_flip=True pass=True (48.8s)
+G1 root quality: pos_flip=True neg_control_no_flip=True pass=True (3.5s)
+G2 forward FD: domega/de31 = -9.227345e-01 rad/s per unit (3.5s)
+G2 propagated: 0.0100% freq -> de31=0.0813061 (1.9831% of e31_true)
+G2 propagated: 0.1000% freq -> de31=0.813061 (19.8308% of e31_true)
+--- summary ---
+  G0=True G_stiffen=True G1=True G3=True G4_rel=3.997872602074095e-09 G2_0.01%_unc=1.9831%
+SENTINEL PASS_ALL all_pass=True g2_expectation_ok=True
+end=Wed Sep 16 01:07:58 CDT 2026

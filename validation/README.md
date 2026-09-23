@@ -33,6 +33,8 @@ manuscript directory; Supplementary Material is
 | `probe_ff_oop_spurious_table.py` / `submit_ff_oop_spurious_table.sh` | `tab:oop-spurious-sm` (Table S.8) | regenerates the raw Ω / residual values for the 8 physical + 5 in-window spurious out-of-plane points |
 | `ff_oop_spurious_table_2325529.out` | `tab:oop-spurious-sm` | archived run output for the above (13/13 confirmed, 0 mismatches). Table S.8's sixth row (Ω=2.817613) is `ff_oop_artifact_2p8176_2414022.out` below |
 | `geomsweep/` | §6.4, Table S.3, §S.3.3 | reproduction scripts + evidence for the 48-geometry generalization sweep and its cut-off-adjacent residual screen — see `geomsweep/README.md` |
+| `paper4_piezo/` | `paper/PAPER4_PIEZO_*` | layered piezo ring: probes, submit scripts, legacy cluster `.out`, and the 2026-09-23 consistent-projection rerun that backs every analytic number (see its README) |
+| `paper5_monolithic/` | `paper/PAPER5_MONOLITHIC_PIEZO_*` | monolithic piezo ring: probes, submit scripts, legacy cluster `.out`, and the 2026-09-23 consistent-projection rerun (see its README) |
 | `phase3/` | top-level README's Phase 3 status (not a paper claim — Phase 3 is out of scope for the paper) | evidence for in-plane FGM grading self-consistency and the regression-safety re-run after Phase 3 deployment; see `phase3/README.md` for what is and isn't independently reproducible from this repository yet |
 
 Two entries in the table above map to Supplementary Material subsections

@@ -1,0 +1,22 @@
+job start: dps=100 sc_inner=40 oc_inner=50 outer=26
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+preflight OK: oc_ff_det present
+nature omega_SC(E_true,e31_true) = 2791.7826080022 rad/s (6.0s)
+nature omega_OC(e31_true; E_true) = 750.0794987774 rad/s (4.3s)
+STEP1 E_hat=2.000000009e+11 E_true=2e+11 rel_err=4.470e-09 sign_flip=True (198.1s)
+STEP1 G1: pos_flip=True neg_control_no_flip=True pass=True (18.2s)
+STEP2 e31_hat=4.100001626 e31_true=4.1 rel_err=3.965e-07 sign_flip=True (125.3s)
+STEP2 G1: pos_flip=True neg_control_no_flip=True pass=True (8.9s)
+G0 pass=True (E rel 4.470e-09, sequential e31 rel 3.965e-07); G1 pass=True; G_branch pass=True (e31_hat=4.1000016 vs true=4.1 vs twin=8.9504)
+G2 domega_SC/dE = 5.678192e-09 rad/s per Pa (11.8s)
+G2 domega_OC/de31 = -8.576507e-01 rad/s per C/m^2 (8.6s)
+G2 domega_OC/dE = 1.517513e-09 rad/s per Pa (8.5s)
+G2 implicit de31/dE |omega_OC fixed = 1.769383e-09 C/m^2 per Pa
+G2 @ 0.0100% freq: dE_hat=0.0246% of E_true; de31_direct=2.1331%, de31_from_E=2.1218%, TOTAL=3.0087% of e31_true
+G2 @ 0.1000% freq: dE_hat=0.2458% of E_true; de31_direct=21.3311%, de31_from_E=21.2183%, TOTAL=30.0870% of e31_true
+STEP4(neg) e31_hat=4.100662522 sign_flip=True (164.9s)
+G_neg domega_SC/de31 (at E_hat) = -7.663656e-03 rad/s per C/m^2 (11.7s)
+G_neg propagated: 0.01% freq -> 888.51% of e31_true; 0.1% freq -> 8885.09% (bar: >=100% at 0.01%) pass=True
+--- summary ---
+  E_hat rel_err=4.470e-09  sequential e31_hat rel_err=3.965e-07  e31 G2 direct/from_E/total @0.01%=2.1331%/2.1218%/3.0087%  G_neg@0.01%=888.51%
+SENTINEL PASS_ALL g0=True g1=True g_branch=True g_neg=True

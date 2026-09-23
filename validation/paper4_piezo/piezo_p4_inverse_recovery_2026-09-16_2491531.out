@@ -1,0 +1,24 @@
+job=2491531 host=compute-33-02.mill start=Wed Sep 16 00:13:34 CDT 2026
+job start: dps=100 inner_iters=40 outer_iters=26
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+[e31] forward target: omega(e31=4.1) = 2791.7866198564 rad/s (6.8s)
+[E] forward target: omega(E=2e+11) = 2791.7866198569 rad/s (6.8s)
+[e31] G0 self-consistency: p_hat=4.100000016 p_true=4.1 rel_err=3.998e-09 sign_flip=True pass=True (178.8s)
+[E] G0 self-consistency: p_hat=2.000000009e+11 p_true=2e+11 rel_err=4.470e-09 sign_flip=True pass=True (178.9s)
+[e31] G1 root quality: positive_bracket_sign_flip=True negative_control(hi-side only)_no_flip=True pass=True (12.6s)
+[E] G1 root quality: positive_bracket_sign_flip=True negative_control(hi-side only)_no_flip=True pass=True (12.7s)
+[e31] G2 forward FD: domega/de31 = -9.317871e-03 rad/s per unit (12.8s)
+[E] G2 forward FD: domega/dE = 5.678184e-09 rad/s per unit (12.8s)
+[e31] G2 on-branch inverse FD: dp/domega = -1.073216e+02, cross_check (domega/dp)*(dp/domega) = 1.000009 (expect ~1.0) (272.6s)
+[e31] G2 propagated uncertainty: 0.0100% freq precision -> de31=29.9616 (730.7716% of e31_true)
+[e31] G2 propagated uncertainty: 0.1000% freq precision -> de31=299.616 (7307.7160% of e31_true)
+=== e31 DONE in 483.6s G0_pass=True G1_pass=True ===
+[E] G2 on-branch inverse FD: dp/domega = 1.761141e+08, cross_check (domega/dp)*(dp/domega) = 1.000008 (expect ~1.0) (273.1s)
+[E] G2 propagated uncertainty: 0.0100% freq precision -> dE=4.91669e+07 (0.0246% of E_true)
+[E] G2 propagated uncertainty: 0.1000% freq precision -> dE=4.91669e+08 (0.2458% of E_true)
+=== E DONE in 484.4s G0_pass=True G1_pass=True ===
+--- summary ---
+  E: G0_rel_err=4.470e-09 G1_pass=True cross_check_ratio=1.0000 propagated_rel_unc@0.01%=0.0246% propagated_rel_unc@0.1%=0.2458%
+  e31: G0_rel_err=3.998e-09 G1_pass=True cross_check_ratio=1.0000 propagated_rel_unc@0.01%=730.7716% propagated_rel_unc@0.1%=7307.7160%
+SENTINEL PASS_ALL g0_g1_pass=True
+end=Wed Sep 16 00:21:40 CDT 2026

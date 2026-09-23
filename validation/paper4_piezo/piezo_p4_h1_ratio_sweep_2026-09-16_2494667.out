@@ -1,0 +1,18 @@
+job=2494667 host=compute-33-02.mill start=Wed Sep 16 15:15:34 CDT 2026
+job start: dps=40 iters=40
+preflight OK: SOLVER_VERSION=2026-07-10.s10 oc_ff_bisect present
+ratio=1/40  h1=0.000500  el=731.400098 oc=732.053448  split=0.0893%  k2=0.001784  G2@0.01%=6.641%  split/ratio=0.03573  (5.3s)
+ratio=1/30  h1=0.000667  el=733.287801 oc=734.163938  split=0.1195%  k2=0.002385  G2@0.01%=4.970%  split/ratio=0.03584  (5.4s)
+ratio=1/24  h1=0.000833  el=735.344966 oc=736.446082  split=0.1497%  k2=0.002988  G2@0.01%=3.969%  split/ratio=0.03594  (5.3s)
+ratio=1/20  h1=0.001000  el=737.566082 oc=738.894198  split=0.1801%  k2=0.003592  G2@0.01%=3.304%  split/ratio=0.03601  (5.3s)
+ratio=1/16  h1=0.001250  el=741.193585 oc=742.865617  split=0.2256%  k2=0.004497  G2@0.01%=2.641%  split/ratio=0.03609  (5.3s)
+ratio=1/12  h1=0.001667  el=747.986395 oc=750.239421  split=0.3012%  k2=0.005997  G2@0.01%=1.983%  split/ratio=0.03615  (5.3s) anchor_split=True (exp 0.301) anchor_k2=True anchor_g2=True (exp 1.98)
+ratio=1/10  h1=0.002000  el=754.050298 oc=756.773822  split=0.3612%  k2=0.007185  G2@0.01%=1.657%  split/ratio=0.03612  (5.2s)
+ratio=1/8   h1=0.002500  el=764.113327 oc=767.549639  split=0.4497%  k2=0.008934  G2@0.01%=1.335%  split/ratio=0.03598  (5.3s) anchor_split=True (exp 0.450) anchor_k2=True anchor_g2=True (exp 1.33)
+ratio=1/6   h1=0.003333  el=783.200951 oc=787.836593  split=0.5919%  k2=0.011733  G2@0.01%=1.019%  split/ratio=0.03551  (5.2s)
+ratio=1/5   h1=0.004000  el=800.302692 oc=805.901466  split=0.6996%  k2=0.013846  G2@0.01%=0.865%  split/ratio=0.03498  (5.2s) anchor_split=True (exp 0.700) anchor_k2=True anchor_g2=True (exp 0.86)
+ratio=1/4   h1=0.005000  el=828.555783 oc=835.595201  split=0.8496%  k2=0.016778  G2@0.01%=0.716%  split/ratio=0.03398  (5.2s)
+wrote /home/ghmkfh/PythonMill/Plate_Solver_Package/Paper4_Piezo/piezo_p4_h1_ratio_sweep.png
+thin-layer split/(h1/2h) at 1/40,1/30,1/24 = [0.03573147330207002, 0.035844168727132635, 0.03593796277298919]
+SENTINEL PASS_ALL split=True k2=True g2=True mono=True thin=True
+end=Wed Sep 16 15:16:41 CDT 2026

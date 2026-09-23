@@ -1,0 +1,12 @@
+job=2494945 host=compute-33-02.mill start=Wed Sep 16 16:20:35 CDT 2026
+job start: dps=60 iters=40 scan=[800,15000]/400
+follow-up to 2494865; does not re-score that job's G_found
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+G_n1: n=1 oc==elastic True
+scan: 2 elastic flips, 2 OC flips (67.2s)
+elastic roots: ['3504.952818', '8515.061211']
+OC roots:      ['3509.763208', '8516.484809']
+overtone 1: el=3504.952818 oc=3509.763208 split=0.1372% k2=0.002739 G2@0.01%=4.328% above4000=False
+overtone 2: el=8515.061211 oc=8516.484809 split=0.0167% k2=0.000334 G2@0.01%=35.452% above4000=True
+SENTINEL PASS_ALL n1=True anchor=True more=True pair=True n=2
+end=Wed Sep 16 16:22:06 CDT 2026

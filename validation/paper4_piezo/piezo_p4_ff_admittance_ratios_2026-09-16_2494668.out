@@ -1,0 +1,23 @@
+job=2494668 host=compute-33-02.mill start=Wed Sep 16 15:15:34 CDT 2026
+job start: dps=60
+preflight OK: SOLVER_VERSION=2026-07-10.s10 driven_ff_qv present
+---- 1/8  h1=0.002500  C0=6.658729e-06 F ----
+G_n: n!=0 q/v==C0 pass=True
+G_pole: sign_flip=True |qv|/C0 lo=7.953 hi=5.932 pass=True
+G_zero: qv_bisect=767.5496387603 oc_ff=767.5496387603 rel=1.3182376808314338e-14 pass=True
+G_shape: Ceff/C0 @420.3=1.0208 @829.0=0.9566 pass=True
+G_keff: k2_from_Y=8.933937e-03 k2_anchor=8.930000e-03 pass=True
+sweep 101 points
+wrote /home/ghmkfh/PythonMill/Plate_Solver_Package/Paper4_Piezo/piezo_p4_ff_admittance_sweep_h18.png
+---- 1/5  h1=0.004000  C0=4.161705e-06 F ----
+G_n: n!=0 q/v==C0 pass=True
+G_pole: sign_flip=True |qv|/C0 lo=12.391 hi=10.359 pass=True
+G_zero: qv_bisect=805.9014661114 oc_ff=805.9014661114 rel=8.040871027819125e-15 pass=True
+G_shape: Ceff/C0 @440.2=1.0325 @870.4=0.9346 pass=True
+G_keff: k2_from_Y=1.384617e-02 k2_anchor=1.385000e-02 pass=True
+sweep 101 points
+wrote /home/ghmkfh/PythonMill/Plate_Solver_Package/Paper4_Piezo/piezo_p4_ff_admittance_sweep_h15.png
+SENTINEL PASS_ALL all_pass=True
+  1/8 C0=6.6587e-06 k2=8.933937e-03 G_n=True G_pole=True G_zero=True G_shape=True G_keff=True
+  1/5 C0=4.1617e-06 k2=1.384617e-02 G_n=True G_pole=True G_zero=True G_shape=True G_keff=True
+end=Wed Sep 16 15:15:57 CDT 2026
