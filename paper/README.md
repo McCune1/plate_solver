@@ -6,7 +6,17 @@
 simultaneously; do not fold it into Paper 1. **Paper 3 (closed ring
 and solid disk) now has a live `.tex`/`.pdf` pair:**
 `PAPER3_RING_DISK_DRAFT.tex` + `PAPER3_RING_DISK_SUPPLEMENTARY.tex`.
-Do not fold Paper 3 into Paper 1 or 2. If any other copy in the
+**Paper 4 (layered piezoelectric ring + $e_{31}$ inverse):**
+`PAPER4_PIEZO_DRAFT.tex` / `.pdf` + `PAPER4_PIEZO_SUPPLEMENTARY.tex` /
+`.pdf`. Figures: `_make_p4_figures.py` and
+`_make_p4_scfix_figs_2026-09-23.py`, plus the probe-generated PNGs;
+evidence in `validation/paper4_piezo/`.
+**Paper 5 (monolithic thickness-poled piezoelectric ring):**
+`PAPER5_MONOLITHIC_PIEZO_DRAFT.tex` / `.pdf` +
+`PAPER5_MONOLITHIC_PIEZO_SUPPLEMENTARY.tex` / `.pdf`. Figures:
+`make_p5_figures.py`; evidence in `validation/paper5_monolithic/`.
+Both were revised on 2026-09-23 for the consistent electrical projection.
+Do not fold Papers 3, 4 or 5 into Paper 1 or 2. If any other copy in the
 broader working tree disagrees with the files here, these win. The
 working-tree pointer map (`Project Knowledge/CURRENT_PAPER.md`) is not
 shipped in this snapshot.

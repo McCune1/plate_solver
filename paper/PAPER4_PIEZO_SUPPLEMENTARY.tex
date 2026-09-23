@@ -1,0 +1,424 @@
+% Supplementary Material for PAPER4_PIEZO_DRAFT.tex
+%   S.1  cubic consistency condition and open-circuit rank-1 coefficient
+%   S.2  inverse G2 cross-checks
+%   S.3  F-F FE discriminator and mixed-BC outer-only ground
+%   S.4  wide-axis admittance figure
+%   S.5  thickness-ratio sweep and Y at 1/8, 1/5
+%   S.6  cluster job provenance
+%   S.7  mixed-edge C-F / F-C closed form
+%   S.8  frequency-precision sweep and lab noise floor
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in,letterpaper]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array,xcolor}
+\usepackage{textcomp}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\graphicspath{{paper_figures/}{./}{../paper_figures/}}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,skip=4pt}
+\usepackage{placeins}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{8}
+\emergencystretch=2.5em
+\raggedbottom
+
+\renewcommand{\thesection}{S.\arabic{section}}
+\renewcommand{\thesubsection}{S.\arabic{section}.\arabic{subsection}}
+\renewcommand{\thetable}{S.\arabic{table}}
+\renewcommand{\thefigure}{S.\arabic{figure}}
+\renewcommand{\theequation}{S.\arabic{equation}}
+
+\newcommand{\eebar}{\bar{e}_{31}}
+\newcommand{\Xibar}{\bar{\Xi}_{33}}
+
+\title{\bfseries Supplementary Material:\\
+Exact Radial-Determinant Frequencies of a Piezoelectric Annular Plate,
+and Inverse Recovery of $e_{31}$ from Open-Circuit Flexure}
+\author{Garrek McCune$^{a,*}$, Daniel Stutts$^{a}$\\
+\small\itshape $^a$Mechanical and Aerospace Engineering,\\
+Missouri University of Science and Technology, Rolla, MO 65409, USA\\
+\small\upshape $^*$Corresponding author. E-mail: ghmkfh@umsystem.edu}
+\date{DRAFT --- \today}
+
+\begin{document}
+\maketitle
+\noindent Main text contains no job numbers; they are listed in
+\S\ref{sec:jobs}.
+
+\section{Cubic consistency condition}
+\label{sec:s1}
+Each layer carries $\varphi=\pm\bar\varphi f(s)$, $s=\lvert z\rvert-h\in[0,h_1]$,
+with $f(0)=f(h_1)=0$ (mirrored so that the two layers' moments add). The
+thickness-integrated electric enthalpy of one layer is
+$-\eebar I_1\bar\varphi\nabla^2w-\tfrac12\Xibar I_2\bar\varphi^2
+-\tfrac12\Xi_{11}I_3\lvert\nabla\bar\varphi\rvert^2$ plus the elastic
+part, with $I_1=\int zf'\,\mathrm dz=-\int f\,\mathrm ds$,
+$I_2=\int f'^2\,\mathrm ds$, $I_3=\int f^2\,\mathrm ds$. Stationarity in
+$w$ and $\bar\varphi$ gives the flexural equation with piezo moment
+coefficient $K=-2\eebar I_1$ (two layers) and the electrical equation
+$\Xi_{11}I_3\Delta\bar\varphi-\Xibar I_2\bar\varphi-\eebar I_1\Delta
+w=0$; the insulated edge $\partial\bar\varphi/\partial r=0$ is its
+natural condition. The long-wave increment per layer is
+$(\eebar I_1)^2/(\Xibar I_2)\le h_1^3\eebar^{\,2}/(12\Xibar)$ by
+Cauchy--Schwarz, with equality only for $f'$ linear in $s$, i.e.\ the
+quadratic bubble $f=4s(h_1-s)/h_1^2$ of the main text: $I_1=-2h_1/3$,
+$I_2=16/(3h_1)$, $I_3=8h_1/15$, so $K=\tfrac43h_1\eebar$ and the
+normalized electrical equation is
+$a\Delta\bar\varphi-\bar\varphi+c\Delta w=0$ with
+$a=h_1^2\Xi_{11}/(10\Xibar)$, $c=h_1^2\eebar/(8\Xibar)$. The sine of
+Duan, Quek and Wang \cite{duan2005} gives $K=(4/\pi)h_1\eebar$; under
+this projection its long-wave increment is $96/\pi^4$ of exact, and under
+their thickness-integrated Gauss-law closure ($a=h_1^2\Xi_{11}/(\pi^2\Xibar)$,
+$c=h_1^2\eebar/(2\pi\Xibar)$) it is $12/\pi^2$ of exact. The earlier
+version of this paper used that closure; the solver keeps it as a
+switch (\texttt{projection='duan'}), and it reproduces every earlier
+number bit-for-bit. Positing $\bar\varphi=\chi\bar w$ with $\chi$
+independent of $r$ gives $\lambda=\chi/(a\chi+c)$ from the electrical
+equation and $(d_1+d_2)\lambda^2+K\chi\lambda-A_2\omega^2=0$ from the
+flexural one; eliminating $\lambda$ gives the cubic
+$Ka\chi^3+(d_1+d_2+Kc-A_2\omega^2a^2)\chi^2-2A_2\omega^2ac\,\chi
+-A_2\omega^2c^2=0$ (Duan, Quek and Wang's Eq.~17a is the same cubic up
+to a constant factor, with their coefficients). Each of the three roots $(\chi_i,\lambda_i)$ depends on
+the trial frequency $\omega$. For each root the radial problem is
+$\Delta\bar w-\lambda_i\bar w=0$, with Bessel pair $(J_n,Y_n)$ or
+modified pair $(I_n,K_n)$ according to the sign of $\lambda_i$. The
+general short-circuit solution is the sum over all three branches. The
+limit $\eebar\to0$ is singular (leading and two subleading coefficients
+of the cubic vanish together), so the elastic bilayer is a separate
+$4\times4$.
+
+The open-circuit rank-1 coefficient of the main text,
+\begin{equation}
+\alpha=\frac{4\eebar^2 (h+h_1/2)^2h_1}{\Xibar(r_o^2-r_i^2)},
+\end{equation}
+is the unique sign that raises the first free--free $n=0$ root. It is
+the product of the moment arm of $M_p$ and the charge arm of $Q$, both
+$h+h_1/2$ (the bus charge is $-\partial\mathcal H/\partial V$ of the same
+enthalpy); the earlier outer-face charge arm $h+h_1$ made $\alpha$ too
+large by $(h+h_1)/(h+h_1/2)$. On a
+mixed edge the same $\alpha S$ is added only where $M_{rr}=0$ is
+imposed (the free edge). Driven
+$Q/V$ uses the same $4\times4$ with right-hand side
+$M_p=2\eebar(h+h_1/2)V$ on both moment rows. An independent bisection
+of this $Q/V$ recovers the open-circuit root to $1.4\times10^{-15}$
+relative.
+
+\section{Inverse on-branch cross-check}
+\label{sec:s2}
+For the two clamped--clamped short-circuit recoveries, the product
+$(\mathrm{d}\omega/\mathrm{d}p)(\mathrm{d}p/\mathrm{d}\omega)$ on the
+solution branch is $1.000009$ ($e_{31}$) and $1.000008$ ($E$).
+Propagated uncertainties at $0.10\%$ frequency precision are ten times
+the $0.01\%$ values in main-text Table~4: $0.246\%$ of $E$, $8885\%$ of
+short-circuit $e_{31}$, and $21.3\%$ of open-circuit $e_{31}$ at
+$h_1/2h=1/12$.
+
+The sequential recovery (main text \S6, job 2494216) was
+run at full production precision (\texttt{dps=100}) on the cluster and
+reproduces the in-sandbox validation run bit-for-bit. Round trip:
+$\hat E=2.000000009\times10^{11}\,\mathrm{Pa}$
+($4.5\times10^{-9}$ relative), then, holding $\hat E$,
+$\hat e_{31}=4.100001626\,\mathrm{C\,m^{-2}}$
+($4.0\times10^{-7}$ relative); both below the $10^{-6}$ bar. On-branch
+sensitivities at $h_1/2h=1/12$:
+$\mathrm{d}\omega_{\mathrm{SC}}/\mathrm{d}E=5.678\times10^{-9}\,\mathrm{rad\,s^{-1}\,Pa^{-1}}$,
+$\mathrm{d}\omega_{\mathrm{OC}}/\mathrm{d}e_{31}=-0.8577\,\mathrm{rad\,s^{-1}\,m^2\,C^{-1}}$,
+$\mathrm{d}\omega_{\mathrm{OC}}/\mathrm{d}E=1.518\times10^{-9}\,\mathrm{rad\,s^{-1}\,Pa^{-1}}$,
+giving an implicit $\mathrm{d}e_{31}/\mathrm{d}E|_{\omega_{\mathrm{OC}}}=1.769\times10^{-9}\,\mathrm{C\,m^{-2}\,Pa^{-1}}$.
+At $0.01\%$ frequency precision this splits the $3.01\%$ total of
+main-text Table~4 into a $2.133\%$ direct term and a $2.122\%$ term from
+propagating $\hat E$'s own $0.0246\%$ uncertainty; at $0.10\%$ frequency
+precision the same split gives $21.33\%$ and $21.22\%$, total
+$30.09\%$. The negative control substitutes the clamped--clamped
+open-circuit root for the free--free one in the second step:
+$\hat e_{31}=4.100662522\,\mathrm{C\,m^{-2}}$ still solves (sign flip
+present), but
+$\mathrm{d}\omega_{\mathrm{SC}}/\mathrm{d}e_{31}|_{\hat E}=-7.664\times10^{-3}\,\mathrm{rad\,s^{-1}\,m^2\,C^{-1}}$
+propagates to $888.5\%$ of $e_{31}$ at $0.01\%$ frequency precision --
+the same order as the single-parameter clamped--clamped figure in
+main-text Table~4, confirming the control fails as required.
+
+\section{Finite-element discriminator and mixed electrical boundary}
+\label{sec:s3}
+Axisymmetric PLANE223, KEYOPT(1)=1001, millimetre--newton--second--tonne,
+relative permittivity, one mesh for every electrical condition compared.
+Mode~1 is the numerical rigid body ($\le 0.003\,\mathrm{Hz}$). Mode~2 is
+bending: transverse displacement same sign and magnitude at the host top
+and bottom at $r=r_o$; radial displacement opposite. The ratio of those
+components is $19.71$ (both-faces short-circuit), $19.75$ (open-circuit),
+and $19.72$ (outer-only ground). Open-circuit mechanical amplitudes are
+smaller under unity-normalization because VOLT participates in the norm;
+the ratio is the identifier.
+
+The outer-only-ground deck (VOLT$=0$ on $z=\pm(h+h_1)$, interface free)
+gives $119.242\,\mathrm{Hz}$. That is $0.36\%$ above true both-faces
+short-circuit ($118.811\,\mathrm{Hz}$) and is not used as the
+short-circuit baseline in the main text. Coupling-off is
+$118.810\,\mathrm{Hz}$.
+
+The same fair open-circuit/both-faces-short-circuit pair was cloned,
+unmeshed, to $h_1/2h=1/8$ and $1/5$ (job 2494226). At $1/8$: mode~2 is
+$121.839\,\mathrm{Hz}$ open-circuit, $121.348\,\mathrm{Hz}$ short-circuit,
+discriminator ratio $19.77$ and $19.70$. At $1/5$: mode~2 is
+$127.809\,\mathrm{Hz}$ open-circuit, $127.047\,\mathrm{Hz}$
+short-circuit, discriminator ratio $19.80$ and $19.69$. All four runs
+show mode~1 at $0\,\mathrm{Hz}$ (rigid body) and zero MAPDL
+\texttt{*** ERROR ***} lines in the MAPDL statistics block. The queue
+script's own automated pass/fail scan reported all four as FAILED; that
+scan greps each run's transcript for the literal string
+\texttt{*** ERROR ***} and matched it against that same string appearing
+inside this deck family's own pre-registration comment, not against an
+actual MAPDL error line. The raw \texttt{NUMBER OF ERROR MESSAGES
+ENCOUNTERED} line in each transcript reads zero, and the run completed
+(\texttt{RUN COMPLETED}) in every case; the numbers above are read from
+that completed output, not from the scan's own label.
+
+The same fair pair was then remeshed with the piezo through-thickness
+division count doubled from 2 to 4, leaving radial divisions, host
+through-thickness divisions, units, and electrical BC unchanged (job
+2494665). Mode~2 frequencies are unchanged at the printed precision:
+$119.143$ vs $118.811\,\mathrm{Hz}$ at $1/12$, $121.839$ vs
+$121.348\,\mathrm{Hz}$ at $1/8$, $127.809$ vs $127.047\,\mathrm{Hz}$
+at $1/5$. Discriminator ratios remain $19.7$--$19.8$. The
+$93\%/90\%/86\%$ recovery of the earlier, non-reciprocal closed-form
+split was therefore not a through-thickness mesh effect; it is the
+charge-arm ratio $(h+h_1/2)/(h+h_1)=0.929/0.900/0.857$. Against the
+reciprocal closed form the three finite-element splits are
+$99.9\%/99.9\%/99.8\%$ of the analytic value.
+
+\section{Wide-axis admittance}
+\label{sec:s4}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.92\linewidth]{piezo_p4_admittance_sweep.png}
+\caption{Driven $C_{\mathrm{eff}}/C_0$ and $|Y|$ on $95$--$145\,\mathrm{Hz}$
+at $h_1/2h=1/12$. The pole and zero of the first $n=0$ pair differ by
+$0.28\%$ and overlap on this axis; main-text Fig.~4 zooms
+$118.6$--$120\,\mathrm{Hz}$.}
+\label{fig:s1}
+\end{figure}
+
+A harmonic PLANE223 run on the same mesh (job 2494863; $1\,\mathrm{V}$
+on the outer-bus master, KEYOPT(1)=1001 charge reaction) places the
+$|Y|$ peak at $118.79\,\mathrm{Hz}$ and the charge-zero at
+$119.13\,\mathrm{Hz}$, against the modal pair $118.811$ /
+$119.143\,\mathrm{Hz}$. An earlier harmonic dump (job 2494669) used
+the current label \texttt{AMPS}, which is KEYOPT(1)=101, and returned
+a numerical-zero bus current at every frequency; that run is not a
+disproof of the pole/zero.
+\FloatBarrier
+
+\section{Thickness-ratio sweep and other-ratio admittance}
+\label{sec:s5}
+Figure~\ref{fig:s2} is the closed-form $h_1/2h$ sweep that sits
+underneath main-text Table~2 and Fig.~2: eleven ratios from $1/40$ to
+$1/4$, linear-potential open-circuit $4\times4$ against the elastic
+bilayer. The three Duan Table~4 ratios (red) lie on the curve. The
+thin-layer intercept $\Delta_{\mathrm{OC}}/(h_1/2h)\to 0.035$ is the
+leading $h_1$ scaling of the rank-1 coefficient $\alpha$ (the same limit
+under either charge arm, since $h_1\to0$). The bottom
+panel is the single-parameter $e_{31}$ G2 at $0.01\%$ frequency
+precision (host $E$ known exactly); it is $6.80\%$ at $1/40$ and
+$0.85\%$ at $1/4$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.92\linewidth]{piezo_p4_h1_ratio_sweep.png}
+\caption{Closed-form F--F $n=0$ open-circuit split, $k_{\mathrm{eff}}^2$,
+and $e_{31}$ G2 versus $h_1/2h$. Red markers are the three Duan Table~4
+ratios already in the main text.}
+\label{fig:s2}
+\end{figure}
+
+Figure~\ref{fig:s3} is the driven $Q/V$ problem at the other two
+Table~4 ratios. Independent bisection of $Q/V$ recovers
+\texttt{oc\_ff\_bisect} to $2.5\times10^{-14}$ ($1/8$) and
+$9.6\times10^{-14}$ ($1/5$); $k_{\mathrm{eff}}^2$ from the driven
+pole/zero is $0.00805$ and $0.01191$. $C_0=6.66\,\mathrm{\mu F}$ at
+$1/8$ and $4.16\,\mathrm{\mu F}$ at $1/5$. Off-resonance
+Butterworth--van Dyke shape: $C_{\mathrm{eff}}/C_0=1.019$ below the
+pole and $0.961$ above the zero at $1/8$; $1.028$ and $0.943$ at $1/5$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.48\linewidth]{piezo_p4_ff_admittance_sweep_h18.png}
+\includegraphics[width=0.48\linewidth]{piezo_p4_ff_admittance_sweep_h15.png}
+\caption{Driven $C_{\mathrm{eff}}/C_0$ and $|Y|$ at $h_1/2h=1/8$ (left)
+and $1/5$ (right). Pole at the elastic/short-circuit root, zero at the
+open-circuit root, same linear-potential operator as main-text Fig.~4.}
+\label{fig:s3}
+\end{figure}
+\FloatBarrier
+
+\section{Cluster job provenance}
+\label{sec:jobs}
+All jobs on The Mill \cite{mill2024}, solver snapshot
+\texttt{2026-07-10.s10}. Piezoelectric paths are new and unused by the
+elastic default.
+
+\begin{itemize}
+\item 2489140 --- clamped--clamped Table~4 gate, 27/27, worst $-0.0476\%$.
+\item 2490706 --- F--F coupling-off and outer-only-ground decks at
+      $h_1/2h=1/12$.
+\item 2490848 --- F--F outer-only-ground at $h_1/2h=1/8$ and $1/5$.
+\item 2491531 --- clamped--clamped short-circuit inverse of $E$ and $e_{31}$.
+\item 2491661 --- F--F open-circuit python archival, deploy miss
+      (package lacked the open-circuit method); superseded by 2491764.
+\item 2491761 --- F--F open-circuit finite elements, mode~2 $=119.143\,\mathrm{Hz}$.
+\item 2491764 --- F--F open-circuit inverse archival, all gates passed.
+\item 2491831 --- both-faces short-circuit finite elements, mode~2 $=118.811\,\mathrm{Hz}$.
+\item 2491920 --- driven $Y(\omega)$ archival, all gates passed,
+      $k_{\mathrm{eff}}^2=0.005997133$.
+\item 2494216 --- sequential $E$-then-$e_{31}$ inverse archival at full
+      \texttt{dps=100}, $h_1/2h=1/12$; SENTINEL PASS\_ALL, bit-identical
+      to the in-sandbox validation run.
+\item 2494226 --- F--F open-circuit and both-faces short-circuit finite
+      elements at $h_1/2h=1/8$ and $1/5$, cloned from 2491761/2491831.
+\item 2494665 --- lever 8 mesh refinement, NDIV\_ZP $2\to 4$ on the
+      fair OC/scboth pair at all three Table~4 ratios; splits
+      unchanged.
+\item 2494667 --- lever 2 $h_1/2h$ sweep archival, SENTINEL PASS\_ALL,
+      bit-identical to the in-sandbox run.
+\item 2494668 --- lever 5 driven $Y(\omega)$ at $1/8$ and $1/5$
+      archival, SENTINEL PASS\_ALL, bit-identical to the in-sandbox run.
+\item 2494669 --- lever 9 first harmonic dump; MAPDL clean but
+      \texttt{RF,AMPS} identically zero. Superseded by 2494863.
+\item 2494863 --- lever 9 v2 harmonic $Y$ at $1/12$, \texttt{RF,CHRG};
+      pole $118.79\,\mathrm{Hz}$, zero $119.13\,\mathrm{Hz}$.
+\item 2494864 --- lever 3 other-constant inverses, SENTINEL PASS\_ALL.
+\item 2494865 --- lever 1 $n=0$ overtones; one overtone in
+      $(800,4000)\,\mathrm{rad\,s^{-1}}$ ($+0.137\%$ split). Pre-registered
+      bar of two overtones in that window not met.
+\item 2494945 --- lever 1 wide scan $(800,15000)\,\mathrm{rad\,s^{-1}}$,
+      SENTINEL PASS\_ALL; second overtone $8515.06$ vs
+      $8516.48\,\mathrm{rad\,s^{-1}}$ ($+0.017\%$).
+\item 2494866 --- lever 4 F--F $E$ channel, SENTINEL PASS\_ALL,
+      $0.025\%$ of $E$ at $0.01\%$ freq on both elastic and OC.
+\item 2495528 --- lever 10 C--F / F--C mixed-edge archival,
+      SENTINEL PASS\_ALL, bit-identical to the in-sandbox
+      \texttt{dps=60} run.
+\item 2495593 --- optional C--F FE, clones of 2491761/2491831 with
+      inner $U_X=U_Y=0$ only. scboth $67.071\,\mathrm{Hz}$, OC
+      $67.245\,\mathrm{Hz}$, $+0.259\%$ ($92\%$ of closed-form
+      $+0.282\%$). Both \texttt{RUN COMPLETED}, 0 MAPDL errors.
+\item 2495751 --- lever 16 frequency-precision sweep, SENTINEL
+      PASS\_ALL, bit-identical to the in-sandbox run (F--F/C--F
+      $e_{31}$ uncertainty curve plus the Boeringa--McCune lab
+      floor).
+\end{itemize}
+\noindent\textbf{Consistent-projection rerun (2026-09-23).} Every
+analytic job above (all but the finite-element jobs) used the Gauss-law
+closure of \S\ref{sec:s1} and the outer-face charge arm. Every
+package-based probe was re-run unchanged against the corrected solver
+(default \texttt{projection='consistent'}; \texttt{projection='duan'}
+reproduces the jobs above bit-for-bit), with only the hard-coded
+open-circuit regression anchors of four probes moved to the new values.
+All pass (\texttt{SENTINEL PASS\_ALL}), and every analytic number in
+this document and the main text is from that rerun. The rerun was done in-sandbox at the probes' production precision; it was not repeated on the cluster, because every earlier cluster archival run of these same probes reproduced its in-sandbox run bit-for-bit. The finite-element jobs
+are unchanged.
+
+\section{Mixed-edge C--F / F--C closed form}
+\label{sec:scf}
+Paper~3 names inner then outer: C--F is clamped inner, free outer
+(\texttt{bc\_inner='C'}, \texttt{bc\_outer='F'} in
+\texttt{ring\_disk.py}). Methods on
+\texttt{PiezoOutOfPlaneSolver}: \texttt{elastic\_cf\_det} /
+\texttt{elastic\_fc\_det}, \texttt{cf\_coupled\_det} /
+\texttt{fc\_coupled\_det}, \texttt{oc\_cf\_det} /
+\texttt{oc\_fc\_det}. The mixed-edge engine recovers the existing
+free--free and clamped--clamped determinants bit-exactly when both
+edges are set equal. Bare-host $n=0$ roots match Paper~3's live
+Frobenius solver at relative $4.45\times10^{-10}$ (C--F,
+$410.074181\,\mathrm{rad\,s^{-1}}$) and $2.28\times10^{-10}$ (F--C,
+$873.221632\,\mathrm{rad\,s^{-1}}$). In-sandbox SENTINEL PASS\_ALL
+(\texttt{probe\_piezo\_p4\_cf\_mixed\_edge\_2026-09-16.py},
+\texttt{dps=60}, 2026-09-23 consistent-projection rerun): C--F
+open-circuit $+0.262\%$, $k_{\mathrm{eff}}^2=0.00522$, $e_{31}$ G2
+$2.28\%$ at $0.01\%$ frequency; F--C open-circuit $+0.00538\%$,
+$k_{\mathrm{eff}}^2=0.000108$. Inverse round-trip on C--F $e_{31}$ is
+$4.0\times10^{-9}$. (Cluster archival job 2495528 confirmed the earlier
+closure's $+0.282\%$ bit-for-bit.) Optional C--F FE job 2495593:
+scboth $67.071\,\mathrm{Hz}$, OC $67.245\,\mathrm{Hz}$, split
+$+0.259\%$ ($98.9\%$ of $+0.262\%$; $92\%$ of the earlier $+0.282\%$),
+no $0\,\mathrm{Hz}$ rigid body, bending discriminator, 0 MAPDL
+errors. \texttt{SOLVER\_VERSION} remains \texttt{2026-07-10.s10}.
+
+\section{Frequency-precision sweep and lab noise floor}
+\label{sec:noisefloor}
+Table~\ref{tab:noisefloor} extends the two-column ($0.01\%$, $0.1\%$)
+$e_{31}$ inverse of the main-text open-circuit section and \S\ref{sec:scf} to an eight-point
+log-spaced grid of assumed relative frequency error, on both the
+free--free and clamped--free $n=0$ open-circuit channels, using the
+identical linear-propagation formula (unchanged, not retuned):
+$\delta e_{31}/e_{31}=(\delta\omega/\omega)\,\omega_{\mathrm{target}}
+/(|\mathrm{d}\omega/\mathrm{d}e_{31}|\,e_{31,\mathrm{true}})$. The
+lab-floor row (marked) is sourced from Table~3 of
+\cite{boeringa2026}: an HP4294A impedance analyzer and a scanning
+laser Doppler vibrometer measured the same five axial resonances of a
+free--free PZT-4 rod specimen (a physically distinct specimen from
+this ring, same material system), disagreeing by $0.12\%$,
+$0.10\%$, $0.09\%$, $0.11\%$, and $0.09\%$ -- mean $0.102\%$. The
+companion draft (\texttt{BoeringaMcCune2026-2.pdf}) was checked and
+rejected as a source: its impedance-versus-SLDV table is internally
+inconsistent (disagreements up to $26\%$ on a single mode) and
+carries explicit placeholder text, so no number was taken from it.
+
+\begin{table}[ht]
+\centering
+\caption{Propagated relative uncertainty in $e_{31}$ versus assumed
+relative frequency error, $h_1/2h=1/12$. G0 round-trip error is
+$4.0\times10^{-9}$ (bar $10^{-6}$) at every row; G\_anchor reproduces
+the $0.01\%$ entries of main-text Table~4, and the $0.10\%$-scaled
+figures of \S\ref{sec:s2}, to within $1\%$ relative; the linearity
+self-check (every row equal to the base row scaled by the ratio of
+assumed frequency errors) is exact to $10^{-9}$.}
+\label{tab:noisefloor}
+\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+assumed rel.\ freq.\ error & F--F OC unc.\ of $e_{31}$ & C--F OC unc.\ of $e_{31}$ \\
+\midrule
+$0.001\%$  & $0.213\%$  & $0.228\%$  \\
+$0.003\%$  & $0.640\%$  & $0.683\%$  \\
+$0.01\%$   & $2.133\%$  & $2.276\%$  \\
+$0.03\%$   & $6.399\%$  & $6.829\%$  \\
+$0.1\%$    & $21.331\%$ & $22.764\%$ \\
+$0.102\%$ (Boeringa--McCune floor \cite{boeringa2026}) & $21.758\%$ & $23.219\%$ \\
+$0.3\%$    & $63.993\%$ & $68.291\%$ \\
+$1\%$      & $213.311\%$ & $227.638\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Delivered as
+\texttt{Paper4\_Piezo/probe\_piezo\_p4\_lever16\_freq\_noise\_floor\_2026-09-16.py}
+(LF) with matching submit script (\texttt{dps=60}, mirroring the
+free--free/clamped--free probes' own settings). In-sandbox SENTINEL
+PASS\_ALL, $\sim\!85\,\mathrm{s}$ wall. Cluster archival job
+2495751 (\texttt{compute-34-04.mill}, $\sim\!101\,\mathrm{s}$
+wall, empty \texttt{.err}): SENTINEL PASS\_ALL, every reported
+number bit-identical to the in-sandbox run (only per-call wall-clock
+timings differ). No package code was touched and
+\texttt{SOLVER\_VERSION} remains \texttt{2026-07-10.s10}.
+
+\begin{thebibliography}{99}\small
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\bibitem{duan2005} W.H. Duan, S.T. Quek, Q. Wang, ``Free vibration analysis
+of piezoelectric coupled thin and thick annular plate,'' J. Sound Vib. 281
+(2005) 119--139.
+\bibitem{boeringa2026} Z.L. Boeringa, G.H. McCune, D.S. Stutts, ``Canonical
+validation and model discrimination in a linearly tapered non-uniform rod,''
+unpublished manuscript (2026).
+\bibitem{mill2024} Missouri University of Science and Technology, ``The Mill
+HPC Cluster,'' \emph{The Mill} (2024), Article 1.
+\url{https://scholarsmine.mst.edu/the-mill/1}.
+\end{thebibliography}
+\end{document}

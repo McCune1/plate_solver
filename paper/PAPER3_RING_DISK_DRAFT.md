@@ -367,22 +367,23 @@ Named limits:
   is what settles the residue.
 - Disk tiny-hole \(10^{-3}\) control remains a named FAIL.
 - Window-edge values are labelled, not quoted as frequencies.
-- C–C, remaining Vogel combinations, and polar-orthotropic F–F
-  (Narita Table 3) are reachable with little or no new derivation;
-  they are not in this draft’s production tables.
+- All nine Vogel combinations are production tables, combined 704/710.
+- Table 2.26 prints 933 at (2,1) b/a=0.3 (lost decimal; s=1 root 93.371).
+- Table 2.33 misses (1,0) at b/a=0.1 at both ν (named).
+- Narita Table 3 high-modulus graphite epoxy is 10/10.
 
 ---
 
 ## 9. Conclusions
 
 A validated annular-sector solver reduces, without a new ODE, to the
-classical ring and disk. The \(4\times4\) recovers Vogel’s free–free
-and mixed-edge tables and Irie’s in-plane free–free table. The
-\(2\times2\) recovers the solid disk; the \(4\times4\) at \(R_i=0\)
-does not. Independent FE confirms the flexural spine, including the
-cell where Southwell prints 81 and the plate vibrates at 133.
-Piezoelectric identification, using the F–F and C–F ring as a forward
-model, is later work.
+classical ring and disk. The \(4\times4\) recovers all nine Vogel
+inner/outer combinations at 704/710, Narita Table 3 at 10/10, and
+Irie’s in-plane free–free table. The \(2\times2\) recovers the solid
+disk; the \(4\times4\) at \(R_i=0\) does not. Independent FE confirms
+the flexural spine, including the cell where Southwell prints 81 and
+the plate vibrates at 133. Piezoelectric identification, using the
+F–F and C–F ring as a forward model, is later work.
 
 ---
 

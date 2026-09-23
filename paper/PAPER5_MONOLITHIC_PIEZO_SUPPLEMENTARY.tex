@@ -1,0 +1,590 @@
+% Supplementary Material for PAPER5_MONOLITHIC_PIEZO_DRAFT.tex
+%   S.1  cubic consistency condition and the OC=SC theorem, in full
+%   S.2  elastic-limit gate against the closed-ring solver
+%   S.3  finite-element cross-check, provenance and discriminator
+%   S.4  e31 inverse: gates, sensitivity, reflection twin
+%   S.5  overtones and thickness sweep, full numeric tables
+%   S.6  mixed-edge (C-F/F-C) bit-identical reduction proof
+%   S.7  force-driven sensing admittance: 12x12 construction and gates
+%   S.8  cluster job provenance
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in,letterpaper]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array,xcolor}
+\usepackage{textcomp}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\graphicspath{{paper_figures/}{./}{../paper_figures/}}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,skip=4pt}
+\usepackage{placeins}
+\usepackage{seqsplit}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{8}
+\emergencystretch=2.5em
+\raggedbottom
+
+\renewcommand{\thesection}{S.\arabic{section}}
+\renewcommand{\thesubsection}{S.\arabic{section}.\arabic{subsection}}
+\renewcommand{\thetable}{S.\arabic{table}}
+\renewcommand{\thefigure}{S.\arabic{figure}}
+\renewcommand{\theequation}{S.\arabic{equation}}
+
+\newcommand{\eebar}{\bar{e}_{31}}
+\newcommand{\Xibar}{\bar{\Xi}_{33}}
+\newcommand{\cbar}{\bar{c}_{11}^{E}}
+\newcommand{\fn}[1]{\texttt{\seqsplit{#1}}}
+
+\title{\bfseries Supplementary Material:\\
+Exact Radial-Determinant Flexural Frequencies of a Monolithic
+Thickness-Poled Piezoelectric Ring: An Open-Circuit-Equals-Short-Circuit Theorem and a Segmented-Electrode Sensing Admittance}
+\author{Garrek McCune$^{a,*}$, Daniel Stutts$^{a}$\\
+\small\itshape $^a$Mechanical and Aerospace Engineering,\\
+Missouri University of Science and Technology, Rolla, MO 65409, USA\\
+\small\upshape $^*$Corresponding author. E-mail: ghmkfh@umsystem.edu}
+\date{DRAFT --- \today}
+
+\begin{document}
+\maketitle
+\noindent Main text contains no job numbers; they are listed in
+\S\ref{sec:jobs}.
+
+\section{Cubic consistency condition and the open-circuit-equals-short-circuit theorem}
+\label{sec:s1}
+
+\subsection{Short-circuit potential and the projected electrical equation}
+With both faces grounded, $\phi(\pm H)=0$, write
+$\phi=\bar\phi(r,\theta,t)f(z)$ with $f(\pm H)=0$, so
+$E_z=-\bar\phi f'$ and $E_\parallel=-f\nabla\bar\phi$. With
+$\varepsilon_{rr}+\varepsilon_{\theta\theta}=-z\nabla^2w$, the electric
+enthalpy $\mathcal H=\tfrac12\varepsilon\!\cdot\!\bar c\varepsilon
+-\eebar E_z(\varepsilon_{rr}+\varepsilon_{\theta\theta})
+-\tfrac12\Xibar E_z^2-\tfrac12\Xi_{11}\lvert E_\parallel\rvert^2$
+integrates through the thickness to
+\begin{equation}
+\mathcal H_2=U_{\mathrm{el}}(w)-\eebar I_1\,\bar\phi\,\nabla^2w
+-\tfrac12\Xibar I_2\,\bar\phi^2-\tfrac12\Xi_{11}I_3\lvert\nabla\bar\phi\rvert^2,
+\end{equation}
+with $I_1=\int zf'\,\mathrm dz$, $I_2=\int f'^2\,\mathrm dz$,
+$I_3=\int f^2\,\mathrm dz$ over $\lvert z\rvert\le H$. Stationarity in
+$w$ and in $\bar\phi$ (Hamilton's principle, the same weight for both
+fields) gives the flexural equation (A) below with
+$K_{\mathrm{pref}}=-\eebar I_1$, the electrical equation
+$\Xi_{11}I_3\Delta\bar\phi-\Xibar I_2\bar\phi+K_{\mathrm{pref}}\Delta
+w=0$, and the natural rim condition $\partial\bar\phi/\partial r=0$. In the
+long-wave limit $\bar\phi\to(K_{\mathrm{pref}}/\Xibar I_2)\Delta w$ and
+$D_{\mathrm{SC}}-d=(\eebar I_1)^2/(\Xibar I_2)$. By Cauchy--Schwarz,
+$I_1^2\le I_2\int z^2\,\mathrm dz=\tfrac23H^3I_2$, with equality only for
+$f'\propto z$: the quadratic $f=1-z^2/H^2$ is the unique one-term profile
+whose long-wave increment is the exact thin-plate value
+$\tfrac23H^3\eebar^{\,2}/\Xibar$ (from $\partial_zD_z=0$ with
+$\phi(\pm H)=0$). Its integrals are $I_1=-4H/3$, $I_2=8/(3H)$,
+$I_3=16H/15$, so
+\begin{equation}
+M_{rr}^{\mathrm{piezo}}=-\eebar\!\int_{-H}^{H}\!z\,E_z\,\mathrm dz
+=-\frac{4H}{3}\,\eebar\,\bar\phi,\qquad
+K_{\mathrm{pref}}=\tfrac43H\eebar.
+\end{equation}
+For comparison, the sinusoidal profile $f=\cos(\pi z/2H)$ gives
+$K_{\mathrm{pref}}=(4H/\pi)\eebar$ and a long-wave increment $96/\pi^4$ of
+exact under this projection; closing its electrical equation instead by
+the thickness-integrated Gauss law (Duan, Quek and Wang's Eq.~(12)
+\cite{duan2005}) replaces $\Xibar I_2\bar\phi$ by the face jump of
+$D_z$ and gives an increment $12/\pi^2=1.216$ times exact. That closure
+was used in an earlier version of this model; its free--free split
+($+2.347\%$ against $+1.939\%$) is the $83\%$ finite-element recovery
+discussed in \S\ref{sec:s3}. The full moment and shear are
+\begin{equation}
+M_{rr}=-\Bigl[d\,\partial_r^2 w+(d-2A_1)\bigl(r^{-1}\partial_r w
++r^{-2}\partial_\theta^2 w\bigr)+K_{\mathrm{pref}}\bar\phi\Bigr],\qquad
+Q_r=-\Bigl[d\,\partial_r\nabla^2 w+K_{\mathrm{pref}}\partial_r\bar\phi\Bigr],
+\end{equation}
+with twisting moment $M_{r\theta}=-2A_1\,\partial_r\bigl(r^{-1}\partial_\theta w\bigr)$,
+which carries no piezoelectric term. The free-edge natural conditions are
+$M_{rr}=0$ and the Kirchhoff effective shear
+$Q_r^{\mathrm{eff}}=Q_r+r^{-1}\partial_\theta M_{r\theta}=0$. On a Helmholtz branch
+$\Delta Z=\lambda Z$ at angular order $n$ this is
+$Q_r^{\mathrm{eff}}[cZ]=-\bigl[KZ'-2A_1n^2(Z'/r^2-Z/r^3)\bigr]$, with
+$K=d\lambda+K_{\mathrm{pref}}\chi$. It reduces to $Q_r$ at $n=0$.
+The flexural motion equation is
+\begin{equation}
+d\,\Delta\Delta\bar w+K_{\mathrm{pref}}\,\Delta\bar\phi
+-A_2\omega^2\bar w=0. \tag{A}
+\end{equation}
+The projected electrical equation, divided by $\Xibar I_2$, is
+\begin{equation}
+a\,\Delta\bar\phi-\bar\phi+c\,\Delta\bar w=0,\qquad
+a=\frac{2H^2\Xi_{11}}{5\Xibar},\quad c=\frac{H^2\eebar}{2\Xibar}. \tag{B}
+\end{equation}
+Positing $\bar\phi=\chi\bar w$ with $\chi$ independent of $r$, (B) forces
+$\Delta\bar w=\lambda_B\bar w$ with $\lambda_B=\chi/(a\chi+c)$, and (A)
+forces $d\lambda^2+K_{\mathrm{pref}}\chi\lambda-A_2\omega^2=0$.
+Eliminating $\lambda$ between the two gives a cubic in $\chi$:
+\begin{align}
+a_3\chi^3+a_2\chi^2+a_1\chi+a_0&=0,\notag\\
+a_3&=K_{\mathrm{pref}}\,a,\quad
+a_2=d+K_{\mathrm{pref}}\,c-A_2\omega^2a^2,\notag\\
+a_1&=-2A_2\omega^2ac,\quad
+a_0=-A_2\omega^2c^2. \label{eq:cubic}
+\end{align}
+Three roots $\chi_i(\omega)$ give three Helmholtz branches
+$\Delta\bar w=\lambda_i\bar w$, two Bessel functions per branch: six
+constants, matching the sixth-order coupled system. $\chi=0$ is a root
+only at $\eebar=0$ ($a_0\propto\eebar^2\omega^2$), which is why the
+purely elastic ring is assembled as a separate $4\times4$
+(\S\ref{sec:s2}) rather than by zeroing $\eebar$ inside this cubic.
+These coefficients are \emph{not} obtained from the layered plate's own
+cubic \cite{mccune2026piezo} by the substitution $h_1\to2H$: the two
+potential shapes have opposite parity about their respective plate
+midplanes (this ansatz is even in $z$ about the monolithic plate's own
+midplane; the layered plate's per-skin interior profile is neither
+even nor odd about the sandwich midplane), so the two cubics are genuinely different
+operators sharing only their general architecture.
+
+The insulated-rim electrical condition, $\partial\bar\phi/\partial r=0$
+at $r_i$ and $r_o$, together with two mechanical rows per edge, fills
+the $6\times6$. Free--free uses $M_{rr}=Q_r^{\mathrm{eff}}=0$ at both edges;
+clamped--clamped uses $w=w'=0$; clamped--free and free--clamped use one
+of each pairing at the two edges (\S\ref{sec:s6}).
+
+\subsection{Open-circuit and the coincidence theorem}
+With the bus ansatz $\phi=Vz/(2H)+\bar\phi(1-z^2/H^2)$, the linear
+term's field $E_z^{\mathrm{lin}}=-V/(2H)$ is spatially constant --
+even in $z$ -- so
+$\int_{-H}^{H}z\,\sigma^{\mathrm{lin}}\,\mathrm dz=0$ identically: the
+linear piece never enters $M_{rr}$, for any $V$, $H$, or material
+constant. Because the bus is a single equipotential surface with no
+$r,\theta$ dependence, $E_\parallel^{\mathrm{lin}}=0$, and the enthalpy
+cross term $-\Xibar E_z^{\mathrm{lin}}E_z^{f}$ integrates with weight
+$\int_{-H}^{H}f'\,\mathrm dz=f(H)-f(-H)=0$; so the linear piece drops from
+both (A) and (B): the open-circuit eigenvalue problem for
+$(w,\bar\phi)$ is exactly the short-circuit pair, and $V$ is fixed only
+afterward, by the scalar charge constraint $Q=0$. The bus charge is the
+variable conjugate to $V$ in the same enthalpy,
+\begin{equation}
+Q=-\frac{\partial}{\partial V}\int_A\mathcal H_2\,\mathrm dA
+=-C_0V,\qquad C_0=\frac{\Xibar A}{2H}, \label{eq:Qfull}
+\end{equation}
+with no motional term: the strain coupling of the linear field carries
+the weight $\int_{-H}^{H}z\,\mathrm dz=0$, and $\bar\phi$ does not enter
+by the cross-term argument above. Hence $V=0$ on an open-circuit bus for
+every flexural mode, and open-circuit coincides with short-circuit.
+(Integrating Gauss's law pointwise to the face instead gives a charge
+with motional terms in $\int_A\nabla^2w$ and $\int_A\bar\phi$; for the
+full face these cancel, the full-face $Q\equiv0$ result of \S\ref{sec:s7},
+so the two routes agree on the full electrode.) This is the theorem stated
+in the main text: because $V$ never enters $M_{rr}$ -- not merely on a
+special mechanical edge, as on the layered plate, but identically --
+open-circuit flexure coincides with short-circuit flexure for every
+mechanical boundary condition, not only clamped--clamped. On the
+layered plate the coincidence is a corollary of $S=0$ under
+clamped--clamped conditions specifically \cite{mccune2026piezo}; here it
+holds even when $S\ne0$, because the moment channel for $V$ does not
+exist at all on this stacking.
+
+\section{Elastic-limit gate}
+\label{sec:s2}
+Setting $\eebar=0$, $\bar\phi=0$ in (A) recovers the isotropic Kirchhoff
+ring equation with $D=d=\tfrac23\cbar H^3$,
+$\nu=\nu_p=\bar c_{12}^E/\cbar$, plate thickness $h=2H$. Matching the
+standard isotropic bending stiffness $D=Eh^3/[12(1-\nu^2)]$ requires
+$E=\cbar(1-\nu_p^2)$. At the material point of the main text this gives
+$\cbar=85.661\,\mathrm{GPa}$, $\bar c_{12}^E=24.661\,\mathrm{GPa}$,
+$\nu_p=0.28789$, $E=78.561\,\mathrm{GPa}$. The free--free $n=0$
+fundamental of the new mixed-edge $4\times4$ at these constants agrees
+with an independently implemented closed-annulus Kirchhoff solver
+\cite{mccune2026ring} at $4.77\times10^{-10}$ relative. The coupled
+$6\times6$ is not exercised at this gate (\S\ref{sec:s1}: $\chi=0$ is a
+root only at $\eebar=0$, so the coupled operator is the wrong tool at
+exact zero coupling). This gate passed before any coupled number in the
+main text was trusted, and uses no piezoelectric code path.
+
+\section{Finite-element cross-check}
+\label{sec:s3}
+Axisymmetric coupled-field finite elements (piezoelectric-plane
+elements, KEYOPT(1)=1001, Lanczos eigensolver), millimetre--newton--
+second--tonne units with relative permittivity, one PZT-4 rectangle
+$\lvert z\rvert\le H=10\,\mathrm{mm}$ (no steel host), cloned from the
+mesh, material block, and electrical-boundary conventions already
+confirmed for the layered plate's own free--free family
+\cite{mccune2026piezo}, with the host volume deleted and the piezo
+volume filling the full thickness. Three decks on the same mesh:
+coupling-off (\texttt{e0}), both-faces short-circuit (\texttt{scboth},
+VOLT$=0$ at $z=\pm H$), and open-circuit (\texttt{oc}, VOLT$=0$ at
+neither face, a single coupled VOLT set on both faces together,
+unconstrained). Job \textbf{2520476}, \texttt{compute-33-02.mill},
+$3/3$ \texttt{RUN COMPLETED}, \textbf{0 errors, 0 warnings} on every
+deck, scored from the raw transcript and mode/discriminator files.
+
+Mode~1 is the free--free rigid body ($0\,\mathrm{Hz}$) on every deck.
+Mode~2 is the first bending mode, identified by the through-thickness
+discriminator at $r=r_o$: transverse displacement same sign at
+$z=\pm H$, in-plane displacement opposite sign, ratio $\approx19.7$ on
+all three decks.
+
+\begin{table}[ht]
+\centering
+\caption{F--F $n=0$ finite-element mode~2 (bending), job 2520476.}
+\label{tab:fe}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+deck & frequency [Hz] & closed form [Hz] & rel.\ vs closed form \\
+\midrule
+\texttt{e0} (coupling off) & 73.506288 & 73.593 & $-0.118\%$ \\
+\texttt{scboth} (SC) & 74.933783 & 75.020 & $-0.115\%$ \\
+\texttt{oc} (OC) & 74.933783 & 75.020 & $-0.115\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\texttt{scboth} and \texttt{oc} mode~2 are bit-identical at the printed
+eight significant figures, $74.933783\,\mathrm{Hz}$ on both -- the
+coincidence theorem confirmed in three-dimensional coupled-field finite
+elements, not only in the Kirchhoff $6\times6$ -- and so are the next
+several flexural overtones on the same pair of decks. \texttt{scboth}
+sits $1.942\%$ above \texttt{e0}, against a closed-form $+1.939\%$
+(ratio $1.001$); the finite-element short-circuit frequency sits
+$-0.115\%$ from the closed form, the same offset as the coupling-off
+deck ($-0.118\%$), so the residual is the elastic Kirchhoff-versus-2D
+difference, not the coupling. \textbf{History.} The first version of
+this model closed the electrical equation by the thickness-integrated
+Gauss law with a sinusoidal profile (\S\ref{sec:s1}) and predicted
+$+2.347\%$ here; finite elements recovered $83\%$ of it. The same
+closure predicted $+0.961\%$ for a clamped PZT-4 annular sector
+($r_i/r_o=0.03/0.07$, $2H=0.8\,\mathrm{mm}$, $2\Theta=\pi$), where
+three-dimensional SOLID226 finite elements give $+0.782\%$ (ratio
+$0.814$); the consistent projection gives $+0.796\%$ for that sector.
+Both ratios are $\pi^2/12=0.822$ to within the elastic offsets, which is
+how the projection was identified. Neither comparison was used to set a
+coefficient: the quadratic and its projection are fixed by the
+derivation of \S\ref{sec:s1}.
+
+A companion extensional mode on the same mesh (mode~6 on \texttt{e0}
+and \texttt{scboth}) is $1669.57\,\mathrm{Hz}$ on both, and
+$1699.58\,\mathrm{Hz}$ on \texttt{oc} ($+1.80\%$): the linear
+(membrane) piezoelectric field does couple to extension, confirming
+the negative control of main-text \S2.1 in finite elements as well as
+in closed form. This is disclosed as claim~C of this series
+\cite{mccune2026piezo} and is not built further here.
+
+\section{$e_{31}$ inverse: gates, sensitivity, reflection twin}
+\label{sec:s4}
+With $\cbar$ held at its known value, $e_{31}$ is inverted from the
+free--free (\texttt{coupled\_bisect}) and clamped--clamped
+(\texttt{cc\_coupled\_bisect}) short-circuit fundamentals of
+Table~1 of the main text. Job \textbf{2520482},
+\texttt{compute-33-02.mill}, 562.0~s, dps$=60$/inner\_iters$=45$/
+outer\_iters$=30$, \texttt{.err} empty (0 bytes).
+
+\textbf{G\_worker.} The worker-process scalar reconstruction reproduces
+the in-process bisection roots at rel$=0.0$ on both legs, before any
+inversion built on the in-process class is trusted.
+
+\textbf{G0 (round trip).} Bracket $[1.0,8.0]\,\mathrm{C\,m^{-2}}$ on the
+physical branch (see the reflection-twin derivation below for why this
+range, not $[1,10]$). Recovered $\hat e_{31}=4.100000001$ against true
+$4.1$, rel\_err $=2.499\times10^{-10}$ (bar $10^{-6}$), identical on
+both legs.
+
+\textbf{G1 (negative controls).} A wrong-sign bracket
+$[-8.0,-1.0]$ shows no sign flip; $e_{31}=-4.1$ gives a frequency
+$>5\%$ from target on both legs; $e_{31}=0$ raises the singular-cubic
+exception of \S\ref{sec:s1} when routed through a real determinant call
+(not at construction alone).
+
+\textbf{G2 (sensitivity).} F--F:
+$\mathrm d\omega/\mathrm de_{31}=-3.617563\,\mathrm{rad\,s^{-1}}$ per
+$\mathrm{C\,m^{-2}}$; propagated uncertainty $0.3178\%$ of $e_{31}$ at
+$0.01\%$ frequency precision, $3.1780\%$ at $0.1\%$. C--C:
+$-12.59036\,\mathrm{rad\,s^{-1}}$ per $\mathrm{C\,m^{-2}}$; $0.3405\%$
+and $3.4050\%$. Both legs agree closely with the independent long-wave
+closed-form estimate of main-text \S2.4 ($\sim0.3\%$ of $e_{31}$ at
+$0.01\%$ frequency if stiffness is known). (The Gauss-law closure of
+\S\ref{sec:s1} gave $0.2649\%$ and $0.2822\%$; its larger split made
+$e_{31}$ look better conditioned, and fitted to a measured or
+finite-element split it would return $\lvert\eebar\rvert$ low by
+$(\pi^2/12)^{1/2}=0.907$.)
+
+\textbf{Reflection twin, derived.} Let
+$\eebar=e_{31}-(c_{13}^E/c_{33}^E)e_{33}$. The cubic coefficients of
+\eqref{eq:cubic} are odd in $\eebar$ for $a_3,a_1$ and even for
+$a_2,a_0$ ($K_{\mathrm{pref}}$ and $c$ are odd, $a$ is even). Flipping $\eebar\to-\eebar$ therefore maps the root set
+$\{\chi_i\}\to\{-\chi_i\}$ while each $\lambda_i$ is invariant (numerator
+and denominator of $\lambda_B(\chi)$ flip together) and
+$K_{\mathrm{pref}}\chi$ is invariant termwise ($K_{\mathrm{pref}}$ and
+$\chi$ each flip, the product does not): the determinant's $M$-row and
+$Q$-row blocks are unchanged, and only the $\bar\phi'$-row block flips
+sign as a whole -- an overall row rescaling that does not move where the
+determinant vanishes. Hence
+$e_{31}^{\mathrm{twin}}=2(c_{13}^E/c_{33}^E)e_{33}-e_{31}$ gives a
+bit-identical root frequency to $e_{31}$ itself. At $e_{31}=4.1$,
+$e_{31}^{\mathrm{twin}}=13.800869565217392$, confirmed to rel$=0$ on
+both legs. This is why the inversion bracket is $[1.0,8.0]$ and not a
+wider $[1,10]$: a wider bracket would cross $\eebar=0$
+($e_{31}\approx8.9504\,\mathrm{C\,m^{-2}}$, where the cubic degenerates
+in degree) and approach the twin itself. Do not chase the twin as a
+second physical solution; it is the same root, not a different one.
+
+\section{Overtones and thickness sweep}
+\label{sec:s5}
+\begin{sloppypar}
+A sign-flip scan (dps$=60$/inner\_iters$=45$, production settings;
+job \textbf{2521175}, \texttt{compute-34-07.mill}, 421.8~s,
+\texttt{.err} empty) found three F--F pairs in
+$[455,6000]\,\mathrm{rad\,s^{-1}}$ and two C--C pairs in
+$[1700,6000]$; every pair reproduces the reflection twin of
+\S\ref{sec:s4} at $\sim5$--$6\times10^{-16}$ relative, not only at the
+fundamental.
+\end{sloppypar}
+
+\begin{table}[ht]
+\centering
+\caption{F--F and C--C $n=0$ overtones. Elastic and short-circuit
+($=$ open-circuit) roots in $\mathrm{rad\,s^{-1}}$.}
+\label{tab:overtones}
+\small
+\begin{tabular}{@{}llccc@{}}
+\toprule
+edge & mode & elastic & SC $=$ OC & split \\
+\midrule
+F--F & fundamental & 462.398 & 471.365 & $+1.939\%$ \\
+F--F & OT1 & 2169.893 & 2203.925 & $+1.568\%$ \\
+F--F & OT2 & 5270.649 & 5355.495 & $+1.610\%$ \\
+C--C & fundamental & 1726.890 & 1757.694 & $+1.784\%$ \\
+C--C & OT1 & 4776.965 & 4861.470 & $+1.769\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Short-circuit sits above elastic at every pair, both legs -- the
+main-text stiffening-sign theorem generalizes beyond the fundamental.
+The split trend is not monotonic: F--F dips from $1.94\%$ to $1.57\%$
+at the first overtone, then ticks back up to $1.61\%$ at the second;
+C--C stays flatter, $1.78\%\to1.77\%$.
+
+A nine-point thickness sweep (F--F $n=0$ only, fixed $r_i,r_o$, job
+\textbf{2521176}, same host, concurrent, 805.8~s, \texttt{.err}
+empty) tests the long-wave prediction that the split is independent of
+$H$ at leading order.
+
+\begin{table}[ht]
+\centering
+\caption{F--F $n=0$ fundamental versus ceramic thickness, fixed radii.
+Long-wave closed-form estimate of the thin-limit split: $1.814\%$.}
+\label{tab:thickness}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+$H/r_o$ & elastic [rad/s] & SC [rad/s] & split \\
+\midrule
+0.005 & 138.719 & 141.410 & $1.9399\%$ \\
+0.010 & 277.439 & 282.820 & $1.9397\%$ \\
+0.01667 & 462.398 & 471.365 & $1.9392\%$ \\
+0.025 & 693.596 & 707.040 & $1.9383\%$ \\
+0.040 & 1109.754 & 1131.234 & $1.9355\%$ \\
+0.060 & 1664.632 & 1696.760 & $1.9300\%$ \\
+0.090 & 2496.947 & 2544.843 & $1.9182\%$ \\
+0.130 & 3606.702 & 3675.111 & $1.8967\%$ \\
+0.180 & 4993.895 & 5086.967 & $1.8637\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Every point returns exactly one elastic and one coupled root in its
+search window; short-circuit exceeds elastic at every point; the
+thinnest point's split ($1.9399\%$) is within a factor of $1.069$ of the
+raw long-wave estimate $\tfrac12\eebar^{\,2}/(\Xibar\cbar)=1.8141\%$
+(unrounded constants; the ratio exceeds one because the same
+$\eebar^{\,2}/\Xibar$ also stiffens $\bar c_{12}^E$, which the
+bending-only estimate omits). The
+$H$-independence prediction holds well below $H/r_o\approx0.025$
+(split flat near $1.94\%$) and then drifts down to $1.8637\%$ by
+$H/r_o=0.18$, a $-3.93\%$ relative drift from the thinnest point -- a
+real, small finite-thickness correction beyond the long-wave leading
+order, consistent with Kirchhoff kinematics being best justified in
+exactly the thin regime the main-text geometry ($H/r_o\approx0.0167$)
+already sits in.
+
+\section{Mixed-edge (C--F/F--C) bit-identical reduction proof}
+\label{sec:s6}
+Clamped--free and free--clamped determinants are built from a single
+mixed-edge row-selection routine that picks, at each edge
+independently, either the $(w,w')$ pair (clamped) or the $(M_{rr},Q_r^{\mathrm{eff}})$
+pair (free), following the pattern already used for the elastic ring's
+own mixed-edge family \cite{mccune2026ring}, adapted to the three-branch
+cubic of \S\ref{sec:s1}. Because free--free and clamped--clamped are
+literal special cases of this routine (both edges set to the same
+label), the reduction was checked bit-for-bit (\texttt{mpmath} value
+equality, not a tolerance), not only re-derived: at $n=0,\ \omega=500$
+and $n=2,\ \omega=1500$, the mixed-edge routine with both edges 'F'
+(respectively 'C') reproduces the original free--free (respectively
+clamped--clamped) elastic and coupled determinants exactly, eight of
+eight comparisons. This is a stronger correctness guarantee than an
+independent derivation would give: a defect in the row-selection logic
+would almost certainly have broken the already-validated free--free and
+clamped--clamped paths too, not only left a silent error in the new
+clamped--free/free--clamped paths.
+
+Physical anchors (job \textbf{2521220}, \texttt{compute-34-04.mill},
+369.0~s, \texttt{.err} empty): clamped--free
+elastic$=1605.4427637454191$, SC$=1637.9221255770667$
+($+2.023\%$); free--clamped elastic$=556.8844158380273$,
+SC$=564.9003213461377$ ($+1.439\%$). Both stiffen, consistent with
+the main text's stiffening-sign estimate (Eq.~7). The negative control ($e_{31}=0$
+refused) still fires through the new coupled methods. A worker-path
+regression -- new scalar-reconstruction functions for each of the four
+new bisection methods -- was confirmed bit-identical to in-process, both
+in a standalone check and in the local test suite, for all four new
+methods.
+
+The genuine physical finding of main-text \S4.2 -- the inner edge
+dominating bending stiffness far more than the outer edge at this
+$r_i/r_o=1/6$ -- is reported as an empirical fact of this one geometry,
+with a plausible but unproven mechanism: at $n=0$ the free-edge moment
+condition's $r$-dependent term is $-(2A_1/r)\,Z'$, which is
+$r_o/r_i=6\times$ more sensitive to a clamp override at $r_i$ than at
+$r_o$, consistent with, but not a rigorous proof of, the observed
+asymmetry (clamped--free at $90.4\%$ of the way from free--free to
+clamped--clamped; free--clamped at $7.5\%$).
+
+\section{Force-driven sensing admittance: construction and gates}
+\label{sec:s7}
+The two-region twelve-unknown system of the main text's numerical-method
+section is
+built from the same three $\chi$-cubic branches as \S\ref{sec:s1}, split
+at the load radius $r_F$, with column order (region~I then region~II,
+three branches, two Bessel functions each) matching the free-vibration
+determinant's own inner loop. On a Helmholtz function $\Delta Z=\lambda
+Z$, the physical $n=0$ resultants collapse to
+$M_{rr}[cZ]=-(KZ-2A_1Z'/r)$, $Q_r[cZ]=-KZ'$,
+$K=d\lambda+K_{\mathrm{pref}}\chi$. Six rim rows (three per edge, F--F
+SC) plus six interface rows -- $[w]=[w']=[M_{rr}]=[\bar\phi]
+=[\bar\phi']=0$ and the one inhomogeneous shear jump
+$[Q_r]=-F/(2\pi r_F)$ -- close the twelve-unknown system, solved by an
+equilibrated linear solve (row and column scaling, tracked and
+un-scaled after solving) rather than a determinant search, because the
+third (evanescent) $\chi$-branch produces radial arguments large enough
+that raw entries span more than fifty orders of magnitude at this
+geometry.
+
+\begin{sloppypar}
+Five gates, all in-sandbox and independently cluster-confirmed
+(job \textbf{2521701}, \texttt{compute-34-04.mill}, 247.5~s,
+\texttt{.err} empty, every printed and logged number bit-identical
+between sandbox and cluster):
+\end{sloppypar}
+
+\begin{itemize}
+\item \textbf{G1, force-balance identity} (the load-bearing sign gate on
+the shear-jump right-hand side):
+$2\pi\int_{r_i}^{r_o}r\,w(r)\,\mathrm dr=-F/(A_2\omega^2)$ at
+rel\_err $=1.112761845\ldots\times10^{-61}$ -- essentially exact,
+confirming the jump's sign without assuming it.
+\item \textbf{G2, pole location} (unique-continuation gate): the driven
+system's own homogeneous determinant and the free-vibration
+short-circuit bisection agree at the F--F fundamental,
+$471.3646021920983\,\mathrm{rad\,s^{-1}}$, rel\_err $=0.0$ on every
+computed digit.
+\item \textbf{G3, $\eebar\to0$ limit}, scaled correctly (raw $e_{31}$
+and $e_{33}$ together, so $\eebar$ itself scales to zero -- see the note
+below): $Q_{\mathrm{in}}$ at scale $1,10^{-1},\ldots,10^{-4}$ is
+$5.004\times10^{-12}$, $6.627\times10^{-13}$, $6.648\times10^{-14}$,
+$6.648\times10^{-15}$, $6.648\times10^{-16}$; decade ratios $7.551$,
+$9.968$, $10.000$, $10.000$; log--log slope over the three deep decades
+is $0.999993$, clean linear vanishing.
+\item \textbf{G\_mu} (diagnostic): the two mechanical Helmholtz branches
+match the purely elastic wavenumber $\pm\mu=\pm10.250145149520318$ at
+rel\_err $=0.0$ at scale $10^{-8}$, and the third branch converges to
+the pure-electrical Helmholtz eigenvalue $1/a=5\Xi_{33}/(2H^2\Xi_{11})
+=20497.61$ of (B) (with $\Xibar\to\Xi_{33}$, because $e_{33}$ is scaled
+to zero together with $e_{31}$).
+\item \textbf{G\_worker}: the worker-process point evaluation reproduces
+$Y_{\mathrm{sense}}$ bit-identically (real and imaginary parts) both at
+$\omega=200$ ($Y_{\mathrm{sense}}=5.00405914569838\times10^{-12}$) and
+at $\omega=473$, just above the pole
+($Y_{\mathrm{sense}}=6.062573639651388\times10^{-10}$).
+\end{itemize}
+
+\textbf{Methodological note.} An earlier pass at G3, scaling only the
+raw constructor keyword \texttt{e31} toward zero while leaving
+\texttt{e33} fixed, appeared to show $Q_{\mathrm{in}}$ plateauing near
+$1.04\times10^{-11}$ instead of vanishing, and the two mechanical
+branches plateauing near $\lambda\approx\pm9.557$ instead of the
+correct $\pm10.250145\ldots$. Root cause: $\eebar=e_{31}
+-(c_{13}^E/c_{33}^E)e_{33}$ is dominated by the unscaled \texttt{e33}
+cross term at this material point, so with \texttt{e33} held fixed,
+$\eebar$ plateaus near $-8.951$ (its value at raw $e_{31}=0$) and never
+actually approaches zero -- the singular limit being probed was never
+reached. This was root-caused by direct numerical probe, consistent with
+this series' own methodology: precision was ruled out first (\texttt{dps}
+$50/100/150$ gave bit-identical wrong answers under the buggy scaling,
+a real mathematical limit of the wrong quantity, not a conditioning
+artifact), which is what forced tracing the discrepancy to the test
+harness rather than the solver. A permanent regression test pins the
+correct behavior down going forward.
+
+Reported, not gated: sweeping $Y_{\mathrm{sense}}(\omega)$ across the
+F--F short-circuit fundamental shows the resonance of main-text
+Figure~3 -- magnitude climbing from $\sim10^{-10}$ well off-resonance to
+$\pm9.76\times10^{-8}$ within $0.01\,\mathrm{rad\,s^{-1}}$ of
+$471.3646$, with a clean sign flip through the pole, textbook
+driven-response behavior for a transfer function with a simple pole at
+the mechanical resonance and no damping in the operator.
+
+\section{Cluster job provenance}
+\label{sec:jobs}
+All jobs on The Mill \cite{mill2024}, solver snapshot
+\texttt{2026-07-10.s10}. The monolithic piezoelectric path is a new
+module, unused by the elastic or layered-piezoelectric defaults.
+
+\begin{itemize}
+\item 2520476 --- F--F finite-element queue (\texttt{e0}/\texttt{scboth}/
+      \texttt{oc}), $3/3$ \texttt{RUN COMPLETED}, 0 errors, 0 warnings.
+      Mode~2 bit-identical OC/SC at $74.933783\,\mathrm{Hz}$.
+\item 2520482 --- F--F/C--C $e_{31}$ inverse, \texttt{SENTINEL
+      PASS\_ALL}, both legs, $\hat e_{31}$ rel\_err $2.499\times10^{-10}$.
+\item 2521175 --- $n=0$ overtones (F--F/C--C), \texttt{SENTINEL
+      PASS\_ALL}, bit-identical to the in-sandbox smoke-test digits.
+\item 2521176 --- thickness sweep (F--F, 9 points), \texttt{SENTINEL
+      PASS\_ALL}, \textbf{G\_found}, \textbf{G\_theorem}, and
+      \textbf{G\_longwave} all pass.
+\item 2521220 --- C--F/F--C mixed-edge, \texttt{SENTINEL PASS\_ALL},
+      \textbf{G\_reduce} bit-identical F--F/C--C reduction, worker-path green.
+\item 2521701 --- force-driven sensing admittance, \texttt{SENTINEL
+      PASS\_ALL}, all 5 gates, bit-identical to the in-sandbox run.
+\end{itemize}
+\noindent\textbf{Consistent-projection rerun (2026-09-23).} Jobs
+2520482, 2521175, 2521176, 2521220 and 2521701 used the Gauss-law
+closure of \S\ref{sec:s1}. All five probes were re-run unchanged
+against the corrected solver (default \texttt{projection='consistent'};
+the old closure is kept as \texttt{projection='duan'} and reproduces the
+old numbers bit-for-bit). Every gate passes (\texttt{SENTINEL PASS\_ALL}
+on all five), and every number in this document and the main text is
+from that rerun. The rerun was done in-sandbox at the probes' production precision; it was not repeated on the cluster, because every earlier cluster archival run of these same probes reproduced its in-sandbox run bit-for-bit. The finite-element job 2520476 is unchanged: it does not
+depend on the analytic model.
+
+\clearpage
+\begin{thebibliography}{99}\small
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\bibitem{duan2005} W.H. Duan, S.T. Quek, Q. Wang, ``Free vibration analysis
+of piezoelectric coupled thin and thick annular plate,'' J. Sound Vib. 281
+(2005) 119--139.
+\bibitem{mccune2026ring} G. McCune, D. Stutts, ``Exact radial-determinant
+frequencies of annular and circular plates: the closed-ring and solid-disk
+limits of the sector wave-function method,'' submitted (2026).
+\bibitem{mccune2026piezo} G. McCune, D. Stutts, ``Exact radial-determinant
+frequencies of a piezoelectric annular plate, and inverse recovery of
+$e_{31}$ from open-circuit flexure,'' submitted (2026).
+\bibitem{mill2024} Missouri University of Science and Technology, ``The Mill
+HPC Cluster,'' \emph{The Mill} (2024), Article 1.
+\url{https://scholarsmine.mst.edu/the-mill/1}.
+\end{thebibliography}
+\end{document}
