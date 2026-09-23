@@ -32,3 +32,8 @@ Thumbs.db
 
 # Review scratch: rendered page PNGs, one-off patch scripts. Never shipped.
 paper/_scratch_to_delete/
+paper/_render_check/
+paper/*.tmp
+paper/paper_figures/_geom_raw.png
+# Working-tree alias of PAPER4_PIEZO_DRAFT.pdf (same bytes); not shipped.
+paper/Paper4_Piezo.pdf
