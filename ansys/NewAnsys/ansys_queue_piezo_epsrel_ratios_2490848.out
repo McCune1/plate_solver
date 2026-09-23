@@ -1,0 +1,21 @@
+Job 2490848 on compute-33-02.mill
+Start: Tue Sep 15 21:29:46 CDT 2026
+================================================================
+  run_ansys_queue.sh -- Tue Sep 15 21:29:48 CDT 2026
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys  manifest=ansys_queue_manifest_piezo_epsrel_ratios_2026-09-16.txt  cpus/deck=8  stop_on_fail=0
+================================================================
+
+---- [1] ansys_p4_epsrel_ff_lanb_h18_2026-09-16.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h18_20) -- Tue Sep 15 21:29:48 CDT 2026 ----
+---- [1] ansys_p4_epsrel_ff_lanb_h18_2026-09-16.inp : OK (7s), wrote ansys_p4_epsrel_ff_lanb_h18_2026-09-16_out.txt, sentinel=ansys_p4_epsrel_ff_lanb_h18_2026-09-16.inp.QUEUE_OK ----
+
+---- [2] ansys_p4_epsrel_ff_lanb_h15_2026-09-16.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h15_20) -- Tue Sep 15 21:29:55 CDT 2026 ----
+---- [2] ansys_p4_epsrel_ff_lanb_h15_2026-09-16.inp : OK (6s), wrote ansys_p4_epsrel_ff_lanb_h15_2026-09-16_out.txt, sentinel=ansys_p4_epsrel_ff_lanb_h15_2026-09-16.inp.QUEUE_OK ----
+
+================================================================
+  QUEUE SUMMARY -- Tue Sep 15 21:30:01 CDT 2026  (total wall: 0 min)
+================================================================
+  ansys_p4_epsrel_ff_lanb_h18_2026-09-16.inp : OK (7s)
+  ansys_p4_epsrel_ff_lanb_h15_2026-09-16.inp : OK (6s)
+
+  total=2  ok=2  skip=0  fail=0
+End: Tue Sep 15 21:30:01 CDT 2026

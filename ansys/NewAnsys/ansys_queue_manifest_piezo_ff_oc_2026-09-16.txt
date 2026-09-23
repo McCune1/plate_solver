@@ -1,0 +1,26 @@
+# Paper 4 (piezo) F-F OPEN-CIRCUIT epsrel LANB -- 2026-09-16. ONE deck,
+# cloned from job 2490706's confirmed h1/2h=1/12 SC deck
+# (LESSONS_LEARNED.md Sec 18.165/18.175). Mesh/units/TB,PIEZ/LANB
+# unchanged; only the electrical BC changes (inners grounded, outers
+# CP,VOLT unconstrained).
+#
+# PUSH these files to
+#   /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/
+# then from that directory:
+#   sbatch submit_ansys_queue_piezo_ff_oc_2026-09-16.sh
+#
+# Pre-registered PASS criteria -- read this deck's own _modes.txt,
+# _discriminator.txt, and _out.txt (grep "solve:" for the residual;
+# grep "*** ERROR ***"; do NOT trust the .QUEUE_OK sentinel alone):
+#
+#   1. ansys_p4_epsrel_ff_lanb_oc_2026-09-16.inp
+#      h1/2h=1/12 F-F OC. Target: bending mode near 119.405 Hz
+#      (750.2394210586 rad/s, PiezoOutOfPlaneSolver.oc_ff_bisect),
+#      ABOVE the parent SC FE mode 2 = 119.242 Hz (job 2490706) --
+#      stiffening vs the same mesh. 0 Hz rigid-body present, real
+#      O(0.1-1) bending discriminator (UY_top~UY_bot, UX_top~-UX_bot
+#      at r=RO), no ill-conditioning warning.
+#      FAIL if mode 2 reproduces 119.242 Hz -- the OC electrical BC
+#      did not take. Do not re-try FREQB/DOF-pin/units/TBDATA.
+#
+ansys_p4_epsrel_ff_lanb_oc_2026-09-16.inp

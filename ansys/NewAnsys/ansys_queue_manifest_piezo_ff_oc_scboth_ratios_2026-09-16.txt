@@ -1,0 +1,47 @@
+# Paper 4 (piezo) Lever 7 -- 2026-09-16. FOUR decks: OC and both-faces-SC
+# FE at h1/2h=1/8 and 1/5, cloned from the confirmed 1/12 OC deck (job
+# 2491761) and 1/12 scboth deck (job 2491831). Mesh/units/TB,PIEZ/LANB
+# unchanged; only H1 and each deck's closed-form target differ. See
+# LESSONS_LEARNED.md Sec 18.176-18.178 and PAPER4_LEVERS_2026-09-16.md
+# item 7. Do NOT use the outer-only-ground h18/h15 SC decks (job
+# 2490848) as the SC partner here -- that is a mixed electrical BC.
+#
+# PUSH these files to
+#   /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/
+# then from that directory:
+#   sbatch submit_ansys_queue_piezo_ff_oc_scboth_ratios_2026-09-16.sh
+#
+# Pre-registered PASS criteria -- read each deck's own _modes.txt,
+# _discriminator.txt, and _out.txt (grep "solve:" for the residual;
+# grep "*** ERROR ***"; do NOT trust the .QUEUE_OK sentinel alone):
+#
+#   1. ansys_p4_epsrel_ff_lanb_h18_oc_2026-09-16.inp
+#      h1/2h=1/8 F-F OC. Target: bending mode near 122.15932 Hz
+#      (767.5496387603 rad/s, PiezoOutOfPlaneSolver.oc_ff_bisect),
+#      ABOVE deck 2's mode 2 (stiffening, same mesh). 0 Hz rigid-body
+#      present, real O(0.1-1) bending discriminator, 0 *** ERROR ***.
+#
+#   2. ansys_p4_epsrel_ff_lanb_h18_scboth_2026-09-16.inp
+#      h1/2h=1/8 both-faces SC control. Target: bending mode near
+#      121.61564 Hz (764.1335816243 rad/s sine-SC), BELOW deck 1's
+#      mode 2. 0 Hz rigid-body present, real discriminator, 0 errors.
+#
+#   3. ansys_p4_epsrel_ff_lanb_h15_oc_2026-09-16.inp
+#      h1/2h=1/5 F-F OC. Target: bending mode near 128.26320 Hz
+#      (805.9014661114 rad/s), ABOVE deck 4's mode 2. 0 Hz rigid-body
+#      present, real discriminator, 0 errors.
+#
+#   4. ansys_p4_epsrel_ff_lanb_h15_scboth_2026-09-16.inp
+#      h1/2h=1/5 both-faces SC control. Target: bending mode near
+#      127.38344 Hz (800.3737601605 rad/s sine-SC), BELOW deck 3's
+#      mode 2. 0 Hz rigid-body present, real discriminator, 0 errors.
+#
+# FAIL if any OC deck reproduces its own-ratio scboth Hz (or the
+# WRONG ratio's Hz), or if a scboth deck lands near its OC sibling's
+# Hz -- the electrical BC or the H1 substitution did not take. Do not
+# re-try FREQB/DOF-pin/units/TBDATA/LANB/mesh.
+#
+ansys_p4_epsrel_ff_lanb_h18_oc_2026-09-16.inp
+ansys_p4_epsrel_ff_lanb_h18_scboth_2026-09-16.inp
+ansys_p4_epsrel_ff_lanb_h15_oc_2026-09-16.inp
+ansys_p4_epsrel_ff_lanb_h15_scboth_2026-09-16.inp

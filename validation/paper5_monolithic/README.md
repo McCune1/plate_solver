@@ -16,8 +16,9 @@ the earlier Gauss-law closure of a cosine potential, which is 12/π² high
 in the long-wave limit. The solver still provides that model as
 `projection='duan'`, and it reproduces those runs bit-for-bit.
 
-The finite-element decks for the free–free check are in `ansys/NewAnsys/`
-(`*_p5_*`).
+The finite-element decks for the free–free check, with their text
+outputs and queue log (job 2520476), are in `ansys/NewAnsys/`
+(`*_p5_*`); see `ansys/README.md`.
 
 **Running.** Set `PKG_PATH` to the repository root. The `submit_*.sh`
 wrappers hardcode the original cluster paths; change them to your

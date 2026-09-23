@@ -1,0 +1,408 @@
+! ansys_p4_ff_piezo_coupling_off_2026-09-15.inp
+! Paper 4 (piezo) F-F cross-check -- PIEZO-COUPLING-OFF ISOLATION TEST.
+! Written 2026-09-15, same session as LESSONS_LEARNED.md Sec 18.153-18.155.
+!
+! ============================================================
+! WHY THIS DECK: job 2490366 (FIX v4 -- X_INERT raised from 1.0E-15 to
+! 1.0E-9 in ansys_p4_ff_piezo_ring_2026-09-15.inp) improved the Block
+! Lanczos ill-conditioning residual by ~53x (9.15E-2 -> 1.74E-3) --
+! confirming the permittivity-scale hypothesis was directionally real --
+! but mode 2 stayed FROZEN bit-for-bit (3422.3327 Hz both times) and the
+! discriminator noise floor was unchanged. X_INERT is therefore
+! DISCONFIRMED as the cause of the ~29x frequency error, even though it
+! was a genuine partial fix for the conditioning symptom (Sec 18.155).
+!
+! Re-reading job 2490366's own modes.txt surfaced a new signal: the
+! inter-mode spacing (2->3: 3041 Hz, 3->4: 3081 Hz, ..., 9->10: 3128 Hz)
+! is suspiciously regular and converging toward ~3130 Hz, not the pattern
+! a true bending-mode family relative to a 119 Hz fundamental would show.
+! Combined with BOTH UX and UY being ~1E-10-to-1E-17 (not just UY-small-
+! with-UX-large, which a genuine breathing mode would show) at the outer-
+! radius discriminator points for every mode 2-20, this spectrum does not
+! resemble either the bending or breathing families described in the
+! layered deck's own header -- it resembles a family whose frequency
+! scale is set by something else. WORKING HYPOTHESIS: the piezoelectric
+! coupling constants (e31/e33/e15 via TB,PIEZ,2's TBDATA) may be
+! mis-scaled, wrong-signed, or wrong-ordered relative to the PLANE223/
+! TB,ANEL axis convention, producing an artificially stiff
+! electromechanical term that dominates the spectrum near 3000-3400 Hz
+! regardless of the true mechanical stiffness -- consistent with the
+! frequency being frozen against X_INERT (the inert region has e=0,
+! uninvolved in this mechanism).
+!
+! THIS DECK's job: test that hypothesis directly. SAME v3-fixed
+! three-area layered geometry, mesh, PLANE223/KEYOPT(1)=1001 element, and
+! REAL PZT4 elastic constants (TB,ANEL,2 unchanged) as the current
+! layered deck -- the ONLY change is material 2's TB,PIEZ,2 block zeroed
+! out (identical structure to material 1's already-zero block), so the
+! piezo layer becomes elastically identical to real PZT4 but with NO
+! electromechanical coupling anywhere in the model (e=0 everywhere).
+! X_INERT is now a single common permittivity (1.0E-9, the FIX v4 value)
+! applied to BOTH materials, since neither couples mechanically -- kept
+! nonzero only for VOLT well-posedness, per the deck's own established
+! convention.
+!
+! TARGET TO CHECK AGAINST: no exact closed-form target for this
+! deliberately-nonphysical (coupling-off) configuration exists, but a
+! PLAUSIBLE RANGE can be reasoned from the bare-host isolation deck's own
+! confirmed elastic-only root (115.68 Hz, job 2490363) -- adding stiffer,
+! denser PZT4 skins on both faces should shift that root by at most a
+! modest fraction (order tens of percent, not a factor of ~29), so a
+! genuine bending mode roughly in the 100-200 Hz range is expected if the
+! elastic composite itself is sound.
+!
+! CONFIRMATION CRITERIA (pre-registered before this run):
+!  (a) mode 2 lands roughly in the 100-200 Hz range, NOT frozen near
+!      3422 Hz;
+!  (b) discriminator.txt shows a genuine bending signature at that mode
+!      (UY_top~UY_bot non-negligible, UX_top~-UX_bot), matching the
+!      bare-host deck's own clean pattern, not the universal near-zero
+!      noise floor seen in every layered-deck run so far;
+!  (c) no new warnings beyond the routine ones already seen (this
+!      configuration has no piezoelectric coupling at all, so no reason
+!      to expect a NEW ill-conditioning mode, though the VOLT dof is
+!      still present and should behave like the bare-host case).
+!  IF (a)/(b) PASS: implicates the piezoelectric coupling constants/
+!      convention (E31/E33/E15 values or TBDATA axis ordering) as the
+!      bug -- next step audits those against Duan2005 Table 1's IEEE
+!      convention, not re-litigated here.
+!  IF mode 2 is STILL frozen near 3422 Hz despite zero coupling: the bug
+!      is NOT electromechanical at all -- it is in the PZT4 elastic
+!      constants themselves (C11E/C12E/C13E/C33E/C44E/C66E or their
+!      TBDATA ordering against TB,ANEL's expected layout) or in how the
+!      layered composite assembles mechanically -- see LESSONS_LEARNED.md
+!      Sec 18.155 for the full decision tree.
+! ============================================================
+!
+! ============================================================
+! UNITS RESCALE (2026-09-16), following LESSONS_LEARNED.md Sec 18.161's
+! "next concrete step, not yet attempted": a from-scratch, validated,
+! consistent unit-system rescale of the whole piezo deck family, to
+! shrink the ~20-order-of-magnitude spread between the mechanical block
+! (order 1E9-1E13 in SI Pa-based units) and the electrical/piezoelectric
+! block (permittivity order 1E-9 F/m) that five independent cheap-lever
+! probes (jobs 2490482, 2490571/2490582, 2490583) could not resolve.
+!
+! CHOSEN SYSTEM: mm - N - s - tonne (mechanical), REAL VOLTS (electrical
+! potential unchanged). This is NOT an arbitrary or guessed choice -- it
+! is the one non-SI system where the force unit N and the time unit s
+! are UNCHANGED from SI (since tonne*mm/s^2 = 1000kg*1e-3m/s^2 = kg*m/s^2
+! = N exactly), which is why frequencies (1/s) come out in real Hz with
+! zero further conversion, and it is the standard "mm-N-s-tonne" system
+! already ubiquitous in mm-scale FE work (ANSYS/LS-DYNA/Abaqus alike).
+!
+! DERIVATION (first principles, cross-checked 3 independent ways -- T-
+! equation substitution, electromechanical energy-density bookkeeping,
+! and base-unit/derived-charge-unit substitution -- all three agree):
+!
+!  length      L' = L[m] * 1000                      (m -> mm)
+!  mass        M' = M[kg] * 1e-3                      (kg -> tonne;
+!                                                       DERIVED, not
+!                                                       independently
+!                                                       chosen, from
+!                                                       F=ma consistency)
+!  density     rho' = rho[kg/m^3] * 1e-12             (kg/m^3 -> tonne/mm^3)
+!  stress/     E' = E[Pa] * 1e-6                       (Pa -> MPa = N/mm^2;
+!  modulus                                             an exact, always-
+!                                                       valid physical
+!                                                       unit conversion)
+!  potential   V' = V[Volt]  (UNCHANGED -- our deliberate choice, so
+!                              VOLT dof / D,ALL,VOLT,0 BCs stay literal,
+!                              physical volts, no BC rewriting needed)
+!  el. field   E_field'[V/mm] = E_field[V/m] * 1e-3   (implied by the
+!                              geometry now being in mm; not a material
+!                              constant, so nothing to type in directly)
+!  ABS.        eps' = eps[F/m]  UNCHANGED NUMERICALLY. Proof: F/m, fully
+!  PERMITTIVITY decomposed into base units, is F/m = (C^2/(N*m))/m =
+!  (MP,PERx)   C^2/(N*m^2); substituting the SI identity C = N*m/V (from
+!              V=J/C, J=N*m) gives C^2/(N*m^2) = N/V^2 -- the "m" cancels
+!              EXACTLY, so absolute permittivity has NO net length
+!              dependence once expressed in N and V (which are both
+!              unchanged in this system) -- confirmed independently by
+!              the energy-density route (T-form energy density (1/2)eps*
+!              E^2 must equal (1/2)eps'*E'^2 once both are expressed in
+!              the new energy-density unit MPa=mJ/mm^3, and E'=E*1e-3
+!              exactly cancels the implied 1e-6 from Pa->MPa against
+!              eps' = eps, i.e. no eps rescale needed).
+!  PIEZO e-    e' = e[C/m^2] * 1e-3. Derived from the T-equation
+!  CONSTANT    T = c:S - e^T:E: converting T and c from Pa to MPa (each
+!  (TB,PIEZ,   x1e-6) and E from V/m to V/mm (x1e-3, i.e. E=E'*1e3),
+!  TBDATA,     T'*1e6 = c'*1e6*S - e*(E'*1e3)  =>  T' = c'*S - (e*1e-3)*E'
+!  stress form)  => e' = e*1e-3. Independently re-derived via the
+!              charge-unit-substitution method (deriving the coherent
+!              charge unit Q* implied by keeping real Volts and mJ=N*mm
+!              energy, Q*=1e-3 C, then re-expressing C/m^2 in Q*/mm^2)
+!              -- both methods agree exactly: e' = e[C/m^2] * 1e-3.
+!  length      any PURE length tolerance (e.g. NUMMRG's node-merge
+!  tolerance   distance) is rescaled x1000 like any other length, e.g.
+!              1.0E-8 m -> 1.0E-5 mm.
+!
+! NOT hand-derived from an "empirical" ABAQUS-forum factor (the risk the
+! session notes flagged) -- every factor above follows from ANSYS's own
+! documented TB,PIEZ constitutive form (T=c:S-e^T:E, D=e:S+eps^S:E,
+! stress-form default TBOPT, already independently confirmed correct in
+! Sec 18.157) and ordinary SI dimensional analysis, not a borrowed number.
+!
+! VALIDATION STAGING (per the ground rules -- do NOT trust a coupled
+! result in the new units before these pass): this submission batches
+! the bare-host elastic-only deck and the piezo-coupling-off deck
+! rescaled into these SAME units FIRST. Both are purely mechanical
+! eigenvalue problems (piezo-coupling-off has e=0 everywhere, so its
+! VOLT dof is present but completely decoupled from the mechanical
+! modes) -- their frequencies are mathematically GUARANTEED invariant
+! under any internally-consistent unit rescaling, so they are a real
+! check on the ARITHMETIC of this conversion (did every E, rho, C_ij
+! actually get rescaled correctly), not on the physics. Confirmation
+! criteria: (a) rescaled bare-host mode 2 must reproduce 114.89 Hz
+! (job 2490363's own result) to at least 4 significant figures -- NOT
+! merely "close to 115.68 Hz", since a few-percent FE-discretization
+! gap is expected and already characterized, but ANY unit-conversion
+! arithmetic error would show up as a gap much larger than that
+! already-known discretization error, or as a wildly wrong number; (b)
+! rescaled piezo-coupling-off mode 2 must reproduce 118.81016 Hz (job
+! 2490456's own result) to at least 4 significant figures, same
+! reasoning. If EITHER fails, the units arithmetic (not the physics) is
+! wrong and the FIX-v6-coupled result below must not be trusted.
+!
+! ONLY once (a) and (b) both pass does the coupled result below become
+! trustworthy: mode 2 should land near 119.058 Hz (closed-form target)
+! with a real O(0.1-1)-magnitude bending discriminator and the exact 0 Hz
+! rigid-body mode should reappear, if the ~20-order-of-magnitude SI-units
+! disparity really was the root cause of the catastrophic ill-
+! conditioning (residual 4.15E+02 at full coupling, job 2490482).
+! ============================================================
+
+FINISH
+/CLEAR,NOSTART
+/TITLE, Paper 4 F-F piezo coupling-OFF EPSREL, e=0, mm-N-s-tonne (2026-09-16)
+
+! ---- Geometry (SI units, meters) -- identical to the layered deck ----
+RI     = 100.0
+RO     = 600.0
+H      = 10.0           ! host HALF-thickness [mm]
+H1     = 2*H/12         ! piezo layer thickness, Table-4 ratio 1/12
+NDIV_R = 40
+NDIV_ZH = 6              ! through-thickness divisions, host
+NDIV_ZP = 2              ! through-thickness divisions, each piezo layer
+NMODES = 20
+
+! ---- Steel host material (elastic only) -- identical to the layered deck ----
+E_STEEL   = 2.00E5      ! [MPa] = 200 GPa
+NU_STEEL  = 0.3
+RHO_STEEL = 7.800E-9    ! [tonne/mm^3]
+
+! ---- PZT4 elastic constants, Duan2005 Table 1 -- IDENTICAL to the
+! layered deck's TB,ANEL,2 values. Piezoelectric constants (E31/E33/E15)
+! are still defined here for documentation/comparison but are NOT fed
+! into TB,PIEZ,2 below (that block is zeroed instead) -- this is the
+! ONLY substantive change from the layered deck. ----
+C11E = 1.320E5          ! [MPa]
+C12E = 7.100E4          ! [MPa]
+C13E = 7.300E4          ! [MPa]
+C33E = 1.150E5          ! [MPa]
+C44E = 7.300E4          ! [MPa]
+C66E = (C11E-C12E)/2
+RHO_PZT = 7.500E-9      ! [tonne/mm^3]
+
+! Common inert-but-well-posed permittivity, both materials -- neither
+! couples mechanically in this deck (e=0 everywhere), so a single common
+! value (the FIX v4 scale, Sec 18.154) is used for both, kept nonzero
+! only so VOLT stays well-posed at every node.
+EPS0   = 8.854E-12       ! F/m. PLANE223 MP,PERx is RELATIVE, not absolute.
+X11ABS = 7.124E-9        ! Duan2005 Table 1 absolute F/m
+X33ABS = 5.841E-9
+X11    = X11ABS/EPS0     ! ~804.8 relative (PZT, e=0 so should NOT move 118.81 Hz)
+X33    = X33ABS/EPS0     ! ~659.7 relative
+X_INERT = 1.0            ! relative, host VOLT well-posed
+
+!
+! ============================================================
+! EPSREL FIX (2026-09-16): PLANE223 MP,PERx is RELATIVE permittivity.
+! Duan2005 Table 1 X11=7.124e-9 / X33=5.841e-9 are ABSOLUTE (F/m =
+! eps_r * eps0). Parent UNITS_MM decks fed those F/m numbers to MP,PERX
+! unchanged. Coupled-Field Guide 2.3.2.1: for PLANE223, MP,PERX and
+! TB,DPER are ALWAYS relative. The SOLID5/SOLID98 "value<1 means
+! absolute" exception does NOT apply. Default EPZRO is left alone
+! (8.85e-12 F/m); relative ~805 * EPZRO recovers the Duan absolute
+! value, which is also the correct mm-N-s-tonne number (permittivity
+! is numerically invariant under that rescale). Host X_INERT is now a
+! small relative value (1.0), not 1.0E-9-fed-as-relative. NOTHING else
+! in the mesh, TB,PIEZ FIX v6, units, or electrical BC is changed
+! unless a deck's own name says so (subsp / e0 / cc).
+! ============================================================
+/PREP7
+ET,1,PLANE223
+KEYOPT,1,1,1001    ! structural-piezoelectric dof set (unchanged element type)
+KEYOPT,1,3,1       ! axisymmetric
+
+! ---- Material 1: steel host, elastic only, e=0 (unchanged from layered deck) ----
+TB,ANEL,1,1,,0
+TBDATA,1, (E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0
+TBDATA,7, (E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0
+TBDATA,12,(E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0
+TBDATA,16,(E_STEEL/(2*(1+NU_STEEL))),0,0
+TBDATA,19,(E_STEEL/(2*(1+NU_STEEL))),0
+TBDATA,21,(E_STEEL/(2*(1+NU_STEEL)))
+TB,PIEZ,1
+TBDATA,1,0,0,0,0,0,0
+TBDATA,7,0,0,0,0,0,0
+TBDATA,13,0,0,0,0,0,0
+MP,PERX,1,X_INERT
+MP,PERY,1,X_INERT
+MP,PERZ,1,X_INERT
+MP,DENS,1,RHO_STEEL
+
+! ---- Material 2: PZT4 layer, REAL elastic constants (identical TBDATA
+! to the layered deck's TB,ANEL,2), but TB,PIEZ,2 ZEROED (this is the
+! ONLY change from the layered deck's material 2 block) -- no
+! electromechanical coupling anywhere in this model. ----
+TB,ANEL,2,1,,0
+TBDATA,1,C11E,C13E,C12E,0,0,0
+TBDATA,7,C33E,C13E,0,0,0
+TBDATA,12,C11E,0,0,0
+TBDATA,16,C44E,0,0
+TBDATA,19,C66E,0
+TBDATA,21,C44E
+TB,PIEZ,2
+TBDATA,1,0,0,0,0,0,0
+TBDATA,7,0,0,0,0,0,0
+TBDATA,13,0,0,0,0,0,0
+MP,PERX,2,X11
+MP,PERY,2,X33
+MP,PERZ,2,X11
+MP,DENS,2,RHO_PZT
+
+! ---- Geometry: three stacked rectangles (r x z), host + top/bottom piezo
+! -- identical to the layered deck ----
+RECTNG,RI,RO,-H,H              ! area 1: steel host
+RECTNG,RI,RO,H,H+H1            ! area 2: piezo top
+RECTNG,RI,RO,-H-H1,-H          ! area 3: piezo bottom
+
+! Meshing block: identical to the v3-fixed layered deck (LESSONS_LEARNED
+! Sec 18.152) -- every line sized by its own single-line LSLA,S+LSEL,R+
+! LESIZE sequence, no LSEL,A anywhere.
+ASEL,S,AREA,,1
+AATT,1,,1
+LSLA,S
+LSEL,R,LOC,X,RI
+LESIZE,ALL,,,NDIV_ZH,,,,,1
+LSLA,S
+LSEL,R,LOC,X,RO
+LESIZE,ALL,,,NDIV_ZH,,,,,1
+LSLA,S
+LSEL,R,LOC,Y,-H
+LESIZE,ALL,,,NDIV_R,,,,,1
+LSLA,S
+LSEL,R,LOC,Y,H
+LESIZE,ALL,,,NDIV_R,,,,,1
+ALLSEL,ALL
+ASEL,S,AREA,,1
+MSHAPE,0,2D
+MSHKEY,1
+AMESH,ALL
+
+ASEL,S,AREA,,2
+AATT,2,,1
+LSLA,S
+LSEL,R,LOC,X,RI
+LESIZE,ALL,,,NDIV_ZP,,,,,1
+LSLA,S
+LSEL,R,LOC,X,RO
+LESIZE,ALL,,,NDIV_ZP,,,,,1
+LSLA,S
+LSEL,R,LOC,Y,H
+LESIZE,ALL,,,NDIV_R,,,,,1
+LSLA,S
+LSEL,R,LOC,Y,H+H1
+LESIZE,ALL,,,NDIV_R,,,,,1
+ALLSEL,ALL
+ASEL,S,AREA,,2
+MSHAPE,0,2D
+MSHKEY,1
+AMESH,ALL
+
+ASEL,S,AREA,,3
+AATT,2,,1
+LSLA,S
+LSEL,R,LOC,X,RI
+LESIZE,ALL,,,NDIV_ZP,,,,,1
+LSLA,S
+LSEL,R,LOC,X,RO
+LESIZE,ALL,,,NDIV_ZP,,,,,1
+LSLA,S
+LSEL,R,LOC,Y,-H-H1
+LESIZE,ALL,,,NDIV_R,,,,,1
+LSLA,S
+LSEL,R,LOC,Y,-H
+LESIZE,ALL,,,NDIV_R,,,,,1
+ALLSEL,ALL
+ASEL,S,AREA,,3
+MSHAPE,0,2D
+MSHKEY,1
+AMESH,ALL
+
+ALLSEL,ALL
+NUMMRG,NODES,1.0E-5     ! merge coincident nodes at the host/piezo interfaces [mm tolerance, was 1.0E-8 m]
+FINISH
+
+/SOLU
+ANTYPE,MODAL
+MODOPT,LANB,NMODES,-1.0,,,ON
+MXPAND,NMODES,,,NO
+
+! Electrical BC only -- short-circuit on each layer's OUTER (non-
+! interface) face, identical to the layered deck. NO mechanical
+! constraint anywhere (true free-free).
+NSEL,S,LOC,Y,H+H1
+D,ALL,VOLT,0
+NSEL,S,LOC,Y,-H-H1
+D,ALL,VOLT,0
+ALLSEL,ALL
+SOLVE
+FINISH
+
+/POST1
+! ---- Frequency table ----
+*DIM,FR1,ARRAY,NMODES
+*DIM,IDXARR,ARRAY,NMODES
+*DO,I,1,NMODES
+  *GET,FR1(I),MODE,I,FREQ
+  IDXARR(I)=I
+*ENDDO
+*CFOPEN,ansys_p4_epsrel_ff_e0_modes,txt
+*VWRITE
+('mode f[Hz] tag=epsrel_ff_e0 target=118.81016Hz')
+*VWRITE,IDXARR(1),FR1(1)
+(F4.0, 3X, E16.8)
+*CFCLOS
+
+! ---- Mode-shape discriminator: UX, UY at matched top/bottom node pairs
+! at the outer radius (r=RO), for every mode -- identical convention to
+! the layered deck (bending: UY same sign/mag, UX opposite sign;
+! breathing: reverse). ----
+NSEL,S,LOC,X,RO
+NSEL,R,LOC,Y,H          ! host top surface node at r=Ro
+*GET,NTOP,NODE,0,NUM,MIN
+NSEL,S,LOC,X,RO
+NSEL,R,LOC,Y,-H         ! host bottom surface node at r=Ro
+*GET,NBOT,NODE,0,NUM,MIN
+ALLSEL,ALL
+
+*DIM,UXT,ARRAY,NMODES
+*DIM,UYT,ARRAY,NMODES
+*DIM,UXB,ARRAY,NMODES
+*DIM,UYB,ARRAY,NMODES
+*DO,I,1,NMODES
+  SET,1,I
+  *GET,UXT(I),NODE,NTOP,U,X
+  *GET,UYT(I),NODE,NTOP,U,Y
+  *GET,UXB(I),NODE,NBOT,U,X
+  *GET,UYB(I),NODE,NBOT,U,Y
+*ENDDO
+*CFOPEN,ansys_p4_epsrel_ff_e0_discriminator,txt
+*VWRITE
+('mode   UX_top        UY_top        UX_bot        UY_bot      (bending: UY_top~UY_bot, UX_top~-UX_bot)')
+*VWRITE,IDXARR(1),UXT(1),UYT(1),UXB(1),UYB(1)
+(F4.0,3X,E12.4,3X,E12.4,3X,E12.4,3X,E12.4)
+*CFCLOS
+FINISH

@@ -1,0 +1,30 @@
+# Paper 4 (piezo) Lever 9 -- 2026-09-16. FIRST harmonic (HARMIC)
+# PLANE223 deck for driven F-F n=0 admittance at h1/2h=1/12.
+# New deck family; PREP7 cloned from the confirmed OC modal parent
+# (job 2491761). Do not add 1/8 or 1/5 until this family is validated.
+#
+# PUSH
+#   ansys_p4_harm_ff_y_h112_2026-09-16.inp
+#   ansys_queue_manifest_piezo_ff_harm_y_2026-09-16.txt
+#   submit_ansys_queue_piezo_ff_harm_y_2026-09-16.sh
+# to /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/
+# then from that directory:
+#   sbatch submit_ansys_queue_piezo_ff_harm_y_2026-09-16.sh
+#
+# Pre-registered PASS -- read
+#   ansys_p4_harm_ff_y_h112_sweep.csv
+#   ansys_p4_harm_ff_y_h112_2026-09-16_out.txt
+# Use NUMBER OF ERROR MESSAGES ENCOUNTERED and RUN COMPLETED. Do NOT
+# trust the queue script's own PASS/FAIL label.
+#
+#   G_run   RUN COMPLETED, 0 MAPDL error lines.
+#   G_pole  |Y| peak in 118.50-120.20 Hz near 118.8-119.1 Hz.
+#   G_zero  |Y| dip ABOVE that peak, near 119.1-119.5 Hz.
+#   G_order zero frequency > pole frequency.
+#   G_off   80 Hz and 140 Hz rows finite.
+#
+# Analytic (job 2491920): pole 119.047 Hz, zero 119.405 Hz.
+# FE modal pair: scboth 118.811 Hz, OC 119.143 Hz.
+# Compare frequencies, not peak heights (DMPRAT=1e-4).
+#
+ansys_p4_harm_ff_y_h112_2026-09-16.inp

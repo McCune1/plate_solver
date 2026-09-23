@@ -1,0 +1,31 @@
+# Paper 4 (piezo) F-F epsrel LANB deck, remaining Duan2005 Table 4
+# thickness ratios (h1/2h=1/8, 1/5) -- 2026-09-16. TWO decks, run
+# SEQUENTIALLY in this one submission (one ANSYS seat -- see
+# ansys-newansys-execution-dir memory). Direct follow-up to job 2490706
+# (LESSONS_LEARNED.md Sec 18.165): the relative-permittivity fix +
+# mm-N-s-tonne rescale + FIX-v6 TB,PIEZ is now cluster-confirmed at
+# h1/2h=1/12 (119.242 Hz FE vs 119.058/119.047 Hz closed-form, 0.15%/
+# 0.16%). Both decks below are byte-identical clones of that h1/2h=1/12
+# deck except H1 and the target comment -- no new hypothesis, no new
+# bug surface, same mesh topology and units/permittivity fix.
+#
+# Pre-registered PASS criteria -- read each deck's own _modes.txt,
+# _discriminator.txt, and _out.txt (grep "solve:" for the residual;
+# do NOT trust the .QUEUE_OK sentinel alone):
+#
+#   1. ansys_p4_epsrel_ff_lanb_h18_2026-09-16.inp
+#      h1/2h=1/8. Target: mode near 121.61564 Hz (764.1336 rad/s
+#      closed-form, probe_piezo_p4_ff_forward_model_2026-09-15.py),
+#      0 Hz rigid-body mode present, real O(0.1-1) bending discriminator
+#      (UY_top~UY_bot, UX_top~-UX_bot at r=RO).
+#
+#   2. ansys_p4_epsrel_ff_lanb_h15_2026-09-16.inp
+#      h1/2h=1/5. Target: mode near 127.38345 Hz (800.3738 rad/s
+#      closed-form). Same PASS criteria as deck 1.
+#
+# If either deck's discriminator sits at the ~1e-6 to 1e-9 noise floor
+# instead of O(0.1-1) (the pre-permittivity-fix failure mode, Sec
+# 18.153-18.164), or the 0 Hz mode is missing, STOP and report -- do not
+# re-try FREQB/DOF-pin/units tweaks, those are closed for this thread.
+ansys_p4_epsrel_ff_lanb_h18_2026-09-16.inp
+ansys_p4_epsrel_ff_lanb_h15_2026-09-16.inp

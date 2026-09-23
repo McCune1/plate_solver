@@ -25,6 +25,16 @@ ansys/**/file.mlv
 ansys/**/file.mode
 ansys/**/file.rst
 ansys/**/file.stat
+# Per-jobname MAPDL scratch, queue sentinels and locks (run_ansys_queue.sh).
+ansys/**/*.QUEUE_OK
+ansys/**/*.lock
+ansys/**/*.s0[0-9]
+ansys/**/*.rst
+ansys/**/*.db
+ansys/**/*.full
+ansys/**/*.esav
+ansys/**/*.emat
+ansys/**/*.mode
 
 # OS cruft
 .DS_Store

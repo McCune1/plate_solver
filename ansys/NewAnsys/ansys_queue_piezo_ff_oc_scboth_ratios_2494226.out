@@ -1,0 +1,113 @@
+Job 2494226 on compute-17-04.mill
+Start: Wed Sep 16 14:01:25 CDT 2026
+================================================================
+  run_ansys_queue.sh -- Wed Sep 16 14:01:27 CDT 2026
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys  manifest=ansys_queue_manifest_piezo_ff_oc_scboth_ratios_2026-09-16.txt  cpus/deck=8  stop_on_fail=0
+================================================================
+
+---- [1] ansys_p4_epsrel_ff_lanb_h18_oc_2026-09-16.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h18_oc) -- Wed Sep 16 14:01:27 CDT 2026 ----
+---- [1] ansys_p4_epsrel_ff_lanb_h18_oc_2026-09-16.inp : FAILED -- MAPDL exited 0 but printed
+     1 '*** ERROR ***' line(s). NO sentinel written, so this
+     deck will re-run on the next submit rather than being skipped
+     with a truncated result. First errors:
+       399:   279  ! UX_top~-UX_bot at r=RO), 0 MAPDL "*** ERROR ***". Read this deck's
+---- [1] ansys_p4_epsrel_ff_lanb_h18_oc_2026-09-16.inp : FAILED (exit=0, 21s) -- see ansys_p4_epsrel_ff_lanb_h18_oc_2026-09-16_out.txt ----
+     last 15 lines of ansys_p4_epsrel_ff_lanb_h18_oc_2026-09-16_out.txt:
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+      |                                                                             |
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+      |  Maximum Database Used       2 MB     Maximum Scratch Memory Used     46 MB |
+      |                                                                             |
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |        CP Time      (sec) =         11.603       Time  =  14:01:48          |
+      |        Elapsed Time (sec) =          8.000       Date  =  09/16/2026        |
+      |                                                                             |
+      *-----------------------------------------------------------------------------*
+
+---- [2] ansys_p4_epsrel_ff_lanb_h18_scboth_2026-09-16.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h18_sc) -- Wed Sep 16 14:01:48 CDT 2026 ----
+---- [2] ansys_p4_epsrel_ff_lanb_h18_scboth_2026-09-16.inp : FAILED -- MAPDL exited 0 but printed
+     1 '*** ERROR ***' line(s). NO sentinel written, so this
+     deck will re-run on the next submit rather than being skipped
+     with a truncated result. First errors:
+       389:   269  ! UX_top~-UX_bot at r=RO), 0 MAPDL "*** ERROR ***". Read this deck's
+---- [2] ansys_p4_epsrel_ff_lanb_h18_scboth_2026-09-16.inp : FAILED (exit=0, 5s) -- see ansys_p4_epsrel_ff_lanb_h18_scboth_2026-09-16_out.txt ----
+     last 15 lines of ansys_p4_epsrel_ff_lanb_h18_scboth_2026-09-16_out.txt:
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+      |                                                                             |
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+      |  Maximum Database Used       2 MB     Maximum Scratch Memory Used     46 MB |
+      |                                                                             |
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |        CP Time      (sec) =          3.515       Time  =  14:01:53          |
+      |        Elapsed Time (sec) =          4.000       Date  =  09/16/2026        |
+      |                                                                             |
+      *-----------------------------------------------------------------------------*
+
+---- [3] ansys_p4_epsrel_ff_lanb_h15_oc_2026-09-16.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h15_oc) -- Wed Sep 16 14:01:53 CDT 2026 ----
+---- [3] ansys_p4_epsrel_ff_lanb_h15_oc_2026-09-16.inp : FAILED -- MAPDL exited 0 but printed
+     1 '*** ERROR ***' line(s). NO sentinel written, so this
+     deck will re-run on the next submit rather than being skipped
+     with a truncated result. First errors:
+       399:   279  ! UX_top~-UX_bot at r=RO), 0 MAPDL "*** ERROR ***". Read this deck's
+---- [3] ansys_p4_epsrel_ff_lanb_h15_oc_2026-09-16.inp : FAILED (exit=0, 5s) -- see ansys_p4_epsrel_ff_lanb_h15_oc_2026-09-16_out.txt ----
+     last 15 lines of ansys_p4_epsrel_ff_lanb_h15_oc_2026-09-16_out.txt:
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+      |                                                                             |
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+      |  Maximum Database Used       2 MB     Maximum Scratch Memory Used     46 MB |
+      |                                                                             |
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |        CP Time      (sec) =          3.616       Time  =  14:01:58          |
+      |        Elapsed Time (sec) =          4.000       Date  =  09/16/2026        |
+      |                                                                             |
+      *-----------------------------------------------------------------------------*
+
+---- [4] ansys_p4_epsrel_ff_lanb_h15_scboth_2026-09-16.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h15_sc) -- Wed Sep 16 14:01:58 CDT 2026 ----
+---- [4] ansys_p4_epsrel_ff_lanb_h15_scboth_2026-09-16.inp : FAILED -- MAPDL exited 0 but printed
+     1 '*** ERROR ***' line(s). NO sentinel written, so this
+     deck will re-run on the next submit rather than being skipped
+     with a truncated result. First errors:
+       389:   269  ! UX_top~-UX_bot at r=RO), 0 MAPDL "*** ERROR ***". Read this deck's
+---- [4] ansys_p4_epsrel_ff_lanb_h15_scboth_2026-09-16.inp : FAILED (exit=0, 6s) -- see ansys_p4_epsrel_ff_lanb_h15_scboth_2026-09-16_out.txt ----
+     last 15 lines of ansys_p4_epsrel_ff_lanb_h15_scboth_2026-09-16_out.txt:
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+      |                                                                             |
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+      |  Maximum Database Used       2 MB     Maximum Scratch Memory Used     46 MB |
+      |                                                                             |
+      |-----------------------------------------------------------------------------|
+      |                                                                             |
+      |        CP Time      (sec) =          3.019       Time  =  14:02:04          |
+      |        Elapsed Time (sec) =          5.000       Date  =  09/16/2026        |
+      |                                                                             |
+      *-----------------------------------------------------------------------------*
+
+================================================================
+  QUEUE SUMMARY -- Wed Sep 16 14:02:04 CDT 2026  (total wall: 0 min)
+================================================================
+  ansys_p4_epsrel_ff_lanb_h18_oc_2026-09-16.inp : FAILED (exit=0)
+  ansys_p4_epsrel_ff_lanb_h18_scboth_2026-09-16.inp : FAILED (exit=0)
+  ansys_p4_epsrel_ff_lanb_h15_oc_2026-09-16.inp : FAILED (exit=0)
+  ansys_p4_epsrel_ff_lanb_h15_scboth_2026-09-16.inp : FAILED (exit=0)
+
+  total=4  ok=0  skip=0  fail=4
+End: Wed Sep 16 14:02:04 CDT 2026

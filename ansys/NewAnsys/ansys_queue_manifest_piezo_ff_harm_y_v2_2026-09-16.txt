@@ -1,0 +1,23 @@
+# Paper 4 lever 9 v2 -- dump fix of job 2494669. Same mesh/HARFRQ.
+# Isolated: CHRG not AMPS (KEYOPT(1)=1001), OUTRES,RSOL, CP-master V.
+#
+# PUSH
+#   ansys_p4_harm_ff_y_v2_h112_2026-09-16.inp
+#   ansys_queue_manifest_piezo_ff_harm_y_v2_2026-09-16.txt
+#   submit_ansys_queue_piezo_ff_harm_y_v2_2026-09-16.sh
+# to /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/
+# then:
+#   sbatch submit_ansys_queue_piezo_ff_harm_y_v2_2026-09-16.sh
+#
+# Read ansys_p4_harm_ff_y_v2_h112_sweep.csv and the _out.txt
+# (PRRSOL,CHRG block + NUMBER OF ERROR MESSAGES ENCOUNTERED +
+# RUN COMPLETED). Do NOT trust the queue script's own label.
+#
+#   G_run   RUN COMPLETED, 0 MAPDL error lines.
+#   G_nz    |Y| / |Q| not ~1e-27 (the 2494669 failure mode).
+#   G_pole  |Y| peak in 118.50-120.20 Hz near 118.8-119.1 Hz.
+#   G_zero  |Y| dip ABOVE that peak, near 119.1-119.5 Hz.
+#   G_order zero frequency > pole frequency.
+#   G_off   80 Hz and 140 Hz rows finite and not ~1e-27.
+#
+ansys_p4_harm_ff_y_v2_h112_2026-09-16.inp

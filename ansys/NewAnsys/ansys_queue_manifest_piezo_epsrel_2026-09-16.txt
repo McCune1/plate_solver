@@ -1,0 +1,48 @@
+# Paper 4 (piezo) PLANE223 relative-permittivity diagnostic batch -- 2026-09-16.
+# FOUR decks, run SEQUENTIALLY in this one submission (one ANSYS seat --
+# see ansys-newansys-execution-dir memory). Direct follow-up to
+# LESSONS_LEARNED.md Sec 18.164: units rescale moved the bending
+# discriminator ~1000x but still ~1000x short of a real mode shape.
+# Leading remaining hypothesis, which coupling-off isolation could not
+# see: parent decks feed Duan2005 Table 1 ABSOLUTE permittivity
+# (7.124e-9 / 5.841e-9 F/m) into PLANE223 MP,PERx, which is ALWAYS
+# relative (Coupled-Field Guide 2.3.2.1).
+#
+# Pre-registered criteria -- read each deck's own _modes.txt,
+# _discriminator.txt, and _out.txt (grep "solve:" for the residual).
+# Do NOT cite a coupled frequency unless the e0 control below still
+# reproduces 118.81016 Hz:
+#
+#   1. ansys_p4_epsrel_ff_e0_2026-09-16.inp
+#      NEGATIVE CONTROL. Same mesh/units as the coupled decks, e=0,
+#      permittivity now relative. Target: mode 2 = 118.81016 Hz
+#      (job 2490456 / UNITS_MM coupling-off, bit-for-bit to >=4 sig
+#      figs) AND a real O(0.1-1) bending discriminator. If this moves,
+#      the permittivity change leaked into the mechanical problem and
+#      decks 2-4 must not be trusted.
+#
+#   2. ansys_p4_epsrel_ff_lanb_2026-09-16.inp
+#      THE TEST. F-F coupled, FIX-v6 TB,PIEZ, mm-units, LANB, relative
+#      permittivity. PASS: mode near 119.058 Hz with UY_top~UY_bot of
+#      O(0.1-1), and a 0 Hz rigid-body mode. FAIL: discriminator still
+#      <=1e-3, or no mode within a few percent of 119 Hz.
+#
+#   3. ansys_p4_epsrel_ff_subsp_2026-09-16.inp
+#      Same physics as deck 2, MODOPT,SUBSP instead of LANB (ANSYS:
+#      Subspace is allowed for piezo modal and is more robust when the
+#      mass matrix is partially zero). Independent of whether LANB is
+#      the problem. Same PASS/FAIL as deck 2.
+#
+#   4. ansys_p4_epsrel_cc_lanb_2026-09-16.inp
+#      Independent literature target. Same coupled physics as deck 2,
+#      C-C (UX=UY=0 at r=RI and r=RO). Target: 2792 rad/s = 444.40 Hz
+#      (Duan2005 Table 4, p=0, n=0, h1/2h=1/12). No 0 Hz mode expected.
+#      Closed-form C-C is already cluster-confirmed 27/27 vs this table;
+#      this is the FE cross-check of the same permittivity fix.
+#
+# Discriminator, not residual, is the gate (Sec 18.164: the two metrics
+# are decoupled). Do not add a DOF pin -- it made mm-units worse.
+ansys_p4_epsrel_ff_e0_2026-09-16.inp
+ansys_p4_epsrel_ff_lanb_2026-09-16.inp
+ansys_p4_epsrel_ff_subsp_2026-09-16.inp
+ansys_p4_epsrel_cc_lanb_2026-09-16.inp

@@ -1,0 +1,1926 @@
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2025 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2025 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+
+ AFTER YOU HAVE READ, UNDERSTOOD, AND AGREED TO THE PREVIOUS NOTICES,
+ PRESS <CR> OR <ENTER> TO CONTINUE
+ 2025 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2025 R1 
+ AVxcelerate Sensors 2025 R1 
+ AVxcelerate Sensors Library for SCANeR 2025 R1  
+ AVxcelerate Sensors Library for CarMaker 2025 R1
+ TwinAI 2025 R1  
+ Electromagnetics Suite 2025 R1  
+ Electromagnetics RSM 2025 R1
+ Ansys Dynamic Reporting 2025 R1 
+ Core WB Files 2025 R1   
+ BladeModeler 2025 R1
+ CFD-Post only 2025 R1   
+ CFX (includes CFD-Post) 2025 R1 
+ Chemkin 2025 R1 
+ EnSight 2025 R1 
+ FENSAP-ICE 2025 R1  
+ Fluent (includes CFD-Post) 2025 R1  
+ Polyflow (includes CFD-Post) 2025 R1
+ Forte (includes EnSight) 2025 R1
+ ICEM CFD 2025 R1
+ Rocky 2025 R1   
+ TurboGrid 2025 R1   
+ Lumerical 2025 R1   
+ Lumerical Photonic Verilog-A 2025 R1
+ Speos HPC 2025 R1   
+ Speos RPC 2025 R1   
+ optiSLang 2025 R1   
+ Remote Solve Manager Standalone Services 2025 R1
+ Additive 2025 R1
+ Aqwa 2025 R1
+ Autodyn 2025 R1 
+ Customization Files for User Programmable Features 2025 R1  
+ LS-DYNA 2025 R1 
+ Mechanical Products 2025 R1 
+ Motion 2025 R1  
+ Sherlock 2025 R1
+ ACIS Geometry Interface 2025 R1 
+ Catia, Version 5 Geometry Interface 2025 R1 
+ Parasolid Geometry Interface 2025 R1
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = p4_epsrel_ff_lanb_h18_oc                                                                                                                                                                                                                                
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  SHARED MEMORY PARALLEL REQUESTED
+    SINGLE PROCESS WITH   8 THREADS REQUESTED
+    TOTAL OF     8 CORES REQUESTED
+  INPUT FILE NAME              = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p4_epsrel_ff_lanb_h18_oc_2026-09-16.inp
+  OUTPUT FILE NAME             = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p4_epsrel_ff_lanb_h18_oc_2026-09-16_out.txt
+
+ RELEASE= 2025 R1              BUILD= 25.1      UP20241202   VERSION=LINUX x64   
+ CURRENT JOBNAME=p4_epsrel_ff_lanb_h18_oc  14:01:44  SEP 16, 2026 CP=      0.250
+
+     1  ! ansys_p4_ff_piezo_ring_2026-09-15.inp 
+     2  ! Paper 4 (piezoelectric ring) -- first FE cross-check deck for the F-F 
+     3  ! (free-free) piezo-coupled LAYERED annular ring, p=0 (axisymmetric),   
+     4  ! h1/2h=1/12. Written 2026-09-15, same session as LESSONS_LEARNED.md
+     5  ! Sec 18.149 (F-F derivation + validation) and the sibling scripts  
+     6  ! probe_piezo_p4_ff_forward_model_2026-09-15.py /   
+     7  ! probe_piezo_p4_elastic_ff_baseline_2026-09-15.py. 
+     8  !   
+     9  ! ============================================================  
+    10  !   
+    11  ! ============================================================  
+    12  ! UNITS RESCALE (2026-09-16), following LESSONS_LEARNED.md Sec 18.161's 
+    13  ! "next concrete step, not yet attempted": a from-scratch, validated,   
+    14  ! consistent unit-system rescale of the whole piezo deck family, to 
+    15  ! shrink the ~20-order-of-magnitude spread between the mechanical block 
+    16  ! (order 1E9-1E13 in SI Pa-based units) and the electrical/piezoelectric
+    17  ! block (permittivity order 1E-9 F/m) that five independent cheap-lever 
+    18  ! probes (jobs 2490482, 2490571/2490582, 2490583) could not resolve.
+    19  !   
+    20  ! CHOSEN SYSTEM: mm - N - s - tonne (mechanical), REAL VOLTS (electrical
+    21  ! potential unchanged). This is NOT an arbitrary or guessed choice -- it
+    22  ! is the one non-SI system where the force unit N and the time unit s   
+    23  ! are UNCHANGED from SI (since tonne*mm/s^2 = 1000kg*1e-3m/s^2 = kg*m/s^2   
+    24  ! = N exactly), which is why frequencies (1/s) come out in real Hz with 
+    25  ! zero further conversion, and it is the standard "mm-N-s-tonne" system 
+    26  ! already ubiquitous in mm-scale FE work (ANSYS/LS-DYNA/Abaqus alike).  
+    27  !   
+    28  ! DERIVATION (first principles, cross-checked 3 independent ways -- T-  
+    29  ! equation substitution, electromechanical energy-density bookkeeping,  
+    30  ! and base-unit/derived-charge-unit substitution -- all three agree):   
+    31  !   
+    32  !  length      L' = L[m] * 1000                      (m -> mm)  
+    33  !  mass        M' = M[kg] * 1e-3                      (kg -> tonne; 
+    34  !                                                       DERIVED, not
+    35  !                                                       independently   
+    36  !                                                       chosen, from
+    37  !                                                       F=ma consistency)   
+    38  !  density     rho' = rho[kg/m^3] * 1e-12             (kg/m^3 -> tonne/mm^3)
+    39  !  stress/     E' = E[Pa] * 1e-6                       (Pa -> MPa = N/mm^2; 
+    40  !  modulus                                             an exact, always-
+    41  !                                                       valid physical  
+    42  !                                                       unit conversion)
+    43  !  potential   V' = V[Volt]  (UNCHANGED -- our deliberate choice, so
+    44  !                              VOLT dof / D,ALL,VOLT,0 BCs stay literal,
+    45  !                              physical volts, no BC rewriting needed)  
+    46  !  el. field   E_field'[V/mm] = E_field[V/m] * 1e-3   (implied by the   
+    47  !                              geometry now being in mm; not a material 
+    48  !                              constant, so nothing to type in directly)
+    49  !  ABS.        eps' = eps[F/m]  UNCHANGED NUMERICALLY. Proof: F/m, fully
+    50  !  PERMITTIVITY decomposed into base units, is F/m = (C^2/(N*m))/m =
+    51  !  (MP,PERx)   C^2/(N*m^2); substituting the SI identity C = N*m/V (from
+    52  !              V=J/C, J=N*m) gives C^2/(N*m^2) = N/V^2 -- the "m" cancels   
+    53  !              EXACTLY, so absolute permittivity has NO net length  
+    54  !              dependence once expressed in N and V (which are both 
+    55  !              unchanged in this system) -- confirmed independently by  
+    56  !              the energy-density route (T-form energy density (1/2)eps*
+    57  !              E^2 must equal (1/2)eps'*E'^2 once both are expressed in 
+    58  !              the new energy-density unit MPa=mJ/mm^3, and E'=E*1e-3   
+    59  !              exactly cancels the implied 1e-6 from Pa->MPa against
+    60  !              eps' = eps, i.e. no eps rescale needed). 
+    61  !  PIEZO e-    e' = e[C/m^2] * 1e-3. Derived from the T-equation
+    62  !  CONSTANT    T = c:S - e^T:E: converting T and c from Pa to MPa (each 
+    63  !  (TB,PIEZ,   x1e-6) and E from V/m to V/mm (x1e-3, i.e. E=E'*1e3),
+    64  !  TBDATA,     T'*1e6 = c'*1e6*S - e*(E'*1e3)  =>  T' = c'*S - (e*1e-3)*E'  
+    65  !  stress form)  => e' = e*1e-3. Independently re-derived via the   
+    66  !              charge-unit-substitution method (deriving the coherent   
+    67  !              charge unit Q* implied by keeping real Volts and mJ=N*mm 
+    68  !              energy, Q*=1e-3 C, then re-expressing C/m^2 in Q*/mm^2)  
+    69  !              -- both methods agree exactly: e' = e[C/m^2] * 1e-3. 
+    70  !  length      any PURE length tolerance (e.g. NUMMRG's node-merge  
+    71  !  tolerance   distance) is rescaled x1000 like any other length, e.g.  
+    72  !              1.0E-8 m -> 1.0E-5 mm.   
+    73  !   
+    74  ! NOT hand-derived from an "empirical" ABAQUS-forum factor (the risk the
+    75  ! session notes flagged) -- every factor above follows from ANSYS's own 
+    76  ! documented TB,PIEZ constitutive form (T=c:S-e^T:E, D=e:S+eps^S:E, 
+    77  ! stress-form default TBOPT, already independently confirmed correct in 
+    78  ! Sec 18.157) and ordinary SI dimensional analysis, not a borrowed number.  
+    79  !   
+    80  ! VALIDATION STAGING (per the ground rules -- do NOT trust a coupled
+    81  ! result in the new units before these pass): this submission batches   
+    82  ! the bare-host elastic-only deck and the piezo-coupling-off deck   
+    83  ! rescaled into these SAME units FIRST. Both are purely mechanical  
+    84  ! eigenvalue problems (piezo-coupling-off has e=0 everywhere, so its
+    85  ! VOLT dof is present but completely decoupled from the mechanical  
+    86  ! modes) -- their frequencies are mathematically GUARANTEED invariant   
+    87  ! under any internally-consistent unit rescaling, so they are a real
+    88  ! check on the ARITHMETIC of this conversion (did every E, rho, C_ij
+    89  ! actually get rescaled correctly), not on the physics. Confirmation
+    90  ! criteria: (a) rescaled bare-host mode 2 must reproduce 114.89 Hz  
+    91  ! (job 2490363's own result) to at least 4 significant figures -- NOT   
+    92  ! merely "close to 115.68 Hz", since a few-percent FE-discretization
+    93  ! gap is expected and already characterized, but ANY unit-conversion
+    94  ! arithmetic error would show up as a gap much larger than that 
+    95  ! already-known discretization error, or as a wildly wrong number; (b)  
+    96  ! rescaled piezo-coupling-off mode 2 must reproduce 118.81016 Hz (job   
+    97  ! 2490456's own result) to at least 4 significant figures, same 
+    98  ! reasoning. If EITHER fails, the units arithmetic (not the physics) is 
+    99  ! wrong and the FIX-v6-coupled result below must not be trusted.
+   100  !   
+   101  ! ONLY once (a) and (b) both pass does the coupled result below become  
+   102  ! trustworthy: mode 2 should land near 119.058 Hz (closed-form target)  
+   103  ! with a real O(0.1-1)-magnitude bending discriminator and the exact 0 Hz   
+   104  ! rigid-body mode should reappear, if the ~20-order-of-magnitude SI-units   
+   105  ! disparity really was the root cause of the catastrophic ill-  
+   106  ! conditioning (residual 4.15E+02 at full coupling, job 2490482).   
+   107  ! ============================================================  
+   108  ! WHY THIS DECK: no literature F-F piezo benchmark exists (LESSONS_LEARNED  
+   109  ! Sec 18.144 Finding 2 -- confirmed again, not re-litigated here), so FE is 
+   110  ! the ONLY external validation channel available for the F-F piezo-coupled  
+   111  ! forward model, per PAPER4_PIEZO_ROADMAP.md Sec 8 step 3. This is the  
+   112  ! layered-ring FE cross-check the C-C side never needed (C-C had Duan2005   
+   113  ! Table 4 to check against directly) and the disk smoke deck
+   114  ! (ansys_piezo_disk_modal_plane223.inp) was NOT (monolithic disk, different 
+   115  ! geometry, no benchmark target either -- see that deck's own header).  
+   116  !   
+   117  ! TARGET TO CHECK AGAINST: probe_piezo_p4_ff_forward_model_2026-09-15.py's  
+   118  ! own p=0, h1/2h=1/12 result: omega=747.9929 rad/s => f=119.058 Hz. This
+   119  ! deck's job is to find a genuine FE flexural mode near that frequency, not 
+   120  ! to blindly trust whichever mode number happens to fall near it -- see the 
+   121  ! MODE-SHAPE DISCRIMINATOR note below, this matters because a layered   
+   122  ! axisymmetric solid mesh mixes flexural (bending) and extensional  
+   123  ! (breathing/radial) mode families in one spectrum, unlike the pure-
+   124  ! bending Kirchhoff theory this project's own solver assumes.   
+   125  !   
+   126  ! GEOMETRY: layered annular ring, R_i=0.1 m, R_o=0.6 m (Duan2005 Table 4's  
+   127  ! own target), steel host |z|<=h (h=0.01, Duan's own half-thickness 
+   128  ! symbol), PZT4 piezo layers bonded symmetrically on both faces,
+   129  ! h<=z<=h+h1 and mirror -h-h1<=z<=-h, h1=2h/12 (Table-4 ratio 1/12).
+   130  ! TRUE FREE-FREE: since R_i=0.1 > 0, the ring does NOT touch the axis of
+   131  ! revolution, so (unlike the disk smoke deck, which needed UX=0 at r=0 to   
+   132  ! suppress the on-axis singularity) NO mechanical constraint is applied 
+   133  ! anywhere -- this is a genuinely unconstrained modal solve. Expect rigid-  
+   134  ! body translation (and, if p>0 were modeled, rotation) modes near f=0 Hz   
+   135  ! at the bottom of the spectrum; these are correct, not a bug (same 
+   136  ! precedent as the disk smoke deck's own mode-1-at-0-Hz note).  
+   137  !   
+   138  ! ELEMENT/MATERIAL STRATEGY: ONE element type (PLANE223, KEYOPT(1)=1001,
+   139  ! KEYOPT(3)=1 axisymmetric) used for BOTH the steel host AND the PZT4   
+   140  ! layers, with two different material IDs -- NOT two different element  
+   141  ! types -- specifically so the host/piezo interface line shares nodes   
+   142  ! naturally through ordinary area meshing (no manual node-merging step, 
+   143  ! no mismatched-DOF-set interface to debug). The steel material gets the
+   144  ! piezoelectric (TB,PIEZ) terms all zero and a small nominal permittivity   
+   145  ! (not exactly zero -- an exactly-zero diagonal permittivity would leave
+   146  ! VOLT undefined/singular at any node touching ONLY steel elements) so  
+   147  ! every node in the mesh carries a well-posed VOLT dof, even though VOLT
+   148  ! is physically meaningless in the steel region (e=0 there, so it never 
+   149  ! couples to anything mechanical) -- this mirrors how coupled-field meshes  
+   150  ! with an inert region are conventionally built, not a project-specific 
+   151  ! trick.
+   152  !   
+   153  ! ELECTRICAL BC: OPEN-CIRCUIT, Sec 18.175. VOLT=0 on the host/piezo 
+   154  ! INTERFACE (z=+-h, inner electrodes grounded). Outer faces z=+-(h+h1)  
+   155  ! are a conducting electrode (CP,VOLT, one parallel bus) left   
+   156  ! unconstrained so Q=0 is the natural electrical condition. This is 
+   157  ! the opposite of the parent SC deck. Do not re-open mesh/units/TB,PIEZ.
+   158  !   
+   159  ! MODE-SHAPE DISCRIMINATOR (read the postprocessing section before  
+   160  ! trusting a specific mode number as "the" flexural mode): a genuine
+   161  ! p=0 axisymmetric BENDING mode has UY (axial = out-of-plane transverse 
+   162  ! displacement, matching this project's w) nearly the SAME SIGN AND 
+   163  ! MAGNITUDE through the thickness at a given r (Kirchhoff kinematics:   
+   164  ! uz=w(r), no z-dependence), while UX (radial, in-plane) has OPPOSITE   
+   165  ! SIGN top vs bottom (bending strain ur=-z*dw/dr, linear in z, flips sign   
+   166  ! through the mid-plane). A "breathing"/extensional mode is the reverse:
+   167  ! UX same sign top/bottom (uniform radial stretch), UY small/near-zero. 
+   168  ! The postprocessing block below prints UX and UY at matched top/bottom 
+   169  ! node pairs at the outer radius for every extracted mode specifically so   
+   170  ! this can be checked by eye against the printed table, rather than 
+   171  ! trusting mode order alone.
+   172  !   
+   173  ! STATUS (2026-09-15, UPDATED post-job-2490363 isolation test, FIX v4): 
+   174  ! FOUR runs of THIS deck so far (2489625, 2490219, 2490239 all byte-
+   175  ! identical nonphysical; 2490350 confirmed the v3 mesh fix correct --   
+   176  ! piezo layers 80/80 elements, warnings 85->2 -- but frequency barely   
+   177  ! moved, 3427->3422 Hz, still ~29x off 119.058 Hz target). The only 
+   178  ! remaining non-routine warning in 2490350's log was ANSYS's own
+   179  ! eigensolver ill-conditioning note. A SEPARATE bare-host isolation deck
+   180  ! (ansys_p4_ff_bare_host_smoke_2026-09-15.inp, no piezo/VOLT coupling at
+   181  ! all) then ran clean (job 2490363): 0 mesh warnings, NO ill-conditioning   
+   182  ! warning, mode 2 within 0.68% of its 115.68 Hz target, clean bending   
+   183  ! discriminator signature -- DECISIVELY ruling out geometry/meshing/
+   184  ! free-free-BC as the cause and narrowing the search to THIS deck's own 
+   185  ! piezo coupled-field/permittivity setup. FIX v4 applied below: X_INERT 
+   186  ! raised from 1.0E-15 to 1.0E-9 (same order of magnitude as the real
+   187  ! PZT4 X11/X33, not 6-7 orders below them) -- see the X_INERT definition
+   188  ! itself and LESSONS_LEARNED.md Sec 18.154 for the full rationale and   
+   189  ! pre-registered confirmation criteria. NOT YET RE-RUN. 
+   190  !   
+   191  ! STATUS UPDATE (2026-09-15, FIX v6, following the piezo-coupling-off   
+   192  ! isolation deck's DECISIVE PASS, job 2490456 -- LESSONS_LEARNED.md Sec 
+   193  ! 18.156): the elastic layered composite alone (TB,PIEZ,2 zeroed) lands 
+   194  ! at 118.81 Hz, 0.21% from the 119.058 Hz target -- conclusively
+   195  ! implicating THIS material's TB,PIEZ,2 TBDATA block as the sole
+   196  ! remaining cause. A from-scratch re-derivation of ANSYS's TB,PIEZ  
+   197  ! TBDATA convention (cross-checked against ANSYS's own coupled-field
+   198  ! docs AND an independent forum-posted worked example for a Y-poled 
+   199  ! material, both agreeing exactly) found the convention is: 18 values,  
+   200  ! grouped by STRESS/STRAIN ROW (x,y,z,xy,yz,zx -- 6 groups of 3), each  
+   201  ! group cycling the electric FIELD column (X,Y,Z) fastest -- i.e.   
+   202  ! TBDATA index = (stress_row-1)*3 + field_col. This deck's PREVIOUS 
+   203  ! block (and the disk-smoke deck's, ansys_piezo_disk_modal_plane223.inp,
+   204  ! it was copied from) instead filled TBDATA as if grouped by FIELD row  
+   205  ! (3 groups of 6, stress cycling fastest) -- the TRANSPOSE of ANSYS's   
+   206  ! actual matrix, an easy mistake for TB,PIEZ specifically since (unlike 
+   207  ! the symmetric TB,ANEL block, which this same deck gets right) the 
+   208  ! piezoelectric matrix is a non-square 6x3 and the row/column meaning   
+   209  ! is easy to invert. Read literally, the OLD block placed the response  
+   210  ! of the HOOP normal stress (row 3) to the RADIAL field (E31, should be 
+   211  ! exactly zero by transverse-isotropy symmetry) and to the POLING field 
+   212  ! (E33=14.1 instead of the correct E31=4.1, ~3.4x too large) -- while   
+   213  ! leaving ALL THREE of the physically dominant, active bending-relevant 
+   214  ! terms exactly zero: radial-normal-stress<->poling-field (E31, row 1), 
+   215  ! axial-normal-stress<->poling-field (E33, row 2), and the r-z bending  
+   216  ! shear<->radial-field term (E15, row 4, the only piezo term that   
+   217  ! directly couples to Kirchhoff-type bending shear). This fully accounts
+   218  ! for a spurious, physically nonsensical dominant electromechanical term
+   219  ! unrelated to true bending stiffness -- consistent with the observed   
+   220  ! ~29x frequency / ~840x apparent-stiffness anomaly, far beyond real
+   221  ! PZT4 coupling factors (k^2~0.3-0.7). FIX v6 (below): TB,PIEZ,2's  
+   222  ! TBDATA rewritten to the verified-correct layout -- nonzero at 
+   223  ! positions 2 (E31), 5 (E33), 8 (E31), 10 (E15); position 15 (E15) is   
+   224  ! the second, symmetric shear term but is kinematically inert here (no  
+   225  ! hoop displacement DOF in this axisymmetric, non-torsion element, same 
+   226  ! as rows 5/6 already being inert per the Sec 18.156 manual audit). 
+   227  ! PRE-REGISTERED CONFIRMATION CRITERIA for the next run: (a) mode 2 
+   228  ! should land close to the 119.058 Hz closed-form target -- given the   
+   229  ! coupling-off baseline is already 118.81 Hz (0.21% off), the genuine   
+   230  ! coupling-induced shift should be small (a fraction of a percent, NOT  
+   231  ! a jump to/near 3422 Hz); (b) the discriminator should show the same   
+   232  ! clean bending signature as job 2490456 (UY_top~=UY_bot, UX_top~=-UX_bot)  
+   233  ! at that mode, not the 1E-10-to-1E-17 noise floor seen in every prior  
+   234  ! coupled run; (c) no ill-conditioning warning (X_INERT=1.0E-9, FIX v4, 
+   235  ! is untouched by this fix and was already only a partial, unrelated
+   236  ! conditioning improvement -- see Sec 18.155). If (a)-(b) still fail,   
+   237  ! the index/orientation hypothesis itself is wrong and the search must  
+   238  ! move to the PZT4 constants' own values/units next, treating this  
+   239  ! index-convention fix as closed rather than re-litigating it. NOT YET  
+   240  ! RUN -- push to the cluster before the next sbatch submission. 
+   241  ! ============================================================  
+   242      
+   243  !   
+   244  ! ============================================================  
+   245  ! OPEN-CIRCUIT CLONE (2026-09-16): cloned from the cluster-confirmed
+   246  ! h1/2h=1/12 epsrel-fix F-F LANB deck (job 2490706, LESSONS_LEARNED.md  
+   247  ! Sec 18.165). Mesh, mm-N-s-tonne, relative permittivity, FIX v6 TB,PIEZ,   
+   248  ! LANB, free-free mechanical BC: UNCHANGED. Do not re-open those.   
+   249  !   
+   250  ! THIS DECK changes ONLY the electrical BC, to match the analytic F-F   
+   251  ! open-circuit model (Sec 18.175):  
+   252  !   inner electrodes (host/piezo interface, z=+-h): VOLT=0  
+   253  !   outer electrodes (z=+-(h+h1)): CP,VOLT as one parallel bus, unconstrained   
+   254  ! Parent SC deck did the opposite (VOLT=0 on the OUTERS, interface free).   
+   255  !   
+   256  ! Closed-form target: PiezoOutOfPlaneSolver.oc_ff_bisect n=0 h1/2h=1/12 
+   257  !   omega = 750.2394210586 rad/s = 119.4053 Hz  
+   258  ! Parent SC FE mode 2 = 119.242 Hz (job 2490706). PASS: a bending mode  
+   259  ! near 119.405 Hz, ABOVE 119.242 Hz (stiffening vs the same mesh), 0 Hz 
+   260  ! rigid-body present, real O(0.1-1) bending discriminator, no   
+   261  ! ill-conditioning warning. A result that reproduces 119.242 Hz is FAIL 
+   262  ! -- the OC electrical BC did not take. Read this deck's own _modes.txt 
+   263  ! / _discriminator.txt / _out.txt, never the .QUEUE_OK sentinel alone.  
+   264  ! ============================================================  
+   265  !   
+   266  ! ============================================================  
+   267  ! LEVER 7 RATIO CLONE (2026-09-16): cloned from the h1/2h=1/12 OPEN-CIRCUIT 
+   268  ! deck (job 2491761, LESSONS_LEARNED.md Sec 18.176-18.177). Mesh,   
+   269  ! mm-N-s-tonne rescale, relative permittivity fix, TB,PIEZ, LANB, and   
+   270  ! free-free mechanical BC: UNCHANGED. Do not re-open those. Do NOT  
+   271  ! confuse this with the plain h1/2h=1/8 SC deck (outer-only 
+   272  ! ground, job 2490848) -- that is a mixed electrical BC and is NOT the  
+   273  ! fair partner for this pair (PAPER4_LEVERS_2026-09-16.md standing ban).
+   274  !   
+   275  ! THIS DECK: h1/2h=1/8, OPEN-CIRCUIT. Closed-form target
+   276  ! (PiezoOutOfPlaneSolver, dps=100): 767.5496387603 rad/s = 122.15932 Hz.
+   277  ! PASS: a bending mode near 122.15932 Hz, ABOVE this ratio's own scboth mode (stiffening, same mesh), 0 Hz rigid-body   
+   278  ! present, real O(0.1-1) bending discriminator (UY_top~UY_bot,  
+   279  ! UX_top~-UX_bot at r=RO), 0 MAPDL "*** ERROR ***". Read this deck's
+   280  ! own _modes.txt / _discriminator.txt / _out.txt, never the .QUEUE_OK   
+   281  ! sentinel alone.   
+   282  ! ============================================================  
+   283  FINISH  
+   284  /CLEAR,NOSTART  
+   285  /TITLE, Paper 4 F-F piezo ring EPSREL LANB OPEN-CIRCUIT, p=0, h1/2h=1/8, mm-N-s-tonne (2026-09-16)  
+   286      
+   287  ! ---- Geometry (SI units, meters) ---- 
+   288  RI     = 100.0  
+   289  RO     = 600.0  
+   290  H      = 10.0           ! host HALF-thickness [mm] (Duan2005's own h symbol)
+   291  H1     = 2*H/8          ! piezo layer thickness, Table-4 ratio 1/8  
+   292  NDIV_R = 40 
+   293  NDIV_ZH = 6              ! through-thickness divisions, host
+   294  NDIV_ZP = 2              ! through-thickness divisions, each piezo layer
+   295  NMODES = 20 
+   296      
+   297  ! ---- Steel host material (elastic only) ----  
+   298  E_STEEL   = 2.00E5      ! [MPa] = 200 GPa   
+   299  NU_STEEL  = 0.3 
+   300  RHO_STEEL = 7.800E-9    ! [tonne/mm^3]  
+   301      
+   302  ! ---- PZT4 piezo material, Duan2005 Table 1, IEEE z-poled convention ----  
+   303  C11E = 1.320E5          ! [MPa] 
+   304  C12E = 7.100E4          ! [MPa] 
+   305  C13E = 7.300E4          ! [MPa] 
+   306  C33E = 1.150E5          ! [MPa] 
+   307  C44E = 7.300E4          ! [MPa] 
+   308  C66E = (C11E-C12E)/2
+   309  E31  = 4.1E-3           ! [C/mm^2-equivalent, N/(V*mm)] (C/m^2 -> x1e-3, see units header)  
+   310  E33  = 1.41E-2          ! (x1e-3)   
+   311  E15  = 1.05E-2          ! (x1e-3)   
+   312  EPS0   = 8.854E-12       ! F/m. PLANE223 MP,PERx is RELATIVE, not absolute. 
+   313  X11ABS = 7.124E-9        ! Duan2005 Table 1 absolute F/m
+   314  X33ABS = 5.841E-9   
+   315  X11    = X11ABS/EPS0     ! ~804.8 relative  
+   316  X33    = X33ABS/EPS0     ! ~659.7 relative  
+   317  RHO_PZT = 7.500E-9      ! [tonne/mm^3]  
+   318      
+   319  ! Nominal inert permittivity for the steel region -- NOT physical, only 
+   320  ! keeps VOLT well-posed there (see header). The steel material's own
+   321  ! TB,PIEZ block is all-zero (e=0), so X_INERT's VALUE cannot mechanically   
+   322  ! couple to anything regardless of scale -- only VOLT-dof conditioning is   
+   323  ! affected. FIX v4 2026-09-15 (LESSONS_LEARNED Sec 18.154, following the
+   324  ! bare-host isolation deck's DECISIVE clean result, job 2490363, which  
+   325  ! ruled out geometry/meshing/free-free-BC entirely and narrowed the 
+   326  ! search to this permittivity scale): raised from 1.0E-15 to 1.0E-9,
+   327  ! the SAME ORDER OF MAGNITUDE as the real PZT4 values (X11=7.124E-9,
+   328  ! X33=5.841E-9) instead of ~6-7 orders of magnitude below them. ANSYS's 
+   329  ! own coupled-field modeling guidance for an inert region sharing a mesh
+   330  ! with a real piezo material is that the inert permittivity should not  
+   331  ! be many orders of magnitude smaller than the surrounding material,
+   332  ! since that scale mismatch is a textbook cause of the Block-Lanczos
+   333  ! ill-conditioning warning seen in job 2490350 ("relative residual from 
+   334  ! test linear solve: 9.147498E-02"). NOT YET RE-RUN -- see Sec 18.154   
+   335  ! for the full pre-registered confirmation criteria.
+   336  X_INERT = 1.0           ! relative (host VOLT well-posed). Was 1.0E-9 fed as if absolute.   
+   337      
+   338  !   
+   339  ! ============================================================  
+   340  ! EPSREL FIX (2026-09-16): PLANE223 MP,PERx is RELATIVE permittivity.   
+   341  ! Duan2005 Table 1 X11=7.124e-9 / X33=5.841e-9 are ABSOLUTE (F/m =  
+   342  ! eps_r * eps0). Parent UNITS_MM decks fed those F/m numbers to MP,PERX 
+   343  ! unchanged. Coupled-Field Guide 2.3.2.1: for PLANE223, MP,PERX and 
+   344  ! TB,DPER are ALWAYS relative. The SOLID5/SOLID98 "value<1 means
+   345  ! absolute" exception does NOT apply. Default EPZRO is left alone   
+   346  ! (8.85e-12 F/m); relative ~805 * EPZRO recovers the Duan absolute  
+   347  ! value, which is also the correct mm-N-s-tonne number (permittivity
+   348  ! is numerically invariant under that rescale). Host X_INERT is now a   
+   349  ! small relative value (1.0), not 1.0E-9-fed-as-relative. NOTHING else  
+   350  ! in the mesh, TB,PIEZ FIX v6, units, or electrical BC is changed   
+   351  ! unless a deck's own name says so (subsp / e0 / cc).   
+   352  ! ============================================================  
+   353  /PREP7  
+   354  ET,1,PLANE223   
+   355  KEYOPT,1,1,1001    ! structural-piezoelectric dof set (Table 223.2, sourced Sec 18.144) 
+   356  KEYOPT,1,3,1       ! axisymmetric (sourced Sec 18.144)  
+   357      
+   358  ! ---- Material 1: steel host, elastic only, inert electrical props ----
+   359  TB,ANEL,1,1,,0  
+   360  TBDATA,1, (E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0
+   361  TBDATA,7, (E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0  
+   362  TBDATA,12,(E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0
+   363  TBDATA,16,(E_STEEL/(2*(1+NU_STEEL))),0,0
+   364  TBDATA,19,(E_STEEL/(2*(1+NU_STEEL))),0  
+   365  TBDATA,21,(E_STEEL/(2*(1+NU_STEEL)))
+   366  TB,PIEZ,1   
+   367  TBDATA,1,0,0,0,0,0,0
+   368  TBDATA,7,0,0,0,0,0,0
+   369  TBDATA,13,0,0,0,0,0,0   
+   370  MP,PERX,1,X_INERT   
+   371  MP,PERY,1,X_INERT   
+   372  MP,PERZ,1,X_INERT   
+   373  MP,DENS,1,RHO_STEEL 
+   374      
+   375  ! ---- Material 2: PZT4 piezo layer (identical to the confirmed-working 
+   376  ! disk smoke deck's own material block -- ansys_piezo_disk_modal_   
+   377  ! plane223.inp -- copied unchanged, same axis-mapping citations apply) ---- 
+   378  TB,ANEL,2,1,,0  
+   379  TBDATA,1,C11E,C13E,C12E,0,0,0   
+   380  TBDATA,7,C33E,C13E,0,0,0
+   381  TBDATA,12,C11E,0,0,0
+   382  TBDATA,16,C44E,0,0  
+   383  TBDATA,19,C66E,0
+   384  TBDATA,21,C44E  
+   385  TB,PIEZ,2   
+   386  TBDATA,1,0,E31,0,0,E33,0
+   387  TBDATA,7,0,E31,0,E15,0,0
+   388  TBDATA,13,0,0,E15,0,0,0 
+   389  MP,PERX,2,X11   
+   390  MP,PERY,2,X33   
+   391  MP,PERZ,2,X11   
+   392  MP,DENS,2,RHO_PZT   
+   393      
+   394  ! ---- Geometry: three stacked rectangles (r x z), host + top/bottom piezo ---- 
+   395  RECTNG,RI,RO,-H,H              ! area 1: steel host 
+   396  RECTNG,RI,RO,H,H+H1            ! area 2: piezo top  
+   397  RECTNG,RI,RO,-H-H1,-H          ! area 3: piezo bottom   
+   398      
+   399  ! FIX v2 2026-09-15 (job 2490219 post-mortem -- v1 fix above was diagnosed  
+   400  ! wrong): the TRUE bug is that LSEL,,LOC,... is a GLOBAL, area-UNSCOPED 
+   401  ! select -- at X=RI/X=RO/Y=H etc, it matches every line at that coordinate  
+   402  ! across ALL THREE stacked areas (their edges are coincident/touching by
+   403  ! construction), not just the area currently being processed. Area 1's  
+   404  ! block (run first) ends up setting NDIV=6 on ALL SIX vertical lines in 
+   405  ! the model, including area 2/3's own -- so when area 2/3's blocks later
+   406  ! try LESIZE,...,NDIV_ZP(=2) on their vertical edges, LESIZE's default  
+   407  ! KFORCE=0 silently REFUSES to change an already-nonzero division ("
+   408  ! PREVIOUS NONZERO VALUES WILL NOT BE ALTERED", confirmed in job 2490219's  
+   409  ! own log) -- NDIV_ZP never actually takes effect on either piezo layer,
+   410  ! both stay at NDIV=6. Combined with the (correctly working) NDIV_R=40  
+   411  ! radial sizing, that's 40 x 6 = 240 elements/layer at aspect ratio 45 --   
+   412  ! exactly what both job 2489625 and 2490219 produced, unchanged, because
+   413  ! the v1 fix touched the radial dimension, which was never the broken one.  
+   414  ! REAL FIX: scope every LSEL to the CURRENTLY SELECTED AREA's own lines 
+   415  ! via LSLA,S (lines belonging to selected areas) before refining by LOC,
+   416  ! so no area's block can ever touch another area's lines -- eliminates the  
+   417  ! whole KFORCE cross-contamination class, not just this one instance.   
+   418  ! FIX v3 2026-09-15 (job 2490239 post-mortem -- v2 fix above was STILL  
+   419  ! wrong, confirmed by a THIRD byte-identical result). Root cause, this  
+   420  ! time confirmed directly against the log's own selection-count lines,  
+   421  ! not inferred: LSLA,S + LSEL,R correctly scopes the FIRST line of each 
+   422  ! pair to the current area (verified: "4 LINES...1 SELECTED AREAS BY LSLA"  
+   423  ! then "1 LINE...SELECTED BY LSEL" for the R-type reselect). But the
+   424  ! SECOND line of each pair used LSEL,A ("ALSO SELECT") -- and A-type is a   
+   425  ! UNION WITH THE FULL DATABASE, not an intersect within whatever LSLA had   
+   426  ! scoped -- it is NOT constrained by the preceding LSLA,S at all. So
+   427  ! area 1's block (run first) still globally swept every area's RO-edge  
+   428  ! line via its own LSEL,A,LOC,X,RO and set them ALL to NDIV_ZH=6 -- 
+   429  ! including area 2's and area 3's own outer vertical edges, before either   
+   430  ! area had been touched. When area 2/3's own blocks later tried 
+   431  ! LESIZE,...,NDIV_ZP=2 on those same (now-already-6) RO lines, KFORCE=0 
+   432  ! silently blocked it (confirmed in the log). Net effect unchanged from 
+   433  ! v1/v2: both piezo layers still mesh at an effective 40(radial) x  
+   434  ! 6(thru, stuck) = 240 elements, AR=45. 
+   435  ! REAL FIX: never use LSEL,A (or any global LOC-based select) anywhere in   
+   436  ! this block. Every line is now sized by its OWN single-line LSLA,S +   
+   437  ! LSEL,R + LESIZE sequence -- four separate calls per area instead of two   
+   438  ! combined ones -- so no selection ever reaches outside the lines already   
+   439  ! scoped to the current area, and the A-type leak this class of bug 
+   440  ! depends on never occurs.  
+   441  ASEL,S,AREA,,1  
+   442  AATT,1,,1   
+   443  LSLA,S  
+   444  LSEL,R,LOC,X,RI 
+   445  LESIZE,ALL,,,NDIV_ZH,,,,,1  
+   446  LSLA,S  
+   447  LSEL,R,LOC,X,RO 
+   448  LESIZE,ALL,,,NDIV_ZH,,,,,1  
+   449  LSLA,S  
+   450  LSEL,R,LOC,Y,-H 
+   451  LESIZE,ALL,,,NDIV_R,,,,,1   
+   452  LSLA,S  
+   453  LSEL,R,LOC,Y,H  
+   454  LESIZE,ALL,,,NDIV_R,,,,,1   
+   455  ALLSEL,ALL  
+   456  ASEL,S,AREA,,1  
+   457  MSHAPE,0,2D 
+   458  MSHKEY,1
+   459  AMESH,ALL   
+   460      
+   461  ASEL,S,AREA,,2  
+   462  AATT,2,,1   
+   463  LSLA,S  
+   464  LSEL,R,LOC,X,RI 
+   465  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   466  LSLA,S  
+   467  LSEL,R,LOC,X,RO 
+   468  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   469  LSLA,S  
+   470  LSEL,R,LOC,Y,H  
+   471  LESIZE,ALL,,,NDIV_R,,,,,1   
+   472  LSLA,S  
+   473  LSEL,R,LOC,Y,H+H1   
+   474  LESIZE,ALL,,,NDIV_R,,,,,1   
+   475  ALLSEL,ALL  
+   476  ASEL,S,AREA,,2  
+   477  MSHAPE,0,2D 
+   478  MSHKEY,1
+   479  AMESH,ALL   
+   480      
+   481  ASEL,S,AREA,,3  
+   482  AATT,2,,1   
+   483  LSLA,S  
+   484  LSEL,R,LOC,X,RI 
+   485  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   486  LSLA,S  
+   487  LSEL,R,LOC,X,RO 
+   488  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   489  LSLA,S  
+   490  LSEL,R,LOC,Y,-H-H1  
+   491  LESIZE,ALL,,,NDIV_R,,,,,1   
+   492  LSLA,S  
+   493  LSEL,R,LOC,Y,-H 
+   494  LESIZE,ALL,,,NDIV_R,,,,,1   
+   495  ALLSEL,ALL  
+   496  ASEL,S,AREA,,3  
+   497  MSHAPE,0,2D 
+   498  MSHKEY,1
+   499  AMESH,ALL   
+   500      
+   501  ALLSEL,ALL  
+   502  NUMMRG,NODES,1.0E-5     ! merge coincident nodes at the host/piezo interfaces [mm tolerance, was 1.0E-8 m]  
+   503                            ! (areas meshed separately above -- this is the   
+   504                            ! step that actually bonds them; if AMESH left
+   505                            ! non-coincident interface nodes for any reason   
+   506                            ! this is what fixes it, cheap insurance) 
+   507  FINISH  
+   508      
+   509  /SOLU   
+   510  ANTYPE,MODAL
+   511  MODOPT,LANB,NMODES,-1.0,,,ON
+   512  MXPAND,NMODES,,,NO  
+   513      
+   514  ! Electrical BC -- F-F OPEN-CIRCUIT (Sec 18.175). Inner electrodes  
+   515  ! (host/piezo interface) GROUNDED; outer electrodes EQUIPOTENTIAL and   
+   516  ! unconstrained (one CP set = parallel bus). Do NOT also D,VOLT,0 the   
+   517  ! outers -- that restores short-circuit. No mechanical constraint.  
+   518  NSEL,S,LOC,Y,H  
+   519  NSEL,A,LOC,Y,-H 
+   520  D,ALL,VOLT,0
+   521  ALLSEL,ALL  
+   522  NSEL,S,LOC,Y,H+H1   
+   523  NSEL,A,LOC,Y,-H-H1  
+   524  CP,1,VOLT,ALL   
+   525  ALLSEL,ALL  
+   526  SOLVE   
+   527  FINISH  
+   528      
+   529  /POST1  
+   530  ! ---- Frequency table ---- 
+   531  *DIM,FR1,ARRAY,NMODES   
+   532  *DIM,IDXARR,ARRAY,NMODES
+   533  *DO,I,1,NMODES  
+   534    *GET,FR1(I),MODE,I,FREQ   
+   535    IDXARR(I)=I   
+   536  *ENDDO  
+   537  *CFOPEN,ansys_p4_epsrel_ff_lanb_oc_h18_modes,txt
+   538  *VWRITE 
+   539  ('mode f[Hz] tag=epsrel_ff_lanb_oc_h18 target=122.15932Hz') 
+   540  *VWRITE,IDXARR(1),FR1(1)
+   541  (F4.0, 3X, E16.8)   
+   542  *CFCLOS 
+   543      
+   544  ! ---- Mode-shape discriminator: UX, UY at matched top/bottom node pairs
+   545  ! at the outer radius (r=RO), for every mode -- see header for how to read  
+   546  ! this (bending: UY same sign/mag, UX opposite sign; breathing: reverse). ----  
+   547  NSEL,S,LOC,X,RO 
+   548  NSEL,R,LOC,Y,H          ! host top surface node at r=Ro 
+   549  *GET,NTOP,NODE,0,NUM,MIN
+   550  NSEL,S,LOC,X,RO 
+   551  NSEL,R,LOC,Y,-H         ! host bottom surface node at r=Ro  
+   552  *GET,NBOT,NODE,0,NUM,MIN
+   553  ALLSEL,ALL  
+   554      
+   555  *DIM,UXT,ARRAY,NMODES   
+   556  *DIM,UYT,ARRAY,NMODES   
+   557  *DIM,UXB,ARRAY,NMODES   
+   558  *DIM,UYB,ARRAY,NMODES   
+   559  *DO,I,1,NMODES  
+   560    SET,1,I   
+   561    *GET,UXT(I),NODE,NTOP,U,X 
+   562    *GET,UYT(I),NODE,NTOP,U,Y 
+   563    *GET,UXB(I),NODE,NBOT,U,X 
+   564    *GET,UYB(I),NODE,NBOT,U,Y 
+   565  *ENDDO  
+   566  *CFOPEN,ansys_p4_epsrel_ff_lanb_oc_h18_discriminator,txt
+   567  *VWRITE 
+   568  ('mode   UX_top        UY_top        UX_bot        UY_bot      (bending: UY_top~UY_bot, UX_top~-UX_bot)')   
+   569  *VWRITE,IDXARR(1),UXT(1),UYT(1),UXB(1),UYB(1)   
+   570  (F4.0,3X,E12.4,3X,E12.4,3X,E12.4,3X,E12.4)  
+   571  *CFCLOS 
+   572  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans
+
+ /INPUT FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans  LINE=       0
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  Paper 4 F-F piezo ring EPSREL LANB OPEN-CIRCUIT, p=0, h1/2h=1/8, mm-N-s-tonne
+
+
+ PARAMETER RI =     100.0000000    
+
+ PARAMETER RO =     600.0000000    
+
+ PARAMETER H =     10.00000000    
+
+ PARAMETER H1 =     2.500000000    
+
+ PARAMETER NDIV_R =     40.00000000    
+
+ PARAMETER NDIV_ZH =     6.000000000    
+
+ PARAMETER NDIV_ZP =     2.000000000    
+
+ PARAMETER NMODES =     20.00000000    
+
+ PARAMETER E_STEEL =     200000.0000    
+
+ PARAMETER NU_STEEL =    0.3000000000    
+
+ PARAMETER RHO_STEEL =    0.7800000000E-08
+
+ PARAMETER C11E =     132000.0000    
+
+ PARAMETER C12E =     71000.00000    
+
+ PARAMETER C13E =     73000.00000    
+
+ PARAMETER C33E =     115000.0000    
+
+ PARAMETER C44E =     73000.00000    
+
+ PARAMETER C66E =     30500.00000    
+
+ PARAMETER E31 =    0.4100000000E-02
+
+ PARAMETER E33 =    0.1410000000E-01
+
+ PARAMETER E15 =    0.1050000000E-01
+
+ PARAMETER EPS0 =    0.8854000000E-11
+
+ PARAMETER X11ABS =    0.7124000000E-08
+
+ PARAMETER X33ABS =    0.5841000000E-08
+
+ PARAMETER X11 =     804.6080867    
+
+ PARAMETER X33 =     659.7018297    
+
+ PARAMETER RHO_PZT =    0.7500000000E-08
+
+ PARAMETER X_INERT =     1.000000000    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:01:45  SEP 16, 2026 CP=      0.529
+
+  Paper 4 F-F piezo ring EPSREL LANB OPEN-CIRCUIT, p=0, h1/2h=1/8, mm-N-s-tonne
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ *** NOTE ***                            CP =       0.530   TIME= 14:01:45
+ For element type = 1 ( PLANE223 ), KEYOPT 1 = 0 is invalid.  This NOTE  
+ is normal behavior when a CDB file is used.                             
+
+ ELEMENT TYPE          1 IS PLANE223     QUAD COUPLED-FIELD SOLID    
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ ELEMENT TYPE       1 IS PLANE223     2-D 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  TWO-DIMENSIONAL MODEL
+
+ ELEMENT TYPE       1 IS PLANE223     AXI 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      1        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  AXISYMMETRIC MODEL
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     1
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.26923E+06 0.11538E+06 0.11538E+06  0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.26923E+06 0.11538E+06  0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.26923E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 16  76923.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 19  76923.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 21  76923.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     1
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  1  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  7  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC= 13  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ MATERIAL          1     PERX =   1.000000      
+
+ MATERIAL          1     PERY =   1.000000      
+
+ MATERIAL          1     PERZ =   1.000000      
+
+ MATERIAL          1     DENS =  0.7800000E-08  
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     2
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.13200E+06  73000.      71000.      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.11500E+06  73000.      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.13200E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 16  73000.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 19  30500.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 21  73000.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     2
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC=  1  0.0000     0.41000E-02  0.0000      0.0000     0.14100E-01  0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC=  7  0.0000     0.41000E-02  0.0000     0.10500E-01  0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC= 13  0.0000      0.0000     0.10500E-01  0.0000      0.0000      0.0000    
+
+ MATERIAL          2     PERX =   804.6081      
+
+ MATERIAL          2     PERY =   659.7018      
+
+ MATERIAL          2     PERZ =   804.6081      
+
+ MATERIAL          2     DENS =  0.7500000E-08  
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM     -10.00000000     TO      10.00000000    
+
+      OUTPUT AREA =     1
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM      10.00000000     TO      12.50000000    
+
+      OUTPUT AREA =     2
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM     -12.50000000     TO     -10.00000000    
+
+      OUTPUT AREA =     3
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    1   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    6,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    6,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     1 MESHED WITH     240 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =        813
+ MAXIMUM ELEMENT NUMBER     =        240
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         2 TO          2 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    2   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  12.500     AND   12.500    
+   KABS=  0.  TOLERANCE= 0.625000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         2 TO          2 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     2 MESHED WITH      80 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =       1138
+ MAXIMUM ELEMENT NUMBER     =        320
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         3 TO          3 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    2   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -12.500     AND  -12.500    
+   KABS=  0.  TOLERANCE= 0.625000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         3 TO          3 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     3 MESHED WITH      80 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =       1463
+ MAXIMUM ELEMENT NUMBER     =        400
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+  MERGE COINCIDENT NODES WITHIN TOLERANCE OF  0.10000E-04
+ NODE        94 USED FOR NODES       814
+ NODE         1 USED FOR NODES      1224
+ NODE       173 USED FOR NODES       816
+ NODE         3 USED FOR NODES      1303
+ NODE       172 USED FOR NODES       817
+ NODE         4 USED FOR NODES      1302
+ NODE       171 USED FOR NODES       818
+ NODE         5 USED FOR NODES      1301
+ NODE         6 USED FOR NODES      1300
+ NODE       170 USED FOR NODES       819
+ NODE       169 USED FOR NODES       820
+ NODE         7 USED FOR NODES      1299
+ NODE         8 USED FOR NODES      1298
+ NODE       168 USED FOR NODES       821
+ NODE       167 USED FOR NODES       822
+ NODE         9 USED FOR NODES      1297
+ NODE       166 USED FOR NODES       823
+ NODE        10 USED FOR NODES      1296
+ NODE       165 USED FOR NODES       824
+ NODE        11 USED FOR NODES      1295
+ NODE       164 USED FOR NODES       825
+ NODE        12 USED FOR NODES      1294
+ NODE       163 USED FOR NODES       826
+ NODE        13 USED FOR NODES      1293
+ NODE       162 USED FOR NODES       827
+ NODE        14 USED FOR NODES      1292
+ NODE       161 USED FOR NODES       828
+ NODE        15 USED FOR NODES      1291
+ NODE       160 USED FOR NODES       829
+ NODE        16 USED FOR NODES      1290
+ NODE       159 USED FOR NODES       830
+ NODE        17 USED FOR NODES      1289
+ NODE       158 USED FOR NODES       831
+ NODE        18 USED FOR NODES      1288
+ NODE       157 USED FOR NODES       832
+ NODE        19 USED FOR NODES      1287
+ NODE        20 USED FOR NODES      1286
+ NODE       156 USED FOR NODES       833
+ NODE       155 USED FOR NODES       834
+ NODE        21 USED FOR NODES      1285
+ NODE       154 USED FOR NODES       835
+ NODE        22 USED FOR NODES      1284
+ NODE       153 USED FOR NODES       836
+ NODE        23 USED FOR NODES      1283
+ NODE       152 USED FOR NODES       837
+ NODE        24 USED FOR NODES      1282
+ NODE       151 USED FOR NODES       838
+ NODE        25 USED FOR NODES      1281
+ NODE       150 USED FOR NODES       839
+ NODE        26 USED FOR NODES      1280
+ NODE       149 USED FOR NODES       840
+ NODE        27 USED FOR NODES      1279
+ NODE       148 USED FOR NODES       841
+ NODE        28 USED FOR NODES      1278
+ NODE       147 USED FOR NODES       842
+ NODE        29 USED FOR NODES      1277
+ NODE        30 USED FOR NODES      1276
+ NODE       146 USED FOR NODES       843
+ NODE       145 USED FOR NODES       844
+ NODE        31 USED FOR NODES      1275
+ NODE        32 USED FOR NODES      1274
+ NODE       144 USED FOR NODES       845
+ NODE       143 USED FOR NODES       846
+ NODE        33 USED FOR NODES      1273
+ NODE       142 USED FOR NODES       847
+ NODE        34 USED FOR NODES      1272
+ NODE       141 USED FOR NODES       848
+ NODE        35 USED FOR NODES      1271
+ NODE       140 USED FOR NODES       849
+ NODE        36 USED FOR NODES      1270
+ NODE       139 USED FOR NODES       850
+ NODE        37 USED FOR NODES      1269
+ NODE       138 USED FOR NODES       851
+ NODE        38 USED FOR NODES      1268
+ NODE       137 USED FOR NODES       852
+ NODE        39 USED FOR NODES      1267
+ NODE       136 USED FOR NODES       853
+ NODE        40 USED FOR NODES      1266
+ NODE       135 USED FOR NODES       854
+ NODE        41 USED FOR NODES      1265
+ NODE       134 USED FOR NODES       855
+ NODE        42 USED FOR NODES      1264
+ NODE       133 USED FOR NODES       856
+ NODE        43 USED FOR NODES      1263
+ NODE       132 USED FOR NODES       857
+ NODE        44 USED FOR NODES      1262
+ NODE       131 USED FOR NODES       858
+ NODE        45 USED FOR NODES      1261
+ NODE       130 USED FOR NODES       859
+ NODE        46 USED FOR NODES      1260
+ NODE       129 USED FOR NODES       860
+ NODE        47 USED FOR NODES      1259
+ NODE       128 USED FOR NODES       861
+ NODE        48 USED FOR NODES      1258
+ NODE       127 USED FOR NODES       862
+ NODE        49 USED FOR NODES      1257
+ NODE        50 USED FOR NODES      1256
+ NODE       126 USED FOR NODES       863
+ NODE       125 USED FOR NODES       864
+ NODE        51 USED FOR NODES      1255
+ NODE       124 USED FOR NODES       865
+ NODE        52 USED FOR NODES      1254
+ NODE       123 USED FOR NODES       866
+ NODE        53 USED FOR NODES      1253
+ NODE       122 USED FOR NODES       867
+ NODE        54 USED FOR NODES      1252
+ NODE       121 USED FOR NODES       868
+ NODE        55 USED FOR NODES      1251
+ NODE       120 USED FOR NODES       869
+ NODE        56 USED FOR NODES      1250
+ NODE       119 USED FOR NODES       870
+ NODE        57 USED FOR NODES      1249
+ NODE       118 USED FOR NODES       871
+ NODE        58 USED FOR NODES      1248
+ NODE       117 USED FOR NODES       872
+ NODE        59 USED FOR NODES      1247
+ NODE       116 USED FOR NODES       873
+ NODE        60 USED FOR NODES      1246
+ NODE       115 USED FOR NODES       874
+ NODE        61 USED FOR NODES      1245
+ NODE       114 USED FOR NODES       875
+ NODE        62 USED FOR NODES      1244
+ NODE       113 USED FOR NODES       876
+ NODE        63 USED FOR NODES      1243
+ NODE       112 USED FOR NODES       877
+ NODE        64 USED FOR NODES      1242
+ NODE       111 USED FOR NODES       878
+ NODE        65 USED FOR NODES      1241
+ NODE        66 USED FOR NODES      1240
+ NODE       110 USED FOR NODES       879
+ NODE       109 USED FOR NODES       880
+ NODE        67 USED FOR NODES      1239
+ NODE       108 USED FOR NODES       881
+ NODE        68 USED FOR NODES      1238
+ NODE       107 USED FOR NODES       882
+ NODE        69 USED FOR NODES      1237
+ NODE       106 USED FOR NODES       883
+ NODE        70 USED FOR NODES      1236
+ NODE       105 USED FOR NODES       884
+ NODE        71 USED FOR NODES      1235
+ NODE       104 USED FOR NODES       885
+ NODE        72 USED FOR NODES      1234
+ NODE       103 USED FOR NODES       886
+ NODE        73 USED FOR NODES      1233
+ NODE       102 USED FOR NODES       887
+ NODE        74 USED FOR NODES      1232
+ NODE       101 USED FOR NODES       888
+ NODE        75 USED FOR NODES      1231
+ NODE       100 USED FOR NODES       889
+ NODE        76 USED FOR NODES      1230
+ NODE        99 USED FOR NODES       890
+ NODE        77 USED FOR NODES      1229
+ NODE        98 USED FOR NODES       891
+ NODE        78 USED FOR NODES      1228
+ NODE        97 USED FOR NODES       892
+ NODE        79 USED FOR NODES      1227
+ NODE        96 USED FOR NODES       893
+ NODE        80 USED FOR NODES      1226
+ NODE        95 USED FOR NODES       894
+ NODE        81 USED FOR NODES      1225
+ NODE         2 USED FOR NODES      1220
+ NODE        82 USED FOR NODES       815
+
+
+ A total of       162 nodes were merged at       162 locations.
+
+ *** WARNING ***                         CP =       0.557   TIME= 14:01:45
+ After NUMMRG,NODE, node 94 (and possibly others) is associated with     
+ more than one solid model entity.  Future commands which depend on the  
+ node to solid model connectivity (meshing, mesh clearing, solid         
+ boundary condition transfer, etc.) may not operate properly.            
+ NUMMRG,KP may correct this problem.                                     
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.559
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A MODAL ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ USE SYM. BLOCK LANCZOS MODE EXTRACTION METHOD
+  EXTRACT    20 MODES
+  NORMALIZE THE MODE SHAPES TO UNITY
+
+
+ NUMBER OF MODES TO EXPAND=    20
+  DO NOT CALCULATE ELEMENT RESULTS
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+         81  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        162  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO        1463 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  12.500     AND   12.500    
+   KABS=  0.  TOLERANCE= 0.625000E-01
+
+         81  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN -12.500     AND  -12.500    
+   KABS=  0.  TOLERANCE= 0.625000E-01
+
+        162  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ COUPLED SET =          1  DIRECTION= VOLT  TOTAL NODES=      162
+ MAXIMUM COUPLED SET NUMBER =          1
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       0.889   TIME= 14:01:45
+ Axisymmetric elements are present.  The nodal loads input with the F    
+ commands and the reaction forces are on a full circle basis.  This      
+ differs from the pre-MAPDL 5.0 interpretation.                          
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:01:45  SEP 16, 2026 CP=      0.913
+
+  Paper 4 F-F piezo ring EPSREL LANB OPEN-CIRCUIT, p=0, h1/2h=1/8, mm-N-s-tonne
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .AXISYMMETRIC         
+   DEGREES OF FREEDOM. . . . . . UX   UY   VOLT
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .MODAL                
+      EXTRACTION METHOD. . . . . . . . . . . . . .BLOCK LANCZOS
+   NUMBER OF MODES TO EXTRACT. . . . . . . . . . .    20
+   SHIFT POINT . . . . . . . . . . . . . . . . . . -1.0000    
+   NORMALIZE MODES TO UNITY. . . . . . . . . . . .YES
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+   NUMBER OF MODES TO EXPAND . . . . . . . . . . .    20
+   ELEMENT RESULTS CALCULATION . . . . . . . . . .OFF
+
+ *** NOTE ***                            CP =       0.953   TIME= 14:01:45
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** NOTE ***                            CP =       0.992   TIME= 14:01:45
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   THERMAL STRAINS INCLUDED IN THE LOAD VECTOR . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS. . . . . . . . . . . .ALL DATA WRITTEN
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =  0.21276    
+
+
+ MASS AND MOMENT VALUES ARE EVALUATED FOR AN AXISYMMETRIC 360. DEGREE MODEL.
+
+                    MOM. OF INERTIA      MOM. OF INERTIA     RADIUS OF GYRATION
+ CENTER OF MASS      ABOUT ORIGIN     ABOUT CENTER OF MASS  ABOUT CENTER OF MASS
+
+ XC =   0.0000       IXX =   0.1969E+05   IXX =   0.1969E+05  RGX =    304.2    
+ YC = -0.19731E-14   IYY =   0.3935E+05   IYY =   0.3935E+05  RGY =    430.1    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.212764    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 7.679335262E+09 at element 320.                               
+ Minimum = 1.239564161E+09 at element 121.                               
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       400  PLANE223      0.592   0.001480
+ Time at end of element matrix formulation CP = 2.47696996.              
+
+  BLOCK LANCZOS CALCULATION OF UP TO    20 EIGENVECTORS.
+  NUMBER OF EQUATIONS              =         3580
+  MAXIMUM WAVEFRONT                =           51
+  MAXIMUM MODES STORED             =           20
+  MINIMUM EIGENVALUE               = -0.10000E+01
+  MAXIMUM EIGENVALUE               =  0.10000E+31
+
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =     4.859 MB
+  Equation solver memory required for in-core mode     =     4.641 MB
+  Equation solver memory required for out-of-core mode =     1.999 MB
+  Total (solver and non-solver) memory allocated       =   532.445 MB
+
+ *** NOTE ***                            CP =       4.018   TIME= 14:01:45
+ The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+ currently running in the in-core memory mode.  This memory mode uses    
+ the most amount of memory in order to avoid using the hard drive as     
+ much as possible, which most often results in the fastest solution      
+ time.  This mode is recommended if enough physical memory is present    
+ to accommodate all of the solver data.                                  
+
+  Process memory required for in-core LANCZOS Workspace             =     14.248550 MB
+  Process memory required for out-of-core LANCZOS Workspace         =     829.890625 KB
+  Lanczos Memory Mode : INCORE
+
+
+  >> Shift # 1 :  | | |                              : 20 Eigenvalues Converged
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:01:47  SEP 16, 2026 CP=      9.265
+
+  Paper 4 F-F piezo ring EPSREL LANB OPEN-CIRCUIT, p=0, h1/2h=1/8, mm-N-s-tonne
+
+
+ NEGATIVE FREQUENCY OF -0.3778E-02 SET TO ZERO
+
+ *** FREQUENCIES FROM BLOCK LANCZOS ITERATION ***
+
+  MODE    FREQUENCY (HERTZ)      
+
+
+   FREQUENCY RANGE REQUESTED=   20 MODES ABOVE  -1.00000     HERTZ
+
+    1     0.000000000000    
+    2     121.8389487719    
+    3     565.4863341868    
+    4     1352.817391299    
+    5     2470.075669451    
+    6     2490.894787542    
+    7     3942.953799833    
+    8     5672.943248874    
+    9     6329.404291117    
+   10     7636.693275544    
+   11     9800.152809595    
+   12     10673.74138491    
+   13     12126.30759151    
+   14     14589.95903064    
+   15     15401.55088154    
+   16     17163.50483211    
+   17     19830.28661469    
+   18     20247.38353367    
+   19     22570.46908792    
+   20     25126.19987519    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:01:47  SEP 16, 2026 CP=      9.581
+
+  Paper 4 F-F piezo ring EPSREL LANB OPEN-CIRCUIT, p=0, h1/2h=1/8, mm-N-s-tonne
+
+
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  X  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     0.00000        0.0000        0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     121.839       0.82076E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     565.486       0.17684E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     1352.82       0.73920E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     2470.08       0.40485E-03  -0.45945        1.000000    0.211093        0.992258        0.992146    
+     6     2490.89       0.40146E-03   0.57049E-08    0.000000    0.325459E-16    0.992258        0.152967E-15
+     7     3942.95       0.25362E-03    0.0000        0.000000     0.00000        0.992258         0.00000    
+     8     5672.94       0.17628E-03    0.0000        0.000000     0.00000        0.992258         0.00000    
+     9     6329.40       0.15799E-03   0.39379E-01    0.085709    0.155068E-02    0.999547        0.728826E-02
+    10     7636.69       0.13095E-03    0.0000        0.000000     0.00000        0.999547         0.00000    
+    11     9800.15       0.10204E-03    0.0000        0.000000     0.00000        0.999547         0.00000    
+    12     10673.7       0.93688E-04   0.91950E-02    0.020013    0.845473E-04    0.999945        0.397375E-03
+    13     12126.3       0.82465E-04    0.0000        0.000000     0.00000        0.999945         0.00000    
+    14     14590.0       0.68540E-04    0.0000        0.000000     0.00000        0.999945         0.00000    
+    15     15401.6       0.64929E-04   0.28024E-02    0.006100    0.785359E-05    0.999982        0.369121E-04
+    16     17163.5       0.58263E-04    0.0000        0.000000     0.00000        0.999982         0.00000    
+    17     19830.3       0.50428E-04    0.0000        0.000000     0.00000        0.999982         0.00000    
+    18     20247.4       0.49389E-04  -0.67509E-04    0.000147    0.455747E-08    0.999982        0.214203E-07
+    19     22570.5       0.44306E-04    0.0000        0.000000     0.00000        0.999982         0.00000    
+    20     25126.2       0.39799E-04  -0.19709E-02    0.004290    0.388441E-05     1.00000        0.182569E-04
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.212740                        0.999887    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Y  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     0.00000        0.0000       0.46126        1.000000    0.212764         1.00000         1.00000    
+     2     121.839       0.82076E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     3     565.486       0.17684E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     4     1352.82       0.73920E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+     5     2470.08       0.40485E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+     6     2490.89       0.40146E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+     7     3942.95       0.25362E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+     8     5672.94       0.17628E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+     9     6329.40       0.15799E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    10     7636.69       0.13095E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    11     9800.15       0.10204E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    12     10673.7       0.93688E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    13     12126.3       0.82465E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    14     14590.0       0.68540E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    15     15401.6       0.64929E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    16     17163.5       0.58263E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    17     19830.3       0.50428E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    18     20247.4       0.49389E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    19     22570.5       0.44306E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    20     25126.2       0.39799E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.212764                         1.00000    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Z  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     0.00000        0.0000        0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     121.839       0.82076E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     565.486       0.17684E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     1352.82       0.73920E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     2470.08       0.40485E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     2490.89       0.40146E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     7     3942.95       0.25362E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     8     5672.94       0.17628E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     9     6329.40       0.15799E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    10     7636.69       0.13095E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    11     9800.15       0.10204E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    12     10673.7       0.93688E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    13     12126.3       0.82465E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    14     14590.0       0.68540E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    15     15401.6       0.64929E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    16     17163.5       0.58263E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    17     19830.3       0.50428E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    18     20247.4       0.49389E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    19     22570.5       0.44306E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    20     25126.2       0.39799E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTX DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     0.00000        0.0000        0.0000        0.000000     0.00000         0.00000    
+     2     121.839       0.82076E-02    0.0000        0.000000     0.00000         0.00000    
+     3     565.486       0.17684E-02    0.0000        0.000000     0.00000         0.00000    
+     4     1352.82       0.73920E-03    0.0000        0.000000     0.00000         0.00000    
+     5     2470.08       0.40485E-03    0.0000        0.000000     0.00000         0.00000    
+     6     2490.89       0.40146E-03    0.0000        0.000000     0.00000         0.00000    
+     7     3942.95       0.25362E-03    0.0000        0.000000     0.00000         0.00000    
+     8     5672.94       0.17628E-03    0.0000        0.000000     0.00000         0.00000    
+     9     6329.40       0.15799E-03    0.0000        0.000000     0.00000         0.00000    
+    10     7636.69       0.13095E-03    0.0000        0.000000     0.00000         0.00000    
+    11     9800.15       0.10204E-03    0.0000        0.000000     0.00000         0.00000    
+    12     10673.7       0.93688E-04    0.0000        0.000000     0.00000         0.00000    
+    13     12126.3       0.82465E-04    0.0000        0.000000     0.00000         0.00000    
+    14     14590.0       0.68540E-04    0.0000        0.000000     0.00000         0.00000    
+    15     15401.6       0.64929E-04    0.0000        0.000000     0.00000         0.00000    
+    16     17163.5       0.58263E-04    0.0000        0.000000     0.00000         0.00000    
+    17     19830.3       0.50428E-04    0.0000        0.000000     0.00000         0.00000    
+    18     20247.4       0.49389E-04    0.0000        0.000000     0.00000         0.00000    
+    19     22570.5       0.44306E-04    0.0000        0.000000     0.00000         0.00000    
+    20     25126.2       0.39799E-04    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTY DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     0.00000        0.0000        0.0000        0.000000     0.00000         0.00000    
+     2     121.839       0.82076E-02    0.0000        0.000000     0.00000         0.00000    
+     3     565.486       0.17684E-02    0.0000        0.000000     0.00000         0.00000    
+     4     1352.82       0.73920E-03    0.0000        0.000000     0.00000         0.00000    
+     5     2470.08       0.40485E-03    0.0000        0.000000     0.00000         0.00000    
+     6     2490.89       0.40146E-03    0.0000        0.000000     0.00000         0.00000    
+     7     3942.95       0.25362E-03    0.0000        0.000000     0.00000         0.00000    
+     8     5672.94       0.17628E-03    0.0000        0.000000     0.00000         0.00000    
+     9     6329.40       0.15799E-03    0.0000        0.000000     0.00000         0.00000    
+    10     7636.69       0.13095E-03    0.0000        0.000000     0.00000         0.00000    
+    11     9800.15       0.10204E-03    0.0000        0.000000     0.00000         0.00000    
+    12     10673.7       0.93688E-04    0.0000        0.000000     0.00000         0.00000    
+    13     12126.3       0.82465E-04    0.0000        0.000000     0.00000         0.00000    
+    14     14590.0       0.68540E-04    0.0000        0.000000     0.00000         0.00000    
+    15     15401.6       0.64929E-04    0.0000        0.000000     0.00000         0.00000    
+    16     17163.5       0.58263E-04    0.0000        0.000000     0.00000         0.00000    
+    17     19830.3       0.50428E-04    0.0000        0.000000     0.00000         0.00000    
+    18     20247.4       0.49389E-04    0.0000        0.000000     0.00000         0.00000    
+    19     22570.5       0.44306E-04    0.0000        0.000000     0.00000         0.00000    
+    20     25126.2       0.39799E-04    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTZ DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     0.00000        0.0000        188.90        1.000000     35682.7        0.906287    
+     2     121.839       0.82076E-02    60.718        0.321430     3686.64        0.999922    
+     3     565.486       0.17684E-02   -1.4988        0.007935     2.24655        0.999979    
+     4     1352.82       0.73920E-03   0.90124        0.004771    0.812237         1.00000    
+     5     2470.08       0.40485E-03  -0.40389E-06    0.000000    0.163129E-12     1.00000    
+     6     2490.89       0.40146E-03   0.32710E-01    0.000173    0.106996E-02     1.00000    
+     7     3942.95       0.25362E-03   0.88867E-01    0.000470    0.789732E-02     1.00000    
+     8     5672.94       0.17628E-03   0.38722E-01    0.000205    0.149940E-02     1.00000    
+     9     6329.40       0.15799E-03  -0.10806E-06    0.000000    0.116772E-13     1.00000    
+    10     7636.69       0.13095E-03   0.16308E-01    0.000086    0.265941E-03     1.00000    
+    11     9800.15       0.10204E-03   0.23151E-01    0.000123    0.535959E-03     1.00000    
+    12     10673.7       0.93688E-04  -0.16394E-07    0.000000    0.268778E-15     1.00000    
+    13     12126.3       0.82465E-04   0.36908E-02    0.000020    0.136220E-04     1.00000    
+    14     14590.0       0.68540E-04   0.14400E-01    0.000076    0.207370E-03     1.00000    
+    15     15401.6       0.64929E-04    0.0000        0.000000     0.00000         1.00000    
+    16     17163.5       0.58263E-04   0.67328E-03    0.000004    0.453302E-06     1.00000    
+    17     19830.3       0.50428E-04   0.96132E-02    0.000051    0.924128E-04     1.00000    
+    18     20247.4       0.49389E-04   0.10009E-06    0.000000    0.100181E-13     1.00000    
+    19     22570.5       0.44306E-04  -0.15055E-03    0.000001    0.226665E-07     1.00000    
+    20     25126.2       0.39799E-04  -0.27914E-07    0.000000    0.779188E-15     1.00000    
+ ----------------------------------------------------------------------------------------------
+   sum                                                             39372.4    
+ ----------------------------------------------------------------------------------------------
+
+
+
+
+
+        ***** MODAL MASSES, KINETIC ENERGIES, AND TRANSLATIONAL EFFECTIVE MASSES SUMMARY *****
+
+                                                                         EFFECTIVE MASS
+  MODE  FREQUENCY   MODAL MASS     KENE      |      X-DIR      RATIO%   Y-DIR      RATIO%   Z-DIR      RATIO% 
+     1   0.000      0.2128       0.000       |     0.000        0.00  0.2128      100.00   0.000        0.00
+     2   121.8      0.1423E-05  0.4169       |     0.000        0.00   0.000        0.00   0.000        0.00
+     3   565.5      0.1446E-06  0.9126       |     0.000        0.00   0.000        0.00   0.000        0.00
+     4   1353.      0.2064E-06   7.458       |     0.000        0.00   0.000        0.00   0.000        0.00
+     5   2470.      0.9954E-03  0.1199E+06   |    0.2111       99.21   0.000        0.00   0.000        0.00
+     6   2491.      0.2857E-07   3.499       |    0.3255E-16    0.00   0.000        0.00   0.000        0.00
+     7   3943.      0.6128E-07   18.81       |     0.000        0.00   0.000        0.00   0.000        0.00
+     8   5673.      0.1280E-07   8.131       |     0.000        0.00   0.000        0.00   0.000        0.00
+     9   6329.      0.2136E-03  0.1689E+06   |    0.1551E-02    0.73   0.000        0.00   0.000        0.00
+    10   7637.      0.2109E-07   24.27       |     0.000        0.00   0.000        0.00   0.000        0.00
+    11   9800.      0.6626E-08   12.56       |     0.000        0.00   0.000        0.00   0.000        0.00
+    12  0.1067E+05  0.1299E-04  0.2922E+05   |    0.8455E-04    0.04   0.000        0.00   0.000        0.00
+    13  0.1213E+05  0.7482E-08   21.72       |     0.000        0.00   0.000        0.00   0.000        0.00
+    14  0.1459E+05  0.3527E-08   14.82       |     0.000        0.00   0.000        0.00   0.000        0.00
+    15  0.1540E+05  0.2837E-05  0.1328E+05   |    0.7854E-05    0.00   0.000        0.00   0.000        0.00
+    16  0.1716E+05  0.3418E-08   19.88       |     0.000        0.00   0.000        0.00   0.000        0.00
+    17  0.1983E+05  0.1901E-08   14.76       |     0.000        0.00   0.000        0.00   0.000        0.00
+    18  0.2025E+05  0.8994E-06   7279.       |    0.4557E-08    0.00   0.000        0.00   0.000        0.00
+    19  0.2257E+05  0.1501E-08   15.09       |     0.000        0.00   0.000        0.00   0.000        0.00
+    20  0.2513E+05  0.2129E-06   2653.       |    0.3884E-05    0.00   0.000        0.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+   sum                                       |    0.2127       99.99  0.2128      100.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.250 MB WRITTEN ON ELEMENT SAVED DATA FILE: p4_epsrel_ff_lanb_h18_oc.esav
+        1.312 MB WRITTEN ON ASSEMBLED MATRIX FILE: p4_epsrel_ff_lanb_h18_oc.full
+        0.500 MB WRITTEN ON MODAL MATRIX FILE: p4_epsrel_ff_lanb_h18_oc.mode
+        1.000 MB WRITTEN ON RESULTS FILE: p4_epsrel_ff_lanb_h18_oc.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         9.875
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:01:47  SEP 16, 2026 CP=      9.920
+
+  Paper 4 F-F piezo ring EPSREL LANB OPEN-CIRCUIT, p=0, h1/2h=1/8, mm-N-s-tonne
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =       9.931   TIME= 14:01:47
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+ SET PARAMETER DIMENSIONS ON  FR1 TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ SET PARAMETER DIMENSIONS ON  IDXARR TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  20.000     BY  1.0000    
+
+ *GET  FR1       FROM  MODE      1  ITEM=FREQ       VALUE=  0.00000000    
+
+ PARAMETER IDXARR(I) =     1.000000000    
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= ansys_p4_epsrel_ff_lanb_oc_h18_modes.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+         21  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+          1  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NTOP      FROM  NODE  ITEM=NUM  MIN   VALUE=  82.0000000     
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+         21  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+          1  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NBOT      FROM  NODE  ITEM=NUM  MIN   VALUE=  2.00000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SET PARAMETER DIMENSIONS ON  UXT TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ SET PARAMETER DIMENSIONS ON  UYT TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ SET PARAMETER DIMENSIONS ON  UXB TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ SET PARAMETER DIMENSIONS ON  UYB TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  20.000     BY  1.0000    
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  0.0000    
+ TITLE=  Paper 4 F-F piezo ring EPSREL LANB OPEN-CIRCUIT, p=0, h1/2h=1/8, mm-N-s
+
+ *GET  UXT       FROM  NODE     82  ITEM=U    X     VALUE=-0.990347635E-10
+
+ *GET  UYT       FROM  NODE     82  ITEM=U    Y     VALUE=  1.00000000    
+
+ *GET  UXB       FROM  NODE      2  ITEM=U    X     VALUE= 0.992416230E-10
+
+ *GET  UYB       FROM  NODE      2  ITEM=U    Y     VALUE=  1.00000000    
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= ansys_p4_epsrel_ff_lanb_oc_h18_discriminator.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =        10.572
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= p4_epsrel_ff_lanb_h18_oc.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          1
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2025 R1            Build: 25.1       Update: UP20241202   Platform: LINUX x64   
+Date Run: 09/16/2026   Time: 14:01     Process ID: 1638878
+Operating System: AlmaLinux release 8.10 (Cerulean Leopard)
+
+Processor Model: AMD EPYC 7502 32-Core Processor
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          AOCL-BLAS 4.2.1 Build 20240303
+
+Number of machines requested            :    1
+Total number of cores available         :   64
+Number of physical cores available      :   64
+Number of processes requested           :    1
+Number of threads per process requested :    8
+Total number of cores requested         :    8 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: p4_epsrel_ff_lanb_h18_oc
+Input File: ansys_p4_epsrel_ff_lanb_h18_oc_2026-09-16.inp
+Working Directory: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys
+
+Total CPU time for main thread                    :        1.2 seconds
+Total CPU time summed for all threads             :       11.6 seconds
+
+Elapsed time spent obtaining a license            :        2.0 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.2 seconds
+Elapsed time spent solution - preprocessing       :        0.1 seconds
+Elapsed time spent computing solution             :        2.1 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.1 seconds
+ 
+Eigensolver used                                  :            Block Lanczos
+Equation solver computational rate                :        0.1 Gflops
+
+Sum of disk space used on all processes           :        3.9 MB
+
+Sum of memory used on all processes               :       48.0 MB
+Sum of memory allocated on all processes          :     2304.0 MB
+Physical memory available                         :        251 GB
+Total amount of I/O written to disk               :        0.0 GB
+Total amount of I/O read from disk                :        0.0 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+ |  Maximum Database Used       2 MB     Maximum Scratch Memory Used     46 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =         11.603       Time  =  14:01:48          |
+ |        Elapsed Time (sec) =          8.000       Date  =  09/16/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

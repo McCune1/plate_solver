@@ -1,0 +1,25 @@
+Job 2520476 on compute-33-02.mill
+Start: Sun Sep 20 00:51:44 CDT 2026
+================================================================
+  run_ansys_queue.sh -- Sun Sep 20 00:51:45 CDT 2026
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys  manifest=ansys_queue_manifest_piezo_p5_mono_ff_2026-09-19.txt  cpus/deck=8  stop_on_fail=0
+================================================================
+
+---- [1] ansys_p5_epsrel_ff_lanb_e0_2026-09-19.inp : RUNNING (mapdl -np 8 -j p5_epsrel_ff_lanb_e0_202) -- Sun Sep 20 00:51:46 CDT 2026 ----
+---- [1] ansys_p5_epsrel_ff_lanb_e0_2026-09-19.inp : OK (18s), wrote ansys_p5_epsrel_ff_lanb_e0_2026-09-19_out.txt, sentinel=ansys_p5_epsrel_ff_lanb_e0_2026-09-19.inp.QUEUE_OK ----
+
+---- [2] ansys_p5_epsrel_ff_lanb_scboth_2026-09-19.inp : RUNNING (mapdl -np 8 -j p5_epsrel_ff_lanb_scboth) -- Sun Sep 20 00:52:04 CDT 2026 ----
+---- [2] ansys_p5_epsrel_ff_lanb_scboth_2026-09-19.inp : OK (6s), wrote ansys_p5_epsrel_ff_lanb_scboth_2026-09-19_out.txt, sentinel=ansys_p5_epsrel_ff_lanb_scboth_2026-09-19.inp.QUEUE_OK ----
+
+---- [3] ansys_p5_epsrel_ff_lanb_oc_2026-09-19.inp : RUNNING (mapdl -np 8 -j p5_epsrel_ff_lanb_oc_202) -- Sun Sep 20 00:52:10 CDT 2026 ----
+---- [3] ansys_p5_epsrel_ff_lanb_oc_2026-09-19.inp : OK (6s), wrote ansys_p5_epsrel_ff_lanb_oc_2026-09-19_out.txt, sentinel=ansys_p5_epsrel_ff_lanb_oc_2026-09-19.inp.QUEUE_OK ----
+
+================================================================
+  QUEUE SUMMARY -- Sun Sep 20 00:52:16 CDT 2026  (total wall: 0 min)
+================================================================
+  ansys_p5_epsrel_ff_lanb_e0_2026-09-19.inp : OK (18s)
+  ansys_p5_epsrel_ff_lanb_scboth_2026-09-19.inp : OK (6s)
+  ansys_p5_epsrel_ff_lanb_oc_2026-09-19.inp : OK (6s)
+
+  total=3  ok=3  skip=0  fail=0
+End: Sun Sep 20 00:52:16 CDT 2026

@@ -1,0 +1,52 @@
+# Paper 4 (piezo) Lever 8 -- 2026-09-16. Mesh refinement of the fair
+# OC / both-faces-SC pair: NDIV_ZP 2 -> 4, everything else unchanged.
+# 1/12 first (tightest analytic gap), then 1/8 and 1/5 so the
+# thickness-trend question can be re-read on the refined mesh.
+#
+# PUSH these files to
+#   /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/
+# then from that directory:
+#   sbatch submit_ansys_queue_piezo_ff_zp4_2026-09-16.sh
+#
+# Pre-registered PASS -- read each deck's own _modes.txt,
+# _discriminator.txt, and _out.txt. Use NUMBER OF ERROR MESSAGES
+# ENCOUNTERED and RUN COMPLETED. Do NOT trust the queue script's own
+# PASS/FAIL label (job 2494226 false-FAILED on a comment token).
+#
+#   1. ansys_p4_zp4_ff_oc_h112_2026-09-16.inp
+#      h1/2h=1/12 F-F OC, NDIV_ZP=4. Closed-form 119.40431 Hz.
+#      Coarse-mesh FE was 119.143 Hz. Must sit ABOVE deck 2.
+#
+#   2. ansys_p4_zp4_ff_sc_h112_2026-09-16.inp
+#      h1/2h=1/12 both-faces SC, NDIV_ZP=4. Closed-form 119.04677 Hz.
+#      Coarse-mesh FE was 118.811 Hz. Must sit BELOW deck 1.
+#
+#   3. ansys_p4_zp4_ff_oc_h18_2026-09-16.inp
+#      h1/2h=1/8 F-F OC, NDIV_ZP=4. Closed-form 122.15932 Hz.
+#      Coarse-mesh FE was 121.839 Hz. Must sit ABOVE deck 4.
+#
+#   4. ansys_p4_zp4_ff_sc_h18_2026-09-16.inp
+#      h1/2h=1/8 both-faces SC, NDIV_ZP=4. Closed-form 121.61564 Hz.
+#      Coarse-mesh FE was 121.348 Hz. Must sit BELOW deck 3.
+#
+#   5. ansys_p4_zp4_ff_oc_h15_2026-09-16.inp
+#      h1/2h=1/5 F-F OC, NDIV_ZP=4. Closed-form 128.26320 Hz.
+#      Coarse-mesh FE was 127.809 Hz. Must sit ABOVE deck 6.
+#
+#   6. ansys_p4_zp4_ff_sc_h15_2026-09-16.inp
+#      h1/2h=1/5 both-faces SC, NDIV_ZP=4. Closed-form 127.38344 Hz.
+#      Coarse-mesh FE was 127.047 Hz. Must sit BELOW deck 5.
+#
+# Scientific question (reported, not a run-fail): does the FE/analytic
+# split gap shrink vs the NDIV_ZP=2 pair? Shrink => mesh; unchanged =>
+# not this through-thickness count; grow => stop and report.
+#
+# 0 Hz rigid-body present, real bending discriminator, 0 MAPDL error
+# lines, RUN COMPLETED. Do not re-try units/TBDATA/LANB/NDIV_R/NDIV_ZH.
+#
+ansys_p4_zp4_ff_oc_h112_2026-09-16.inp
+ansys_p4_zp4_ff_sc_h112_2026-09-16.inp
+ansys_p4_zp4_ff_oc_h18_2026-09-16.inp
+ansys_p4_zp4_ff_sc_h18_2026-09-16.inp
+ansys_p4_zp4_ff_oc_h15_2026-09-16.inp
+ansys_p4_zp4_ff_sc_h15_2026-09-16.inp

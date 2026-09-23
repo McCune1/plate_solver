@@ -37,5 +37,9 @@ paper's model.
 
 **Running.** Set `PKG_PATH` to the repository root (these scripts sit
 two levels below it). The `submit_*.sh` wrappers hardcode the original
-cluster paths; change them to your install. Finite-element decks for this
-paper are not yet in `ansys/`.
+cluster paths; change them to your install.
+
+**Finite elements.** The PLANE223 decks, their text outputs, manifests,
+submit/build scripts and queue logs for every finite-element job the paper
+cites are in `ansys/NewAnsys/` (`ansys_p4_*`). `ansys/README.md` maps each
+job to its paper claim.

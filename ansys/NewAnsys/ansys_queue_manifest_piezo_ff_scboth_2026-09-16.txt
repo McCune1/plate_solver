@@ -1,0 +1,17 @@
+# Paper 4 (piezo) F-F BOTH-FACES short-circuit control -- 2026-09-16.
+# Fair SC counterpart to job 2491761's OC deck. Same mesh; VOLT=0 on
+# interface AND outers. See LESSONS_LEARNED.md Sec 18.177.
+#
+# PUSH to /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/
+# then: sbatch submit_ansys_queue_piezo_ff_scboth_2026-09-16.sh
+#
+# Pre-registered reading of mode 2 (bending, 0 Hz present, no
+# ill-conditioning, real discriminator -- same mechanical gates as OC):
+#   ~119.05-119.14 Hz AND below OC FE 119.143 Hz
+#       -> job 2491761 DID stiffen vs true SC; parent outer-only SC was mixed
+#   ~119.14 Hz (matches OC FE)
+#       -> this mesh does not resolve the 0.30% analytic OC-SC split
+#   ~119.24 Hz (matches parent outer-only SC)
+#       -> stop and report; do not retune units/TBDATA/LANB
+#
+ansys_p4_epsrel_ff_lanb_scboth_2026-09-16.inp

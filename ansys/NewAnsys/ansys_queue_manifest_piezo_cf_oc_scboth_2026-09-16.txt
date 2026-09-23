@@ -1,0 +1,31 @@
+# Paper 4 optional C-F FE -- clones of the confirmed F-F OC/scboth
+# pair (jobs 2491761 / 2491831) with ONLY the mechanical BC changed
+# to C-F (inner clamped, outer free). Mesh/units/TB,PIEZ/LANB/
+# KEYOPT(1)=1001 unchanged. LESSONS_LEARNED.md Sec 18.192.
+#
+# PUSH to /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/
+# then from that directory:
+#   sbatch submit_ansys_queue_piezo_cf_oc_scboth_2026-09-16.sh
+#
+# Pre-registered PASS -- read each deck's own _modes.txt,
+# _discriminator.txt, and _out.txt. Judge MAPDL from NUMBER OF
+# ERROR MESSAGES ENCOUNTERED and RUN COMPLETED in the transcript,
+# not the queue script's own pass/fail label. Never trust .QUEUE_OK
+# alone.
+#
+#   1. ansys_p4_epsrel_cf_lanb_scboth_2026-09-16.inp
+#      C-F both-faces SC. Target: first bending mode near 67.144 Hz
+#      (421.895 rad/s, elastic_cf_bisect / cf_coupled_bisect n=0
+#      h1/2h=1/12). No 0 Hz rigid body (clamp took). Bending
+#      discriminator at r=RO (UY_top ~ UY_bot, UX_top ~ -UX_bot).
+#      FAIL if mode 1 is 0 Hz.
+#
+#   2. ansys_p4_epsrel_cf_lanb_oc_2026-09-16.inp
+#      C-F OC. Target: first bending mode near 67.333 Hz
+#      (423.085 rad/s, oc_cf_bisect), ABOVE this queue's own scboth
+#      on the same mesh. No 0 Hz rigid body. Same discriminator.
+#      FAIL if the OC frequency reproduces scboth -- electrical BC
+#      did not take. Do not retune mesh/units/TBDATA/LANB.
+#
+ansys_p4_epsrel_cf_lanb_scboth_2026-09-16.inp
+ansys_p4_epsrel_cf_lanb_oc_2026-09-16.inp

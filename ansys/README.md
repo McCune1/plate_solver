@@ -34,3 +34,62 @@ Where a deck was run on the cluster there is also a `submit_ansys_*.sh`
 SLURM wrapper (adapt the SBATCH header, the ANSYS module, and the
 hardcoded `cd /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/`
 line to your own scheduler and install location).
+
+## Piezoelectric rings (Papers 4 and 5): `NewAnsys/ansys_p4_*`, `ansys_p5_*`
+
+These are axisymmetric PLANE223 (KEYOPT(1)=1001) coupled-field models,
+in mm–N–s–tonne units with relative permittivity. They back the
+finite-element paragraphs of `paper/PAPER4_PIEZO_DRAFT.tex` §5.2, §5.3
+and §7 (SM §S.3, §S.4; job list in SM §S.6), and the free–free check in
+`paper/PAPER5_MONOLITHIC_PIEZO_DRAFT.tex`.
+
+For each deck `<stem>_<date>.inp`, the run wrote:
+- `<stem>_<date>_out.txt`, the MAPDL transcript;
+- `<stem>_modes.txt`, the frequency list;
+- `<stem>_discriminator.txt`, the bending-shape check at r = r_o.
+
+The OC/scboth decks at 1/8 and 1/5 write `..._oc_h18_modes.txt` and so on,
+with the ratio after the BC tag.
+
+| Job | Decks (`ansys_p4_…_2026-09-16.inp`) | Paper claim | Mode 2 in the shipped `_modes.txt` |
+|---|---|---|---|
+| 2490706 | `epsrel_ff_e0`, `epsrel_ff_lanb`, `epsrel_ff_subsp`, `epsrel_cc_lanb` | F–F coupling-off control and outer-only-ground SC at h₁/2h = 1/12 (§5.2) | e0 118.81016 Hz; outer-only 119.24241 Hz |
+| 2490848 | `epsrel_ff_lanb_h18`, `epsrel_ff_lanb_h15` | F–F outer-only-ground at 1/8, 1/5 (SM §S.6 job list) | 121.98602 / 128.03838 Hz |
+| 2491761 | `epsrel_ff_lanb_oc` | F–F open circuit, 1/12 (§5.2) | 119.14314 Hz |
+| 2491831 | `epsrel_ff_lanb_scboth` | F–F both-faces SC, 1/12 (§5.2) | 118.81103 Hz |
+| 2494226 | `epsrel_ff_lanb_h18_oc`, `_h18_scboth`, `_h15_oc`, `_h15_scboth` | OC / scboth at 1/8 and 1/5 (§5.2, SM §S.3) | 121.83895 / 121.34787; 127.80931 / 127.04679 Hz |
+| 2494665 | `zp4_ff_{oc,sc}_{h112,h18,h15}` | mesh refinement, NDIV_ZP 2 → 4 (SM §S.3) | 1/12: 119.14314 / 118.81103 Hz (unchanged) |
+| 2494669 | `harm_ff_y_h112` (+ `_sweep.csv`) | first harmonic dump; `RF,AMPS` identically zero. **Superseded**, kept because the SM cites it | — |
+| 2494863 | `harm_ff_y_v2_h112` (+ `_sweep.csv`) | driven admittance, `RF,CHRG` (§7, SM §S.4) | \|Y\| pole 118.79 Hz, zero 119.13 Hz |
+| 2495593 | `epsrel_cf_lanb_oc`, `epsrel_cf_lanb_scboth` | C–F split (§5.3) | mode 1: 67.24530 / 67.07141 Hz |
+| 2520476 | `ansys_p5_epsrel_ff_lanb_{e0,oc,scboth}_2026-09-19.inp` | Paper 5 F–F SC/OC check | e0 73.50629 Hz; OC = scboth 74.93378 Hz (+1.942%) |
+
+The `epsrel_cc_lanb` deck ran in the same job as the free–free decks.
+No Paper 4 number depends on it.
+
+**Running.** One submission per job:
+`submit_ansys_queue_piezo_<batch>_<date>.sh`. It reads
+`ansys_queue_manifest_piezo_<batch>_<date>.txt` and calls
+`run_ansys_queue.sh`, which runs the listed decks one after another on a
+single ANSYS seat. `ansys_queue_piezo_<batch>_<job>.out` is the queue log
+from the original run.
+- Judge a run by `NUMBER OF ERROR MESSAGES ENCOUNTERED` and
+  `RUN COMPLETED` in each `_out.txt`. Do not rely on the queue's own
+  OK/FAIL label.
+- `run_ansys_queue.sh` prints a harmless `integer expression expected`
+  warning when a transcript has zero errors (`grep -c … || echo 0`).
+
+**The decks are self-contained.** Each `build_*_2026-09-16.py` is kept
+as provenance: it records how a deck was cloned from its parent.
+- The chain starts at `ansys_p4_ff_piezo_ring_UNITS_MM_2026-09-16.inp`
+  and `ansys_p4_ff_piezo_coupling_off_UNITS_MM_2026-09-16.inp`. They are
+  shipped as inputs only.
+- Their own ancestors, from the units and permittivity diagnosis of
+  2026-09-15/16, are development history and are not shipped.
+
+**Targets in manifests and deck banners.** The closed-form targets
+written into the manifests and deck banners were pre-registered before
+the 2026-09-23 consistent-projection fix. For example, the OC target
+119.405 Hz was computed with Duan's closure and the (h + h₁) charge arm.
+The finite-element results did not change. The paper compares them with
+the current closed-form values.
