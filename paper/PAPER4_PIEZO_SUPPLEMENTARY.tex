@@ -306,8 +306,8 @@ elastic default.
       \texttt{dps=60} run.
 \item 2495593 --- optional C--F FE, clones of 2491761/2491831 with
       inner $U_X=U_Y=0$ only. scboth $67.071\,\mathrm{Hz}$, OC
-      $67.245\,\mathrm{Hz}$, $+0.259\%$ ($92\%$ of closed-form
-      $+0.282\%$). Both \texttt{RUN COMPLETED}, 0 MAPDL errors.
+      $67.245\,\mathrm{Hz}$, $+0.259\%$ ($98.9\%$ of the consistent
+      closed-form $+0.262\%$; $92\%$ of the Gauss-law $+0.282\%$). Both \texttt{RUN COMPLETED}, 0 MAPDL errors.
 \item 2495751 --- lever 16 frequency-precision sweep, SENTINEL
       PASS\_ALL, bit-identical to the in-sandbox run (F--F/C--F
       $e_{31}$ uncertainty curve plus the Boeringa--McCune lab
@@ -322,7 +322,8 @@ reproduces the jobs above bit-for-bit), with only the hard-coded
 open-circuit regression anchors of four probes moved to the new values.
 All pass (\texttt{SENTINEL PASS\_ALL}), and every analytic number in
 this document and the main text is from that rerun. The rerun was done in-sandbox at the probes' production precision; it was not repeated on the cluster, because every earlier cluster archival run of these same probes reproduced its in-sandbox run bit-for-bit. The finite-element jobs
-are unchanged.
+are unchanged. Their decks, text outputs, manifests and queue logs are in
+\texttt{ansys/NewAnsys/} of the public code tree.
 
 \section{Mixed-edge C--F / F--C closed form}
 \label{sec:scf}
