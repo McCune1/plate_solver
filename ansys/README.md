@@ -138,3 +138,46 @@ final): `ansys_p4_3d_bare_t10_coarse` plus `t{20,10,5}_xfine` (96×288×8,
   `score_p4_3d_thinlimit_r2_2026-09-23.txt`.
 - Result: **PASS**. The Richardson zero-thickness intercept is within
   ±0.015% of zero at n = 0–4.
+
+**Liu 2002 solid disk, jobs 2530987 / 2531012** (SM §S.10): SOLID226 half
+disk, steel host with two PZT-4 skins, both faces of each skin grounded.
+Geometry: r0 = 0.6 m, h = 10 mm, h1 = 2 mm. Materials: Liu Table 1, which
+gives C55 = 26 GPa. The Duan-based decks above use Duan's printed 73 GPa.
+The mesh (24×72×4 = 6912 elements) keeps a 3 mm central hole so it can
+use mapped hexes. Outer edge: clamped (whole face fixed) or simply
+supported (UZ = 0 on the midplane ring).
+- v1, job 2530987: `ansys_p4_liu_disk_sc_{C,S}_2026-09-24.inp`, from
+  `build_liu_disk_sc_decks_2026-09-24.py`. **Superseded, not used.** Global
+  UX = 0 on the hole blocked the n = 1 centre rotation and raised those
+  modes by 2–7%.
+- v2, job 2531012: `ansys_p4_liudisk2_sc_{C,S}_2026-09-24.inp`, from
+  `build_liu_disk_sc_decks_v2_2026-09-24.py`. The hole is free, and the S
+  deck has one midplane UX pin at θ = 90° against rigid x-translation.
+  - Queue: `submit_ansys_queue_piezo_liudisk2_2026-09-24.sh` +
+    `ansys_queue_manifest_piezo_liudisk2_2026-09-24.txt`; queue log
+    `ansys_queue_piezo_liudisk2_2531012.out`.
+  - Pre-registered gates F0–F3 are in `targets_liudisk2_2026-09-24.json`.
+    `score_liudisk2_fe_2026-09-24.py` reproduces
+    `score_liudisk2_fe_2026-09-24.txt`. Its `--selftest` flag rescores the
+    v1 outputs.
+  - Result: **PASS**. All 12 modes (n = 0–2, m = 1–2) are within 0.6% of
+    Liu's ABAQUS column (C +0.22…+0.51%, S −0.02…+0.31%). The n = 0 and
+    n = 2 rows match v1 to 0.014%.
+
+## Paper 1 in-plane cantilever rows (§6.1 Table 4, SM Table S.10): `NewAnsys/ansys_p1_cant_ip_*`
+
+PLANE183 plane stress, r0/(2b) = 1.25 (R_i = 3, R_o = 7), E = 210 GPa,
+ν = 0.35, ρ = 7800, wall θ = 0 clamped. One deck per sector angle
+(`ansys_p1_cant_ip_r125_{a025,a050,a100}_2026-09-24.inp`), three meshes
+each (48², 96², 192²; circumferential count doubled at 2Θ/π = 1.0).
+- Queue: `submit_ansys_queue_p1_cant_ip_2026-09-24.sh` +
+  `ansys_queue_manifest_p1_cant_ip_2026-09-24.txt`.
+- `score_p1_cant_ip_fe_2026-09-24.py` takes the Richardson limits and
+  compares them with the independent nine-node model
+  (`validation/probe_p1_cant_ip_q9fe_2026-09-24.py`); gate ≤ 0.05%.
+- Job 2530949 ran a050 and a100 (queue log `ansys_queue_p1_cant_ip_2530949.out`);
+  job 2530984 ran a025 (`ansys_queue_p1_cant_ip_2530984.out`). Outputs:
+  `p1_cant_ip_r125_a{025,050,100}_mesh*.txt` and each deck's `_out.txt`.
+- Result: CONFIRMED. The 96²→192² change is ≤ 0.003%, and all 12 modes
+  (the first four at each angle) are within 0.0007% of the nine-node model.
+  The table values are the PLANE183 Richardson limits.
