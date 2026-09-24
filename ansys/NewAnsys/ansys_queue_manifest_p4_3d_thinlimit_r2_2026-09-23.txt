@@ -1,0 +1,13 @@
+# Paper 4 -- 3-D thin-limit check ROUND 2 (round 1, job 2530553: UNRESOLVED on
+# its t = 5 mesh bar). Bare steel F-F half annulus, SOLID186 full integration.
+# Built by build_p4_3d_thinlimit_decks_2026-09-23.py (DECKS_R2).
+# Gates R0-R3 are in score_p4_3d_thinlimit_r2_2026-09-23.py, fixed before
+# this run. Decisive: R3, |c| <= 0.03% at n = 0..4, with c taken from the
+# Richardson limits if convergence is monotone (R1), else from xfine (R2).
+# Order: the cheap coarse deck first, then the xfine decks thinnest-first
+# (t = 5 carries the largest weight, 8/3, in c).
+#
+ansys_p4_3d_bare_t10_coarse_2026-09-23.inp
+ansys_p4_3d_bare_t5_xfine_2026-09-23.inp
+ansys_p4_3d_bare_t10_xfine_2026-09-23.inp
+ansys_p4_3d_bare_t20_xfine_2026-09-23.inp

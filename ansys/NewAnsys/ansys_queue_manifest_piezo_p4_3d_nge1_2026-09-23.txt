@@ -1,0 +1,33 @@
+# Paper 4 -- 3-D FE check of coupled n >= 1 F-F roots (FUTURE_WORK.md, Paper 4).
+# SOLID226 half ring (theta 0..180, UY=0 on y=0), one licence seat.
+# Built by build_p4_3d_nge1_decks_2026-09-23.py; targets pre-registered in
+# targets_p4_3d_nge1_2026-09-23.json BEFORE this queue ran.
+#
+# Order: 1/12 coarse pair, 1/12 fine trio, 1/5 coarse pair, 1/5 fine trio.
+# Fine mesh 40x144x(4+2+2) = 46080 elements, ~2.1e5 nodes, ~8.3e5 DOF.
+#
+# PUSH the ten .inp files, this manifest, submit_ansys_queue_piezo_p4_3d_nge1_2026-09-23.sh,
+# score_p4_3d_nge1_2026-09-23.py and targets_p4_3d_nge1_2026-09-23.json to
+#   /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/
+# then from that directory:
+#   sbatch submit_ansys_queue_piezo_p4_3d_nge1_2026-09-23.sh
+# Score afterwards:
+#   python3 score_p4_3d_nge1_2026-09-23.py
+# Judge MAPDL from NUMBER OF ERROR MESSAGES ENCOUNTERED and RUN COMPLETED
+# (the scorer does). Never trust .QUEUE_OK alone.
+#
+# Gates G0-G5 are in the scorer's docstring and were fixed before any run.
+# Do not retune mesh, units, TBDATA, or the purity/flex rules after a miss;
+# a G2 (axisymmetric control) failure means the 3-D electrical setup is
+# wrong, and nothing at n >= 1 should be read until it passes.
+#
+ansys_p4_3d_h112_e0_coarse_2026-09-23.inp
+ansys_p4_3d_h112_sc_coarse_2026-09-23.inp
+ansys_p4_3d_h112_e0_fine_2026-09-23.inp
+ansys_p4_3d_h112_sc_fine_2026-09-23.inp
+ansys_p4_3d_h112_oc_fine_2026-09-23.inp
+ansys_p4_3d_h15_e0_coarse_2026-09-23.inp
+ansys_p4_3d_h15_sc_coarse_2026-09-23.inp
+ansys_p4_3d_h15_e0_fine_2026-09-23.inp
+ansys_p4_3d_h15_sc_fine_2026-09-23.inp
+ansys_p4_3d_h15_oc_fine_2026-09-23.inp

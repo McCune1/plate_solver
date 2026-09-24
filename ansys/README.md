@@ -76,8 +76,9 @@ from the original run.
 - Judge a run by `NUMBER OF ERROR MESSAGES ENCOUNTERED` and
   `RUN COMPLETED` in each `_out.txt`. Do not rely on the queue's own
   OK/FAIL label.
-- `run_ansys_queue.sh` prints a harmless `integer expression expected`
-  warning when a transcript has zero errors (`grep -c … || echo 0`).
+- Queue logs from before 2026-09-23 show a harmless `integer expression
+  expected` warning from `run_ansys_queue.sh` (`grep -c … || echo 0`).
+  The script was fixed on 2026-09-23.
 
 **The decks are self-contained.** Each `build_*_2026-09-16.py` is kept
 as provenance: it records how a deck was cloned from its parent.
@@ -93,3 +94,47 @@ the 2026-09-23 consistent-projection fix. For example, the OC target
 119.405 Hz was computed with Duan's closure and the (h + h₁) charge arm.
 The finite-element results did not change. The paper compares them with
 the current closed-form values.
+
+### Three-dimensional n ≥ 1 check (Paper 4 §5.2, SM §S.9): `NewAnsys/ansys_p4_3d_*`
+
+Job 2530423 (ANSYS 2025 R1): ten SOLID226 half-ring decks,
+`ansys_p4_3d_{h112,h15}_{e0,sc,oc}_{coarse,fine}_2026-09-23.inp` (oc fine
+only). Each wrote `_out.txt`, `_modes.txt`, `_samples.txt` (raw UX/UY/UZ/VOLT
+at 78 nodes, every mode) and `_samplecoords.txt`.
+- Built by `build_p4_3d_nge1_decks_2026-09-23.py`.
+- The model targets (`targets_p4_3d_nge1_2026-09-23.{py,json}`) were fixed
+  before the run.
+- `score_p4_3d_nge1_2026-09-23.py` reproduces `score_p4_3d_nge1_2026-09-23.txt`
+  from these files; its docstring holds the pre-registered gates. Result:
+  the coupled shift passes 10/10, and the elastic 1% bar fails 3/8 (SM §S.9).
+- Queue: `submit_ansys_queue_piezo_p4_3d_nge1_2026-09-23.sh` +
+  `ansys_queue_manifest_piezo_p4_3d_nge1_2026-09-23.txt`; queue log
+  `ansys_queue_piezo_p4_3d_nge1_2530423.out`.
+- The environment block in that submit script, also in
+  `ansys_env_block_2026-09-23.sh`, replaced the old
+  `module load ansys/2024R2` line in every submit script here. The Mill
+  retired that module on 2026-09-23. All earlier jobs in this README ran on
+  2024 R2.
+
+**Thin-limit follow-up, job 2530553** (SM §S.9 Table S.3): five bare-steel
+SOLID186 half rings, `ansys_p4_3d_bare_t{20,10,5}_fine` and
+`t{20,5}_coarse` (`_2026-09-23.inp` + the same four outputs).
+- Built by `build_p4_3d_thinlimit_decks_2026-09-23.py`, which imports the
+  nge1 builder.
+- Kirchhoff targets: `targets_p4_3d_thinlimit_2026-09-23.{py,json}`.
+- `score_p4_3d_thinlimit_2026-09-23.py` (imports the nge1 scorer)
+  reproduces `score_p4_3d_thinlimit_2026-09-23.txt`.
+- Pre-registered result: UNRESOLVED. The offset shrinks as required, but
+  the t = 5 mm mesh bar failed, so the intercept test is not scored.
+- Queue log: `ansys_queue_p4_3d_thinlimit_2530553.out`.
+
+**Thin-limit second pass, jobs 2530671 / 2530784** (SM §S.9 Table S.3,
+final): `ansys_p4_3d_bare_t10_coarse` plus `t{20,10,5}_xfine` (96×288×8,
+2.93e6 equations), from `DECKS_R2` in the same builder.
+- 2530671 ran the t10 coarse deck. Its xfine decks were OOM-killed at
+  64 GB (in-core Lanczos needs 67.8 GB).
+- 2530784 reran the xfine decks at 100 GB.
+- `score_p4_3d_thinlimit_r2_2026-09-23.py` reproduces
+  `score_p4_3d_thinlimit_r2_2026-09-23.txt`.
+- Result: **PASS**. The Richardson zero-thickness intercept is within
+  ±0.015% of zero at n = 0–4.

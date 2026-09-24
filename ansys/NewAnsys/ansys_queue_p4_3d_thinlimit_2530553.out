@@ -1,0 +1,207 @@
+Job 2530553 on compute-34-07.mill
+Start: Wed Sep 23 19:13:51 CDT 2026
+trying module ansys/2025R1
+  [module list] 
+  [module list] Currently Loaded Modules:
+  [module list]   1) ansys/2025R1
+  [module list] 
+  [module list]  
+  [module list] 
+ANSYS module: ansys/2025R1
+MAPDL launcher: /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/bin/mapdl [native launcher]
+================================================================
+  run_ansys_queue.sh -- Wed Sep 23 19:13:51 CDT 2026
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys  manifest=ansys_queue_manifest_p4_3d_thinlimit_2026-09-23.txt  cpus/deck=8  stop_on_fail=0
+================================================================
+
+---- [1] ansys_p4_3d_bare_t20_coarse_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_bare_t20_coarse_20) -- Wed Sep 23 19:13:51 CDT 2026 ----
+---- [1] ansys_p4_3d_bare_t20_coarse_2026-09-23.inp : OK (10s), wrote ansys_p4_3d_bare_t20_coarse_2026-09-23_out.txt, sentinel=ansys_p4_3d_bare_t20_coarse_2026-09-23.inp.QUEUE_OK ----
+
+---- [2] ansys_p4_3d_bare_t20_fine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_bare_t20_fine_2026) -- Wed Sep 23 19:14:01 CDT 2026 ----
+---- [2] ansys_p4_3d_bare_t20_fine_2026-09-23.inp : OK (48s), wrote ansys_p4_3d_bare_t20_fine_2026-09-23_out.txt, sentinel=ansys_p4_3d_bare_t20_fine_2026-09-23.inp.QUEUE_OK ----
+
+---- [3] ansys_p4_3d_bare_t10_fine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_bare_t10_fine_2026) -- Wed Sep 23 19:14:49 CDT 2026 ----
+---- [3] ansys_p4_3d_bare_t10_fine_2026-09-23.inp : OK (48s), wrote ansys_p4_3d_bare_t10_fine_2026-09-23_out.txt, sentinel=ansys_p4_3d_bare_t10_fine_2026-09-23.inp.QUEUE_OK ----
+
+---- [4] ansys_p4_3d_bare_t5_fine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_bare_t5_fine_2026_) -- Wed Sep 23 19:15:37 CDT 2026 ----
+---- [4] ansys_p4_3d_bare_t5_fine_2026-09-23.inp : OK (46s), wrote ansys_p4_3d_bare_t5_fine_2026-09-23_out.txt, sentinel=ansys_p4_3d_bare_t5_fine_2026-09-23.inp.QUEUE_OK ----
+
+---- [5] ansys_p4_3d_bare_t5_coarse_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_bare_t5_coarse_202) -- Wed Sep 23 19:16:24 CDT 2026 ----
+---- [5] ansys_p4_3d_bare_t5_coarse_2026-09-23.inp : OK (10s), wrote ansys_p4_3d_bare_t5_coarse_2026-09-23_out.txt, sentinel=ansys_p4_3d_bare_t5_coarse_2026-09-23.inp.QUEUE_OK ----
+
+================================================================
+  QUEUE SUMMARY -- Wed Sep 23 19:16:34 CDT 2026  (total wall: 2 min)
+================================================================
+  ansys_p4_3d_bare_t20_coarse_2026-09-23.inp : OK (10s)
+  ansys_p4_3d_bare_t20_fine_2026-09-23.inp : OK (48s)
+  ansys_p4_3d_bare_t10_fine_2026-09-23.inp : OK (48s)
+  ansys_p4_3d_bare_t5_fine_2026-09-23.inp : OK (46s)
+  ansys_p4_3d_bare_t5_coarse_2026-09-23.inp : OK (10s)
+
+  total=5  ok=5  skip=0  fail=0
+
+==== scorer (convenience; re-run it yourself on the synced files) ====
+Paper 4 3-D thin-limit score  (/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys)
+t=20 coarse raw Hz: 0, 0, 0.001158042716, 70.24770448, 115.4959145, 167.3488615, 269.1421902, 293.449981, 448.9169942, 462.6683721, 537.9704699, 633.0223057, 704.881524, 753.5102258, 844.9569271, 978.1301419, 1083.945645, 1088.071887, 1281.53454, 1293.303114, 1349.237264, 1463.484669, 1489.65289, 1615.221779
+    mode  1     0.00000000 Hz  rigid    n=0   purity=0.8775
+    mode  2     0.00000000 Hz  rigid    n=1   purity=0.6634
+    mode  3     0.00115804 Hz  rigid    n=0   purity=0.5291
+    mode  4    70.24770448 Hz  flex     n=2   purity=1.0000
+    mode  5   115.49591449 Hz  flex     n=0   purity=1.0000
+    mode  6   167.34886155 Hz  flex     n=3   purity=1.0000
+    mode  7   269.14219023 Hz  flex     n=1   purity=1.0000
+    mode  8   293.44998095 Hz  flex     n=4   purity=1.0000
+    mode  9   448.91699423 Hz  flex     n=5   purity=1.0000
+    mode 10   462.66837206 Hz  flex     n=2   purity=1.0000
+    mode 11   537.97046986 Hz  flex     n=0   purity=1.0000
+    mode 12   633.02230567 Hz  flex     n=6   purity=1.0000
+    mode 13   704.88152396 Hz  flex     n=3   purity=1.0000
+    mode 14   753.51022585 Hz  flex     n=1   purity=1.0000
+    mode 15   844.95692711 Hz  flex     n=7   purity=1.0000
+    mode 16   978.13014190 Hz  flex     n=4   purity=1.0000
+    mode 17  1083.94564549 Hz  flex     n=8   purity=1.0000
+    mode 18  1088.07188654 Hz  flex     n=2   purity=1.0000
+    mode 19  1281.53454039 Hz  flex     n=5   purity=1.0000
+    mode 20  1293.30311355 Hz  flex     n=0   purity=1.0000
+    mode 21  1349.23726351 Hz  flex     n=9   purity=1.0000
+    mode 22  1463.48466905 Hz  flex     n=3   purity=1.0000
+    mode 23  1489.65289018 Hz  flex     n=1   purity=1.0000
+    mode 24  1615.22177852 Hz  flex     n=6   purity=1.0000
+t=20 fine   raw Hz: 0, 0.002176570255, 0.002453876374, 70.23074315, 115.4927906, 167.3097687, 269.0561929, 293.3553028, 448.722634, 462.5872864, 537.9211563, 632.6694987, 704.6943882, 752.944574, 844.368032, 977.8135074, 1083.020713, 1087.757796, 1281.027882, 1292.912799, 1347.850722, 1463.003296, 1488.282099, 1614.44921
+    mode  1     0.00000000 Hz  rigid    n=0   purity=0.8234
+    mode  2     0.00217657 Hz  rigid    n=0   purity=0.9905
+    mode  3     0.00245388 Hz  rigid    n=1   purity=0.9252
+    mode  4    70.23074315 Hz  flex     n=2   purity=1.0000
+    mode  5   115.49279059 Hz  flex     n=0   purity=1.0000
+    mode  6   167.30976870 Hz  flex     n=3   purity=1.0000
+    mode  7   269.05619285 Hz  flex     n=1   purity=1.0000
+    mode  8   293.35530276 Hz  flex     n=4   purity=1.0000
+    mode  9   448.72263401 Hz  flex     n=5   purity=1.0000
+    mode 10   462.58728640 Hz  flex     n=2   purity=1.0000
+    mode 11   537.92115628 Hz  flex     n=0   purity=1.0000
+    mode 12   632.66949874 Hz  flex     n=6   purity=1.0000
+    mode 13   704.69438817 Hz  flex     n=3   purity=1.0000
+    mode 14   752.94457402 Hz  flex     n=1   purity=1.0000
+    mode 15   844.36803195 Hz  flex     n=7   purity=1.0000
+    mode 16   977.81350743 Hz  flex     n=4   purity=1.0000
+    mode 17  1083.02071312 Hz  flex     n=8   purity=1.0000
+    mode 18  1087.75779559 Hz  flex     n=2   purity=1.0000
+    mode 19  1281.02788187 Hz  flex     n=5   purity=1.0000
+    mode 20  1292.91279905 Hz  flex     n=0   purity=1.0000
+    mode 21  1347.85072237 Hz  flex     n=9   purity=1.0000
+    mode 22  1463.00329605 Hz  flex     n=3   purity=1.0000
+    mode 23  1488.28209940 Hz  flex     n=1   purity=1.0000
+    mode 24  1614.44921037 Hz  flex     n=6   purity=1.0000
+t=10 fine   raw Hz: 0.001287980925, 0.00333212045, 0.004529776211, 35.21227739, 57.81523006, 83.95228611, 135.2979539, 147.4535154, 226.0054268, 232.7278408, 270.4366635, 319.3780918, 355.6558433, 381.7657495, 427.3222192, 495.0696566, 549.6213898, 550.8152642, 650.8504053, 655.2484441, 686.0841799, 743.7548169, 760.2740042, 823.3318156
+    mode  1     0.00128798 Hz  rigid    n=1   purity=0.8470
+    mode  2     0.00333212 Hz  rigid    n=0   purity=0.8707
+    mode  3     0.00452978 Hz  rigid    n=1   purity=0.8230
+    mode  4    35.21227739 Hz  flex     n=2   purity=1.0000
+    mode  5    57.81523006 Hz  flex     n=0   purity=1.0000
+    mode  6    83.95228611 Hz  flex     n=3   purity=1.0000
+    mode  7   135.29795389 Hz  flex     n=1   purity=1.0000
+    mode  8   147.45351535 Hz  flex     n=4   purity=1.0000
+    mode  9   226.00542680 Hz  flex     n=5   purity=1.0000
+    mode 10   232.72784075 Hz  flex     n=2   purity=1.0000
+    mode 11   270.43666348 Hz  flex     n=0   purity=1.0000
+    mode 12   319.37809180 Hz  flex     n=6   purity=1.0000
+    mode 13   355.65584328 Hz  flex     n=3   purity=1.0000
+    mode 14   381.76574955 Hz  flex     n=1   purity=1.0000
+    mode 15   427.32221923 Hz  flex     n=7   purity=1.0000
+    mode 16   495.06965660 Hz  flex     n=4   purity=1.0000
+    mode 17   549.62138977 Hz  flex     n=8   purity=1.0000
+    mode 18   550.81526416 Hz  flex     n=2   purity=1.0000
+    mode 19   650.85040532 Hz  flex     n=5   purity=1.0000
+    mode 20   655.24844412 Hz  flex     n=0   purity=1.0000
+    mode 21   686.08417992 Hz  flex     n=9   purity=1.0000
+    mode 22   743.75481692 Hz  flex     n=3   purity=1.0000
+    mode 23   760.27400415 Hz  flex     n=1   purity=1.0000
+    mode 24   823.33181561 Hz  flex     n=6   purity=1.0000
+t=5  fine   raw Hz: 0, 0, 0.003163846672, 17.62887233, 28.9165745, 42.03683835, 67.79897115, 73.87587436, 113.3054995, 116.5894496, 135.4096592, 160.2310164, 178.3507172, 191.899989, 214.5525087, 248.4908186, 276.1899386, 276.383975, 327.0123326, 328.7956576, 345.0789353, 373.6043787, 382.9806749, 414.1232614
+    mode  1     0.00000000 Hz  rigid    n=1   purity=0.9987
+    mode  2     0.00000000 Hz  rigid    n=0   purity=0.9991
+    mode  3     0.00316385 Hz  rigid    n=1   purity=0.7719
+    mode  4    17.62887233 Hz  flex     n=2   purity=1.0000
+    mode  5    28.91657450 Hz  flex     n=0   purity=1.0000
+    mode  6    42.03683835 Hz  flex     n=3   purity=1.0000
+    mode  7    67.79897115 Hz  flex     n=1   purity=1.0000
+    mode  8    73.87587436 Hz  flex     n=4   purity=1.0000
+    mode  9   113.30549951 Hz  flex     n=5   purity=1.0000
+    mode 10   116.58944959 Hz  flex     n=2   purity=1.0000
+    mode 11   135.40965921 Hz  flex     n=0   purity=1.0000
+    mode 12   160.23101636 Hz  flex     n=6   purity=1.0000
+    mode 13   178.35071717 Hz  flex     n=3   purity=1.0000
+    mode 14   191.89998901 Hz  flex     n=1   purity=1.0000
+    mode 15   214.55250866 Hz  flex     n=7   purity=1.0000
+    mode 16   248.49081855 Hz  flex     n=4   purity=1.0000
+    mode 17   276.18993855 Hz  flex     n=8   purity=1.0000
+    mode 18   276.38397495 Hz  flex     n=2   purity=1.0000
+    mode 19   327.01233263 Hz  flex     n=5   purity=1.0000
+    mode 20   328.79565758 Hz  flex     n=0   purity=1.0000
+    mode 21   345.07893532 Hz  flex     n=9   purity=1.0000
+    mode 22   373.60437872 Hz  flex     n=3   purity=1.0000
+    mode 23   382.98067492 Hz  flex     n=1   purity=1.0000
+    mode 24   414.12326137 Hz  flex     n=6   purity=1.0000
+t=5  coarse raw Hz: 0, 0.005582831796, 0.006696120119, 17.6373275, 28.92143596, 42.06398619, 67.84370516, 73.9503849, 113.4721812, 116.6363239, 135.4751573, 160.5554072, 178.450254, 192.2328868, 215.125635, 248.6662771, 276.6899888, 277.1327982, 327.309668, 329.3538648, 346.5469059, 374.0144485, 384.0303447, 414.6105364
+    mode  1     0.00000000 Hz  rigid    n=0   purity=0.9989
+    mode  2     0.00558283 Hz  rigid    n=0   purity=0.8665
+    mode  3     0.00669612 Hz  rigid    n=1   purity=0.8194
+    mode  4    17.63732750 Hz  flex     n=2   purity=1.0000
+    mode  5    28.92143596 Hz  flex     n=0   purity=1.0000
+    mode  6    42.06398619 Hz  flex     n=3   purity=1.0000
+    mode  7    67.84370516 Hz  flex     n=1   purity=1.0000
+    mode  8    73.95038490 Hz  flex     n=4   purity=1.0000
+    mode  9   113.47218123 Hz  flex     n=5   purity=1.0000
+    mode 10   116.63632390 Hz  flex     n=2   purity=1.0000
+    mode 11   135.47515731 Hz  flex     n=0   purity=1.0000
+    mode 12   160.55540722 Hz  flex     n=6   purity=1.0000
+    mode 13   178.45025401 Hz  flex     n=3   purity=1.0000
+    mode 14   192.23288680 Hz  flex     n=1   purity=1.0000
+    mode 15   215.12563505 Hz  flex     n=7   purity=1.0000
+    mode 16   248.66627706 Hz  flex     n=4   purity=1.0000
+    mode 17   276.68998881 Hz  flex     n=2   purity=1.0000
+    mode 18   277.13279816 Hz  flex     n=8   purity=1.0000
+    mode 19   327.30966800 Hz  flex     n=5   purity=1.0000
+    mode 20   329.35386477 Hz  flex     n=0   purity=1.0000
+    mode 21   346.54690589 Hz  flex     n=9   purity=1.0000
+    mode 22   374.01444852 Hz  flex     n=3   purity=1.0000
+    mode 23   384.03034468 Hz  flex     n=1   purity=1.0000
+    mode 24   414.61053644 Hz  flex     n=6   purity=1.0000
+
+T0: PASS
+
+T1 t=20 n=0: coarse 115.49591449 fine 115.49279059  +0.0027%  PASS
+T1 t=20 n=1: coarse 269.14219023 fine 269.05619285  +0.0320%  PASS
+T1 t=20 n=2: coarse 70.24770448 fine 70.23074315  +0.0242%  PASS
+T1 t=20 n=3: coarse 167.34886155 fine 167.30976870  +0.0234%  PASS
+T1 t=20 n=4: coarse 293.44998095 fine 293.35530276  +0.0323%  PASS
+T1 t=5  n=0: coarse 28.92143596 fine 28.91657450  +0.0168%  PASS
+T1 t=5  n=1: coarse 67.84370516 fine 67.79897115  +0.0660%  FAIL
+T1 t=5  n=2: coarse 17.63732750 fine 17.62887233  +0.0480%  PASS
+T1 t=5  n=3: coarse 42.06398619 fine 42.03683835  +0.0646%  FAIL
+T1 t=5  n=4: coarse 73.95038490 fine 73.87587436  +0.1009%  FAIL
+T1: FAIL
+
+delta_n(t) = FE/Kirchhoff - 1 (fine), with the quadratic fit c + a t + b t^2:
+  n=0: t=20 -0.1581%  t=10 -0.0391%  t=5 -0.0081%  |d5/d20|=0.051 PASS  c=+0.0038% PASS  a*20=-0.0098%  b*400=-0.1521%   (layered 1/12 G3: -0.198%)
+  n=1: t=20 -0.9141%  t=10 -0.3471%  t=5 -0.1262%  |d5/d20|=0.138 PASS  c=+0.0531% FAIL  a*20=-0.6336%  b*400=-0.3337%   (layered 1/12 G3: -1.022%)
+  n=2: t=20 -0.4874%  t=10 -0.2127%  t=5 -0.0839%  |d5/d20|=0.172 PASS  c=+0.0393% PASS  a*20=-0.4816%  b*400=-0.0451%   (layered 1/12 G3: -0.533%)
+  n=3: t=20 -0.5803%  t=10 -0.2268%  t=5 -0.0825%  |d5/d20|=0.142 PASS  c=+0.0401% PASS  a*20=-0.4472%  b*400=-0.1731%   (layered 1/12 G3: -0.647%)
+  n=4: t=20 -0.8327%  t=10 -0.3081%  t=5 -0.1065%  |d5/d20|=0.128 PASS  c=+0.0547% FAIL  a*20=-0.5640%  b*400=-0.3234%   (layered 1/12 G3: -0.935%)
+T2: PASS
+T3: UNRESOLVED (T1 failed)
+
+Information only: other identified modes, fine mesh, delta at t = 20/10/5
+  n=5 s=1: -1.1227%  -0.3981%  -0.1312%
+  n=2 s=2: -0.8967%  -0.2822%  -0.0889%
+  n=0 s=2: -0.7272%  -0.1823%  -0.0411%
+  n=6 s=1: -1.4411%  -0.4929%  -0.1551%
+  n=3 s=2: -1.3545%  -0.4282%  -0.1355%
+  n=1 s=2: -2.1954%  -0.8202%  -0.2917%
+  n=7 s=1: -1.7888%  -0.5936%  -0.1788%
+  n=4 s=2: -1.7942%  -0.5562%  -0.1722%
+
+RESULT: UNRESOLVED  (T0 PASS, T1 FAIL, T2 PASS, T3 UNRESOLVED (T1 failed))
+
+wrote /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/score_p4_3d_thinlimit_2026-09-23.txt
+End: Wed Sep 23 19:16:34 CDT 2026

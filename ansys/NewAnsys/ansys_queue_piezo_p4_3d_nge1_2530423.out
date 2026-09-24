@@ -1,0 +1,407 @@
+Job 2530423 on compute-34-07.mill
+Start: Wed Sep 23 18:20:14 CDT 2026
+trying module ansys/2025R1
+  [module list] 
+  [module list] Currently Loaded Modules:
+  [module list]   1) ansys/2025R1
+  [module list] 
+  [module list]  
+  [module list] 
+ANSYS module: ansys/2025R1
+MAPDL launcher: /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/bin/mapdl [native launcher]
+================================================================
+  run_ansys_queue.sh -- Wed Sep 23 18:20:14 CDT 2026
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys  manifest=ansys_queue_manifest_piezo_p4_3d_nge1_2026-09-23.txt  cpus/deck=8  stop_on_fail=0
+================================================================
+
+---- [1] ansys_p4_3d_h112_e0_coarse_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_h112_e0_coarse_202) -- Wed Sep 23 18:20:14 CDT 2026 ----
+---- [1] ansys_p4_3d_h112_e0_coarse_2026-09-23.inp : OK (20s), wrote ansys_p4_3d_h112_e0_coarse_2026-09-23_out.txt, sentinel=ansys_p4_3d_h112_e0_coarse_2026-09-23.inp.QUEUE_OK ----
+
+---- [2] ansys_p4_3d_h112_sc_coarse_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_h112_sc_coarse_202) -- Wed Sep 23 18:20:34 CDT 2026 ----
+---- [2] ansys_p4_3d_h112_sc_coarse_2026-09-23.inp : OK (18s), wrote ansys_p4_3d_h112_sc_coarse_2026-09-23_out.txt, sentinel=ansys_p4_3d_h112_sc_coarse_2026-09-23.inp.QUEUE_OK ----
+
+---- [3] ansys_p4_3d_h112_e0_fine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_h112_e0_fine_2026_) -- Wed Sep 23 18:20:52 CDT 2026 ----
+---- [3] ansys_p4_3d_h112_e0_fine_2026-09-23.inp : OK (91s), wrote ansys_p4_3d_h112_e0_fine_2026-09-23_out.txt, sentinel=ansys_p4_3d_h112_e0_fine_2026-09-23.inp.QUEUE_OK ----
+
+---- [4] ansys_p4_3d_h112_sc_fine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_h112_sc_fine_2026_) -- Wed Sep 23 18:22:23 CDT 2026 ----
+---- [4] ansys_p4_3d_h112_sc_fine_2026-09-23.inp : OK (96s), wrote ansys_p4_3d_h112_sc_fine_2026-09-23_out.txt, sentinel=ansys_p4_3d_h112_sc_fine_2026-09-23.inp.QUEUE_OK ----
+
+---- [5] ansys_p4_3d_h112_oc_fine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_h112_oc_fine_2026_) -- Wed Sep 23 18:23:59 CDT 2026 ----
+---- [5] ansys_p4_3d_h112_oc_fine_2026-09-23.inp : OK (99s), wrote ansys_p4_3d_h112_oc_fine_2026-09-23_out.txt, sentinel=ansys_p4_3d_h112_oc_fine_2026-09-23.inp.QUEUE_OK ----
+
+---- [6] ansys_p4_3d_h15_e0_coarse_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_h15_e0_coarse_2026) -- Wed Sep 23 18:25:38 CDT 2026 ----
+---- [6] ansys_p4_3d_h15_e0_coarse_2026-09-23.inp : OK (18s), wrote ansys_p4_3d_h15_e0_coarse_2026-09-23_out.txt, sentinel=ansys_p4_3d_h15_e0_coarse_2026-09-23.inp.QUEUE_OK ----
+
+---- [7] ansys_p4_3d_h15_sc_coarse_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_h15_sc_coarse_2026) -- Wed Sep 23 18:25:56 CDT 2026 ----
+---- [7] ansys_p4_3d_h15_sc_coarse_2026-09-23.inp : OK (18s), wrote ansys_p4_3d_h15_sc_coarse_2026-09-23_out.txt, sentinel=ansys_p4_3d_h15_sc_coarse_2026-09-23.inp.QUEUE_OK ----
+
+---- [8] ansys_p4_3d_h15_e0_fine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_h15_e0_fine_2026_0) -- Wed Sep 23 18:26:14 CDT 2026 ----
+---- [8] ansys_p4_3d_h15_e0_fine_2026-09-23.inp : OK (93s), wrote ansys_p4_3d_h15_e0_fine_2026-09-23_out.txt, sentinel=ansys_p4_3d_h15_e0_fine_2026-09-23.inp.QUEUE_OK ----
+
+---- [9] ansys_p4_3d_h15_sc_fine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_h15_sc_fine_2026_0) -- Wed Sep 23 18:27:47 CDT 2026 ----
+---- [9] ansys_p4_3d_h15_sc_fine_2026-09-23.inp : OK (98s), wrote ansys_p4_3d_h15_sc_fine_2026-09-23_out.txt, sentinel=ansys_p4_3d_h15_sc_fine_2026-09-23.inp.QUEUE_OK ----
+
+---- [10] ansys_p4_3d_h15_oc_fine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_h15_oc_fine_2026_0) -- Wed Sep 23 18:29:25 CDT 2026 ----
+---- [10] ansys_p4_3d_h15_oc_fine_2026-09-23.inp : OK (101s), wrote ansys_p4_3d_h15_oc_fine_2026-09-23_out.txt, sentinel=ansys_p4_3d_h15_oc_fine_2026-09-23.inp.QUEUE_OK ----
+
+================================================================
+  QUEUE SUMMARY -- Wed Sep 23 18:31:06 CDT 2026  (total wall: 10 min)
+================================================================
+  ansys_p4_3d_h112_e0_coarse_2026-09-23.inp : OK (20s)
+  ansys_p4_3d_h112_sc_coarse_2026-09-23.inp : OK (18s)
+  ansys_p4_3d_h112_e0_fine_2026-09-23.inp : OK (91s)
+  ansys_p4_3d_h112_sc_fine_2026-09-23.inp : OK (96s)
+  ansys_p4_3d_h112_oc_fine_2026-09-23.inp : OK (99s)
+  ansys_p4_3d_h15_e0_coarse_2026-09-23.inp : OK (18s)
+  ansys_p4_3d_h15_sc_coarse_2026-09-23.inp : OK (18s)
+  ansys_p4_3d_h15_e0_fine_2026-09-23.inp : OK (93s)
+  ansys_p4_3d_h15_sc_fine_2026-09-23.inp : OK (98s)
+  ansys_p4_3d_h15_oc_fine_2026-09-23.inp : OK (101s)
+
+  total=10  ok=10  skip=0  fail=0
+
+==== scorer (convenience; re-run it yourself on the synced files) ====
+Paper 4 3-D FE n>=1 score  (/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys)
+targets: targets_p4_3d_nge1_2026-09-23.json
+
+h112_e0_coarse     raw Hz: 0.0002858376689, 0.001847018262, 0.002123364635, 72.35748539, 118.8130812, 172.3182487, 276.6869822, 302.015674, 461.7751447, 475.5049414, 552.9582445, 650.7828648, 724.0460903, 773.570561, 868.132654, 1004.09597, 1112.947713, 1116.646998, 1314.616809, 1326.64228, 1384.37246, 1500.616225, 1526.549336, 1592.551738
+    mode  1      0.00028584 Hz  rigid    n=1   purity=0.6018  Vbus/|U|=0.000e+00
+    mode  2      0.00184702 Hz  rigid    n=0   purity=0.9393  Vbus/|U|=0.000e+00
+    mode  3      0.00212336 Hz  rigid    n=1   purity=0.9144  Vbus/|U|=0.000e+00
+    mode  4     72.35748539 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  5    118.81308121 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  6    172.31824872 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  7    276.68698215 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  8    302.01567402 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  9    461.77514466 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 10    475.50494137 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 11    552.95824451 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 12    650.78286480 Hz  flex     n=6   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 13    724.04609031 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 14    773.57056098 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 15    868.13265397 Hz  flex     n=7   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 16   1004.09597032 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 17   1112.94771340 Hz  flex     n=8   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 18   1116.64699790 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 19   1314.61680851 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 20   1326.64227961 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 21   1384.37245988 Hz  flex     n=9   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 22   1500.61622496 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 23   1526.54933551 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 24   1592.55173774 Hz  inplane  n=2   purity=1.0000  Vbus/|U|=0.000e+00
+h112_sc_coarse     raw Hz: 0.000628866967, 0.001524481159, 0.001968591766, 72.35759044, 118.8139428, 172.3185796, 276.6888858, 302.0164043, 461.7764501, 475.5082991, 552.9616054, 650.7849305, 724.0508957, 773.5751957, 868.1356781, 1004.102523, 1112.95191, 1116.655179, 1314.625462, 1326.651111, 1384.37806, 1500.62756, 1526.558856, 1592.551738
+    mode  1      0.00062887 Hz  rigid    n=0   purity=0.9342  Vbus/|U|=0.000e+00
+    mode  2      0.00152448 Hz  rigid    n=0   purity=0.8214  Vbus/|U|=0.000e+00
+    mode  3      0.00196859 Hz  rigid    n=1   purity=0.7605  Vbus/|U|=0.000e+00
+    mode  4     72.35759044 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  5    118.81394282 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  6    172.31857957 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  7    276.68888576 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  8    302.01640427 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  9    461.77645013 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 10    475.50829908 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 11    552.96160536 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 12    650.78493047 Hz  flex     n=6   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 13    724.05089571 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 14    773.57519574 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 15    868.13567806 Hz  flex     n=7   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 16   1004.10252346 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 17   1112.95190984 Hz  flex     n=8   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 18   1116.65517899 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 19   1314.62546170 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 20   1326.65111117 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 21   1384.37806020 Hz  flex     n=9   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 22   1500.62755999 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 23   1526.55885597 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 24   1592.55173777 Hz  inplane  n=2   purity=1.0000  Vbus/|U|=0.000e+00
+h112_e0_fine       raw Hz: 0, 0.002552705157, 0.002709665151, 72.34407535, 118.8105194, 172.2870872, 276.6198598, 301.9394081, 461.6169244, 475.440585, 552.9172243, 650.4928753, 723.8974318, 773.1286001, 867.644383, 1003.843751, 1112.174787, 1116.391845, 1314.211253, 1326.316883, 1383.205518, 1500.22364, 1525.467695, 1592.515092
+    mode  1      0.00000000 Hz  rigid    n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  2      0.00255271 Hz  rigid    n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  3      0.00270967 Hz  rigid    n=0   purity=0.9977  Vbus/|U|=0.000e+00
+    mode  4     72.34407535 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  5    118.81051938 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  6    172.28708717 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  7    276.61985978 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  8    301.93940809 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  9    461.61692443 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 10    475.44058496 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 11    552.91722432 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 12    650.49287527 Hz  flex     n=6   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 13    723.89743181 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 14    773.12860014 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 15    867.64438302 Hz  flex     n=7   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 16   1003.84375102 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 17   1112.17478708 Hz  flex     n=8   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 18   1116.39184463 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 19   1314.21125284 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 20   1326.31688273 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 21   1383.20551797 Hz  flex     n=9   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 22   1500.22364025 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 23   1525.46769489 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 24   1592.51509203 Hz  inplane  n=2   purity=1.0000  Vbus/|U|=0.000e+00
+h112_sc_fine       raw Hz: 0, 0.000366150392, 0.001242725381, 72.34418053, 118.8113801, 172.2874177, 276.6217613, 301.940137, 461.6182266, 475.443943, 552.9205831, 650.4949345, 723.9022387, 773.1332207, 867.6473959, 1003.850305, 1112.178965, 1116.400017, 1314.219906, 1326.325715, 1383.211091, 1500.234979, 1525.477195, 1592.515092
+    mode  1      0.00000000 Hz  rigid    n=1   purity=0.9942  Vbus/|U|=0.000e+00
+    mode  2      0.00036615 Hz  rigid    n=0   purity=0.8116  Vbus/|U|=0.000e+00
+    mode  3      0.00124273 Hz  rigid    n=0   purity=0.9960  Vbus/|U|=0.000e+00
+    mode  4     72.34418053 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  5    118.81138013 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  6    172.28741767 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  7    276.62176127 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  8    301.94013695 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  9    461.61822663 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 10    475.44394305 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 11    552.92058312 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 12    650.49493452 Hz  flex     n=6   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 13    723.90223870 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 14    773.13322070 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 15    867.64739592 Hz  flex     n=7   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 16   1003.85030489 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 17   1112.17896542 Hz  flex     n=8   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 18   1116.40001669 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 19   1314.21990574 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 20   1326.32571535 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 21   1383.21109086 Hz  flex     n=9   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 22   1500.23497871 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 23   1525.47719469 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 24   1592.51509224 Hz  inplane  n=2   purity=1.0000  Vbus/|U|=0.000e+00
+h112_oc_fine       raw Hz: 0, 0, 0, 72.34418052, 119.1435215, 172.2874177, 276.6217612, 301.940137, 461.6182266, 475.4439431, 553.6215622, 650.4949345, 723.9022387, 773.1332207, 867.6473959, 1003.850305, 1112.178965, 1116.400017, 1314.219906, 1326.530472, 1383.211091, 1500.234979, 1525.477195, 1592.515092
+    mode  1      0.00000000 Hz  rigid    n=1   purity=0.9990  Vbus/|U|=8.620e-09
+    mode  2      0.00000000 Hz  rigid    n=0   purity=0.9993  Vbus/|U|=1.131e-08
+    mode  3      0.00000000 Hz  rigid    n=1   purity=0.9269  Vbus/|U|=2.270e-09
+    mode  4     72.34418052 Hz  flex     n=2   purity=1.0000  Vbus/|U|=1.944e-08
+    mode  5    119.14352153 Hz  flex     n=0   purity=1.0000  Vbus/|U|=1.121e+02
+    mode  6    172.28741766 Hz  flex     n=3   purity=1.0000  Vbus/|U|=5.557e-09
+    mode  7    276.62176125 Hz  flex     n=1   purity=1.0000  Vbus/|U|=1.114e-10
+    mode  8    301.94013695 Hz  flex     n=4   purity=1.0000  Vbus/|U|=4.538e-09
+    mode  9    461.61822663 Hz  flex     n=5   purity=1.0000  Vbus/|U|=9.295e-09
+    mode 10    475.44394305 Hz  flex     n=2   purity=1.0000  Vbus/|U|=3.021e-08
+    mode 11    553.62156222 Hz  flex     n=0   purity=1.0000  Vbus/|U|=2.380e+02
+    mode 12    650.49493452 Hz  flex     n=6   purity=1.0000  Vbus/|U|=5.561e-09
+    mode 13    723.90223869 Hz  flex     n=3   purity=1.0000  Vbus/|U|=1.045e-08
+    mode 14    773.13322069 Hz  flex     n=1   purity=1.0000  Vbus/|U|=3.622e-09
+    mode 15    867.64739588 Hz  flex     n=7   purity=1.0000  Vbus/|U|=1.032e-09
+    mode 16   1003.85030489 Hz  flex     n=4   purity=1.0000  Vbus/|U|=8.114e-09
+    mode 17   1112.17896539 Hz  flex     n=8   purity=1.0000  Vbus/|U|=9.433e-09
+    mode 18   1116.40001668 Hz  flex     n=2   purity=1.0000  Vbus/|U|=8.761e-09
+    mode 19   1314.21990573 Hz  flex     n=5   purity=1.0000  Vbus/|U|=1.307e-07
+    mode 20   1326.53047156 Hz  flex     n=0   purity=1.0000  Vbus/|U|=1.848e+02
+    mode 21   1383.21109079 Hz  flex     n=9   purity=1.0000  Vbus/|U|=1.404e-07
+    mode 22   1500.23497858 Hz  flex     n=3   purity=1.0000  Vbus/|U|=4.960e-07
+    mode 23   1525.47719468 Hz  flex     n=1   purity=1.0000  Vbus/|U|=4.996e-08
+    mode 24   1592.51509221 Hz  inplane  n=2   purity=1.0000  Vbus/|U|=8.605e-08
+h15_e0_coarse      raw Hz: 0, 0, 0, 77.48607736, 127.0401008, 184.4425627, 295.5523961, 323.0351601, 493.5262442, 507.6739938, 590.3749683, 694.9394102, 772.3485367, 824.5428867, 926.1873271, 1070.022796, 1186.20728, 1189.501097, 1399.385827, 1411.953775, 1473.95577, 1519.583261, 1596.374982, 1622.529435
+    mode  1      0.00000000 Hz  rigid    n=1   purity=0.6380  Vbus/|U|=0.000e+00
+    mode  2      0.00000000 Hz  rigid    n=0   purity=0.7188  Vbus/|U|=0.000e+00
+    mode  3      0.00000000 Hz  rigid    n=1   purity=0.6383  Vbus/|U|=0.000e+00
+    mode  4     77.48607736 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  5    127.04010081 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  6    184.44256272 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  7    295.55239612 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  8    323.03516011 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  9    493.52624416 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 10    507.67399384 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 11    590.37496827 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 12    694.93941018 Hz  flex     n=6   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 13    772.34853674 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 14    824.54288672 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 15    926.18732705 Hz  flex     n=7   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 16   1070.02279599 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 17   1186.20727993 Hz  flex     n=8   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 18   1189.50109700 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 19   1399.38582700 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 20   1411.95377459 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 21   1473.95577014 Hz  flex     n=9   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 22   1519.58326128 Hz  inplane  n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 23   1596.37498225 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 24   1622.52943539 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+h15_sc_coarse      raw Hz: 0, 0, 0, 77.48722226, 127.0494478, 184.4461576, 295.5729931, 323.0430887, 493.5404133, 507.7103808, 590.4113921, 694.9618255, 772.4006418, 824.5930199, 926.220138, 1070.093887, 1186.252805, 1189.589801, 1399.479753, 1412.049554, 1474.016518, 1519.583263, 1596.498065, 1622.632605
+    mode  1      0.00000000 Hz  rigid    n=0   purity=0.6858  Vbus/|U|=0.000e+00
+    mode  2      0.00000000 Hz  rigid    n=1   purity=0.5996  Vbus/|U|=0.000e+00
+    mode  3      0.00000000 Hz  rigid    n=1   purity=0.9750  Vbus/|U|=0.000e+00
+    mode  4     77.48722226 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  5    127.04944779 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  6    184.44615761 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  7    295.57299310 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  8    323.04308866 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  9    493.54041326 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 10    507.71038076 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 11    590.41139209 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 12    694.96182549 Hz  flex     n=6   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 13    772.40064182 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 14    824.59301986 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 15    926.22013805 Hz  flex     n=7   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 16   1070.09388692 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 17   1186.25280500 Hz  flex     n=8   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 18   1189.58980133 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 19   1399.47975279 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 20   1412.04955422 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 21   1474.01651760 Hz  flex     n=9   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 22   1519.58326263 Hz  inplane  n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 23   1596.49806524 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 24   1622.63260521 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+h15_e0_fine        raw Hz: 0.001126310361, 0.001349736564, 0.001975754623, 77.474232, 127.0377874, 184.4153174, 295.4942375, 322.968277, 493.3866623, 507.6186257, 590.3382145, 694.6821238, 772.2207912, 824.1602506, 925.7518939, 1069.807417, 1185.514809, 1189.27821, 1399.039873, 1411.658441, 1472.90592, 1519.547912, 1596.03427, 1621.588227
+    mode  1      0.00112631 Hz  rigid    n=1   purity=0.9436  Vbus/|U|=0.000e+00
+    mode  2      0.00134974 Hz  rigid    n=1   purity=0.7200  Vbus/|U|=0.000e+00
+    mode  3      0.00197575 Hz  rigid    n=0   purity=0.7905  Vbus/|U|=0.000e+00
+    mode  4     77.47423200 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  5    127.03778738 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  6    184.41531737 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  7    295.49423752 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  8    322.96827698 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  9    493.38666225 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 10    507.61862573 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 11    590.33821452 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 12    694.68212376 Hz  flex     n=6   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 13    772.22079116 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 14    824.16025064 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 15    925.75189392 Hz  flex     n=7   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 16   1069.80741726 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 17   1185.51480918 Hz  flex     n=8   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 18   1189.27820971 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 19   1399.03987267 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 20   1411.65844061 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 21   1472.90592043 Hz  flex     n=9   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 22   1519.54791239 Hz  inplane  n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 23   1596.03427016 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 24   1621.58822681 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+h15_sc_fine        raw Hz: 0, 0.0007114628278, 0.001219180985, 77.47537775, 127.047127, 184.4189103, 295.5148186, 322.9761973, 493.4008115, 507.6550149, 590.3746171, 694.7044998, 772.2729061, 824.210275, 925.7846358, 1069.878512, 1185.560222, 1189.366846, 1399.133793, 1411.754207, 1472.966496, 1519.547913, 1596.157373, 1621.691226
+    mode  1      0.00000000 Hz  rigid    n=1   purity=0.6886  Vbus/|U|=0.000e+00
+    mode  2      0.00071146 Hz  rigid    n=0   purity=0.8021  Vbus/|U|=0.000e+00
+    mode  3      0.00121918 Hz  rigid    n=0   purity=0.7622  Vbus/|U|=0.000e+00
+    mode  4     77.47537775 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  5    127.04712695 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  6    184.41891030 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  7    295.51481856 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  8    322.97619725 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode  9    493.40081148 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 10    507.65501487 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 11    590.37461712 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 12    694.70449983 Hz  flex     n=6   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 13    772.27290615 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 14    824.21027504 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 15    925.78463583 Hz  flex     n=7   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 16   1069.87851245 Hz  flex     n=4   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 17   1185.56022202 Hz  flex     n=8   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 18   1189.36684621 Hz  flex     n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 19   1399.13379340 Hz  flex     n=5   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 20   1411.75420672 Hz  flex     n=0   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 21   1472.96649601 Hz  flex     n=9   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 22   1519.54791319 Hz  inplane  n=2   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 23   1596.15737308 Hz  flex     n=3   purity=1.0000  Vbus/|U|=0.000e+00
+    mode 24   1621.69122589 Hz  flex     n=1   purity=1.0000  Vbus/|U|=0.000e+00
+h15_oc_fine        raw Hz: 0, 0, 0.0005359719017, 77.47537774, 127.8096826, 184.4189103, 295.5148186, 322.9761973, 493.4008115, 507.6550149, 591.9814346, 694.7044998, 772.2729062, 824.210275, 925.7846358, 1069.878512, 1185.560222, 1189.366846, 1399.133793, 1412.224341, 1472.966496, 1519.547913, 1596.157373, 1621.691226
+    mode  1      0.00000000 Hz  rigid    n=1   purity=0.9178  Vbus/|U|=9.492e-09
+    mode  2      0.00000000 Hz  rigid    n=0   purity=0.9433  Vbus/|U|=2.549e-08
+    mode  3      0.00053597 Hz  rigid    n=0   purity=0.5766  Vbus/|U|=1.529e-09
+    mode  4     77.47537774 Hz  flex     n=2   purity=1.0000  Vbus/|U|=3.502e-08
+    mode  5    127.80968265 Hz  flex     n=0   purity=1.0000  Vbus/|U|=2.967e+02
+    mode  6    184.41891030 Hz  flex     n=3   purity=1.0000  Vbus/|U|=2.781e-09
+    mode  7    295.51481856 Hz  flex     n=1   purity=1.0000  Vbus/|U|=1.058e-08
+    mode  8    322.97619725 Hz  flex     n=4   purity=1.0000  Vbus/|U|=3.073e-09
+    mode  9    493.40081148 Hz  flex     n=5   purity=1.0000  Vbus/|U|=9.055e-10
+    mode 10    507.65501487 Hz  flex     n=2   purity=1.0000  Vbus/|U|=2.944e-08
+    mode 11    591.98143461 Hz  flex     n=0   purity=1.0000  Vbus/|U|=6.319e+02
+    mode 12    694.70449983 Hz  flex     n=6   purity=1.0000  Vbus/|U|=1.105e-07
+    mode 13    772.27290615 Hz  flex     n=3   purity=1.0000  Vbus/|U|=1.586e-07
+    mode 14    824.21027503 Hz  flex     n=1   purity=1.0000  Vbus/|U|=2.704e-08
+    mode 15    925.78463583 Hz  flex     n=7   purity=1.0000  Vbus/|U|=4.583e-08
+    mode 16   1069.87851246 Hz  flex     n=4   purity=1.0000  Vbus/|U|=5.640e-08
+    mode 17   1185.56022194 Hz  flex     n=8   purity=1.0000  Vbus/|U|=7.763e-09
+    mode 18   1189.36684621 Hz  flex     n=2   purity=1.0000  Vbus/|U|=3.764e-08
+    mode 19   1399.13379340 Hz  flex     n=5   purity=1.0000  Vbus/|U|=6.693e-09
+    mode 20   1412.22434110 Hz  flex     n=0   purity=1.0000  Vbus/|U|=4.912e+02
+    mode 21   1472.96649598 Hz  flex     n=9   purity=1.0000  Vbus/|U|=9.516e-08
+    mode 22   1519.54791320 Hz  inplane  n=2   purity=1.0000  Vbus/|U|=1.091e-08
+    mode 23   1596.15737288 Hz  flex     n=3   purity=1.0000  Vbus/|U|=9.640e-07
+    mode 24   1621.69122587 Hz  flex     n=1   purity=1.0000  Vbus/|U|=2.153e-08
+
+G0: PASS
+
+G1 mesh (|coarse/fine - 1| < 0.5%):
+    h112 e0 n=0: coarse 118.81308121 fine 118.81051938  +0.0022%  PASS
+    h112 e0 n=1: coarse 276.68698215 fine 276.61985978  +0.0243%  PASS
+    h112 e0 n=2: coarse 72.35748539 fine 72.34407535  +0.0185%  PASS
+    h112 e0 n=3: coarse 172.31824872 fine 172.28708717  +0.0181%  PASS
+    h112 e0 n=4: coarse 302.01567402 fine 301.93940809  +0.0253%  PASS
+    h112 sc n=0: coarse 118.81394282 fine 118.81138013  +0.0022%  PASS
+    h112 sc n=1: coarse 276.68888576 fine 276.62176127  +0.0243%  PASS
+    h112 sc n=2: coarse 72.35759044 fine 72.34418053  +0.0185%  PASS
+    h112 sc n=3: coarse 172.31857957 fine 172.28741767  +0.0181%  PASS
+    h112 sc n=4: coarse 302.01640427 fine 301.94013695  +0.0253%  PASS
+    h15 e0 n=0: coarse 127.04010081 fine 127.03778738  +0.0018%  PASS
+    h15 e0 n=1: coarse 295.55239612 fine 295.49423752  +0.0197%  PASS
+    h15 e0 n=2: coarse 77.48607736 fine 77.47423200  +0.0153%  PASS
+    h15 e0 n=3: coarse 184.44256272 fine 184.41531737  +0.0148%  PASS
+    h15 e0 n=4: coarse 323.03516011 fine 322.96827698  +0.0207%  PASS
+    h15 sc n=0: coarse 127.04944779 fine 127.04712695  +0.0018%  PASS
+    h15 sc n=1: coarse 295.57299310 fine 295.51481856  +0.0197%  PASS
+    h15 sc n=2: coarse 77.48722226 fine 77.47537775  +0.0153%  PASS
+    h15 sc n=3: coarse 184.44615761 fine 184.41891030  +0.0148%  PASS
+    h15 sc n=4: coarse 323.04308866 fine 322.97619725  +0.0207%  PASS
+G1: PASS
+
+G2a h112 e0 n=0: 3-D 118.81051938 Hz vs PLANE223 118.81016 Hz  +0.0003%  PASS
+G2b h112 n=0 OC/SC: 3-D 0.27955% vs PLANE223 0.27953%  (3-D/axi - 1 = +0.01%)  model oc/sc 0.27911%  PASS
+G2b h15 n=0 OC/SC: 3-D 0.60021% vs PLANE223 0.60019%  (3-D/axi - 1 = +0.00%)  model oc/sc 0.59363%  PASS
+G2: PASS
+
+G3 elastic bilayer n>=1 (|FE e0/model - 1| <= 1.0%); n=0 shown for the offset:
+    h112 n=0 s=1: FE 118.810519 Hz  model 119.045732 Hz  -0.198%  (offset reference)
+    h112 n=1 s=1: FE 276.619860 Hz  model 279.476111 Hz  -1.022%  FAIL
+    h112 n=2 s=1: FE 72.344075 Hz  model 72.731783 Hz  -0.533%  PASS
+    h112 n=3 s=1: FE 172.287087 Hz  model 173.409710 Hz  -0.647%  PASS
+    h112 n=4 s=1: FE 301.939408 Hz  model 304.789579 Hz  -0.935%  PASS
+    h15 n=0 s=1: FE 127.037787 Hz  model 127.372129 Hz  -0.262%  (offset reference)
+    h15 n=1 s=1: FE 295.494238 Hz  model 299.058210 Hz  -1.192%  FAIL
+    h15 n=2 s=1: FE 77.474232 Hz  model 77.945373 Hz  -0.604%  PASS
+    h15 n=3 s=1: FE 184.415317 Hz  model 185.814886 Hz  -0.753%  PASS
+    h15 n=4 s=1: FE 322.968277 Hz  model 326.549218 Hz  -1.097%  FAIL
+    retired Q_r-only row, h112 n=1: 250.429 Hz -> FE/old - 1 = +10.46%
+G3: FAIL
+
+G4 no OC split at n>=1 (|OC/SC - 1| <= 1e-06; Vbus ratio < 1e-03 of n=0):
+    h112 n=1: OC 276.6217612490 SC 276.6217612670  OC/SC-1 = -6.507e-11  Vbus(n)/Vbus(0) = 9.940e-13  PASS
+    h112 n=2: OC 72.3441805225 SC 72.3441805320  OC/SC-1 = -1.313e-10  Vbus(n)/Vbus(0) = 1.734e-10  PASS
+    h112 n=3: OC 172.2874176610 SC 172.2874176690  OC/SC-1 = -4.643e-11  Vbus(n)/Vbus(0) = 4.957e-11  PASS
+    h112 n=4: OC 301.9401369520 SC 301.9401369540  OC/SC-1 = -6.624e-12  Vbus(n)/Vbus(0) = 4.048e-11  PASS
+    h15 n=1: OC 295.5148185640 SC 295.5148185650  OC/SC-1 = -3.384e-12  Vbus(n)/Vbus(0) = 3.567e-11  PASS
+    h15 n=2: OC 77.4753777429 SC 77.4753777461  OC/SC-1 = -4.130e-11  Vbus(n)/Vbus(0) = 1.180e-10  PASS
+    h15 n=3: OC 184.4189102960 SC 184.4189103030  OC/SC-1 = -3.796e-11  Vbus(n)/Vbus(0) = 9.373e-12  PASS
+    h15 n=4: OC 322.9761972540 SC 322.9761972520  OC/SC-1 = +6.192e-12  Vbus(n)/Vbus(0) = 1.036e-11  PASS
+G4: PASS
+
+G5 SC interior-potential shift, FE sc/e0 - 1 vs model SC6x6/el4x4 - 1 (PASS <= 10%, PARTIAL <= 25%):
+    h112 n=0: FE 7.2448e-06 (coarse 7.2518e-06, move 0.1%)  model 7.1999e-06  FE/model-1 = +0.6%  PASS
+    h112 n=1: FE 6.8740e-06 (coarse 6.8800e-06, move 0.1%)  model 6.7960e-06  FE/model-1 = +1.1%  PASS
+    h112 n=2: FE 1.4539e-06 (coarse 1.4519e-06, move 0.1%)  model 1.4479e-06  FE/model-1 = +0.4%  PASS
+    h112 n=3: FE 1.9183e-06 (coarse 1.9200e-06, move 0.1%)  model 1.9290e-06  FE/model-1 = -0.6%  PASS
+    h112 n=4: FE 2.4140e-06 (coarse 2.4179e-06, move 0.2%)  model 2.4062e-06  FE/model-1 = +0.3%  PASS
+    h15 n=0: FE 7.3518e-05 (coarse 7.3575e-05, move 0.1%)  model 7.3038e-05  FE/model-1 = +0.7%  PASS
+    h15 n=1: FE 6.9650e-05 (coarse 6.9690e-05, move 0.1%)  model 6.8790e-05  FE/model-1 = +1.2%  PASS
+    h15 n=2: FE 1.4789e-05 (coarse 1.4775e-05, move 0.1%)  model 1.4718e-05  FE/model-1 = +0.5%  PASS
+    h15 n=3: FE 1.9483e-05 (coarse 1.9491e-05, move 0.0%)  model 1.9595e-05  FE/model-1 = -0.6%  PASS
+    h15 n=4: FE 2.4523e-05 (coarse 2.4544e-05, move 0.1%)  model 2.4436e-05  FE/model-1 = +0.4%  PASS
+G5: PASS  (PASS, PASS, PASS, PASS, PASS, PASS, PASS, PASS, PASS, PASS)
+
+Information only (not gated): other identified flexural modes, fine mesh
+    h112 n=0 s=2: FE e0 552.9172 Hz vs model 557.8306  -0.881%   split FE 6.075e-06 model 5.836e-06
+    h112 n=1 s=2: FE e0 773.1286 Hz vs model 792.5554  -2.451%   split FE 5.976e-06 model 5.724e-06
+    h112 n=2 s=2: FE e0 475.4406 Hz vs model 480.4189  -1.036%   split FE 7.063e-06 model 6.782e-06
+    h112 n=3 s=2: FE e0 723.8974 Hz vs model 735.3541  -1.558%   split FE 6.640e-06 model 6.228e-06
+    h112 n=4 s=2: FE e0 1003.8438 Hz vs model 1024.9863  -2.063%   split FE 6.529e-06 model 5.975e-06
+    h112 n=5 s=1: FE e0 461.6169 Hz vs model 467.5385  -1.267%   split FE 2.821e-06 model 2.773e-06
+    h112 n=6 s=1: FE e0 650.4929 Hz vs model 661.2826  -1.632%   split FE 3.166e-06 model 3.058e-06
+    h112 n=7 s=1: FE e0 867.6444 Hz vs model 885.6316  -2.031%   split FE 3.473e-06 model 3.288e-06
+    h15 n=0 s=2: FE e0 590.3382 Hz vs model 597.0779  -1.129%   split FE 6.166e-05 model 5.907e-05
+    h15 n=1 s=2: FE e0 824.1603 Hz vs model 848.3439  -2.851%   split FE 6.070e-05 model 5.794e-05
+    h15 n=2 s=2: FE e0 507.6186 Hz vs model 514.0828  -1.257%   split FE 7.169e-05 model 6.861e-05
+    h15 n=3 s=2: FE e0 772.2208 Hz vs model 787.0051  -1.879%   split FE 6.749e-05 model 6.297e-05
+    h15 n=4 s=2: FE e0 1069.8074 Hz vs model 1097.0592  -2.484%   split FE 6.646e-05 model 6.040e-05
+    h15 n=5 s=1: FE e0 493.3867 Hz vs model 500.8653  -1.493%   split FE 2.868e-05 model 2.815e-05
+    h15 n=6 s=1: FE e0 694.6821 Hz vs model 708.3626  -1.931%   split FE 3.221e-05 model 3.104e-05
+    h15 n=7 s=1: FE e0 925.7519 Hz vs model 948.6227  -2.411%   split FE 3.537e-05 model 3.337e-05
+
+RESULT: FAIL  (G0 PASS, G1 PASS, G2 PASS, G3 FAIL, G4 PASS, G5 PASS)
+
+wrote /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/score_p4_3d_nge1_2026-09-23.txt
+End: Wed Sep 23 18:31:07 CDT 2026

@@ -1,0 +1,12 @@
+# Paper 4 -- 3-D thin-limit check for the G3 FAIL of job 2530423 (LESSONS 18.232).
+# Bare steel F-F half annulus, SOLID186 full integration, one licence seat.
+# Built by build_p4_3d_thinlimit_decks_2026-09-23.py; Kirchhoff targets in
+# targets_p4_3d_thinlimit_2026-09-23.json, written BEFORE this queue ran.
+# Gates T0-T3 are in score_p4_3d_thinlimit_2026-09-23.py and are fixed.
+# T3 (thin-limit intercept |c| <= 0.05% at n = 0..4) is the decisive one.
+#
+ansys_p4_3d_bare_t20_coarse_2026-09-23.inp
+ansys_p4_3d_bare_t20_fine_2026-09-23.inp
+ansys_p4_3d_bare_t10_fine_2026-09-23.inp
+ansys_p4_3d_bare_t5_fine_2026-09-23.inp
+ansys_p4_3d_bare_t5_coarse_2026-09-23.inp

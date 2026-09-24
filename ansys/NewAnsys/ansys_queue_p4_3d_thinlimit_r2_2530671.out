@@ -1,0 +1,111 @@
+Job 2530671 on compute-14-37.mill
+Start: Wed Sep 23 20:52:29 CDT 2026
+trying module ansys/2025R1
+  [module list] 
+  [module list] Currently Loaded Modules:
+  [module list]   1) ansys/2025R1
+  [module list] 
+  [module list]  
+  [module list] 
+ANSYS module: ansys/2025R1
+MAPDL launcher: /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/bin/mapdl [native launcher]
+================================================================
+  run_ansys_queue.sh -- Wed Sep 23 20:52:29 CDT 2026
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys  manifest=ansys_queue_manifest_p4_3d_thinlimit_r2_2026-09-23.txt  cpus/deck=8  stop_on_fail=0
+================================================================
+
+---- [1] ansys_p4_3d_bare_t10_coarse_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_bare_t10_coarse_20) -- Wed Sep 23 20:52:29 CDT 2026 ----
+---- [1] ansys_p4_3d_bare_t10_coarse_2026-09-23.inp : OK (26s), wrote ansys_p4_3d_bare_t10_coarse_2026-09-23_out.txt, sentinel=ansys_p4_3d_bare_t10_coarse_2026-09-23.inp.QUEUE_OK ----
+
+---- [2] ansys_p4_3d_bare_t5_xfine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_bare_t5_xfine_2026) -- Wed Sep 23 20:52:55 CDT 2026 ----
+---- [2] ansys_p4_3d_bare_t5_xfine_2026-09-23.inp : FAILED (exit=137, 387s) -- see ansys_p4_3d_bare_t5_xfine_2026-09-23_out.txt ----
+     last 15 lines of ansys_p4_3d_bare_t5_xfine_2026-09-23_out.txt:
+      *** NOTE ***                            CP =     240.597   TIME= 20:56:45
+      The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+      currently running in the in-core memory mode.  This memory mode uses    
+      the most amount of memory in order to avoid using the hard drive as     
+      much as possible, which most often results in the fastest solution      
+      time.  This mode is recommended if enough physical memory is present    
+      to accommodate all of the solver data.                                  
+      
+      
+      The Linux operating system has killed the Mechanical APDL simulation.
+      Typically this occurs when either the user has manually attempted to 
+      kill the simulation process(es), or when the simulation consumes too 
+      much physical memory.  For the latter case, try reducing the size of 
+      the model or try running on a system with more RAM to successfully   
+      complete this simulation.
+
+---- [3] ansys_p4_3d_bare_t10_xfine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_bare_t10_xfine_202) -- Wed Sep 23 20:59:22 CDT 2026 ----
+---- [3] ansys_p4_3d_bare_t10_xfine_2026-09-23.inp : FAILED (exit=137, 443s) -- see ansys_p4_3d_bare_t10_xfine_2026-09-23_out.txt ----
+     last 15 lines of ansys_p4_3d_bare_t10_xfine_2026-09-23_out.txt:
+      *** NOTE ***                            CP =     259.865   TIME= 21:03:49
+      The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+      currently running in the in-core memory mode.  This memory mode uses    
+      the most amount of memory in order to avoid using the hard drive as     
+      much as possible, which most often results in the fastest solution      
+      time.  This mode is recommended if enough physical memory is present    
+      to accommodate all of the solver data.                                  
+      
+      
+      The Linux operating system has killed the Mechanical APDL simulation.
+      Typically this occurs when either the user has manually attempted to 
+      kill the simulation process(es), or when the simulation consumes too 
+      much physical memory.  For the latter case, try reducing the size of 
+      the model or try running on a system with more RAM to successfully   
+      complete this simulation.
+
+---- [4] ansys_p4_3d_bare_t20_xfine_2026-09-23.inp : RUNNING (mapdl -np 8 -j p4_3d_bare_t20_xfine_202) -- Wed Sep 23 21:06:45 CDT 2026 ----
+---- [4] ansys_p4_3d_bare_t20_xfine_2026-09-23.inp : FAILED (exit=137, 430s) -- see ansys_p4_3d_bare_t20_xfine_2026-09-23_out.txt ----
+     last 15 lines of ansys_p4_3d_bare_t20_xfine_2026-09-23_out.txt:
+      *** NOTE ***                            CP =     265.613   TIME= 21:11:22
+      The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+      currently running in the in-core memory mode.  This memory mode uses    
+      the most amount of memory in order to avoid using the hard drive as     
+      much as possible, which most often results in the fastest solution      
+      time.  This mode is recommended if enough physical memory is present    
+      to accommodate all of the solver data.                                  
+      
+      
+      The Linux operating system has killed the Mechanical APDL simulation.
+      Typically this occurs when either the user has manually attempted to 
+      kill the simulation process(es), or when the simulation consumes too 
+      much physical memory.  For the latter case, try reducing the size of 
+      the model or try running on a system with more RAM to successfully   
+      complete this simulation.
+
+================================================================
+  QUEUE SUMMARY -- Wed Sep 23 21:13:55 CDT 2026  (total wall: 21 min)
+================================================================
+  ansys_p4_3d_bare_t10_coarse_2026-09-23.inp : OK (26s)
+  ansys_p4_3d_bare_t5_xfine_2026-09-23.inp : FAILED (exit=137)
+  ansys_p4_3d_bare_t10_xfine_2026-09-23.inp : FAILED (exit=137)
+  ansys_p4_3d_bare_t20_xfine_2026-09-23.inp : FAILED (exit=137)
+
+  total=4  ok=1  skip=0  fail=3
+
+==== scorer (convenience; re-run it yourself on the synced files) ====
+Paper 4 3-D thin-limit ROUND 2 score  (/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys)
+t=20 coarse raw Hz: 0, 0, 0.001158042716, 70.24770448, 115.4959145, 167.3488615, 269.1421902, 293.449981, 448.9169942, 462.6683721, 537.9704699, 633.0223057
+t=20 fine   raw Hz: 0, 0.002176570255, 0.002453876374, 70.23074315, 115.4927906, 167.3097687, 269.0561929, 293.3553028, 448.722634, 462.5872864, 537.9211563, 632.6694987
+t=20 xfine  raw Hz: (none)
+    R0: no RUN COMPLETED
+    R0: no MAPDL error-count line
+    R0: missing ansys_p4_3d_bare_t20_xfine_modes.txt, ansys_p4_3d_bare_t20_xfine_samples.txt, ansys_p4_3d_bare_t20_xfine_samplecoords.txt
+t=10 coarse raw Hz: 0, 0, 0.0004438657759, 35.22792518, 57.81940681, 83.99261518, 135.3776519, 147.554834, 226.2183011, 232.8010374, 270.4928618, 319.7724575
+t=10 fine   raw Hz: 0.001287980925, 0.00333212045, 0.004529776211, 35.21227739, 57.81523006, 83.95228611, 135.2979539, 147.4535154, 226.0054268, 232.7278408, 270.4366635, 319.3780918
+t=10 xfine  raw Hz: (none)
+    R0: no RUN COMPLETED
+    R0: no MAPDL error-count line
+    R0: missing ansys_p4_3d_bare_t10_xfine_modes.txt, ansys_p4_3d_bare_t10_xfine_samples.txt, ansys_p4_3d_bare_t10_xfine_samplecoords.txt
+t=5  coarse raw Hz: 0, 0.005582831796, 0.006696120119, 17.6373275, 28.92143596, 42.06398619, 67.84370516, 73.9503849, 113.4721812, 116.6363239, 135.4751573, 160.5554072
+t=5  fine   raw Hz: 0, 0, 0.003163846672, 17.62887233, 28.9165745, 42.03683835, 67.79897115, 73.87587436, 113.3054995, 116.5894496, 135.4096592, 160.2310164
+t=5  xfine  raw Hz: (none)
+    R0: no RUN COMPLETED
+    R0: no MAPDL error-count line
+    R0: missing ansys_p4_3d_bare_t5_xfine_modes.txt, ansys_p4_3d_bare_t5_xfine_samples.txt, ansys_p4_3d_bare_t5_xfine_samplecoords.txt
+
+R0: NOT_RUN. RESULT: NOT_RUN
+
+wrote /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/score_p4_3d_thinlimit_r2_2026-09-23.txt
+End: Wed Sep 23 21:13:55 CDT 2026
