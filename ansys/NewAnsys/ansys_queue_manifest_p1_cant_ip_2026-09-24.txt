@@ -1,0 +1,6 @@
+# Paper 1 cantilever IP, r0/2b=1.25: external FE check of every in-plane row
+# (2Theta/pi = 0.25, 0.50, 1.00). a025 first: it carries the two rows SM Table
+# S.9 leaves n.r. Each deck runs three meshes (48/96/192) for a Richardson limit.
+ansys_p1_cant_ip_r125_a025_2026-09-24.inp
+ansys_p1_cant_ip_r125_a050_2026-09-24.inp
+ansys_p1_cant_ip_r125_a100_2026-09-24.inp

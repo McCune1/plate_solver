@@ -1,0 +1,69 @@
+Job 2530984 on compute-34-04.mill
+Start: Thu Sep 24 03:22:46 CDT 2026
+trying module ansys/2025R1
+  [module list] 
+  [module list] Currently Loaded Modules:
+  [module list]   1) ansys/2025R1
+  [module list] 
+  [module list]  
+  [module list] 
+ANSYS module: ansys/2025R1
+MAPDL launcher: /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/bin/mapdl [native launcher]
+node memory: 187 GB total  SLURM_MEM_PER_NODE=16384 MB
+================================================================
+  run_ansys_queue.sh -- Thu Sep 24 03:22:47 CDT 2026
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys  manifest=ansys_queue_manifest_p1_cant_ip_2026-09-24.txt  cpus/deck=8  stop_on_fail=0
+================================================================
+
+---- [1] ansys_p1_cant_ip_r125_a025_2026-09-24.inp : RUNNING (mapdl -np 8 -j p1_cant_ip_r125_a025_202) -- Thu Sep 24 03:22:47 CDT 2026 ----
+---- [1] ansys_p1_cant_ip_r125_a025_2026-09-24.inp : OK (28s), wrote ansys_p1_cant_ip_r125_a025_2026-09-24_out.txt, sentinel=ansys_p1_cant_ip_r125_a025_2026-09-24.inp.QUEUE_OK ----
+
+---- [2] ansys_p1_cant_ip_r125_a050_2026-09-24.inp : SKIP (already done -- ansys_p1_cant_ip_r125_a050_2026-09-24.inp.QUEUE_OK is newer than the deck) ----
+
+---- [3] ansys_p1_cant_ip_r125_a100_2026-09-24.inp : SKIP (already done -- ansys_p1_cant_ip_r125_a100_2026-09-24.inp.QUEUE_OK is newer than the deck) ----
+
+================================================================
+  QUEUE SUMMARY -- Thu Sep 24 03:23:15 CDT 2026  (total wall: 0 min)
+================================================================
+  ansys_p1_cant_ip_r125_a025_2026-09-24.inp : OK (28s)
+  ansys_p1_cant_ip_r125_a050_2026-09-24.inp : SKIP (already done)
+  ansys_p1_cant_ip_r125_a100_2026-09-24.inp : SKIP (already done)
+
+  total=3  ok=1  skip=2  fail=0
+
+==== scorer (convenience; re-run it yourself on the synced files) ====
+==== a025
+  mesh48  137.669576 325.259899 371.278818 612.458684 657.977782
+  mesh96  137.659759 325.251483 371.275984 612.458188 657.958473
+  mesh192 137.656222 325.248482 371.275040 612.458012 657.951733
+  mode 1: F0 0.0026% PASS | Omega_ANSYS 0.348738 (p=1.47) vs Q9 0.348738 -0.0000% F2 PASS
+  mode 2: F0 0.0009% PASS | Omega_ANSYS 0.823991 (p=1.49) vs Q9 0.823991 +0.0000% F2 PASS
+  mode 3: F0 0.0003% PASS | Omega_ANSYS 0.940599 (p=1.59) vs Q9 0.940601 -0.0002% F2 PASS
+  mode 4: F0 0.0000% PASS | Omega_ANSYS 1.551621 (p=1.49) vs Q9 1.551622 -0.0000% F2 PASS
+  row m1 vs ANSYS: printed -2.149%  Seok-Tiersten -0.817%  S.9 -2.694%
+  row m2 vs ANSYS: printed -1.828%  Seok-Tiersten -0.580%  S.9 n.r.
+  row m3 vs ANSYS: printed -0.060%  Seok-Tiersten -0.051%  S.9 n.r.
+==== a050
+  mesh48  47.943054 139.365004 209.161802 372.613609 416.580427
+  mesh96  47.940216 139.360050 209.157694 372.603462 416.571321
+  mesh192 47.939167 139.358345 209.156204 372.600049 416.568104
+  mode 1: F0 0.0022% PASS | Omega_ANSYS 0.121449 (p=1.44) vs Q9 0.121449 +0.0001% F2 PASS
+  mode 2: F0 0.0012% PASS | Omega_ANSYS 0.353053 (p=1.54) vs Q9 0.353054 -0.0003% F2 PASS
+  mode 3: F0 0.0007% PASS | Omega_ANSYS 0.529881 (p=1.46) vs Q9 0.529883 -0.0003% F2 PASS
+  mode 4: F0 0.0009% PASS | Omega_ANSYS 0.943953 (p=1.57) vs Q9 0.943960 -0.0007% F2 PASS
+  row m1 vs ANSYS: printed -0.636%  Seok-Tiersten -0.469%  S.9 -0.805%
+  row m2 vs ANSYS: printed -1.705%  Seok-Tiersten -0.324%  S.9 -0.764%
+  row m3 vs ANSYS: printed -0.121%  Seok-Tiersten -0.110%  S.9 -0.098%
+==== a100
+  mesh48  15.613728 41.774049 103.323071 181.099640 220.585397
+  mesh96  15.613379 41.772456 103.321110 181.098023 220.581460
+  mesh192 15.613247 41.771881 103.320431 181.097422 220.580079
+  mode 1: F0 0.0008% PASS | Omega_ANSYS 0.039555 (p=1.41) vs Q9 0.039555 -0.0002% F2 PASS
+  mode 2: F0 0.0014% PASS | Omega_ANSYS 0.105825 (p=1.47) vs Q9 0.105826 -0.0005% F2 PASS
+  mode 3: F0 0.0007% PASS | Omega_ANSYS 0.261755 (p=1.53) vs Q9 0.261755 -0.0002% F2 PASS
+  mode 4: F0 0.0003% PASS | Omega_ANSYS 0.458797 (p=1.43) vs Q9 0.458798 -0.0001% F2 PASS
+  row m1 vs ANSYS: printed -0.225%  Seok-Tiersten -0.189%  S.9 -0.088%
+  row m2 vs ANSYS: printed +0.665%  Seok-Tiersten -0.251%  S.9 +0.293%
+  row m3 vs ANSYS: printed +0.495%  Seok-Tiersten -0.177%  S.9 -0.289%
+VERDICT: CONFIRMED: Q9 reference stands for all in-plane rows
+End: Thu Sep 24 03:23:15 CDT 2026

@@ -23,7 +23,11 @@ accuracy reporting, never to seed a search.
 ## Status
 
 - **Cantilever (Phase 1), replicating the source papers — closed.** Isotropic
-  annular cantilever: 29/29 tabulated frequencies reproduced. Rectangular
+  annular cantilever: 29/29 tabulated frequencies reproduced. Its nine
+  in-plane rows are also checked against plane-stress FE: the published
+  values sit within 0.82% and the production values within 2.15%, the gap
+  being a finite-basis split of the in-plane double root (Paper 1 §6.1,
+  SM §S.3.8). Rectangular
   cantilever, both out-of-plane and in-plane, both symmetry classes.
 - **Free-free (Phase 2) — closed for the annular geometry at its primary
   validated benchmark.** Validated against independent finite-element

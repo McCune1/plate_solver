@@ -1,0 +1,208 @@
+! ===========================================================================
+!  ansys_p1_cant_ip_r125_a100_2026-09-24.inp
+!  Paper 1 cantilever replication, IN-PLANE, r0/(2b)=1.25, 2Theta/pi=1.00.
+!  PLANE183 plane stress, three meshes (NDIV 48 / 96 / 192, ratio 2) for a
+!  Richardson limit. Companion of the a025 deck (same date): checks the
+!  in-plane cantilever rows at 2Theta/pi=1.00 against an external FE.
+!
+!  Geometry = plate_solver make_geometry(1.25, 0.25): R_i=3, R_o=7 (2b=4),
+!  PHI=180.0 deg. Material = _material_from_env default: E=210e9, nu=0.35,
+!  rho=7800. Thickness irrelevant in plane stress (H=0.08).
+!  Wall theta=0 fully clamped (UX=UY=0); wall theta=PHI and both arcs free.
+!  (Mirror-symmetric for isotropy, so which wall is clamped does not matter.)
+!
+!  Omega_bar -> Hz: f = Omega_bar * wbar/(2 pi), wbar = 2480.106584 rad/s.
+!
+!  Raw Hz only -- convert/score in Python (never trust a deck-computed column).
+!  *VWRITE: fill arrays in the *DO, one *VWRITE after the loop.
+!  Outputs: p1_cant_ip_r125_a100_mesh{48,96,192}.txt
+! ===========================================================================
+
+FINISH
+/CLEAR,NOSTART
+/TITLE, P1 cantilever IP r125 a100 -- mesh 48
+
+R_i    = 3.0
+R_o    = 7.0
+PHI    = 180.0
+H      = 0.08
+E_iso  = 210.0e9
+NU_iso = 0.35
+RHO    = 7800.0
+NDIV   = 48
+NMODES = 12
+
+/PREP7
+LOCAL, 11, 1, 0,0,0
+CSYS, 11
+ET, 1, PLANE183
+KEYOPT, 1, 3, 3
+R, 1, H
+MP, EX,1,E_iso
+MP, PRXY,1,NU_iso
+MP, DENS,1,RHO
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI
+TYPE,1 $ MAT,1 $ REAL,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI
+LESIZE, ALL, , , NDIV
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o
+LESIZE, ALL, , , 2*NDIV
+ALLSEL, ALL
+CSYS, 0
+MSHKEY, 1 $ AMESH, ALL
+CSYS, 11
+NSEL, S, LOC, Y, 0
+D, ALL, ALL, 0
+ALLSEL, ALL
+CSYS, 0
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, 1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+*DIM, MIDX, ARRAY, NMODES
+*VFILL, MIDX, RAMP, 1, 1
+*DIM, FRA, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRA(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, p1_cant_ip_r125_a100_mesh48, txt
+*VWRITE
+('mode      f[Hz]    (PLANE183 48x48 plane stress, cantilever IP, r125 a100, nu=0.35)')
+*VWRITE, MIDX(1), FRA(1)
+(F4.0, 3X, E18.10)
+*CFCLOS
+FINISH
+
+FINISH
+/CLEAR,NOSTART
+/TITLE, P1 cantilever IP r125 a100 -- mesh 96
+
+R_i    = 3.0
+R_o    = 7.0
+PHI    = 180.0
+H      = 0.08
+E_iso  = 210.0e9
+NU_iso = 0.35
+RHO    = 7800.0
+NDIV   = 96
+NMODES = 12
+
+/PREP7
+LOCAL, 11, 1, 0,0,0
+CSYS, 11
+ET, 1, PLANE183
+KEYOPT, 1, 3, 3
+R, 1, H
+MP, EX,1,E_iso
+MP, PRXY,1,NU_iso
+MP, DENS,1,RHO
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI
+TYPE,1 $ MAT,1 $ REAL,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI
+LESIZE, ALL, , , NDIV
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o
+LESIZE, ALL, , , 2*NDIV
+ALLSEL, ALL
+CSYS, 0
+MSHKEY, 1 $ AMESH, ALL
+CSYS, 11
+NSEL, S, LOC, Y, 0
+D, ALL, ALL, 0
+ALLSEL, ALL
+CSYS, 0
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, 1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+*DIM, MIDX, ARRAY, NMODES
+*VFILL, MIDX, RAMP, 1, 1
+*DIM, FRA, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRA(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, p1_cant_ip_r125_a100_mesh96, txt
+*VWRITE
+('mode      f[Hz]    (PLANE183 96x96 plane stress, cantilever IP, r125 a100, nu=0.35)')
+*VWRITE, MIDX(1), FRA(1)
+(F4.0, 3X, E18.10)
+*CFCLOS
+FINISH
+
+FINISH
+/CLEAR,NOSTART
+/TITLE, P1 cantilever IP r125 a100 -- mesh 192
+
+R_i    = 3.0
+R_o    = 7.0
+PHI    = 180.0
+H      = 0.08
+E_iso  = 210.0e9
+NU_iso = 0.35
+RHO    = 7800.0
+NDIV   = 192
+NMODES = 12
+
+/PREP7
+LOCAL, 11, 1, 0,0,0
+CSYS, 11
+ET, 1, PLANE183
+KEYOPT, 1, 3, 3
+R, 1, H
+MP, EX,1,E_iso
+MP, PRXY,1,NU_iso
+MP, DENS,1,RHO
+CSYS, 0
+PCIRC, R_i, R_o, 0, PHI
+TYPE,1 $ MAT,1 $ REAL,1
+CSYS, 11
+LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI
+LESIZE, ALL, , , NDIV
+LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o
+LESIZE, ALL, , , 2*NDIV
+ALLSEL, ALL
+CSYS, 0
+MSHKEY, 1 $ AMESH, ALL
+CSYS, 11
+NSEL, S, LOC, Y, 0
+D, ALL, ALL, 0
+ALLSEL, ALL
+CSYS, 0
+FINISH
+
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, NMODES, 1.0, , , ON
+MXPAND, NMODES, , , YES
+SOLVE
+FINISH
+
+/POST1
+*DIM, MIDX, ARRAY, NMODES
+*VFILL, MIDX, RAMP, 1, 1
+*DIM, FRA, ARRAY, NMODES
+*DO, I, 1, NMODES
+  *GET, FRA(I), MODE, I, FREQ
+*ENDDO
+*CFOPEN, p1_cant_ip_r125_a100_mesh192, txt
+*VWRITE
+('mode      f[Hz]    (PLANE183 192x192 plane stress, cantilever IP, r125 a100, nu=0.35)')
+*VWRITE, MIDX(1), FRA(1)
+(F4.0, 3X, E18.10)
+*CFCLOS
+FINISH

@@ -8,8 +8,10 @@
 %   S.3.4 / S.3.5 = extensional close-pairs / Shi OOP isolation
 %   S.3.6 = raw-to-physical conversion constants (moved from main-text §6.12)
 %   S.3.7 = SUBDOM numerical procedure and gate detail
-%   S.3.8 = cantilever replication basis-size convergence (Table S.9, 2026-09-23)
-%   Tables S.1--S.9 sit in S.3 (S.8 = flexural spurious zeros, was main Table 7; S.9 = cantilever convergence)
+%   S.3.8 = cantilever replication: OOP basis-size convergence (Table S.9, 2026-09-23) and
+%           IP finite-element check + split double root (Tables S.10, S.11, 2026-09-24)
+%   Tables S.1--S.11 sit in S.3 (S.8 = flexural spurious zeros, was main Table 7; S.9 = OOP cantilever
+%           convergence; S.10 = IP cantilever vs FE; S.11 = IP split-pair convergence)
 %   S.4  cluster job-number provenance (added 2026-08-25, advisor pass)
 \documentclass[11pt]{article}
 \usepackage[margin=1in,letterpaper]{geometry}
@@ -46,7 +48,7 @@ Missouri University of Science and Technology, Rolla, MO 65409, USA\\
 
 \noindent
 This file is the complete Supplementary Material to the companion
-manuscript: §§S.1--S.4, Tables S.1--S.9, and the three references
+manuscript: §§S.1--S.4, Tables S.1--S.11, and the three references
 cited below. Equation tags (B.1), (B.2), (B.3) and (B.3$'$) retain the
 source-paper numbering. Main-text \S3.3 cites (B.1), (B.2) and
 (B.3$'$); (B.3) appears only here.
@@ -1171,86 +1173,156 @@ both above their respective bars --- confirmation, not a new finding,
 that max-over-blocks is not a safe alternative rule at this geometry
 either.
 
-\subsection{Cantilever replication: basis-size convergence}\label{sec:cantilever-conv}
+\subsection{Cantilever replication: basis-size convergence and in-plane finite-element check}\label{sec:cantilever-conv}
 The main text's cantilever tables (\S6.1) are computed at the production
 basis sizes ($n=20$ for $2\Theta/\pi\le0.5$; otherwise $n=16$
-out-of-plane and $n=14$ in-plane). Table~\ref{tab:cantilever-conv}
-re-runs every row at larger bases. For each row, a fresh
+out-of-plane and $n=14$ in-plane).
+
+\paragraph{Out-of-plane rows.} Table~\ref{tab:cantilever-conv} re-runs
+every out-of-plane row at larger bases. For each row, a fresh
 transverse-wavenumber search is done at the printed frequency. At each
 basis size the production fill rule then selects the basis, which is
 tracked in $\Omega$, and $\log_{10}\sigma_{\min}$ of the boundary matrix
 is minimised by golden section over $[0.99,1.01]$ times the printed
-value. In-plane rows use the unconstrained matrix, as in production, and
-labeled in-plane sizes fill to $n$ or $n-2$, as in production.
-
-At the production size this fixed-basis re-run reproduces the printed
-value to within $0.03\%$, except in the three in-plane rows marked
-$^{a}$. There, the re-run's own value at the production size differs
-from the printed one by $0.11$--$0.77\%$, because the production
-pipeline re-selects its basis at every frequency point. For those rows
-the ``converged'' column is the fixed-basis value at the largest basis.
-``Last step'' is the change between the two largest bases; a value above
-about $0.05\%$ means the row is still moving at the largest basis tried.
-Rows marked n.r.\ have no clean $\sigma_{\min}$ minimum inside $\pm1\%$
-of the printed value at any basis size: the depth stays at
-$\log_{10}\sigma_{\min}\ge-3.5$, or the minimiser runs to the edge of
-the window.
+value. At the production size this fixed-basis re-run reproduces every
+printed value to within $0.03\%$. ``Last step'' is the change between
+the two largest bases; a value above about $0.05\%$ means the row is
+still moving at the largest basis tried.
 
 The clamped edge converges more slowly with basis size than the free
-edges of the main study. Across the 27 resolved rows the printed values
-move by $0.01$--$0.96\%$ (median $0.28\%$). Every out-of-plane row moves
-upward except $2\Theta/\pi=0.25$, mode~2. Each mode jumps once, when the
-transverse branch that shapes it enters the basis, and then plateaus.
-Out-of-plane, the converged values agree with \cite{seok1} to within
-$2.14\%$. The largest residual is the narrowest sector's fundamental,
-which is still changing by $0.07\%$ per four added coordinates at
-$n=44$; every other out-of-plane row is within $1.51\%$. In-plane, the
-resolved rows agree with \cite{seok2} to within $1.89\%$. The published
-values are themselves finite-truncation results, so a converged row's
-residual measures both truncations together, not an error of either.
+edges of the main study. Across the 20 rows the printed values move by
+$0.01$--$0.90\%$ (median $0.26\%$). Every row moves upward except
+$2\Theta/\pi=0.25$, mode~2. Each mode jumps once, when the transverse
+branch that shapes it enters the basis, and then plateaus. The converged
+values agree with \cite{seok1} to within $2.14\%$. The largest residual
+is the narrowest sector's fundamental, which is still changing by
+$0.07\%$ per four added coordinates at $n=44$; every other row is within
+$1.51\%$. The published values are themselves finite-truncation results,
+so a converged row's residual measures both truncations together, not an
+error of either.
 
 \begin{table}[!htbp]\centering\scriptsize
 \setlength{\tabcolsep}{3pt}
-\caption{Cantilever replication (main-text Tables~3--4):
+\caption{Out-of-plane cantilever replication (main-text Table~3):
 basis-size convergence of every row. $n_{\mathrm{p}}$: production basis
 size. Printed: the main-text value (at $n_{\mathrm{p}}$). Converged:
 value at the largest basis $n_{\max}$ tried. Last step: change between
-the two largest bases (\%). Err: signed deviation from
-\cite{seok1,seok2} (\%). $^{a}$: the fixed-basis re-run does not
-reproduce the printed digit at $n_{\mathrm{p}}$ (see text). n.r.: not
-resolved.}
+the two largest bases (\%). Err: signed deviation from \cite{seok1} (\%).}
 \label{tab:cantilever-conv}
-\begin{tabular}{ccccccccccc}
-\toprule Motion & $r_0/(2b)$ & $2\Theta/\pi$ & Mode & $n_{\mathrm{p}}$ & Printed & Converged & $n_{\max}$ & Last step & Err printed & Err conv.\\ \midrule
-OOP & 1.25 & 0.25 & 1 & 20 & 0.345324 & 0.348425 & 44 & $+0.070$ & $+1.23$ & $+2.14$\\
-OOP & 1.25 & 0.25 & 2 & 20 & 1.018530 & 1.016853 & 44 & $-0.001$ & $+0.50$ & $+0.34$\\
-OOP & 1.25 & 0.25 & 3 & 20 & 1.722434 & 1.724811 & 44 & $+0.008$ & $+0.22$ & $+0.35$\\
-OOP & 1.25 & 0.50 & 1 & 20 & 0.099419 & 0.099942 & 44 & $+0.036$ & $+0.36$ & $+0.89$\\
-OOP & 1.25 & 0.50 & 2 & 20 & 0.343742 & 0.345096 & 44 & $+0.024$ & $+0.90$ & $+1.30$\\
-OOP & 1.25 & 0.50 & 3 & 20 & 0.605904 & 0.605980 & 32 & $+0.004$ & $+0.28$ & $+0.29$\\
-OOP & 1.25 & 0.75 & 1 & 16 & 0.050717 & 0.050906 & 28 & $+0.018$ & $-0.22$ & $+0.15$\\
-OOP & 1.25 & 0.75 & 2 & 16 & 0.151458 & 0.152134 & 28 & $-0.001$ & $+1.06$ & $+1.51$\\
-OOP & 1.25 & 0.75 & 3 & 16 & 0.376503 & 0.376825 & 28 & $+0.008$ & $+0.06$ & $+0.14$\\
-OOP & 1.25 & 1.00 & 1 & 16 & 0.033153 & 0.033279 & 28 & $+0.023$ & $-0.20$ & $+0.18$\\
-OOP & 1.25 & 1.00 & 2 & 16 & 0.080358 & 0.080623 & 28 & $-0.004$ & $+0.74$ & $+1.07$\\
-OOP & 1.25 & 1.00 & 3 & 16 & 0.243521 & 0.243723 & 28 & $+0.002$ & $+0.16$ & $+0.25$\\
-OOP & 1.25 & 1.25 & 1 & 16 & 0.024652 & 0.024746 & 28 & $+0.021$ & $+0.05$ & $+0.43$\\
-OOP & 1.25 & 1.25 & 2 & 16 & 0.049473 & 0.049595 & 28 & $+0.001$ & $+0.27$ & $+0.52$\\
-OOP & 1.25 & 1.25 & 3 & 16 & 0.151555 & 0.151757 & 28 & $+0.000$ & $+0.26$ & $+0.39$\\
-OOP & 1.25 & 1.50 & 1 & 16 & 0.019790 & 0.019854 & 28 & $+0.013$ & $+0.30$ & $+0.63$\\
-OOP & 1.25 & 1.50 & 2 & 16 & 0.034523 & 0.034602 & 28 & $+0.008$ & $-0.08$ & $+0.15$\\
-OOP & 1.25 & 1.50 & 3 & 16 & 0.097470 & 0.097629 & 28 & $+0.002$ & $+0.22$ & $+0.38$\\
-OOP & 5/3 & 1.00 & 1 & 16 & 0.018023 & 0.018073 & 24 & $+0.004$ & $-0.15$ & $+0.13$\\
-OOP & 5/2 & 1.00 & 1 & 16 & 0.007762 & 0.007776 & 28 & $+0.008$ & $-0.10$ & $+0.07$\\
-IP & 1.25 & 0.25 & 1 & 20 & 0.341243 & 0.339343$^{a}$ & 32 & $+0.005$ & $-1.34$ & $-1.89$\\
-IP & 1.25 & 0.25 & 2 & 20 & 0.808929 & -- & -- & -- & $-1.25$ & n.r.\\
-IP & 1.25 & 0.25 & 3 & 20 & 0.940032 & -- & -- & -- & $-0.01$ & n.r.\\
-IP & 1.25 & 0.50 & 1 & 20 & 0.120677 & 0.120472$^{a}$ & 32 & $+0.003$ & $-0.17$ & $-0.34$\\
-IP & 1.25 & 0.50 & 2 & 20 & 0.347033 & 0.350357 & 28 & $+0.004$ & $-1.39$ & $-0.44$\\
-IP & 1.25 & 0.50 & 3 & 20 & 0.529239 & 0.529361$^{a}$ & 32 & $-0.145$ & $-0.01$ & $+0.01$\\
-IP & 1.25 & 1.00 & 1 & 14 & 0.039466 & 0.039520 & 26 & $+0.007$ & $-0.04$ & $+0.10$\\
-IP & 1.25 & 1.00 & 2 & 14 & 0.106529 & 0.106136 & 26 & $+0.017$ & $+0.92$ & $+0.55$\\
-IP & 1.25 & 1.00 & 3 & 14 & 0.263049 & 0.260998 & 26 & $+0.010$ & $+0.67$ & $-0.11$\\
+\begin{tabular}{cccccccccc}
+\toprule $r_0/(2b)$ & $2\Theta/\pi$ & Mode & $n_{\mathrm{p}}$ & Printed & Converged & $n_{\max}$ & Last step & Err printed & Err conv.\\ \midrule
+1.25 & 0.25 & 1 & 20 & 0.345324 & 0.348425 & 44 & $+0.070$ & $+1.23$ & $+2.14$\\
+1.25 & 0.25 & 2 & 20 & 1.018530 & 1.016853 & 44 & $-0.001$ & $+0.50$ & $+0.34$\\
+1.25 & 0.25 & 3 & 20 & 1.722434 & 1.724811 & 44 & $+0.008$ & $+0.22$ & $+0.35$\\
+1.25 & 0.50 & 1 & 20 & 0.099419 & 0.099942 & 44 & $+0.036$ & $+0.36$ & $+0.89$\\
+1.25 & 0.50 & 2 & 20 & 0.343742 & 0.345096 & 44 & $+0.024$ & $+0.90$ & $+1.30$\\
+1.25 & 0.50 & 3 & 20 & 0.605904 & 0.605980 & 32 & $+0.004$ & $+0.28$ & $+0.29$\\
+1.25 & 0.75 & 1 & 16 & 0.050717 & 0.050906 & 28 & $+0.018$ & $-0.22$ & $+0.15$\\
+1.25 & 0.75 & 2 & 16 & 0.151458 & 0.152134 & 28 & $-0.001$ & $+1.06$ & $+1.51$\\
+1.25 & 0.75 & 3 & 16 & 0.376503 & 0.376825 & 28 & $+0.008$ & $+0.06$ & $+0.14$\\
+1.25 & 1.00 & 1 & 16 & 0.033153 & 0.033279 & 28 & $+0.023$ & $-0.20$ & $+0.18$\\
+1.25 & 1.00 & 2 & 16 & 0.080358 & 0.080623 & 28 & $-0.004$ & $+0.74$ & $+1.07$\\
+1.25 & 1.00 & 3 & 16 & 0.243521 & 0.243723 & 28 & $+0.002$ & $+0.16$ & $+0.25$\\
+1.25 & 1.25 & 1 & 16 & 0.024652 & 0.024746 & 28 & $+0.021$ & $+0.05$ & $+0.43$\\
+1.25 & 1.25 & 2 & 16 & 0.049473 & 0.049595 & 28 & $+0.001$ & $+0.27$ & $+0.52$\\
+1.25 & 1.25 & 3 & 16 & 0.151555 & 0.151757 & 28 & $+0.000$ & $+0.26$ & $+0.39$\\
+1.25 & 1.50 & 1 & 16 & 0.019790 & 0.019854 & 28 & $+0.013$ & $+0.30$ & $+0.63$\\
+1.25 & 1.50 & 2 & 16 & 0.034523 & 0.034602 & 28 & $+0.008$ & $-0.08$ & $+0.15$\\
+1.25 & 1.50 & 3 & 16 & 0.097470 & 0.097629 & 28 & $+0.002$ & $+0.22$ & $+0.38$\\
+5/3 & 1.00 & 1 & 16 & 0.018023 & 0.018073 & 24 & $+0.004$ & $-0.15$ & $+0.13$\\
+5/2 & 1.00 & 1 & 16 & 0.007762 & 0.007776 & 28 & $+0.008$ & $-0.10$ & $+0.07$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{In-plane rows.} The same procedure is not used in-plane.
+There the natural frequencies are double roots of the unconstrained
+determinant (main text \S3.3). At a finite basis a double root separates
+into two nearby simple roots $A<B$ of $\det\mathbf K$, or into a
+complex-conjugate pair that leaves only a shallow real-axis minimum of
+$\sigma_{\min}$. A golden-section search in a fixed window then settles
+on one member of the pair, or on the shallow minimum, and which one
+depends on the window as much as on the basis. The in-plane rows are
+therefore checked against finite elements (Table~\ref{tab:cantilever-ip-fe}).
+
+The FE model is ANSYS PLANE183 (eight-node plane-stress quadrilaterals)
+on the same plate: $R_i=3$, $R_o=7$ ($r_0/(2b)=1.25$), $E=210$~GPa,
+$\nu=0.35$, $\rho=7800$~kg\,m$^{-3}$, wall $\theta=0$ clamped and the
+other three edges free. $\bar\Omega=\omega/\bar\omega$ with
+$\bar\omega=(\pi/2b)\sqrt{c_{66}/\rho}$. Each geometry is solved on
+three mapped meshes ($48^2$, $96^2$ and $192^2$ elements, radial by
+circumferential, with the circumferential count doubled at
+$2\Theta/\pi=1.0$), and the tabulated value is the Richardson limit of
+the three. The observed order is about $1.5$, set by the stress
+singularity at the clamped--free corners. The change from the $96^2$ to
+the $192^2$ mesh is at most $0.003\%$. An independent model of the
+same element order (nine-node Lagrange quadrilaterals with the exact
+polar geometry map, meshes $16^2$ to $64^2$, Richardson limit)
+reproduces these limits to within $0.001\%$ on all twelve modes
+compared (the first four at each sector angle).
+
+\begin{table}[!htbp]\centering\scriptsize
+\setlength{\tabcolsep}{4pt}
+\caption{In-plane cantilever replication (main-text Table~4) against
+finite elements. Printed: production value at $n_{\mathrm p}$. Paper:
+\cite{seok2}. FE: PLANE183 Richardson limit. $\Delta$: signed
+deviation from FE (\%).}
+\label{tab:cantilever-ip-fe}
+\begin{tabular}{cccccccc}
+\toprule $2\Theta/\pi$ & Mode & $n_{\mathrm{p}}$ & Printed & Paper & FE & $\Delta$ printed & $\Delta$ paper\\ \midrule
+0.25 & 1 & 20 & 0.341243 & 0.345890 & 0.348738 & $-2.15$ & $-0.82$\\
+0.25 & 2 & 20 & 0.808929 & 0.819210 & 0.823991 & $-1.83$ & $-0.58$\\
+0.25 & 3 & 20 & 0.940032 & 0.940120 & 0.940599 & $-0.06$ & $-0.05$\\
+0.50 & 1 & 20 & 0.120677 & 0.120880 & 0.121449 & $-0.64$ & $-0.47$\\
+0.50 & 2 & 20 & 0.347033 & 0.351910 & 0.353053 & $-1.71$ & $-0.32$\\
+0.50 & 3 & 20 & 0.529239 & 0.529300 & 0.529881 & $-0.12$ & $-0.11$\\
+1.00 & 1 & 14 & 0.039466 & 0.039480 & 0.039555 & $-0.23$ & $-0.19$\\
+1.00 & 2 & 14 & 0.106529 & 0.105560 & 0.105825 & $+0.67$ & $-0.25$\\
+1.00 & 3 & 14 & 0.263049 & 0.261290 & 0.261755 & $+0.49$ & $-0.18$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The published values of \cite{seok2} lie $0.05$--$0.82\%$ below FE on
+every row. The production values lie within $2.15\%$ of FE. Table~\ref{tab:cantilever-split}
+locates both members of the split pair directly for the two
+narrow-sector rows furthest from FE ($2\Theta/\pi=0.25$, modes 1 and
+2). The transverse-wavenumber inventory is first checked for
+completeness by an argument-principle count of the zeros of the
+dispersion determinant in $[0,30]\times[0,45]$ of the complex $\zeta$
+plane, at $\Omega=0.345$, $0.81$ and $0.94$ (13, 14 and 14 zeros, all
+found). The basis is then tracked in $\Omega$, and every sign change of
+$\det\mathbf K$ is bisected. The FE
+frequency lies between $A$ and $B$ at every basis size, the separation
+shrinks as the basis grows, and the midpoint approaches FE. The printed
+values are the lower members $A$ at $n=20$. The Lagrange-constrained
+determinant of main text \S3.3 has one root $C$ near the pair. It is not
+uniformly closer to FE: for mode~1 at $n=20$ it lies below FE, for
+mode~2 above. Mode~3 at $2\Theta/\pi=0.25$ is a complex pair for
+$n=20$--$28$, so its printed value is the shallow minimum; that minimum
+is $0.06\%$ from FE. By $n=36$ the pair is real, with its lower member
+in $[0.9395,0.9400]$ and $C$ in $[0.9405,0.9410]$, on either side of
+FE. The $2\Theta/\pi=0.5$, mode~2 production root ($0.347033$) is
+likewise the lower root: at $n=20$, $C=0.354458$ lies above FE, and
+$\det\mathbf K$ changes sign only once in $[0.343,0.3565]$ at a
+$0.0015$ step.
+
+\begin{table}[!htbp]\centering\scriptsize
+\setlength{\tabcolsep}{4pt}
+\caption{In-plane cantilever, $2\Theta/\pi=0.25$: the two unconstrained
+roots $A<B$ and the constrained root $C$ against basis size. Width:
+$(B-A)$ over the midpoint (\%). Mid: signed deviation of $(A+B)/2$ from
+FE (\%). FE: $0.348738$ (mode 1), $0.823991$ (mode 2).}
+\label{tab:cantilever-split}
+\begin{tabular}{cccccccc}
+\toprule Mode & $n$ & $A$ & $C$ & $B$ & Width & Mid & $A$ vs FE\\ \midrule
+1 & 20 & 0.341240 & 0.347160 & 0.351363 & 2.92 & $-0.70$ & $-2.15$\\
+1 & 32 & 0.346927 & 0.348182 & 0.349034 & 0.61 & $-0.22$ & $-0.52$\\
+2 & 20 & 0.808931 & 0.832999 & 0.835380 & 3.22 & $-0.22$ & $-1.83$\\
+2 & 24 & 0.814646 & 0.828283 & 0.829999 & 1.87 & $-0.20$ & $-1.13$\\
+2 & 28 & 0.817167 & 0.826797 & 0.829142 & 1.45 & $-0.10$ & $-0.83$\\
+2 & 32 & 0.819106 & 0.825618 & 0.827223 & 0.99 & $-0.10$ & $-0.59$\\
+2 & 40 & 0.820851 & -- & 0.825988 & 0.62 & $-0.07$ & $-0.38$\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1278,6 +1350,13 @@ one-sided-only claim.
 \item \textbf{\S5, FF-P1 own-root separation.} Jobs 2409212/2409213
 evaluated the complete FF-P1 REAL-like/ARTIFACT-like set at each
 candidate's own converged root at $n=20$ and $n=28$.
+\item \textbf{\S6.1, in-plane cantilever finite elements.} Jobs 2530949
+($2\Theta/\pi=0.5$, $1.0$) and 2530984 ($2\Theta/\pi=0.25$) ran the
+PLANE183 decks
+(\url{ansys/NewAnsys/ansys_p1_cant_ip_r125_a025_2026-09-24.inp} and its
+\texttt{a050}, \texttt{a100} companions). The nine-node model is
+\url{validation/probe_p1_cant_ip_q9fe_2026-09-24.py}; the split-pair root
+scans are in \url{validation/p1_cant_ip_2026-09-24/}.
 \item \textbf{\S6.3, the 1114.9/1115.3~Hz pair.} Job 2428351 isolated the
 two golden-section minima in brackets that cannot reach each other; job
 2434752 ran MAC against the two isolates.

@@ -1,0 +1,1969 @@
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2025 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2025 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+
+ AFTER YOU HAVE READ, UNDERSTOOD, AND AGREED TO THE PREVIOUS NOTICES,
+ PRESS <CR> OR <ENTER> TO CONTINUE
+ 2025 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2025 R1 
+ AVxcelerate Sensors 2025 R1 
+ AVxcelerate Sensors Library for SCANeR 2025 R1  
+ AVxcelerate Sensors Library for CarMaker 2025 R1
+ TwinAI 2025 R1  
+ Electromagnetics Suite 2025 R1  
+ Electromagnetics RSM 2025 R1
+ Ansys Dynamic Reporting 2025 R1 
+ Core WB Files 2025 R1   
+ BladeModeler 2025 R1
+ CFD-Post only 2025 R1   
+ CFX (includes CFD-Post) 2025 R1 
+ Chemkin 2025 R1 
+ EnSight 2025 R1 
+ FENSAP-ICE 2025 R1  
+ Fluent (includes CFD-Post) 2025 R1  
+ Polyflow (includes CFD-Post) 2025 R1
+ Forte (includes EnSight) 2025 R1
+ ICEM CFD 2025 R1
+ Rocky 2025 R1   
+ TurboGrid 2025 R1   
+ Lumerical 2025 R1   
+ Lumerical Photonic Verilog-A 2025 R1
+ Speos HPC 2025 R1   
+ Speos RPC 2025 R1   
+ optiSLang 2025 R1   
+ Remote Solve Manager Standalone Services 2025 R1
+ Additive 2025 R1
+ Aqwa 2025 R1
+ Autodyn 2025 R1 
+ Customization Files for User Programmable Features 2025 R1  
+ LS-DYNA 2025 R1 
+ Mechanical Products 2025 R1 
+ Motion 2025 R1  
+ Sherlock 2025 R1
+ ACIS Geometry Interface 2025 R1 
+ Catia, Version 5 Geometry Interface 2025 R1 
+ Parasolid Geometry Interface 2025 R1
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = p1_cant_ip_r125_a050_202                                                                                                                                                                                                                                
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  SHARED MEMORY PARALLEL REQUESTED
+    SINGLE PROCESS WITH   8 THREADS REQUESTED
+    TOTAL OF     8 CORES REQUESTED
+  INPUT FILE NAME              = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p1_cant_ip_r125_a050_2026-09-24.inp
+  OUTPUT FILE NAME             = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p1_cant_ip_r125_a050_2026-09-24_out.txt
+
+ RELEASE= 2025 R1              BUILD= 25.1      UP20241202   VERSION=LINUX x64   
+ CURRENT JOBNAME=p1_cant_ip_r125_a050_202  02:29:42  SEP 24, 2026 CP=      0.319
+
+     1  ! ===========================================================================   
+     2  !  ansys_p1_cant_ip_r125_a050_2026-09-24.inp
+     3  !  Paper 1 cantilever replication, IN-PLANE, r0/(2b)=1.25, 2Theta/pi=0.50.  
+     4  !  PLANE183 plane stress, three meshes (NDIV 48 / 96 / 192, ratio 2) for a  
+     5  !  Richardson limit. Companion of the a025 deck (same date): checks the 
+     6  !  in-plane cantilever rows at 2Theta/pi=0.50 against an external FE.   
+     7  !   
+     8  !  Geometry = plate_solver make_geometry(1.25, 0.25): R_i=3, R_o=7 (2b=4),  
+     9  !  PHI=90.0 deg. Material = _material_from_env default: E=210e9, nu=0.35,   
+    10  !  rho=7800. Thickness irrelevant in plane stress (H=0.08). 
+    11  !  Wall theta=0 fully clamped (UX=UY=0); wall theta=PHI and both arcs free. 
+    12  !  (Mirror-symmetric for isotropy, so which wall is clamped does not matter.)   
+    13  !   
+    14  !  Omega_bar -> Hz: f = Omega_bar * wbar/(2 pi), wbar = 2480.106584 rad/s.  
+    15  !   
+    16  !  Raw Hz only -- convert/score in Python (never trust a deck-computed column). 
+    17  !  *VWRITE: fill arrays in the *DO, one *VWRITE after the loop. 
+    18  !  Outputs: p1_cant_ip_r125_a050_mesh{48,96,192}.txt
+    19  ! ===========================================================================   
+    20      
+    21  FINISH  
+    22  /CLEAR,NOSTART  
+    23  /TITLE, P1 cantilever IP r125 a050 -- mesh 48   
+    24      
+    25  R_i    = 3.0
+    26  R_o    = 7.0
+    27  PHI    = 90.0   
+    28  H      = 0.08   
+    29  E_iso  = 210.0e9
+    30  NU_iso = 0.35   
+    31  RHO    = 7800.0 
+    32  NDIV   = 48 
+    33  NMODES = 12 
+    34      
+    35  /PREP7  
+    36  LOCAL, 11, 1, 0,0,0 
+    37  CSYS, 11
+    38  ET, 1, PLANE183 
+    39  KEYOPT, 1, 3, 3 
+    40  R, 1, H 
+    41  MP, EX,1,E_iso  
+    42  MP, PRXY,1,NU_iso   
+    43  MP, DENS,1,RHO  
+    44  CSYS, 0 
+    45  PCIRC, R_i, R_o, 0, PHI 
+    46  TYPE,1 $ MAT,1 $ REAL,1 
+    47  CSYS, 11
+    48  LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI  
+    49  LESIZE, ALL, , , NDIV   
+    50  LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o 
+    51  LESIZE, ALL, , , NDIV   
+    52  ALLSEL, ALL 
+    53  CSYS, 0 
+    54  MSHKEY, 1 $ AMESH, ALL  
+    55  CSYS, 11
+    56  NSEL, S, LOC, Y, 0  
+    57  D, ALL, ALL, 0  
+    58  ALLSEL, ALL 
+    59  CSYS, 0 
+    60  FINISH  
+    61      
+    62  /SOLU   
+    63  ANTYPE, MODAL   
+    64  MODOPT, LANB, NMODES, 1.0, , , ON   
+    65  MXPAND, NMODES, , , YES 
+    66  SOLVE   
+    67  FINISH  
+    68      
+    69  /POST1  
+    70  *DIM, MIDX, ARRAY, NMODES   
+    71  *VFILL, MIDX, RAMP, 1, 1
+    72  *DIM, FRA, ARRAY, NMODES
+    73  *DO, I, 1, NMODES   
+    74    *GET, FRA(I), MODE, I, FREQ   
+    75  *ENDDO  
+    76  *CFOPEN, p1_cant_ip_r125_a050_mesh48, txt   
+    77  *VWRITE 
+    78  ('mode      f[Hz]    (PLANE183 48x48 plane stress, cantilever IP, r125 a050, nu=0.35)') 
+    79  *VWRITE, MIDX(1), FRA(1)
+    80  (F4.0, 3X, E18.10)  
+    81  *CFCLOS 
+    82  FINISH  
+    83      
+    84  FINISH  
+    85  /CLEAR,NOSTART  
+    86  /TITLE, P1 cantilever IP r125 a050 -- mesh 96   
+    87      
+    88  R_i    = 3.0
+    89  R_o    = 7.0
+    90  PHI    = 90.0   
+    91  H      = 0.08   
+    92  E_iso  = 210.0e9
+    93  NU_iso = 0.35   
+    94  RHO    = 7800.0 
+    95  NDIV   = 96 
+    96  NMODES = 12 
+    97      
+    98  /PREP7  
+    99  LOCAL, 11, 1, 0,0,0 
+   100  CSYS, 11
+   101  ET, 1, PLANE183 
+   102  KEYOPT, 1, 3, 3 
+   103  R, 1, H 
+   104  MP, EX,1,E_iso  
+   105  MP, PRXY,1,NU_iso   
+   106  MP, DENS,1,RHO  
+   107  CSYS, 0 
+   108  PCIRC, R_i, R_o, 0, PHI 
+   109  TYPE,1 $ MAT,1 $ REAL,1 
+   110  CSYS, 11
+   111  LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI  
+   112  LESIZE, ALL, , , NDIV   
+   113  LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o 
+   114  LESIZE, ALL, , , NDIV   
+   115  ALLSEL, ALL 
+   116  CSYS, 0 
+   117  MSHKEY, 1 $ AMESH, ALL  
+   118  CSYS, 11
+   119  NSEL, S, LOC, Y, 0  
+   120  D, ALL, ALL, 0  
+   121  ALLSEL, ALL 
+   122  CSYS, 0 
+   123  FINISH  
+   124      
+   125  /SOLU   
+   126  ANTYPE, MODAL   
+   127  MODOPT, LANB, NMODES, 1.0, , , ON   
+   128  MXPAND, NMODES, , , YES 
+   129  SOLVE   
+   130  FINISH  
+   131      
+   132  /POST1  
+   133  *DIM, MIDX, ARRAY, NMODES   
+   134  *VFILL, MIDX, RAMP, 1, 1
+   135  *DIM, FRA, ARRAY, NMODES
+   136  *DO, I, 1, NMODES   
+   137    *GET, FRA(I), MODE, I, FREQ   
+   138  *ENDDO  
+   139  *CFOPEN, p1_cant_ip_r125_a050_mesh96, txt   
+   140  *VWRITE 
+   141  ('mode      f[Hz]    (PLANE183 96x96 plane stress, cantilever IP, r125 a050, nu=0.35)') 
+   142  *VWRITE, MIDX(1), FRA(1)
+   143  (F4.0, 3X, E18.10)  
+   144  *CFCLOS 
+   145  FINISH  
+   146      
+   147  FINISH  
+   148  /CLEAR,NOSTART  
+   149  /TITLE, P1 cantilever IP r125 a050 -- mesh 192  
+   150      
+   151  R_i    = 3.0
+   152  R_o    = 7.0
+   153  PHI    = 90.0   
+   154  H      = 0.08   
+   155  E_iso  = 210.0e9
+   156  NU_iso = 0.35   
+   157  RHO    = 7800.0 
+   158  NDIV   = 192
+   159  NMODES = 12 
+   160      
+   161  /PREP7  
+   162  LOCAL, 11, 1, 0,0,0 
+   163  CSYS, 11
+   164  ET, 1, PLANE183 
+   165  KEYOPT, 1, 3, 3 
+   166  R, 1, H 
+   167  MP, EX,1,E_iso  
+   168  MP, PRXY,1,NU_iso   
+   169  MP, DENS,1,RHO  
+   170  CSYS, 0 
+   171  PCIRC, R_i, R_o, 0, PHI 
+   172  TYPE,1 $ MAT,1 $ REAL,1 
+   173  CSYS, 11
+   174  LSEL, S, LOC, Y, 0  $ LSEL, A, LOC, Y, PHI  
+   175  LESIZE, ALL, , , NDIV   
+   176  LSEL, S, LOC, X, R_i $ LSEL, A, LOC, X, R_o 
+   177  LESIZE, ALL, , , NDIV   
+   178  ALLSEL, ALL 
+   179  CSYS, 0 
+   180  MSHKEY, 1 $ AMESH, ALL  
+   181  CSYS, 11
+   182  NSEL, S, LOC, Y, 0  
+   183  D, ALL, ALL, 0  
+   184  ALLSEL, ALL 
+   185  CSYS, 0 
+   186  FINISH  
+   187      
+   188  /SOLU   
+   189  ANTYPE, MODAL   
+   190  MODOPT, LANB, NMODES, 1.0, , , ON   
+   191  MXPAND, NMODES, , , YES 
+   192  SOLVE   
+   193  FINISH  
+   194      
+   195  /POST1  
+   196  *DIM, MIDX, ARRAY, NMODES   
+   197  *VFILL, MIDX, RAMP, 1, 1
+   198  *DIM, FRA, ARRAY, NMODES
+   199  *DO, I, 1, NMODES   
+   200    *GET, FRA(I), MODE, I, FREQ   
+   201  *ENDDO  
+   202  *CFOPEN, p1_cant_ip_r125_a050_mesh192, txt  
+   203  *VWRITE 
+   204  ('mode      f[Hz]    (PLANE183 192x192 plane stress, cantilever IP, r125 a050, nu=0.35)')   
+   205  *VWRITE, MIDX(1), FRA(1)
+   206  (F4.0, 3X, E18.10)  
+   207  *CFCLOS 
+   208  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans
+
+ /INPUT FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans  LINE=       0
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  P1 cantilever IP r125 a050 -- mesh 48                                        
+
+
+ PARAMETER R_I =     3.000000000    
+
+ PARAMETER R_O =     7.000000000    
+
+ PARAMETER PHI =     90.00000000    
+
+ PARAMETER H =    0.8000000000E-01
+
+ PARAMETER E_ISO =    0.2100000000E+12
+
+ PARAMETER NU_ISO =    0.3500000000    
+
+ PARAMETER RHO =     7800.000000    
+
+ PARAMETER NDIV =     48.00000000    
+
+ PARAMETER NMODES =     12.00000000    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:43  SEP 24, 2026 CP=      0.687
+
+  P1 cantilever IP r125 a050 -- mesh 48                                        
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ COORDINATE SYSTEM         11 DEFINITION.  TYPE= 1  (CYLINDRICAL)
+   XC,YC,ZC=  0.0000      0.0000      0.0000    
+   ANGLES=    0.00    0.00    0.00   PARAMETERS=   1.000   1.000
+   ORIENTATION=  1.00  0.00  0.00   0.00  1.00  0.00   0.00  0.00  1.00
+
+ ACTIVE COORDINATE SYSTEM SET TO        11  (CYLINDRICAL)
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ ELEMENT TYPE          1 IS PLANE183     2-D 8-NODE PLANE STRS SOLID 
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY  
+  TWO-DIMENSIONAL MODEL
+
+ ELEMENT TYPE       1 IS PLANE183     2-D 8-NODE PLANE STRS SOLID 
+  KEYOPT( 1- 6)=        0      0      3        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY  
+  TWO-DIMENSIONAL MODEL
+
+ REAL CONSTANT SET          1  ITEMS   1 TO   6
+   0.80000E-01   0.0000       0.0000       0.0000       0.0000       0.0000    
+
+ MATERIAL          1     EX   =  0.2100000E+12  
+
+ MATERIAL          1     PRXY =  0.3500000      
+
+ MATERIAL          1     DENS =   7800.000      
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ CREATE A CIRCULAR AREA WITH 
+ INNER RADIUS         =      3.000000000    
+ OUTER RADIUS         =      7.000000000    
+ STARTING THETA ANGLE =      0.000000000    
+ ENDING   THETA ANGLE =      90.00000000    
+
+      OUTPUT AREA =     1
+
+ ELEMENT TYPE SET TO         1
+
+ MATERIAL NUMBER SET TO         1
+
+ REAL CONSTANT NUMBER=        1
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  0.0000     AND   0.0000    
+   KABS=  0.  TOLERANCE= 0.100000E-05
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN  90.000     AND   90.000    
+   KABS=  0.  TOLERANCE= 0.450000    
+
+        2  LINES (OF        4  DEFINED) SELECTED BY LSEL COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   48,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  3.0000     AND   3.0000    
+   KABS=  0.  TOLERANCE= 0.150000E-01
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=X     BETWEEN  7.0000     AND   7.0000    
+   KABS=  0.  TOLERANCE= 0.350000E-01
+
+        2  LINES (OF        4  DEFINED) SELECTED BY LSEL COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   48,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     1 MESHED WITH    2304 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =       7105
+ MAXIMUM ELEMENT NUMBER     =       2304
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  0.0000     AND   0.0000    
+   KABS=  0.  TOLERANCE= 0.100000E-05
+
+         97  NODES (OF       7105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES            1 TO        7105 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY  
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.918
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A MODAL ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ USE SYM. BLOCK LANCZOS MODE EXTRACTION METHOD
+  EXTRACT    12 MODES
+  SHIFT POINT FOR EIGENVALUE CALCULATION=  1.0000    
+  NORMALIZE THE MODE SHAPES TO UNITY
+
+
+ NUMBER OF MODES TO EXPAND=    12
+  CALCULATE ELEMENT RESULTS AND NODAL DOF SOLUTION
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** SELECTION OF ELEMENT TECHNOLOGIES FOR APPLICABLE ELEMENTS ***
+                ---GIVE SUGGESTIONS ONLY---
+
+ ELEMENT TYPE         1 IS PLANE183 WITH PLANE STRESS OPTION. NO SUGGESTION IS
+ AVAILABLE.
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:44  SEP 24, 2026 CP=      2.972
+
+  P1 cantilever IP r125 a050 -- mesh 48                                        
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .2-D                  
+   DEGREES OF FREEDOM. . . . . . UX   UY  
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .MODAL                
+      EXTRACTION METHOD. . . . . . . . . . . . . .BLOCK LANCZOS
+   NUMBER OF MODES TO EXTRACT. . . . . . . . . . .    12
+   SHIFT POINT . . . . . . . . . . . . . . . . . .  1.0000    
+   NORMALIZE MODES TO UNITY. . . . . . . . . . . .YES
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+   NUMBER OF MODES TO EXPAND . . . . . . . . . . .    12
+   ELEMENT RESULTS CALCULATION . . . . . . . . . .ON 
+
+ *** NOTE ***                            CP =       3.433   TIME= 02:29:44
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   THERMAL STRAINS INCLUDED IN THE LOAD VECTOR . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS. . . . . . . . . . . .ALL DATA WRITTEN
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =   19604.    
+
+                           MOM. OF INERTIA         MOM. OF INERTIA
+  CENTER OF MASS            ABOUT ORIGIN        ABOUT CENTER OF MASS
+
+  XC =   3.3529          IXX =   0.2842E+06      IXX =   0.6385E+05
+  YC =   3.3529          IYY =   0.2842E+06      IYY =   0.6385E+05
+  ZC =   0.0000          IZZ =   0.5685E+06      IZZ =   0.1277E+06
+                         IXY =  -0.1810E+06      IXY =   0.3941E+05
+                         IYZ =    0.000          IYZ =    0.000    
+                         IZX =    0.000          IZX =    0.000    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   19603.5    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 9.401187324E+10 at element 48.                                
+ Minimum = 3.224811077E+10 at element 2281.                              
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2304  PLANE183      1.502   0.000652
+ Time at end of element matrix formulation CP = 6.79788017.              
+
+  BLOCK LANCZOS CALCULATION OF UP TO    12 EIGENVECTORS.
+  NUMBER OF EQUATIONS              =        14016
+  MAXIMUM WAVEFRONT                =           42
+  MAXIMUM MODES STORED             =           12
+  MINIMUM EIGENVALUE               =  0.10000E+01
+  MAXIMUM EIGENVALUE               =  0.10000E+31
+
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =    23.830 MB
+  Equation solver memory required for in-core mode     =    22.749 MB
+  Equation solver memory required for out-of-core mode =     7.912 MB
+  Total (solver and non-solver) memory allocated       =   584.541 MB
+
+ *** NOTE ***                            CP =      10.038   TIME= 02:29:46
+ The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+ currently running in the in-core memory mode.  This memory mode uses    
+ the most amount of memory in order to avoid using the hard drive as     
+ much as possible, which most often results in the fastest solution      
+ time.  This mode is recommended if enough physical memory is present    
+ to accommodate all of the solver data.                                  
+
+  Process memory required for in-core LANCZOS Workspace             =     54.377213 MB
+  Process memory required for out-of-core LANCZOS Workspace         =     1.765884 MB
+  Lanczos Memory Mode : INCORE
+
+
+  >> Shift # 1 :  | | |                              : 12 Eigenvalues Converged
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:47  SEP 24, 2026 CP=     17.490
+
+  P1 cantilever IP r125 a050 -- mesh 48                                        
+
+
+
+ *** FREQUENCIES FROM BLOCK LANCZOS ITERATION ***
+
+  MODE    FREQUENCY (HERTZ)      
+
+
+   FREQUENCY RANGE REQUESTED=   12 MODES ABOVE   1.00000     HERTZ
+
+    1     47.94305448138    
+    2     139.3650034569    
+    3     209.1618021730    
+    4     372.6136093176    
+    5     416.5804269423    
+    6     474.7055187126    
+    7     562.9821028461    
+    8     589.5609578488    
+    9     644.2786591415    
+   10     668.2366205948    
+   11     715.4344975619    
+   12     732.9411955581    
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2304  PLANE183      1.341   0.000582
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      2304  PLANE183      0.862   0.000374
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:48  SEP 24, 2026 CP=     22.258
+
+  P1 cantilever IP r125 a050 -- mesh 48                                        
+
+
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  X  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     47.9431       0.20858E-01    94.265        1.000000     8885.95        0.478748        0.453283    
+     2     139.365       0.71754E-02   -88.767        0.941669     7879.53        0.903274        0.401944    
+     3     209.162       0.47810E-02   -9.7332        0.103253     94.7342        0.908378        0.483251E-02
+     4     372.614       0.26837E-02    29.953        0.317753     897.187        0.956715        0.457666E-01
+     5     416.580       0.24005E-02   -3.0272        0.032114     9.16405        0.957209        0.467469E-03
+     6     474.706       0.21066E-02   -18.733        0.198730     350.939        0.976117        0.179018E-01
+     7     562.982       0.17763E-02   -9.2431        0.098054     85.4346        0.980720        0.435812E-02
+     8     589.561       0.16962E-02   -9.6694        0.102576     93.4964        0.985757        0.476936E-02
+     9     644.279       0.15521E-02    8.9498        0.094943     80.0990        0.990072        0.408594E-02
+    10     668.237       0.14965E-02    10.406        0.110390     108.284        0.995906        0.552368E-02
+    11     715.434       0.13978E-02    6.8589        0.072762     47.0446        0.998441        0.239980E-02
+    12     732.941       0.13644E-02    5.3791        0.057063     28.9348         1.00000        0.147600E-02
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             18560.8                        0.946809    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Y  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     47.9431       0.20858E-01    53.278        0.618430     2838.52        0.160627        0.144796    
+     2     139.365       0.71754E-02    70.847        0.822369     5019.31        0.444661        0.256041    
+     3     209.162       0.47810E-02   -86.150        1.000000     7421.83        0.864650        0.378596    
+     4     372.614       0.26837E-02    18.109        0.210205     327.941        0.883208        0.167286E-01
+     5     416.580       0.24005E-02    36.436        0.422938     1327.59        0.958334        0.677220E-01
+     6     474.706       0.21066E-02    4.9298        0.057224     24.3031        0.959709        0.123973E-02
+     7     562.982       0.17763E-02   -15.052        0.174723     226.576        0.972530        0.115579E-01
+     8     589.561       0.16962E-02    5.5213        0.064089     30.4848        0.974256        0.155506E-02
+     9     644.279       0.15521E-02    12.639        0.146705     159.736        0.983295        0.814833E-02
+    10     668.237       0.14965E-02   -16.226        0.188348     263.288        0.998194        0.134306E-01
+    11     715.434       0.13978E-02    5.5745        0.064707     31.0756        0.999952        0.158520E-02
+    12     732.941       0.13644E-02  -0.91827        0.010659    0.843222         1.00000        0.430138E-04
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             17671.5                        0.901444    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Z  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     47.9431       0.20858E-01    0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     139.365       0.71754E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     209.162       0.47810E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     372.614       0.26837E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     416.580       0.24005E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     474.706       0.21066E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     7     562.982       0.17763E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     8     589.561       0.16962E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     9     644.279       0.15521E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    10     668.237       0.14965E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    11     715.434       0.13978E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    12     732.941       0.13644E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTX DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     47.9431       0.20858E-01    0.0000        0.000000     0.00000         0.00000    
+     2     139.365       0.71754E-02    0.0000        0.000000     0.00000         0.00000    
+     3     209.162       0.47810E-02    0.0000        0.000000     0.00000         0.00000    
+     4     372.614       0.26837E-02    0.0000        0.000000     0.00000         0.00000    
+     5     416.580       0.24005E-02    0.0000        0.000000     0.00000         0.00000    
+     6     474.706       0.21066E-02    0.0000        0.000000     0.00000         0.00000    
+     7     562.982       0.17763E-02    0.0000        0.000000     0.00000         0.00000    
+     8     589.561       0.16962E-02    0.0000        0.000000     0.00000         0.00000    
+     9     644.279       0.15521E-02    0.0000        0.000000     0.00000         0.00000    
+    10     668.237       0.14965E-02    0.0000        0.000000     0.00000         0.00000    
+    11     715.434       0.13978E-02    0.0000        0.000000     0.00000         0.00000    
+    12     732.941       0.13644E-02    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTY DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     47.9431       0.20858E-01    0.0000        0.000000     0.00000         0.00000    
+     2     139.365       0.71754E-02    0.0000        0.000000     0.00000         0.00000    
+     3     209.162       0.47810E-02    0.0000        0.000000     0.00000         0.00000    
+     4     372.614       0.26837E-02    0.0000        0.000000     0.00000         0.00000    
+     5     416.580       0.24005E-02    0.0000        0.000000     0.00000         0.00000    
+     6     474.706       0.21066E-02    0.0000        0.000000     0.00000         0.00000    
+     7     562.982       0.17763E-02    0.0000        0.000000     0.00000         0.00000    
+     8     589.561       0.16962E-02    0.0000        0.000000     0.00000         0.00000    
+     9     644.279       0.15521E-02    0.0000        0.000000     0.00000         0.00000    
+    10     668.237       0.14965E-02    0.0000        0.000000     0.00000         0.00000    
+    11     715.434       0.13978E-02    0.0000        0.000000     0.00000         0.00000    
+    12     732.941       0.13644E-02    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTZ DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     47.9431       0.20858E-01   -359.03        0.858726     128902.        0.248555    
+     2     139.365       0.71754E-02    418.09        1.000000     174803.        0.585621    
+     3     209.162       0.47810E-02   -387.15        0.925988     149886.        0.874638    
+     4     372.614       0.26837E-02    65.389        0.156398     4275.74        0.882883    
+     5     416.580       0.24005E-02    199.83        0.477950     39931.4        0.959881    
+     6     474.706       0.21066E-02    10.548        0.025230     111.269        0.960096    
+     7     562.982       0.17763E-02   -67.798        0.162159     4596.56        0.968959    
+     8     589.561       0.16962E-02    43.937        0.105089     1930.48        0.972681    
+     9     644.279       0.15521E-02    77.036        0.184254     5934.52        0.984125    
+    10     668.237       0.14965E-02   -82.532        0.197399     6811.47        0.997259    
+    11     715.434       0.13978E-02    36.751        0.087901     1350.63        0.999863    
+    12     732.941       0.13644E-02   -8.4225        0.020145     70.9378         1.00000    
+ ----------------------------------------------------------------------------------------------
+   sum                                                             518604.    
+ ----------------------------------------------------------------------------------------------
+
+
+
+
+
+        ***** MODAL MASSES, KINETIC ENERGIES, AND TRANSLATIONAL EFFECTIVE MASSES SUMMARY *****
+
+                                                                         EFFECTIVE MASS
+  MODE  FREQUENCY   MODAL MASS     KENE      |      X-DIR      RATIO%   Y-DIR      RATIO%   Z-DIR      RATIO% 
+     1   47.94       6732.      0.3054E+09   |     8886.       45.33   2839.       14.48   0.000        0.00
+     2   139.4       6581.      0.2523E+10   |     7880.       40.19   5019.       25.60   0.000        0.00
+     3   209.2       4863.      0.4200E+10   |     94.73        0.48   7422.       37.86   0.000        0.00
+     4   372.6       4769.      0.1307E+11   |     897.2        4.58   327.9        1.67   0.000        0.00
+     5   416.6       3468.      0.1188E+11   |     9.164        0.05   1328.        6.77   0.000        0.00
+     6   474.7       5910.      0.2629E+11   |     350.9        1.79   24.30        0.12   0.000        0.00
+     7   563.0       1452.      0.9081E+10   |     85.43        0.44   226.6        1.16   0.000        0.00
+     8   589.6       2963.      0.2033E+11   |     93.50        0.48   30.48        0.16   0.000        0.00
+     9   644.3       3840.      0.3146E+11   |     80.10        0.41   159.7        0.81   0.000        0.00
+    10   668.2       2777.      0.2447E+11   |     108.3        0.55   263.3        1.34   0.000        0.00
+    11   715.4       3428.      0.3463E+11   |     47.04        0.24   31.08        0.16   0.000        0.00
+    12   732.9       2523.      0.2675E+11   |     28.93        0.15  0.8432        0.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+   sum                                       |    0.1856E+05   94.68  0.1767E+05   90.14   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        5.312 MB WRITTEN ON ASSEMBLED MATRIX FILE: p1_cant_ip_r125_a050_202.full
+        1.375 MB WRITTEN ON MODAL MATRIX FILE: p1_cant_ip_r125_a050_202.mode
+       16.188 MB WRITTEN ON RESULTS FILE: p1_cant_ip_r125_a050_202.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        23.312
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:48  SEP 24, 2026 CP=     23.387
+
+  P1 cantilever IP r125 a050 -- mesh 48                                        
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =      23.388   TIME= 02:29:48
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+ SET PARAMETER DIMENSIONS ON  MIDX TYPE=ARRA  DIMENSIONS=    12     1     1
+
+ VECTOR FILL OPERATION  *VFILL  
+  MIDX = RAMP
+ VECTOR LENGTH=      12
+ INITIAL VALUE=  1.0000      STEP INCREMENT=  1.0000    
+
+ SET PARAMETER DIMENSIONS ON  FRA TYPE=ARRA  DIMENSIONS=    12     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  12.000     BY  1.0000    
+
+ *GET  FRA       FROM  MODE      1  ITEM=FREQ       VALUE=  47.9430545    
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= p1_cant_ip_r125_a050_mesh48.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =        23.395
+
+
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  P1 cantilever IP r125 a050 -- mesh 96                                        
+
+
+ PARAMETER R_I =     3.000000000    
+
+ PARAMETER R_O =     7.000000000    
+
+ PARAMETER PHI =     90.00000000    
+
+ PARAMETER H =    0.8000000000E-01
+
+ PARAMETER E_ISO =    0.2100000000E+12
+
+ PARAMETER NU_ISO =    0.3500000000    
+
+ PARAMETER RHO =     7800.000000    
+
+ PARAMETER NDIV =     96.00000000    
+
+ PARAMETER NMODES =     12.00000000    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:48  SEP 24, 2026 CP=     23.532
+
+  P1 cantilever IP r125 a050 -- mesh 96                                        
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ COORDINATE SYSTEM         11 DEFINITION.  TYPE= 1  (CYLINDRICAL)
+   XC,YC,ZC=  0.0000      0.0000      0.0000    
+   ANGLES=    0.00    0.00    0.00   PARAMETERS=   1.000   1.000
+   ORIENTATION=  1.00  0.00  0.00   0.00  1.00  0.00   0.00  0.00  1.00
+
+ ACTIVE COORDINATE SYSTEM SET TO        11  (CYLINDRICAL)
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ ELEMENT TYPE          1 IS PLANE183     2-D 8-NODE PLANE STRS SOLID 
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY  
+  TWO-DIMENSIONAL MODEL
+
+ ELEMENT TYPE       1 IS PLANE183     2-D 8-NODE PLANE STRS SOLID 
+  KEYOPT( 1- 6)=        0      0      3        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY  
+  TWO-DIMENSIONAL MODEL
+
+ REAL CONSTANT SET          1  ITEMS   1 TO   6
+   0.80000E-01   0.0000       0.0000       0.0000       0.0000       0.0000    
+
+ MATERIAL          1     EX   =  0.2100000E+12  
+
+ MATERIAL          1     PRXY =  0.3500000      
+
+ MATERIAL          1     DENS =   7800.000      
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ CREATE A CIRCULAR AREA WITH 
+ INNER RADIUS         =      3.000000000    
+ OUTER RADIUS         =      7.000000000    
+ STARTING THETA ANGLE =      0.000000000    
+ ENDING   THETA ANGLE =      90.00000000    
+
+      OUTPUT AREA =     1
+
+ ELEMENT TYPE SET TO         1
+
+ MATERIAL NUMBER SET TO         1
+
+ REAL CONSTANT NUMBER=        1
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  0.0000     AND   0.0000    
+   KABS=  0.  TOLERANCE= 0.100000E-05
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN  90.000     AND   90.000    
+   KABS=  0.  TOLERANCE= 0.450000    
+
+        2  LINES (OF        4  DEFINED) SELECTED BY LSEL COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   96,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  3.0000     AND   3.0000    
+   KABS=  0.  TOLERANCE= 0.150000E-01
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=X     BETWEEN  7.0000     AND   7.0000    
+   KABS=  0.  TOLERANCE= 0.350000E-01
+
+        2  LINES (OF        4  DEFINED) SELECTED BY LSEL COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   96,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     1 MESHED WITH    9216 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =      28033
+ MAXIMUM ELEMENT NUMBER     =       9216
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  0.0000     AND   0.0000    
+   KABS=  0.  TOLERANCE= 0.100000E-05
+
+        193  NODES (OF      28033  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES            1 TO       28033 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY  
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+
+ ***** ROUTINE COMPLETED *****  CP =        23.648
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A MODAL ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ USE SYM. BLOCK LANCZOS MODE EXTRACTION METHOD
+  EXTRACT    12 MODES
+  SHIFT POINT FOR EIGENVALUE CALCULATION=  1.0000    
+  NORMALIZE THE MODE SHAPES TO UNITY
+
+
+ NUMBER OF MODES TO EXPAND=    12
+  CALCULATE ELEMENT RESULTS AND NODAL DOF SOLUTION
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** SELECTION OF ELEMENT TECHNOLOGIES FOR APPLICABLE ELEMENTS ***
+                ---GIVE SUGGESTIONS ONLY---
+
+ ELEMENT TYPE         1 IS PLANE183 WITH PLANE STRESS OPTION. NO SUGGESTION IS
+ AVAILABLE.
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:49  SEP 24, 2026 CP=     25.352
+
+  P1 cantilever IP r125 a050 -- mesh 96                                        
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .2-D                  
+   DEGREES OF FREEDOM. . . . . . UX   UY  
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .MODAL                
+      EXTRACTION METHOD. . . . . . . . . . . . . .BLOCK LANCZOS
+   NUMBER OF MODES TO EXTRACT. . . . . . . . . . .    12
+   SHIFT POINT . . . . . . . . . . . . . . . . . .  1.0000    
+   NORMALIZE MODES TO UNITY. . . . . . . . . . . .YES
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+   NUMBER OF MODES TO EXPAND . . . . . . . . . . .    12
+   ELEMENT RESULTS CALCULATION . . . . . . . . . .ON 
+
+ *** NOTE ***                            CP =      25.474   TIME= 02:29:49
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   THERMAL STRAINS INCLUDED IN THE LOAD VECTOR . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS. . . . . . . . . . . .ALL DATA WRITTEN
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =   19604.    
+
+                           MOM. OF INERTIA         MOM. OF INERTIA
+  CENTER OF MASS            ABOUT ORIGIN        ABOUT CENTER OF MASS
+
+  XC =   3.3529          IXX =   0.2842E+06      IXX =   0.6387E+05
+  YC =   3.3529          IYY =   0.2842E+06      IYY =   0.6387E+05
+  ZC =   0.0000          IZZ =   0.5685E+06      IZZ =   0.1277E+06
+                         IXY =  -0.1810E+06      IXY =   0.3941E+05
+                         IYZ =    0.000          IYZ =    0.000    
+                         IZX =    0.000          IZX =    0.000    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   19603.5    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 9.429095431E+10 at element 96.                                
+ Minimum = 3.179619809E+10 at element 9169.                              
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      9216  PLANE183      1.785   0.000194
+ Time at end of element matrix formulation CP = 28.0966091.              
+
+  BLOCK LANCZOS CALCULATION OF UP TO    12 EIGENVECTORS.
+  NUMBER OF EQUATIONS              =        55680
+  MAXIMUM WAVEFRONT                =           42
+  MAXIMUM MODES STORED             =           12
+  MINIMUM EIGENVALUE               =  0.10000E+01
+  MAXIMUM EIGENVALUE               =  0.10000E+31
+
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =   105.561 MB
+  Equation solver memory required for in-core mode     =   100.750 MB
+  Equation solver memory required for out-of-core mode =    31.712 MB
+  Total (solver and non-solver) memory allocated       =   877.346 MB
+
+ *** NOTE ***                            CP =      30.186   TIME= 02:29:50
+ The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+ currently running in the in-core memory mode.  This memory mode uses    
+ the most amount of memory in order to avoid using the hard drive as     
+ much as possible, which most often results in the fastest solution      
+ time.  This mode is recommended if enough physical memory is present    
+ to accommodate all of the solver data.                                  
+
+  Process memory required for in-core LANCZOS Workspace             =     214.584244 MB
+  Process memory required for out-of-core LANCZOS Workspace         =     5.580338 MB
+  Lanczos Memory Mode : INCORE
+
+
+  >> Shift # 1 :  | | |                              : 12 Eigenvalues Converged
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:51  SEP 24, 2026 CP=     36.284
+
+  P1 cantilever IP r125 a050 -- mesh 96                                        
+
+
+
+ *** FREQUENCIES FROM BLOCK LANCZOS ITERATION ***
+
+  MODE    FREQUENCY (HERTZ)      
+
+
+   FREQUENCY RANGE REQUESTED=   12 MODES ABOVE   1.00000     HERTZ
+
+    1     47.94021614876    
+    2     139.3600503381    
+    3     209.1576937643    
+    4     372.6034623120    
+    5     416.5713208860    
+    6     474.7045471723    
+    7     562.9787783000    
+    8     589.5496223708    
+    9     644.2774895721    
+   10     668.2260118590    
+   11     715.4335604746    
+   12     732.9299444611    
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      9216  PLANE183      3.859   0.000419
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      9216  PLANE183      2.597   0.000282
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:53  SEP 24, 2026 CP=     52.098
+
+  P1 cantilever IP r125 a050 -- mesh 96                                        
+
+
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  X  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     47.9402       0.20859E-01    94.269        1.000000     8886.68        0.478779        0.453320    
+     2     139.360       0.71757E-02   -88.765        0.941614     7879.26        0.903282        0.401931    
+     3     209.158       0.47811E-02   -9.7323        0.103240     94.7177        0.908385        0.483167E-02
+     4     372.603       0.26838E-02    29.953        0.317735     897.157        0.956720        0.457650E-01
+     5     416.571       0.24005E-02   -3.0257        0.032096     9.15461        0.957213        0.466988E-03
+     6     474.705       0.21066E-02   -18.733        0.198717     350.922        0.976119        0.179010E-01
+     7     562.979       0.17763E-02   -9.2441        0.098060     85.4527        0.980723        0.435904E-02
+     8     589.550       0.16962E-02   -9.6675        0.102552     93.4604        0.985758        0.476753E-02
+     9     644.277       0.15521E-02    8.9494        0.094935     80.0919        0.990073        0.408558E-02
+    10     668.226       0.14965E-02    10.405        0.110377     108.268        0.995906        0.552287E-02
+    11     715.434       0.13978E-02    6.8596        0.072766     47.0543        0.998441        0.240029E-02
+    12     732.930       0.13644E-02    5.3785        0.057054     28.9280         1.00000        0.147565E-02
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             18561.1                        0.946826    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Y  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     47.9402       0.20859E-01    53.276        0.618394     2838.32        0.160615        0.144786    
+     2     139.360       0.71757E-02    70.848        0.822363     5019.46        0.444655        0.256049    
+     3     209.158       0.47811E-02   -86.152        1.000000     7422.16        0.864660        0.378613    
+     4     372.603       0.26838E-02    18.106        0.210159     327.812        0.883210        0.167221E-01
+     5     416.571       0.24005E-02    36.437        0.422937     1327.65        0.958339        0.677249E-01
+     6     474.705       0.21066E-02    4.9289        0.057212     24.2939        0.959713        0.123926E-02
+     7     562.979       0.17763E-02   -15.051        0.174703     226.531        0.972532        0.115556E-01
+     8     589.550       0.16962E-02    5.5249        0.064130     30.5246        0.974260        0.155709E-02
+     9     644.277       0.15521E-02    12.640        0.146712     159.758        0.983300        0.814945E-02
+    10     668.226       0.14965E-02   -16.224        0.188313     263.203        0.998194        0.134263E-01
+    11     715.434       0.13978E-02    5.5737        0.064696     31.0663        0.999952        0.158473E-02
+    12     732.930       0.13644E-02  -0.91945        0.010672    0.845397         1.00000        0.431247E-04
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             17671.6                        0.901451    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Z  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     47.9402       0.20859E-01    0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     139.360       0.71757E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     209.158       0.47811E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     372.603       0.26838E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     416.571       0.24005E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     474.705       0.21066E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     7     562.979       0.17763E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     8     589.550       0.16962E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     9     644.277       0.15521E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    10     668.226       0.14965E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    11     715.434       0.13978E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    12     732.930       0.13644E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTX DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     47.9402       0.20859E-01    0.0000        0.000000     0.00000         0.00000    
+     2     139.360       0.71757E-02    0.0000        0.000000     0.00000         0.00000    
+     3     209.158       0.47811E-02    0.0000        0.000000     0.00000         0.00000    
+     4     372.603       0.26838E-02    0.0000        0.000000     0.00000         0.00000    
+     5     416.571       0.24005E-02    0.0000        0.000000     0.00000         0.00000    
+     6     474.705       0.21066E-02    0.0000        0.000000     0.00000         0.00000    
+     7     562.979       0.17763E-02    0.0000        0.000000     0.00000         0.00000    
+     8     589.550       0.16962E-02    0.0000        0.000000     0.00000         0.00000    
+     9     644.277       0.15521E-02    0.0000        0.000000     0.00000         0.00000    
+    10     668.226       0.14965E-02    0.0000        0.000000     0.00000         0.00000    
+    11     715.434       0.13978E-02    0.0000        0.000000     0.00000         0.00000    
+    12     732.930       0.13644E-02    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTY DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     47.9402       0.20859E-01    0.0000        0.000000     0.00000         0.00000    
+     2     139.360       0.71757E-02    0.0000        0.000000     0.00000         0.00000    
+     3     209.158       0.47811E-02    0.0000        0.000000     0.00000         0.00000    
+     4     372.603       0.26838E-02    0.0000        0.000000     0.00000         0.00000    
+     5     416.571       0.24005E-02    0.0000        0.000000     0.00000         0.00000    
+     6     474.705       0.21066E-02    0.0000        0.000000     0.00000         0.00000    
+     7     562.979       0.17763E-02    0.0000        0.000000     0.00000         0.00000    
+     8     589.550       0.16962E-02    0.0000        0.000000     0.00000         0.00000    
+     9     644.277       0.15521E-02    0.0000        0.000000     0.00000         0.00000    
+    10     668.226       0.14965E-02    0.0000        0.000000     0.00000         0.00000    
+    11     715.434       0.13978E-02    0.0000        0.000000     0.00000         0.00000    
+    12     732.930       0.13644E-02    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTZ DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     47.9402       0.20859E-01   -359.04        0.858785     128911.        0.248571    
+     2     139.360       0.71757E-02    418.08        1.000000     174792.        0.585610    
+     3     209.158       0.47811E-02   -387.17        0.926053     149897.        0.874647    
+     4     372.603       0.26838E-02    65.377        0.156373     4274.09        0.882889    
+     5     416.571       0.24005E-02    199.83        0.477967     39931.5        0.959886    
+     6     474.705       0.21066E-02    10.542        0.025216     111.140        0.960100    
+     7     562.979       0.17763E-02   -67.789        0.162144     4595.37        0.968961    
+     8     589.550       0.16962E-02    43.952        0.105128     1931.78        0.972686    
+     9     644.277       0.15521E-02    77.040        0.184270     5935.10        0.984130    
+    10     668.226       0.14965E-02   -82.515        0.197366     6808.74        0.997259    
+    11     715.434       0.13978E-02    36.746        0.087892     1350.26        0.999863    
+    12     732.930       0.13644E-02   -8.4315        0.020167     71.0909         1.00000    
+ ----------------------------------------------------------------------------------------------
+   sum                                                             518608.    
+ ----------------------------------------------------------------------------------------------
+
+
+
+
+
+        ***** MODAL MASSES, KINETIC ENERGIES, AND TRANSLATIONAL EFFECTIVE MASSES SUMMARY *****
+
+                                                                         EFFECTIVE MASS
+  MODE  FREQUENCY   MODAL MASS     KENE      |      X-DIR      RATIO%   Y-DIR      RATIO%   Z-DIR      RATIO% 
+     1   47.94       6732.      0.3054E+09   |     8887.       45.33   2838.       14.48   0.000        0.00
+     2   139.4       6581.      0.2523E+10   |     7879.       40.19   5019.       25.60   0.000        0.00
+     3   209.2       4863.      0.4200E+10   |     94.72        0.48   7422.       37.86   0.000        0.00
+     4   372.6       4770.      0.1307E+11   |     897.2        4.58   327.8        1.67   0.000        0.00
+     5   416.6       3468.      0.1188E+11   |     9.155        0.05   1328.        6.77   0.000        0.00
+     6   474.7       5910.      0.2629E+11   |     350.9        1.79   24.29        0.12   0.000        0.00
+     7   563.0       1452.      0.9082E+10   |     85.45        0.44   226.5        1.16   0.000        0.00
+     8   589.5       2963.      0.2033E+11   |     93.46        0.48   30.52        0.16   0.000        0.00
+     9   644.3       3839.      0.3146E+11   |     80.09        0.41   159.8        0.81   0.000        0.00
+    10   668.2       2776.      0.2447E+11   |     108.3        0.55   263.2        1.34   0.000        0.00
+    11   715.4       3424.      0.3460E+11   |     47.05        0.24   31.07        0.16   0.000        0.00
+    12   732.9       2523.      0.2675E+11   |     28.93        0.15  0.8454        0.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+   sum                                       |    0.1856E+05   94.68  0.1767E+05   90.15   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+       21.188 MB WRITTEN ON ASSEMBLED MATRIX FILE: p1_cant_ip_r125_a050_202.full
+        5.250 MB WRITTEN ON MODAL MATRIX FILE: p1_cant_ip_r125_a050_202.mode
+       63.688 MB WRITTEN ON RESULTS FILE: p1_cant_ip_r125_a050_202.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        53.212
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:53  SEP 24, 2026 CP=     53.214
+
+  P1 cantilever IP r125 a050 -- mesh 96                                        
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ SET PARAMETER DIMENSIONS ON  MIDX TYPE=ARRA  DIMENSIONS=    12     1     1
+
+ VECTOR FILL OPERATION  *VFILL  
+  MIDX = RAMP
+ VECTOR LENGTH=      12
+ INITIAL VALUE=  1.0000      STEP INCREMENT=  1.0000    
+
+ SET PARAMETER DIMENSIONS ON  FRA TYPE=ARRA  DIMENSIONS=    12     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  12.000     BY  1.0000    
+
+ *GET  FRA       FROM  MODE      1  ITEM=FREQ       VALUE=  47.9402161    
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= p1_cant_ip_r125_a050_mesh96.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =        53.218
+
+
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  P1 cantilever IP r125 a050 -- mesh 192                                       
+
+
+ PARAMETER R_I =     3.000000000    
+
+ PARAMETER R_O =     7.000000000    
+
+ PARAMETER PHI =     90.00000000    
+
+ PARAMETER H =    0.8000000000E-01
+
+ PARAMETER E_ISO =    0.2100000000E+12
+
+ PARAMETER NU_ISO =    0.3500000000    
+
+ PARAMETER RHO =     7800.000000    
+
+ PARAMETER NDIV =     192.0000000    
+
+ PARAMETER NMODES =     12.00000000    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:53  SEP 24, 2026 CP=     53.354
+
+  P1 cantilever IP r125 a050 -- mesh 192                                       
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ COORDINATE SYSTEM         11 DEFINITION.  TYPE= 1  (CYLINDRICAL)
+   XC,YC,ZC=  0.0000      0.0000      0.0000    
+   ANGLES=    0.00    0.00    0.00   PARAMETERS=   1.000   1.000
+   ORIENTATION=  1.00  0.00  0.00   0.00  1.00  0.00   0.00  0.00  1.00
+
+ ACTIVE COORDINATE SYSTEM SET TO        11  (CYLINDRICAL)
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ ELEMENT TYPE          1 IS PLANE183     2-D 8-NODE PLANE STRS SOLID 
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY  
+  TWO-DIMENSIONAL MODEL
+
+ ELEMENT TYPE       1 IS PLANE183     2-D 8-NODE PLANE STRS SOLID 
+  KEYOPT( 1- 6)=        0      0      3        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY  
+  TWO-DIMENSIONAL MODEL
+
+ REAL CONSTANT SET          1  ITEMS   1 TO   6
+   0.80000E-01   0.0000       0.0000       0.0000       0.0000       0.0000    
+
+ MATERIAL          1     EX   =  0.2100000E+12  
+
+ MATERIAL          1     PRXY =  0.3500000      
+
+ MATERIAL          1     DENS =   7800.000      
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ CREATE A CIRCULAR AREA WITH 
+ INNER RADIUS         =      3.000000000    
+ OUTER RADIUS         =      7.000000000    
+ STARTING THETA ANGLE =      0.000000000    
+ ENDING   THETA ANGLE =      90.00000000    
+
+      OUTPUT AREA =     1
+
+ ELEMENT TYPE SET TO         1
+
+ MATERIAL NUMBER SET TO         1
+
+ REAL CONSTANT NUMBER=        1
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  0.0000     AND   0.0000    
+   KABS=  0.  TOLERANCE= 0.100000E-05
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN  90.000     AND   90.000    
+   KABS=  0.  TOLERANCE= 0.450000    
+
+        2  LINES (OF        4  DEFINED) SELECTED BY LSEL COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =  192,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  3.0000     AND   3.0000    
+   KABS=  0.  TOLERANCE= 0.150000E-01
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=X     BETWEEN  7.0000     AND   7.0000    
+   KABS=  0.  TOLERANCE= 0.350000E-01
+
+        2  LINES (OF        4  DEFINED) SELECTED BY LSEL COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =  192,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     1 MESHED WITH   36864 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =     111361
+ MAXIMUM ELEMENT NUMBER     =      36864
+
+ ACTIVE COORDINATE SYSTEM SET TO         11  (CYLINDRICAL)
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  0.0000     AND   0.0000    
+   KABS=  0.  TOLERANCE= 0.100000E-05
+
+        385  NODES (OF     111361  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES            1 TO      111361 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+ ADDITIONAL DOFS=  UY  
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+
+ ***** ROUTINE COMPLETED *****  CP =        53.754
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A MODAL ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ USE SYM. BLOCK LANCZOS MODE EXTRACTION METHOD
+  EXTRACT    12 MODES
+  SHIFT POINT FOR EIGENVALUE CALCULATION=  1.0000    
+  NORMALIZE THE MODE SHAPES TO UNITY
+
+
+ NUMBER OF MODES TO EXPAND=    12
+  CALCULATE ELEMENT RESULTS AND NODAL DOF SOLUTION
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** SELECTION OF ELEMENT TECHNOLOGIES FOR APPLICABLE ELEMENTS ***
+                ---GIVE SUGGESTIONS ONLY---
+
+ ELEMENT TYPE         1 IS PLANE183 WITH PLANE STRESS OPTION. NO SUGGESTION IS
+ AVAILABLE.
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:29:54  SEP 24, 2026 CP=     55.030
+
+  P1 cantilever IP r125 a050 -- mesh 192                                       
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .2-D                  
+   DEGREES OF FREEDOM. . . . . . UX   UY  
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .MODAL                
+      EXTRACTION METHOD. . . . . . . . . . . . . .BLOCK LANCZOS
+   NUMBER OF MODES TO EXTRACT. . . . . . . . . . .    12
+   SHIFT POINT . . . . . . . . . . . . . . . . . .  1.0000    
+   NORMALIZE MODES TO UNITY. . . . . . . . . . . .YES
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+   NUMBER OF MODES TO EXPAND . . . . . . . . . . .    12
+   ELEMENT RESULTS CALCULATION . . . . . . . . . .ON 
+
+ *** NOTE ***                            CP =      55.511   TIME= 02:29:54
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   THERMAL STRAINS INCLUDED IN THE LOAD VECTOR . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS. . . . . . . . . . . .ALL DATA WRITTEN
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =   19604.    
+
+                           MOM. OF INERTIA         MOM. OF INERTIA
+  CENTER OF MASS            ABOUT ORIGIN        ABOUT CENTER OF MASS
+
+  XC =   3.3529          IXX =   0.2843E+06      IXX =   0.6387E+05
+  YC =   3.3529          IYY =   0.2843E+06      IYY =   0.6387E+05
+  ZC =   0.0000          IZZ =   0.5685E+06      IZZ =   0.1277E+06
+                         IXY =  -0.1810E+06      IXY =   0.3942E+05
+                         IYZ =    0.000          IYZ =    0.000    
+                         IZX =    0.000          IZX =    0.000    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1   19603.5    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 9.442957402E+10 at element 192.                               
+ Minimum = 3.157230739E+10 at element 36769.                             
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1     36864  PLANE183      3.030   0.000082
+ Time at end of element matrix formulation CP = 61.736969.               
+
+  BLOCK LANCZOS CALCULATION OF UP TO    12 EIGENVECTORS.
+  NUMBER OF EQUATIONS              =       221952
+  MAXIMUM WAVEFRONT                =           42
+  MAXIMUM MODES STORED             =           12
+  MINIMUM EIGENVALUE               =  0.10000E+01
+  MAXIMUM EIGENVALUE               =  0.10000E+31
+
+
+ *** NOTE ***                            CP =      66.097   TIME= 02:29:58
+ The initial memory allocation (-m) has been exceeded.                   
+  Supplemental memory allocations are being used.                        
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =   461.904 MB
+  Equation solver memory required for in-core mode     =   440.774 MB
+  Equation solver memory required for out-of-core mode =   126.973 MB
+  Total (solver and non-solver) memory allocated       =  1870.033 MB
+
+ *** NOTE ***                            CP =      66.099   TIME= 02:29:58
+ The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+ currently running in the in-core memory mode.  This memory mode uses    
+ the most amount of memory in order to avoid using the hard drive as     
+ much as possible, which most often results in the fastest solution      
+ time.  This mode is recommended if enough physical memory is present    
+ to accommodate all of the solver data.                                  
+
+  Process memory required for in-core LANCZOS Workspace             =     853.935806 MB
+  Process memory required for out-of-core LANCZOS Workspace         =     20.802994 MB
+  Lanczos Memory Mode : INCORE
+
+
+  >> Shift # 1 :  | | |                              : 12 Eigenvalues Converged
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:30:02  SEP 24, 2026 CP=     92.720
+
+  P1 cantilever IP r125 a050 -- mesh 192                                       
+
+
+
+ *** FREQUENCIES FROM BLOCK LANCZOS ITERATION ***
+
+  MODE    FREQUENCY (HERTZ)      
+
+
+   FREQUENCY RANGE REQUESTED=   12 MODES ABOVE   1.00000     HERTZ
+
+    1     47.93916682477    
+    2     139.3583449020    
+    3     209.1562040113    
+    4     372.6000485985    
+    5     416.5681036797    
+    6     474.7043401110    
+    7     562.9777076850    
+    8     589.5458498223    
+    9     644.2772132532    
+   10     668.2228450819    
+   11     715.4333572560    
+   12     732.9260130840    
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1     36864  PLANE183     15.487   0.000420
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1     36864  PLANE183     10.102   0.000274
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:30:10  SEP 24, 2026 CP=    153.295
+
+  P1 cantilever IP r125 a050 -- mesh 192                                       
+
+
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  X  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     47.9392       0.20860E-01    94.271        1.000000     8886.94        0.478790        0.453333    
+     2     139.358       0.71757E-02   -88.765        0.941595     7879.16        0.903284        0.401925    
+     3     209.156       0.47811E-02   -9.7320        0.103235     94.7119        0.908387        0.483137E-02
+     4     372.600       0.26838E-02    29.952        0.317727     897.142        0.956721        0.457643E-01
+     5     416.568       0.24006E-02   -3.0250        0.032089     9.15080        0.957214        0.466793E-03
+     6     474.704       0.21066E-02   -18.733        0.198713     350.917        0.976120        0.179007E-01
+     7     562.978       0.17763E-02   -9.2444        0.098062     85.4585        0.980724        0.435934E-02
+     8     589.546       0.16962E-02   -9.6668        0.102543     93.4461        0.985759        0.476680E-02
+     9     644.277       0.15521E-02    8.9493        0.094932     80.0893        0.990074        0.408545E-02
+    10     668.223       0.14965E-02    10.405        0.110373     108.263        0.995906        0.552261E-02
+    11     715.433       0.13978E-02    6.8599        0.072768     47.0581        0.998442        0.240049E-02
+    12     732.926       0.13644E-02    5.3782        0.057051     28.9254         1.00000        0.147552E-02
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             18561.3                        0.946832    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Y  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     47.9392       0.20860E-01    53.275        0.618382     2838.25        0.160610        0.144783    
+     2     139.358       0.71757E-02    70.849        0.822361     5019.52        0.444653        0.256052    
+     3     209.156       0.47811E-02   -86.153        1.000000     7422.27        0.864663        0.378619    
+     4     372.600       0.26838E-02    18.104        0.210142     327.765        0.883211        0.167197E-01
+     5     416.568       0.24006E-02    36.437        0.422938     1327.67        0.958340        0.677260E-01
+     6     474.704       0.21066E-02    4.9286        0.057208     24.2910        0.959715        0.123911E-02
+     7     562.978       0.17763E-02   -15.050        0.174695     226.515        0.972533        0.115548E-01
+     8     589.546       0.16962E-02    5.5262        0.064144     30.5387        0.974261        0.155782E-02
+     9     644.277       0.15521E-02    12.640        0.146716     159.768        0.983302        0.814998E-02
+    10     668.223       0.14965E-02   -16.223        0.188301     263.174        0.998194        0.134248E-01
+    11     715.433       0.13978E-02    5.5734        0.064692     31.0624        0.999952        0.158453E-02
+    12     732.926       0.13644E-02  -0.91985        0.010677    0.846133         1.00000        0.431622E-04
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             17671.7                        0.901453    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Z  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     47.9392       0.20860E-01    0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     139.358       0.71757E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     209.156       0.47811E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     372.600       0.26838E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     416.568       0.24006E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     474.704       0.21066E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     7     562.978       0.17763E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     8     589.546       0.16962E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     9     644.277       0.15521E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    10     668.223       0.14965E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    11     715.433       0.13978E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+    12     732.926       0.13644E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTX DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     47.9392       0.20860E-01    0.0000        0.000000     0.00000         0.00000    
+     2     139.358       0.71757E-02    0.0000        0.000000     0.00000         0.00000    
+     3     209.156       0.47811E-02    0.0000        0.000000     0.00000         0.00000    
+     4     372.600       0.26838E-02    0.0000        0.000000     0.00000         0.00000    
+     5     416.568       0.24006E-02    0.0000        0.000000     0.00000         0.00000    
+     6     474.704       0.21066E-02    0.0000        0.000000     0.00000         0.00000    
+     7     562.978       0.17763E-02    0.0000        0.000000     0.00000         0.00000    
+     8     589.546       0.16962E-02    0.0000        0.000000     0.00000         0.00000    
+     9     644.277       0.15521E-02    0.0000        0.000000     0.00000         0.00000    
+    10     668.223       0.14965E-02    0.0000        0.000000     0.00000         0.00000    
+    11     715.433       0.13978E-02    0.0000        0.000000     0.00000         0.00000    
+    12     732.926       0.13644E-02    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTY DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     47.9392       0.20860E-01    0.0000        0.000000     0.00000         0.00000    
+     2     139.358       0.71757E-02    0.0000        0.000000     0.00000         0.00000    
+     3     209.156       0.47811E-02    0.0000        0.000000     0.00000         0.00000    
+     4     372.600       0.26838E-02    0.0000        0.000000     0.00000         0.00000    
+     5     416.568       0.24006E-02    0.0000        0.000000     0.00000         0.00000    
+     6     474.704       0.21066E-02    0.0000        0.000000     0.00000         0.00000    
+     7     562.978       0.17763E-02    0.0000        0.000000     0.00000         0.00000    
+     8     589.546       0.16962E-02    0.0000        0.000000     0.00000         0.00000    
+     9     644.277       0.15521E-02    0.0000        0.000000     0.00000         0.00000    
+    10     668.223       0.14965E-02    0.0000        0.000000     0.00000         0.00000    
+    11     715.433       0.13978E-02    0.0000        0.000000     0.00000         0.00000    
+    12     732.926       0.13644E-02    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTZ DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1     47.9392       0.20860E-01   -359.05        0.858805     128914.        0.248576    
+     2     139.358       0.71757E-02    418.08        1.000000     174788.        0.585607    
+     3     209.156       0.47811E-02   -387.17        0.926076     149901.        0.874650    
+     4     372.600       0.26838E-02    65.372        0.156363     4273.47        0.882890    
+     5     416.568       0.24006E-02    199.83        0.477973     39931.6        0.959888    
+     6     474.704       0.21066E-02    10.540        0.025212     111.099        0.960102    
+     7     562.978       0.17763E-02   -67.786        0.162138     4594.95        0.968962    
+     8     589.546       0.16962E-02    43.957        0.105142     1932.25        0.972688    
+     9     644.277       0.15521E-02    77.041        0.184276     5935.37        0.984132    
+    10     668.223       0.14965E-02   -82.509        0.197355     6807.80        0.997260    
+    11     715.433       0.13978E-02    36.744        0.087888     1350.11        0.999863    
+    12     732.926       0.13644E-02   -8.4346        0.020175     71.1417         1.00000    
+ ----------------------------------------------------------------------------------------------
+   sum                                                             518610.    
+ ----------------------------------------------------------------------------------------------
+
+
+
+
+
+        ***** MODAL MASSES, KINETIC ENERGIES, AND TRANSLATIONAL EFFECTIVE MASSES SUMMARY *****
+
+                                                                         EFFECTIVE MASS
+  MODE  FREQUENCY   MODAL MASS     KENE      |      X-DIR      RATIO%   Y-DIR      RATIO%   Z-DIR      RATIO% 
+     1   47.94       6732.      0.3054E+09   |     8887.       45.33   2838.       14.48   0.000        0.00
+     2   139.4       6581.      0.2523E+10   |     7879.       40.19   5020.       25.61   0.000        0.00
+     3   209.2       4863.      0.4200E+10   |     94.71        0.48   7422.       37.86   0.000        0.00
+     4   372.6       4770.      0.1307E+11   |     897.1        4.58   327.8        1.67   0.000        0.00
+     5   416.6       3468.      0.1188E+11   |     9.151        0.05   1328.        6.77   0.000        0.00
+     6   474.7       5910.      0.2629E+11   |     350.9        1.79   24.29        0.12   0.000        0.00
+     7   563.0       1452.      0.9082E+10   |     85.46        0.44   226.5        1.16   0.000        0.00
+     8   589.5       2963.      0.2033E+11   |     93.45        0.48   30.54        0.16   0.000        0.00
+     9   644.3       3839.      0.3145E+11   |     80.09        0.41   159.8        0.81   0.000        0.00
+    10   668.2       2776.      0.2447E+11   |     108.3        0.55   263.2        1.34   0.000        0.00
+    11   715.4       3424.      0.3459E+11   |     47.06        0.24   31.06        0.16   0.000        0.00
+    12   732.9       2523.      0.2675E+11   |     28.93        0.15  0.8461        0.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+   sum                                       |    0.1856E+05   94.68  0.1767E+05   90.15   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+       84.688 MB WRITTEN ON ASSEMBLED MATRIX FILE: p1_cant_ip_r125_a050_202.full
+       20.875 MB WRITTEN ON MODAL MATRIX FILE: p1_cant_ip_r125_a050_202.mode
+      254.062 MB WRITTEN ON RESULTS FILE: p1_cant_ip_r125_a050_202.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =       153.461
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     02:30:11  SEP 24, 2026 CP=    153.462
+
+  P1 cantilever IP r125 a050 -- mesh 192                                       
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ SET PARAMETER DIMENSIONS ON  MIDX TYPE=ARRA  DIMENSIONS=    12     1     1
+
+ VECTOR FILL OPERATION  *VFILL  
+  MIDX = RAMP
+ VECTOR LENGTH=      12
+ INITIAL VALUE=  1.0000      STEP INCREMENT=  1.0000    
+
+ SET PARAMETER DIMENSIONS ON  FRA TYPE=ARRA  DIMENSIONS=    12     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  12.000     BY  1.0000    
+
+ *GET  FRA       FROM  MODE      1  ITEM=FREQ       VALUE=  47.9391668    
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= p1_cant_ip_r125_a050_mesh192.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =       153.466
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= p1_cant_ip_r125_a050_202.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          0
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2025 R1            Build: 25.1       Update: UP20241202   Platform: LINUX x64   
+Date Run: 09/24/2026   Time: 02:30     Process ID: 1645770
+Operating System: AlmaLinux release 8.10 (Cerulean Leopard)
+
+Processor Model: Intel(R) Xeon(R) Gold 6248 CPU @ 2.50GHz
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303
+
+Number of machines requested            :    1
+Total number of cores available         :   40
+Number of physical cores available      :   40
+Number of processes requested           :    1
+Number of threads per process requested :    8
+Total number of cores requested         :    8 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: p1_cant_ip_r125_a050_202
+Input File: ansys_p1_cant_ip_r125_a050_2026-09-24.inp
+Working Directory: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys
+
+Total CPU time for main thread                    :       21.3 seconds
+Total CPU time summed for all threads             :      153.8 seconds
+
+Elapsed time spent obtaining a license            :        1.6 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.9 seconds
+Elapsed time spent solution - preprocessing       :        0.8 seconds
+Elapsed time spent computing solution             :       24.2 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.1 seconds
+ 
+Eigensolver used                                  :            Block Lanczos
+Equation solver computational rate                :       24.3 Gflops
+
+Sum of disk space used on all processes           :      418.2 MB
+
+Sum of memory used on all processes               :     1066.0 MB
+Sum of memory allocated on all processes          :     2816.0 MB
+Physical memory available                         :        187 GB
+Total amount of I/O written to disk               :        0.3 GB
+Total amount of I/O read from disk                :        0.1 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+ |  Maximum Database Used      59 MB     Maximum Scratch Memory Used   1007 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =        153.833       Time  =  02:30:12          |
+ |        Elapsed Time (sec) =         34.000       Date  =  09/24/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

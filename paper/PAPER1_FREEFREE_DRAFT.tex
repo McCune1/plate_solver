@@ -43,8 +43,10 @@ Missouri University of Science and Technology, Rolla, MO 65409, USA\\
 %   S.3.4 / S.3.5 = extensional close-pairs / Shi OOP isolation
 %   S.3.6 = raw-to-physical conversion constants (moved from §6.12)
 %   S.3.7 = SUBDOM numerical procedure and gate detail
-%   S.3.8 = cantilever replication basis-size convergence (Table S.9, 2026-09-23)
-%   Tables S.1--S.9 sit in S.3 (S.8 = flexural spurious zeros, was Table 7; S.9 = cantilever convergence)
+%   S.3.8 = cantilever replication: OOP basis-size convergence (Table S.9, 2026-09-23) and
+%           IP finite-element check + split double root (Tables S.10, S.11, 2026-09-24)
+%   Tables S.1--S.11 sit in S.3 (S.8 = flexural spurious zeros, was Table 7; S.9 = OOP cantilever convergence;
+%           S.10 = IP cantilever vs FE; S.11 = IP split-pair convergence)
 %   S.4  cluster job-number provenance (added 2026-08-25, advisor pass:
 %        every main-text footnote job number moved here)
 %   No remaining main-text appendix.
@@ -596,7 +598,10 @@ spurious roots to be discarded. This is the source of the ``necessary but
 not sufficient'' status invoked in \S5: exact constrained/unconstrained
 coincidence is the paper's own criterion for a genuine root, demonstrated
 in \S5 to admit false positives once weak circumferential enforcement is
-also present.
+also present. In a truncated basis the double root is not reproduced exactly:
+it separates into two nearby simple roots, or into a complex-conjugate
+pair that leaves only a shallow real-axis minimum of $\sigma_{\min}$;
+\S6.1 shows the effect on the in-plane cantilever table.
 
 \subsection{Orthotropic constitutive extension}\label{sec:ortho}
 The polar-orthotropic reduction (Ref.~\cite{seok1} Eq.~(16)) enters the
@@ -847,6 +852,7 @@ distinct root (see text).}
 \S & $R_i/R_o$, $2\Theta/\pi$ & Motion & Checked against & Standard & Headline result\\
 \midrule
 6.1 & annular cantilever (8 OOP + 3 IP geometries) & OOP+IP & \cite{seok1,seok2} (lit.) & one-to-one & all 29 published entries reproduced\\
+6.1 & annular cantilever (3 IP geometries) & IP & FE & one-to-one & 9/9; \cite{seok2} within 0.82\%, solver within 2.15\%\\
 6.2 & 0.5, 0.5 (orthotropic) & OOP & FE & one-to-one & 8/8, max err 1.08\%\\
 6.3 & 0.5, 0.5 (primary) & OOP & FE & one-to-one & 8/8, max err 0.64\%\\
 6.3 & 0.5, 0.5 (primary) & IP & FE & one-to-one$^{*}$ & 26 roots cover 27 FE modes, worst 0.052\%\\
@@ -877,16 +883,31 @@ with no value carried over from an earlier capture. At the production
 basis sizes ($n=20$ for $2\Theta/\pi\le0.5$; otherwise $n=16$ out-of-plane
 and $n=14$ in-plane) every published entry matches, to $1.23\%$
 out-of-plane and $1.39\%$ in-plane. These production values are not
-basis-converged at the clamped edge. A re-run of every row at larger
-bases (Supplementary Material, §S.3.8, Table~S.9) moves them by
-$0.01$--$0.96\%$ (median $0.28\%$). The converged values still agree
-with \cite{seok1,seok2}, to $2.14\%$ out-of-plane and $1.89\%$ in-plane,
-for every row the re-run resolves. It does not resolve two narrow-sector
-in-plane rows ($2\Theta/\pi=0.25$, modes 2 and 3).
+basis-converged at the clamped edge. Out-of-plane, a re-run of every row
+at larger bases (Supplementary Material, §S.3.8, Table~S.9) moves them
+by $0.01$--$0.90\%$ (median $0.26\%$), and the converged values still
+agree with \cite{seok1} to $2.14\%$.
+
+In-plane, a larger basis alone is not a reliable convergence measure,
+because of the double root of \S3.3. At a finite basis that root
+separates into two nearby simple roots, or into a complex pair, so a
+single root at a single basis size does not locate the frequency on its
+own. The in-plane rows are
+therefore checked against a mesh-converged plane-stress finite-element
+model instead (FE columns of Table~\ref{tab:cantilever-ip};
+Supplementary Material, §S.3.8). The published values of \cite{seok2}
+agree with FE to within $0.82\%$ on all nine rows, and the production
+values to within $2.15\%$. The three rows more than $0.7\%$ below FE
+($2\Theta/\pi=0.25$, modes 1 and 2; $2\Theta/\pi=0.5$, mode 2) are
+lower members of a split pair. For $2\Theta/\pi=0.25$, modes 1 and 2, both
+members were located at several basis sizes. The FE frequency lies between
+them at every size, and the pair closes on it as the basis grows: for
+mode~2 the separation falls from $3.2\%$ at $n=20$ to $0.6\%$ at $n=40$,
+and the midpoint is then $0.07\%$ from FE (Supplementary Table~S.11).
 
 \begin{table}[!htbp]
 \centering
-\begin{minipage}[t]{0.49\textwidth}
+\begin{minipage}[t]{0.43\textwidth}
 \centering\scriptsize
 \setlength{\tabcolsep}{2.6pt}
 \captionsetup{width=\linewidth,justification=raggedright,singlelinecheck=false}
@@ -917,23 +938,23 @@ in-plane rows ($2\Theta/\pi=0.25$, modes 2 and 3).
 
 \end{tabular}
 \end{minipage}\hfill
-\begin{minipage}[t]{0.49\textwidth}
+\begin{minipage}[t]{0.555\textwidth}
 \centering\scriptsize
-\setlength{\tabcolsep}{2.6pt}
+\setlength{\tabcolsep}{2.2pt}
 \captionsetup{width=\linewidth,justification=raggedright,singlelinecheck=false}
-\caption{Cantilever replication, IP vs.\ \cite{seok2}, production basis (converged values: Supplementary Table~S.9).}
+\caption{Cantilever replication, IP vs.\ \cite{seok2} and FE, $r_0/(2b)=1.25$, production basis. Err: $|$Computed$-$Paper$|$/Paper. FE: mesh-converged plane-stress finite elements (Supplementary §S.3.8, Table~S.10); $\Delta_{\mathrm C}$, $\Delta_{\mathrm P}$: signed deviation of Computed and Paper from FE (\%).}
 \label{tab:cantilever-ip}
-\begin{tabular}{cccccc}
-\toprule $r_0/(2b)$ & $2\Theta/\pi$ & Mode & Computed & Paper & Err (\%)\\ \midrule
-1.25 & 0.25 & 1 & 0.341243 & 0.345890 & 1.343\\
-1.25 & 0.25 & 2 & 0.808929 & 0.819210 & 1.255\\
-1.25 & 0.25 & 3 & 0.940032 & 0.940120 & 0.009\\
-1.25 & 0.50 & 1 & 0.120677 & 0.120880 & 0.168\\
-1.25 & 0.50 & 2 & 0.347033 & 0.351910 & 1.386\\
-1.25 & 0.50 & 3 & 0.529239 & 0.529300 & 0.012\\
-1.25 & 1.00 & 1 & 0.039466 & 0.039480 & 0.035\\
-1.25 & 1.00 & 2 & 0.106529 & 0.105560 & 0.918\\
-1.25 & 1.00 & 3 & 0.263049 & 0.261290 & 0.673\\ \bottomrule
+\begin{tabular}{cccccccc}
+\toprule $2\Theta/\pi$ & Mode & Computed & Paper & Err (\%) & FE & $\Delta_{\mathrm C}$ & $\Delta_{\mathrm P}$\\ \midrule
+0.25 & 1 & 0.341243 & 0.345890 & 1.343 & 0.348738 & $-2.15$ & $-0.82$\\
+0.25 & 2 & 0.808929 & 0.819210 & 1.255 & 0.823991 & $-1.83$ & $-0.58$\\
+0.25 & 3 & 0.940032 & 0.940120 & 0.009 & 0.940599 & $-0.06$ & $-0.05$\\
+0.50 & 1 & 0.120677 & 0.120880 & 0.168 & 0.121449 & $-0.64$ & $-0.47$\\
+0.50 & 2 & 0.347033 & 0.351910 & 1.386 & 0.353053 & $-1.71$ & $-0.32$\\
+0.50 & 3 & 0.529239 & 0.529300 & 0.012 & 0.529881 & $-0.12$ & $-0.11$\\
+1.00 & 1 & 0.039466 & 0.039480 & 0.035 & 0.039555 & $-0.23$ & $-0.19$\\
+1.00 & 2 & 0.106529 & 0.105560 & 0.918 & 0.105825 & $+0.67$ & $-0.25$\\
+1.00 & 3 & 0.263049 & 0.261290 & 0.673 & 0.261755 & $+0.49$ & $-0.18$\\ \bottomrule
 
 \end{tabular}
 \end{minipage}
@@ -2043,7 +2064,9 @@ out-of-plane and in-plane motion, as an arbitrary-precision package
 (Data and code availability).
 
 Six results follow. (i)~A from-scratch reimplementation reproduces all
-29 tabulated cantilever frequencies (\S6.1). (ii)~The free-free boundary
+29 tabulated cantilever frequencies (\S6.1); a finite-element check of
+the nine in-plane rows attributes the solver's in-plane deviations to a
+finite-basis splitting of the papers' double root. (ii)~The free-free boundary
 determinant, with the edge-orientation bookkeeping a naive transplant of
 the cantilever corner terms gets wrong, decouples into even and odd
 parity blocks (\S3.3); corner-term magnitude and alternation are derived

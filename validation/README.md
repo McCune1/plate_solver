@@ -32,6 +32,8 @@ manuscript directory; Supplementary Material is
 | `ff_adjudicate_r200_a50_nu030_2422898.json` / `.out` | Table S.6 | 10/10 OOP REAL-like FE-matched; 43/47 IP FE-matched |
 | `probe_ff_oop_spurious_table.py` / `submit_ff_oop_spurious_table.sh` | `tab:oop-spurious-sm` (Table S.8) | regenerates the raw Ω / residual values for the 8 physical + 5 in-window spurious out-of-plane points |
 | `ff_oop_spurious_table_2325529.out` | `tab:oop-spurious-sm` | archived run output for the above (13/13 confirmed, 0 mismatches). Table S.8's sixth row (Ω=2.817613) is `ff_oop_artifact_2p8176_2414022.out` below |
+| `probe_p1_cant_ip_q9fe_2026-09-24.py` | §6.1 Table 4 FE columns, SM Table S.10 | independent nine-node plane-stress FE of the in-plane cantilever rows (exact polar map, Richardson 16/32/64); `--validate` reruns the clamped-clamped PLANE183 check. Needs numpy + scipy. |
+| `p1_cant_ip_2026-09-24/` | SM §S.3.8, Table S.11 | complete-inventory (argument-principle-checked) det sign scans locating both members of the split in-plane double root; see its README |
 | `geomsweep/` | §6.4, Table S.3, §S.3.3 | reproduction scripts + evidence for the 48-geometry generalization sweep and its cut-off-adjacent residual screen — see `geomsweep/README.md` |
 | `paper4_piezo/` | `paper/PAPER4_PIEZO_*` | layered piezo ring: probes, submit scripts, legacy cluster `.out`, and the 2026-09-23 consistent-projection rerun that backs every analytic number (see its README) |
 | `paper5_monolithic/` | `paper/PAPER5_MONOLITHIC_PIEZO_*` | monolithic piezo ring: probes, submit scripts, legacy cluster `.out`, and the 2026-09-23 consistent-projection rerun (see its README) |
