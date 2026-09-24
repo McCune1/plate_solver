@@ -490,6 +490,40 @@ non-reciprocal charge row was found. Doubling the piezo through-thickness
 divisions on the same electrical pair leaves the three finite-element
 splits unchanged at the printed precision.
 
+\paragraph{Three-dimensional check at $n\ge1$.} The finite-element
+models above are axisymmetric, so they see $n=0$ only. A
+three-dimensional coupled-field model (SOLID226 half ring,
+$0\le\theta\le\pi$ with a symmetric cut, so every $\cos n\theta$ order
+appears in one solve; same materials, units, and electrical conditions)
+was run at $h_1/2h=1/12$ and $1/5$ on two meshes
+(Supplementary~\S S.9). Its $n=0$ roots reproduce the axisymmetric
+ones: coupling-off $118.8105$ against $118.8102\,\mathrm{Hz}$, and
+open-/short-circuit splits of $0.2796\%$ and $0.6002\%$ against
+$0.2795\%$ and $0.6002\%$. At $n=1$--$4$ it gives three results. Open
+circuit coincides with short circuit to $10^{-10}$ relative, with a bus
+voltage below $10^{-9}$ of its $n=0$ value, as the no-net-charge
+argument of \S\ref{sec:oc} requires. The short-circuit stiffening from
+the interior potential, $1.4\times10^{-6}$ to $7.3\times10^{-5}$
+relative and non-monotone in $n$, is reproduced to within $1.2\%$ of
+the $6\times6$ value at every $n=0$--$4$ and both ratios; that is the
+coupled $n\ge1$ content of the model, and nothing else checks it. The
+elastic roots themselves sit $0.53\%$ to $1.19\%$ below the thin-plate
+values at $n=1$--$4$, against $0.20\%$ and $0.26\%$ at $n=0$: one-signed,
+mesh-converged to $0.03\%$, largest at $n=1$, and larger for the
+thicker layer at every $n$ -- the same pattern as the free--free
+shell-element comparison of \cite{mccune2026ring}. It is a thickness
+effect, not an error in the $n\ge1$ operator: on a bare steel annulus of
+the same planform at $20$, $10$ and $5\,\mathrm{mm}$, with the mesh
+error removed by Richardson extrapolation over three uniformly refined
+meshes, the $n=1$--$4$ offset falls from $0.49$--$0.92\%$ to
+$0.11$--$0.16\%$, and its extrapolation to zero thickness is within
+$0.015\%$ of zero at every $n=0$--$4$ (Supplementary~\S S.9). The $n=0$
+offset is purely quadratic in thickness; at $n\ge1$ a first-order term
+of comparable or larger size appears, as expected of the free-edge
+boundary layer that a Kirchhoff effective-shear edge omits. The superseded $Q_r$ free-edge row put $n=1$ at
+$h_1/2h=1/12$ at $1573.49\,\mathrm{rad\,s^{-1}}$; the three-dimensional
+root is $10.5\%$ above it, and $1.0\%$ below the effective-shear value.
+
 \subsection{Clamped--free and free--clamped open-circuit}
 \label{sec:cf}
 The elastic mixed-edge $4\times4$ is Paper~3's construction
@@ -791,7 +825,8 @@ is exactly the short-circuit interior stiffening -- under the consistent
 projection the two stiffenings simply add, because the uniform bus field
 and the interior field are orthogonal in the enthalpy -- so the
 leading-order model already used throughout is adequate here. Circumferential orders $n\neq0$ carry no net charge on a
-continuous electrode and do not split. Clamped--clamped open-circuit
+continuous electrode and do not split; three-dimensional finite elements
+confirm this at $n=1$--$4$ to $10^{-10}$. Clamped--clamped open-circuit
 does not split at this order. Clamped--free $n=0$ open-circuit does,
 at nearly the free--free split; free--clamped $n=0$ open-circuit
 splits far less, because only the inner hole is free. In-plane piezoelectric coupling, a
@@ -821,7 +856,10 @@ three ratios reproduce that split against both-faces short-circuit to
 within $0.2\%$ of its value, once the bus charge is taken as the
 variable conjugate to the bus voltage. Clamped--free open-circuit on the
 same mesh reproduces its closed-form $+0.262\%$ split to within
-$1.1\%$. Host $E$ is recoverable from one short-circuit
+$1.1\%$. Three-dimensional coupled-field elements extend the check
+to $n=1$--$4$: open circuit equals short circuit there, and the
+short-circuit interior-potential stiffening is reproduced to within
+$1.2\%$. Host $E$ is recoverable from one short-circuit
 clamped--clamped frequency at $0.025\%$ for $0.01\%$ frequency
 precision, and from free--free elastic or open-circuit flexure at the
 same $0.025\%$; $e_{31}$ from the clamped--clamped short-circuit

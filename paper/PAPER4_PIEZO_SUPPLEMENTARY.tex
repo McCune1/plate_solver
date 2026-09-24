@@ -7,6 +7,7 @@
 %   S.6  cluster job provenance
 %   S.7  mixed-edge C-F / F-C closed form
 %   S.8  frequency-precision sweep and lab noise floor
+%   S.9  three-dimensional n >= 1 finite-element check
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -308,6 +309,22 @@ elastic default.
       inner $U_X=U_Y=0$ only. scboth $67.071\,\mathrm{Hz}$, OC
       $67.245\,\mathrm{Hz}$, $+0.259\%$ ($98.9\%$ of the consistent
       closed-form $+0.262\%$; $92\%$ of the Gauss-law $+0.282\%$). Both \texttt{RUN COMPLETED}, 0 MAPDL errors.
+\item 2530336 --- first submission of the three-dimensional $n\ge1$
+      queue (\S\ref{sec:s9}); no deck ran (the cluster had retired the
+      ANSYS 2024~R2 module that every earlier finite-element job used).
+\item 2530423 --- three-dimensional $n\ge1$ queue, ten SOLID226 decks,
+      ANSYS 2025~R1, all \texttt{RUN COMPLETED}, 0 MAPDL errors, 0
+      warnings (\S\ref{sec:s9}).
+\item 2530553 --- thin-limit first pass, five bare-steel SOLID186 decks
+      ($t=20$, $10$, $5\,\mathrm{mm}$), ANSYS 2025~R1, all
+      \texttt{RUN COMPLETED}, 0 errors, 0 warnings (\S\ref{sec:s9}).
+\item 2530671 --- thin-limit second pass, first submission; the
+      $96\times288\times8$ decks exceeded the $64\,\mathrm{GB}$ memory
+      request (in-core Block Lanczos, $67.8\,\mathrm{GB}$) and were killed;
+      the added $t=10\,\mathrm{mm}$ coarse deck completed.
+\item 2530784 --- thin-limit second pass, $96\times288\times8$ at $t=20$,
+      $10$, $5\,\mathrm{mm}$, $100\,\mathrm{GB}$; all \texttt{RUN
+      COMPLETED}, 0 errors (\S\ref{sec:s9}).
 \item 2495751 --- lever 16 frequency-precision sweep, SENTINEL
       PASS\_ALL, bit-identical to the in-sandbox run (F--F/C--F
       $e_{31}$ uncertainty curve plus the Boeringa--McCune lab
@@ -408,6 +425,124 @@ wall, empty \texttt{.err}): SENTINEL PASS\_ALL, every reported
 number bit-identical to the in-sandbox run (only per-call wall-clock
 timings differ). No package code was touched and
 \texttt{SOLVER\_VERSION} remains \texttt{2026-07-10.s10}.
+
+\section{Three-dimensional $n\ge1$ finite-element check}
+\label{sec:s9}
+SOLID226 (KEYOPT(1)=1001) for host and skins, three glued volumes, host
+with zero piezoelectric constants and relative permittivity~1, skins
+PZT-4 poled $+z$; millimetre--newton--second--tonne, relative
+permittivity. Half ring $0\le\theta\le\pi$, $U_Y=0$ on $y=0$: the
+$\cos n\theta$ family at every $n$, three rigid modes left. Electrical
+cases as in \S\ref{sec:s3}: coupling-off ($e_{ij}=0$), both-faces
+short-circuit, and open-circuit (interfaces grounded, one coupled VOLT
+set on both outer faces). Meshes $24\times72\times(2+1+1)$ and
+$40\times144\times(4+2+2)$ (radial, circumferential, host and each
+skin). Circumferential order is read from a discrete cosine transform of
+$U_Z$ at $13$ angles on five radii; every scored mode has purity
+$1.0000$. Coarse-to-fine changes are at most $0.025\%$ in frequency and
+$0.2\%$ in the short-circuit shift. ANSYS 2025~R1; every other
+finite-element job in \S\ref{sec:jobs} used 2024~R2, and the $n=0$
+coupling-off root agrees with the axisymmetric one to $0.0003\%$.
+Every quantity below is a ratio of raw MAPDL frequencies. Criteria were
+fixed before the run.
+
+\begin{table}[ht]
+\centering
+\caption{Three-dimensional finite elements (fine mesh) against the
+closed form, first radial root. Shift: short-circuit over coupling-off
+minus one (finite elements) and short-circuit $6\times6$ over elastic
+$4\times4$ minus one (closed form). Offset: coupling-off over the
+elastic bilayer minus one. Open-circuit minus short-circuit is below
+$1.4\times10^{-10}$ relative at every $n\ge1$.}
+\label{tab:s9}
+\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+$h_1/2h$, $n$ & FE shift & closed-form shift & FE/closed $-1$ & FE coupling-off (Hz) & offset \\
+\midrule
+$1/12$, 0 & $7.245\times10^{-6}$ & $7.200\times10^{-6}$ & $+0.6\%$ & 118.8105 & $-0.198\%$ \\
+$1/12$, 1 & $6.874\times10^{-6}$ & $6.796\times10^{-6}$ & $+1.1\%$ & 276.6199 & $-1.022\%$ \\
+$1/12$, 2 & $1.454\times10^{-6}$ & $1.448\times10^{-6}$ & $+0.4\%$ & 72.3441 & $-0.533\%$ \\
+$1/12$, 3 & $1.918\times10^{-6}$ & $1.929\times10^{-6}$ & $-0.6\%$ & 172.2871 & $-0.647\%$ \\
+$1/12$, 4 & $2.414\times10^{-6}$ & $2.406\times10^{-6}$ & $+0.3\%$ & 301.9394 & $-0.935\%$ \\
+$1/5$, 0 & $7.352\times10^{-5}$ & $7.304\times10^{-5}$ & $+0.7\%$ & 127.0378 & $-0.262\%$ \\
+$1/5$, 1 & $6.965\times10^{-5}$ & $6.879\times10^{-5}$ & $+1.2\%$ & 295.4942 & $-1.192\%$ \\
+$1/5$, 2 & $1.479\times10^{-5}$ & $1.472\times10^{-5}$ & $+0.5\%$ & 77.4742 & $-0.604\%$ \\
+$1/5$, 3 & $1.948\times10^{-5}$ & $1.960\times10^{-5}$ & $-0.6\%$ & 184.4153 & $-0.753\%$ \\
+$1/5$, 4 & $2.452\times10^{-5}$ & $2.444\times10^{-5}$ & $+0.4\%$ & 322.9683 & $-1.097\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Against the pre-registered criteria: the axisymmetric control, mesh
+convergence, the open-circuit/short-circuit coincidence at $n\ge1$, and
+the shift ($\pm10\%$, all ten within $\pm1.2\%$) pass. The elastic
+offset criterion, $|\text{offset}|\le1\%$ at $n=1$--$4$, fails at three
+of eight points ($1/12$ $n=1$; $1/5$ $n=1$ and $4$). It was set on the
+assumption that the offset would grow from its $n=0$ value with
+frequency alone; the $n\ge1$ points instead carry an extra $-0.2\%$ to
+$-0.46\%$ beyond a plane-wave transverse-shear and rotary-inertia
+estimate, which accounts for the $n=0$ offset. The retired $Q_r$
+free-edge row is $10.5\%$ off the finite elements at $1/12$, $n=1$.
+
+\paragraph{Thin-limit follow-up.} To separate thickness physics from an
+$n$-dependent error in the thin-plate operator, the same half ring was
+run as bare steel ($E=200\,\mathrm{GPa}$, $\nu=0.3$, no skins) at full
+thickness $t=20$, $10$ and $5\,\mathrm{mm}$ (SOLID186, full
+integration). Kirchhoff roots scale exactly with $t$, so any offset that
+survives $t\to0$ is an operator error. Each thickness was run on three
+uniformly refined meshes, $24\times72\times2$, $48\times144\times4$, and
+$96\times288\times8$ (the last $2.93\times10^{6}$ equations), and each
+root was Richardson-extrapolated with its observed order $p$.
+Table~\ref{tab:s9thin} gives the mesh-extrapolated
+$\delta_n(t)=f_{\mathrm{FE}}/f_{\mathrm{K}}-1$ and the intercept $c$ of
+the quadratic $\delta=c+at+bt^2$ through the three thicknesses.
+
+\begin{table}[ht]
+\centering
+\caption{Bare steel annulus, first radial root, Richardson-extrapolated
+mesh limit. $c_\infty$: quadratic extrapolation to $t=0$; $c_x$: the same
+from the finest mesh without Richardson; $at$, $bt^2$ at
+$t=20\,\mathrm{mm}$; $p$: observed convergence order at
+$t=5\,\mathrm{mm}$.}
+\label{tab:s9thin}
+\small
+\begin{tabular}{@{}rrrrrrrrr@{}}
+\toprule
+$n$ & $t=20$ & $t=10$ & $t=5$ & $c_\infty$ & $c_x$ & $at$ & $bt^2$ & $p$ \\
+\midrule
+0 & $-0.158\%$ & $-0.040\%$ & $-0.010\%$ & $-0.000\%$ & $+0.000\%$ & $-0.000\%$ & $-0.158\%$ & 3.3 \\
+1 & $-0.918\%$ & $-0.361\%$ & $-0.161\%$ & $-0.014\%$ & $+0.013\%$ & $-0.481\%$ & $-0.422\%$ & 1.5 \\
+2 & $-0.490\%$ & $-0.223\%$ & $-0.111\%$ & $-0.013\%$ & $+0.009\%$ & $-0.363\%$ & $-0.114\%$ & 1.5 \\
+3 & $-0.583\%$ & $-0.236\%$ & $-0.106\%$ & $-0.005\%$ & $+0.009\%$ & $-0.346\%$ & $-0.231\%$ & 1.9 \\
+4 & $-0.836\%$ & $-0.320\%$ & $-0.137\%$ & $-0.004\%$ & $+0.012\%$ & $-0.434\%$ & $-0.398\%$ & 2.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Criteria were fixed before each run. A first pass on the two coarser
+meshes was formally unresolved: its coarse-to-fine change at
+$t=5\,\mathrm{mm}$ exceeded the $0.05\%$ bar at three orders, so its
+intercept (then $+0.004\%$ to $+0.055\%$) was not scored. The second
+pass added the finest mesh and required monotone ratio-2 convergence
+with $1\le p\le8$ at every thickness and order (met at all fifteen
+points), took the intercept from the Richardson limits in that case, and
+required $|c|\le0.03\%$ at $n=0$--$4$: all five pass, with
+$|c_\infty|\le0.014\%$. A separate criterion, fine-to-finest change at most
+$0.02\%$, fails at two points ($t=5$, $n=1$ and $4$: $0.023\%$ and $0.024\%$) and does
+not enter the intercept by the pre-registered rule. Convergence is
+monotone from above, so the finest-mesh intercept $c_x$ and the
+Richardson intercept $c_\infty$ bracket the limit; both are within
+$0.015\%$ of zero at every order. An operator error of the size of the
+$n\ge1$ excess in the main text would have given $c$ of $-0.2\%$ to
+$-0.46\%$. The $n=0$ offset is quadratic in $t$ to three figures (ratios
+$3.99$ and $3.97$ per halving). At $n\ge1$ the fitted linear term is as
+large as or larger than the quadratic one, the signature of a free-edge
+boundary layer rather than interior shear alone. The finest $t=5$ deck
+printed one Block Lanczos ill-conditioning warning (test residual
+$3.3\times10^{-3}$ at the $-1\,\mathrm{Hz}$ shift); its roots continue
+the monotone sequence of the two coarser meshes, and no other deck
+printed a warning or an error.
 
 \begin{thebibliography}{99}\small
 \setlength{\itemsep}{0pt}
