@@ -127,7 +127,11 @@ while IFS= read -r line || [ -n "$line" ]; do
   # deck gets a .QUEUE_OK sentinel, and every later resubmit SKIPS it, so a
   # silently truncated result becomes permanent. Set IGNORE_DECK_ERRORS=1 to
   # override for a deck whose errors are known-benign.
-  n_err=$(grep -c "\*\*\* ERROR \*\*\*" "$outlog" 2>/dev/null || echo 0)
+  # grep -c prints 0 AND exits 1 when nothing matches, so the old
+  # `|| echo 0` produced "0\n0" and an "integer expression expected"
+  # warning (harmless, but noise). Fixed 2026-09-23.
+  n_err=$(grep -c "\*\*\* ERROR \*\*\*" "$outlog" 2>/dev/null)
+  n_err=${n_err:-0}
   deck_errors_ok=1
   if [ "$n_err" -gt 0 ] && [ "${IGNORE_DECK_ERRORS:-0}" != "1" ]; then
     deck_errors_ok=0
