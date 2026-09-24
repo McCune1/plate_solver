@@ -1,0 +1,3418 @@
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2025 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2025 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+
+ AFTER YOU HAVE READ, UNDERSTOOD, AND AGREED TO THE PREVIOUS NOTICES,
+ PRESS <CR> OR <ENTER> TO CONTINUE
+ 2025 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2025 R1 
+ AVxcelerate Sensors 2025 R1 
+ AVxcelerate Sensors Library for SCANeR 2025 R1  
+ AVxcelerate Sensors Library for CarMaker 2025 R1
+ TwinAI 2025 R1  
+ Electromagnetics Suite 2025 R1  
+ Electromagnetics RSM 2025 R1
+ Ansys Dynamic Reporting 2025 R1 
+ Core WB Files 2025 R1   
+ BladeModeler 2025 R1
+ CFD-Post only 2025 R1   
+ CFX (includes CFD-Post) 2025 R1 
+ Chemkin 2025 R1 
+ EnSight 2025 R1 
+ FENSAP-ICE 2025 R1  
+ Fluent (includes CFD-Post) 2025 R1  
+ Polyflow (includes CFD-Post) 2025 R1
+ Forte (includes EnSight) 2025 R1
+ ICEM CFD 2025 R1
+ Rocky 2025 R1   
+ TurboGrid 2025 R1   
+ Lumerical 2025 R1   
+ Lumerical Photonic Verilog-A 2025 R1
+ Speos HPC 2025 R1   
+ Speos RPC 2025 R1   
+ optiSLang 2025 R1   
+ Remote Solve Manager Standalone Services 2025 R1
+ Additive 2025 R1
+ Aqwa 2025 R1
+ Autodyn 2025 R1 
+ Customization Files for User Programmable Features 2025 R1  
+ LS-DYNA 2025 R1 
+ Mechanical Products 2025 R1 
+ Motion 2025 R1  
+ Sherlock 2025 R1
+ ACIS Geometry Interface 2025 R1 
+ Catia, Version 5 Geometry Interface 2025 R1 
+ Parasolid Geometry Interface 2025 R1
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = p4_liudisk2_sc_C_2026_09                                                                                                                                                                                                                                
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  SHARED MEMORY PARALLEL REQUESTED
+    SINGLE PROCESS WITH   8 THREADS REQUESTED
+    TOTAL OF     8 CORES REQUESTED
+  INPUT FILE NAME              = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p4_liudisk2_sc_C_2026-09-24.inp
+  OUTPUT FILE NAME             = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p4_liudisk2_sc_C_2026-09-24_out.txt
+
+ RELEASE= 2025 R1              BUILD= 25.1      UP20241202   VERSION=LINUX x64   
+ CURRENT JOBNAME=p4_liudisk2_sc_C_2026_09  04:16:24  SEP 24, 2026 CP=      0.295
+
+     1  ! ansys_p4_liudisk2_sc_C_2026-09-24.inp 
+     2  ! Paper 4 lever 11 -- Liu 2002 solid-disk SC FE (Gate 2 CPT targets).   
+     3  ! Built by build_liu_disk_sc_decks_v2_2026-09-24.py. Do not hand-edit; rebuild. 
+     4  ! MESH FIX after job 2530974: true RI=0 is a 3-sided wedge; ANSYS mapped
+     5  ! hex needs equal even divisions on all three triangle edges. Equalising
+     6  ! would break polar sample lattice. Restored parent annular LESIZE with 
+     7  ! RI_MESH=3.0 mm (Liu RI=0; hole = 0.50% of RO). Inner arcs=NDIV_TH,
+     8  ! radials=NDIV_R, 28 lines. v2: hole r=RI_MESH is FREE (v1 UX=0 there   
+     9  ! stiffened every n=1 mode: it blocks the centre tilt u_x=-z dw/dx).
+    10  ! S deck: UX=0 at ONE outer midplane node (theta=90) kills rigid x-shift.   
+    11  ! SOLID226 KEYOPT(1)=1001, theta=0..180, UY=0 on y=0 (cos(n theta)).
+    12  ! Both-faces SC. Outer BC: outer clamped: UX=UY=UZ=0 on r=RO cylindrical surface.   
+    13  ! Mesh moderate: 24 radial x 72 circ x (2 host + 1 + 1 skins) = 6912 elements.  
+    14  ! Approx DOF O(2e5). Units mm-N-s-tonne, real volts, RELATIVE permittivity. 
+    15  ! Liu Table 1: C55E=26 GPa (TB C44E), e31=+4.1 project sign, h1=2 mm.   
+    16  ! Prints raw Hz and raw UX/UY/UZ/VOLT at 65 sample nodes only.  
+    17  ! Score externally from raw Hz; never trust deck percentage columns.
+    18  ! ============================================================  
+    19  FINISH  
+    20  /CLEAR,NOSTART  
+    21  /TITLE, Paper 4 Liu solid-disk SC outer-C SOLID226 (2026-09-24) 
+    22      
+    23  RI     = 3.0            ! RI_MESH (Liu physical RI=0); tiny hole for mapped hex 
+    24  RO     = 600.0            ! Liu r0 = 0.6 m  
+    25  H      = 10.0            ! host HALF-thickness [mm] 
+    26  H1     = 2.0             ! each piezo skin [mm] (Liu h1=2 mm)   
+    27  TH1    = 0.0
+    28  TH2    = 180.0  
+    29  NDIV_R = 24 
+    30  NDIV_TH = 72
+    31  NDIV_ZH = 2 
+    32  NDIV_ZP = 1 
+    33  NMODES = 30 
+    34      
+    35  ! ---- steel host (same TB,ANEL numbers as PLANE223 epsrel / 3-D nge1) ---- 
+    36  E_STEEL   = 2.00E5  
+    37  NU_STEEL  = 0.3 
+    38  RHO_STEEL = 7.800E-9
+    39  DS11 = E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))   
+    40  DS12 = E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))   
+    41  GS   = E_STEEL/(2*(1+NU_STEEL)) 
+    42  X_INERT = 1.0   
+    43      
+    44  ! ---- PZT-4, Liu 2002 Table 1 (NOT Duan C44E=73 GPa) ----  
+    45  C11E = 1.320E5  
+    46  C12E = 7.100E4  
+    47  C13E = 7.300E4  
+    48  C33E = 1.150E5  
+    49  C44E = 2.600E4          ! Liu C55E = 26 GPa (yz/xz shear)   
+    50  C66E = (C11E-C12E)/2
+    51  E31  = 4.1E-3           ! +4.1 project convention (Liu print -4.1)  
+    52  E33  = 1.41E-2  
+    53  E15  = 1.05E-2  
+    54  EPS0   = 8.854E-12  
+    55  X11ABS = 7.124E-9   
+    56  X33ABS = 5.841E-9   
+    57  X11    = X11ABS/EPS0     ! MP,PERx RELATIVE (epsrel pitfall)
+    58  X33    = X33ABS/EPS0
+    59  RHO_PZT = 7.500E-9  
+    60      
+    61  /PREP7  
+    62  ET,1,SOLID226   
+    63  KEYOPT,1,1,1001 
+    64      
+    65  ! Material 1: steel. ANSYS order x, y, z, xy, yz, xz.   
+    66  TB,ANEL,1,1,,0  
+    67  TBDATA,1,DS11,DS12,DS12,0,0,0   
+    68  TBDATA,7,DS11,DS12,0,0,0
+    69  TBDATA,12,DS11,0,0,0
+    70  TBDATA,16,GS,0,0
+    71  TBDATA,19,GS,0  
+    72  TBDATA,21,GS
+    73  TB,PIEZ,1   
+    74  TBDATA,1,0,0,0,0,0,0
+    75  TBDATA,7,0,0,0,0,0,0
+    76  TBDATA,13,0,0,0,0,0,0   
+    77  MP,PERX,1,X_INERT   
+    78  MP,PERY,1,X_INERT   
+    79  MP,PERZ,1,X_INERT   
+    80  MP,DENS,1,RHO_STEEL 
+    81      
+    82  ! Material 2: PZT-4, poled +Z. TB,PIEZ stress-major 6x3 (not field-major).  
+    83  TB,ANEL,2,1,,0  
+    84  TBDATA,1,C11E,C12E,C13E,0,0,0   
+    85  TBDATA,7,C11E,C13E,0,0,0
+    86  TBDATA,12,C33E,0,0,0
+    87  TBDATA,16,C66E,0,0  
+    88  TBDATA,19,C44E,0
+    89  TBDATA,21,C44E  
+    90  TB,PIEZ,2   
+    91  TBDATA,1,0,0,E31,0,0,E31
+    92  TBDATA,7,0,0,E33,0,0,0  
+    93  TBDATA,13,0,E15,0,E15,0,0   
+    94  MP,PERX,2,X11   
+    95  MP,PERY,2,X11   
+    96  MP,PERZ,2,X33   
+    97  MP,DENS,2,RHO_PZT   
+    98      
+    99  ! ---- geometry: three stacked half-annuli (RI_MESH), glued ----
+   100  CSYS,0  
+   101  CYLIND,RI,RO,-H,H,TH1,TH2   
+   102  CYLIND,RI,RO,H,H+H1,TH1,TH2 
+   103  CYLIND,RI,RO,-H-H1,-H,TH1,TH2   
+   104  VGLUE,ALL   
+   105  *GET,NV,VOLU,0,COUNT
+   106  *IF,NV,NE,3,THEN
+   107    *MSG,FATAL
+   108  VGLUE did not leave exactly three volumes.  
+   109  *ENDIF  
+   110  *GET,NLT,LINE,0,COUNT   
+   111  *IF,NLT,NE,28,THEN  
+   112    *MSG,FATAL
+   113  Glued half-annulus model does not have 28 lines.
+   114  *ENDIF  
+   115  VSEL,S,LOC,Z,-0.200000,0.200000 
+   116  *GET,NV,VOLU,0,COUNT
+   117  *IF,NV,NE,1,THEN
+   118    *MSG,FATAL
+   119  host volume select did not return one volume.   
+   120  *ENDIF  
+   121  VATT,1,,1   
+   122  ALLSEL,ALL  
+   123  VSEL,S,LOC,Z,10.800000,11.200000
+   124  *GET,NV,VOLU,0,COUNT
+   125  *IF,NV,NE,1,THEN
+   126    *MSG,FATAL
+   127  top skin volume select did not return one volume.   
+   128  *ENDIF  
+   129  VATT,2,,1   
+   130  ALLSEL,ALL  
+   131  VSEL,S,LOC,Z,-11.200000,-10.800000  
+   132  *GET,NV,VOLU,0,COUNT
+   133  *IF,NV,NE,1,THEN
+   134    *MSG,FATAL
+   135  bottom skin volume select did not return one volume.
+   136  *ENDIF  
+   137  VATT,2,,1   
+   138  ALLSEL,ALL  
+   139      
+   140  ! ---- line divisions (CSYS,1: LOC X is r). Parent annular pairing. ----
+   141  ! Opposite edges of each 4-sided face: radials=NDIV_R, arcs=NDIV_TH.
+   142  CSYS,1  
+   143  ! radial lines z1   
+   144  LSEL,S,LOC,X,300.500000,302.500000  
+   145  LSEL,R,LOC,Z,-12.200000,-11.800000  
+   146  *GET,NL,LINE,0,COUNT
+   147  *IF,NL,NE,2,THEN
+   148    *MSG,FATAL
+   149  radial lines z1: line count was not 2.  
+   150  *ENDIF  
+   151  LESIZE,ALL,,,24 
+   152  ALLSEL,ALL  
+   153  ! inner arc z1  
+   154  LSEL,S,LOC,X,2.700000,3.300000  
+   155  LSEL,R,LOC,Z,-12.200000,-11.800000  
+   156  *GET,NL,LINE,0,COUNT
+   157  *IF,NL,NE,1,THEN
+   158    *MSG,FATAL
+   159  inner arc z1: line count was not 1. 
+   160  *ENDIF  
+   161  LESIZE,ALL,,,72 
+   162  ALLSEL,ALL  
+   163  ! outer arc z1  
+   164  LSEL,S,LOC,X,599.700000,600.300000  
+   165  LSEL,R,LOC,Z,-12.200000,-11.800000  
+   166  *GET,NL,LINE,0,COUNT
+   167  *IF,NL,NE,1,THEN
+   168    *MSG,FATAL
+   169  outer arc z1: line count was not 1. 
+   170  *ENDIF  
+   171  LESIZE,ALL,,,72 
+   172  ALLSEL,ALL  
+   173  ! radial lines z2   
+   174  LSEL,S,LOC,X,300.500000,302.500000  
+   175  LSEL,R,LOC,Z,-10.200000,-9.800000   
+   176  *GET,NL,LINE,0,COUNT
+   177  *IF,NL,NE,2,THEN
+   178    *MSG,FATAL
+   179  radial lines z2: line count was not 2.  
+   180  *ENDIF  
+   181  LESIZE,ALL,,,24 
+   182  ALLSEL,ALL  
+   183  ! inner arc z2  
+   184  LSEL,S,LOC,X,2.700000,3.300000  
+   185  LSEL,R,LOC,Z,-10.200000,-9.800000   
+   186  *GET,NL,LINE,0,COUNT
+   187  *IF,NL,NE,1,THEN
+   188    *MSG,FATAL
+   189  inner arc z2: line count was not 1. 
+   190  *ENDIF  
+   191  LESIZE,ALL,,,72 
+   192  ALLSEL,ALL  
+   193  ! outer arc z2  
+   194  LSEL,S,LOC,X,599.700000,600.300000  
+   195  LSEL,R,LOC,Z,-10.200000,-9.800000   
+   196  *GET,NL,LINE,0,COUNT
+   197  *IF,NL,NE,1,THEN
+   198    *MSG,FATAL
+   199  outer arc z2: line count was not 1. 
+   200  *ENDIF  
+   201  LESIZE,ALL,,,72 
+   202  ALLSEL,ALL  
+   203  ! radial lines z3   
+   204  LSEL,S,LOC,X,300.500000,302.500000  
+   205  LSEL,R,LOC,Z,9.800000,10.200000 
+   206  *GET,NL,LINE,0,COUNT
+   207  *IF,NL,NE,2,THEN
+   208    *MSG,FATAL
+   209  radial lines z3: line count was not 2.  
+   210  *ENDIF  
+   211  LESIZE,ALL,,,24 
+   212  ALLSEL,ALL  
+   213  ! inner arc z3  
+   214  LSEL,S,LOC,X,2.700000,3.300000  
+   215  LSEL,R,LOC,Z,9.800000,10.200000 
+   216  *GET,NL,LINE,0,COUNT
+   217  *IF,NL,NE,1,THEN
+   218    *MSG,FATAL
+   219  inner arc z3: line count was not 1. 
+   220  *ENDIF  
+   221  LESIZE,ALL,,,72 
+   222  ALLSEL,ALL  
+   223  ! outer arc z3  
+   224  LSEL,S,LOC,X,599.700000,600.300000  
+   225  LSEL,R,LOC,Z,9.800000,10.200000 
+   226  *GET,NL,LINE,0,COUNT
+   227  *IF,NL,NE,1,THEN
+   228    *MSG,FATAL
+   229  outer arc z3: line count was not 1. 
+   230  *ENDIF  
+   231  LESIZE,ALL,,,72 
+   232  ALLSEL,ALL  
+   233  ! radial lines z4   
+   234  LSEL,S,LOC,X,300.500000,302.500000  
+   235  LSEL,R,LOC,Z,11.800000,12.200000
+   236  *GET,NL,LINE,0,COUNT
+   237  *IF,NL,NE,2,THEN
+   238    *MSG,FATAL
+   239  radial lines z4: line count was not 2.  
+   240  *ENDIF  
+   241  LESIZE,ALL,,,24 
+   242  ALLSEL,ALL  
+   243  ! inner arc z4  
+   244  LSEL,S,LOC,X,2.700000,3.300000  
+   245  LSEL,R,LOC,Z,11.800000,12.200000
+   246  *GET,NL,LINE,0,COUNT
+   247  *IF,NL,NE,1,THEN
+   248    *MSG,FATAL
+   249  inner arc z4: line count was not 1. 
+   250  *ENDIF  
+   251  LESIZE,ALL,,,72 
+   252  ALLSEL,ALL  
+   253  ! outer arc z4  
+   254  LSEL,S,LOC,X,599.700000,600.300000  
+   255  LSEL,R,LOC,Z,11.800000,12.200000
+   256  *GET,NL,LINE,0,COUNT
+   257  *IF,NL,NE,1,THEN
+   258    *MSG,FATAL
+   259  outer arc z4: line count was not 1. 
+   260  *ENDIF  
+   261  LESIZE,ALL,,,72 
+   262  ALLSEL,ALL  
+   263  ! inner thickness lines, bottom skin
+   264  LSEL,S,LOC,X,2.700000,3.300000  
+   265  LSEL,R,LOC,Z,-11.200000,-10.800000  
+   266  *GET,NL,LINE,0,COUNT
+   267  *IF,NL,NE,2,THEN
+   268    *MSG,FATAL
+   269  inner thickness lines, bottom skin: line count was not 2.   
+   270  *ENDIF  
+   271  LESIZE,ALL,,,1  
+   272  ALLSEL,ALL  
+   273  ! outer thickness lines, bottom skin
+   274  LSEL,S,LOC,X,599.700000,600.300000  
+   275  LSEL,R,LOC,Z,-11.200000,-10.800000  
+   276  *GET,NL,LINE,0,COUNT
+   277  *IF,NL,NE,2,THEN
+   278    *MSG,FATAL
+   279  outer thickness lines, bottom skin: line count was not 2.   
+   280  *ENDIF  
+   281  LESIZE,ALL,,,1  
+   282  ALLSEL,ALL  
+   283  ! inner thickness lines, host   
+   284  LSEL,S,LOC,X,2.700000,3.300000  
+   285  LSEL,R,LOC,Z,-0.200000,0.200000 
+   286  *GET,NL,LINE,0,COUNT
+   287  *IF,NL,NE,2,THEN
+   288    *MSG,FATAL
+   289  inner thickness lines, host: line count was not 2.  
+   290  *ENDIF  
+   291  LESIZE,ALL,,,2  
+   292  ALLSEL,ALL  
+   293  ! outer thickness lines, host   
+   294  LSEL,S,LOC,X,599.700000,600.300000  
+   295  LSEL,R,LOC,Z,-0.200000,0.200000 
+   296  *GET,NL,LINE,0,COUNT
+   297  *IF,NL,NE,2,THEN
+   298    *MSG,FATAL
+   299  outer thickness lines, host: line count was not 2.  
+   300  *ENDIF  
+   301  LESIZE,ALL,,,2  
+   302  ALLSEL,ALL  
+   303  ! inner thickness lines, top skin   
+   304  LSEL,S,LOC,X,2.700000,3.300000  
+   305  LSEL,R,LOC,Z,10.800000,11.200000
+   306  *GET,NL,LINE,0,COUNT
+   307  *IF,NL,NE,2,THEN
+   308    *MSG,FATAL
+   309  inner thickness lines, top skin: line count was not 2.  
+   310  *ENDIF  
+   311  LESIZE,ALL,,,1  
+   312  ALLSEL,ALL  
+   313  ! outer thickness lines, top skin   
+   314  LSEL,S,LOC,X,599.700000,600.300000  
+   315  LSEL,R,LOC,Z,10.800000,11.200000
+   316  *GET,NL,LINE,0,COUNT
+   317  *IF,NL,NE,2,THEN
+   318    *MSG,FATAL
+   319  outer thickness lines, top skin: line count was not 2.  
+   320  *ENDIF  
+   321  LESIZE,ALL,,,1  
+   322  ALLSEL,ALL  
+   323  CSYS,0  
+   324  ALLSEL,ALL  
+   325  MSHAPE,0,3D 
+   326  MSHKEY,1
+   327  VMESH,ALL   
+   328  ALLSEL,ALL  
+   329  NUMMRG,NODES,1.0E-5 
+   330  *GET,NEL,ELEM,0,COUNT   
+   331  *IF,NEL,NE,6912,THEN
+   332    *MSG,FATAL
+   333  Mapped mesh element count does not equal the division product.  
+   334  *ENDIF  
+   335  ESEL,S,MAT,,2   
+   336  *GET,NELP,ELEM,0,COUNT  
+   337  *IF,NELP,NE,3456,THEN   
+   338    *MSG,FATAL
+   339  Piezo-skin element count is wrong.  
+   340  *ENDIF  
+   341  ALLSEL,ALL  
+   342  *GET,NNODE,NODE,0,COUNT 
+   343  FINISH  
+   344      
+   345  /SOLU   
+   346  ANTYPE,MODAL
+   347  MODOPT,LANB,NMODES,-1.0,,,ON
+   348  MXPAND,NMODES,,,NO  
+   349  CSYS,0  
+   350  ! symmetry plane y=0 (theta=0 and theta=180 faces): UY=0 only   
+   351  NSEL,S,LOC,Y,-0.001,0.001   
+   352  *GET,NSYM,NODE,0,COUNT  
+   353  *IF,NSYM,NE,690,THEN
+   354    *MSG,FATAL
+   355  Symmetry-plane node count is wrong. 
+   356  *ENDIF  
+   357  D,ALL,UY,0  
+   358  ALLSEL,ALL  
+   359  ! inner hole r=RI_MESH: FREE in v2 (mesh count asserted, NO constraint) 
+   360  CSYS,1  
+   361  NSEL,S,LOC,X,2.990000,3.010000  
+   362  CSYS,0  
+   363  *GET,NIN,NODE,0,COUNT   
+   364  *IF,NIN,NE,1017,THEN
+   365    *MSG,FATAL
+   366  Inner-hole node count is wrong. 
+   367  *ENDIF  
+   368  ALLSEL,ALL  
+   369  ! ---- outer mechanical BC ---- 
+   370  ! Outer clamped: all U = 0 on the outer cylindrical surface (r=RO). 
+   371  CSYS,1  
+   372  NSEL,S,LOC,X,599.990000,600.010000  
+   373  CSYS,0  
+   374  *GET,NCL,NODE,0,COUNT   
+   375  *IF,NCL,LT,10,THEN  
+   376    *MSG,FATAL
+   377  Outer clamp node select returned fewer than 10 nodes.   
+   378  *ENDIF  
+   379  D,ALL,UX,0  
+   380  D,ALL,UY,0  
+   381  D,ALL,UZ,0  
+   382  ALLSEL,ALL  
+   383  ! ---- electrical BC: both-faces SC (scboth / nge1 sc pattern) ---- 
+   384  ! VOLT=0 on host/piezo interfaces AND on both outer faces. No CP.   
+   385  NSEL,S,LOC,Z,9.990000,10.010000 
+   386  NSEL,A,LOC,Z,-10.010000,-9.990000   
+   387  *GET,NINT,NODE,0,COUNT  
+   388  *IF,NINT,NE,10754,THEN  
+   389    *MSG,FATAL
+   390  Interface electrode node count is wrong.
+   391  *ENDIF  
+   392  D,ALL,VOLT,0
+   393  ALLSEL,ALL  
+   394  NSEL,S,LOC,Z,11.990000,12.010000
+   395  NSEL,A,LOC,Z,-12.010000,-11.990000  
+   396  *GET,NOUT,NODE,0,COUNT  
+   397  *IF,NOUT,NE,10754,THEN  
+   398    *MSG,FATAL
+   399  Outer electrode node count is wrong.
+   400  *ENDIF  
+   401  D,ALL,VOLT,0
+   402  ALLSEL,ALL  
+   403  SOLVE   
+   404  FINISH  
+   405      
+   406  /POST1  
+   407  *DIM,FR1,ARRAY,NMODES   
+   408  *DIM,IDXARR,ARRAY,NMODES
+   409  *DO,I,1,NMODES  
+   410    *GET,FR1(I),MODE,I,FREQ   
+   411    IDXARR(I)=I   
+   412  *ENDDO  
+   413  *CFOPEN,ansys_p4_liudisk2_sc_C_modes,txt
+   414  *VWRITE 
+   415  ('tag liu_disk_sc_C')   
+   416  *VWRITE,NEL 
+   417  ('elements ', F12.0)
+   418  *VWRITE,NNODE   
+   419  ('nodes ', F12.0)   
+   420  *VWRITE,NSYM
+   421  ('symmetry_nodes ', F12.0)  
+   422  *VWRITE,NINT
+   423  ('interface_nodes ', F12.0) 
+   424  *VWRITE,NOUT
+   425  ('outer_nodes ', F12.0) 
+   426  *VWRITE 
+   427  ('mode f_Hz')   
+   428  *VWRITE,IDXARR(1),FR1(1)
+   429  (F4.0, 3X, E20.12)  
+   430  *CFCLOS 
+   431      
+   432  ! ---- sample nodes: located once, before any mode loop ----
+   433  NSAMP = 65  
+   434  *DIM,SX,ARRAY,NSAMP 
+   435  *DIM,SY,ARRAY,NSAMP 
+   436  *DIM,SZ,ARRAY,NSAMP 
+   437  *DIM,SR,ARRAY,NSAMP 
+   438  *DIM,ST,ARRAY,NSAMP 
+   439  *DIM,SKI,ARRAY,NSAMP
+   440  *DIM,NS,ARRAY,NSAMP 
+   441  SX(1) = 152.250000000   
+   442  SY(1) = 0.000000000 
+   443  SZ(1) = 12.000000000
+   444  SR(1) = 152.250000  
+   445  ST(1) = 0.000   
+   446  SKI(1) = 1  
+   447  SX(2) = 147.062207053   
+   448  SY(2) = 39.405199617
+   449  SZ(2) = 12.000000000
+   450  SR(2) = 152.250000  
+   451  ST(2) = 15.000  
+   452  SKI(2) = 2  
+   453  SX(3) = 131.852367726   
+   454  SY(3) = 76.125000000
+   455  SZ(3) = 12.000000000
+   456  SR(3) = 152.250000  
+   457  ST(3) = 30.000  
+   458  SKI(3) = 3  
+   459  SX(4) = 107.657007436   
+   460  SY(4) = 107.657007436   
+   461  SZ(4) = 12.000000000
+   462  SR(4) = 152.250000  
+   463  ST(4) = 45.000  
+   464  SKI(4) = 4  
+   465  SX(5) = 76.125000000
+   466  SY(5) = 131.852367726   
+   467  SZ(5) = 12.000000000
+   468  SR(5) = 152.250000  
+   469  ST(5) = 60.000  
+   470  SKI(5) = 5  
+   471  SX(6) = 39.405199617
+   472  SY(6) = 147.062207053   
+   473  SZ(6) = 12.000000000
+   474  SR(6) = 152.250000  
+   475  ST(6) = 75.000  
+   476  SKI(6) = 6  
+   477  SX(7) = 0.000000000 
+   478  SY(7) = 152.250000000   
+   479  SZ(7) = 12.000000000
+   480  SR(7) = 152.250000  
+   481  ST(7) = 90.000  
+   482  SKI(7) = 7  
+   483  SX(8) = -39.405199617   
+   484  SY(8) = 147.062207053   
+   485  SZ(8) = 12.000000000
+   486  SR(8) = 152.250000  
+   487  ST(8) = 105.000 
+   488  SKI(8) = 8  
+   489  SX(9) = -76.125000000   
+   490  SY(9) = 131.852367726   
+   491  SZ(9) = 12.000000000
+   492  SR(9) = 152.250000  
+   493  ST(9) = 120.000 
+   494  SKI(9) = 9  
+   495  SX(10) = -107.657007436 
+   496  SY(10) = 107.657007436  
+   497  SZ(10) = 12.000000000   
+   498  SR(10) = 152.250000 
+   499  ST(10) = 135.000
+   500  SKI(10) = 10
+   501  SX(11) = -131.852367726 
+   502  SY(11) = 76.125000000   
+   503  SZ(11) = 12.000000000   
+   504  SR(11) = 152.250000 
+   505  ST(11) = 150.000
+   506  SKI(11) = 11
+   507  SX(12) = -147.062207053 
+   508  SY(12) = 39.405199617   
+   509  SZ(12) = 12.000000000   
+   510  SR(12) = 152.250000 
+   511  ST(12) = 165.000
+   512  SKI(12) = 12
+   513  SX(13) = -152.250000000 
+   514  SY(13) = 0.000000000
+   515  SZ(13) = 12.000000000   
+   516  SR(13) = 152.250000 
+   517  ST(13) = 180.000
+   518  SKI(13) = 13
+   519  SX(14) = 301.500000000  
+   520  SY(14) = 0.000000000
+   521  SZ(14) = 12.000000000   
+   522  SR(14) = 301.500000 
+   523  ST(14) = 0.000  
+   524  SKI(14) = 14
+   525  SX(15) = 291.226636626  
+   526  SY(15) = 78.033942098   
+   527  SZ(15) = 12.000000000   
+   528  SR(15) = 301.500000 
+   529  ST(15) = 15.000 
+   530  SKI(15) = 15
+   531  SX(16) = 261.106659241  
+   532  SY(16) = 150.750000000  
+   533  SZ(16) = 12.000000000   
+   534  SR(16) = 301.500000 
+   535  ST(16) = 30.000 
+   536  SKI(16) = 16
+   537  SX(17) = 213.192694528  
+   538  SY(17) = 213.192694528  
+   539  SZ(17) = 12.000000000   
+   540  SR(17) = 301.500000 
+   541  ST(17) = 45.000 
+   542  SKI(17) = 17
+   543  SX(18) = 150.750000000  
+   544  SY(18) = 261.106659241  
+   545  SZ(18) = 12.000000000   
+   546  SR(18) = 301.500000 
+   547  ST(18) = 60.000 
+   548  SKI(18) = 18
+   549  SX(19) = 78.033942098   
+   550  SY(19) = 291.226636626  
+   551  SZ(19) = 12.000000000   
+   552  SR(19) = 301.500000 
+   553  ST(19) = 75.000 
+   554  SKI(19) = 19
+   555  SX(20) = 0.000000000
+   556  SY(20) = 301.500000000  
+   557  SZ(20) = 12.000000000   
+   558  SR(20) = 301.500000 
+   559  ST(20) = 90.000 
+   560  SKI(20) = 20
+   561  SX(21) = -78.033942098  
+   562  SY(21) = 291.226636626  
+   563  SZ(21) = 12.000000000   
+   564  SR(21) = 301.500000 
+   565  ST(21) = 105.000
+   566  SKI(21) = 21
+   567  SX(22) = -150.750000000 
+   568  SY(22) = 261.106659241  
+   569  SZ(22) = 12.000000000   
+   570  SR(22) = 301.500000 
+   571  ST(22) = 120.000
+   572  SKI(22) = 22
+   573  SX(23) = -213.192694528 
+   574  SY(23) = 213.192694528  
+   575  SZ(23) = 12.000000000   
+   576  SR(23) = 301.500000 
+   577  ST(23) = 135.000
+   578  SKI(23) = 23
+   579  SX(24) = -261.106659241 
+   580  SY(24) = 150.750000000  
+   581  SZ(24) = 12.000000000   
+   582  SR(24) = 301.500000 
+   583  ST(24) = 150.000
+   584  SKI(24) = 24
+   585  SX(25) = -291.226636626 
+   586  SY(25) = 78.033942098   
+   587  SZ(25) = 12.000000000   
+   588  SR(25) = 301.500000 
+   589  ST(25) = 165.000
+   590  SKI(25) = 25
+   591  SX(26) = -301.500000000 
+   592  SY(26) = 0.000000000
+   593  SZ(26) = 12.000000000   
+   594  SR(26) = 301.500000 
+   595  ST(26) = 180.000
+   596  SKI(26) = 26
+   597  SX(27) = 450.750000000  
+   598  SY(27) = 0.000000000
+   599  SZ(27) = 12.000000000   
+   600  SR(27) = 450.750000 
+   601  ST(27) = 0.000  
+   602  SKI(27) = 27
+   603  SX(28) = 435.391066200  
+   604  SY(28) = 116.662684580  
+   605  SZ(28) = 12.000000000   
+   606  SR(28) = 450.750000 
+   607  ST(28) = 15.000 
+   608  SKI(28) = 28
+   609  SX(29) = 390.360950756  
+   610  SY(29) = 225.375000000  
+   611  SZ(29) = 12.000000000   
+   612  SR(29) = 450.750000 
+   613  ST(29) = 30.000 
+   614  SKI(29) = 29
+   615  SX(30) = 318.728381620  
+   616  SY(30) = 318.728381620  
+   617  SZ(30) = 12.000000000   
+   618  SR(30) = 450.750000 
+   619  ST(30) = 45.000 
+   620  SKI(30) = 30
+   621  SX(31) = 225.375000000  
+   622  SY(31) = 390.360950756  
+   623  SZ(31) = 12.000000000   
+   624  SR(31) = 450.750000 
+   625  ST(31) = 60.000 
+   626  SKI(31) = 31
+   627  SX(32) = 116.662684580  
+   628  SY(32) = 435.391066200  
+   629  SZ(32) = 12.000000000   
+   630  SR(32) = 450.750000 
+   631  ST(32) = 75.000 
+   632  SKI(32) = 32
+   633  SX(33) = 0.000000000
+   634  SY(33) = 450.750000000  
+   635  SZ(33) = 12.000000000   
+   636  SR(33) = 450.750000 
+   637  ST(33) = 90.000 
+   638  SKI(33) = 33
+   639  SX(34) = -116.662684580 
+   640  SY(34) = 435.391066200  
+   641  SZ(34) = 12.000000000   
+   642  SR(34) = 450.750000 
+   643  ST(34) = 105.000
+   644  SKI(34) = 34
+   645  SX(35) = -225.375000000 
+   646  SY(35) = 390.360950756  
+   647  SZ(35) = 12.000000000   
+   648  SR(35) = 450.750000 
+   649  ST(35) = 120.000
+   650  SKI(35) = 35
+   651  SX(36) = -318.728381620 
+   652  SY(36) = 318.728381620  
+   653  SZ(36) = 12.000000000   
+   654  SR(36) = 450.750000 
+   655  ST(36) = 135.000
+   656  SKI(36) = 36
+   657  SX(37) = -390.360950756 
+   658  SY(37) = 225.375000000  
+   659  SZ(37) = 12.000000000   
+   660  SR(37) = 450.750000 
+   661  ST(37) = 150.000
+   662  SKI(37) = 37
+   663  SX(38) = -435.391066200 
+   664  SY(38) = 116.662684580  
+   665  SZ(38) = 12.000000000   
+   666  SR(38) = 450.750000 
+   667  ST(38) = 165.000
+   668  SKI(38) = 38
+   669  SX(39) = -450.750000000 
+   670  SY(39) = 0.000000000
+   671  SZ(39) = 12.000000000   
+   672  SR(39) = 450.750000 
+   673  ST(39) = 180.000
+   674  SKI(39) = 39
+   675  SX(40) = 600.000000000  
+   676  SY(40) = 0.000000000
+   677  SZ(40) = 12.000000000   
+   678  SR(40) = 600.000000 
+   679  ST(40) = 0.000  
+   680  SKI(40) = 40
+   681  SX(41) = 579.555495773  
+   682  SY(41) = 155.291427062  
+   683  SZ(41) = 12.000000000   
+   684  SR(41) = 600.000000 
+   685  ST(41) = 15.000 
+   686  SKI(41) = 41
+   687  SX(42) = 519.615242271  
+   688  SY(42) = 300.000000000  
+   689  SZ(42) = 12.000000000   
+   690  SR(42) = 600.000000 
+   691  ST(42) = 30.000 
+   692  SKI(42) = 42
+   693  SX(43) = 424.264068712  
+   694  SY(43) = 424.264068712  
+   695  SZ(43) = 12.000000000   
+   696  SR(43) = 600.000000 
+   697  ST(43) = 45.000 
+   698  SKI(43) = 43
+   699  SX(44) = 300.000000000  
+   700  SY(44) = 519.615242271  
+   701  SZ(44) = 12.000000000   
+   702  SR(44) = 600.000000 
+   703  ST(44) = 60.000 
+   704  SKI(44) = 44
+   705  SX(45) = 155.291427062  
+   706  SY(45) = 579.555495773  
+   707  SZ(45) = 12.000000000   
+   708  SR(45) = 600.000000 
+   709  ST(45) = 75.000 
+   710  SKI(45) = 45
+   711  SX(46) = 0.000000000
+   712  SY(46) = 600.000000000  
+   713  SZ(46) = 12.000000000   
+   714  SR(46) = 600.000000 
+   715  ST(46) = 90.000 
+   716  SKI(46) = 46
+   717  SX(47) = -155.291427062 
+   718  SY(47) = 579.555495773  
+   719  SZ(47) = 12.000000000   
+   720  SR(47) = 600.000000 
+   721  ST(47) = 105.000
+   722  SKI(47) = 47
+   723  SX(48) = -300.000000000 
+   724  SY(48) = 519.615242271  
+   725  SZ(48) = 12.000000000   
+   726  SR(48) = 600.000000 
+   727  ST(48) = 120.000
+   728  SKI(48) = 48
+   729  SX(49) = -424.264068712 
+   730  SY(49) = 424.264068712  
+   731  SZ(49) = 12.000000000   
+   732  SR(49) = 600.000000 
+   733  ST(49) = 135.000
+   734  SKI(49) = 49
+   735  SX(50) = -519.615242271 
+   736  SY(50) = 300.000000000  
+   737  SZ(50) = 12.000000000   
+   738  SR(50) = 600.000000 
+   739  ST(50) = 150.000
+   740  SKI(50) = 50
+   741  SX(51) = -579.555495773 
+   742  SY(51) = 155.291427062  
+   743  SZ(51) = 12.000000000   
+   744  SR(51) = 600.000000 
+   745  ST(51) = 165.000
+   746  SKI(51) = 51
+   747  SX(52) = -600.000000000 
+   748  SY(52) = 0.000000000
+   749  SZ(52) = 12.000000000   
+   750  SR(52) = 600.000000 
+   751  ST(52) = 180.000
+   752  SKI(52) = 52
+   753  SX(53) = 600.000000000  
+   754  SY(53) = 0.000000000
+   755  SZ(53) = -12.000000000  
+   756  SR(53) = 600.000000 
+   757  ST(53) = 0.000  
+   758  SKI(53) = 53
+   759  SX(54) = 579.555495773  
+   760  SY(54) = 155.291427062  
+   761  SZ(54) = -12.000000000  
+   762  SR(54) = 600.000000 
+   763  ST(54) = 15.000 
+   764  SKI(54) = 54
+   765  SX(55) = 519.615242271  
+   766  SY(55) = 300.000000000  
+   767  SZ(55) = -12.000000000  
+   768  SR(55) = 600.000000 
+   769  ST(55) = 30.000 
+   770  SKI(55) = 55
+   771  SX(56) = 424.264068712  
+   772  SY(56) = 424.264068712  
+   773  SZ(56) = -12.000000000  
+   774  SR(56) = 600.000000 
+   775  ST(56) = 45.000 
+   776  SKI(56) = 56
+   777  SX(57) = 300.000000000  
+   778  SY(57) = 519.615242271  
+   779  SZ(57) = -12.000000000  
+   780  SR(57) = 600.000000 
+   781  ST(57) = 60.000 
+   782  SKI(57) = 57
+   783  SX(58) = 155.291427062  
+   784  SY(58) = 579.555495773  
+   785  SZ(58) = -12.000000000  
+   786  SR(58) = 600.000000 
+   787  ST(58) = 75.000 
+   788  SKI(58) = 58
+   789  SX(59) = 0.000000000
+   790  SY(59) = 600.000000000  
+   791  SZ(59) = -12.000000000  
+   792  SR(59) = 600.000000 
+   793  ST(59) = 90.000 
+   794  SKI(59) = 59
+   795  SX(60) = -155.291427062 
+   796  SY(60) = 579.555495773  
+   797  SZ(60) = -12.000000000  
+   798  SR(60) = 600.000000 
+   799  ST(60) = 105.000
+   800  SKI(60) = 60
+   801  SX(61) = -300.000000000 
+   802  SY(61) = 519.615242271  
+   803  SZ(61) = -12.000000000  
+   804  SR(61) = 600.000000 
+   805  ST(61) = 120.000
+   806  SKI(61) = 61
+   807  SX(62) = -424.264068712 
+   808  SY(62) = 424.264068712  
+   809  SZ(62) = -12.000000000  
+   810  SR(62) = 600.000000 
+   811  ST(62) = 135.000
+   812  SKI(62) = 62
+   813  SX(63) = -519.615242271 
+   814  SY(63) = 300.000000000  
+   815  SZ(63) = -12.000000000  
+   816  SR(63) = 600.000000 
+   817  ST(63) = 150.000
+   818  SKI(63) = 63
+   819  SX(64) = -579.555495773 
+   820  SY(64) = 155.291427062  
+   821  SZ(64) = -12.000000000  
+   822  SR(64) = 600.000000 
+   823  ST(64) = 165.000
+   824  SKI(64) = 64
+   825  SX(65) = -600.000000000 
+   826  SY(65) = 0.000000000
+   827  SZ(65) = -12.000000000  
+   828  SR(65) = 600.000000 
+   829  ST(65) = 180.000
+   830  SKI(65) = 65
+   831  STOL = 0.01 
+   832  CSYS,0  
+   833  *DO,K,1,NSAMP   
+   834    X1 = SX(K)-STOL   
+   835    X2 = SX(K)+STOL   
+   836    Y1 = SY(K)-STOL   
+   837    Y2 = SY(K)+STOL   
+   838    Z1 = SZ(K)-STOL   
+   839    Z2 = SZ(K)+STOL   
+   840    NSEL,S,LOC,X,X1,X2
+   841    NSEL,R,LOC,Y,Y1,Y2
+   842    NSEL,R,LOC,Z,Z1,Z2
+   843    *GET,NC,NODE,0,COUNT  
+   844    *IF,NC,NE,1,THEN  
+   845      *MSG,FATAL  
+   846  Sample node select did not return exactly one node. 
+   847    *ENDIF
+   848    *GET,NN,NODE,0,NUM,MIN
+   849    NS(K) = NN
+   850  *ENDDO  
+   851  ALLSEL,ALL  
+   852  *CFOPEN,ansys_p4_liudisk2_sc_C_samplecoords,txt 
+   853  *VWRITE 
+   854  ('k r_mm theta_deg z_mm node')  
+   855  *VWRITE,SKI(1),SR(1),ST(1),SZ(1),NS(1)  
+   856  (F5.0, 3X, F10.3, 3X, F10.3, 3X, F10.4, 3X, F10.0)  
+   857  *CFCLOS 
+   858      
+   859  ! ---- raw nodal values, every mode x every sample, flat arrays ----
+   860  NTOT = NMODES*NSAMP 
+   861  *DIM,OMI,ARRAY,NTOT 
+   862  *DIM,OKI,ARRAY,NTOT 
+   863  *DIM,OUX,ARRAY,NTOT 
+   864  *DIM,OUY,ARRAY,NTOT 
+   865  *DIM,OUZ,ARRAY,NTOT 
+   866  *DIM,OVV,ARRAY,NTOT 
+   867  *DO,I,1,NMODES  
+   868    SET,1,I   
+   869    *DO,K,1,NSAMP 
+   870      J = (I-1)*NSAMP+K   
+   871      NN = NS(K)  
+   872      *GET,GVX,NODE,NN,U,X
+   873      *GET,GVY,NODE,NN,U,Y
+   874      *GET,GVZ,NODE,NN,U,Z
+   875      *GET,GVV,NODE,NN,VOLT   
+   876      OMI(J) = I  
+   877      OKI(J) = K  
+   878      OUX(J) = GVX
+   879      OUY(J) = GVY
+   880      OUZ(J) = GVZ
+   881      OVV(J) = GVV
+   882    *ENDDO
+   883  *ENDDO  
+   884  *CFOPEN,ansys_p4_liudisk2_sc_C_samples,txt  
+   885  *VWRITE 
+   886  ('mode k UX UY UZ VOLT')
+   887  *VWRITE,OMI(1),OKI(1),OUX(1),OUY(1),OUZ(1),OVV(1)   
+   888  (F4.0, 1X, F5.0, 1X, E16.8, 1X, E16.8, 1X, E16.8, 1X, E16.8)
+   889  *CFCLOS 
+   890  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans
+
+ /INPUT FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans  LINE=       0
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  Paper 4 Liu solid-disk SC outer-C SOLID226 (2026-09-24)                      
+
+
+ PARAMETER RI =     3.000000000    
+
+ PARAMETER RO =     600.0000000    
+
+ PARAMETER H =     10.00000000    
+
+ PARAMETER H1 =     2.000000000    
+
+ PARAMETER TH1 =     0.000000000    
+
+ PARAMETER TH2 =     180.0000000    
+
+ PARAMETER NDIV_R =     24.00000000    
+
+ PARAMETER NDIV_TH =     72.00000000    
+
+ PARAMETER NDIV_ZH =     2.000000000    
+
+ PARAMETER NDIV_ZP =     1.000000000    
+
+ PARAMETER NMODES =     30.00000000    
+
+ PARAMETER E_STEEL =     200000.0000    
+
+ PARAMETER NU_STEEL =    0.3000000000    
+
+ PARAMETER RHO_STEEL =    0.7800000000E-08
+
+ PARAMETER DS11 =     269230.7692    
+
+ PARAMETER DS12 =     115384.6154    
+
+ PARAMETER GS =     76923.07692    
+
+ PARAMETER X_INERT =     1.000000000    
+
+ PARAMETER C11E =     132000.0000    
+
+ PARAMETER C12E =     71000.00000    
+
+ PARAMETER C13E =     73000.00000    
+
+ PARAMETER C33E =     115000.0000    
+
+ PARAMETER C44E =     26000.00000    
+
+ PARAMETER C66E =     30500.00000    
+
+ PARAMETER E31 =    0.4100000000E-02
+
+ PARAMETER E33 =    0.1410000000E-01
+
+ PARAMETER E15 =    0.1050000000E-01
+
+ PARAMETER EPS0 =    0.8854000000E-11
+
+ PARAMETER X11ABS =    0.7124000000E-08
+
+ PARAMETER X33ABS =    0.5841000000E-08
+
+ PARAMETER X11 =     804.6080867    
+
+ PARAMETER X33 =     659.7018297    
+
+ PARAMETER RHO_PZT =    0.7500000000E-08
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     04:16:24  SEP 24, 2026 CP=      0.614
+
+  Paper 4 Liu solid-disk SC outer-C SOLID226 (2026-09-24)                      
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ *** NOTE ***                            CP =       0.614   TIME= 04:16:24
+ For element type = 1 ( SOLID226 ), KEYOPT 1 = 0 is invalid.  This NOTE  
+ is normal behavior when a CDB file is used.                             
+
+ ELEMENT TYPE          1 IS SOLID226     BRICK COUPLED-FIELD SOLID   
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ ELEMENT TYPE       1 IS SOLID226     3-D 20-NODE STRU-ELECT SOLID
+  KEYOPT( 1- 6)=     1001      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    UZ    VOLT
+  THREE-DIMENSIONAL MODEL
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     1
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.26923E+06 0.11538E+06 0.11538E+06  0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.26923E+06 0.11538E+06  0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.26923E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 16  76923.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 19  76923.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 21  76923.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     1
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  1  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  7  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC= 13  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ MATERIAL          1     PERX =   1.000000      
+
+ MATERIAL          1     PERY =   1.000000      
+
+ MATERIAL          1     PERZ =   1.000000      
+
+ MATERIAL          1     DENS =  0.7800000E-08  
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     2
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.13200E+06  71000.      73000.      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.13200E+06  73000.      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.11500E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 16  30500.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 19  26000.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 21  26000.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     2
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC=  1  0.0000      0.0000     0.41000E-02  0.0000      0.0000     0.41000E-02
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC=  7  0.0000      0.0000     0.14100E-01  0.0000      0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC= 13  0.0000     0.10500E-01  0.0000     0.10500E-01  0.0000      0.0000    
+
+ MATERIAL          2     PERX =   804.6081      
+
+ MATERIAL          2     PERY =   804.6081      
+
+ MATERIAL          2     PERZ =   659.7018      
+
+ MATERIAL          2     DENS =  0.7500000E-08  
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ CREATE A CYLINDRICAL VOLUME WITH
+ INNER RADIUS         =      3.000000000    
+ OUTER RADIUS         =      600.0000000    
+ STARTING THETA ANGLE =      0.000000000    
+ ENDING   THETA ANGLE =      180.0000000    
+ END Z-DISTANCES FROM       -10.00000000     TO      10.00000000    
+
+      OUTPUT VOLUME =     1
+
+ CREATE A CYLINDRICAL VOLUME WITH
+ INNER RADIUS         =      3.000000000    
+ OUTER RADIUS         =      600.0000000    
+ STARTING THETA ANGLE =      0.000000000    
+ ENDING   THETA ANGLE =      180.0000000    
+ END Z-DISTANCES FROM        10.00000000     TO      12.00000000    
+
+      OUTPUT VOLUME =     2
+
+ CREATE A CYLINDRICAL VOLUME WITH
+ INNER RADIUS         =      3.000000000    
+ OUTER RADIUS         =      600.0000000    
+ STARTING THETA ANGLE =      0.000000000    
+ ENDING   THETA ANGLE =      180.0000000    
+ END Z-DISTANCES FROM       -12.00000000     TO     -10.00000000    
+
+      OUTPUT VOLUME =     3
+
+ GLUE VOLUMES
+      INPUT VOLUMES =     1    2    3
+      INPUT VOLUMES WILL BE DELETED IF POSSIBLE
+
+ *** NOTE ***                            CP =       1.460   TIME= 04:16:25
+ After VGLU, shortest output line 37 is 1.061032954E-03 times the length 
+ of longest output line 28.  Extreme variations in line length can make  
+ meshing difficult.  If short lines are not needed to represent the      
+ geometry, use LCOMB to eliminate them.                                  
+                                                                         
+      OUTPUT VOLUMES =     1    4    5
+
+ *GET  NV        FROM  VOLU  ITEM=COUN       VALUE=  3.00000000    
+
+ *IF  NV  ( =   3.00000     )  NE  
+      3  ( =   3.00000     )  THEN    
+
+ *ENDIF
+
+ *GET  NLT       FROM  LINE  ITEM=COUN       VALUE=  28.0000000    
+
+ *IF  NLT  ( =   28.0000     )  NE  
+      28  ( =   28.0000     )  THEN    
+
+ *ENDIF
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Z     BETWEEN-0.20000     AND  0.20000    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        1  VOLUMES (OF        3  DEFINED) SELECTED BY  VSEL  COMMAND.
+
+ *GET  NV        FROM  VOLU  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NV  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET ATTRIBUTES FOR ALL SELECTED VOLUMES
+      MAT =    1   REAL =       0   TYPE =    1   ESYS =    0   SECT =    0
+
+ ATTRIBUTES SET FOR      1 VOLUMES (OUT OF      1 SELECTED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Z     BETWEEN  10.800     AND   11.200    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        1  VOLUMES (OF        3  DEFINED) SELECTED BY  VSEL  COMMAND.
+
+ *GET  NV        FROM  VOLU  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NV  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET ATTRIBUTES FOR ALL SELECTED VOLUMES
+      MAT =    2   REAL =       0   TYPE =    1   ESYS =    0   SECT =    0
+
+ ATTRIBUTES SET FOR      1 VOLUMES (OUT OF      1 SELECTED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Z     BETWEEN -11.200     AND  -10.800    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        1  VOLUMES (OF        3  DEFINED) SELECTED BY  VSEL  COMMAND.
+
+ *GET  NV        FROM  VOLU  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NV  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET ATTRIBUTES FOR ALL SELECTED VOLUMES
+      MAT =    2   REAL =       0   TYPE =    1   ESYS =    0   SECT =    0
+
+ ATTRIBUTES SET FOR      1 VOLUMES (OUT OF      1 SELECTED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          1  (CYLINDRICAL) Z- CYL. AXIS
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  300.50     AND   302.50    
+   KABS=  0.  TOLERANCE= 0.200000E-07
+
+        8  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN -12.200     AND  -11.800    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        2  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   24,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  2.7000     AND   3.3000    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN -12.200     AND  -11.800    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        1  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   72,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  599.70     AND   600.30    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN -12.200     AND  -11.800    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        1  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   72,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  300.50     AND   302.50    
+   KABS=  0.  TOLERANCE= 0.200000E-07
+
+        8  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN -10.200     AND  -9.8000    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        2  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   24,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  2.7000     AND   3.3000    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN -10.200     AND  -9.8000    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        1  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   72,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  599.70     AND   600.30    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN -10.200     AND  -9.8000    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        1  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   72,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  300.50     AND   302.50    
+   KABS=  0.  TOLERANCE= 0.200000E-07
+
+        8  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN  9.8000     AND   10.200    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        2  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   24,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  2.7000     AND   3.3000    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN  9.8000     AND   10.200    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        1  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   72,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  599.70     AND   600.30    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN  9.8000     AND   10.200    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        1  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   72,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  300.50     AND   302.50    
+   KABS=  0.  TOLERANCE= 0.200000E-07
+
+        8  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN  11.800     AND   12.200    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        2  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   24,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  2.7000     AND   3.3000    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN  11.800     AND   12.200    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        1  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   72,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  599.70     AND   600.30    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN  11.800     AND   12.200    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        1  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   72,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  2.7000     AND   3.3000    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN -11.200     AND  -10.800    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        2  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    1,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  599.70     AND   600.30    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN -11.200     AND  -10.800    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        2  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    1,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  2.7000     AND   3.3000    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN-0.20000     AND  0.20000    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        2  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  599.70     AND   600.30    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN-0.20000     AND  0.20000    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        2  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  2.7000     AND   3.3000    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN  10.800     AND   11.200    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        2  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    1,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  599.70     AND   600.30    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+       10  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN  10.800     AND   11.200    
+   KABS=  0.  TOLERANCE= 0.400000E-08
+
+        2  LINES (OF       28  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    1,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+ PRODUCE ALL HEXAHEDRAL ELEMENTS IN 3D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED VOLUMES  
+
+ NUMBER OF VOLUMES MESHED   =         3
+ MAXIMUM NODE NUMBER        =     34185
+ MAXIMUM ELEMENT NUMBER     =      6912
+
+ ------------------------------------------------------------------------------
+            <<<<<<          SHAPE TESTING SUMMARY           >>>>>>
+            <<<<<<       FOR NEW OR MODIFIED ELEMENTS       >>>>>>
+ ------------------------------------------------------------------------------
+                    --------------------------------------
+                    |  Element count      6912 SOLID226  |
+                    --------------------------------------
+
+  Test                Number tested  Warning count  Error count    Warn+Err %
+  ----                -------------  -------------  -----------    ----------
+  Aspect Ratio               6912            288             0         4.17 %
+  Parallel Deviation         6912              0             0         0.00 %
+  Maximum Angle              6912              0             0         0.00 %
+  Jacobian Ratio             6912              0             0         0.00 %
+  Warping Factor             6912              0             0         0.00 %
+
+  Any                        6912            288             0         4.17 %
+ ------------------------------------------------------------------------------
+
+ *** WARNING ***                         CP =       1.758   TIME= 04:16:25
+ Shape testing revealed that 288 of the 6912 new or modified elements    
+ violate shape warning limits.  To review test results, please see the   
+ output file or issue the CHECK command.                                 
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+  MERGE COINCIDENT NODES WITHIN TOLERANCE OF  0.10000E-04
+
+ *** NOTE ***                            CP =       1.824   TIME= 04:16:25
+ Zero nodes were merged.                                                 
+
+ *GET  NEL       FROM  ELEM  ITEM=COUN           VALUE=  6912.00000    
+
+ *IF  NEL  ( =   6912.00     )  NE  
+      6912  ( =   6912.00     )  THEN    
+
+ *ENDIF
+
+ SELECT       FOR ITEM=MAT  COMPONENT=    
+  IN RANGE         2 TO          2 STEP          1
+
+       3456  ELEMENTS (OF       6912  DEFINED) SELECTED BY  ESEL  COMMAND.
+
+ *GET  NELP      FROM  ELEM  ITEM=COUN           VALUE=  3456.00000    
+
+ *IF  NELP  ( =   3456.00     )  NE  
+      3456  ( =   3456.00     )  THEN    
+
+ *ENDIF
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *GET  NNODE     FROM  NODE  ITEM=COUN       VALUE=  34185.0000     
+
+
+ ***** ROUTINE COMPLETED *****  CP =         1.856
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A MODAL ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ USE SYM. BLOCK LANCZOS MODE EXTRACTION METHOD
+  EXTRACT    30 MODES
+  NORMALIZE THE MODE SHAPES TO UNITY
+
+
+ NUMBER OF MODES TO EXPAND=    30
+  DO NOT CALCULATE ELEMENT RESULTS
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN-0.10000E-02 AND  0.10000E-02
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        690  NODES (OF      34185  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NSYM      FROM  NODE  ITEM=COUN       VALUE=  690.000000     
+
+ *IF  NSYM  ( =   690.000     )  NE  
+      690  ( =   690.000     )  THEN    
+
+ *ENDIF
+
+ SPECIFIED CONSTRAINT UY   FOR SELECTED NODES            1 TO       34185 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          1  (CYLINDRICAL) Z- CYL. AXIS
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  2.9900     AND   3.0100    
+   KABS=  0.  TOLERANCE= 0.200000E-09
+
+       1017  NODES (OF      34185  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ *GET  NIN       FROM  NODE  ITEM=COUN       VALUE=  1017.00000     
+
+ *IF  NIN  ( =   1017.00     )  NE  
+      1017  ( =   1017.00     )  THEN    
+
+ *ENDIF
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          1  (CYLINDRICAL) Z- CYL. AXIS
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  599.99     AND   600.01    
+   KABS=  0.  TOLERANCE= 0.200000E-09
+
+       1017  NODES (OF      34185  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ *GET  NCL       FROM  NODE  ITEM=COUN       VALUE=  1017.00000     
+
+ *IF  NCL  ( =   1017.00     )  LT  
+      10  ( =   10.0000     )  THEN    
+
+ *ENDIF
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES            1 TO       34185 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SPECIFIED CONSTRAINT UY   FOR SELECTED NODES            1 TO       34185 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SPECIFIED CONSTRAINT UZ   FOR SELECTED NODES            1 TO       34185 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Z     BETWEEN  9.9900     AND   10.010    
+   KABS=  0.  TOLERANCE= 0.200000E-09
+
+       5377  NODES (OF      34185  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Z     BETWEEN -10.010     AND  -9.9900    
+   KABS=  0.  TOLERANCE= 0.200000E-09
+
+      10754  NODES (OF      34185  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NINT      FROM  NODE  ITEM=COUN       VALUE=  10754.0000     
+
+ *IF  NINT  ( =   10754.0     )  NE  
+      10754  ( =   10754.0     )  THEN    
+
+ *ENDIF
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO       34185 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Z     BETWEEN  11.990     AND   12.010    
+   KABS=  0.  TOLERANCE= 0.200000E-09
+
+       5377  NODES (OF      34185  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Z     BETWEEN -12.010     AND  -11.990    
+   KABS=  0.  TOLERANCE= 0.200000E-09
+
+      10754  NODES (OF      34185  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NOUT      FROM  NODE  ITEM=COUN       VALUE=  10754.0000     
+
+ *IF  NOUT  ( =   10754.0     )  NE  
+      10754  ( =   10754.0     )  THEN    
+
+ *ENDIF
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO       34185 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** WARNING ***                         CP =       2.572   TIME= 04:16:26
+ Previous testing revealed that 288 of the 6912 selected elements        
+ violate shape warning limits.  To review warning messages, please see   
+ the output or error file, or issue the CHECK command.                   
+
+ *** NOTE ***                            CP =       2.588   TIME= 04:16:26
+ The model data was checked and warning messages were found.             
+  Please review output or errors file (                                  
+ /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/p4_liudisk2 
+ 2_sc_C_2026_09.err ) for these warning messages.                        
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     04:16:26  SEP 24, 2026 CP=      2.604
+
+  Paper 4 Liu solid-disk SC outer-C SOLID226 (2026-09-24)                      
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .3-D                  
+   DEGREES OF FREEDOM. . . . . . UX   UY   UZ   VOLT
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .MODAL                
+      EXTRACTION METHOD. . . . . . . . . . . . . .BLOCK LANCZOS
+   NUMBER OF MODES TO EXTRACT. . . . . . . . . . .    30
+   SHIFT POINT . . . . . . . . . . . . . . . . . . -1.0000    
+   NORMALIZE MODES TO UNITY. . . . . . . . . . . .YES
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+   NUMBER OF MODES TO EXPAND . . . . . . . . . . .    30
+   ELEMENT RESULTS CALCULATION . . . . . . . . . .OFF
+
+ *** NOTE ***                            CP =       2.688   TIME= 04:16:26
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ SOLID226 will be piezoelectric.                                         
+
+ *** NOTE ***                            CP =       2.703   TIME= 04:16:26
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   THERMAL STRAINS INCLUDED IN THE LOAD VECTOR . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS. . . . . . . . . . . .ALL DATA WRITTEN
+
+
+
+                         ***********  PRECISE MASS SUMMARY  ***********
+
+   TOTAL RIGID BODY MASS MATRIX ABOUT ORIGIN
+               Translational mass               |   Coupled translational/rotational mass
+        0.10518        0.0000        0.0000     |     0.0000       0.58167E-16   -26.784    
+         0.0000       0.10518        0.0000     |   -0.56162E-16    0.0000      -0.31092E-13
+         0.0000        0.0000       0.10518     |     26.784       0.27535E-13    0.0000    
+     ------------------------------------------ | ------------------------------------------
+                                                |         Rotational mass (inertia)
+                                                |     9471.2       0.85423E-10   0.45172E-14
+                                                |    0.85295E-10    9471.2      -0.14534E-13
+                                                |    0.39968E-14  -0.15090E-13    18932.    
+
+   TOTAL MASS = 0.10518    
+     The mass principal axes coincide with the global Cartesian axes
+
+   CENTER OF MASS (X,Y,Z)=  -0.29562E-12    254.65       0.55304E-15
+
+   TOTAL INERTIA ABOUT CENTER OF MASS
+         2650.6       0.78411E-10   0.45172E-14
+        0.78411E-10    9471.2       0.27907E-15
+        0.45172E-14   0.27907E-15    12112.    
+     The inertia principal axes coincide with the global Cartesian axes
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.105178    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 134758843 at element 1693.                                    
+ Minimum = 1945576.8 at element 5059.                                    
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      6912  SOLID226      3.915   0.000566
+ Time at end of element matrix formulation CP = 8.83550739.              
+
+ *** NOTE ***                            CP =      11.258   TIME= 04:16:29
+ The initial memory allocation (-m) has been exceeded.                   
+  Supplemental memory allocations are being used.                        
+
+  BLOCK LANCZOS CALCULATION OF UP TO    30 EIGENVECTORS.
+  NUMBER OF EQUATIONS              =       111509
+  MAXIMUM WAVEFRONT                =          211
+  MAXIMUM MODES STORED             =           30
+  MINIMUM EIGENVALUE               = -0.10000E+01
+  MAXIMUM EIGENVALUE               =  0.10000E+31
+
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =   876.258 MB
+  Equation solver memory required for in-core mode     =   834.831 MB
+  Equation solver memory required for out-of-core mode =   186.939 MB
+  Total (solver and non-solver) memory allocated       =  2675.027 MB
+
+ *** NOTE ***                            CP =      17.117   TIME= 04:16:31
+ The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+ currently running in the in-core memory mode.  This memory mode uses    
+ the most amount of memory in order to avoid using the hard drive as     
+ much as possible, which most often results in the fastest solution      
+ time.  This mode is recommended if enough physical memory is present    
+ to accommodate all of the solver data.                                  
+
+  Process memory required for in-core LANCZOS Workspace             =     429.258743 MB
+  Process memory required for out-of-core LANCZOS Workspace         =     10.691635 MB
+  Lanczos Memory Mode : INCORE
+
+
+  >> Shift # 1 :  | | | | |                          : 30 Eigenvalues Converged
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     04:16:36  SEP 24, 2026 CP=     56.396
+
+  Paper 4 Liu solid-disk SC outer-C SOLID226 (2026-09-24)                      
+
+
+
+ *** FREQUENCIES FROM BLOCK LANCZOS ITERATION ***
+
+  MODE    FREQUENCY (HERTZ)      
+
+
+   FREQUENCY RANGE REQUESTED=   30 MODES ABOVE  -1.00000     HERTZ
+
+    1     143.5831399450    
+    2     297.8152921136    
+    3     486.6123153751    
+    4     554.4060005901    
+    5     708.8271289604    
+    6     843.3777888386    
+    7     962.8880001400    
+    8     1165.584175816    
+    9     1226.930394801    
+   10     1247.369834067    
+   11     1519.998953398    
+   12     1560.909760834    
+   13     1641.413867084    
+   14     1902.212830197    
+   15     1904.809888940    
+   16     2085.850325225    
+   17     2143.663059467    
+   18     2270.039112271    
+   19     2318.437242619    
+   20     2559.382795424    
+   21     2624.300935350    
+   22     2663.195710127    
+   23     2673.430403417    
+   24     2759.280370405    
+   25     3059.945139188    
+   26     3080.532461943    
+   27     3225.811131812    
+   28     3228.789098146    
+   29     3284.030869840    
+   30     3520.940001865    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     04:16:37  SEP 24, 2026 CP=     59.169
+
+  Paper 4 Liu solid-disk SC outer-C SOLID226 (2026-09-24)                      
+
+
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  X  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     143.583       0.69646E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     297.815       0.33578E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     486.612       0.20550E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     554.406       0.18037E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     708.827       0.14108E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     843.378       0.11857E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     7     962.888       0.10385E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     8     1165.58       0.85794E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     9     1226.93       0.81504E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    10     1247.37       0.80169E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    11     1520.00       0.65790E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    12     1560.91       0.64065E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    13     1641.41       0.60923E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    14     1902.21       0.52570E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    15     1904.81       0.52499E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    16     2085.85       0.47942E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    17     2143.66       0.46649E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    18     2270.04       0.44052E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    19     2318.44       0.43133E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    20     2559.38       0.39072E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    21     2624.30       0.38105E-03  -0.26214        1.000000    0.687187E-01     1.00000        0.653356    
+    22     2663.20       0.37549E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    23     2673.43       0.37405E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    24     2759.28       0.36241E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    25     3059.95       0.32680E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    26     3080.53       0.32462E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    27     3225.81       0.31000E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    28     3228.79       0.30971E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    29     3284.03       0.30450E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    30     3520.94       0.28402E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.687187E-01                    0.653356    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Y  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     143.583       0.69646E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     297.815       0.33578E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     486.612       0.20550E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     554.406       0.18037E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     708.827       0.14108E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     843.378       0.11857E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     7     962.888       0.10385E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     8     1165.58       0.85794E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     9     1226.93       0.81504E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    10     1247.37       0.80169E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    11     1520.00       0.65790E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    12     1560.91       0.64065E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    13     1641.41       0.60923E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    14     1902.21       0.52570E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    15     1904.81       0.52499E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    16     2085.85       0.47942E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    17     2143.66       0.46649E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    18     2270.04       0.44052E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    19     2318.44       0.43133E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    20     2559.38       0.39072E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    21     2624.30       0.38105E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    22     2663.20       0.37549E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    23     2673.43       0.37405E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    24     2759.28       0.36241E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    25     3059.95       0.32680E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    26     3080.53       0.32462E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    27     3225.81       0.31000E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    28     3228.79       0.30971E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    29     3284.03       0.30450E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    30     3520.94       0.28402E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Z  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     143.583       0.69646E-02   0.23607        1.000000    0.557274E-01    0.617131        0.529839    
+     2     297.815       0.33578E-02    0.0000        0.000000     0.00000        0.617131         0.00000    
+     3     486.612       0.20550E-02    0.0000        0.000000     0.00000        0.617131         0.00000    
+     4     554.406       0.18037E-02  -0.13348        0.565422    0.178162E-01    0.814429        0.169391    
+     5     708.827       0.14108E-02    0.0000        0.000000     0.00000        0.814429         0.00000    
+     6     843.378       0.11857E-02    0.0000        0.000000     0.00000        0.814429         0.00000    
+     7     962.888       0.10385E-02    0.0000        0.000000     0.00000        0.814429         0.00000    
+     8     1165.58       0.85794E-03    0.0000        0.000000     0.00000        0.814429         0.00000    
+     9     1226.93       0.81504E-03   0.92238E-01    0.390727    0.850778E-02    0.908645        0.808895E-01
+    10     1247.37       0.80169E-03    0.0000        0.000000     0.00000        0.908645         0.00000    
+    11     1520.00       0.65790E-03    0.0000        0.000000     0.00000        0.908645         0.00000    
+    12     1560.91       0.64065E-03    0.0000        0.000000     0.00000        0.908645         0.00000    
+    13     1641.41       0.60923E-03    0.0000        0.000000     0.00000        0.908645         0.00000    
+    14     1902.21       0.52570E-03    0.0000        0.000000     0.00000        0.908645         0.00000    
+    15     1904.81       0.52499E-03    0.0000        0.000000     0.00000        0.908645         0.00000    
+    16     2085.85       0.47942E-03    0.0000        0.000000     0.00000        0.908645         0.00000    
+    17     2143.66       0.46649E-03  -0.70537E-01    0.298801    0.497546E-02    0.963744        0.473052E-01
+    18     2270.04       0.44052E-03    0.0000        0.000000     0.00000        0.963744         0.00000    
+    19     2318.44       0.43133E-03    0.0000        0.000000     0.00000        0.963744         0.00000    
+    20     2559.38       0.39072E-03    0.0000        0.000000     0.00000        0.963744         0.00000    
+    21     2624.30       0.38105E-03    0.0000        0.000000     0.00000        0.963744         0.00000    
+    22     2663.20       0.37549E-03    0.0000        0.000000     0.00000        0.963744         0.00000    
+    23     2673.43       0.37405E-03    0.0000        0.000000     0.00000        0.963744         0.00000    
+    24     2759.28       0.36241E-03    0.0000        0.000000     0.00000        0.963744         0.00000    
+    25     3059.95       0.32680E-03    0.0000        0.000000     0.00000        0.963744         0.00000    
+    26     3080.53       0.32462E-03    0.0000        0.000000     0.00000        0.963744         0.00000    
+    27     3225.81       0.31000E-03    0.0000        0.000000     0.00000        0.963744         0.00000    
+    28     3228.79       0.30971E-03    0.0000        0.000000     0.00000        0.963744         0.00000    
+    29     3284.03       0.30450E-03   0.57219E-01    0.242384    0.327398E-02     1.00000        0.311281E-01
+    30     3520.94       0.28402E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.903008E-01                    0.858553    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTX DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     143.583       0.69646E-02    40.245        0.888785     1619.64        0.233827        0.171006    
+     2     297.815       0.33578E-02    0.0000        0.000000     0.00000        0.233827         0.00000    
+     3     486.612       0.20550E-02    28.338        0.625825     803.030        0.349761        0.847861E-01
+     4     554.406       0.18037E-02   -45.281        1.000000     2050.34        0.645767        0.216480    
+     5     708.827       0.14108E-02    0.0000        0.000000     0.00000        0.645767         0.00000    
+     6     843.378       0.11857E-02    0.0000        0.000000     0.00000        0.645767         0.00000    
+     7     962.888       0.10385E-02   -6.3612        0.140484     40.4652        0.651609        0.427243E-02
+     8     1165.58       0.85794E-03    13.802        0.304814     190.500        0.679112        0.201135E-01
+     9     1226.93       0.81504E-03    30.133        0.665475     908.007        0.810201        0.958699E-01
+    10     1247.37       0.80169E-03    0.0000        0.000000     0.00000        0.810201         0.00000    
+    11     1520.00       0.65790E-03    0.0000        0.000000     0.00000        0.810201         0.00000    
+    12     1560.91       0.64065E-03   -2.8619        0.063203     8.19039        0.811383        0.864764E-03
+    13     1641.41       0.60923E-03    0.0000        0.000000     0.00000        0.811383         0.00000    
+    14     1902.21       0.52570E-03    0.0000        0.000000     0.00000        0.811383         0.00000    
+    15     1904.81       0.52499E-03    1.7063        0.037682     2.91131        0.811803        0.307384E-03
+    16     2085.85       0.47942E-03   -12.800        0.282684     163.843        0.835457        0.172990E-01
+    17     2143.66       0.46649E-03   -25.262        0.557897     638.165        0.927589        0.673792E-01
+    18     2270.04       0.44052E-03   -1.6268        0.035927     2.64642        0.927971        0.279416E-03
+    19     2318.44       0.43133E-03    0.0000        0.000000     0.00000        0.927971         0.00000    
+    20     2559.38       0.39072E-03    0.0000        0.000000     0.00000        0.927971         0.00000    
+    21     2624.30       0.38105E-03    0.0000        0.000000     0.00000        0.927971         0.00000    
+    22     2663.20       0.37549E-03    0.0000        0.000000     0.00000        0.927971         0.00000    
+    23     2673.43       0.37405E-03    0.0000        0.000000     0.00000        0.927971         0.00000    
+    24     2759.28       0.36241E-03   0.41310        0.009123    0.170649        0.927996        0.180176E-04
+    25     3059.95       0.32680E-03   -2.5873        0.057139     6.69400        0.928962        0.706771E-03
+    26     3080.53       0.32462E-03    1.0466        0.023114     1.09538        0.929120        0.115653E-03
+    27     3225.81       0.31000E-03    0.0000        0.000000     0.00000        0.929120         0.00000    
+    28     3228.79       0.30971E-03   -9.3239        0.205914     86.9358        0.941671        0.917892E-02
+    29     3284.03       0.30450E-03    20.100        0.443906     404.023         1.00000        0.426579E-01
+    30     3520.94       0.28402E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             6926.66                        0.731335    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTY DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     143.583       0.69646E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     297.815       0.33578E-02    58.836        1.000000     3461.70        0.516724        0.365496    
+     3     486.612       0.20550E-02    0.0000        0.000000     0.00000        0.516724         0.00000    
+     4     554.406       0.18037E-02    0.0000        0.000000     0.00000        0.516724         0.00000    
+     5     708.827       0.14108E-02    0.0000        0.000000     0.00000        0.516724         0.00000    
+     6     843.378       0.11857E-02   -40.711        0.691944     1657.41        0.764124        0.174994    
+     7     962.888       0.10385E-02    0.0000        0.000000     0.00000        0.764124         0.00000    
+     8     1165.58       0.85794E-03    0.0000        0.000000     0.00000        0.764124         0.00000    
+     9     1226.93       0.81504E-03    0.0000        0.000000     0.00000        0.764124         0.00000    
+    10     1247.37       0.80169E-03    0.0000        0.000000     0.00000        0.764124         0.00000    
+    11     1520.00       0.65790E-03    0.0000        0.000000     0.00000        0.764124         0.00000    
+    12     1560.91       0.64065E-03    0.0000        0.000000     0.00000        0.764124         0.00000    
+    13     1641.41       0.60923E-03    30.938        0.525838     957.181        0.907001        0.101062    
+    14     1902.21       0.52570E-03    0.0000        0.000000     0.00000        0.907001         0.00000    
+    15     1904.81       0.52499E-03    0.0000        0.000000     0.00000        0.907001         0.00000    
+    16     2085.85       0.47942E-03    0.0000        0.000000     0.00000        0.907001         0.00000    
+    17     2143.66       0.46649E-03    0.0000        0.000000     0.00000        0.907001         0.00000    
+    18     2270.04       0.44052E-03    0.0000        0.000000     0.00000        0.907001         0.00000    
+    19     2318.44       0.43133E-03    0.0000        0.000000     0.00000        0.907001         0.00000    
+    20     2559.38       0.39072E-03    0.0000        0.000000     0.00000        0.907001         0.00000    
+    21     2624.30       0.38105E-03    0.0000        0.000000     0.00000        0.907001         0.00000    
+    22     2663.20       0.37549E-03    0.0000        0.000000     0.00000        0.907001         0.00000    
+    23     2673.43       0.37405E-03    24.961        0.424239     623.032         1.00000        0.657815E-01
+    24     2759.28       0.36241E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    25     3059.95       0.32680E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    26     3080.53       0.32462E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    27     3225.81       0.31000E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    28     3228.79       0.30971E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    29     3284.03       0.30450E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    30     3520.94       0.28402E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             6699.33                        0.707333    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTZ DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     143.583       0.69646E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     297.815       0.33578E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     486.612       0.20550E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     554.406       0.18037E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     708.827       0.14108E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     843.378       0.11857E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     7     962.888       0.10385E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     8     1165.58       0.85794E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     9     1226.93       0.81504E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    10     1247.37       0.80169E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    11     1520.00       0.65790E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    12     1560.91       0.64065E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    13     1641.41       0.60923E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    14     1902.21       0.52570E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    15     1904.81       0.52499E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    16     2085.85       0.47942E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    17     2143.66       0.46649E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    18     2270.04       0.44052E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    19     2318.44       0.43133E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    20     2559.38       0.39072E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    21     2624.30       0.38105E-03    43.433        1.000000     1886.46         1.00000        0.996415E-01
+    22     2663.20       0.37549E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    23     2673.43       0.37405E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    24     2759.28       0.36241E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    25     3059.95       0.32680E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    26     3080.53       0.32462E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    27     3225.81       0.31000E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    28     3228.79       0.30971E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    29     3284.03       0.30450E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    30     3520.94       0.28402E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                             1886.46                        0.996415E-01
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+        ***** MODAL MASSES, KINETIC ENERGIES, AND TRANSLATIONAL EFFECTIVE MASSES SUMMARY *****
+
+                                                                         EFFECTIVE MASS
+  MODE  FREQUENCY   MODAL MASS     KENE      |      X-DIR      RATIO%   Y-DIR      RATIO%   Z-DIR      RATIO% 
+     1   143.6      0.2574E-03   104.7       |     0.000        0.00   0.000        0.00  0.5573E-01   52.98
+     2   297.8      0.4742E-04   83.02       |     0.000        0.00   0.000        0.00   0.000        0.00
+     3   486.6      0.2010E-04   93.96       |     0.000        0.00   0.000        0.00   0.000        0.00
+     4   554.4      0.7344E-05   44.56       |     0.000        0.00   0.000        0.00  0.1782E-01   16.94
+     5   708.8      0.1049E-04   104.0       |     0.000        0.00   0.000        0.00   0.000        0.00
+     6   843.4      0.4063E-05   57.05       |     0.000        0.00   0.000        0.00   0.000        0.00
+     7   962.9      0.5347E-05   97.85       |     0.000        0.00   0.000        0.00   0.000        0.00
+     8   1166.      0.2422E-05   64.95       |     0.000        0.00   0.000        0.00   0.000        0.00
+     9   1227.      0.9433E-06   28.03       |     0.000        0.00   0.000        0.00  0.8508E-02    8.09
+    10   1247.      0.2969E-05   91.19       |     0.000        0.00   0.000        0.00   0.000        0.00
+    11   1520.      0.1507E-05   68.71       |     0.000        0.00   0.000        0.00   0.000        0.00
+    12   1561.      0.1770E-05   85.11       |     0.000        0.00   0.000        0.00   0.000        0.00
+    13   1641.      0.6977E-06   37.10       |     0.000        0.00   0.000        0.00   0.000        0.00
+    14   1902.      0.1112E-05   79.45       |     0.000        0.00   0.000        0.00   0.000        0.00
+    15   1905.      0.9369E-06   67.10       |     0.000        0.00   0.000        0.00   0.000        0.00
+    16   2086.      0.5204E-06   44.69       |     0.000        0.00   0.000        0.00   0.000        0.00
+    17   2144.      0.2128E-06   19.31       |     0.000        0.00   0.000        0.00  0.4975E-02    4.73
+    18   2270.      0.7187E-06   73.11       |     0.000        0.00   0.000        0.00   0.000        0.00
+    19   2318.      0.6149E-06   65.24       |     0.000        0.00   0.000        0.00   0.000        0.00
+    20   2559.      0.3700E-06   47.85       |     0.000        0.00   0.000        0.00   0.000        0.00
+    21   2624.      0.1241E-03  0.1687E+05   |    0.6872E-01   65.34   0.000        0.00   0.000        0.00
+    22   2663.      0.4849E-06   67.89       |     0.000        0.00   0.000        0.00   0.000        0.00
+    23   2673.      0.1842E-06   25.98       |     0.000        0.00   0.000        0.00   0.000        0.00
+    24   2759.      0.4246E-06   63.81       |     0.000        0.00   0.000        0.00   0.000        0.00
+    25   3060.      0.2660E-06   49.16       |     0.000        0.00   0.000        0.00   0.000        0.00
+    26   3081.      0.3423E-06   64.11       |     0.000        0.00   0.000        0.00   0.000        0.00
+    27   3226.      0.2878E-06   59.12       |     0.000        0.00   0.000        0.00   0.000        0.00
+    28   3229.      0.1602E-06   32.98       |     0.000        0.00   0.000        0.00   0.000        0.00
+    29   3284.      0.6543E-07   13.93       |     0.000        0.00   0.000        0.00  0.3274E-02    3.11
+    30   3521.      0.2378E-06   58.19       |     0.000        0.00   0.000        0.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+   sum                                       |    0.6872E-01   65.34   0.000        0.00  0.9030E-01   85.86
+ --------------------------------------------------------------------------------------------------------------
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        7.000 MB WRITTEN ON ELEMENT SAVED DATA FILE: p4_liudisk2_sc_C_2026_09.esav
+      139.562 MB WRITTEN ON ASSEMBLED MATRIX FILE: p4_liudisk2_sc_C_2026_09.full
+       24.875 MB WRITTEN ON MODAL MATRIX FILE: p4_liudisk2_sc_C_2026_09.mode
+       32.688 MB WRITTEN ON RESULTS FILE: p4_liudisk2_sc_C_2026_09.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        59.294
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     04:16:37  SEP 24, 2026 CP=     59.296
+
+  Paper 4 Liu solid-disk SC outer-C SOLID226 (2026-09-24)                      
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =      59.296   TIME= 04:16:37
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+ SET PARAMETER DIMENSIONS ON  FR1 TYPE=ARRA  DIMENSIONS=    30     1     1
+
+ SET PARAMETER DIMENSIONS ON  IDXARR TYPE=ARRA  DIMENSIONS=    30     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  30.000     BY  1.0000    
+
+ *GET  FR1       FROM  MODE      1  ITEM=FREQ       VALUE=  143.583140    
+
+ PARAMETER IDXARR(I) =     1.000000000    
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= ansys_p4_liudisk2_sc_C_modes.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ PARAMETER NSAMP =     65.00000000    
+
+ SET PARAMETER DIMENSIONS ON  SX TYPE=ARRA  DIMENSIONS=    65     1     1
+
+ SET PARAMETER DIMENSIONS ON  SY TYPE=ARRA  DIMENSIONS=    65     1     1
+
+ SET PARAMETER DIMENSIONS ON  SZ TYPE=ARRA  DIMENSIONS=    65     1     1
+
+ SET PARAMETER DIMENSIONS ON  SR TYPE=ARRA  DIMENSIONS=    65     1     1
+
+ SET PARAMETER DIMENSIONS ON  ST TYPE=ARRA  DIMENSIONS=    65     1     1
+
+ SET PARAMETER DIMENSIONS ON  SKI TYPE=ARRA  DIMENSIONS=    65     1     1
+
+ SET PARAMETER DIMENSIONS ON  NS TYPE=ARRA  DIMENSIONS=    65     1     1
+
+ PARAMETER SX(1) =     152.2500000    
+
+ PARAMETER SY(1) =     0.000000000    
+
+ PARAMETER SZ(1) =     12.00000000    
+
+ PARAMETER SR(1) =     152.2500000    
+
+ PARAMETER ST(1) =     0.000000000    
+
+ PARAMETER SKI(1) =     1.000000000    
+
+ PARAMETER SX(2) =     147.0622071    
+
+ PARAMETER SY(2) =     39.40519962    
+
+ PARAMETER SZ(2) =     12.00000000    
+
+ PARAMETER SR(2) =     152.2500000    
+
+ PARAMETER ST(2) =     15.00000000    
+
+ PARAMETER SKI(2) =     2.000000000    
+
+ PARAMETER SX(3) =     131.8523677    
+
+ PARAMETER SY(3) =     76.12500000    
+
+ PARAMETER SZ(3) =     12.00000000    
+
+ PARAMETER SR(3) =     152.2500000    
+
+ PARAMETER ST(3) =     30.00000000    
+
+ PARAMETER SKI(3) =     3.000000000    
+
+ PARAMETER SX(4) =     107.6570074    
+
+ PARAMETER SY(4) =     107.6570074    
+
+ PARAMETER SZ(4) =     12.00000000    
+
+ PARAMETER SR(4) =     152.2500000    
+
+ PARAMETER ST(4) =     45.00000000    
+
+ PARAMETER SKI(4) =     4.000000000    
+
+ PARAMETER SX(5) =     76.12500000    
+
+ PARAMETER SY(5) =     131.8523677    
+
+ PARAMETER SZ(5) =     12.00000000    
+
+ PARAMETER SR(5) =     152.2500000    
+
+ PARAMETER ST(5) =     60.00000000    
+
+ PARAMETER SKI(5) =     5.000000000    
+
+ PARAMETER SX(6) =     39.40519962    
+
+ PARAMETER SY(6) =     147.0622071    
+
+ PARAMETER SZ(6) =     12.00000000    
+
+ PARAMETER SR(6) =     152.2500000    
+
+ PARAMETER ST(6) =     75.00000000    
+
+ PARAMETER SKI(6) =     6.000000000    
+
+ PARAMETER SX(7) =     0.000000000    
+
+ PARAMETER SY(7) =     152.2500000    
+
+ PARAMETER SZ(7) =     12.00000000    
+
+ PARAMETER SR(7) =     152.2500000    
+
+ PARAMETER ST(7) =     90.00000000    
+
+ PARAMETER SKI(7) =     7.000000000    
+
+ PARAMETER SX(8) =    -39.40519962    
+
+ PARAMETER SY(8) =     147.0622071    
+
+ PARAMETER SZ(8) =     12.00000000    
+
+ PARAMETER SR(8) =     152.2500000    
+
+ PARAMETER ST(8) =     105.0000000    
+
+ PARAMETER SKI(8) =     8.000000000    
+
+ PARAMETER SX(9) =    -76.12500000    
+
+ PARAMETER SY(9) =     131.8523677    
+
+ PARAMETER SZ(9) =     12.00000000    
+
+ PARAMETER SR(9) =     152.2500000    
+
+ PARAMETER ST(9) =     120.0000000    
+
+ PARAMETER SKI(9) =     9.000000000    
+
+ PARAMETER SX(10) =    -107.6570074    
+
+ PARAMETER SY(10) =     107.6570074    
+
+ PARAMETER SZ(10) =     12.00000000    
+
+ PARAMETER SR(10) =     152.2500000    
+
+ PARAMETER ST(10) =     135.0000000    
+
+ PARAMETER SKI(10) =     10.00000000    
+
+ PARAMETER SX(11) =    -131.8523677    
+
+ PARAMETER SY(11) =     76.12500000    
+
+ PARAMETER SZ(11) =     12.00000000    
+
+ PARAMETER SR(11) =     152.2500000    
+
+ PARAMETER ST(11) =     150.0000000    
+
+ PARAMETER SKI(11) =     11.00000000    
+
+ PARAMETER SX(12) =    -147.0622071    
+
+ PARAMETER SY(12) =     39.40519962    
+
+ PARAMETER SZ(12) =     12.00000000    
+
+ PARAMETER SR(12) =     152.2500000    
+
+ PARAMETER ST(12) =     165.0000000    
+
+ PARAMETER SKI(12) =     12.00000000    
+
+ PARAMETER SX(13) =    -152.2500000    
+
+ PARAMETER SY(13) =     0.000000000    
+
+ PARAMETER SZ(13) =     12.00000000    
+
+ PARAMETER SR(13) =     152.2500000    
+
+ PARAMETER ST(13) =     180.0000000    
+
+ PARAMETER SKI(13) =     13.00000000    
+
+ PARAMETER SX(14) =     301.5000000    
+
+ PARAMETER SY(14) =     0.000000000    
+
+ PARAMETER SZ(14) =     12.00000000    
+
+ PARAMETER SR(14) =     301.5000000    
+
+ PARAMETER ST(14) =     0.000000000    
+
+ PARAMETER SKI(14) =     14.00000000    
+
+ PARAMETER SX(15) =     291.2266366    
+
+ PARAMETER SY(15) =     78.03394210    
+
+ PARAMETER SZ(15) =     12.00000000    
+
+ PARAMETER SR(15) =     301.5000000    
+
+ PARAMETER ST(15) =     15.00000000    
+
+ PARAMETER SKI(15) =     15.00000000    
+
+ PARAMETER SX(16) =     261.1066592    
+
+ PARAMETER SY(16) =     150.7500000    
+
+ PARAMETER SZ(16) =     12.00000000    
+
+ PARAMETER SR(16) =     301.5000000    
+
+ PARAMETER ST(16) =     30.00000000    
+
+ PARAMETER SKI(16) =     16.00000000    
+
+ PARAMETER SX(17) =     213.1926945    
+
+ PARAMETER SY(17) =     213.1926945    
+
+ PARAMETER SZ(17) =     12.00000000    
+
+ PARAMETER SR(17) =     301.5000000    
+
+ PARAMETER ST(17) =     45.00000000    
+
+ PARAMETER SKI(17) =     17.00000000    
+
+ PARAMETER SX(18) =     150.7500000    
+
+ PARAMETER SY(18) =     261.1066592    
+
+ PARAMETER SZ(18) =     12.00000000    
+
+ PARAMETER SR(18) =     301.5000000    
+
+ PARAMETER ST(18) =     60.00000000    
+
+ PARAMETER SKI(18) =     18.00000000    
+
+ PARAMETER SX(19) =     78.03394210    
+
+ PARAMETER SY(19) =     291.2266366    
+
+ PARAMETER SZ(19) =     12.00000000    
+
+ PARAMETER SR(19) =     301.5000000    
+
+ PARAMETER ST(19) =     75.00000000    
+
+ PARAMETER SKI(19) =     19.00000000    
+
+ PARAMETER SX(20) =     0.000000000    
+
+ PARAMETER SY(20) =     301.5000000    
+
+ PARAMETER SZ(20) =     12.00000000    
+
+ PARAMETER SR(20) =     301.5000000    
+
+ PARAMETER ST(20) =     90.00000000    
+
+ PARAMETER SKI(20) =     20.00000000    
+
+ PARAMETER SX(21) =    -78.03394210    
+
+ PARAMETER SY(21) =     291.2266366    
+
+ PARAMETER SZ(21) =     12.00000000    
+
+ PARAMETER SR(21) =     301.5000000    
+
+ PARAMETER ST(21) =     105.0000000    
+
+ PARAMETER SKI(21) =     21.00000000    
+
+ PARAMETER SX(22) =    -150.7500000    
+
+ PARAMETER SY(22) =     261.1066592    
+
+ PARAMETER SZ(22) =     12.00000000    
+
+ PARAMETER SR(22) =     301.5000000    
+
+ PARAMETER ST(22) =     120.0000000    
+
+ PARAMETER SKI(22) =     22.00000000    
+
+ PARAMETER SX(23) =    -213.1926945    
+
+ PARAMETER SY(23) =     213.1926945    
+
+ PARAMETER SZ(23) =     12.00000000    
+
+ PARAMETER SR(23) =     301.5000000    
+
+ PARAMETER ST(23) =     135.0000000    
+
+ PARAMETER SKI(23) =     23.00000000    
+
+ PARAMETER SX(24) =    -261.1066592    
+
+ PARAMETER SY(24) =     150.7500000    
+
+ PARAMETER SZ(24) =     12.00000000    
+
+ PARAMETER SR(24) =     301.5000000    
+
+ PARAMETER ST(24) =     150.0000000    
+
+ PARAMETER SKI(24) =     24.00000000    
+
+ PARAMETER SX(25) =    -291.2266366    
+
+ PARAMETER SY(25) =     78.03394210    
+
+ PARAMETER SZ(25) =     12.00000000    
+
+ PARAMETER SR(25) =     301.5000000    
+
+ PARAMETER ST(25) =     165.0000000    
+
+ PARAMETER SKI(25) =     25.00000000    
+
+ PARAMETER SX(26) =    -301.5000000    
+
+ PARAMETER SY(26) =     0.000000000    
+
+ PARAMETER SZ(26) =     12.00000000    
+
+ PARAMETER SR(26) =     301.5000000    
+
+ PARAMETER ST(26) =     180.0000000    
+
+ PARAMETER SKI(26) =     26.00000000    
+
+ PARAMETER SX(27) =     450.7500000    
+
+ PARAMETER SY(27) =     0.000000000    
+
+ PARAMETER SZ(27) =     12.00000000    
+
+ PARAMETER SR(27) =     450.7500000    
+
+ PARAMETER ST(27) =     0.000000000    
+
+ PARAMETER SKI(27) =     27.00000000    
+
+ PARAMETER SX(28) =     435.3910662    
+
+ PARAMETER SY(28) =     116.6626846    
+
+ PARAMETER SZ(28) =     12.00000000    
+
+ PARAMETER SR(28) =     450.7500000    
+
+ PARAMETER ST(28) =     15.00000000    
+
+ PARAMETER SKI(28) =     28.00000000    
+
+ PARAMETER SX(29) =     390.3609508    
+
+ PARAMETER SY(29) =     225.3750000    
+
+ PARAMETER SZ(29) =     12.00000000    
+
+ PARAMETER SR(29) =     450.7500000    
+
+ PARAMETER ST(29) =     30.00000000    
+
+ PARAMETER SKI(29) =     29.00000000    
+
+ PARAMETER SX(30) =     318.7283816    
+
+ PARAMETER SY(30) =     318.7283816    
+
+ PARAMETER SZ(30) =     12.00000000    
+
+ PARAMETER SR(30) =     450.7500000    
+
+ PARAMETER ST(30) =     45.00000000    
+
+ PARAMETER SKI(30) =     30.00000000    
+
+ PARAMETER SX(31) =     225.3750000    
+
+ PARAMETER SY(31) =     390.3609508    
+
+ PARAMETER SZ(31) =     12.00000000    
+
+ PARAMETER SR(31) =     450.7500000    
+
+ PARAMETER ST(31) =     60.00000000    
+
+ PARAMETER SKI(31) =     31.00000000    
+
+ PARAMETER SX(32) =     116.6626846    
+
+ PARAMETER SY(32) =     435.3910662    
+
+ PARAMETER SZ(32) =     12.00000000    
+
+ PARAMETER SR(32) =     450.7500000    
+
+ PARAMETER ST(32) =     75.00000000    
+
+ PARAMETER SKI(32) =     32.00000000    
+
+ PARAMETER SX(33) =     0.000000000    
+
+ PARAMETER SY(33) =     450.7500000    
+
+ PARAMETER SZ(33) =     12.00000000    
+
+ PARAMETER SR(33) =     450.7500000    
+
+ PARAMETER ST(33) =     90.00000000    
+
+ PARAMETER SKI(33) =     33.00000000    
+
+ PARAMETER SX(34) =    -116.6626846    
+
+ PARAMETER SY(34) =     435.3910662    
+
+ PARAMETER SZ(34) =     12.00000000    
+
+ PARAMETER SR(34) =     450.7500000    
+
+ PARAMETER ST(34) =     105.0000000    
+
+ PARAMETER SKI(34) =     34.00000000    
+
+ PARAMETER SX(35) =    -225.3750000    
+
+ PARAMETER SY(35) =     390.3609508    
+
+ PARAMETER SZ(35) =     12.00000000    
+
+ PARAMETER SR(35) =     450.7500000    
+
+ PARAMETER ST(35) =     120.0000000    
+
+ PARAMETER SKI(35) =     35.00000000    
+
+ PARAMETER SX(36) =    -318.7283816    
+
+ PARAMETER SY(36) =     318.7283816    
+
+ PARAMETER SZ(36) =     12.00000000    
+
+ PARAMETER SR(36) =     450.7500000    
+
+ PARAMETER ST(36) =     135.0000000    
+
+ PARAMETER SKI(36) =     36.00000000    
+
+ PARAMETER SX(37) =    -390.3609508    
+
+ PARAMETER SY(37) =     225.3750000    
+
+ PARAMETER SZ(37) =     12.00000000    
+
+ PARAMETER SR(37) =     450.7500000    
+
+ PARAMETER ST(37) =     150.0000000    
+
+ PARAMETER SKI(37) =     37.00000000    
+
+ PARAMETER SX(38) =    -435.3910662    
+
+ PARAMETER SY(38) =     116.6626846    
+
+ PARAMETER SZ(38) =     12.00000000    
+
+ PARAMETER SR(38) =     450.7500000    
+
+ PARAMETER ST(38) =     165.0000000    
+
+ PARAMETER SKI(38) =     38.00000000    
+
+ PARAMETER SX(39) =    -450.7500000    
+
+ PARAMETER SY(39) =     0.000000000    
+
+ PARAMETER SZ(39) =     12.00000000    
+
+ PARAMETER SR(39) =     450.7500000    
+
+ PARAMETER ST(39) =     180.0000000    
+
+ PARAMETER SKI(39) =     39.00000000    
+
+ PARAMETER SX(40) =     600.0000000    
+
+ PARAMETER SY(40) =     0.000000000    
+
+ PARAMETER SZ(40) =     12.00000000    
+
+ PARAMETER SR(40) =     600.0000000    
+
+ PARAMETER ST(40) =     0.000000000    
+
+ PARAMETER SKI(40) =     40.00000000    
+
+ PARAMETER SX(41) =     579.5554958    
+
+ PARAMETER SY(41) =     155.2914271    
+
+ PARAMETER SZ(41) =     12.00000000    
+
+ PARAMETER SR(41) =     600.0000000    
+
+ PARAMETER ST(41) =     15.00000000    
+
+ PARAMETER SKI(41) =     41.00000000    
+
+ PARAMETER SX(42) =     519.6152423    
+
+ PARAMETER SY(42) =     300.0000000    
+
+ PARAMETER SZ(42) =     12.00000000    
+
+ PARAMETER SR(42) =     600.0000000    
+
+ PARAMETER ST(42) =     30.00000000    
+
+ PARAMETER SKI(42) =     42.00000000    
+
+ PARAMETER SX(43) =     424.2640687    
+
+ PARAMETER SY(43) =     424.2640687    
+
+ PARAMETER SZ(43) =     12.00000000    
+
+ PARAMETER SR(43) =     600.0000000    
+
+ PARAMETER ST(43) =     45.00000000    
+
+ PARAMETER SKI(43) =     43.00000000    
+
+ PARAMETER SX(44) =     300.0000000    
+
+ PARAMETER SY(44) =     519.6152423    
+
+ PARAMETER SZ(44) =     12.00000000    
+
+ PARAMETER SR(44) =     600.0000000    
+
+ PARAMETER ST(44) =     60.00000000    
+
+ PARAMETER SKI(44) =     44.00000000    
+
+ PARAMETER SX(45) =     155.2914271    
+
+ PARAMETER SY(45) =     579.5554958    
+
+ PARAMETER SZ(45) =     12.00000000    
+
+ PARAMETER SR(45) =     600.0000000    
+
+ PARAMETER ST(45) =     75.00000000    
+
+ PARAMETER SKI(45) =     45.00000000    
+
+ PARAMETER SX(46) =     0.000000000    
+
+ PARAMETER SY(46) =     600.0000000    
+
+ PARAMETER SZ(46) =     12.00000000    
+
+ PARAMETER SR(46) =     600.0000000    
+
+ PARAMETER ST(46) =     90.00000000    
+
+ PARAMETER SKI(46) =     46.00000000    
+
+ PARAMETER SX(47) =    -155.2914271    
+
+ PARAMETER SY(47) =     579.5554958    
+
+ PARAMETER SZ(47) =     12.00000000    
+
+ PARAMETER SR(47) =     600.0000000    
+
+ PARAMETER ST(47) =     105.0000000    
+
+ PARAMETER SKI(47) =     47.00000000    
+
+ PARAMETER SX(48) =    -300.0000000    
+
+ PARAMETER SY(48) =     519.6152423    
+
+ PARAMETER SZ(48) =     12.00000000    
+
+ PARAMETER SR(48) =     600.0000000    
+
+ PARAMETER ST(48) =     120.0000000    
+
+ PARAMETER SKI(48) =     48.00000000    
+
+ PARAMETER SX(49) =    -424.2640687    
+
+ PARAMETER SY(49) =     424.2640687    
+
+ PARAMETER SZ(49) =     12.00000000    
+
+ PARAMETER SR(49) =     600.0000000    
+
+ PARAMETER ST(49) =     135.0000000    
+
+ PARAMETER SKI(49) =     49.00000000    
+
+ PARAMETER SX(50) =    -519.6152423    
+
+ PARAMETER SY(50) =     300.0000000    
+
+ PARAMETER SZ(50) =     12.00000000    
+
+ PARAMETER SR(50) =     600.0000000    
+
+ PARAMETER ST(50) =     150.0000000    
+
+ PARAMETER SKI(50) =     50.00000000    
+
+ PARAMETER SX(51) =    -579.5554958    
+
+ PARAMETER SY(51) =     155.2914271    
+
+ PARAMETER SZ(51) =     12.00000000    
+
+ PARAMETER SR(51) =     600.0000000    
+
+ PARAMETER ST(51) =     165.0000000    
+
+ PARAMETER SKI(51) =     51.00000000    
+
+ PARAMETER SX(52) =    -600.0000000    
+
+ PARAMETER SY(52) =     0.000000000    
+
+ PARAMETER SZ(52) =     12.00000000    
+
+ PARAMETER SR(52) =     600.0000000    
+
+ PARAMETER ST(52) =     180.0000000    
+
+ PARAMETER SKI(52) =     52.00000000    
+
+ PARAMETER SX(53) =     600.0000000    
+
+ PARAMETER SY(53) =     0.000000000    
+
+ PARAMETER SZ(53) =    -12.00000000    
+
+ PARAMETER SR(53) =     600.0000000    
+
+ PARAMETER ST(53) =     0.000000000    
+
+ PARAMETER SKI(53) =     53.00000000    
+
+ PARAMETER SX(54) =     579.5554958    
+
+ PARAMETER SY(54) =     155.2914271    
+
+ PARAMETER SZ(54) =    -12.00000000    
+
+ PARAMETER SR(54) =     600.0000000    
+
+ PARAMETER ST(54) =     15.00000000    
+
+ PARAMETER SKI(54) =     54.00000000    
+
+ PARAMETER SX(55) =     519.6152423    
+
+ PARAMETER SY(55) =     300.0000000    
+
+ PARAMETER SZ(55) =    -12.00000000    
+
+ PARAMETER SR(55) =     600.0000000    
+
+ PARAMETER ST(55) =     30.00000000    
+
+ PARAMETER SKI(55) =     55.00000000    
+
+ PARAMETER SX(56) =     424.2640687    
+
+ PARAMETER SY(56) =     424.2640687    
+
+ PARAMETER SZ(56) =    -12.00000000    
+
+ PARAMETER SR(56) =     600.0000000    
+
+ PARAMETER ST(56) =     45.00000000    
+
+ PARAMETER SKI(56) =     56.00000000    
+
+ PARAMETER SX(57) =     300.0000000    
+
+ PARAMETER SY(57) =     519.6152423    
+
+ PARAMETER SZ(57) =    -12.00000000    
+
+ PARAMETER SR(57) =     600.0000000    
+
+ PARAMETER ST(57) =     60.00000000    
+
+ PARAMETER SKI(57) =     57.00000000    
+
+ PARAMETER SX(58) =     155.2914271    
+
+ PARAMETER SY(58) =     579.5554958    
+
+ PARAMETER SZ(58) =    -12.00000000    
+
+ PARAMETER SR(58) =     600.0000000    
+
+ PARAMETER ST(58) =     75.00000000    
+
+ PARAMETER SKI(58) =     58.00000000    
+
+ PARAMETER SX(59) =     0.000000000    
+
+ PARAMETER SY(59) =     600.0000000    
+
+ PARAMETER SZ(59) =    -12.00000000    
+
+ PARAMETER SR(59) =     600.0000000    
+
+ PARAMETER ST(59) =     90.00000000    
+
+ PARAMETER SKI(59) =     59.00000000    
+
+ PARAMETER SX(60) =    -155.2914271    
+
+ PARAMETER SY(60) =     579.5554958    
+
+ PARAMETER SZ(60) =    -12.00000000    
+
+ PARAMETER SR(60) =     600.0000000    
+
+ PARAMETER ST(60) =     105.0000000    
+
+ PARAMETER SKI(60) =     60.00000000    
+
+ PARAMETER SX(61) =    -300.0000000    
+
+ PARAMETER SY(61) =     519.6152423    
+
+ PARAMETER SZ(61) =    -12.00000000    
+
+ PARAMETER SR(61) =     600.0000000    
+
+ PARAMETER ST(61) =     120.0000000    
+
+ PARAMETER SKI(61) =     61.00000000    
+
+ PARAMETER SX(62) =    -424.2640687    
+
+ PARAMETER SY(62) =     424.2640687    
+
+ PARAMETER SZ(62) =    -12.00000000    
+
+ PARAMETER SR(62) =     600.0000000    
+
+ PARAMETER ST(62) =     135.0000000    
+
+ PARAMETER SKI(62) =     62.00000000    
+
+ PARAMETER SX(63) =    -519.6152423    
+
+ PARAMETER SY(63) =     300.0000000    
+
+ PARAMETER SZ(63) =    -12.00000000    
+
+ PARAMETER SR(63) =     600.0000000    
+
+ PARAMETER ST(63) =     150.0000000    
+
+ PARAMETER SKI(63) =     63.00000000    
+
+ PARAMETER SX(64) =    -579.5554958    
+
+ PARAMETER SY(64) =     155.2914271    
+
+ PARAMETER SZ(64) =    -12.00000000    
+
+ PARAMETER SR(64) =     600.0000000    
+
+ PARAMETER ST(64) =     165.0000000    
+
+ PARAMETER SKI(64) =     64.00000000    
+
+ PARAMETER SX(65) =    -600.0000000    
+
+ PARAMETER SY(65) =     0.000000000    
+
+ PARAMETER SZ(65) =    -12.00000000    
+
+ PARAMETER SR(65) =     600.0000000    
+
+ PARAMETER ST(65) =     180.0000000    
+
+ PARAMETER SKI(65) =     65.00000000    
+
+ PARAMETER STOL =    0.1000000000E-01
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ *DO LOOP ON PARAMETER= K FROM  1.0000     TO  65.000     BY  1.0000    
+
+ PARAMETER X1 =     152.2400000    
+
+ PARAMETER X2 =     152.2600000    
+
+ PARAMETER Y1 =   -0.1000000000E-01
+
+ PARAMETER Y2 =    0.1000000000E-01
+
+ PARAMETER Z1 =     11.99000000    
+
+ PARAMETER Z2 =     12.01000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  152.24     AND   152.26    
+   KABS=  0.  TOLERANCE= 0.200000E-09
+
+          9  NODES (OF      34185  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN-0.10000E-01 AND  0.10000E-01
+   KABS=  0.  TOLERANCE= 0.200000E-09
+
+          9  NODES (OF      34185  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN  11.990     AND   12.010    
+   KABS=  0.  TOLERANCE= 0.200000E-09
+
+          1  NODES (OF      34185  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NC        FROM  NODE  ITEM=COUN       VALUE=  1.00000000     
+
+ *IF  NC  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ *GET  NN        FROM  NODE  ITEM=NUM  MIN   VALUE=  27356.0000     
+
+ PARAMETER NS(K) =     27356.00000    
+
+ *ENDDO  INDEX= K                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p4_liudisk2_sc_C_samplecoords.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ PARAMETER NTOT =     1950.000000    
+
+ SET PARAMETER DIMENSIONS ON  OMI TYPE=ARRA  DIMENSIONS=  1950     1     1
+
+ SET PARAMETER DIMENSIONS ON  OKI TYPE=ARRA  DIMENSIONS=  1950     1     1
+
+ SET PARAMETER DIMENSIONS ON  OUX TYPE=ARRA  DIMENSIONS=  1950     1     1
+
+ SET PARAMETER DIMENSIONS ON  OUY TYPE=ARRA  DIMENSIONS=  1950     1     1
+
+ SET PARAMETER DIMENSIONS ON  OUZ TYPE=ARRA  DIMENSIONS=  1950     1     1
+
+ SET PARAMETER DIMENSIONS ON  OVV TYPE=ARRA  DIMENSIONS=  1950     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  30.000     BY  1.0000    
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  143.58    
+ TITLE=  Paper 4 Liu solid-disk SC outer-C SOLID226 (2026-09-24)                
+
+ *DO LOOP ON PARAMETER= K FROM  1.0000     TO  65.000     BY  1.0000    
+
+ PARAMETER J =     1.000000000    
+
+ PARAMETER NN =     27356.00000    
+
+ *GET  GVX       FROM  NODE  27356  ITEM=U    X     VALUE= 0.243941985E-02
+
+ *GET  GVY       FROM  NODE  27356  ITEM=U    Y     VALUE=  0.00000000    
+
+ *GET  GVZ       FROM  NODE  27356  ITEM=U    Z     VALUE= 0.993966350E-01
+
+ *GET  GVV       FROM  NODE  27356  ITEM=VOLT       VALUE=  0.00000000    
+
+ PARAMETER OMI(J) =     1.000000000    
+
+ PARAMETER OKI(J) =     1.000000000    
+
+ PARAMETER OUX(J) =    0.2439419854E-02
+
+ PARAMETER OUY(J) =     0.000000000    
+
+ PARAMETER OUZ(J) =    0.9939663496E-01
+
+ PARAMETER OVV(J) =     0.000000000    
+
+ *ENDDO  INDEX= K                               
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= ansys_p4_liudisk2_sc_C_samples.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =        63.109
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= p4_liudisk2_sc_C_2026_09.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          2
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2025 R1            Build: 25.1       Update: UP20241202   Platform: LINUX x64   
+Date Run: 09/24/2026   Time: 04:16     Process ID: 1654563
+Operating System: AlmaLinux release 8.10 (Cerulean Leopard)
+
+Processor Model: Intel(R) Xeon(R) Gold 6248 CPU @ 2.50GHz
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303
+
+Number of machines requested            :    1
+Total number of cores available         :   40
+Number of physical cores available      :   40
+Number of processes requested           :    1
+Number of threads per process requested :    8
+Total number of cores requested         :    8 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: p4_liudisk2_sc_C_2026_09
+Input File: ansys_p4_liudisk2_sc_C_2026-09-24.inp
+Working Directory: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys
+
+Total CPU time for main thread                    :       14.1 seconds
+Total CPU time summed for all threads             :       63.3 seconds
+
+Elapsed time spent obtaining a license            :        1.5 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        1.4 seconds
+Elapsed time spent solution - preprocessing       :        0.1 seconds
+Elapsed time spent computing solution             :       10.8 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        2.1 seconds
+ 
+Eigensolver used                                  :            Block Lanczos
+Equation solver computational rate                :      129.1 Gflops
+
+Sum of disk space used on all processes           :      221.1 MB
+
+Sum of memory used on all processes               :     1493.0 MB
+Sum of memory allocated on all processes          :     3685.0 MB
+Physical memory available                         :        187 GB
+Total amount of I/O written to disk               :        0.1 GB
+Total amount of I/O read from disk                :        0.1 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+ |  Maximum Database Used      28 MB     Maximum Scratch Memory Used   1465 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =         63.257       Time  =  04:16:39          |
+ |        Elapsed Time (sec) =         18.000       Date  =  09/24/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

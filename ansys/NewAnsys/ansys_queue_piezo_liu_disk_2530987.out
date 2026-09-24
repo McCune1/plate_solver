@@ -1,0 +1,23 @@
+Job 2530987 on compute-14-37.mill
+Start: Thu Sep 24 03:29:47 CDT 2026
+ANSYS module: ansys/2025R1
+MAPDL launcher: /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/bin/mapdl
+================================================================
+  run_ansys_queue.sh -- Thu Sep 24 03:29:47 CDT 2026
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys  manifest=ansys_queue_manifest_piezo_liu_disk_2026-09-24.txt  cpus/deck=8  stop_on_fail=0
+================================================================
+
+---- [1] ansys_p4_liu_disk_sc_C_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_liu_disk_sc_C_2026_09) -- Thu Sep 24 03:29:47 CDT 2026 ----
+---- [1] ansys_p4_liu_disk_sc_C_2026-09-24.inp : OK (23s), wrote ansys_p4_liu_disk_sc_C_2026-09-24_out.txt, sentinel=ansys_p4_liu_disk_sc_C_2026-09-24.inp.QUEUE_OK ----
+
+---- [2] ansys_p4_liu_disk_sc_S_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_liu_disk_sc_S_2026_09) -- Thu Sep 24 03:30:10 CDT 2026 ----
+---- [2] ansys_p4_liu_disk_sc_S_2026-09-24.inp : OK (21s), wrote ansys_p4_liu_disk_sc_S_2026-09-24_out.txt, sentinel=ansys_p4_liu_disk_sc_S_2026-09-24.inp.QUEUE_OK ----
+
+================================================================
+  QUEUE SUMMARY -- Thu Sep 24 03:30:31 CDT 2026  (total wall: 0 min)
+================================================================
+  ansys_p4_liu_disk_sc_C_2026-09-24.inp : OK (23s)
+  ansys_p4_liu_disk_sc_S_2026-09-24.inp : OK (21s)
+
+  total=2  ok=2  skip=0  fail=0
+End: Thu Sep 24 03:30:31 CDT 2026

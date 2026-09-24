@@ -1,0 +1,167 @@
+{
+  "date": "2026-09-24",
+  "paper": "Liu, Wang & Quek, IJSS 39 (2002) 2129-2151",
+  "lever": 11,
+  "geometry": {
+    "r0_m": 0.6,
+    "h_m": 0.01,
+    "h1_m": 0.002,
+    "r0_over_h": 60,
+    "stack_mm": "h1+2h+h1 = 24 mm",
+    "solid_disk": true,
+    "RI_mm": 0.0,
+    "RI_mesh_mm": 3.0,
+    "RI_mesh_note": "FE uses RI_MESH=3 mm (0.5% of RO) so mapped hex keeps parent annular 24x72 LESIZE; Liu physical RI=0. Job 2530974 failed on true RI=0 wedge."
+  },
+  "materials_note": "Liu Table 1; e31=+4.1 project; C55E=26 GPa (not Duan 73); MP,PERx relative",
+  "electrical": "SC both faces of each piezo (scboth)",
+  "source_omega": "Gate 2 / PiezoDiskSC closed-form (rad/s), user-supplied",
+  "tables": {
+    "2_clamped": {
+      "0_1": {
+        "n": 0,
+        "m": 1,
+        "omega_gate2_rad_s": 902.4187,
+        "f_gate2_Hz": 143.62439684356215,
+        "omega_liu_kir_rad_s": 902.5,
+        "omega_liu_fem_rad_s": 900.1,
+        "f_liu_kir_Hz": 143.63733614043554,
+        "f_liu_fem_Hz": 143.255364277015
+      },
+      "1_1": {
+        "n": 1,
+        "m": 1,
+        "omega_gate2_rad_s": 1878.0448,
+        "f_gate2_Hz": 298.90011326802994,
+        "omega_liu_kir_rad_s": 1878.2,
+        "omega_liu_fem_rad_s": 1862.7,
+        "f_liu_kir_Hz": 298.9248141151978,
+        "f_liu_fem_Hz": 296.45791249727347
+      },
+      "2_1": {
+        "n": 2,
+        "m": 1,
+        "omega_gate2_rad_s": 3080.8754,
+        "f_gate2_Hz": 490.3365489602203,
+        "omega_liu_kir_rad_s": 3081.1,
+        "omega_liu_fem_rad_s": 3050.9,
+        "f_liu_kir_Hz": 490.37229516043874,
+        "f_liu_fem_Hz": 485.5658158790635
+      },
+      "0_2": {
+        "n": 0,
+        "m": 2,
+        "omega_gate2_rad_s": 3513.1986,
+        "f_gate2_Hz": 559.1429232535264,
+        "omega_liu_kir_rad_s": 3513.4,
+        "omega_liu_fem_rad_s": 3475.2,
+        "f_liu_kir_Hz": 559.1749770590651,
+        "f_liu_fem_Hz": 553.0952582329546
+      },
+      "1_2": {
+        "n": 1,
+        "m": 2,
+        "omega_gate2_rad_s": 5373.3225,
+        "f_gate2_Hz": 855.1908367019008,
+        "omega_liu_kir_rad_s": 5373.7,
+        "omega_liu_fem_rad_s": 5272.1,
+        "f_liu_kir_Hz": 855.2509176929179,
+        "f_liu_fem_Hz": 839.0807754747815
+      },
+      "2_2": {
+        "n": 2,
+        "m": 2,
+        "omega_gate2_rad_s": 7471.6386,
+        "f_gate2_Hz": 1189.1482161862086,
+        "omega_liu_kir_rad_s": 7472.1,
+        "omega_liu_fem_rad_s": 7306.2,
+        "f_liu_kir_Hz": 1189.2216502769513,
+        "f_liu_fem_Hz": 1162.8178452180057
+      }
+    },
+    "6_simply_supported": {
+      "0_1": {
+        "n": 0,
+        "m": 1,
+        "omega_gate2_rad_s": 435.6013,
+        "f_gate2_Hz": 69.32810011225563,
+        "omega_liu_kir_rad_s": 435.6,
+        "omega_liu_fem_rad_s": 435.2,
+        "f_liu_kir_Hz": 69.32789321082961,
+        "f_liu_fem_Hz": 69.26423123359285
+      },
+      "1_1": {
+        "n": 1,
+        "m": 1,
+        "omega_gate2_rad_s": 1227.4048,
+        "f_gate2_Hz": 195.3475410947192,
+        "omega_liu_kir_rad_s": 1227.5,
+        "omega_liu_fem_rad_s": 1218.5,
+        "f_liu_kir_Hz": 195.36269264530154,
+        "f_liu_fem_Hz": 193.93029815747448
+      },
+      "2_1": {
+        "n": 2,
+        "m": 1,
+        "omega_gate2_rad_s": 2262.2819,
+        "f_gate2_Hz": 360.05334705232485,
+        "omega_liu_kir_rad_s": 2262.4,
+        "omega_liu_fem_rad_s": 2242.4,
+        "f_liu_kir_Hz": 360.072143251104,
+        "f_liu_fem_Hz": 356.88904438926613
+      },
+      "0_2": {
+        "n": 0,
+        "m": 2,
+        "omega_gate2_rad_s": 2625.0569,
+        "f_gate2_Hz": 417.7907815324872,
+        "omega_liu_kir_rad_s": 2625.2,
+        "omega_liu_fem_rad_s": 2606.5,
+        "f_liu_kir_Hz": 417.8135566048436,
+        "f_liu_fem_Hz": 414.8373591690252
+      },
+      "1_2": {
+        "n": 1,
+        "m": 2,
+        "omega_gate2_rad_s": 4282.1415,
+        "f_gate2_Hz": 681.5239867439433,
+        "omega_liu_kir_rad_s": 4282.4,
+        "omega_liu_fem_rad_s": 4221.0,
+        "f_liu_kir_Hz": 681.5651282967326,
+        "f_liu_fem_Hz": 671.7930147908902
+      },
+      "2_2": {
+        "n": 2,
+        "m": 2,
+        "omega_gate2_rad_s": 6193.5563,
+        "f_gate2_Hz": 985.73510046295,
+        "omega_liu_kir_rad_s": 6193.9,
+        "omega_liu_fem_rad_s": 6088.3,
+        "f_liu_kir_Hz": 985.7898020168905,
+        "f_liu_fem_Hz": 968.9830400263864
+      }
+    }
+  },
+  "mode_order": [
+    "0_1",
+    "1_1",
+    "2_1",
+    "0_2",
+    "1_2",
+    "2_2"
+  ],
+  "pass_criteria": {
+    "mapdl": "RUN COMPLETED and 0 real MAPDL errors in transcript",
+    "physics": "bending modes near Gate 2 Hz; FE may sit closer to Liu fem than kir (CPT-class thin-disk; say so honestly)",
+    "percent": "recompute % externally from raw Hz; never trust deck percentage columns"
+  },
+  "bc_ss_caveat": "Outer S uses UZ=0 on r=RO midplane ring only (Kirchhoff w=Mr=0 analogue; Mr natural). No prior project SOLID226 disk/SS precedent.",
+  "mesh": {
+    "NDIV_R": 24,
+    "NDIV_TH": 72,
+    "NDIV_ZH": 2,
+    "NDIV_ZP": 1,
+    "elements": 6912,
+    "note": "unchanged count after mesh fix; topology annular with tiny hole"
+  }
+}

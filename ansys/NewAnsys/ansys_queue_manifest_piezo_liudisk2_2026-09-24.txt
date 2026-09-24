@@ -1,0 +1,12 @@
+# Paper 4 lever 11 -- Liu 2002 solid-disk SC FE, v2 (2026-09-24).
+# v2 fixes job 2530987: v1 put global UX=0 on the whole r=3 mm hole surface,
+# which blocked the n=1 centre tilt and inflated every n=1 row by 2-7%.
+# v2: hole FREE; S deck gets one midplane UX pin (theta=90, x=0) against
+# rigid x-translation. New jobnames (p4_liudisk2_*) so v1 sentinels/.err
+# files cannot collide. Built by build_liu_disk_sc_decks_v2_2026-09-24.py.
+# Score: python3 score_liudisk2_fe_2026-09-24.py (gates F0-F3 in
+# targets_liudisk2_2026-09-24.json, fixed before the run).
+# ONE licence seat: do not sbatch concurrent ANSYS jobs.
+#
+ansys_p4_liudisk2_sc_C_2026-09-24.inp
+ansys_p4_liudisk2_sc_S_2026-09-24.inp

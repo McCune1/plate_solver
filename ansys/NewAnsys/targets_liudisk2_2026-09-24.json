@@ -1,0 +1,139 @@
+{
+ "date": "2026-09-24",
+ "lever": 11,
+ "version": "v2 (free hole; S deck single-node UX pin)",
+ "decks": [
+  "ansys_p4_liudisk2_sc_C_2026-09-24.inp",
+  "ansys_p4_liudisk2_sc_S_2026-09-24.inp"
+ ],
+ "cpt_source": "validation/paper4_piezo/probe_piezo_p4_liu_disk_gate2_2026-09-24.py (projection=consistent, dps=100, from-scratch scan)",
+ "preregistered": {
+  "F0": "both transcripts: RUN COMPLETED and NUMBER OF ERROR MESSAGES = 0; no mode below 1 Hz; all 12 (n<=2, m<=2) flexural modes identified",
+  "F1": "the fix: all four n=1 rows (C,S x m=1,2) within +-0.6% of Liu's 3-D FEA column",
+  "F2": "no collateral: every n=0 and n=2 row within +-0.1% of its v1 (job 2530987) value",
+  "F3": "all 12 rows within +-0.6% of Liu's 3-D FEA column",
+  "verdict": "PASS needs F0-F3. F2 PASS + F1 FAIL means n=1 is still constrained by something other than the hole (look at the symmetry plane next). vs-CPT columns are information only (3-D vs Kirchhoff differ by up to ~2% by physics)."
+ },
+ "modes": [
+  {
+   "bc": "C",
+   "n": 0,
+   "m": 1,
+   "table": 2,
+   "f_cpt_consistent_Hz": 143.6240493028802,
+   "f_liu_kir_Hz": 143.63733614043554,
+   "f_liu_fem_Hz": 143.255364277015,
+   "f_v1_fe_2530987_Hz": 143.592
+  },
+  {
+   "bc": "C",
+   "n": 0,
+   "m": 2,
+   "table": 2,
+   "f_cpt_consistent_Hz": 559.1415930587451,
+   "f_liu_kir_Hz": 559.1749770590651,
+   "f_liu_fem_Hz": 553.0952582329546,
+   "f_v1_fe_2530987_Hz": 554.485
+  },
+  {
+   "bc": "C",
+   "n": 1,
+   "m": 1,
+   "table": 2,
+   "f_cpt_consistent_Hz": 298.8994073914458,
+   "f_liu_kir_Hz": 298.9248141151978,
+   "f_liu_fem_Hz": 296.45791249727347,
+   "f_v1_fe_2530987_Hz": 315.687
+  },
+  {
+   "bc": "C",
+   "n": 1,
+   "m": 2,
+   "table": 2,
+   "f_cpt_consistent_Hz": 855.1887979885677,
+   "f_liu_kir_Hz": 855.2509176929179,
+   "f_liu_fem_Hz": 839.0807754747815,
+   "f_v1_fe_2530987_Hz": 873.908
+  },
+  {
+   "bc": "C",
+   "n": 2,
+   "m": 1,
+   "table": 2,
+   "f_cpt_consistent_Hz": 490.33538159498494,
+   "f_liu_kir_Hz": 490.37229516043874,
+   "f_liu_fem_Hz": 485.5658158790635,
+   "f_v1_fe_2530987_Hz": 486.637
+  },
+  {
+   "bc": "C",
+   "n": 2,
+   "m": 2,
+   "table": 2,
+   "f_cpt_consistent_Hz": 1189.1453851025256,
+   "f_liu_kir_Hz": 1189.2216502769513,
+   "f_liu_fem_Hz": 1162.8178452180057,
+   "f_v1_fe_2530987_Hz": 1165.667
+  },
+  {
+   "bc": "S",
+   "n": 0,
+   "m": 1,
+   "table": 6,
+   "f_cpt_consistent_Hz": 69.32786406962398,
+   "f_liu_kir_Hz": 69.32789321082961,
+   "f_liu_fem_Hz": 69.26423123359285,
+   "f_v1_fe_2530987_Hz": 69.258
+  },
+  {
+   "bc": "S",
+   "n": 0,
+   "m": 2,
+   "table": 6,
+   "f_cpt_consistent_Hz": 417.7897356077574,
+   "f_liu_kir_Hz": 417.8135566048436,
+   "f_liu_fem_Hz": 414.8373591690252,
+   "f_v1_fe_2530987_Hz": 415.014
+  },
+  {
+   "bc": "S",
+   "n": 1,
+   "m": 1,
+   "table": 6,
+   "f_cpt_consistent_Hz": 195.34701167750657,
+   "f_liu_kir_Hz": 195.36269264530154,
+   "f_liu_fem_Hz": 193.93029815747448,
+   "f_v1_fe_2530987_Hz": 208.403
+  },
+  {
+   "bc": "S",
+   "n": 1,
+   "m": 2,
+   "table": 6,
+   "f_cpt_consistent_Hz": 681.5223081571856,
+   "f_liu_kir_Hz": 681.5651282967326,
+   "f_liu_fem_Hz": 671.7930147908902,
+   "f_v1_fe_2530987_Hz": 701.071
+  },
+  {
+   "bc": "S",
+   "n": 2,
+   "m": 1,
+   "table": 6,
+   "f_cpt_consistent_Hz": 360.05243789129486,
+   "f_liu_kir_Hz": 360.072143251104,
+   "f_liu_fem_Hz": 356.88904438926613,
+   "f_v1_fe_2530987_Hz": 356.969
+  },
+  {
+   "bc": "S",
+   "n": 2,
+   "m": 2,
+   "table": 6,
+   "f_cpt_consistent_Hz": 985.7327010462609,
+   "f_liu_kir_Hz": 985.7898020168905,
+   "f_liu_fem_Hz": 968.9830400263864,
+   "f_v1_fe_2530987_Hz": 969.317
+  }
+ ]
+}

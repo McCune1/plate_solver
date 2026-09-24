@@ -1,0 +1,26 @@
+# Paper 4 lever 11 -- Liu 2002 solid-disk SC FE (Gate 2 CPT Tables 2 & 6).
+# SOLID226 half-annulus RI_MESH=3 mm (Liu RI=0), theta 0..180, UY=0 on y=0,
+# both-faces SC. Mesh fix after job 2530974 (24-vs-72 wedge LESIZE mismatch).
+# Built by build_liu_disk_sc_decks_2026-09-24.py; targets in
+# targets_liu_disk_2026-09-24.json BEFORE any cluster run.
+#
+# Mesh moderate: 24 x 72 x (2+1+1) = 6912 elements, ~O(2e5) DOF.
+# Outer C: clamp r=RO. Outer S: UZ=0 on r=RO midplane ring (Kirchhoff analogue).
+#
+# PRIMARY Makise path: github_repo/ansys/NewAnsys (lowercase).
+# PUSH to cluster twin /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/:
+#   ansys_p4_liu_disk_sc_C_2026-09-24.inp
+#   ansys_p4_liu_disk_sc_S_2026-09-24.inp
+#   ansys_queue_manifest_piezo_liu_disk_2026-09-24.txt
+#   submit_ansys_queue_piezo_liu_disk_2026-09-24.sh
+#   targets_liu_disk_2026-09-24.json
+#   LIU_DISK_FE_README.md
+#   build_liu_disk_sc_decks_2026-09-24.py
+# then from that directory:
+#   sbatch submit_ansys_queue_piezo_liu_disk_2026-09-24.sh
+# Judge MAPDL from NUMBER OF ERROR MESSAGES ENCOUNTERED and RUN COMPLETED
+# in each _out.txt. Never trust .QUEUE_OK alone. Recompute % from raw Hz.
+# ONE licence seat: do not sbatch concurrent ANSYS jobs.
+#
+ansys_p4_liu_disk_sc_C_2026-09-24.inp
+ansys_p4_liu_disk_sc_S_2026-09-24.inp

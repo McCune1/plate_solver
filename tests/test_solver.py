@@ -93,6 +93,10 @@ from plate_solver.dispersion import cutoff_frequencies_part1, cutoff_frequencies
 from plate_solver.geometry import _make_geom_mat, MaterialModel, \
     _kbar_wbar, _omega_lit
 from plate_solver.piezo_solver import PiezoOutOfPlaneSolver
+from plate_solver.piezo_disk import (
+    PiezoDiskSC, DiskPathError as PiezoDiskPathError,
+    make_liu_disk, LIU_DISK_KWARGS,
+)
 from plate_solver.piezo_monolithic import PiezoMonolithicOutOfPlaneSolver
 from plate_solver.workers import (
     _piezo_elastic_ff_root_worker,
@@ -2169,6 +2173,111 @@ class TestPiezoConsistentProjection(unittest.TestCase):
             PiezoMonolithicOutOfPlaneSolver(projection='sine', **self.K5)
         with self.assertRaises(ValueError):
             PiezoOutOfPlaneSolver(projection='sine', **self.K4)
+
+
+
+class TestPiezoDiskSC(unittest.TestCase):
+    """Paper 4 lever 11 -- Liu 2002 solid-disk SC CPT (Tables 2 & 6).
+
+    Full Gate 2 (12 modes, from-scratch scan, dps=100):
+    validation/paper4_piezo/probe_piezo_p4_liu_disk_gate2_2026-09-24.py.
+    These package tests use dps=40 for CI smoke; tolerance is the Gate 2
+    bar (0.1% vs Liu x_kir; 0.1% vs Paper 3 lambda^2 for elastic), plus a
+    tight regression on the default ('consistent') roots and on the
+    legacy 'duan' roots.
+    Disk API is main-process only (not wired into workers).
+    """
+
+    # Paper 3 / Gate 2a lambda^2 refs (Leissa flexural)
+    LAMBDA2_P3 = {
+        ('C', 0, 1): 10.215815,
+        ('C', 1, 1): 21.260405,
+        ('S', 0, 1): 4.935127,
+        ('S', 1, 1): 13.898176,
+    }
+    # Gate 2 SC roots at dps=100 (probe_piezo_p4_liu_disk_gate2_2026-09-24):
+    # (table, bc, n, m): (omega_consistent, omega_duan, omega_kir, lo, hi)
+    LIU_CPT = {
+        (2, 'C', 0, 1): (902.4165163374934, 902.4186619938962, 902.5, 880.0, 930.0),
+        (6, 'S', 0, 1): (435.59981690040496, 435.60128907622254, 435.6, 420.0, 450.0),
+    }
+    R0 = 0.6
+    H_FULL = 0.02  # 2h
+    E, NU, RHO = 200e9, 0.3, 7800.0
+
+    @staticmethod
+    def _lambda2_from_omega(omega, a=0.6, H=0.02, E=200e9, nu=0.3, rho=7800.0):
+        D = E * H ** 3 / (12.0 * (1.0 - nu * nu))
+        return float(omega) * (a * a) * ((rho * H) / D) ** 0.5
+
+    def test_flag_disk_6x6_at_ri0_is_not_the_disk(self):
+        self.assertTrue(PiezoDiskSC.DISK_6X6_AT_RI0_IS_NOT_THE_DISK)
+
+    def test_refuse_ri_gt_0(self):
+        disk = make_liu_disk(dps=30, h1=0.0)
+        disk.r_i = 0.1
+        with self.assertRaises(PiezoDiskPathError):
+            disk.elastic_disk_det(100.0, 0, 'C')
+        disk2 = make_liu_disk(dps=30)
+        disk2.r_i = 0.05
+        with self.assertRaises(PiezoDiskPathError):
+            disk2.sc_disk_det(900.0, 0, 'C')
+
+    def test_annular_solver_refuses_ri_zero(self):
+        from plate_solver.piezo_solver import PiezoOutOfPlaneSolver
+        for ri in (0.0, -0.1):
+            with self.assertRaises(ValueError):
+                PiezoOutOfPlaneSolver(r_i=ri, r_o=0.6, **LIU_DISK_KWARGS)
+
+    def test_sc_disk_refuses_h1_zero(self):
+        disk = make_liu_disk(dps=30, h1=0.0)
+        with self.assertRaises(ValueError):
+            disk.sc_disk_det(900.0, 0, 'C')
+
+    def test_elastic_disk_lambda2_vs_paper3(self):
+        """Bare-host elastic 2x2 recovers Paper 3 lambda^2 (couple C/S)."""
+        disk = make_liu_disk(dps=40, h1=0.0)
+        cases = [
+            ('C', 0, 1, 800.0, 950.0),
+            ('C', 1, 1, 1700.0, 1950.0),
+            ('S', 0, 1, 380.0, 460.0),
+            ('S', 1, 1, 1100.0, 1280.0),
+        ]
+        for bc, n, m, lo, hi in cases:
+            w = disk.elastic_disk_bisect(lo, hi, n, bc_outer=bc, h1=0.0, iters=40)
+            lam = self._lambda2_from_omega(w)
+            ref = self.LAMBDA2_P3[(bc, n, m)]
+            rel = abs(lam - ref) / ref
+            self.assertLess(
+                rel, 1e-3,
+                "FAIL_ELASTIC_DISK %s n=%s m=%s lam=%s ref=%s rel=%s"
+                % (bc, n, m, lam, ref, rel))
+
+    def test_liu_table2_and_table6_n0_m1_within_0p1pct(self):
+        """Primary Gate 2 CPT points: Table 2 and Table 6, n=0 m=1."""
+        disk = make_liu_disk(dps=40)  # default projection='consistent'
+        self.assertEqual(disk.projection, 'consistent')
+        duan = make_liu_disk(dps=40, projection='duan')
+        for (table, bc, n, m), (omega_c, omega_d, omega_kir, lo, hi) in self.LIU_CPT.items():
+            w = disk.sc_disk_bisect(lo, hi, n, bc_outer=bc, iters=40)
+            rel_kir = abs(w - omega_kir) / omega_kir
+            self.assertLess(
+                rel_kir, 1e-3,
+                "FAIL_LIU_CPT T%s %s n=%s m=%s omega=%s kir=%s rel=%s"
+                % (table, bc, n, m, w, omega_kir, rel_kir))
+            # Regression on the dps=100 Gate 2 roots (both projections)
+            rel_c = abs(w - omega_c) / omega_c
+            self.assertLess(
+                rel_c, 1e-7,
+                "FAIL_GATE2_REGRESSION T%s omega=%s ref=%s rel=%s"
+                % (table, w, omega_c, rel_c))
+            wd = duan.sc_disk_bisect(lo, hi, n, bc_outer=bc, iters=40)
+            rel_d = abs(wd - omega_d) / omega_d
+            self.assertLess(
+                rel_d, 1e-7,
+                "FAIL_GATE2_DUAN_REGRESSION T%s omega=%s ref=%s rel=%s"
+                % (table, wd, omega_d, rel_d))
+
 
 
 if __name__ == "__main__":

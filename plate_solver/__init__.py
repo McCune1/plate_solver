@@ -39,6 +39,9 @@ from .ring_disk import (
     UnsupportedRingBC,
 )
 from .piezo_solver import PiezoOutOfPlaneSolver
+from .piezo_disk import (
+    PiezoDiskSC, DiskPathError, make_liu_disk, LIU_DISK_KWARGS,
+)
 from .piezo_monolithic import PiezoMonolithicOutOfPlaneSolver
 from .plotting import plot_dispersion_curves, plot_mode_shape
 from .validation import (
@@ -64,6 +67,7 @@ __all__ = [
     "ring_search", "disk_search", "flexural_lambda2", "inplane_lambda_irie",
     "UnsupportedRingBC",
     "PiezoOutOfPlaneSolver",
+    "PiezoDiskSC", "DiskPathError", "make_liu_disk", "LIU_DISK_KWARGS",
     "PiezoMonolithicOutOfPlaneSolver",
     "plot_dispersion_curves", "plot_mode_shape",
     "compare_and_collect", "print_summary", "run_shi_validation",

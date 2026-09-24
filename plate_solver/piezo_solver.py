@@ -150,6 +150,13 @@ class PiezoOutOfPlaneSolver:
       theorem: one edge has w' free, so S need not vanish). n!=0 and
       h1=0 reduce identically to the mixed elastic 4x4.
 
+    Solid-disk (R_i=0) SC/elastic determinants live in
+    ``plate_solver.piezo_disk.PiezoDiskSC`` (Paper 4 lever 11). Do not
+    call annular 6x6/4x4 dets at r_i=0 as a disk substitute -- see
+    PiezoDiskSC.DISK_6X6_AT_RI0_IS_NOT_THE_DISK and Paper 3 job
+    2339453. The constructor raises ValueError for r_i <= 0. A tiny
+    hole (r_i > 0) is a different physical problem, not the disk.
+
     Row formulas are the CORRECTED ones from LESSONS_LEARNED.md Sec
     18.149 (Duan2005 Eq. 9a, re-verified against a 400 DPI page-image
     render, not OCR -- the earlier Sec 18.141 C transcription had a
@@ -208,6 +215,14 @@ class PiezoOutOfPlaneSolver:
         """
         self.r_i = float(r_i)
         self.r_o = float(r_o)
+        if not self.r_i > 0.0:
+            # Lever 11 refuse (LESSONS Sec 18.236): the annular operator at
+            # r_i=0 is not the solid disk (Y_n/K_n singular). Raises before
+            # any assembly; no computed value changes for r_i > 0.
+            raise ValueError(
+                "PiezoOutOfPlaneSolver is annular and needs r_i > 0 (got "
+                "r_i=%r); for a solid disk use "
+                "plate_solver.piezo_disk.PiezoDiskSC" % (r_i,))
         self.h = float(h)
         self.E = float(E)
         self.nu = float(nu)

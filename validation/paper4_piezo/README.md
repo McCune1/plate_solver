@@ -39,6 +39,15 @@ paper's model.
 two levels below it). The `submit_*.sh` wrappers hardcode the original
 cluster paths; change them to your install.
 
+**Liu 2002 solid disk (SM Section S.10).**
+`probe_piezo_p4_liu_disk_gate2_2026-09-24.py` scans the
+`plate_solver.piezo_disk.PiezoDiskSC` determinant from scratch and scores
+Liu, Wang and Quek's Tables 2 and 6 CPT column. Its transcript is
+`probe_piezo_p4_liu_disk_gate2_2026-09-24.log`, and its results are in
+`liu_disk_gate2_2026-09-24_results.{json,csv}`. It runs on one core in
+about a minute; no cluster run is needed. The three-dimensional FE
+check of the same disk (job 2531012) is `ansys/NewAnsys/ansys_p4_liudisk2_*`.
+
 **Finite elements.** The PLANE223 decks, their text outputs, manifests,
 submit/build scripts and queue logs for every finite-element job the paper
 cites are in `ansys/NewAnsys/` (`ansys_p4_*`). `ansys/README.md` maps each

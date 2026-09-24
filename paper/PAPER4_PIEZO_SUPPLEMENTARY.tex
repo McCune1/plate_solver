@@ -8,6 +8,7 @@
 %   S.7  mixed-edge C-F / F-C closed form
 %   S.8  frequency-precision sweep and lab noise floor
 %   S.9  three-dimensional n >= 1 finite-element check
+%   S.10 Liu 2002 solid-disk CPT (Tables 2 and 6)
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -325,6 +326,14 @@ elastic default.
 \item 2530784 --- thin-limit second pass, $96\times288\times8$ at $t=20$,
       $10$, $5\,\mathrm{mm}$, $100\,\mathrm{GB}$; all \texttt{RUN
       COMPLETED}, 0 errors (\S\ref{sec:s9}).
+\item 2530987 --- Liu solid-disk decks, first version
+      (\S\ref{sec:liu-disk}); both \texttt{RUN COMPLETED}, 0 errors. A
+      displacement constraint on the central mesh hole blocked the $n=1$
+      centre rotation and raised those modes by 2--7\%; superseded by
+      2531012 and not used.
+\item 2531012 --- Liu solid-disk decks with the hole free, SOLID226,
+      ANSYS 2025~R1; both \texttt{RUN COMPLETED}, 0 errors
+      (\S\ref{sec:liu-disk}).
 \item 2495751 --- lever 16 frequency-precision sweep, SENTINEL
       PASS\_ALL, bit-identical to the in-sandbox run (F--F/C--F
       $e_{31}$ uncertainty curve plus the Boeringa--McCune lab
@@ -544,12 +553,118 @@ $3.3\times10^{-3}$ at the $-1\,\mathrm{Hz}$ shift); its roots continue
 the monotone sequence of the two coarser meshes, and no other deck
 printed a warning or an error.
 
+
+\section{Liu 2002 solid-disk short-circuit CPT}
+\label{sec:liu-disk}
+
+Liu, Wang and Quek \cite{liu2002} tabulated free-vibration frequencies of
+a steel circular plate (no hole) with identical thickness-polarized PZT-4
+skins on both faces, both faces of each skin short-circuited. Only their
+classical-plate column $x_{\mathrm{kir}}$ is scored here; their Mindlin
+and three-dimensional finite-element columns are not. Geometry of their
+Tables~2 and~6: $r_0=0.6\,\mathrm{m}$, host half-thickness
+$h=0.01\,\mathrm{m}$, skin thickness $h_1=0.002\,\mathrm{m}$
+($r_0/h=60$); materials as their Table~1, with $e_{31}=+4.1\,\mathrm{C\,m^{-2}}$
+as in the main text.
+
+The solid disk has its own determinant. Keeping only the centre-regular
+Bessel function of each of the three $\chi$-branches of
+Section~\ref{sec:s1} gives a $3\times3$; its rows are $w=w'=0$ (outer
+edge clamped, Liu's Tables~2--5) or $w=M_r=0$ (simply supported, Tables
+6--9), each with the short-circuit row $\phi'=0$. The annular $6\times6$
+evaluated at $r_i=0$ is not this determinant, because its $Y_n$ and $K_n$
+columns are singular there, and the annular solver refuses $r_i\le0$.
+With $h_1=0$ the disk reduces to the $2\times2$ on $\{J_n,I_n\}$ of
+McCune and Stutts \cite{mccune2026ring}, and it reproduces their
+$\lambda^2$ for $n=0,1,2$, $m=1,2$, under both edge conditions, to
+$5\times10^{-6}$. Roots were located by sampling the determinant on a
+uniform grid ($800$ points from $50\,\mathrm{rad\,s^{-1}}$ to $8000$
+(clamped) or $7000$ (simply supported)) and
+bisecting every sign change at $100$ digits; no published value placed a
+bracket. The first two roots of each $n$ are the six modes of each table,
+with no extra or missing root in the window.
+
+Tables~\ref{tab:liu-t2} and~\ref{tab:liu-t6} give the result. All twelve
+roots agree with $x_{\mathrm{kir}}$ to better than $1\times10^{-4}$. All lie
+slightly below it (by $4\times10^{-7}$ to $9\times10^{-5}$), which for the
+higher modes exceeds the rounding of Liu's printed values; the
+reference model or its constants differ from ours at that level.
+
+This comparison does not test the electromechanical coupling. On this
+geometry, reducing $e_{31}$ from $4.1$ to $0.01\,\mathrm{C\,m^{-2}}$ moves
+every root by less than $4\times10^{-5}$, and replacing the projection of
+Section~\ref{sec:s1} by the Duan-type closure of \cite{duan2005} moves it
+by less than $4\times10^{-6}$, so the tables cannot tell the two apart. What the
+tables do confirm is the solid-disk determinant, both outer edge rows, and
+the laminate stiffness and inertia on a geometry other than the ring of the
+main text. Script and output:
+\texttt{validation/paper4\_piezo/probe\_piezo\_p4\_liu\_disk\_gate2\_2026-09-24.py}.
+
+A three-dimensional finite-element model of the same disk (SOLID226
+piezoelectric bricks, both faces of each skin grounded, half model, one
+mesh of 6912 elements with a free central hole of radius $3\,\mathrm{mm}$,
+$0.5\%$ of $r_0$) reproduces Liu's ABAQUS column for all twelve modes
+within the pre-registered $0.6\%$: from $+0.22$ to $+0.51\%$ for the
+clamped edge and from $-0.02$ to $+0.31\%$ for the simply supported one.
+Like theirs, it lies below the classical-plate roots, by $0.03$ to $2.0\%$
+growing with mode order, which is the thickness effect at $r_0/h=60$.
+This checks the finite-element pipeline used elsewhere in this paper
+against an independent code; it is not a test of the classical-plate
+roots (job 2531012, \S\ref{sec:jobs}; decks and scorer in
+\texttt{ansys/NewAnsys/ansys\_p4\_liudisk2\_*}).
+
+\begin{table}[ht]
+\centering
+\caption{Liu Table~2 (outer edge clamped, short-circuit), $r_0/h=60$: our roots $\omega$ against Liu's classical-plate column $x_{\mathrm{kir}}$ (rad/s).}
+\label{tab:liu-t2}
+\small
+\begin{tabular}{@{}rrrrr@{}}
+\toprule
+$n$ & $m$ & $\omega$ (this work) & $x_{\mathrm{kir}}$ (Liu) & $\omega/x_{\mathrm{kir}}-1$ \\
+\midrule
+0 & 1 & 902.4165 & 902.5 & $-9.25\times10^{-5}$ \\
+1 & 1 & 1878.0404 & 1878.2 & $-8.50\times10^{-5}$ \\
+2 & 1 & 3080.8681 & 3081.1 & $-7.53\times10^{-5}$ \\
+0 & 2 & 3513.1902 & 3513.4 & $-5.97\times10^{-5}$ \\
+1 & 2 & 5373.3097 & 5373.7 & $-7.26\times10^{-5}$ \\
+2 & 2 & 7471.6208 & 7472.1 & $-6.41\times10^{-5}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Liu Table~6 (outer edge simply supported, short-circuit), $r_0/h=60$: our roots $\omega$ against Liu's classical-plate column $x_{\mathrm{kir}}$ (rad/s).}
+\label{tab:liu-t6}
+\small
+\begin{tabular}{@{}rrrrr@{}}
+\toprule
+$n$ & $m$ & $\omega$ (this work) & $x_{\mathrm{kir}}$ (Liu) & $\omega/x_{\mathrm{kir}}-1$ \\
+\midrule
+0 & 1 & 435.5998 & 435.6 & $-4.20\times10^{-7}$ \\
+1 & 1 & 1227.4015 & 1227.5 & $-8.03\times10^{-5}$ \\
+2 & 1 & 2262.2762 & 2262.4 & $-5.47\times10^{-5}$ \\
+0 & 2 & 2625.0503 & 2625.2 & $-5.70\times10^{-5}$ \\
+1 & 2 & 4282.1310 & 4282.4 & $-6.28\times10^{-5}$ \\
+2 & 2 & 6193.5412 & 6193.9 & $-5.79\times10^{-5}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
 \begin{thebibliography}{99}\small
 \setlength{\itemsep}{0pt}
 \setlength{\parsep}{0pt}
 \bibitem{duan2005} W.H. Duan, S.T. Quek, Q. Wang, ``Free vibration analysis
 of piezoelectric coupled thin and thick annular plate,'' J. Sound Vib. 281
 (2005) 119--139.
+\bibitem{liu2002} X. Liu, Q. Wang, S.T. Quek, ``Analytical solution for free
+vibration of piezoelectric coupled moderately thick circular plates,''
+Int. J. Solids Struct. 39 (2002) 2129--2151.
+\url{https://doi.org/10.1016/S0020-7683(02)00079-3}.
+\bibitem{mccune2026ring} G. McCune, D. Stutts, ``Exact radial-determinant
+frequencies of annular and circular plates: the closed-ring and solid-disk
+limits of the sector wave-function method,'' submitted (2026).
 \bibitem{boeringa2026} Z.L. Boeringa, G.H. McCune, D.S. Stutts, ``Canonical
 validation and model discrimination in a linearly tapered non-uniform rod,''
 unpublished manuscript (2026).
