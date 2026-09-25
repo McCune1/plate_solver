@@ -21,6 +21,7 @@
 \usepackage{caption}
 \captionsetup{font=small,labelfont=bf,skip=4pt}
 \usepackage{placeins}
+\usepackage{seqsplit}
 \renewcommand{\topfraction}{0.9}
 \renewcommand{\bottomfraction}{0.85}
 \renewcommand{\textfraction}{0.07}
@@ -39,6 +40,7 @@
 
 \newcommand{\eebar}{\bar{e}_{31}}
 \newcommand{\Xibar}{\bar{\Xi}_{33}}
+\newcommand{\fn}[1]{\texttt{\seqsplit{#1}}}
 
 \title{\bfseries Supplementary Material:\\
 Exact Radial-Determinant Frequencies of a Piezoelectric Annular Plate,
@@ -419,7 +421,7 @@ $410.074181\,\mathrm{rad\,s^{-1}}$) and $2.28\times10^{-10}$ (F--C,
 $873.221632\,\mathrm{rad\,s^{-1}}$). SENTINEL PASS\_ALL
 (\texttt{probe\_piezo\_p4\_cf\_mixed\_edge\_2026-09-16.py},
 \texttt{dps=60}; $e_{31}=-4.1$ copy
-\texttt{probe\_piezo\_p4\_cf\_mixed\_edge\_e31m\_2026-09-24.py}): C--F
+\fn{probe\_piezo\_p4\_cf\_mixed\_edge\_e31m\_2026-09-24.py}): C--F
 open-circuit $+1.826\%$, $k_{\mathrm{eff}}^2=0.0355$, $e_{31}$ G2
 $0.93\%$ at $0.01\%$ frequency; F--C open-circuit $+0.0388\%$,
 $k_{\mathrm{eff}}^2=0.00078$. Short-circuit $6\times6$ over the mixed
@@ -479,7 +481,7 @@ $1\%$      & $87.013\%$ & $92.824\%$ \\
 \end{table}
 
 Delivered as
-\texttt{Paper4\_Piezo/probe\_piezo\_p4\_lever16\_freq\_noise\_floor\_2026-09-16.py}
+\fn{Paper4\_Piezo/probe\_piezo\_p4\_lever16\_freq\_noise\_floor\_2026-09-16.py}
 (LF) with matching submit script (\texttt{dps=60}, mirroring the
 free--free/clamped--free probes' own settings); its $e_{31}=-4.1$ copy
 (\texttt{\ldots\_e31m\_2026-09-24.py}) produced the table above,
@@ -723,7 +725,7 @@ Int. J. Solids Struct. 39 (2002) 2129--2151.
 \url{https://doi.org/10.1016/S0020-7683(02)00079-3}.
 \bibitem{mccune2026ring} G. McCune, D. Stutts, ``Exact radial-determinant
 frequencies of annular and circular plates: the closed-ring and solid-disk
-limits of the sector wave-function method,'' submitted (2026).
+limits of the sector wave-function method,'' unpublished manuscript (2026).
 \bibitem{boeringa2026} Z.L. Boeringa, G.H. McCune, D.S. Stutts, ``Canonical
 validation and model discrimination in a linearly tapered non-uniform rod,''
 unpublished manuscript (2026).
