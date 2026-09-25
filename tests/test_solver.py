@@ -2042,6 +2042,39 @@ class TestPiezoMonoDrivenForceSensing(unittest.TestCase):
         self.assertEqual(im, y_direct.imag)
         self.assertAlmostEqual(re, self.Y_SENSE_AT_200, delta=1e-20)
 
+    def test_driven_force_sc_ff_reduces_to_driven_ff(self):
+        """G_reduce: driven_force_sc('F','F') matches driven_ff_force_sc
+        bit for bit. Same rim-row order and the same equilibrated solve,
+        so the branch constants and the segment charge agree exactly."""
+        from mpmath import mpf
+        s = self._make(dps=40)
+        ff = s.driven_ff_force_sc(mpf(self.OMEGA), self.R_F, F=1.0, n=0)
+        gen = s.driven_force_sc(
+            mpf(self.OMEGA), self.R_F, "F", "F", F=1.0, n=0)
+        self.assertEqual(list(ff["c_I"]), list(gen["c_I"]))
+        self.assertEqual(list(ff["c_II"]), list(gen["c_II"]))
+        self.assertEqual(
+            s.Q_segment(ff, s.r_i, self.R_STAR),
+            s.Q_segment(gen, s.r_i, self.R_STAR))
+
+    def test_driven_force_sc_clamped_changes_the_solution(self):
+        """A clamped rim has to change the branch constants. This fails
+        if inner/outer are ignored and the builder always emits F-F rows."""
+        from mpmath import mpf
+        s = self._make(dps=25)
+        ff = s.driven_force_sc(
+            mpf(self.OMEGA), self.R_F, "F", "F", F=1.0, n=0)
+        cc = s.driven_force_sc(
+            mpf(self.OMEGA), self.R_F, "C", "C", F=1.0, n=0)
+        self.assertNotEqual(list(ff["c_I"]), list(cc["c_I"]))
+
+    def test_driven_force_sc_rejects_bad_bc_and_n(self):
+        s = self._make(dps=15)
+        with self.assertRaises(ValueError):
+            s.driven_force_sc(self.OMEGA, self.R_F, "X", "F")
+        with self.assertRaises(NotImplementedError):
+            s.driven_force_sc(self.OMEGA, self.R_F, "F", "F", n=1)
+
 
 class TestPiezoFreeEdgeEffectiveShear(unittest.TestCase):
     """2026-09-22 (LESSONS Sec 18.226): the free-edge shear row must be the

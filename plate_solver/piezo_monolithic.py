@@ -16,6 +16,8 @@ Methods:
   elastic_cc_det / elastic_cc_bisect C-C 4x4, e31 unused
   coupled_det / coupled_bisect       F-F 6x6 SC (chi-cubic, 3 Helmholtz branches)
   cc_coupled_det / cc_coupled_bisect C-C 6x6 SC
+  driven_ff_force_sc                 F-F force-driven segment charge, n=0
+  driven_force_sc                    same 12x12, inner/outer in {C, F}
 
 SOLVER_VERSION is not bumped: new unused-by-default entry point, same
 pattern as piezo_solver.py / ring_disk.py.
@@ -637,8 +639,10 @@ class PiezoMonolithicOutOfPlaneSolver:
             lambda om, n=n: self.fc_coupled_det(om, n), lo, hi, iters)
 
     # ---------- force-driven sensing admittance (Sec 18.211/18.212) ----------
-    # PAPER5_YOMEGA_SENSE_DERIVATION.md. F-F mechanical + SC electrical
-    # only, n=0 only, this pass. A harmonic axisymmetric ring load F at
+    # PAPER5_YOMEGA_SENSE_DERIVATION.md. F-F is driven_ff_force_sc.
+    # C-C / C-F / F-C is driven_force_sc: the same 12x12 with the rim
+    # rows selected as in _coupled_mixed_det. n=0 only. A harmonic
+    # axisymmetric ring load F at
     # r_F splits the domain into two regions, each carrying the SAME
     # three chi-cubic branches as coupled_det/_branches; only the
     # Kirchhoff shear (the "q" bracket already used by coupled_det, NOT
@@ -715,7 +719,8 @@ class PiezoMonolithicOutOfPlaneSolver:
         Returns a dict of mpf/plain values sufficient to reconstruct
         w(r) and phibar'(r) anywhere via _driven_eval: c_I, c_II (each
         a length-6 list of branch constants), lams, r_F, n, H.
-        n=0 only this pass; C-C/C-F/F-C sensing variants are follow-on.
+        n=0 only. C-C/C-F/F-C is driven_force_sc. This method stays the
+        F-F reference that reduction is checked against.
         """
         self._require_coupled_consts()
         if int(n) != 0:
@@ -775,6 +780,94 @@ class PiezoMonolithicOutOfPlaneSolver:
                 c_I=[c[j] for j in range(6)],
                 c_II=[c[j] for j in range(6, 12)],
                 d=d, A1v=A1v, H=H, K_pref=K_pref, n=int(n),
+            )
+
+    def driven_force_sc(self, omega, r_F, inner="F", outer="F", F=1.0, n=0):
+        """Force-driven SC response for a general rim pair.
+
+        inner/outer are 'C' or 'F' (C-F means inner clamped, outer
+        free), the same row choice as _coupled_mixed_det:
+          C -> w = w' = phibar' = 0
+          F -> M_rr = Q_r = phibar' = 0
+        Interface rows and the Q_r-bracket jump RHS are the F-F ones.
+        n=0 only. inner='F', outer='F' uses the same row order as
+        driven_ff_force_sc; the G_reduce test requires those branch
+        constants to match bit for bit. This is model M1 (phibar'=0
+        on every rim). The e15-corrected clamped-rim row stays in the
+        2026-09-24 probe.
+
+        The return dict matches driven_ff_force_sc, plus inner and
+        outer, so _driven_eval and Q_segment apply unchanged.
+        """
+        self._require_coupled_consts()
+        if int(n) != 0:
+            raise NotImplementedError(
+                "driven_force_sc: n=0 only "
+                "(PAPER5_YOMEGA_SENSE_DERIVATION.md Sec 10)")
+        if inner not in ("C", "F") or outer not in ("C", "F"):
+            raise ValueError(
+                "driven_force_sc: inner and outer must be 'C' or 'F', "
+                "got inner=%r outer=%r" % (inner, outer))
+        if not (float(self.r_i) < float(r_F) < float(self.r_o)):
+            raise ValueError("r_F must satisfy r_i < r_F < r_o")
+        with mp.workdps(self.dps):
+            omega = mpf(omega)
+            r_F = mpf(r_F)
+            F = mpf(F)
+            d = self._d()
+            A1v = self._A1()
+            H = mpf(self.H)
+            e31_bar = self._e31_bar()
+            K_pref = self._K_pref()
+            lams = self._branches(omega)
+
+            def vecs(r):
+                return self._driven_vecs_at(n, r, lams, d, A1v, K_pref)
+
+            w_i, wp_i, phi_i, m_i, q_i, phip_i = vecs(self.r_i)
+            w_o, wp_o, phi_o, m_o, q_o, phip_o = vecs(self.r_o)
+            w_F, wp_F, phi_F, m_F, q_F, phip_F = vecs(r_F)
+
+            def rim(bc, w, wp, m_row, q_row, phip):
+                if bc == "C":
+                    return w, wp, phip
+                return m_row, q_row, phip
+
+            a0, a1, a2 = rim(inner, w_i, wp_i, m_i, q_i, phip_i)
+            b0, b1, b2 = rim(outer, w_o, wp_o, m_o, q_o, phip_o)
+            zero6 = [mpf(0)] * 6
+
+            def interface_row(vec):
+                return list(vec) + [-x for x in vec]
+
+            rows = [
+                a0 + zero6,
+                a1 + zero6,
+                a2 + zero6,
+                zero6 + b0,
+                zero6 + b1,
+                zero6 + b2,
+                interface_row(w_F),
+                interface_row(wp_F),
+                interface_row(m_F),
+                interface_row(q_F),
+                interface_row(phi_F),
+                interface_row(phip_F),
+            ]
+            rhs = [mpf(0), mpf(0), mpf(0), mpf(0), mpf(0), mpf(0),
+                   mpf(0), mpf(0), mpf(0),
+                   -F / (2 * mp.pi * r_F),
+                   mpf(0), mpf(0)]
+
+            A_mat = matrix(rows)
+            b_vec = matrix(rhs)
+            c = self._equilibrate_solve(A_mat, b_vec)
+            return dict(
+                omega=omega, r_F=r_F, F=F, lams=lams,
+                c_I=[c[j] for j in range(6)],
+                c_II=[c[j] for j in range(6, 12)],
+                d=d, A1v=A1v, H=H, K_pref=K_pref, n=int(n),
+                inner=inner, outer=outer,
             )
 
     def _driven_eval(self, result, r):
