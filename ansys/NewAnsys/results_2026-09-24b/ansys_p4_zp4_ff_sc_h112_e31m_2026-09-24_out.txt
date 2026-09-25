@@ -1,0 +1,2287 @@
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2025 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2025 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+
+ AFTER YOU HAVE READ, UNDERSTOOD, AND AGREED TO THE PREVIOUS NOTICES,
+ PRESS <CR> OR <ENTER> TO CONTINUE
+ 2025 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2025 R1 
+ AVxcelerate Sensors 2025 R1 
+ AVxcelerate Sensors Library for SCANeR 2025 R1  
+ AVxcelerate Sensors Library for CarMaker 2025 R1
+ TwinAI 2025 R1  
+ Electromagnetics Suite 2025 R1  
+ Electromagnetics RSM 2025 R1
+ Ansys Dynamic Reporting 2025 R1 
+ Core WB Files 2025 R1   
+ BladeModeler 2025 R1
+ CFD-Post only 2025 R1   
+ CFX (includes CFD-Post) 2025 R1 
+ Chemkin 2025 R1 
+ EnSight 2025 R1 
+ FENSAP-ICE 2025 R1  
+ Fluent (includes CFD-Post) 2025 R1  
+ Polyflow (includes CFD-Post) 2025 R1
+ Forte (includes EnSight) 2025 R1
+ ICEM CFD 2025 R1
+ Rocky 2025 R1   
+ TurboGrid 2025 R1   
+ Lumerical 2025 R1   
+ Lumerical Photonic Verilog-A 2025 R1
+ Speos HPC 2025 R1   
+ Speos RPC 2025 R1   
+ optiSLang 2025 R1   
+ Remote Solve Manager Standalone Services 2025 R1
+ Additive 2025 R1
+ Aqwa 2025 R1
+ Autodyn 2025 R1 
+ Customization Files for User Programmable Features 2025 R1  
+ LS-DYNA 2025 R1 
+ Mechanical Products 2025 R1 
+ Motion 2025 R1  
+ Sherlock 2025 R1
+ ACIS Geometry Interface 2025 R1 
+ Catia, Version 5 Geometry Interface 2025 R1 
+ Parasolid Geometry Interface 2025 R1
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = p4_zp4_ff_sc_h112_e31m_2                                                                                                                                                                                                                                
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  SHARED MEMORY PARALLEL REQUESTED
+    SINGLE PROCESS WITH   8 THREADS REQUESTED
+    TOTAL OF     8 CORES REQUESTED
+  INPUT FILE NAME              = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24.inp
+  OUTPUT FILE NAME             = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24_out.txt
+
+ RELEASE= 2025 R1              BUILD= 25.1      UP20241202   VERSION=LINUX x64   
+ CURRENT JOBNAME=p4_zp4_ff_sc_h112_e31m_2  16:45:10  SEP 24, 2026 CP=      0.282
+
+     1  ! ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24.inp   
+     2  ! e31 SIGN CLONE (2026-09-24, clone_e31m_decks_2026-09-24.py, LESSONS Sec 18.244).  
+     3  ! Parent: ansys_p4_zp4_ff_sc_h112_2026-09-16.inp. Only changes: E31 = -4.1E-3 (Liu 2002 / Duan 2005 
+     4  ! Table 1 as printed) and every *CFOPEN output name + '_e31m'.  
+     5  ! Targets quoted in the parent header below are the OLD +4.1 values.
+     6  ! Do not put the MAPDL failure token in this file.  
+     7  ! ansys_p4_ff_piezo_ring_2026-09-15.inp 
+     8  ! Paper 4 (piezoelectric ring) -- first FE cross-check deck for the F-F 
+     9  ! (free-free) piezo-coupled LAYERED annular ring, p=0 (axisymmetric),   
+    10  ! h1/2h=1/12. Written 2026-09-15, same session as LESSONS_LEARNED.md
+    11  ! Sec 18.149 (F-F derivation + validation) and the sibling scripts  
+    12  ! probe_piezo_p4_ff_forward_model_2026-09-15.py /   
+    13  ! probe_piezo_p4_elastic_ff_baseline_2026-09-15.py. 
+    14  !   
+    15  ! ============================================================  
+    16  !   
+    17  ! ============================================================  
+    18  ! UNITS RESCALE (2026-09-16), following LESSONS_LEARNED.md Sec 18.161's 
+    19  ! "next concrete step, not yet attempted": a from-scratch, validated,   
+    20  ! consistent unit-system rescale of the whole piezo deck family, to 
+    21  ! shrink the ~20-order-of-magnitude spread between the mechanical block 
+    22  ! (order 1E9-1E13 in SI Pa-based units) and the electrical/piezoelectric
+    23  ! block (permittivity order 1E-9 F/m) that five independent cheap-lever 
+    24  ! probes (jobs 2490482, 2490571/2490582, 2490583) could not resolve.
+    25  !   
+    26  ! CHOSEN SYSTEM: mm - N - s - tonne (mechanical), REAL VOLTS (electrical
+    27  ! potential unchanged). This is NOT an arbitrary or guessed choice -- it
+    28  ! is the one non-SI system where the force unit N and the time unit s   
+    29  ! are UNCHANGED from SI (since tonne*mm/s^2 = 1000kg*1e-3m/s^2 = kg*m/s^2   
+    30  ! = N exactly), which is why frequencies (1/s) come out in real Hz with 
+    31  ! zero further conversion, and it is the standard "mm-N-s-tonne" system 
+    32  ! already ubiquitous in mm-scale FE work (ANSYS/LS-DYNA/Abaqus alike).  
+    33  !   
+    34  ! DERIVATION (first principles, cross-checked 3 independent ways -- T-  
+    35  ! equation substitution, electromechanical energy-density bookkeeping,  
+    36  ! and base-unit/derived-charge-unit substitution -- all three agree):   
+    37  !   
+    38  !  length      L' = L[m] * 1000                      (m -> mm)  
+    39  !  mass        M' = M[kg] * 1e-3                      (kg -> tonne; 
+    40  !                                                       DERIVED, not
+    41  !                                                       independently   
+    42  !                                                       chosen, from
+    43  !                                                       F=ma consistency)   
+    44  !  density     rho' = rho[kg/m^3] * 1e-12             (kg/m^3 -> tonne/mm^3)
+    45  !  stress/     E' = E[Pa] * 1e-6                       (Pa -> MPa = N/mm^2; 
+    46  !  modulus                                             an exact, always-
+    47  !                                                       valid physical  
+    48  !                                                       unit conversion)
+    49  !  potential   V' = V[Volt]  (UNCHANGED -- our deliberate choice, so
+    50  !                              VOLT dof / D,ALL,VOLT,0 BCs stay literal,
+    51  !                              physical volts, no BC rewriting needed)  
+    52  !  el. field   E_field'[V/mm] = E_field[V/m] * 1e-3   (implied by the   
+    53  !                              geometry now being in mm; not a material 
+    54  !                              constant, so nothing to type in directly)
+    55  !  ABS.        eps' = eps[F/m]  UNCHANGED NUMERICALLY. Proof: F/m, fully
+    56  !  PERMITTIVITY decomposed into base units, is F/m = (C^2/(N*m))/m =
+    57  !  (MP,PERx)   C^2/(N*m^2); substituting the SI identity C = N*m/V (from
+    58  !              V=J/C, J=N*m) gives C^2/(N*m^2) = N/V^2 -- the "m" cancels   
+    59  !              EXACTLY, so absolute permittivity has NO net length  
+    60  !              dependence once expressed in N and V (which are both 
+    61  !              unchanged in this system) -- confirmed independently by  
+    62  !              the energy-density route (T-form energy density (1/2)eps*
+    63  !              E^2 must equal (1/2)eps'*E'^2 once both are expressed in 
+    64  !              the new energy-density unit MPa=mJ/mm^3, and E'=E*1e-3   
+    65  !              exactly cancels the implied 1e-6 from Pa->MPa against
+    66  !              eps' = eps, i.e. no eps rescale needed). 
+    67  !  PIEZO e-    e' = e[C/m^2] * 1e-3. Derived from the T-equation
+    68  !  CONSTANT    T = c:S - e^T:E: converting T and c from Pa to MPa (each 
+    69  !  (TB,PIEZ,   x1e-6) and E from V/m to V/mm (x1e-3, i.e. E=E'*1e3),
+    70  !  TBDATA,     T'*1e6 = c'*1e6*S - e*(E'*1e3)  =>  T' = c'*S - (e*1e-3)*E'  
+    71  !  stress form)  => e' = e*1e-3. Independently re-derived via the   
+    72  !              charge-unit-substitution method (deriving the coherent   
+    73  !              charge unit Q* implied by keeping real Volts and mJ=N*mm 
+    74  !              energy, Q*=1e-3 C, then re-expressing C/m^2 in Q*/mm^2)  
+    75  !              -- both methods agree exactly: e' = e[C/m^2] * 1e-3. 
+    76  !  length      any PURE length tolerance (e.g. NUMMRG's node-merge  
+    77  !  tolerance   distance) is rescaled x1000 like any other length, e.g.  
+    78  !              1.0E-8 m -> 1.0E-5 mm.   
+    79  !   
+    80  ! NOT hand-derived from an "empirical" ABAQUS-forum factor (the risk the
+    81  ! session notes flagged) -- every factor above follows from ANSYS's own 
+    82  ! documented TB,PIEZ constitutive form (T=c:S-e^T:E, D=e:S+eps^S:E, 
+    83  ! stress-form default TBOPT, already independently confirmed correct in 
+    84  ! Sec 18.157) and ordinary SI dimensional analysis, not a borrowed number.  
+    85  !   
+    86  ! VALIDATION STAGING (per the ground rules -- do NOT trust a coupled
+    87  ! result in the new units before these pass): this submission batches   
+    88  ! the bare-host elastic-only deck and the piezo-coupling-off deck   
+    89  ! rescaled into these SAME units FIRST. Both are purely mechanical  
+    90  ! eigenvalue problems (piezo-coupling-off has e=0 everywhere, so its
+    91  ! VOLT dof is present but completely decoupled from the mechanical  
+    92  ! modes) -- their frequencies are mathematically GUARANTEED invariant   
+    93  ! under any internally-consistent unit rescaling, so they are a real
+    94  ! check on the ARITHMETIC of this conversion (did every E, rho, C_ij
+    95  ! actually get rescaled correctly), not on the physics. Confirmation
+    96  ! criteria: (a) rescaled bare-host mode 2 must reproduce 114.89 Hz  
+    97  ! (job 2490363's own result) to at least 4 significant figures -- NOT   
+    98  ! merely "close to 115.68 Hz", since a few-percent FE-discretization
+    99  ! gap is expected and already characterized, but ANY unit-conversion
+   100  ! arithmetic error would show up as a gap much larger than that 
+   101  ! already-known discretization error, or as a wildly wrong number; (b)  
+   102  ! rescaled piezo-coupling-off mode 2 must reproduce 118.81016 Hz (job   
+   103  ! 2490456's own result) to at least 4 significant figures, same 
+   104  ! reasoning. If EITHER fails, the units arithmetic (not the physics) is 
+   105  ! wrong and the FIX-v6-coupled result below must not be trusted.
+   106  !   
+   107  ! ONLY once (a) and (b) both pass does the coupled result below become  
+   108  ! trustworthy: mode 2 should land near 119.058 Hz (closed-form target)  
+   109  ! with a real O(0.1-1)-magnitude bending discriminator and the exact 0 Hz   
+   110  ! rigid-body mode should reappear, if the ~20-order-of-magnitude SI-units   
+   111  ! disparity really was the root cause of the catastrophic ill-  
+   112  ! conditioning (residual 4.15E+02 at full coupling, job 2490482).   
+   113  ! ============================================================  
+   114  ! WHY THIS DECK: no literature F-F piezo benchmark exists (LESSONS_LEARNED  
+   115  ! Sec 18.144 Finding 2 -- confirmed again, not re-litigated here), so FE is 
+   116  ! the ONLY external validation channel available for the F-F piezo-coupled  
+   117  ! forward model, per PAPER4_PIEZO_ROADMAP.md Sec 8 step 3. This is the  
+   118  ! layered-ring FE cross-check the C-C side never needed (C-C had Duan2005   
+   119  ! Table 4 to check against directly) and the disk smoke deck
+   120  ! (ansys_piezo_disk_modal_plane223.inp) was NOT (monolithic disk, different 
+   121  ! geometry, no benchmark target either -- see that deck's own header).  
+   122  !   
+   123  ! TARGET TO CHECK AGAINST: probe_piezo_p4_ff_forward_model_2026-09-15.py's  
+   124  ! own p=0, h1/2h=1/12 result: omega=747.9929 rad/s => f=119.058 Hz. This
+   125  ! deck's job is to find a genuine FE flexural mode near that frequency, not 
+   126  ! to blindly trust whichever mode number happens to fall near it -- see the 
+   127  ! MODE-SHAPE DISCRIMINATOR note below, this matters because a layered   
+   128  ! axisymmetric solid mesh mixes flexural (bending) and extensional  
+   129  ! (breathing/radial) mode families in one spectrum, unlike the pure-
+   130  ! bending Kirchhoff theory this project's own solver assumes.   
+   131  !   
+   132  ! GEOMETRY: layered annular ring, R_i=0.1 m, R_o=0.6 m (Duan2005 Table 4's  
+   133  ! own target), steel host |z|<=h (h=0.01, Duan's own half-thickness 
+   134  ! symbol), PZT4 piezo layers bonded symmetrically on both faces,
+   135  ! h<=z<=h+h1 and mirror -h-h1<=z<=-h, h1=2h/12 (Table-4 ratio 1/12).
+   136  ! TRUE FREE-FREE: since R_i=0.1 > 0, the ring does NOT touch the axis of
+   137  ! revolution, so (unlike the disk smoke deck, which needed UX=0 at r=0 to   
+   138  ! suppress the on-axis singularity) NO mechanical constraint is applied 
+   139  ! anywhere -- this is a genuinely unconstrained modal solve. Expect rigid-  
+   140  ! body translation (and, if p>0 were modeled, rotation) modes near f=0 Hz   
+   141  ! at the bottom of the spectrum; these are correct, not a bug (same 
+   142  ! precedent as the disk smoke deck's own mode-1-at-0-Hz note).  
+   143  !   
+   144  ! ELEMENT/MATERIAL STRATEGY: ONE element type (PLANE223, KEYOPT(1)=1001,
+   145  ! KEYOPT(3)=1 axisymmetric) used for BOTH the steel host AND the PZT4   
+   146  ! layers, with two different material IDs -- NOT two different element  
+   147  ! types -- specifically so the host/piezo interface line shares nodes   
+   148  ! naturally through ordinary area meshing (no manual node-merging step, 
+   149  ! no mismatched-DOF-set interface to debug). The steel material gets the
+   150  ! piezoelectric (TB,PIEZ) terms all zero and a small nominal permittivity   
+   151  ! (not exactly zero -- an exactly-zero diagonal permittivity would leave
+   152  ! VOLT undefined/singular at any node touching ONLY steel elements) so  
+   153  ! every node in the mesh carries a well-posed VOLT dof, even though VOLT
+   154  ! is physically meaningless in the steel region (e=0 there, so it never 
+   155  ! couples to anything mechanical) -- this mirrors how coupled-field meshes  
+   156  ! with an inert region are conventionally built, not a project-specific 
+   157  ! trick.
+   158  !   
+   159  ! ELECTRICAL BC: short-circuit, VOLT=0 on the OUTER (free) face of each 
+   160  ! piezo layer (z=h+h1 top, z=-h-h1 bottom) -- matching Sec 18.141 F's   
+   161  ! adopted electrical BC and Duan2005's own stated "electrodes...shortly 
+   162  ! connected" setup. The host/piezo INTERFACE (z=+-h) is NOT electrically
+   163  ! constrained (matches the sinusoidal potential ansatz's own zero-at-   
+   164  ! electrode-faces-only condition, Sec 18.141 B -- the interface is not an   
+   165  ! electrode).   
+   166  !   
+   167  ! MODE-SHAPE DISCRIMINATOR (read the postprocessing section before  
+   168  ! trusting a specific mode number as "the" flexural mode): a genuine
+   169  ! p=0 axisymmetric BENDING mode has UY (axial = out-of-plane transverse 
+   170  ! displacement, matching this project's w) nearly the SAME SIGN AND 
+   171  ! MAGNITUDE through the thickness at a given r (Kirchhoff kinematics:   
+   172  ! uz=w(r), no z-dependence), while UX (radial, in-plane) has OPPOSITE   
+   173  ! SIGN top vs bottom (bending strain ur=-z*dw/dr, linear in z, flips sign   
+   174  ! through the mid-plane). A "breathing"/extensional mode is the reverse:
+   175  ! UX same sign top/bottom (uniform radial stretch), UY small/near-zero. 
+   176  ! The postprocessing block below prints UX and UY at matched top/bottom 
+   177  ! node pairs at the outer radius for every extracted mode specifically so   
+   178  ! this can be checked by eye against the printed table, rather than 
+   179  ! trusting mode order alone.
+   180  !   
+   181  ! STATUS (2026-09-15, UPDATED post-job-2490363 isolation test, FIX v4): 
+   182  ! FOUR runs of THIS deck so far (2489625, 2490219, 2490239 all byte-
+   183  ! identical nonphysical; 2490350 confirmed the v3 mesh fix correct --   
+   184  ! piezo layers 80/80 elements, warnings 85->2 -- but frequency barely   
+   185  ! moved, 3427->3422 Hz, still ~29x off 119.058 Hz target). The only 
+   186  ! remaining non-routine warning in 2490350's log was ANSYS's own
+   187  ! eigensolver ill-conditioning note. A SEPARATE bare-host isolation deck
+   188  ! (ansys_p4_ff_bare_host_smoke_2026-09-15.inp, no piezo/VOLT coupling at
+   189  ! all) then ran clean (job 2490363): 0 mesh warnings, NO ill-conditioning   
+   190  ! warning, mode 2 within 0.68% of its 115.68 Hz target, clean bending   
+   191  ! discriminator signature -- DECISIVELY ruling out geometry/meshing/
+   192  ! free-free-BC as the cause and narrowing the search to THIS deck's own 
+   193  ! piezo coupled-field/permittivity setup. FIX v4 applied below: X_INERT 
+   194  ! raised from 1.0E-15 to 1.0E-9 (same order of magnitude as the real
+   195  ! PZT4 X11/X33, not 6-7 orders below them) -- see the X_INERT definition
+   196  ! itself and LESSONS_LEARNED.md Sec 18.154 for the full rationale and   
+   197  ! pre-registered confirmation criteria. NOT YET RE-RUN. 
+   198  !   
+   199  ! STATUS UPDATE (2026-09-15, FIX v6, following the piezo-coupling-off   
+   200  ! isolation deck's DECISIVE PASS, job 2490456 -- LESSONS_LEARNED.md Sec 
+   201  ! 18.156): the elastic layered composite alone (TB,PIEZ,2 zeroed) lands 
+   202  ! at 118.81 Hz, 0.21% from the 119.058 Hz target -- conclusively
+   203  ! implicating THIS material's TB,PIEZ,2 TBDATA block as the sole
+   204  ! remaining cause. A from-scratch re-derivation of ANSYS's TB,PIEZ  
+   205  ! TBDATA convention (cross-checked against ANSYS's own coupled-field
+   206  ! docs AND an independent forum-posted worked example for a Y-poled 
+   207  ! material, both agreeing exactly) found the convention is: 18 values,  
+   208  ! grouped by STRESS/STRAIN ROW (x,y,z,xy,yz,zx -- 6 groups of 3), each  
+   209  ! group cycling the electric FIELD column (X,Y,Z) fastest -- i.e.   
+   210  ! TBDATA index = (stress_row-1)*3 + field_col. This deck's PREVIOUS 
+   211  ! block (and the disk-smoke deck's, ansys_piezo_disk_modal_plane223.inp,
+   212  ! it was copied from) instead filled TBDATA as if grouped by FIELD row  
+   213  ! (3 groups of 6, stress cycling fastest) -- the TRANSPOSE of ANSYS's   
+   214  ! actual matrix, an easy mistake for TB,PIEZ specifically since (unlike 
+   215  ! the symmetric TB,ANEL block, which this same deck gets right) the 
+   216  ! piezoelectric matrix is a non-square 6x3 and the row/column meaning   
+   217  ! is easy to invert. Read literally, the OLD block placed the response  
+   218  ! of the HOOP normal stress (row 3) to the RADIAL field (E31, should be 
+   219  ! exactly zero by transverse-isotropy symmetry) and to the POLING field 
+   220  ! (E33=14.1 instead of the correct E31=4.1, ~3.4x too large) -- while   
+   221  ! leaving ALL THREE of the physically dominant, active bending-relevant 
+   222  ! terms exactly zero: radial-normal-stress<->poling-field (E31, row 1), 
+   223  ! axial-normal-stress<->poling-field (E33, row 2), and the r-z bending  
+   224  ! shear<->radial-field term (E15, row 4, the only piezo term that   
+   225  ! directly couples to Kirchhoff-type bending shear). This fully accounts
+   226  ! for a spurious, physically nonsensical dominant electromechanical term
+   227  ! unrelated to true bending stiffness -- consistent with the observed   
+   228  ! ~29x frequency / ~840x apparent-stiffness anomaly, far beyond real
+   229  ! PZT4 coupling factors (k^2~0.3-0.7). FIX v6 (below): TB,PIEZ,2's  
+   230  ! TBDATA rewritten to the verified-correct layout -- nonzero at 
+   231  ! positions 2 (E31), 5 (E33), 8 (E31), 10 (E15); position 15 (E15) is   
+   232  ! the second, symmetric shear term but is kinematically inert here (no  
+   233  ! hoop displacement DOF in this axisymmetric, non-torsion element, same 
+   234  ! as rows 5/6 already being inert per the Sec 18.156 manual audit). 
+   235  ! PRE-REGISTERED CONFIRMATION CRITERIA for the next run: (a) mode 2 
+   236  ! should land close to the 119.058 Hz closed-form target -- given the   
+   237  ! coupling-off baseline is already 118.81 Hz (0.21% off), the genuine   
+   238  ! coupling-induced shift should be small (a fraction of a percent, NOT  
+   239  ! a jump to/near 3422 Hz); (b) the discriminator should show the same   
+   240  ! clean bending signature as job 2490456 (UY_top~=UY_bot, UX_top~=-UX_bot)  
+   241  ! at that mode, not the 1E-10-to-1E-17 noise floor seen in every prior  
+   242  ! coupled run; (c) no ill-conditioning warning (X_INERT=1.0E-9, FIX v4, 
+   243  ! is untouched by this fix and was already only a partial, unrelated
+   244  ! conditioning improvement -- see Sec 18.155). If (a)-(b) still fail,   
+   245  ! the index/orientation hypothesis itself is wrong and the search must  
+   246  ! move to the PZT4 constants' own values/units next, treating this  
+   247  ! index-convention fix as closed rather than re-litigating it. NOT YET  
+   248  ! RUN -- push to the cluster before the next sbatch submission. 
+   249  ! ============================================================  
+   250      
+   251  !   
+   252  ! ============================================================  
+   253  ! BOTH-FACES SC CONTROL (2026-09-16): cloned from job 2490706's 
+   254  ! confirmed h1/2h=1/12 F-F LANB. Mesh/units/TB,PIEZ/LANB unchanged. 
+   255  ! VOLT=0 on interface AND outers -- analytic/Duan short-circuit 
+   256  ! (both faces of each piezo layer shorted). Fair SC counterpart to  
+   257  ! job 2491761's OC deck (inners grounded, outers CP-free).  
+   258  ! Target: 119.047 Hz (747.9929 rad/s). See build script docstring   
+   259  ! for the pre-registered reading of 119.05 vs 119.14 vs 119.24. 
+   260  ! ============================================================  
+   261  !   
+   262  ! ============================================================  
+   263  ! LEVER 8 MESH REFINEMENT (2026-09-16): cloned from the h1/2h=1/12  
+   264  ! BOTH-FACES SC CONTROL parent (job 2491831). Isolated change: NDIV_ZP 2 -> 4.  
+   265  ! Units, TB,PIEZ, LANB, electrical BC, NDIV_R=40, NDIV_ZH=6 are 
+   266  ! UNCHANGED. Do not re-open those. Do not confuse this with the 
+   267  ! outer-only-ground h18/h15 SC decks (job 2490848). 
+   268  !   
+   269  ! THIS DECK: h1/2h=1/12, BOTH-FACES SC CONTROL, NDIV_ZP=4. Closed-form  
+   270  ! target 119.04677 Hz. PASS: bending mode present, 0 Hz rigid-body  
+   271  ! present, real O(0.1-1) bending discriminator, 0 MAPDL error   
+   272  ! lines, RUN COMPLETED. OC sibling must sit ABOVE same-mesh scboth. 
+   273  ! Scientific question (reported, not a run-fail): does the FE vs
+   274  ! closed-form split gap shrink vs the NDIV_ZP=2 pair?   
+   275  ! ============================================================  
+   276  FINISH  
+   277  /CLEAR,NOSTART  
+   278  /TITLE, Paper 4 F-F piezo ring EPSREL LANB BOTH-FACES SC, p=0, h1/2h=1/12 NDIV_ZP=4, mm-N-s-tonne (2026-09-16)  
+   279      
+   280  ! ---- Geometry (SI units, meters) ---- 
+   281  RI     = 100.0  
+   282  RO     = 600.0  
+   283  H      = 10.0           ! host HALF-thickness [mm] (Duan2005's own h symbol)
+   284  H1     = 2*H/12         ! piezo layer thickness, Table-4 ratio 1/12 
+   285  NDIV_R = 40 
+   286  NDIV_ZH = 6              ! through-thickness divisions, host
+   287  NDIV_ZP = 4              ! lever 8: doubled from 2; isolate this one mesh variable  
+   288  NMODES = 20 
+   289      
+   290  ! ---- Steel host material (elastic only) ----  
+   291  E_STEEL   = 2.00E5      ! [MPa] = 200 GPa   
+   292  NU_STEEL  = 0.3 
+   293  RHO_STEEL = 7.800E-9    ! [tonne/mm^3]  
+   294      
+   295  ! ---- PZT4 piezo material, Duan2005 Table 1, IEEE z-poled convention ----  
+   296  C11E = 1.320E5          ! [MPa] 
+   297  C12E = 7.100E4          ! [MPa] 
+   298  C13E = 7.300E4          ! [MPa] 
+   299  C33E = 1.150E5          ! [MPa] 
+   300  C44E = 7.300E4          ! [MPa] 
+   301  C66E = (C11E-C12E)/2
+   302  E31  = -4.1E-3           ! [C/mm^2-equivalent, N/(V*mm)] (C/m^2 -> x1e-3, see units header)    ! e31 SIGN CLONE: was +4.1E-3
+   303  E33  = 1.41E-2          ! (x1e-3)   
+   304  E15  = 1.05E-2          ! (x1e-3)   
+   305  EPS0   = 8.854E-12       ! F/m. PLANE223 MP,PERx is RELATIVE, not absolute. 
+   306  X11ABS = 7.124E-9        ! Duan2005 Table 1 absolute F/m
+   307  X33ABS = 5.841E-9   
+   308  X11    = X11ABS/EPS0     ! ~804.8 relative  
+   309  X33    = X33ABS/EPS0     ! ~659.7 relative  
+   310  RHO_PZT = 7.500E-9      ! [tonne/mm^3]  
+   311      
+   312  ! Nominal inert permittivity for the steel region -- NOT physical, only 
+   313  ! keeps VOLT well-posed there (see header). The steel material's own
+   314  ! TB,PIEZ block is all-zero (e=0), so X_INERT's VALUE cannot mechanically   
+   315  ! couple to anything regardless of scale -- only VOLT-dof conditioning is   
+   316  ! affected. FIX v4 2026-09-15 (LESSONS_LEARNED Sec 18.154, following the
+   317  ! bare-host isolation deck's DECISIVE clean result, job 2490363, which  
+   318  ! ruled out geometry/meshing/free-free-BC entirely and narrowed the 
+   319  ! search to this permittivity scale): raised from 1.0E-15 to 1.0E-9,
+   320  ! the SAME ORDER OF MAGNITUDE as the real PZT4 values (X11=7.124E-9,
+   321  ! X33=5.841E-9) instead of ~6-7 orders of magnitude below them. ANSYS's 
+   322  ! own coupled-field modeling guidance for an inert region sharing a mesh
+   323  ! with a real piezo material is that the inert permittivity should not  
+   324  ! be many orders of magnitude smaller than the surrounding material,
+   325  ! since that scale mismatch is a textbook cause of the Block-Lanczos
+   326  ! ill-conditioning warning seen in job 2490350 ("relative residual from 
+   327  ! test linear solve: 9.147498E-02"). NOT YET RE-RUN -- see Sec 18.154   
+   328  ! for the full pre-registered confirmation criteria.
+   329  X_INERT = 1.0           ! relative (host VOLT well-posed). Was 1.0E-9 fed as if absolute.   
+   330      
+   331  !   
+   332  ! ============================================================  
+   333  ! EPSREL FIX (2026-09-16): PLANE223 MP,PERx is RELATIVE permittivity.   
+   334  ! Duan2005 Table 1 X11=7.124e-9 / X33=5.841e-9 are ABSOLUTE (F/m =  
+   335  ! eps_r * eps0). Parent UNITS_MM decks fed those F/m numbers to MP,PERX 
+   336  ! unchanged. Coupled-Field Guide 2.3.2.1: for PLANE223, MP,PERX and 
+   337  ! TB,DPER are ALWAYS relative. The SOLID5/SOLID98 "value<1 means
+   338  ! absolute" exception does NOT apply. Default EPZRO is left alone   
+   339  ! (8.85e-12 F/m); relative ~805 * EPZRO recovers the Duan absolute  
+   340  ! value, which is also the correct mm-N-s-tonne number (permittivity
+   341  ! is numerically invariant under that rescale). Host X_INERT is now a   
+   342  ! small relative value (1.0), not 1.0E-9-fed-as-relative. NOTHING else  
+   343  ! in the mesh, TB,PIEZ FIX v6, units, or electrical BC is changed   
+   344  ! unless a deck's own name says so (subsp / e0 / cc).   
+   345  ! ============================================================  
+   346  /PREP7  
+   347  ET,1,PLANE223   
+   348  KEYOPT,1,1,1001    ! structural-piezoelectric dof set (Table 223.2, sourced Sec 18.144) 
+   349  KEYOPT,1,3,1       ! axisymmetric (sourced Sec 18.144)  
+   350      
+   351  ! ---- Material 1: steel host, elastic only, inert electrical props ----
+   352  TB,ANEL,1,1,,0  
+   353  TBDATA,1, (E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0
+   354  TBDATA,7, (E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0  
+   355  TBDATA,12,(E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0
+   356  TBDATA,16,(E_STEEL/(2*(1+NU_STEEL))),0,0
+   357  TBDATA,19,(E_STEEL/(2*(1+NU_STEEL))),0  
+   358  TBDATA,21,(E_STEEL/(2*(1+NU_STEEL)))
+   359  TB,PIEZ,1   
+   360  TBDATA,1,0,0,0,0,0,0
+   361  TBDATA,7,0,0,0,0,0,0
+   362  TBDATA,13,0,0,0,0,0,0   
+   363  MP,PERX,1,X_INERT   
+   364  MP,PERY,1,X_INERT   
+   365  MP,PERZ,1,X_INERT   
+   366  MP,DENS,1,RHO_STEEL 
+   367      
+   368  ! ---- Material 2: PZT4 piezo layer (identical to the confirmed-working 
+   369  ! disk smoke deck's own material block -- ansys_piezo_disk_modal_   
+   370  ! plane223.inp -- copied unchanged, same axis-mapping citations apply) ---- 
+   371  TB,ANEL,2,1,,0  
+   372  TBDATA,1,C11E,C13E,C12E,0,0,0   
+   373  TBDATA,7,C33E,C13E,0,0,0
+   374  TBDATA,12,C11E,0,0,0
+   375  TBDATA,16,C44E,0,0  
+   376  TBDATA,19,C66E,0
+   377  TBDATA,21,C44E  
+   378  TB,PIEZ,2   
+   379  TBDATA,1,0,E31,0,0,E33,0
+   380  TBDATA,7,0,E31,0,E15,0,0
+   381  TBDATA,13,0,0,E15,0,0,0 
+   382  MP,PERX,2,X11   
+   383  MP,PERY,2,X33   
+   384  MP,PERZ,2,X11   
+   385  MP,DENS,2,RHO_PZT   
+   386      
+   387  ! ---- Geometry: three stacked rectangles (r x z), host + top/bottom piezo ---- 
+   388  RECTNG,RI,RO,-H,H              ! area 1: steel host 
+   389  RECTNG,RI,RO,H,H+H1            ! area 2: piezo top  
+   390  RECTNG,RI,RO,-H-H1,-H          ! area 3: piezo bottom   
+   391      
+   392  ! FIX v2 2026-09-15 (job 2490219 post-mortem -- v1 fix above was diagnosed  
+   393  ! wrong): the TRUE bug is that LSEL,,LOC,... is a GLOBAL, area-UNSCOPED 
+   394  ! select -- at X=RI/X=RO/Y=H etc, it matches every line at that coordinate  
+   395  ! across ALL THREE stacked areas (their edges are coincident/touching by
+   396  ! construction), not just the area currently being processed. Area 1's  
+   397  ! block (run first) ends up setting NDIV=6 on ALL SIX vertical lines in 
+   398  ! the model, including area 2/3's own -- so when area 2/3's blocks later
+   399  ! try LESIZE,...,NDIV_ZP(=2) on their vertical edges, LESIZE's default  
+   400  ! KFORCE=0 silently REFUSES to change an already-nonzero division ("
+   401  ! PREVIOUS NONZERO VALUES WILL NOT BE ALTERED", confirmed in job 2490219's  
+   402  ! own log) -- NDIV_ZP never actually takes effect on either piezo layer,
+   403  ! both stay at NDIV=6. Combined with the (correctly working) NDIV_R=40  
+   404  ! radial sizing, that's 40 x 6 = 240 elements/layer at aspect ratio 45 --   
+   405  ! exactly what both job 2489625 and 2490219 produced, unchanged, because
+   406  ! the v1 fix touched the radial dimension, which was never the broken one.  
+   407  ! REAL FIX: scope every LSEL to the CURRENTLY SELECTED AREA's own lines 
+   408  ! via LSLA,S (lines belonging to selected areas) before refining by LOC,
+   409  ! so no area's block can ever touch another area's lines -- eliminates the  
+   410  ! whole KFORCE cross-contamination class, not just this one instance.   
+   411  ! FIX v3 2026-09-15 (job 2490239 post-mortem -- v2 fix above was STILL  
+   412  ! wrong, confirmed by a THIRD byte-identical result). Root cause, this  
+   413  ! time confirmed directly against the log's own selection-count lines,  
+   414  ! not inferred: LSLA,S + LSEL,R correctly scopes the FIRST line of each 
+   415  ! pair to the current area (verified: "4 LINES...1 SELECTED AREAS BY LSLA"  
+   416  ! then "1 LINE...SELECTED BY LSEL" for the R-type reselect). But the
+   417  ! SECOND line of each pair used LSEL,A ("ALSO SELECT") -- and A-type is a   
+   418  ! UNION WITH THE FULL DATABASE, not an intersect within whatever LSLA had   
+   419  ! scoped -- it is NOT constrained by the preceding LSLA,S at all. So
+   420  ! area 1's block (run first) still globally swept every area's RO-edge  
+   421  ! line via its own LSEL,A,LOC,X,RO and set them ALL to NDIV_ZH=6 -- 
+   422  ! including area 2's and area 3's own outer vertical edges, before either   
+   423  ! area had been touched. When area 2/3's own blocks later tried 
+   424  ! LESIZE,...,NDIV_ZP=2 on those same (now-already-6) RO lines, KFORCE=0 
+   425  ! silently blocked it (confirmed in the log). Net effect unchanged from 
+   426  ! v1/v2: both piezo layers still mesh at an effective 40(radial) x  
+   427  ! 6(thru, stuck) = 240 elements, AR=45. 
+   428  ! REAL FIX: never use LSEL,A (or any global LOC-based select) anywhere in   
+   429  ! this block. Every line is now sized by its OWN single-line LSLA,S +   
+   430  ! LSEL,R + LESIZE sequence -- four separate calls per area instead of two   
+   431  ! combined ones -- so no selection ever reaches outside the lines already   
+   432  ! scoped to the current area, and the A-type leak this class of bug 
+   433  ! depends on never occurs.  
+   434  ASEL,S,AREA,,1  
+   435  AATT,1,,1   
+   436  LSLA,S  
+   437  LSEL,R,LOC,X,RI 
+   438  LESIZE,ALL,,,NDIV_ZH,,,,,1  
+   439  LSLA,S  
+   440  LSEL,R,LOC,X,RO 
+   441  LESIZE,ALL,,,NDIV_ZH,,,,,1  
+   442  LSLA,S  
+   443  LSEL,R,LOC,Y,-H 
+   444  LESIZE,ALL,,,NDIV_R,,,,,1   
+   445  LSLA,S  
+   446  LSEL,R,LOC,Y,H  
+   447  LESIZE,ALL,,,NDIV_R,,,,,1   
+   448  ALLSEL,ALL  
+   449  ASEL,S,AREA,,1  
+   450  MSHAPE,0,2D 
+   451  MSHKEY,1
+   452  AMESH,ALL   
+   453      
+   454  ASEL,S,AREA,,2  
+   455  AATT,2,,1   
+   456  LSLA,S  
+   457  LSEL,R,LOC,X,RI 
+   458  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   459  LSLA,S  
+   460  LSEL,R,LOC,X,RO 
+   461  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   462  LSLA,S  
+   463  LSEL,R,LOC,Y,H  
+   464  LESIZE,ALL,,,NDIV_R,,,,,1   
+   465  LSLA,S  
+   466  LSEL,R,LOC,Y,H+H1   
+   467  LESIZE,ALL,,,NDIV_R,,,,,1   
+   468  ALLSEL,ALL  
+   469  ASEL,S,AREA,,2  
+   470  MSHAPE,0,2D 
+   471  MSHKEY,1
+   472  AMESH,ALL   
+   473      
+   474  ASEL,S,AREA,,3  
+   475  AATT,2,,1   
+   476  LSLA,S  
+   477  LSEL,R,LOC,X,RI 
+   478  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   479  LSLA,S  
+   480  LSEL,R,LOC,X,RO 
+   481  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   482  LSLA,S  
+   483  LSEL,R,LOC,Y,-H-H1  
+   484  LESIZE,ALL,,,NDIV_R,,,,,1   
+   485  LSLA,S  
+   486  LSEL,R,LOC,Y,-H 
+   487  LESIZE,ALL,,,NDIV_R,,,,,1   
+   488  ALLSEL,ALL  
+   489  ASEL,S,AREA,,3  
+   490  MSHAPE,0,2D 
+   491  MSHKEY,1
+   492  AMESH,ALL   
+   493      
+   494  ALLSEL,ALL  
+   495  NUMMRG,NODES,1.0E-5     ! merge coincident nodes at the host/piezo interfaces [mm tolerance, was 1.0E-8 m]  
+   496                            ! (areas meshed separately above -- this is the   
+   497                            ! step that actually bonds them; if AMESH left
+   498                            ! non-coincident interface nodes for any reason   
+   499                            ! this is what fixes it, cheap insurance) 
+   500  FINISH  
+   501      
+   502  /SOLU   
+   503  ANTYPE,MODAL
+   504  MODOPT,LANB,NMODES,-1.0,,,ON
+   505  MXPAND,NMODES,,,NO  
+   506      
+   507  ! Electrical BC -- BOTH-FACES short-circuit control (Sec 18.177).   
+   508  ! VOLT=0 on host/piezo interface AND on both outer faces. No CP.
+   509  ! Fair SC counterpart of the OC deck (job 2491761). 
+   510  NSEL,S,LOC,Y,H  
+   511  NSEL,A,LOC,Y,-H 
+   512  NSEL,A,LOC,Y,H+H1   
+   513  NSEL,A,LOC,Y,-H-H1  
+   514  D,ALL,VOLT,0
+   515  ALLSEL,ALL  
+   516  SOLVE   
+   517  FINISH  
+   518      
+   519  /POST1  
+   520  ! ---- Frequency table ---- 
+   521  *DIM,FR1,ARRAY,NMODES   
+   522  *DIM,IDXARR,ARRAY,NMODES
+   523  *DO,I,1,NMODES  
+   524    *GET,FR1(I),MODE,I,FREQ   
+   525    IDXARR(I)=I   
+   526  *ENDDO  
+   527  *CFOPEN,ansys_p4_zp4_ff_sc_h112_modes_e31m,txt  
+   528  *VWRITE 
+   529  ('mode f[Hz] tag=zp4_sc_h112 target=119.04677Hz')   
+   530  *VWRITE,IDXARR(1),FR1(1)
+   531  (F4.0, 3X, E16.8)   
+   532  *CFCLOS 
+   533      
+   534  ! ---- Mode-shape discriminator: UX, UY at matched top/bottom node pairs
+   535  ! at the outer radius (r=RO), for every mode -- see header for how to read  
+   536  ! this (bending: UY same sign/mag, UX opposite sign; breathing: reverse). ----  
+   537  NSEL,S,LOC,X,RO 
+   538  NSEL,R,LOC,Y,H          ! host top surface node at r=Ro 
+   539  *GET,NTOP,NODE,0,NUM,MIN
+   540  NSEL,S,LOC,X,RO 
+   541  NSEL,R,LOC,Y,-H         ! host bottom surface node at r=Ro  
+   542  *GET,NBOT,NODE,0,NUM,MIN
+   543  ALLSEL,ALL  
+   544      
+   545  *DIM,UXT,ARRAY,NMODES   
+   546  *DIM,UYT,ARRAY,NMODES   
+   547  *DIM,UXB,ARRAY,NMODES   
+   548  *DIM,UYB,ARRAY,NMODES   
+   549  *DO,I,1,NMODES  
+   550    SET,1,I   
+   551    *GET,UXT(I),NODE,NTOP,U,X 
+   552    *GET,UYT(I),NODE,NTOP,U,Y 
+   553    *GET,UXB(I),NODE,NBOT,U,X 
+   554    *GET,UYB(I),NODE,NBOT,U,Y 
+   555  *ENDDO  
+   556  *CFOPEN,ansys_p4_zp4_ff_sc_h112_discriminator_e31m,txt  
+   557  *VWRITE 
+   558  ('mode   UX_top        UY_top        UX_bot        UY_bot      (bending: UY_top~UY_bot, UX_top~-UX_bot)')   
+   559  *VWRITE,IDXARR(1),UXT(1),UYT(1),UXB(1),UYB(1)   
+   560  (F4.0,3X,E12.4,3X,E12.4,3X,E12.4,3X,E12.4)  
+   561  *CFCLOS 
+   562  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans
+
+ /INPUT FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans  LINE=       0
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  Paper 4 F-F piezo ring EPSREL LANB BOTH-FACES SC, p=0, h1/2h=1/12 NDIV_ZP=4, 
+
+
+ PARAMETER RI =     100.0000000    
+
+ PARAMETER RO =     600.0000000    
+
+ PARAMETER H =     10.00000000    
+
+ PARAMETER H1 =     1.666666667    
+
+ PARAMETER NDIV_R =     40.00000000    
+
+ PARAMETER NDIV_ZH =     6.000000000    
+
+ PARAMETER NDIV_ZP =     4.000000000    
+
+ PARAMETER NMODES =     20.00000000    
+
+ PARAMETER E_STEEL =     200000.0000    
+
+ PARAMETER NU_STEEL =    0.3000000000    
+
+ PARAMETER RHO_STEEL =    0.7800000000E-08
+
+ PARAMETER C11E =     132000.0000    
+
+ PARAMETER C12E =     71000.00000    
+
+ PARAMETER C13E =     73000.00000    
+
+ PARAMETER C33E =     115000.0000    
+
+ PARAMETER C44E =     73000.00000    
+
+ PARAMETER C66E =     30500.00000    
+
+ PARAMETER E31 =   -0.4100000000E-02
+
+ PARAMETER E33 =    0.1410000000E-01
+
+ PARAMETER E15 =    0.1050000000E-01
+
+ PARAMETER EPS0 =    0.8854000000E-11
+
+ PARAMETER X11ABS =    0.7124000000E-08
+
+ PARAMETER X33ABS =    0.5841000000E-08
+
+ PARAMETER X11 =     804.6080867    
+
+ PARAMETER X33 =     659.7018297    
+
+ PARAMETER RHO_PZT =    0.7500000000E-08
+
+ PARAMETER X_INERT =     1.000000000    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:45:10  SEP 24, 2026 CP=      0.602
+
+  Paper 4 F-F piezo ring EPSREL LANB BOTH-FACES SC, p=0, h1/2h=1/12 NDIV_ZP=4, 
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ *** NOTE ***                            CP =       0.603   TIME= 16:45:10
+ For element type = 1 ( PLANE223 ), KEYOPT 1 = 0 is invalid.  This NOTE  
+ is normal behavior when a CDB file is used.                             
+
+ ELEMENT TYPE          1 IS PLANE223     QUAD COUPLED-FIELD SOLID    
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ ELEMENT TYPE       1 IS PLANE223     2-D 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  TWO-DIMENSIONAL MODEL
+
+ ELEMENT TYPE       1 IS PLANE223     AXI 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      1        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  AXISYMMETRIC MODEL
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     1
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.26923E+06 0.11538E+06 0.11538E+06  0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.26923E+06 0.11538E+06  0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.26923E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 16  76923.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 19  76923.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 21  76923.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     1
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  1  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  7  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC= 13  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ MATERIAL          1     PERX =   1.000000      
+
+ MATERIAL          1     PERY =   1.000000      
+
+ MATERIAL          1     PERZ =   1.000000      
+
+ MATERIAL          1     DENS =  0.7800000E-08  
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     2
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.13200E+06  73000.      71000.      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.11500E+06  73000.      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.13200E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 16  73000.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 19  30500.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 21  73000.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     2
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC=  1  0.0000    -0.41000E-02  0.0000      0.0000     0.14100E-01  0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC=  7  0.0000    -0.41000E-02  0.0000     0.10500E-01  0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC= 13  0.0000      0.0000     0.10500E-01  0.0000      0.0000      0.0000    
+
+ MATERIAL          2     PERX =   804.6081      
+
+ MATERIAL          2     PERY =   659.7018      
+
+ MATERIAL          2     PERZ =   804.6081      
+
+ MATERIAL          2     DENS =  0.7500000E-08  
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM     -10.00000000     TO      10.00000000    
+
+      OUTPUT AREA =     1
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM      10.00000000     TO      11.66666667    
+
+      OUTPUT AREA =     2
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM     -11.66666667     TO     -10.00000000    
+
+      OUTPUT AREA =     3
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    1   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    6,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    6,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     1 MESHED WITH     240 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =        813
+ MAXIMUM ELEMENT NUMBER     =        240
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         2 TO          2 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    2   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    4,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    4,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  11.667     AND   11.667    
+   KABS=  0.  TOLERANCE= 0.583333E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         2 TO          2 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     2 MESHED WITH     160 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =       1382
+ MAXIMUM ELEMENT NUMBER     =        400
+
+ ------------------------------------------------------------------------------
+            <<<<<<          SHAPE TESTING SUMMARY           >>>>>>
+            <<<<<<       FOR NEW OR MODIFIED ELEMENTS       >>>>>>
+ ------------------------------------------------------------------------------
+                    --------------------------------------
+                    |  Element count       160 PLANE223  |
+                    --------------------------------------
+
+  Test                Number tested  Warning count  Error count    Warn+Err %
+  ----                -------------  -------------  -----------    ----------
+  Aspect Ratio                160            160             0       100.00 %
+  Parallel Deviation          160              0             0         0.00 %
+  Maximum Angle               160              0             0         0.00 %
+  Jacobian Ratio              160              0             0         0.00 %
+
+  Any                         160            160             0       100.00 %
+ ------------------------------------------------------------------------------
+
+ *** WARNING ***                         CP =       0.621   TIME= 16:45:10
+ Shape testing revealed that 160 of the 160 new or modified elements     
+ violate shape warning limits.  To review test results, please see the   
+ output file or issue the CHECK command.                                 
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         3 TO          3 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    2   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    4,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    4,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -11.667     AND  -11.667    
+   KABS=  0.  TOLERANCE= 0.583333E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         3 TO          3 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     3 MESHED WITH     160 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =       1951
+ MAXIMUM ELEMENT NUMBER     =        560
+
+ ------------------------------------------------------------------------------
+            <<<<<<          SHAPE TESTING SUMMARY           >>>>>>
+            <<<<<<       FOR NEW OR MODIFIED ELEMENTS       >>>>>>
+ ------------------------------------------------------------------------------
+                    --------------------------------------
+                    |  Element count       160 PLANE223  |
+                    --------------------------------------
+
+  Test                Number tested  Warning count  Error count    Warn+Err %
+  ----                -------------  -------------  -----------    ----------
+  Aspect Ratio                160            160             0       100.00 %
+  Parallel Deviation          160              0             0         0.00 %
+  Maximum Angle               160              0             0         0.00 %
+  Jacobian Ratio              160              0             0         0.00 %
+
+  Any                         160            160             0       100.00 %
+ ------------------------------------------------------------------------------
+
+ *** WARNING ***                         CP =       0.625   TIME= 16:45:10
+ Shape testing revealed that 160 of the 160 new or modified elements     
+ violate shape warning limits.  To review test results, please see the   
+ output file or issue the CHECK command.                                 
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+  MERGE COINCIDENT NODES WITHIN TOLERANCE OF  0.10000E-04
+ NODE         1 USED FOR NODES      1472
+ NODE        94 USED FOR NODES       814
+ NODE       173 USED FOR NODES       816
+ NODE         3 USED FOR NODES      1551
+ NODE       172 USED FOR NODES       817
+ NODE         4 USED FOR NODES      1550
+ NODE       171 USED FOR NODES       818
+ NODE         5 USED FOR NODES      1549
+ NODE       170 USED FOR NODES       819
+ NODE         6 USED FOR NODES      1548
+ NODE       169 USED FOR NODES       820
+ NODE         7 USED FOR NODES      1547
+ NODE       168 USED FOR NODES       821
+ NODE         8 USED FOR NODES      1546
+ NODE       167 USED FOR NODES       822
+ NODE         9 USED FOR NODES      1545
+ NODE       166 USED FOR NODES       823
+ NODE        10 USED FOR NODES      1544
+ NODE       165 USED FOR NODES       824
+ NODE        11 USED FOR NODES      1543
+ NODE       164 USED FOR NODES       825
+ NODE        12 USED FOR NODES      1542
+ NODE       163 USED FOR NODES       826
+ NODE        13 USED FOR NODES      1541
+ NODE       162 USED FOR NODES       827
+ NODE        14 USED FOR NODES      1540
+ NODE       161 USED FOR NODES       828
+ NODE        15 USED FOR NODES      1539
+ NODE        16 USED FOR NODES      1538
+ NODE       160 USED FOR NODES       829
+ NODE       159 USED FOR NODES       830
+ NODE        17 USED FOR NODES      1537
+ NODE       158 USED FOR NODES       831
+ NODE        18 USED FOR NODES      1536
+ NODE       157 USED FOR NODES       832
+ NODE        19 USED FOR NODES      1535
+ NODE       156 USED FOR NODES       833
+ NODE        20 USED FOR NODES      1534
+ NODE       155 USED FOR NODES       834
+ NODE        21 USED FOR NODES      1533
+ NODE       154 USED FOR NODES       835
+ NODE        22 USED FOR NODES      1532
+ NODE       153 USED FOR NODES       836
+ NODE        23 USED FOR NODES      1531
+ NODE       152 USED FOR NODES       837
+ NODE        24 USED FOR NODES      1530
+ NODE       151 USED FOR NODES       838
+ NODE        25 USED FOR NODES      1529
+ NODE       150 USED FOR NODES       839
+ NODE        26 USED FOR NODES      1528
+ NODE       149 USED FOR NODES       840
+ NODE        27 USED FOR NODES      1527
+ NODE       148 USED FOR NODES       841
+ NODE        28 USED FOR NODES      1526
+ NODE        29 USED FOR NODES      1525
+ NODE       147 USED FOR NODES       842
+ NODE       146 USED FOR NODES       843
+ NODE        30 USED FOR NODES      1524
+ NODE       145 USED FOR NODES       844
+ NODE        31 USED FOR NODES      1523
+ NODE       144 USED FOR NODES       845
+ NODE        32 USED FOR NODES      1522
+ NODE       143 USED FOR NODES       846
+ NODE        33 USED FOR NODES      1521
+ NODE       142 USED FOR NODES       847
+ NODE        34 USED FOR NODES      1520
+ NODE       141 USED FOR NODES       848
+ NODE        35 USED FOR NODES      1519
+ NODE       140 USED FOR NODES       849
+ NODE        36 USED FOR NODES      1518
+ NODE       139 USED FOR NODES       850
+ NODE        37 USED FOR NODES      1517
+ NODE       138 USED FOR NODES       851
+ NODE        38 USED FOR NODES      1516
+ NODE       137 USED FOR NODES       852
+ NODE        39 USED FOR NODES      1515
+ NODE       136 USED FOR NODES       853
+ NODE        40 USED FOR NODES      1514
+ NODE       135 USED FOR NODES       854
+ NODE        41 USED FOR NODES      1513
+ NODE        42 USED FOR NODES      1512
+ NODE       134 USED FOR NODES       855
+ NODE       133 USED FOR NODES       856
+ NODE        43 USED FOR NODES      1511
+ NODE       132 USED FOR NODES       857
+ NODE        44 USED FOR NODES      1510
+ NODE       131 USED FOR NODES       858
+ NODE        45 USED FOR NODES      1509
+ NODE       130 USED FOR NODES       859
+ NODE        46 USED FOR NODES      1508
+ NODE       129 USED FOR NODES       860
+ NODE        47 USED FOR NODES      1507
+ NODE        48 USED FOR NODES      1506
+ NODE       128 USED FOR NODES       861
+ NODE       127 USED FOR NODES       862
+ NODE        49 USED FOR NODES      1505
+ NODE       126 USED FOR NODES       863
+ NODE        50 USED FOR NODES      1504
+ NODE       125 USED FOR NODES       864
+ NODE        51 USED FOR NODES      1503
+ NODE        52 USED FOR NODES      1502
+ NODE       124 USED FOR NODES       865
+ NODE       123 USED FOR NODES       866
+ NODE        53 USED FOR NODES      1501
+ NODE       122 USED FOR NODES       867
+ NODE        54 USED FOR NODES      1500
+ NODE        55 USED FOR NODES      1499
+ NODE       121 USED FOR NODES       868
+ NODE       120 USED FOR NODES       869
+ NODE        56 USED FOR NODES      1498
+ NODE       119 USED FOR NODES       870
+ NODE        57 USED FOR NODES      1497
+ NODE       118 USED FOR NODES       871
+ NODE        58 USED FOR NODES      1496
+ NODE       117 USED FOR NODES       872
+ NODE        59 USED FOR NODES      1495
+ NODE       116 USED FOR NODES       873
+ NODE        60 USED FOR NODES      1494
+ NODE       115 USED FOR NODES       874
+ NODE        61 USED FOR NODES      1493
+ NODE       114 USED FOR NODES       875
+ NODE        62 USED FOR NODES      1492
+ NODE       113 USED FOR NODES       876
+ NODE        63 USED FOR NODES      1491
+ NODE        64 USED FOR NODES      1490
+ NODE       112 USED FOR NODES       877
+ NODE       111 USED FOR NODES       878
+ NODE        65 USED FOR NODES      1489
+ NODE       110 USED FOR NODES       879
+ NODE        66 USED FOR NODES      1488
+ NODE       109 USED FOR NODES       880
+ NODE        67 USED FOR NODES      1487
+ NODE        68 USED FOR NODES      1486
+ NODE       108 USED FOR NODES       881
+ NODE       107 USED FOR NODES       882
+ NODE        69 USED FOR NODES      1485
+ NODE       106 USED FOR NODES       883
+ NODE        70 USED FOR NODES      1484
+ NODE       105 USED FOR NODES       884
+ NODE        71 USED FOR NODES      1483
+ NODE       104 USED FOR NODES       885
+ NODE        72 USED FOR NODES      1482
+ NODE       103 USED FOR NODES       886
+ NODE        73 USED FOR NODES      1481
+ NODE       102 USED FOR NODES       887
+ NODE        74 USED FOR NODES      1480
+ NODE       101 USED FOR NODES       888
+ NODE        75 USED FOR NODES      1479
+ NODE       100 USED FOR NODES       889
+ NODE        76 USED FOR NODES      1478
+ NODE        99 USED FOR NODES       890
+ NODE        77 USED FOR NODES      1477
+ NODE        98 USED FOR NODES       891
+ NODE        78 USED FOR NODES      1476
+ NODE        97 USED FOR NODES       892
+ NODE        79 USED FOR NODES      1475
+ NODE        96 USED FOR NODES       893
+ NODE        80 USED FOR NODES      1474
+ NODE        95 USED FOR NODES       894
+ NODE        81 USED FOR NODES      1473
+ NODE         2 USED FOR NODES      1464
+ NODE        82 USED FOR NODES       815
+
+
+ A total of       162 nodes were merged at       162 locations.
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ After NUMMRG,NODE, node 94 (and possibly others) is associated with     
+ more than one solid model entity.  Future commands which depend on the  
+ node to solid model connectivity (meshing, mesh clearing, solid         
+ boundary condition transfer, etc.) may not operate properly.            
+ NUMMRG,KP may correct this problem.                                     
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 241 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 242 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 243 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 244 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 245 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 246 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 247 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 248 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 249 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 250 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 251 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 252 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 253 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 254 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 255 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.626   TIME= 16:45:10
+ Quadrilateral element 256 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 257 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 258 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 259 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 260 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 261 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 262 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 263 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 264 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 265 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 266 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 267 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 268 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 269 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 270 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 271 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 272 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 273 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 274 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 275 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 276 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 277 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 278 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 279 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 280 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 521 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 522 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 523 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 524 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 525 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 526 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 527 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 528 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 529 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 530 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 531 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 532 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 533 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 534 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 535 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.627   TIME= 16:45:10
+ Quadrilateral element 536 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 537 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 538 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 539 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 540 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 541 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 542 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 543 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 544 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 545 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 546 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 547 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 548 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 549 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 550 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 551 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 552 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 553 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 554 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 555 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 556 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 557 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 558 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 559 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+ *** WARNING ***                         CP =       0.628   TIME= 16:45:10
+ Quadrilateral element 560 has an aspect ratio of 30, which exceeds the  
+ warning limit of 20.                                                    
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.629
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A MODAL ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ USE SYM. BLOCK LANCZOS MODE EXTRACTION METHOD
+  EXTRACT    20 MODES
+  NORMALIZE THE MODE SHAPES TO UNITY
+
+
+ NUMBER OF MODES TO EXPAND=    20
+  DO NOT CALCULATE ELEMENT RESULTS
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+         81  NODES (OF       1789  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        162  NODES (OF       1789  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN  11.667     AND   11.667    
+   KABS=  0.  TOLERANCE= 0.583333E-01
+
+        243  NODES (OF       1789  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN -11.667     AND  -11.667    
+   KABS=  0.  TOLERANCE= 0.583333E-01
+
+        324  NODES (OF       1789  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO        1951 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       0.754   TIME= 16:45:10
+ Axisymmetric elements are present.  The nodal loads input with the F    
+ commands and the reaction forces are on a full circle basis.  This      
+ differs from the pre-MAPDL 5.0 interpretation.                          
+
+ *** WARNING ***                         CP =       0.760   TIME= 16:45:10
+ Previous testing revealed that 320 of the 560 selected elements violate 
+ shape warning limits.  To review warning messages, please see the       
+ output or error file, or issue the CHECK command.                       
+
+ *** NOTE ***                            CP =       0.769   TIME= 16:45:10
+ The model data was checked and warning messages were found.             
+  Please review output or errors file (                                  
+ /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/p4_zp4_ff_s 
+ sc_h112_e31m_2.err ) for these warning messages.                        
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:45:10  SEP 24, 2026 CP=      0.772
+
+  Paper 4 F-F piezo ring EPSREL LANB BOTH-FACES SC, p=0, h1/2h=1/12 NDIV_ZP=4, 
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .AXISYMMETRIC         
+   DEGREES OF FREEDOM. . . . . . UX   UY   VOLT
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .MODAL                
+      EXTRACTION METHOD. . . . . . . . . . . . . .BLOCK LANCZOS
+   NUMBER OF MODES TO EXTRACT. . . . . . . . . . .    20
+   SHIFT POINT . . . . . . . . . . . . . . . . . . -1.0000    
+   NORMALIZE MODES TO UNITY. . . . . . . . . . . .YES
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+   NUMBER OF MODES TO EXPAND . . . . . . . . . . .    20
+   ELEMENT RESULTS CALCULATION . . . . . . . . . .OFF
+
+ *** NOTE ***                            CP =       0.785   TIME= 16:45:10
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** NOTE ***                            CP =       0.789   TIME= 16:45:10
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   THERMAL STRAINS INCLUDED IN THE LOAD VECTOR . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS. . . . . . . . . . . .ALL DATA WRITTEN
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =  0.19902    
+
+
+ MASS AND MOMENT VALUES ARE EVALUATED FOR AN AXISYMMETRIC 360. DEGREE MODEL.
+
+                    MOM. OF INERTIA      MOM. OF INERTIA     RADIUS OF GYRATION
+ CENTER OF MASS      ABOUT ORIGIN     ABOUT CENTER OF MASS  ABOUT CENTER OF MASS
+
+ XC =   0.0000       IXX =   0.1841E+05   IXX =   0.1841E+05  RGX =    304.2    
+ YC =  0.83677E-15   IYY =   0.3681E+05   IYY =   0.3681E+05  RGY =    430.1    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.199020    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 2.300572883E+10 at element 400.                               
+ Minimum = 1.239564161E+09 at element 1.                                 
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       560  PLANE223      0.404   0.000721
+ Time at end of element matrix formulation CP = 1.542642.                
+
+  BLOCK LANCZOS CALCULATION OF UP TO    20 EIGENVECTORS.
+  NUMBER OF EQUATIONS              =         5043
+  MAXIMUM WAVEFRONT                =           60
+  MAXIMUM MODES STORED             =           20
+  MINIMUM EIGENVALUE               = -0.10000E+01
+  MAXIMUM EIGENVALUE               =  0.10000E+31
+
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =     7.755 MB
+  Equation solver memory required for in-core mode     =     7.403 MB
+  Equation solver memory required for out-of-core mode =     3.004 MB
+  Total (solver and non-solver) memory allocated       =   542.161 MB
+
+ *** NOTE ***                            CP =       2.126   TIME= 16:45:10
+ The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+ currently running in the in-core memory mode.  This memory mode uses    
+ the most amount of memory in order to avoid using the hard drive as     
+ much as possible, which most often results in the fastest solution      
+ time.  This mode is recommended if enough physical memory is present    
+ to accommodate all of the solver data.                                  
+
+  Process memory required for in-core LANCZOS Workspace             =     19.874100 MB
+  Process memory required for out-of-core LANCZOS Workspace         =     967.046875 KB
+  Lanczos Memory Mode : INCORE
+
+
+  >> Shift # 1 :  | | |                              : 20 Eigenvalues Converged
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:45:10  SEP 24, 2026 CP=      2.940
+
+  Paper 4 F-F piezo ring EPSREL LANB BOTH-FACES SC, p=0, h1/2h=1/12 NDIV_ZP=4, 
+
+
+
+ *** FREQUENCIES FROM BLOCK LANCZOS ITERATION ***
+
+  MODE    FREQUENCY (HERTZ)      
+
+
+   FREQUENCY RANGE REQUESTED=   20 MODES ABOVE  -1.00000     HERTZ
+
+    1    0.3912855599899E-02
+    2     118.8163754391    
+    3     552.9362237453    
+    4     1326.338981868    
+    5     2444.875088892    
+    6     2515.981247512    
+    7     3877.772679083    
+    8     5587.672087503    
+    9     6446.417317250    
+   10     7535.886930989    
+   11     9685.892585886    
+   12     10871.87992076    
+   13     12004.87725729    
+   14     14464.32440229    
+   15     15688.95689411    
+   16     17039.99849245    
+   17     19711.61268414    
+   18     20627.70937040    
+   19     22462.35684585    
+   20     25278.39382776    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:45:10  SEP 24, 2026 CP=      3.242
+
+  Paper 4 F-F piezo ring EPSREL LANB BOTH-FACES SC, p=0, h1/2h=1/12 NDIV_ZP=4, 
+
+
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  X  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1    0.391286E-02    255.57        0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     118.816       0.84163E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     552.936       0.18085E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     1326.34       0.75396E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     2444.88       0.40902E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     2515.98       0.39746E-03   0.44437        1.000000    0.197464        0.992297        0.992181    
+     7     3877.77       0.25788E-03    0.0000        0.000000     0.00000        0.992297         0.00000    
+     8     5587.67       0.17897E-03    0.0000        0.000000     0.00000        0.992297         0.00000    
+     9     6446.42       0.15512E-03   0.38033E-01    0.085588    0.144648E-02    0.999566        0.726801E-02
+    10     7535.89       0.13270E-03    0.0000        0.000000     0.00000        0.999566         0.00000    
+    11     9685.89       0.10324E-03    0.0000        0.000000     0.00000        0.999566         0.00000    
+    12     10871.9       0.91980E-04  -0.88782E-02    0.019979    0.788221E-04    0.999962        0.396051E-03
+    13     12004.9       0.83299E-04    0.0000        0.000000     0.00000        0.999962         0.00000    
+    14     14464.3       0.69136E-04    0.0000        0.000000     0.00000        0.999962         0.00000    
+    15     15689.0       0.63739E-04   0.27324E-02    0.006149    0.746608E-05     1.00000        0.375143E-04
+    16     17040.0       0.58685E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    17     19711.6       0.50732E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    18     20627.7       0.48478E-04  -0.72936E-04    0.000164    0.531959E-08     1.00000        0.267289E-07
+    19     22462.4       0.44519E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    20     25278.4       0.39559E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.198997                        0.999882    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Y  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1    0.391286E-02    255.57       0.44612        1.000000    0.199020         1.00000         1.00000    
+     2     118.816       0.84163E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     3     552.936       0.18085E-02    0.0000        0.000000     0.00000         1.00000         0.00000    
+     4     1326.34       0.75396E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+     5     2444.88       0.40902E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+     6     2515.98       0.39746E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+     7     3877.77       0.25788E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+     8     5587.67       0.17897E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+     9     6446.42       0.15512E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    10     7535.89       0.13270E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    11     9685.89       0.10324E-03    0.0000        0.000000     0.00000         1.00000         0.00000    
+    12     10871.9       0.91980E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    13     12004.9       0.83299E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    14     14464.3       0.69136E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    15     15689.0       0.63739E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    16     17040.0       0.58685E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    17     19711.6       0.50732E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    18     20627.7       0.48478E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    19     22462.4       0.44519E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+    20     25278.4       0.39559E-04    0.0000        0.000000     0.00000         1.00000         0.00000    
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.199020                         1.00000    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Z  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1    0.391286E-02    255.57        0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     118.816       0.84163E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     552.936       0.18085E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     1326.34       0.75396E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     2444.88       0.40902E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     2515.98       0.39746E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     7     3877.77       0.25788E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     8     5587.67       0.17897E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+     9     6446.42       0.15512E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    10     7535.89       0.13270E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    11     9685.89       0.10324E-03    0.0000        0.000000     0.00000         0.00000         0.00000    
+    12     10871.9       0.91980E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    13     12004.9       0.83299E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    14     14464.3       0.69136E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    15     15689.0       0.63739E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    16     17040.0       0.58685E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    17     19711.6       0.50732E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    18     20627.7       0.48478E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    19     22462.4       0.44519E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+    20     25278.4       0.39559E-04    0.0000        0.000000     0.00000         0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTX DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1    0.391286E-02    255.57        0.0000        0.000000     0.00000         0.00000    
+     2     118.816       0.84163E-02    0.0000        0.000000     0.00000         0.00000    
+     3     552.936       0.18085E-02    0.0000        0.000000     0.00000         0.00000    
+     4     1326.34       0.75396E-03    0.0000        0.000000     0.00000         0.00000    
+     5     2444.88       0.40902E-03    0.0000        0.000000     0.00000         0.00000    
+     6     2515.98       0.39746E-03    0.0000        0.000000     0.00000         0.00000    
+     7     3877.77       0.25788E-03    0.0000        0.000000     0.00000         0.00000    
+     8     5587.67       0.17897E-03    0.0000        0.000000     0.00000         0.00000    
+     9     6446.42       0.15512E-03    0.0000        0.000000     0.00000         0.00000    
+    10     7535.89       0.13270E-03    0.0000        0.000000     0.00000         0.00000    
+    11     9685.89       0.10324E-03    0.0000        0.000000     0.00000         0.00000    
+    12     10871.9       0.91980E-04    0.0000        0.000000     0.00000         0.00000    
+    13     12004.9       0.83299E-04    0.0000        0.000000     0.00000         0.00000    
+    14     14464.3       0.69136E-04    0.0000        0.000000     0.00000         0.00000    
+    15     15689.0       0.63739E-04    0.0000        0.000000     0.00000         0.00000    
+    16     17040.0       0.58685E-04    0.0000        0.000000     0.00000         0.00000    
+    17     19711.6       0.50732E-04    0.0000        0.000000     0.00000         0.00000    
+    18     20627.7       0.48478E-04    0.0000        0.000000     0.00000         0.00000    
+    19     22462.4       0.44519E-04    0.0000        0.000000     0.00000         0.00000    
+    20     25278.4       0.39559E-04    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTY DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1    0.391286E-02    255.57        0.0000        0.000000     0.00000         0.00000    
+     2     118.816       0.84163E-02    0.0000        0.000000     0.00000         0.00000    
+     3     552.936       0.18085E-02    0.0000        0.000000     0.00000         0.00000    
+     4     1326.34       0.75396E-03    0.0000        0.000000     0.00000         0.00000    
+     5     2444.88       0.40902E-03    0.0000        0.000000     0.00000         0.00000    
+     6     2515.98       0.39746E-03    0.0000        0.000000     0.00000         0.00000    
+     7     3877.77       0.25788E-03    0.0000        0.000000     0.00000         0.00000    
+     8     5587.67       0.17897E-03    0.0000        0.000000     0.00000         0.00000    
+     9     6446.42       0.15512E-03    0.0000        0.000000     0.00000         0.00000    
+    10     7535.89       0.13270E-03    0.0000        0.000000     0.00000         0.00000    
+    11     9685.89       0.10324E-03    0.0000        0.000000     0.00000         0.00000    
+    12     10871.9       0.91980E-04    0.0000        0.000000     0.00000         0.00000    
+    13     12004.9       0.83299E-04    0.0000        0.000000     0.00000         0.00000    
+    14     14464.3       0.69136E-04    0.0000        0.000000     0.00000         0.00000    
+    15     15689.0       0.63739E-04    0.0000        0.000000     0.00000         0.00000    
+    16     17040.0       0.58685E-04    0.0000        0.000000     0.00000         0.00000    
+    17     19711.6       0.50732E-04    0.0000        0.000000     0.00000         0.00000    
+    18     20627.7       0.48478E-04    0.0000        0.000000     0.00000         0.00000    
+    19     22462.4       0.44519E-04    0.0000        0.000000     0.00000         0.00000    
+    20     25278.4       0.39559E-04    0.0000        0.000000     0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTZ DIRECTION
+                                                                                  CUMULATIVE
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION
+
+     1    0.391286E-02    255.57        182.70        1.000000     33377.6        0.906319    
+     2     118.816       0.84163E-02   -58.711        0.321362     3447.02        0.999918    
+     3     552.936       0.18085E-02   -1.5120        0.008276     2.28608        0.999980    
+     4     1326.34       0.75396E-03   0.86000        0.004707    0.739598         1.00000    
+     5     2444.88       0.40902E-03  -0.24960E-01    0.000137    0.623003E-03     1.00000    
+     6     2515.98       0.39746E-03  -0.61462E-06    0.000000    0.377759E-12     1.00000    
+     7     3877.77       0.25788E-03   0.83519E-01    0.000457    0.697550E-02     1.00000    
+     8     5587.67       0.17897E-03  -0.35279E-01    0.000193    0.124458E-02     1.00000    
+     9     6446.42       0.15512E-03   0.28263E-06    0.000000    0.798782E-13     1.00000    
+    10     7535.89       0.13270E-03   0.14915E-01    0.000082    0.222468E-03     1.00000    
+    11     9685.89       0.10324E-03  -0.21308E-01    0.000117    0.454042E-03     1.00000    
+    12     10871.9       0.91980E-04   0.86276E-07    0.000000    0.744356E-14     1.00000    
+    13     12004.9       0.83299E-04   0.31720E-02    0.000017    0.100615E-04     1.00000    
+    14     14464.3       0.69136E-04  -0.13261E-01    0.000073    0.175865E-03     1.00000    
+    15     15689.0       0.63739E-04   0.51059E-07    0.000000    0.260704E-14     1.00000    
+    16     17040.0       0.58685E-04   0.43066E-03    0.000002    0.185465E-06     1.00000    
+    17     19711.6       0.50732E-04  -0.88363E-02    0.000048    0.780803E-04     1.00000    
+    18     20627.7       0.48478E-04   0.71725E-07    0.000000    0.514449E-14     1.00000    
+    19     22462.4       0.44519E-04  -0.28657E-03    0.000002    0.821196E-07     1.00000    
+    20     25278.4       0.39559E-04  -0.62574E-02    0.000034    0.391545E-04     1.00000    
+ ----------------------------------------------------------------------------------------------
+   sum                                                             36827.6    
+ ----------------------------------------------------------------------------------------------
+
+
+
+
+
+        ***** MODAL MASSES, KINETIC ENERGIES, AND TRANSLATIONAL EFFECTIVE MASSES SUMMARY *****
+
+                                                                         EFFECTIVE MASS
+  MODE  FREQUENCY   MODAL MASS     KENE      |      X-DIR      RATIO%   Y-DIR      RATIO%   Z-DIR      RATIO% 
+     1  0.3913E-02  0.1990      0.6015E-04   |     0.000        0.00  0.1990      100.00   0.000        0.00
+     2   118.8      0.2421E-03   67.48       |     0.000        0.00   0.000        0.00   0.000        0.00
+     3   552.9      0.1644E-04   99.22       |     0.000        0.00   0.000        0.00   0.000        0.00
+     4   1326.      0.2867E-05   99.54       |     0.000        0.00   0.000        0.00   0.000        0.00
+     5   2445.      0.6305E-06   74.40       |     0.000        0.00   0.000        0.00   0.000        0.00
+     6   2516.      0.3652E-03  0.4563E+05   |    0.1975       99.22   0.000        0.00   0.000        0.00
+     7   3878.      0.2042E-06   60.60       |     0.000        0.00   0.000        0.00   0.000        0.00
+     8   5588.      0.8271E-07   50.97       |     0.000        0.00   0.000        0.00   0.000        0.00
+     9   6446.      0.7633E-04  0.6261E+05   |    0.1446E-02    0.73   0.000        0.00   0.000        0.00
+    10   7536.      0.3963E-07   44.42       |     0.000        0.00   0.000        0.00   0.000        0.00
+    11   9686.      0.2130E-07   39.45       |     0.000        0.00   0.000        0.00   0.000        0.00
+    12  0.1087E+05  0.1456E-04  0.3398E+05   |    0.7882E-04    0.04   0.000        0.00   0.000        0.00
+    13  0.1200E+05  0.1193E-07   33.95       |     0.000        0.00   0.000        0.00   0.000        0.00
+    14  0.1446E+05  0.7677E-08   31.71       |     0.000        0.00   0.000        0.00   0.000        0.00
+    15  0.1569E+05  0.2863E-05  0.1391E+05   |    0.7466E-05    0.00   0.000        0.00   0.000        0.00
+    16  0.1704E+05  0.5050E-08   28.94       |     0.000        0.00   0.000        0.00   0.000        0.00
+    17  0.1971E+05  0.3106E-08   23.83       |     0.000        0.00   0.000        0.00   0.000        0.00
+    18  0.2063E+05  0.9631E-06   8089.       |    0.5320E-08    0.00   0.000        0.00   0.000        0.00
+    19  0.2246E+05  0.2137E-08   21.28       |     0.000        0.00   0.000        0.00   0.000        0.00
+    20  0.2528E+05  0.1635E-08   20.63       |     0.000        0.00   0.000        0.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+   sum                                       |    0.1990       99.99  0.1990      100.00   0.000        0.00
+ --------------------------------------------------------------------------------------------------------------
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.312 MB WRITTEN ON ELEMENT SAVED DATA FILE: p4_zp4_ff_sc_h112_e31m_2.esav
+        1.938 MB WRITTEN ON ASSEMBLED MATRIX FILE: p4_zp4_ff_sc_h112_e31m_2.full
+        0.750 MB WRITTEN ON MODAL MATRIX FILE: p4_zp4_ff_sc_h112_e31m_2.mode
+        1.250 MB WRITTEN ON RESULTS FILE: p4_zp4_ff_sc_h112_e31m_2.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         3.533
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:45:11  SEP 24, 2026 CP=      3.548
+
+  Paper 4 F-F piezo ring EPSREL LANB BOTH-FACES SC, p=0, h1/2h=1/12 NDIV_ZP=4, 
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =       3.550   TIME= 16:45:11
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+ SET PARAMETER DIMENSIONS ON  FR1 TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ SET PARAMETER DIMENSIONS ON  IDXARR TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  20.000     BY  1.0000    
+
+ *GET  FR1       FROM  MODE      1  ITEM=FREQ       VALUE= 0.391285560E-02
+
+ PARAMETER IDXARR(I) =     1.000000000    
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= ansys_p4_zp4_ff_sc_h112_modes_e31m.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+         29  NODES (OF       1789  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+          1  NODES (OF       1789  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NTOP      FROM  NODE  ITEM=NUM  MIN   VALUE=  82.0000000     
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+         29  NODES (OF       1789  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+          1  NODES (OF       1789  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NBOT      FROM  NODE  ITEM=NUM  MIN   VALUE=  2.00000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SET PARAMETER DIMENSIONS ON  UXT TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ SET PARAMETER DIMENSIONS ON  UYT TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ SET PARAMETER DIMENSIONS ON  UXB TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ SET PARAMETER DIMENSIONS ON  UYB TYPE=ARRA  DIMENSIONS=    20     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  20.000     BY  1.0000    
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY= 0.39129E-02
+ TITLE=  Paper 4 F-F piezo ring EPSREL LANB BOTH-FACES SC, p=0, h1/2h=1/12 NDIV_
+
+ *GET  UXT       FROM  NODE     82  ITEM=U    X     VALUE= 0.323277297E-09
+
+ *GET  UYT       FROM  NODE     82  ITEM=U    Y     VALUE= 0.999999984    
+
+ *GET  UXB       FROM  NODE      2  ITEM=U    X     VALUE=-0.323304035E-09
+
+ *GET  UYB       FROM  NODE      2  ITEM=U    Y     VALUE= 0.999999984    
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= ansys_p4_zp4_ff_sc_h112_discriminator_e31m.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =         4.066
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= p4_zp4_ff_sc_h112_e31m_2.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=         84
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2025 R1            Build: 25.1       Update: UP20241202   Platform: LINUX x64   
+Date Run: 09/24/2026   Time: 16:45     Process ID: 1754195
+Operating System: AlmaLinux release 8.10 (Cerulean Leopard)
+
+Processor Model: Intel(R) Xeon(R) Gold 6248 CPU @ 2.50GHz
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303
+
+Number of machines requested            :    1
+Total number of cores available         :   40
+Number of physical cores available      :   40
+Number of processes requested           :    1
+Number of threads per process requested :    8
+Total number of cores requested         :    8 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: p4_zp4_ff_sc_h112_e31m_2
+Input File: ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24.inp
+Working Directory: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys
+
+Total CPU time for main thread                    :        1.2 seconds
+Total CPU time summed for all threads             :        5.1 seconds
+
+Elapsed time spent obtaining a license            :        1.5 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.0 seconds
+Elapsed time spent solution - preprocessing       :        0.0 seconds
+Elapsed time spent computing solution             :        0.3 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.1 seconds
+ 
+Eigensolver used                                  :            Block Lanczos
+Equation solver computational rate                :        5.5 Gflops
+
+Sum of disk space used on all processes           :        5.4 MB
+
+Sum of memory used on all processes               :       51.0 MB
+Sum of memory allocated on all processes          :     2304.0 MB
+Physical memory available                         :        187 GB
+Total amount of I/O written to disk               :        0.0 GB
+Total amount of I/O read from disk                :        0.0 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+ |  Maximum Database Used       2 MB     Maximum Scratch Memory Used     49 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =          5.067       Time  =  16:45:12          |
+ |        Elapsed Time (sec) =          5.000       Date  =  09/24/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

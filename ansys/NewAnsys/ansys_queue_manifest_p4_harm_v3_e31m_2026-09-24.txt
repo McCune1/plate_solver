@@ -1,0 +1,3 @@
+# Paper 4 admittance at e31=-4.1, widened sweep (LESSONS Sec 18.245). ONE seat.
+#
+ansys_p4_harm_ff_y_v3_h112_e31m_2026-09-24.inp

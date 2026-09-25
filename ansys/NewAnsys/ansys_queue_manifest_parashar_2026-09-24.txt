@@ -1,0 +1,9 @@
+# Parashar 2013 n=0 FE scout (2026-09-24). Built by build_parashar_decks_2026-09-24.py.
+# Score with python3 score_parashar_fe_2026-09-24.py. ONE licence seat.
+#
+ansys_parashar_ff_sc_m60_2026-09-24.inp
+ansys_parashar_ff_sc_m120_2026-09-24.inp
+ansys_parashar_ff_e0_m120_2026-09-24.inp
+ansys_parashar_cf_sc_m60_2026-09-24.inp
+ansys_parashar_cf_sc_m120_2026-09-24.inp
+ansys_parashar_cf_e0_m120_2026-09-24.inp

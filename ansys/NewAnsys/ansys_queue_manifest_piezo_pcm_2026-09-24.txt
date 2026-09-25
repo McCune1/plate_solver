@@ -1,0 +1,16 @@
+# Piezoelectric contour-mode (n=0 radial) FE, Paper 5 ring (2026-09-24).
+# Built by build_pcm_decks_2026-09-24.py. Score with
+# python3 score_pcm_fe_2026-09-24.py. ONE licence seat.
+#
+ansys_pcm_p41_sc_m80_2026-09-24.inp
+ansys_pcm_p41_sc_m160_2026-09-24.inp
+ansys_pcm_p41_oc_m80_2026-09-24.inp
+ansys_pcm_p41_oc_m160_2026-09-24.inp
+ansys_pcm_p41_harm_m80_2026-09-24.inp
+ansys_pcm_p41_harm_m160_2026-09-24.inp
+ansys_pcm_m41_sc_m80_2026-09-24.inp
+ansys_pcm_m41_sc_m160_2026-09-24.inp
+ansys_pcm_m41_oc_m80_2026-09-24.inp
+ansys_pcm_m41_oc_m160_2026-09-24.inp
+ansys_pcm_m41_harm_m80_2026-09-24.inp
+ansys_pcm_m41_harm_m160_2026-09-24.inp

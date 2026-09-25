@@ -1,0 +1,126 @@
+{
+ "built_by": "build_p5seg_decks_2026-09-24.py",
+ "predictions_source": "Paper5_Monolithic/piezo_p5_e15_segment_charge_predictions_e31m.json",
+ "e31_deck": "-4.1E-3",
+ "kappa_floor": 1.0,
+ "r_star_mm": 300.0,
+ "r_i_mm": 100.0,
+ "charge_unit_to_C": 0.001,
+ "omega_cal": 100.0,
+ "load_steps": [
+  {
+   "ls": 2,
+   "omega": 100.0,
+   "f_Hz": 15.915494309189533,
+   "Q_K_face_C": -1.2652130349377747e-11,
+   "kappa": {
+    "c44_73": -0.054927036078182154,
+    "c44_26": -1.9619105243733577
+   }
+  },
+  {
+   "ls": 3,
+   "omega": 200.0,
+   "f_Hz": 31.830988618379067,
+   "Q_K_face_C": -1.1507340378860123e-11,
+   "kappa": {
+    "c44_73": -0.054821021339559156,
+    "c44_26": -1.9616128676072238
+   }
+  },
+  {
+   "ls": 4,
+   "omega": 800.0,
+   "f_Hz": 127.32395447351627,
+   "Q_K_face_C": -2.956196889538858e-11,
+   "kappa": {
+    "c44_73": -0.05578614298427537,
+    "c44_26": -1.9643226322250809
+   }
+  },
+  {
+   "ls": 5,
+   "omega": 1000.0,
+   "f_Hz": 159.15494309189535,
+   "Q_K_face_C": -2.7227599064186433e-11,
+   "kappa": {
+    "c44_73": -0.055864261634720365,
+    "c44_26": -1.9645419653590226
+   }
+  },
+  {
+   "ls": 6,
+   "omega": 1200.0,
+   "f_Hz": 190.9859317102744,
+   "Q_K_face_C": -2.7234196823784078e-11,
+   "kappa": {
+    "c44_73": -0.05602059499415763,
+    "c44_26": -1.9649809013297503
+   }
+  }
+ ],
+ "kappa_closed": {
+  "c44_73": -0.05468456724218513,
+  "c44_26": -1.9612297464876736
+ },
+ "bars": {
+  "G_sym_rel": 0.01,
+  "G_mesh_rel": 0.01,
+  "corrected_rel": 0.05,
+  "kirchhoff_rel": 0.1,
+  "cal_C_range_F": [
+   5e-08,
+   3e-07
+  ]
+ },
+ "decks": [
+  {
+   "deck": "ansys_p5seg_e31m_c73_m40_2026-09-24.inp",
+   "stem": "ansys_p5seg_e31m_c73_m40",
+   "c44_key": "c44_73",
+   "c44_MPa": 73000.0,
+   "ndiv_r": 40,
+   "ndiv_z": 6
+  },
+  {
+   "deck": "ansys_p5seg_e31m_c73_m80_2026-09-24.inp",
+   "stem": "ansys_p5seg_e31m_c73_m80",
+   "c44_key": "c44_73",
+   "c44_MPa": 73000.0,
+   "ndiv_r": 80,
+   "ndiv_z": 12
+  },
+  {
+   "deck": "ansys_p5seg_e31m_c73_m160_2026-09-24.inp",
+   "stem": "ansys_p5seg_e31m_c73_m160",
+   "c44_key": "c44_73",
+   "c44_MPa": 73000.0,
+   "ndiv_r": 160,
+   "ndiv_z": 12
+  },
+  {
+   "deck": "ansys_p5seg_e31m_c26_m40_2026-09-24.inp",
+   "stem": "ansys_p5seg_e31m_c26_m40",
+   "c44_key": "c44_26",
+   "c44_MPa": 26000.0,
+   "ndiv_r": 40,
+   "ndiv_z": 6
+  },
+  {
+   "deck": "ansys_p5seg_e31m_c26_m80_2026-09-24.inp",
+   "stem": "ansys_p5seg_e31m_c26_m80",
+   "c44_key": "c44_26",
+   "c44_MPa": 26000.0,
+   "ndiv_r": 80,
+   "ndiv_z": 12
+  },
+  {
+   "deck": "ansys_p5seg_e31m_c26_m160_2026-09-24.inp",
+   "stem": "ansys_p5seg_e31m_c26_m160",
+   "c44_key": "c44_26",
+   "c44_MPa": 26000.0,
+   "ndiv_r": 160,
+   "ndiv_z": 12
+  }
+ ]
+}

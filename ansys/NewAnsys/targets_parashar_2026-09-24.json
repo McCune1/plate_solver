@@ -1,0 +1,89 @@
+{
+ "built_by": "build_parashar_decks_2026-09-24.py",
+ "geometry": {
+  "ff": {
+   "RI": 5.0,
+   "RO": 12.5,
+   "H": 2.0,
+   "clamp": 0,
+   "table": "Table 2 (free-free)",
+   "model": [
+    28.291,
+    131.949,
+    191.186
+   ],
+   "exp": [
+    27.919,
+    131.275,
+    null
+   ]
+  },
+  "cf": {
+   "RI": 2.0,
+   "RO": 12.0,
+   "H": 1.5,
+   "clamp": 1,
+   "table": "Table 3 (fixed-free)",
+   "model": [
+    12.624,
+    54.878,
+    125.815,
+    197.124
+   ],
+   "exp": [
+    12.224,
+    54.752,
+    null,
+    null
+   ]
+  }
+ },
+ "decks": [
+  {
+   "deck": "ansys_parashar_ff_sc_m60_2026-09-24.inp",
+   "stem": "ansys_parashar_ff_sc_m60",
+   "bc": "ff",
+   "piezo": "sc",
+   "ndiv_r": 60
+  },
+  {
+   "deck": "ansys_parashar_ff_sc_m120_2026-09-24.inp",
+   "stem": "ansys_parashar_ff_sc_m120",
+   "bc": "ff",
+   "piezo": "sc",
+   "ndiv_r": 120
+  },
+  {
+   "deck": "ansys_parashar_ff_e0_m120_2026-09-24.inp",
+   "stem": "ansys_parashar_ff_e0_m120",
+   "bc": "ff",
+   "piezo": "e0",
+   "ndiv_r": 120
+  },
+  {
+   "deck": "ansys_parashar_cf_sc_m60_2026-09-24.inp",
+   "stem": "ansys_parashar_cf_sc_m60",
+   "bc": "cf",
+   "piezo": "sc",
+   "ndiv_r": 60
+  },
+  {
+   "deck": "ansys_parashar_cf_sc_m120_2026-09-24.inp",
+   "stem": "ansys_parashar_cf_sc_m120",
+   "bc": "cf",
+   "piezo": "sc",
+   "ndiv_r": 120
+  },
+  {
+   "deck": "ansys_parashar_cf_e0_m120_2026-09-24.inp",
+   "stem": "ansys_parashar_cf_e0_m120",
+   "bc": "cf",
+   "piezo": "e0",
+   "ndiv_r": 120
+  }
+ ],
+ "bars": {
+  "model_rel_s12": 0.03,
+  "mesh_rel": 0.002
+ }
+}

@@ -1,0 +1,2178 @@
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2025 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2025 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+
+ AFTER YOU HAVE READ, UNDERSTOOD, AND AGREED TO THE PREVIOUS NOTICES,
+ PRESS <CR> OR <ENTER> TO CONTINUE
+ 2025 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2025 R1 
+ AVxcelerate Sensors 2025 R1 
+ AVxcelerate Sensors Library for SCANeR 2025 R1  
+ AVxcelerate Sensors Library for CarMaker 2025 R1
+ TwinAI 2025 R1  
+ Electromagnetics Suite 2025 R1  
+ Electromagnetics RSM 2025 R1
+ Ansys Dynamic Reporting 2025 R1 
+ Core WB Files 2025 R1   
+ BladeModeler 2025 R1
+ CFD-Post only 2025 R1   
+ CFX (includes CFD-Post) 2025 R1 
+ Chemkin 2025 R1 
+ EnSight 2025 R1 
+ FENSAP-ICE 2025 R1  
+ Fluent (includes CFD-Post) 2025 R1  
+ Polyflow (includes CFD-Post) 2025 R1
+ Forte (includes EnSight) 2025 R1
+ ICEM CFD 2025 R1
+ Rocky 2025 R1   
+ TurboGrid 2025 R1   
+ Lumerical 2025 R1   
+ Lumerical Photonic Verilog-A 2025 R1
+ Speos HPC 2025 R1   
+ Speos RPC 2025 R1   
+ optiSLang 2025 R1   
+ Remote Solve Manager Standalone Services 2025 R1
+ Additive 2025 R1
+ Aqwa 2025 R1
+ Autodyn 2025 R1 
+ Customization Files for User Programmable Features 2025 R1  
+ LS-DYNA 2025 R1 
+ Mechanical Products 2025 R1 
+ Motion 2025 R1  
+ Sherlock 2025 R1
+ ACIS Geometry Interface 2025 R1 
+ Catia, Version 5 Geometry Interface 2025 R1 
+ Parasolid Geometry Interface 2025 R1
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = p5mix_e31m_cf_c26_m160_2                                                                                                                                                                                                                                
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  SHARED MEMORY PARALLEL REQUESTED
+    SINGLE PROCESS WITH   8 THREADS REQUESTED
+    TOTAL OF     8 CORES REQUESTED
+  INPUT FILE NAME              = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p5mix_e31m_cf_c26_m160_2026-09-24.inp
+  OUTPUT FILE NAME             = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p5mix_e31m_cf_c26_m160_2026-09-24_out.txt
+
+ RELEASE= 2025 R1              BUILD= 25.1      UP20241202   VERSION=LINUX x64   
+ CURRENT JOBNAME=p5mix_e31m_cf_c26_m160_2  16:40:27  SEP 24, 2026 CP=      0.287
+
+     1  ! ansys_p5mix_e31m_cf_c26_m160_2026-09-24.inp   
+     2  ! Paper 5 segmented-electrode sensing charge, mixed edges, harmonic FE (2026-09-24).
+     3  ! Built by build_p5mix_decks_2026-09-24.py. Do not hand-edit; rebuild.  
+     4  ! Pre-registration: PAPER5_MIXED_EDGE_SENSING_2026-09-24.md.
+     5  ! Mechanical BC: CF (clamped inner, free outer). Rims electrically insulated.   
+     6  ! Question 1 (interior cuts r* = 300, 450 mm): does the e15-consistent  
+     7  !   factor kappa = -1.9612 (C44E = 26 GPa) carry over from F-F  
+     8  !   (job 2531984) to this edge pairing? 
+     9  ! Question 2 (cuts within 2.5H of a clamped rim): which rim model, if any,  
+    10  !   matches -- M1 phibar'=0 or M2 insulated rim with the e15 shear term?
+    11  ! Geometry/material/element identical to ansys_p5seg_* (C44E parameterised).
+    12  ! UNITS: mm-N-s-tonne, real volts. CHRG comes out in mC (1e-3 C).   
+    13  !   ANSYS 2025R1 reports CHRG reaction = -(electrode charge) (job 2531984); 
+    14  !   LS1 re-measures that sign in every deck.
+    15  ! LS1: sign calibration. Top inner segment (r <= RSTAR) at 1 V, others 0 V, 
+    16  !      no force.
+    17  ! LS2..LS6: all face nodes 0 V (SC), FY = 1 N total ring load at r = RLOAD  
+    18  !      spread over the through-thickness node line (flexure only).  
+    19  ! Output: one file per load step, raw per-node r and CHRG (Re, Im) on the   
+    20  ! top and bottom faces. The scorer does every sum and ratio.
+    21  ! Do not put the MAPDL failure token in this file (queue grep false-fail).  
+    22  ! ============================================================  
+    23  FINISH  
+    24  /CLEAR,NOSTART  
+    25  /TITLE, Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09-24) 
+    26      
+    27  RI     = 100.0  
+    28  RO     = 600.0  
+    29  H      = 10.0   
+    30  RLOAD  = 350.0  
+    31  RSTAR  = 300.0  
+    32  TOL    = 1.0E-3 
+    33  NDIV_R = 160
+    34  NDIV_Z = 12 
+    35  FTOT   = 1.0
+    36  CLAMPI = 1  
+    37  CLAMPO = 0  
+    38      
+    39  C11E = 1.320E5  
+    40  C12E = 7.100E4  
+    41  C13E = 7.300E4  
+    42  C33E = 1.150E5  
+    43  C44E = 2.6000E+04   
+    44  C66E = (C11E-C12E)/2
+    45  E31  = -4.1E-3  
+    46  E33  = 1.41E-2  
+    47  E15  = 1.05E-2  
+    48  EPS0   = 8.854E-12  
+    49  X11ABS = 7.124E-9   
+    50  X33ABS = 5.841E-9   
+    51  X11    = X11ABS/EPS0
+    52  X33    = X33ABS/EPS0
+    53  RHO_PZT = 7.500E-9  
+    54      
+    55  /PREP7  
+    56  ET,1,PLANE223   
+    57  KEYOPT,1,1,1001 
+    58  KEYOPT,1,3,1
+    59      
+    60  TB,ANEL,1,1,,0  
+    61  TBDATA,1,C11E,C13E,C12E,0,0,0   
+    62  TBDATA,7,C33E,C13E,0,0,0
+    63  TBDATA,12,C11E,0,0,0
+    64  TBDATA,16,C44E,0,0  
+    65  TBDATA,19,C66E,0
+    66  TBDATA,21,C44E  
+    67  TB,PIEZ,1   
+    68  TBDATA,1,0,E31,0,0,E33,0
+    69  TBDATA,7,0,E31,0,E15,0,0
+    70  TBDATA,13,0,0,E15,0,0,0 
+    71  MP,PERX,1,X11   
+    72  MP,PERY,1,X33   
+    73  MP,PERZ,1,X11   
+    74  MP,DENS,1,RHO_PZT   
+    75      
+    76  RECTNG,RI,RO,-H,H   
+    77  ASEL,S,AREA,,1  
+    78  AATT,1,,1   
+    79  LSLA,S  
+    80  LSEL,R,LOC,X,RI 
+    81  LESIZE,ALL,,,NDIV_Z,,,,,1   
+    82  LSLA,S  
+    83  LSEL,R,LOC,X,RO 
+    84  LESIZE,ALL,,,NDIV_Z,,,,,1   
+    85  LSLA,S  
+    86  LSEL,R,LOC,Y,-H 
+    87  LESIZE,ALL,,,NDIV_R,,,,,1   
+    88  LSLA,S  
+    89  LSEL,R,LOC,Y,H  
+    90  LESIZE,ALL,,,NDIV_R,,,,,1   
+    91  ALLSEL,ALL  
+    92  ASEL,S,AREA,,1  
+    93  MSHAPE,0,2D 
+    94  MSHKEY,1
+    95  AMESH,ALL   
+    96  ALLSEL,ALL  
+    97  ! Mesh guards: every scored cut radius and RLOAD must be a corner-node  
+    98  ! radius, and the element count must be NDIV_R*NDIV_Z. *MSG,FATAL stops 
+    99  ! the deck before any solve.
+   100  *GET,NELEM,ELEM,0,COUNT 
+   101  *IF,NELEM,NE,NDIV_R*NDIV_Z,THEN 
+   102    *MSG,FATAL
+   103  Mapped mesh element count does not equal NDIV_R*NDIV_Z. 
+   104  *ENDIF  
+   105  NSEL,S,LOC,Y,H-TOL,H+TOL
+   106  NSEL,R,LOC,X,112.5000-TOL,112.5000+TOL  
+   107  *GET,NCK1,NODE,0,COUNT  
+   108  ALLSEL,ALL  
+   109  *IF,NCK1,NE,1,THEN  
+   110    *MSG,FATAL
+   111  No single top-face node at a scored cut radius (guard 1).   
+   112  *ENDIF  
+   113  NSEL,S,LOC,Y,H-TOL,H+TOL
+   114  NSEL,R,LOC,X,125.0000-TOL,125.0000+TOL  
+   115  *GET,NCK2,NODE,0,COUNT  
+   116  ALLSEL,ALL  
+   117  *IF,NCK2,NE,1,THEN  
+   118    *MSG,FATAL
+   119  No single top-face node at a scored cut radius (guard 2).   
+   120  *ENDIF  
+   121  NSEL,S,LOC,Y,H-TOL,H+TOL
+   122  NSEL,R,LOC,X,300.0000-TOL,300.0000+TOL  
+   123  *GET,NCK3,NODE,0,COUNT  
+   124  ALLSEL,ALL  
+   125  *IF,NCK3,NE,1,THEN  
+   126    *MSG,FATAL
+   127  No single top-face node at a scored cut radius (guard 3).   
+   128  *ENDIF  
+   129  NSEL,S,LOC,Y,H-TOL,H+TOL
+   130  NSEL,R,LOC,X,450.0000-TOL,450.0000+TOL  
+   131  *GET,NCK4,NODE,0,COUNT  
+   132  ALLSEL,ALL  
+   133  *IF,NCK4,NE,1,THEN  
+   134    *MSG,FATAL
+   135  No single top-face node at a scored cut radius (guard 4).   
+   136  *ENDIF  
+   137  NSEL,S,LOC,Y,H-TOL,H+TOL
+   138  NSEL,R,LOC,X,575.0000-TOL,575.0000+TOL  
+   139  *GET,NCK5,NODE,0,COUNT  
+   140  ALLSEL,ALL  
+   141  *IF,NCK5,NE,1,THEN  
+   142    *MSG,FATAL
+   143  No single top-face node at a scored cut radius (guard 5).   
+   144  *ENDIF  
+   145  NSEL,S,LOC,X,RLOAD-TOL,RLOAD+TOL
+   146  *GET,NFN,NODE,0,COUNT   
+   147  ALLSEL,ALL  
+   148  *IF,NFN,NE,2*NDIV_Z+1,THEN  
+   149    *MSG,FATAL
+   150  Force node line at r = RLOAD is not 2*NDIV_Z+1 nodes.   
+   151  *ENDIF  
+   152  FINISH  
+   153      
+   154  /SOLU   
+   155  ANTYPE,HARMIC   
+   156  HROPT,FULL  
+   157  HROUT,OFF   
+   158  OUTRES,NSOL,ALL 
+   159  OUTRES,RSOL,ALL 
+   160  KBC,1   
+   161  EQSLV,SPARSE
+   162      
+   163  ! Both faces grounded everywhere.   
+   164  NSEL,S,LOC,Y,H-TOL,H+TOL
+   165  NSEL,A,LOC,Y,-H-TOL,-H+TOL  
+   166  D,ALL,VOLT,0
+   167  ALLSEL,ALL  
+   168      
+   169  ! Mechanical clamps (all nodes of the rim line, UX = UY = 0).   
+   170  *IF,CLAMPI,EQ,1,THEN
+   171    NSEL,S,LOC,X,RI-TOL,RI+TOL
+   172    D,ALL,UX,0
+   173    D,ALL,UY,0
+   174    ALLSEL,ALL
+   175  *ENDIF  
+   176  *IF,CLAMPO,EQ,1,THEN
+   177    NSEL,S,LOC,X,RO-TOL,RO+TOL
+   178    D,ALL,UX,0
+   179    D,ALL,UY,0
+   180    ALLSEL,ALL
+   181  *ENDIF  
+   182      
+   183  ! LS1 -- sign calibration: top inner segment at 1 V, no force.  
+   184  NSEL,S,LOC,Y,H-TOL,H+TOL
+   185  NSEL,R,LOC,X,RI-TOL,RSTAR+TOL   
+   186  D,ALL,VOLT,1.0  
+   187  ALLSEL,ALL  
+   188  HARFRQ,15.915494309,15.915494309
+   189  NSUBST,1
+   190  LSWRITE,1   
+   191      
+   192  ! LS2.. -- SC, ring load at RLOAD.  
+   193  NSEL,S,LOC,Y,H-TOL,H+TOL
+   194  NSEL,R,LOC,X,RI-TOL,RSTAR+TOL   
+   195  D,ALL,VOLT,0
+   196  NSEL,S,LOC,X,RLOAD-TOL,RLOAD+TOL
+   197  F,ALL,FY,FTOT/NFN   
+   198  ALLSEL,ALL  
+   199  HARFRQ,58.156489445,58.156489445
+   200  NSUBST,1
+   201  LSWRITE,2   
+   202  HARFRQ,101.773856529,101.773856529  
+   203  NSUBST,1
+   204  LSWRITE,3   
+   205  HARFRQ,145.391223613,145.391223613  
+   206  NSUBST,1
+   207  LSWRITE,4   
+   208  HARFRQ,189.008431542,189.008431542  
+   209  NSUBST,1
+   210  LSWRITE,5   
+   211  HARFRQ,232.625798626,232.625798626  
+   212  NSUBST,1
+   213  LSWRITE,6   
+   214      
+   215  LSSOLVE,1,6 
+   216  FINISH  
+   217      
+   218  /POST1  
+   219  SET,2,1,,0  
+   220  NSEL,S,LOC,Y,H-TOL,H+TOL
+   221  NSEL,R,LOC,X,RSTAR-TOL,RSTAR+TOL
+   222  PRRSOL,CHRG 
+   223  ALLSEL,ALL  
+   224      
+   225  NSEL,S,LOC,Y,H-TOL,H+TOL
+   226  *GET,NTOP,NODE,0,COUNT  
+   227  ALLSEL,ALL  
+   228  *DIM,IDX,ARRAY,NTOP 
+   229  *DIM,RT,ARRAY,NTOP  
+   230  *DIM,RB,ARRAY,NTOP  
+   231  *DIM,FRQ,ARRAY,6
+   232  *DIM,LSN,ARRAY,6
+   233  ! ---- load step 1 ---- 
+   234  *DIM,QTR1,ARRAY,NTOP
+   235  *DIM,QTI1,ARRAY,NTOP
+   236  *DIM,QBR1,ARRAY,NTOP
+   237  *DIM,QBI1,ARRAY,NTOP
+   238  SET,1,1,,0  
+   239  *GET,FRQ(1),ACTIVE,0,SET,FREQ   
+   240  LSN(1)=1
+   241  NSEL,S,LOC,Y,H-TOL,H+TOL
+   242  ND=0
+   243  *DO,I,1,NTOP
+   244    ND=NDNEXT(ND) 
+   245    IDX(I)=I  
+   246    RT(I)=NX(ND)  
+   247    *GET,QTR1(I),NODE,ND,RF,CHRG  
+   248  *ENDDO  
+   249  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   250  ND=0
+   251  *DO,I,1,NTOP
+   252    ND=NDNEXT(ND) 
+   253    RB(I)=NX(ND)  
+   254    *GET,QBR1(I),NODE,ND,RF,CHRG  
+   255  *ENDDO  
+   256  SET,1,1,,1  
+   257  NSEL,S,LOC,Y,H-TOL,H+TOL
+   258  ND=0
+   259  *DO,I,1,NTOP
+   260    ND=NDNEXT(ND) 
+   261    *GET,QTI1(I),NODE,ND,RF,CHRG  
+   262  *ENDDO  
+   263  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   264  ND=0
+   265  *DO,I,1,NTOP
+   266    ND=NDNEXT(ND) 
+   267    *GET,QBI1(I),NODE,ND,RF,CHRG  
+   268  *ENDDO  
+   269  ALLSEL,ALL  
+   270  *CFOPEN,ansys_p5mix_e31m_cf_c26_m160_ls1,txt
+   271  *VWRITE 
+   272  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   273  *VWRITE,IDX(1),RT(1),QTR1(1),QTI1(1),RB(1),QBR1(1),QBI1(1)  
+   274  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   275  *CFCLOS 
+   276  ! ---- load step 2 ---- 
+   277  *DIM,QTR2,ARRAY,NTOP
+   278  *DIM,QTI2,ARRAY,NTOP
+   279  *DIM,QBR2,ARRAY,NTOP
+   280  *DIM,QBI2,ARRAY,NTOP
+   281  SET,2,1,,0  
+   282  *GET,FRQ(2),ACTIVE,0,SET,FREQ   
+   283  LSN(2)=2
+   284  NSEL,S,LOC,Y,H-TOL,H+TOL
+   285  ND=0
+   286  *DO,I,1,NTOP
+   287    ND=NDNEXT(ND) 
+   288    IDX(I)=I  
+   289    RT(I)=NX(ND)  
+   290    *GET,QTR2(I),NODE,ND,RF,CHRG  
+   291  *ENDDO  
+   292  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   293  ND=0
+   294  *DO,I,1,NTOP
+   295    ND=NDNEXT(ND) 
+   296    RB(I)=NX(ND)  
+   297    *GET,QBR2(I),NODE,ND,RF,CHRG  
+   298  *ENDDO  
+   299  SET,2,1,,1  
+   300  NSEL,S,LOC,Y,H-TOL,H+TOL
+   301  ND=0
+   302  *DO,I,1,NTOP
+   303    ND=NDNEXT(ND) 
+   304    *GET,QTI2(I),NODE,ND,RF,CHRG  
+   305  *ENDDO  
+   306  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   307  ND=0
+   308  *DO,I,1,NTOP
+   309    ND=NDNEXT(ND) 
+   310    *GET,QBI2(I),NODE,ND,RF,CHRG  
+   311  *ENDDO  
+   312  ALLSEL,ALL  
+   313  *CFOPEN,ansys_p5mix_e31m_cf_c26_m160_ls2,txt
+   314  *VWRITE 
+   315  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   316  *VWRITE,IDX(1),RT(1),QTR2(1),QTI2(1),RB(1),QBR2(1),QBI2(1)  
+   317  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   318  *CFCLOS 
+   319  ! ---- load step 3 ---- 
+   320  *DIM,QTR3,ARRAY,NTOP
+   321  *DIM,QTI3,ARRAY,NTOP
+   322  *DIM,QBR3,ARRAY,NTOP
+   323  *DIM,QBI3,ARRAY,NTOP
+   324  SET,3,1,,0  
+   325  *GET,FRQ(3),ACTIVE,0,SET,FREQ   
+   326  LSN(3)=3
+   327  NSEL,S,LOC,Y,H-TOL,H+TOL
+   328  ND=0
+   329  *DO,I,1,NTOP
+   330    ND=NDNEXT(ND) 
+   331    IDX(I)=I  
+   332    RT(I)=NX(ND)  
+   333    *GET,QTR3(I),NODE,ND,RF,CHRG  
+   334  *ENDDO  
+   335  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   336  ND=0
+   337  *DO,I,1,NTOP
+   338    ND=NDNEXT(ND) 
+   339    RB(I)=NX(ND)  
+   340    *GET,QBR3(I),NODE,ND,RF,CHRG  
+   341  *ENDDO  
+   342  SET,3,1,,1  
+   343  NSEL,S,LOC,Y,H-TOL,H+TOL
+   344  ND=0
+   345  *DO,I,1,NTOP
+   346    ND=NDNEXT(ND) 
+   347    *GET,QTI3(I),NODE,ND,RF,CHRG  
+   348  *ENDDO  
+   349  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   350  ND=0
+   351  *DO,I,1,NTOP
+   352    ND=NDNEXT(ND) 
+   353    *GET,QBI3(I),NODE,ND,RF,CHRG  
+   354  *ENDDO  
+   355  ALLSEL,ALL  
+   356  *CFOPEN,ansys_p5mix_e31m_cf_c26_m160_ls3,txt
+   357  *VWRITE 
+   358  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   359  *VWRITE,IDX(1),RT(1),QTR3(1),QTI3(1),RB(1),QBR3(1),QBI3(1)  
+   360  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   361  *CFCLOS 
+   362  ! ---- load step 4 ---- 
+   363  *DIM,QTR4,ARRAY,NTOP
+   364  *DIM,QTI4,ARRAY,NTOP
+   365  *DIM,QBR4,ARRAY,NTOP
+   366  *DIM,QBI4,ARRAY,NTOP
+   367  SET,4,1,,0  
+   368  *GET,FRQ(4),ACTIVE,0,SET,FREQ   
+   369  LSN(4)=4
+   370  NSEL,S,LOC,Y,H-TOL,H+TOL
+   371  ND=0
+   372  *DO,I,1,NTOP
+   373    ND=NDNEXT(ND) 
+   374    IDX(I)=I  
+   375    RT(I)=NX(ND)  
+   376    *GET,QTR4(I),NODE,ND,RF,CHRG  
+   377  *ENDDO  
+   378  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   379  ND=0
+   380  *DO,I,1,NTOP
+   381    ND=NDNEXT(ND) 
+   382    RB(I)=NX(ND)  
+   383    *GET,QBR4(I),NODE,ND,RF,CHRG  
+   384  *ENDDO  
+   385  SET,4,1,,1  
+   386  NSEL,S,LOC,Y,H-TOL,H+TOL
+   387  ND=0
+   388  *DO,I,1,NTOP
+   389    ND=NDNEXT(ND) 
+   390    *GET,QTI4(I),NODE,ND,RF,CHRG  
+   391  *ENDDO  
+   392  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   393  ND=0
+   394  *DO,I,1,NTOP
+   395    ND=NDNEXT(ND) 
+   396    *GET,QBI4(I),NODE,ND,RF,CHRG  
+   397  *ENDDO  
+   398  ALLSEL,ALL  
+   399  *CFOPEN,ansys_p5mix_e31m_cf_c26_m160_ls4,txt
+   400  *VWRITE 
+   401  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   402  *VWRITE,IDX(1),RT(1),QTR4(1),QTI4(1),RB(1),QBR4(1),QBI4(1)  
+   403  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   404  *CFCLOS 
+   405  ! ---- load step 5 ---- 
+   406  *DIM,QTR5,ARRAY,NTOP
+   407  *DIM,QTI5,ARRAY,NTOP
+   408  *DIM,QBR5,ARRAY,NTOP
+   409  *DIM,QBI5,ARRAY,NTOP
+   410  SET,5,1,,0  
+   411  *GET,FRQ(5),ACTIVE,0,SET,FREQ   
+   412  LSN(5)=5
+   413  NSEL,S,LOC,Y,H-TOL,H+TOL
+   414  ND=0
+   415  *DO,I,1,NTOP
+   416    ND=NDNEXT(ND) 
+   417    IDX(I)=I  
+   418    RT(I)=NX(ND)  
+   419    *GET,QTR5(I),NODE,ND,RF,CHRG  
+   420  *ENDDO  
+   421  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   422  ND=0
+   423  *DO,I,1,NTOP
+   424    ND=NDNEXT(ND) 
+   425    RB(I)=NX(ND)  
+   426    *GET,QBR5(I),NODE,ND,RF,CHRG  
+   427  *ENDDO  
+   428  SET,5,1,,1  
+   429  NSEL,S,LOC,Y,H-TOL,H+TOL
+   430  ND=0
+   431  *DO,I,1,NTOP
+   432    ND=NDNEXT(ND) 
+   433    *GET,QTI5(I),NODE,ND,RF,CHRG  
+   434  *ENDDO  
+   435  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   436  ND=0
+   437  *DO,I,1,NTOP
+   438    ND=NDNEXT(ND) 
+   439    *GET,QBI5(I),NODE,ND,RF,CHRG  
+   440  *ENDDO  
+   441  ALLSEL,ALL  
+   442  *CFOPEN,ansys_p5mix_e31m_cf_c26_m160_ls5,txt
+   443  *VWRITE 
+   444  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   445  *VWRITE,IDX(1),RT(1),QTR5(1),QTI5(1),RB(1),QBR5(1),QBI5(1)  
+   446  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   447  *CFCLOS 
+   448  ! ---- load step 6 ---- 
+   449  *DIM,QTR6,ARRAY,NTOP
+   450  *DIM,QTI6,ARRAY,NTOP
+   451  *DIM,QBR6,ARRAY,NTOP
+   452  *DIM,QBI6,ARRAY,NTOP
+   453  SET,6,1,,0  
+   454  *GET,FRQ(6),ACTIVE,0,SET,FREQ   
+   455  LSN(6)=6
+   456  NSEL,S,LOC,Y,H-TOL,H+TOL
+   457  ND=0
+   458  *DO,I,1,NTOP
+   459    ND=NDNEXT(ND) 
+   460    IDX(I)=I  
+   461    RT(I)=NX(ND)  
+   462    *GET,QTR6(I),NODE,ND,RF,CHRG  
+   463  *ENDDO  
+   464  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   465  ND=0
+   466  *DO,I,1,NTOP
+   467    ND=NDNEXT(ND) 
+   468    RB(I)=NX(ND)  
+   469    *GET,QBR6(I),NODE,ND,RF,CHRG  
+   470  *ENDDO  
+   471  SET,6,1,,1  
+   472  NSEL,S,LOC,Y,H-TOL,H+TOL
+   473  ND=0
+   474  *DO,I,1,NTOP
+   475    ND=NDNEXT(ND) 
+   476    *GET,QTI6(I),NODE,ND,RF,CHRG  
+   477  *ENDDO  
+   478  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   479  ND=0
+   480  *DO,I,1,NTOP
+   481    ND=NDNEXT(ND) 
+   482    *GET,QBI6(I),NODE,ND,RF,CHRG  
+   483  *ENDDO  
+   484  ALLSEL,ALL  
+   485  *CFOPEN,ansys_p5mix_e31m_cf_c26_m160_ls6,txt
+   486  *VWRITE 
+   487  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   488  *VWRITE,IDX(1),RT(1),QTR6(1),QTI6(1),RB(1),QBR6(1),QBI6(1)  
+   489  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   490  *CFCLOS 
+   491      
+   492  *CFOPEN,ansys_p5mix_e31m_cf_c26_m160_freqs,txt  
+   493  *VWRITE 
+   494  ('ls   freq_Hz')
+   495  *VWRITE,LSN(1),FRQ(1)   
+   496  (F4.0,3X,E20.12)
+   497  *CFCLOS 
+   498  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans
+
+ /INPUT FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans  LINE=       0
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09-24)  
+
+
+ PARAMETER RI =     100.0000000    
+
+ PARAMETER RO =     600.0000000    
+
+ PARAMETER H =     10.00000000    
+
+ PARAMETER RLOAD =     350.0000000    
+
+ PARAMETER RSTAR =     300.0000000    
+
+ PARAMETER TOL =    0.1000000000E-02
+
+ PARAMETER NDIV_R =     160.0000000    
+
+ PARAMETER NDIV_Z =     12.00000000    
+
+ PARAMETER FTOT =     1.000000000    
+
+ PARAMETER CLAMPI =     1.000000000    
+
+ PARAMETER CLAMPO =     0.000000000    
+
+ PARAMETER C11E =     132000.0000    
+
+ PARAMETER C12E =     71000.00000    
+
+ PARAMETER C13E =     73000.00000    
+
+ PARAMETER C33E =     115000.0000    
+
+ PARAMETER C44E =     26000.00000    
+
+ PARAMETER C66E =     30500.00000    
+
+ PARAMETER E31 =   -0.4100000000E-02
+
+ PARAMETER E33 =    0.1410000000E-01
+
+ PARAMETER E15 =    0.1050000000E-01
+
+ PARAMETER EPS0 =    0.8854000000E-11
+
+ PARAMETER X11ABS =    0.7124000000E-08
+
+ PARAMETER X33ABS =    0.5841000000E-08
+
+ PARAMETER X11 =     804.6080867    
+
+ PARAMETER X33 =     659.7018297    
+
+ PARAMETER RHO_PZT =    0.7500000000E-08
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:40:28  SEP 24, 2026 CP=      0.590
+
+  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09-24)  
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ *** NOTE ***                            CP =       0.590   TIME= 16:40:28
+ For element type = 1 ( PLANE223 ), KEYOPT 1 = 0 is invalid.  This NOTE  
+ is normal behavior when a CDB file is used.                             
+
+ ELEMENT TYPE          1 IS PLANE223     QUAD COUPLED-FIELD SOLID    
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ ELEMENT TYPE       1 IS PLANE223     2-D 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  TWO-DIMENSIONAL MODEL
+
+ ELEMENT TYPE       1 IS PLANE223     AXI 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      1        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  AXISYMMETRIC MODEL
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     1
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.13200E+06  73000.      71000.      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.11500E+06  73000.      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.13200E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 16  26000.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 19  30500.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 21  26000.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     1
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  1  0.0000    -0.41000E-02  0.0000      0.0000     0.14100E-01  0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  7  0.0000    -0.41000E-02  0.0000     0.10500E-01  0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC= 13  0.0000      0.0000     0.10500E-01  0.0000      0.0000      0.0000    
+
+ MATERIAL          1     PERX =   804.6081      
+
+ MATERIAL          1     PERY =   659.7018      
+
+ MATERIAL          1     PERZ =   804.6081      
+
+ MATERIAL          1     DENS =  0.7500000E-08  
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM     -10.00000000     TO      10.00000000    
+
+      OUTPUT AREA =     1
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        1  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    1   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   12,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   12,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =  160,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =  160,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        1  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     1 MESHED WITH    1920 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =       6105
+ MAXIMUM ELEMENT NUMBER     =       1920
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *GET  NELEM     FROM  ELEM  ITEM=COUN           VALUE=  1920.00000    
+
+ *IF  NELEM  ( =   1920.00     )  NE  
+      NDIV_R*NDIV_Z  ( =   1920.00     )  THEN    
+
+ *ENDIF
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  112.50     AND   112.50    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+          1  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NCK1      FROM  NODE  ITEM=COUN       VALUE=  1.00000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *IF  NCK1  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  125.00     AND   125.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+          1  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NCK2      FROM  NODE  ITEM=COUN       VALUE=  1.00000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *IF  NCK2  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  300.00     AND   300.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+          1  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NCK3      FROM  NODE  ITEM=COUN       VALUE=  1.00000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *IF  NCK3  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  450.00     AND   450.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+          1  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NCK4      FROM  NODE  ITEM=COUN       VALUE=  1.00000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *IF  NCK4  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  575.00     AND   575.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+          1  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NCK5      FROM  NODE  ITEM=COUN       VALUE=  1.00000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *IF  NCK5  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  350.00     AND   350.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         25  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NFN       FROM  NODE  ITEM=COUN       VALUE=  25.0000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *IF  NFN  ( =   25.0000     )  NE  
+      2*NDIV_Z+1  ( =   25.0000     )  THEN    
+
+ *ENDIF
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.659
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A HARMONIC ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ PERFORM A FULL HARMONIC RESPONSE ANALYSIS
+
+ PRINT COMPLEX DISPLACEMENTS AS AMPLITUDE AND PHASE ANGLE (IN DEGREES)
+
+ WRITE NSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE RSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ STEP BOUNDARY CONDITION KEY= 1
+
+ USE SPARSE MATRIX DIRECT SOLVER
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        642  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO        6105 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *IF  CLAMPI  ( =   1.00000     )  EQ  
+      1  ( =   1.00000     )  THEN    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  99.999     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         25  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES            1 TO        6105 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SPECIFIED CONSTRAINT UY   FOR SELECTED NODES            1 TO        6105 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *ENDIF
+
+ *IF  CLAMPO  ( =   0.00000     )  EQ  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  99.999     AND   300.00    
+   KABS=  0.  TOLERANCE= 0.200002E-05
+
+        129  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO        6105 BY           1
+ REAL=  1.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ HARMONIC FREQUENCY RANGE - END=  15.915      BEGIN=  15.915    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5mix_e31m_cf_c26_m160_2.s01                                                                                                                                                                                                                                        
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  99.999     AND   300.00    
+   KABS=  0.  TOLERANCE= 0.200002E-05
+
+        129  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO        6105 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  350.00     AND   350.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         25  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED NODAL LOAD FY   FOR SELECTED NODES         1 TO     6105 BY        1
+  REAL= 4.000000000E-02   IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ HARMONIC FREQUENCY RANGE - END=  58.156      BEGIN=  58.156    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5mix_e31m_cf_c26_m160_2.s02                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  101.77      BEGIN=  101.77    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5mix_e31m_cf_c26_m160_2.s03                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  145.39      BEGIN=  145.39    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5mix_e31m_cf_c26_m160_2.s04                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  189.01      BEGIN=  189.01    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5mix_e31m_cf_c26_m160_2.s05                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  232.63      BEGIN=  232.63    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5mix_e31m_cf_c26_m160_2.s06                                                                                                                                                                                                                                        
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       16:40:28
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 1.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       1.256   TIME= 16:40:28
+ Axisymmetric elements are present.  The nodal loads input with the F    
+ commands and the reaction forces are on a full circle basis.  This      
+ differs from the pre-MAPDL 5.0 interpretation.                          
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:40:28  SEP 24, 2026 CP=      1.268
+
+  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09      
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .AXISYMMETRIC         
+   DEGREES OF FREEDOM. . . . . . UX   UY   VOLT
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .HARMONIC             
+      SOLUTION METHOD. . . . . . . . . . . . . . .FULL
+   EQUATION SOLVER OPTION. . . . . . . . . . . . .SPARSE             
+   COMPLEX DISPLACEMENT PRINT OPTION . . . . . . .REAL AND IMAGINARY       
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+
+ *** NOTE ***                            CP =       1.298   TIME= 16:40:28
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** NOTE ***                            CP =       1.301   TIME= 16:40:28
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  15.915     TO   15.915    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =  0.16493    
+
+
+ MASS AND MOMENT VALUES ARE EVALUATED FOR AN AXISYMMETRIC 360. DEGREE MODEL.
+
+                    MOM. OF INERTIA      MOM. OF INERTIA     RADIUS OF GYRATION
+ CENTER OF MASS      ABOUT ORIGIN     ABOUT CENTER OF MASS  ABOUT CENTER OF MASS
+
+ XC =   0.0000       IXX =   0.1526E+05   IXX =   0.1526E+05  RGX =    304.2    
+ YC = -0.13778E-14   IYY =   0.3051E+05   IYY =   0.3051E+05  RGY =    430.1    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.164934    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 1.466424256E+09 at element 160.                               
+ Minimum = 250433295 at element 321.                                     
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      1920  PLANE223      1.715   0.000893
+ Time at end of element matrix formulation CP = 2.01006603.              
+
+ SPARSE MATRIX DIRECT SOLVER.
+  Number of equations =       17623,    Maximum wavefront =     57
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =    67.473 MB
+  Equation solver memory required for in-core mode     =    64.778 MB
+  Equation solver memory required for out-of-core mode =    32.395 MB
+  Total (solver and non-solver) memory allocated       =   638.289 MB
+
+ *** NOTE ***                            CP =       2.949   TIME= 16:40:28
+ The Sparse Matrix Solver is currently running in the in-core memory     
+ mode.  This memory mode uses the most amount of memory in order to      
+ avoid using the hard drive as much as possible, which most often        
+ results in the fastest solution time.  This mode is recommended if      
+ enough physical memory is present to accommodate all of the solver      
+ data.                                                                   
+ Sparse solver maximum pivot= 2.906141919E+09 at node 6046 UY.           
+ Sparse solver minimum pivot= 26886.2078 at node 3386 UY.                
+ Sparse solver minimum pivot in absolute value= 26886.2078 at node 3386  
+ UY.                                                                     
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      1920  PLANE223      2.504   0.001304
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      1920  PLANE223      0.619   0.000323
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.  FREQUENCY=   15.9155    
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        1.000 MB WRITTEN ON ELEMENT SAVED DATA FILE: p5mix_e31m_cf_c26_m160_2.esav
+        7.750 MB WRITTEN ON ASSEMBLED MATRIX FILE: p5mix_e31m_cf_c26_m160_2.full
+        2.750 MB WRITTEN ON RESULTS FILE: p5mix_e31m_cf_c26_m160_2.rst
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       16:40:28
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 2.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       5.137   TIME= 16:40:28
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:40:28  SEP 24, 2026 CP=      5.167
+
+  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     2
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  58.156     TO   58.156    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     2   SUBSTEP     1  COMPLETED.  FREQUENCY=   58.1565    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       16:40:28
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 3.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       7.400   TIME= 16:40:29
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:40:29  SEP 24, 2026 CP=      7.427
+
+  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     3
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  101.77     TO   101.77    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     3   SUBSTEP     1  COMPLETED.  FREQUENCY=   101.774    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       16:40:28
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 4.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       9.646   TIME= 16:40:29
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:40:29  SEP 24, 2026 CP=      9.675
+
+  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     4
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  145.39     TO   145.39    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     4   SUBSTEP     1  COMPLETED.  FREQUENCY=   145.391    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       16:40:28
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 5.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =      11.929   TIME= 16:40:29
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:40:29  SEP 24, 2026 CP=     11.959
+
+  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     5
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  189.01     TO   189.01    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     5   SUBSTEP     1  COMPLETED.  FREQUENCY=   189.008    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       16:40:28
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 6.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =      14.204   TIME= 16:40:29
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:40:29  SEP 24, 2026 CP=     14.232
+
+  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     6
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  232.63     TO   232.63    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     6   SUBSTEP     1  COMPLETED.  FREQUENCY=   232.626    
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        16.897
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:40:30  SEP 24, 2026 CP=     16.912
+
+  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09      
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =      16.913   TIME= 16:40:30
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+
+ USE LOAD STEP     2  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     2  SUBSTEP=     1  CUMULATIVE ITERATION=     2
+   TIME/FREQUENCY=  58.156    
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  300.00     AND   300.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+          1  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PRINT CHRG REACTION SOLUTIONS PER NODE
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:40:30  SEP 24, 2026 CP=     17.169
+
+  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09      
+
+
+ 
+  ***** POST1 TOTAL REACTION SOLUTION LISTING *****                            
+ 
+  LOAD STEP=     2  SUBSTEP=     1                                             
+   FREQ=    58.156      LOAD CASE=   0                                         
+ 
+    NODE       CHRG  
+     538 -0.17210E-009
+
+ TOTAL VALUES
+ VALUE  -0.17210E-009
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NTOP      FROM  NODE  ITEM=COUN       VALUE=  321.000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SET PARAMETER DIMENSIONS ON  IDX TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  RT TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  RB TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  FRQ TYPE=ARRA  DIMENSIONS=     6     1     1
+
+ SET PARAMETER DIMENSIONS ON  LSN TYPE=ARRA  DIMENSIONS=     6     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTR1 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI1 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR1 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI1 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  15.915    
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  15.9154943    
+
+ PARAMETER LSN(1) =     1.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR1      FROM  NODE       322  ITEM=RF   CHRG  VALUE=-0.235537391E-007
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR1      FROM  NODE         1  ITEM=RF   CHRG  VALUE=-0.914569280E-008
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  15.915          (IMAGINARY) 
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ *GET  QTI1      FROM  NODE       322  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI1      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5mix_e31m_cf_c26_m160_ls1.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QTR2 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI2 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR2 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI2 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+
+ USE LOAD STEP     2  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     2  SUBSTEP=     1  CUMULATIVE ITERATION=     2
+   TIME/FREQUENCY=  58.156    
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  58.1564894    
+
+ PARAMETER LSN(2) =     2.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR2      FROM  NODE       322  ITEM=RF   CHRG  VALUE=-0.632471188E-009
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR2      FROM  NODE         1  ITEM=RF   CHRG  VALUE= 0.145033332E-006
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     2  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     2  SUBSTEP=     1  CUMULATIVE ITERATION=     2
+   TIME/FREQUENCY=  58.156          (IMAGINARY) 
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ *GET  QTI2      FROM  NODE       322  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI2      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5mix_e31m_cf_c26_m160_ls2.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QTR3 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI3 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR3 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI3 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+
+ USE LOAD STEP     3  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     3  SUBSTEP=     1  CUMULATIVE ITERATION=     3
+   TIME/FREQUENCY=  101.77    
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  101.773857    
+
+ PARAMETER LSN(3) =     3.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR3      FROM  NODE       322  ITEM=RF   CHRG  VALUE=-0.313115072E-009
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR3      FROM  NODE         1  ITEM=RF   CHRG  VALUE=-0.117013100E-007
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     3  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     3  SUBSTEP=     1  CUMULATIVE ITERATION=     3
+   TIME/FREQUENCY=  101.77          (IMAGINARY) 
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ *GET  QTI3      FROM  NODE       322  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI3      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5mix_e31m_cf_c26_m160_ls3.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QTR4 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI4 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR4 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI4 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+
+ USE LOAD STEP     4  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     4  SUBSTEP=     1  CUMULATIVE ITERATION=     4
+   TIME/FREQUENCY=  145.39    
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  145.391224    
+
+ PARAMETER LSN(4) =     4.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR4      FROM  NODE       322  ITEM=RF   CHRG  VALUE=-0.358831297E-009
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR4      FROM  NODE         1  ITEM=RF   CHRG  VALUE=-0.325364733E-007
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     4  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     4  SUBSTEP=     1  CUMULATIVE ITERATION=     4
+   TIME/FREQUENCY=  145.39          (IMAGINARY) 
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ *GET  QTI4      FROM  NODE       322  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI4      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5mix_e31m_cf_c26_m160_ls4.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QTR5 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI5 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR5 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI5 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+
+ USE LOAD STEP     5  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     5  SUBSTEP=     1  CUMULATIVE ITERATION=     5
+   TIME/FREQUENCY=  189.01    
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  189.008432    
+
+ PARAMETER LSN(5) =     5.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR5      FROM  NODE       322  ITEM=RF   CHRG  VALUE=-0.511878445E-009
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR5      FROM  NODE         1  ITEM=RF   CHRG  VALUE=-0.516122489E-007
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     5  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     5  SUBSTEP=     1  CUMULATIVE ITERATION=     5
+   TIME/FREQUENCY=  189.01          (IMAGINARY) 
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ *GET  QTI5      FROM  NODE       322  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI5      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5mix_e31m_cf_c26_m160_ls5.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QTR6 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI6 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR6 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI6 TYPE=ARRA  DIMENSIONS=   321     1     1
+
+
+ USE LOAD STEP     6  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     6  SUBSTEP=     1  CUMULATIVE ITERATION=     6
+   TIME/FREQUENCY=  232.63    
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  232.625799    
+
+ PARAMETER LSN(6) =     6.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR6      FROM  NODE       322  ITEM=RF   CHRG  VALUE=-0.953087312E-009
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR6      FROM  NODE         1  ITEM=RF   CHRG  VALUE=-0.931226013E-007
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     6  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     6  SUBSTEP=     1  CUMULATIVE ITERATION=     6
+   TIME/FREQUENCY=  232.63          (IMAGINARY) 
+ TITLE=  Paper 5 mixed-edge segment charge CF, C44E=26 GPa, mesh 160x12 (2026-09
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     322.0000000    
+
+ *GET  QTI6      FROM  NODE       322  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        321  NODES (OF       6105  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  321.00     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI6      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5mix_e31m_cf_c26_m160_ls6.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ OPENED FILE= ansys_p5mix_e31m_cf_c26_m160_freqs.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =        21.286
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= p5mix_e31m_cf_c26_m160_2.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          0
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2025 R1            Build: 25.1       Update: UP20241202   Platform: LINUX x64   
+Date Run: 09/24/2026   Time: 16:40     Process ID: 1744149
+Operating System: AlmaLinux release 8.10 (Cerulean Leopard)
+
+Processor Model: Intel(R) Xeon(R) Gold 6248 CPU @ 2.50GHz
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303
+
+Number of machines requested            :    1
+Total number of cores available         :   40
+Number of physical cores available      :   40
+Number of processes requested           :    1
+Number of threads per process requested :    8
+Total number of cores requested         :    8 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: p5mix_e31m_cf_c26_m160_2
+Input File: ansys_p5mix_e31m_cf_c26_m160_2026-09-24.inp
+Working Directory: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys
+
+Total CPU time for main thread                    :        3.3 seconds
+Total CPU time summed for all threads             :       22.6 seconds
+
+Elapsed time spent obtaining a license            :        1.4 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.0 seconds
+Elapsed time spent solution - preprocessing       :        0.1 seconds
+Elapsed time spent computing solution             :        1.7 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.6 seconds
+ 
+Equation solver used                              :            Sparse (symmetric)
+Equation solver computational rate                :        7.7 Gflops
+
+Sum of disk space used on all processes           :       24.7 MB
+
+Sum of memory used on all processes               :      100.0 MB
+Sum of memory allocated on all processes          :     2304.0 MB
+Physical memory available                         :        187 GB
+Total amount of I/O written to disk               :        0.0 GB
+Total amount of I/O read from disk                :        0.0 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+ |  Maximum Database Used       9 MB     Maximum Scratch Memory Used     91 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =         22.594       Time  =  16:40:31          |
+ |        Elapsed Time (sec) =          6.000       Date  =  09/24/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

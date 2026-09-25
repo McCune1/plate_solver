@@ -1,0 +1,135 @@
+! ansys_pcm_m41_oc_m80_2026-09-24.inp
+! Piezoelectric contour-mode (n = 0 radial) FE, Paper 5 monolithic ring (2026-09-24).
+! Built by build_pcm_decks_2026-09-24.py. Do not hand-edit; rebuild.
+! Pre-registration: CONTOUR_MODE_N0_DERIVATION_2026-09-24.md Sec 5.
+! e31 = -4.1 (deck value -4.1E-3 in mm-N-s units) C/m^2 (sign printed by Duan 2005 / Liu 2002; physical PZT-4 e31 < 0). Modal, open circuit (top face floating, CP).
+! Thin-plate model (probe_piezo_contour_n0_2026-09-24.py), radial modes:
+!   m1  fr 1669.6949 Hz  fa 1852.4000 Hz  split +10.9424%  keff^2 0.18753
+!   m2  fr 4293.5856 Hz  fa 4475.6457 Hz  split +4.2403%  keff^2 0.07970
+!   m3  fr 7235.9906 Hz  fa 7258.1877 Hz  split +0.3068%  keff^2 0.00611
+!   m4  fr 10443.1644 Hz  fa 10539.5779 Hz  split +0.9232%  keff^2 0.01821
+!   m5  fr 13740.1209 Hz  fa 13752.8220 Hz  split +0.0924%  keff^2 0.00185
+!   m6  fr 17072.2629 Hz  fa 17132.4077 Hz  split +0.3523%  keff^2 0.00701
+! UNITS: mm-N-s-tonne, real volts; Hz; CHRG in mC.
+! Do not put the MAPDL failure token in this file (queue grep false-fail).
+! ============================================================
+FINISH
+/CLEAR,NOSTART
+/TITLE, Contour-mode PZT-4 ring oc e31=m41 mesh 80x12 (2026-09-24)
+RI     = 100.0
+RO     = 600.0
+H      = 10.0
+TOL    = 1.0E-3
+NDIV_R = 80
+NDIV_Z = 12
+NMODES = 30
+C11E = 1.320E5
+C12E = 7.100E4
+C13E = 7.300E4
+C33E = 1.150E5
+C44E = 7.300E4
+C66E = (C11E-C12E)/2
+E31  = -4.1E-3
+E33  = 1.41E-2
+E15  = 1.05E-2
+EPS0   = 8.854E-12
+X11ABS = 7.124E-9
+X33ABS = 5.841E-9
+X11    = X11ABS/EPS0
+X33    = X33ABS/EPS0
+RHO_PZT = 7.500E-9
+/PREP7
+ET,1,PLANE223
+KEYOPT,1,1,1001
+KEYOPT,1,3,1
+TB,ANEL,1,1,,0
+TBDATA,1,C11E,C13E,C12E,0,0,0
+TBDATA,7,C33E,C13E,0,0,0
+TBDATA,12,C11E,0,0,0
+TBDATA,16,C44E,0,0
+TBDATA,19,C66E,0
+TBDATA,21,C44E
+TB,PIEZ,1
+TBDATA,1,0,E31,0,0,E33,0
+TBDATA,7,0,E31,0,E15,0,0
+TBDATA,13,0,0,E15,0,0,0
+MP,PERX,1,X11
+MP,PERY,1,X33
+MP,PERZ,1,X11
+MP,DENS,1,RHO_PZT
+RECTNG,RI,RO,-H,H
+ASEL,S,AREA,,1
+AATT,1,,1
+LSLA,S
+LSEL,R,LOC,X,RI
+LESIZE,ALL,,,NDIV_Z,,,,,1
+LSLA,S
+LSEL,R,LOC,X,RO
+LESIZE,ALL,,,NDIV_Z,,,,,1
+LSLA,S
+LSEL,R,LOC,Y,-H
+LESIZE,ALL,,,NDIV_R,,,,,1
+LSLA,S
+LSEL,R,LOC,Y,H
+LESIZE,ALL,,,NDIV_R,,,,,1
+ALLSEL,ALL
+ASEL,S,AREA,,1
+MSHAPE,0,2D
+MSHKEY,1
+AMESH,ALL
+ALLSEL,ALL
+*GET,NELEM,ELEM,0,COUNT
+*IF,NELEM,NE,NDIV_R*NDIV_Z,THEN
+  *MSG,FATAL
+Mapped mesh element count does not equal NDIV_R*NDIV_Z.
+*ENDIF
+FINISH
+/SOLU
+ANTYPE,MODAL
+MODOPT,LANB,NMODES,-1.0,,,ON
+MXPAND,NMODES,,,NO
+! Bottom grounded, top face one floating equipotential (open circuit).
+NSEL,S,LOC,Y,-H-TOL,-H+TOL
+D,ALL,VOLT,0
+NSEL,S,LOC,Y,H-TOL,H+TOL
+CP,1,VOLT,ALL
+ALLSEL,ALL
+SOLVE
+FINISH
+/POST1
+*DIM,FR1,ARRAY,NMODES
+*DIM,IDXARR,ARRAY,NMODES
+*DO,I,1,NMODES
+  *GET,FR1(I),MODE,I,FREQ
+  IDXARR(I)=I
+*ENDDO
+NSEL,S,LOC,X,RO-TOL,RO+TOL
+NSEL,R,LOC,Y,H-TOL,H+TOL
+*GET,NTOP,NODE,0,NUM,MIN
+NSEL,S,LOC,X,RO-TOL,RO+TOL
+NSEL,R,LOC,Y,-H-TOL,-H+TOL
+*GET,NBOT,NODE,0,NUM,MIN
+NSEL,S,LOC,X,RO-TOL,RO+TOL
+NSEL,R,LOC,Y,-TOL,TOL
+*GET,NMID,NODE,0,NUM,MIN
+ALLSEL,ALL
+*DIM,UXT,ARRAY,NMODES
+*DIM,UYT,ARRAY,NMODES
+*DIM,UXB,ARRAY,NMODES
+*DIM,UYB,ARRAY,NMODES
+*DIM,UXM,ARRAY,NMODES
+*DO,I,1,NMODES
+  SET,1,I
+  *GET,UXT(I),NODE,NTOP,U,X
+  *GET,UYT(I),NODE,NTOP,U,Y
+  *GET,UXB(I),NODE,NBOT,U,X
+  *GET,UYB(I),NODE,NBOT,U,Y
+  *GET,UXM(I),NODE,NMID,U,X
+*ENDDO
+*CFOPEN,ansys_pcm_m41_oc_m80_modes,txt
+*VWRITE
+('mode  f_Hz  UX_top  UY_top  UX_bot  UY_bot  UX_mid   [r = RO; extensional: UX_top ~ +UX_bot]')
+*VWRITE,IDXARR(1),FR1(1),UXT(1),UYT(1),UXB(1),UYB(1),UXM(1)
+(F4.0,1X,E20.12,1X,E13.5,1X,E13.5,1X,E13.5,1X,E13.5,1X,E13.5)
+*CFCLOS
+FINISH

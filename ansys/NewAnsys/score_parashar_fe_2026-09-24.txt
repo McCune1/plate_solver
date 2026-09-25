@@ -1,0 +1,87 @@
+ansys_parashar_ff_sc_m60_2026-09-24.inp    RUN_OK errors=0
+ansys_parashar_ff_sc_m120_2026-09-24.inp   RUN_OK errors=0
+ansys_parashar_ff_e0_m120_2026-09-24.inp   RUN_OK errors=0
+ansys_parashar_cf_sc_m60_2026-09-24.inp    RUN_OK errors=0
+ansys_parashar_cf_sc_m120_2026-09-24.inp   RUN_OK errors=0
+ansys_parashar_cf_e0_m120_2026-09-24.inp   RUN_OK errors=0
+G_run: PASS
+
+==== ff  Table 2 (free-free) ====
+  all modes, m120 SC: mode f_kHz class
+     1     0.0000  other/rigid
+     2    26.1912  flexural
+     3    56.1203  extensional
+     4   132.3029  flexural
+     5   196.0287  flexural
+     6   201.6407  extensional
+     7   281.3088  flexural
+     8   288.9595  flexural
+     9   326.0950  extensional
+    10   348.8624  extensional
+    11   360.3094  extensional
+    12   386.0049  flexural
+    13   394.3042  extensional
+    14   424.8708  flexural
+    15   464.5390  extensional
+    16   478.2194  extensional
+    17   483.3416  flexural
+    18   499.1109  extensional
+    19   554.7009  flexural
+    20   556.3096  extensional
+    21   565.1874  flexural
+    22   574.7250  extensional
+    23   616.9595  flexural
+    24   636.7013  extensional
+    25   648.0638  flexural
+    26   648.6368  flexural
+    27   668.3398  extensional
+    28   683.0719  extensional
+    29   701.2304  flexural
+    30   717.5884  flexural
+  s   Parashar_model  exp       FE_sc_m120  FE/model  FE/exp   FE_sc_m60  FE_e0_m120  piezo_shift%
+  1      28.291      27.919     26.1912  0.9258    0.9381     26.1910     25.9987  +0.741
+  2     131.949     131.275    132.3029  1.0027    1.0078    132.3027    131.9865  +0.240
+  3     191.186           -    196.0287  1.0253         -    196.0286    192.2538  +1.963
+  reading (s = 1, 2 within 3%): NEITHER
+
+==== cf  Table 3 (fixed-free) ====
+  all modes, m120 SC: mode f_kHz class
+     1    12.6506  flexural
+     2    55.7282  flexural
+     3    90.0882  extensional
+     4   129.0604  flexural
+     5   203.4703  flexural
+     6   232.0135  extensional
+     7   274.2266  flexural
+     8   309.1558  flexural
+     9   355.9812  extensional
+    10   360.7489  flexural
+    11   387.2544  flexural
+    12   437.9600  extensional
+    13   454.5399  flexural
+    14   468.4063  extensional
+    15   474.5981  flexural
+    16   491.8859  extensional
+    17   538.8571  flexural
+    18   539.0837  extensional
+    19   576.6039  flexural
+    20   577.9643  extensional
+    21   597.8181  extensional
+    22   612.9368  extensional
+    23   617.5342  flexural
+    24   622.7752  extensional
+    25   669.3576  extensional
+    26   673.2882  extensional
+    27   676.2807  flexural
+    28   694.5083  flexural
+    29   702.6208  extensional
+    30   751.6145  extensional
+  s   Parashar_model  exp       FE_sc_m120  FE/model  FE/exp   FE_sc_m60  FE_e0_m120  piezo_shift%
+  1      12.624      12.224     12.6506  1.0021    1.0349     12.6522     12.5090  +1.132
+  2      54.878      54.752     55.7282  1.0155    1.0178     55.7347     55.3174  +0.743
+  3     125.815           -    129.0604  1.0258         -    129.0705    128.4442  +0.480
+  4     197.124           -    203.4703  1.0322         -    203.4797    202.4113  +0.523
+  reading (s = 1, 2 within 3%): MODEL
+
+G_mesh (m60 vs m120 within 0.2%): PASS
+VERDICT: {'ff': 'NEITHER', 'cf': 'MODEL'}

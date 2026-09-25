@@ -1,0 +1,35 @@
+# e31 = -4.1 clones of every coupled Paper 4/5/6 FE deck (2026-09-24).
+# Built by clone_e31m_decks_2026-09-24.py. ONE licence seat.
+#
+ansys_p4_epsrel_ff_lanb_e31m_2026-09-24.inp
+ansys_p4_epsrel_ff_subsp_e31m_2026-09-24.inp
+ansys_p4_epsrel_cc_lanb_e31m_2026-09-24.inp
+ansys_p4_epsrel_ff_lanb_h18_e31m_2026-09-24.inp
+ansys_p4_epsrel_ff_lanb_h15_e31m_2026-09-24.inp
+ansys_p4_epsrel_ff_lanb_oc_e31m_2026-09-24.inp
+ansys_p4_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp
+ansys_p4_epsrel_ff_lanb_h18_oc_e31m_2026-09-24.inp
+ansys_p4_epsrel_ff_lanb_h18_scboth_e31m_2026-09-24.inp
+ansys_p4_epsrel_ff_lanb_h15_oc_e31m_2026-09-24.inp
+ansys_p4_epsrel_ff_lanb_h15_scboth_e31m_2026-09-24.inp
+ansys_p4_zp4_ff_oc_h112_e31m_2026-09-24.inp
+ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24.inp
+ansys_p4_zp4_ff_oc_h18_e31m_2026-09-24.inp
+ansys_p4_zp4_ff_sc_h18_e31m_2026-09-24.inp
+ansys_p4_zp4_ff_oc_h15_e31m_2026-09-24.inp
+ansys_p4_zp4_ff_sc_h15_e31m_2026-09-24.inp
+ansys_p4_harm_ff_y_v2_h112_e31m_2026-09-24.inp
+ansys_p4_epsrel_cf_lanb_oc_e31m_2026-09-24.inp
+ansys_p4_epsrel_cf_lanb_scboth_e31m_2026-09-24.inp
+ansys_p4_3d_h112_sc_coarse_e31m_2026-09-24.inp
+ansys_p4_3d_h112_sc_fine_e31m_2026-09-24.inp
+ansys_p4_3d_h112_oc_fine_e31m_2026-09-24.inp
+ansys_p4_3d_h15_sc_coarse_e31m_2026-09-24.inp
+ansys_p4_3d_h15_sc_fine_e31m_2026-09-24.inp
+ansys_p4_3d_h15_oc_fine_e31m_2026-09-24.inp
+ansys_p4_liudisk2_sc_C_e31m_2026-09-24.inp
+ansys_p4_liudisk2_sc_S_e31m_2026-09-24.inp
+ansys_p5_epsrel_ff_lanb_oc_e31m_2026-09-24.inp
+ansys_p5_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp
+ansys_p6_sector_sc_coarse_e31m_2026-09-24.inp
+ansys_p6_sector_sc_fine_e31m_2026-09-24.inp

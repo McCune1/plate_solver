@@ -1,0 +1,326 @@
+! ansys_p6_sector_sc_coarse_e31m_2026-09-24.inp
+! e31 SIGN CLONE (2026-09-24, clone_e31m_decks_2026-09-24.py, LESSONS Sec 18.244).
+! Parent: ansys_p6_sector_sc_coarse_2026-09-22.inp. Only changes: E31 = -4.1E-3 (Liu 2002 / Duan 2005
+! Table 1 as printed) and every *CFOPEN output name + '_e31m'.
+! Targets quoted in the parent header below are the OLD +4.1 values.
+! Do not put the MAPDL failure token in this file.
+! ansys_p6_sector_sc_coarse_2026-09-22.inp
+! Paper 6 Gate E -- monolithic PZT-4 annular sector, cantilever, SOLID226.
+! Probe: _gate_E_setup. R_i=30 mm, R_o=70 mm, theta=-90..+90 deg,
+! full thickness 0.8 mm (z=-0.4..+0.4). Clamp on theta=-90. Both faces
+! at VOLT=0. both-faces short-circuit.
+!
+! UNITS copied from ansys_p5_epsrel_ff_lanb_scboth_2026-09-19.inp
+! (mm-N-s-tonne, real volts). Do not re-derive that block.
+! Frequencies are Hz. This deck prints Hz and nodal UX, UY, UZ only.
+!
+! MATERIAL AXES ARE NOT THE PLANE223 BLOCK. That element was poling
+! along global Y. Here the plate is in XY and poling is +Z.
+! ANSYS order is x, y, z, xy, yz, xz.
+!   stiffness: D44=C66 (in-plane shear), D55=D66=C44 (poling shears)
+!   piezo: e31 on xx/yy with Ez, e33 on zz with Ez, e15 on yz and xz
+!   permittivity: PERX=PERY=X11, PERZ=X33, all relative
+!     (SOLID226 MP,PERX is always relative, same rule as PLANE223)
+! No element coordinate system. Global Z stays the poling axis.
+! C44E and E15 are the Paper 4/5 deck values (73 GPa, 10.5 C/m^2).
+!
+! Mesh 20 radial x 80 circ x 2 through thickness.
+! 20-node count is about 33005 nodes, 132020 DOF before constraints.
+! Line-select counts are checked. A mismatch stops the run.
+!
+! Do not put the MAPDL failure token in this file (queue grep false-fail).
+! ============================================================
+FINISH
+/CLEAR,NOSTART
+/TITLE, Paper 6 sector SOLID226 both-faces short-circuit, 20x80x2 (2026-09-22)
+
+RI     = 30.0
+RO     = 70.0
+H      = 0.4
+RMID   = (RI+RO)/2
+TH1    = -90.0
+TH2    = 90.0
+NDIV_R = 20
+NDIV_TH = 80
+NDIV_Z = 2
+NMODES = 6
+
+C11E = 1.320E5
+C12E = 7.100E4
+C13E = 7.300E4
+C33E = 1.150E5
+C44E = 7.300E4
+C66E = (C11E-C12E)/2
+E31  = -4.1E-3    ! e31 SIGN CLONE: was +4.1E-3
+E33  = 1.41E-2
+E15  = 1.05E-2
+EPS0   = 8.854E-12
+X11ABS = 7.124E-9
+X33ABS = 5.841E-9
+X11    = X11ABS/EPS0
+X33    = X33ABS/EPS0
+RHO_PZT = 7.500E-9
+
+/PREP7
+ET,1,SOLID226
+KEYOPT,1,1,1001
+
+TB,ANEL,1,1,,0
+TBDATA,1,C11E,C12E,C13E,0,0,0
+TBDATA,7,C11E,C13E,0,0,0
+TBDATA,12,C33E,0,0,0
+TBDATA,16,C66E,0,0
+TBDATA,19,C44E,0
+TBDATA,21,C44E
+TB,PIEZ,1
+TBDATA,1,0,0,E31,0,0,E31
+TBDATA,7,0,0,E33,0,0,0
+TBDATA,13,0,E15,0,E15,0,0
+MP,PERX,1,X11
+MP,PERY,1,X11
+MP,PERZ,1,X33
+MP,DENS,1,RHO_PZT
+
+CSYS,0
+CYLIND,RI,RO,-H,H,TH1,TH2
+*GET,NV,VOLU,0,COUNT
+*IF,NV,NE,1,THEN
+  *MSG,FATAL
+CYLIND did not create exactly one volume.
+*ENDIF
+VSEL,S,VOLU,,1
+VATT,1,,1
+ALLSEL,ALL
+
+CSYS,1
+RINL = RI-0.3
+RINH = RI+0.3
+ROUTL = RO-0.3
+ROUTH = RO+0.3
+RMIDL = RMID-1
+RMIDH = RMID+1
+ZTOPL = H-0.05
+ZTOPH = H+0.05
+ZBOTL = -H-0.05
+ZBOTH = -H+0.05
+ZMIDL = -0.05
+ZMIDH = 0.05
+! inner thickness edges
+LSEL,S,LOC,X,RINL,RINH
+LSEL,R,LOC,Z,ZMIDL,ZMIDH
+*GET,NL,LINE,0,COUNT
+*IF,NL,NE,2,THEN
+  *MSG,FATAL
+inner thickness edges line count was not 2.
+*ENDIF
+LESIZE,ALL,,,NDIV_Z
+ALLSEL,ALL
+! outer thickness edges
+LSEL,S,LOC,X,ROUTL,ROUTH
+LSEL,R,LOC,Z,ZMIDL,ZMIDH
+*GET,NL,LINE,0,COUNT
+*IF,NL,NE,2,THEN
+  *MSG,FATAL
+outer thickness edges line count was not 2.
+*ENDIF
+LESIZE,ALL,,,NDIV_Z
+ALLSEL,ALL
+! top radial edges
+LSEL,S,LOC,X,RMIDL,RMIDH
+LSEL,R,LOC,Z,ZTOPL,ZTOPH
+*GET,NL,LINE,0,COUNT
+*IF,NL,NE,2,THEN
+  *MSG,FATAL
+top radial edges line count was not 2.
+*ENDIF
+LESIZE,ALL,,,NDIV_R
+ALLSEL,ALL
+! bottom radial edges
+LSEL,S,LOC,X,RMIDL,RMIDH
+LSEL,R,LOC,Z,ZBOTL,ZBOTH
+*GET,NL,LINE,0,COUNT
+*IF,NL,NE,2,THEN
+  *MSG,FATAL
+bottom radial edges line count was not 2.
+*ENDIF
+LESIZE,ALL,,,NDIV_R
+ALLSEL,ALL
+! inner top arc
+LSEL,S,LOC,X,RINL,RINH
+LSEL,R,LOC,Z,ZTOPL,ZTOPH
+*GET,NL,LINE,0,COUNT
+*IF,NL,NE,1,THEN
+  *MSG,FATAL
+inner top arc line count was not 1.
+*ENDIF
+LESIZE,ALL,,,NDIV_TH
+ALLSEL,ALL
+! inner bottom arc
+LSEL,S,LOC,X,RINL,RINH
+LSEL,R,LOC,Z,ZBOTL,ZBOTH
+*GET,NL,LINE,0,COUNT
+*IF,NL,NE,1,THEN
+  *MSG,FATAL
+inner bottom arc line count was not 1.
+*ENDIF
+LESIZE,ALL,,,NDIV_TH
+ALLSEL,ALL
+! outer top arc
+LSEL,S,LOC,X,ROUTL,ROUTH
+LSEL,R,LOC,Z,ZTOPL,ZTOPH
+*GET,NL,LINE,0,COUNT
+*IF,NL,NE,1,THEN
+  *MSG,FATAL
+outer top arc line count was not 1.
+*ENDIF
+LESIZE,ALL,,,NDIV_TH
+ALLSEL,ALL
+! outer bottom arc
+LSEL,S,LOC,X,ROUTL,ROUTH
+LSEL,R,LOC,Z,ZBOTL,ZBOTH
+*GET,NL,LINE,0,COUNT
+*IF,NL,NE,1,THEN
+  *MSG,FATAL
+outer bottom arc line count was not 1.
+*ENDIF
+LESIZE,ALL,,,NDIV_TH
+ALLSEL,ALL
+
+ALLSEL,ALL
+MSHAPE,0,3D
+MSHKEY,1
+VMESH,ALL
+ALLSEL,ALL
+NEXPECT = NDIV_R*NDIV_TH*NDIV_Z
+*GET,NEL,ELEM,0,COUNT
+*IF,NEL,NE,NEXPECT,THEN
+  *MSG,FATAL
+Mapped mesh element count does not equal the division product.
+*ENDIF
+FINISH
+
+/SOLU
+ANTYPE,MODAL
+MODOPT,LANB,NMODES,-1.0,,,ON
+MXPAND,NMODES,,,NO
+! Clamp: theta=-90 is the plane x=0, y<0. UX/UY/UZ only, not VOLT.
+CSYS,0
+XCL1 = -0.02
+XCL2 = 0.02
+YCL1 = -RO-0.1
+YCL2 = -RI+0.1
+NSEL,S,LOC,X,XCL1,XCL2
+NSEL,R,LOC,Y,YCL1,YCL2
+*GET,NCLAMP,NODE,0,COUNT
+*IF,NCLAMP,LT,10,THEN
+  *MSG,FATAL
+Clamp face selection returned fewer than 10 nodes.
+*ENDIF
+D,ALL,UX,0
+D,ALL,UY,0
+D,ALL,UZ,0
+ALLSEL,ALL
+ZEL1 = H-0.005
+ZEL2 = H+0.005
+ZEL3 = -H-0.005
+ZEL4 = -H+0.005
+NSEL,S,LOC,Z,ZEL1,ZEL2
+NSEL,A,LOC,Z,ZEL3,ZEL4
+*GET,NELEC,NODE,0,COUNT
+*IF,NELEC,LT,100,THEN
+  *MSG,FATAL
+Electrode selection returned fewer than 100 nodes.
+*ENDIF
+D,ALL,VOLT,0
+ALLSEL,ALL
+SOLVE
+FINISH
+
+/POST1
+*DIM,FR1,ARRAY,NMODES
+*DIM,IDXARR,ARRAY,NMODES
+*DO,I,1,NMODES
+  *GET,FR1(I),MODE,I,FREQ
+  IDXARR(I)=I
+*ENDDO
+*CFOPEN,ansys_p6_sector_sc_coarse_modes_e31m,txt
+*VWRITE
+('tag sc_coarse')
+*VWRITE,NCLAMP
+('clamp_nodes ', F12.0)
+*VWRITE,NELEC
+('electrode_nodes ', F12.0)
+*VWRITE,NEL
+('elements ', F12.0)
+*VWRITE
+('mode f_Hz')
+*VWRITE,IDXARR(1),FR1(1)
+(F4.0, 3X, E16.8)
+*CFCLOS
+
+NSAMP = 15
+*DIM,RS,ARRAY,15
+*DIM,TS,ARRAY,15
+RS(1) = 40.00
+TS(1) = -67.50
+RS(2) = 40.00
+TS(2) = -45.00
+RS(3) = 40.00
+TS(3) = 0.00
+RS(4) = 40.00
+TS(4) = 45.00
+RS(5) = 40.00
+TS(5) = 67.50
+RS(6) = 50.00
+TS(6) = -67.50
+RS(7) = 50.00
+TS(7) = -45.00
+RS(8) = 50.00
+TS(8) = 0.00
+RS(9) = 50.00
+TS(9) = 45.00
+RS(10) = 50.00
+TS(10) = 67.50
+RS(11) = 70.00
+TS(11) = -67.50
+RS(12) = 70.00
+TS(12) = -45.00
+RS(13) = 70.00
+TS(13) = 0.00
+RS(14) = 70.00
+TS(14) = 45.00
+RS(15) = 70.00
+TS(15) = 67.50
+*CFOPEN,ansys_p6_sector_sc_coarse_discriminator_e31m,txt
+*VWRITE
+('mode r_mm theta_deg z_mm UX UY UZ ncount')
+*DO,I,1,NMODES
+  SET,1,I
+  *DO,K,1,NSAMP
+    CSYS,1
+    R1 = RS(K)-0.05
+    R2 = RS(K)+0.05
+    T1 = TS(K)-0.05
+    T2 = TS(K)+0.05
+    Z1 = H-0.005
+    Z2 = H+0.005
+    NSEL,S,LOC,X,R1,R2
+    NSEL,R,LOC,Y,T1,T2
+    NSEL,R,LOC,Z,Z1,Z2
+    *GET,NC,NODE,0,COUNT
+    *IF,NC,NE,1,THEN
+      *MSG,FATAL
+Sample node select did not return exactly one node.
+    *ENDIF
+    *GET,NN,NODE,0,NUM,MIN
+    CSYS,0
+    *GET,GVX,NODE,NN,U,X
+    *GET,GVY,NODE,NN,U,Y
+    *GET,GVZ,NODE,NN,U,Z
+    *VWRITE,I,RS(K),TS(K),H,GVX,GVY,GVZ,NC
+(F4.0, 3X, F8.2, 3X, F8.2, 3X, F8.3, 3X, E16.8, 3X, E16.8, 3X, E16.8, 3X, F6.0)
+  *ENDDO
+*ENDDO
+*CFCLOS
+ALLSEL,ALL
+FINISH

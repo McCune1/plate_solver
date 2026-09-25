@@ -1,0 +1,1442 @@
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2025 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2025 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+
+ AFTER YOU HAVE READ, UNDERSTOOD, AND AGREED TO THE PREVIOUS NOTICES,
+ PRESS <CR> OR <ENTER> TO CONTINUE
+ 2025 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2025 R1 
+ AVxcelerate Sensors 2025 R1 
+ AVxcelerate Sensors Library for SCANeR 2025 R1  
+ AVxcelerate Sensors Library for CarMaker 2025 R1
+ TwinAI 2025 R1  
+ Electromagnetics Suite 2025 R1  
+ Electromagnetics RSM 2025 R1
+ Ansys Dynamic Reporting 2025 R1 
+ Core WB Files 2025 R1   
+ BladeModeler 2025 R1
+ CFD-Post only 2025 R1   
+ CFX (includes CFD-Post) 2025 R1 
+ Chemkin 2025 R1 
+ EnSight 2025 R1 
+ FENSAP-ICE 2025 R1  
+ Fluent (includes CFD-Post) 2025 R1  
+ Polyflow (includes CFD-Post) 2025 R1
+ Forte (includes EnSight) 2025 R1
+ ICEM CFD 2025 R1
+ Rocky 2025 R1   
+ TurboGrid 2025 R1   
+ Lumerical 2025 R1   
+ Lumerical Photonic Verilog-A 2025 R1
+ Speos HPC 2025 R1   
+ Speos RPC 2025 R1   
+ optiSLang 2025 R1   
+ Remote Solve Manager Standalone Services 2025 R1
+ Additive 2025 R1
+ Aqwa 2025 R1
+ Autodyn 2025 R1 
+ Customization Files for User Programmable Features 2025 R1  
+ LS-DYNA 2025 R1 
+ Mechanical Products 2025 R1 
+ Motion 2025 R1  
+ Sherlock 2025 R1
+ ACIS Geometry Interface 2025 R1 
+ Catia, Version 5 Geometry Interface 2025 R1 
+ Parasolid Geometry Interface 2025 R1
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = p6_sector_sc_coarse_e31m                                                                                                                                                                                                                                
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  SHARED MEMORY PARALLEL REQUESTED
+    SINGLE PROCESS WITH   8 THREADS REQUESTED
+    TOTAL OF     8 CORES REQUESTED
+  INPUT FILE NAME              = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p6_sector_sc_coarse_e31m_2026-09-24.inp
+  OUTPUT FILE NAME             = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p6_sector_sc_coarse_e31m_2026-09-24_out.txt
+
+ RELEASE= 2025 R1              BUILD= 25.1      UP20241202   VERSION=LINUX x64   
+ CURRENT JOBNAME=p6_sector_sc_coarse_e31m  16:53:59  SEP 24, 2026 CP=      0.291
+
+     1  ! ansys_p6_sector_sc_coarse_e31m_2026-09-24.inp 
+     2  ! e31 SIGN CLONE (2026-09-24, clone_e31m_decks_2026-09-24.py, LESSONS Sec 18.244).  
+     3  ! Parent: ansys_p6_sector_sc_coarse_2026-09-22.inp. Only changes: E31 = -4.1E-3 (Liu 2002 / Duan 2005   
+     4  ! Table 1 as printed) and every *CFOPEN output name + '_e31m'.  
+     5  ! Targets quoted in the parent header below are the OLD +4.1 values.
+     6  ! Do not put the MAPDL failure token in this file.  
+     7  ! ansys_p6_sector_sc_coarse_2026-09-22.inp  
+     8  ! Paper 6 Gate E -- monolithic PZT-4 annular sector, cantilever, SOLID226.  
+     9  ! Probe: _gate_E_setup. R_i=30 mm, R_o=70 mm, theta=-90..+90 deg,   
+    10  ! full thickness 0.8 mm (z=-0.4..+0.4). Clamp on theta=-90. Both faces  
+    11  ! at VOLT=0. both-faces short-circuit.  
+    12  !   
+    13  ! UNITS copied from ansys_p5_epsrel_ff_lanb_scboth_2026-09-19.inp   
+    14  ! (mm-N-s-tonne, real volts). Do not re-derive that block.  
+    15  ! Frequencies are Hz. This deck prints Hz and nodal UX, UY, UZ only.
+    16  !   
+    17  ! MATERIAL AXES ARE NOT THE PLANE223 BLOCK. That element was poling 
+    18  ! along global Y. Here the plate is in XY and poling is +Z. 
+    19  ! ANSYS order is x, y, z, xy, yz, xz.   
+    20  !   stiffness: D44=C66 (in-plane shear), D55=D66=C44 (poling shears)
+    21  !   piezo: e31 on xx/yy with Ez, e33 on zz with Ez, e15 on yz and xz
+    22  !   permittivity: PERX=PERY=X11, PERZ=X33, all relative 
+    23  !     (SOLID226 MP,PERX is always relative, same rule as PLANE223)  
+    24  ! No element coordinate system. Global Z stays the poling axis. 
+    25  ! C44E and E15 are the Paper 4/5 deck values (73 GPa, 10.5 C/m^2).  
+    26  !   
+    27  ! Mesh 20 radial x 80 circ x 2 through thickness.   
+    28  ! 20-node count is about 33005 nodes, 132020 DOF before constraints.
+    29  ! Line-select counts are checked. A mismatch stops the run. 
+    30  !   
+    31  ! Do not put the MAPDL failure token in this file (queue grep false-fail).  
+    32  ! ============================================================  
+    33  FINISH  
+    34  /CLEAR,NOSTART  
+    35  /TITLE, Paper 6 sector SOLID226 both-faces short-circuit, 20x80x2 (2026-09-22)  
+    36      
+    37  RI     = 30.0   
+    38  RO     = 70.0   
+    39  H      = 0.4
+    40  RMID   = (RI+RO)/2  
+    41  TH1    = -90.0  
+    42  TH2    = 90.0   
+    43  NDIV_R = 20 
+    44  NDIV_TH = 80
+    45  NDIV_Z = 2  
+    46  NMODES = 6  
+    47      
+    48  C11E = 1.320E5  
+    49  C12E = 7.100E4  
+    50  C13E = 7.300E4  
+    51  C33E = 1.150E5  
+    52  C44E = 7.300E4  
+    53  C66E = (C11E-C12E)/2
+    54  E31  = -4.1E-3    ! e31 SIGN CLONE: was +4.1E-3 
+    55  E33  = 1.41E-2  
+    56  E15  = 1.05E-2  
+    57  EPS0   = 8.854E-12  
+    58  X11ABS = 7.124E-9   
+    59  X33ABS = 5.841E-9   
+    60  X11    = X11ABS/EPS0
+    61  X33    = X33ABS/EPS0
+    62  RHO_PZT = 7.500E-9  
+    63      
+    64  /PREP7  
+    65  ET,1,SOLID226   
+    66  KEYOPT,1,1,1001 
+    67      
+    68  TB,ANEL,1,1,,0  
+    69  TBDATA,1,C11E,C12E,C13E,0,0,0   
+    70  TBDATA,7,C11E,C13E,0,0,0
+    71  TBDATA,12,C33E,0,0,0
+    72  TBDATA,16,C66E,0,0  
+    73  TBDATA,19,C44E,0
+    74  TBDATA,21,C44E  
+    75  TB,PIEZ,1   
+    76  TBDATA,1,0,0,E31,0,0,E31
+    77  TBDATA,7,0,0,E33,0,0,0  
+    78  TBDATA,13,0,E15,0,E15,0,0   
+    79  MP,PERX,1,X11   
+    80  MP,PERY,1,X11   
+    81  MP,PERZ,1,X33   
+    82  MP,DENS,1,RHO_PZT   
+    83      
+    84  CSYS,0  
+    85  CYLIND,RI,RO,-H,H,TH1,TH2   
+    86  *GET,NV,VOLU,0,COUNT
+    87  *IF,NV,NE,1,THEN
+    88    *MSG,FATAL
+    89  CYLIND did not create exactly one volume.   
+    90  *ENDIF  
+    91  VSEL,S,VOLU,,1  
+    92  VATT,1,,1   
+    93  ALLSEL,ALL  
+    94      
+    95  CSYS,1  
+    96  RINL = RI-0.3   
+    97  RINH = RI+0.3   
+    98  ROUTL = RO-0.3  
+    99  ROUTH = RO+0.3  
+   100  RMIDL = RMID-1  
+   101  RMIDH = RMID+1  
+   102  ZTOPL = H-0.05  
+   103  ZTOPH = H+0.05  
+   104  ZBOTL = -H-0.05 
+   105  ZBOTH = -H+0.05 
+   106  ZMIDL = -0.05   
+   107  ZMIDH = 0.05
+   108  ! inner thickness edges 
+   109  LSEL,S,LOC,X,RINL,RINH  
+   110  LSEL,R,LOC,Z,ZMIDL,ZMIDH
+   111  *GET,NL,LINE,0,COUNT
+   112  *IF,NL,NE,2,THEN
+   113    *MSG,FATAL
+   114  inner thickness edges line count was not 2. 
+   115  *ENDIF  
+   116  LESIZE,ALL,,,NDIV_Z 
+   117  ALLSEL,ALL  
+   118  ! outer thickness edges 
+   119  LSEL,S,LOC,X,ROUTL,ROUTH
+   120  LSEL,R,LOC,Z,ZMIDL,ZMIDH
+   121  *GET,NL,LINE,0,COUNT
+   122  *IF,NL,NE,2,THEN
+   123    *MSG,FATAL
+   124  outer thickness edges line count was not 2. 
+   125  *ENDIF  
+   126  LESIZE,ALL,,,NDIV_Z 
+   127  ALLSEL,ALL  
+   128  ! top radial edges  
+   129  LSEL,S,LOC,X,RMIDL,RMIDH
+   130  LSEL,R,LOC,Z,ZTOPL,ZTOPH
+   131  *GET,NL,LINE,0,COUNT
+   132  *IF,NL,NE,2,THEN
+   133    *MSG,FATAL
+   134  top radial edges line count was not 2.  
+   135  *ENDIF  
+   136  LESIZE,ALL,,,NDIV_R 
+   137  ALLSEL,ALL  
+   138  ! bottom radial edges   
+   139  LSEL,S,LOC,X,RMIDL,RMIDH
+   140  LSEL,R,LOC,Z,ZBOTL,ZBOTH
+   141  *GET,NL,LINE,0,COUNT
+   142  *IF,NL,NE,2,THEN
+   143    *MSG,FATAL
+   144  bottom radial edges line count was not 2.   
+   145  *ENDIF  
+   146  LESIZE,ALL,,,NDIV_R 
+   147  ALLSEL,ALL  
+   148  ! inner top arc 
+   149  LSEL,S,LOC,X,RINL,RINH  
+   150  LSEL,R,LOC,Z,ZTOPL,ZTOPH
+   151  *GET,NL,LINE,0,COUNT
+   152  *IF,NL,NE,1,THEN
+   153    *MSG,FATAL
+   154  inner top arc line count was not 1. 
+   155  *ENDIF  
+   156  LESIZE,ALL,,,NDIV_TH
+   157  ALLSEL,ALL  
+   158  ! inner bottom arc  
+   159  LSEL,S,LOC,X,RINL,RINH  
+   160  LSEL,R,LOC,Z,ZBOTL,ZBOTH
+   161  *GET,NL,LINE,0,COUNT
+   162  *IF,NL,NE,1,THEN
+   163    *MSG,FATAL
+   164  inner bottom arc line count was not 1.  
+   165  *ENDIF  
+   166  LESIZE,ALL,,,NDIV_TH
+   167  ALLSEL,ALL  
+   168  ! outer top arc 
+   169  LSEL,S,LOC,X,ROUTL,ROUTH
+   170  LSEL,R,LOC,Z,ZTOPL,ZTOPH
+   171  *GET,NL,LINE,0,COUNT
+   172  *IF,NL,NE,1,THEN
+   173    *MSG,FATAL
+   174  outer top arc line count was not 1. 
+   175  *ENDIF  
+   176  LESIZE,ALL,,,NDIV_TH
+   177  ALLSEL,ALL  
+   178  ! outer bottom arc  
+   179  LSEL,S,LOC,X,ROUTL,ROUTH
+   180  LSEL,R,LOC,Z,ZBOTL,ZBOTH
+   181  *GET,NL,LINE,0,COUNT
+   182  *IF,NL,NE,1,THEN
+   183    *MSG,FATAL
+   184  outer bottom arc line count was not 1.  
+   185  *ENDIF  
+   186  LESIZE,ALL,,,NDIV_TH
+   187  ALLSEL,ALL  
+   188      
+   189  ALLSEL,ALL  
+   190  MSHAPE,0,3D 
+   191  MSHKEY,1
+   192  VMESH,ALL   
+   193  ALLSEL,ALL  
+   194  NEXPECT = NDIV_R*NDIV_TH*NDIV_Z 
+   195  *GET,NEL,ELEM,0,COUNT   
+   196  *IF,NEL,NE,NEXPECT,THEN 
+   197    *MSG,FATAL
+   198  Mapped mesh element count does not equal the division product.  
+   199  *ENDIF  
+   200  FINISH  
+   201      
+   202  /SOLU   
+   203  ANTYPE,MODAL
+   204  MODOPT,LANB,NMODES,-1.0,,,ON
+   205  MXPAND,NMODES,,,NO  
+   206  ! Clamp: theta=-90 is the plane x=0, y<0. UX/UY/UZ only, not VOLT.  
+   207  CSYS,0  
+   208  XCL1 = -0.02
+   209  XCL2 = 0.02 
+   210  YCL1 = -RO-0.1  
+   211  YCL2 = -RI+0.1  
+   212  NSEL,S,LOC,X,XCL1,XCL2  
+   213  NSEL,R,LOC,Y,YCL1,YCL2  
+   214  *GET,NCLAMP,NODE,0,COUNT
+   215  *IF,NCLAMP,LT,10,THEN   
+   216    *MSG,FATAL
+   217  Clamp face selection returned fewer than 10 nodes.  
+   218  *ENDIF  
+   219  D,ALL,UX,0  
+   220  D,ALL,UY,0  
+   221  D,ALL,UZ,0  
+   222  ALLSEL,ALL  
+   223  ZEL1 = H-0.005  
+   224  ZEL2 = H+0.005  
+   225  ZEL3 = -H-0.005 
+   226  ZEL4 = -H+0.005 
+   227  NSEL,S,LOC,Z,ZEL1,ZEL2  
+   228  NSEL,A,LOC,Z,ZEL3,ZEL4  
+   229  *GET,NELEC,NODE,0,COUNT 
+   230  *IF,NELEC,LT,100,THEN   
+   231    *MSG,FATAL
+   232  Electrode selection returned fewer than 100 nodes.  
+   233  *ENDIF  
+   234  D,ALL,VOLT,0
+   235  ALLSEL,ALL  
+   236  SOLVE   
+   237  FINISH  
+   238      
+   239  /POST1  
+   240  *DIM,FR1,ARRAY,NMODES   
+   241  *DIM,IDXARR,ARRAY,NMODES
+   242  *DO,I,1,NMODES  
+   243    *GET,FR1(I),MODE,I,FREQ   
+   244    IDXARR(I)=I   
+   245  *ENDDO  
+   246  *CFOPEN,ansys_p6_sector_sc_coarse_modes_e31m,txt
+   247  *VWRITE 
+   248  ('tag sc_coarse')   
+   249  *VWRITE,NCLAMP  
+   250  ('clamp_nodes ', F12.0) 
+   251  *VWRITE,NELEC   
+   252  ('electrode_nodes ', F12.0) 
+   253  *VWRITE,NEL 
+   254  ('elements ', F12.0)
+   255  *VWRITE 
+   256  ('mode f_Hz')   
+   257  *VWRITE,IDXARR(1),FR1(1)
+   258  (F4.0, 3X, E16.8)   
+   259  *CFCLOS 
+   260      
+   261  NSAMP = 15  
+   262  *DIM,RS,ARRAY,15
+   263  *DIM,TS,ARRAY,15
+   264  RS(1) = 40.00   
+   265  TS(1) = -67.50  
+   266  RS(2) = 40.00   
+   267  TS(2) = -45.00  
+   268  RS(3) = 40.00   
+   269  TS(3) = 0.00
+   270  RS(4) = 40.00   
+   271  TS(4) = 45.00   
+   272  RS(5) = 40.00   
+   273  TS(5) = 67.50   
+   274  RS(6) = 50.00   
+   275  TS(6) = -67.50  
+   276  RS(7) = 50.00   
+   277  TS(7) = -45.00  
+   278  RS(8) = 50.00   
+   279  TS(8) = 0.00
+   280  RS(9) = 50.00   
+   281  TS(9) = 45.00   
+   282  RS(10) = 50.00  
+   283  TS(10) = 67.50  
+   284  RS(11) = 70.00  
+   285  TS(11) = -67.50 
+   286  RS(12) = 70.00  
+   287  TS(12) = -45.00 
+   288  RS(13) = 70.00  
+   289  TS(13) = 0.00   
+   290  RS(14) = 70.00  
+   291  TS(14) = 45.00  
+   292  RS(15) = 70.00  
+   293  TS(15) = 67.50  
+   294  *CFOPEN,ansys_p6_sector_sc_coarse_discriminator_e31m,txt
+   295  *VWRITE 
+   296  ('mode r_mm theta_deg z_mm UX UY UZ ncount')
+   297  *DO,I,1,NMODES  
+   298    SET,1,I   
+   299    *DO,K,1,NSAMP 
+   300      CSYS,1  
+   301      R1 = RS(K)-0.05 
+   302      R2 = RS(K)+0.05 
+   303      T1 = TS(K)-0.05 
+   304      T2 = TS(K)+0.05 
+   305      Z1 = H-0.005
+   306      Z2 = H+0.005
+   307      NSEL,S,LOC,X,R1,R2  
+   308      NSEL,R,LOC,Y,T1,T2  
+   309      NSEL,R,LOC,Z,Z1,Z2  
+   310      *GET,NC,NODE,0,COUNT
+   311      *IF,NC,NE,1,THEN
+   312        *MSG,FATAL
+   313  Sample node select did not return exactly one node. 
+   314      *ENDIF  
+   315      *GET,NN,NODE,0,NUM,MIN  
+   316      CSYS,0  
+   317      *GET,GVX,NODE,NN,U,X
+   318      *GET,GVY,NODE,NN,U,Y
+   319      *GET,GVZ,NODE,NN,U,Z
+   320      *VWRITE,I,RS(K),TS(K),H,GVX,GVY,GVZ,NC  
+   321  (F4.0, 3X, F8.2, 3X, F8.2, 3X, F8.3, 3X, E16.8, 3X, E16.8, 3X, E16.8, 3X, F6.0) 
+   322    *ENDDO
+   323  *ENDDO  
+   324  *CFCLOS 
+   325  ALLSEL,ALL  
+   326  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans
+
+ /INPUT FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans  LINE=       0
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  Paper 6 sector SOLID226 both-faces short-circuit, 20x80x2 (2026-09-22)       
+
+
+ PARAMETER RI =     30.00000000    
+
+ PARAMETER RO =     70.00000000    
+
+ PARAMETER H =    0.4000000000    
+
+ PARAMETER RMID =     50.00000000    
+
+ PARAMETER TH1 =    -90.00000000    
+
+ PARAMETER TH2 =     90.00000000    
+
+ PARAMETER NDIV_R =     20.00000000    
+
+ PARAMETER NDIV_TH =     80.00000000    
+
+ PARAMETER NDIV_Z =     2.000000000    
+
+ PARAMETER NMODES =     6.000000000    
+
+ PARAMETER C11E =     132000.0000    
+
+ PARAMETER C12E =     71000.00000    
+
+ PARAMETER C13E =     73000.00000    
+
+ PARAMETER C33E =     115000.0000    
+
+ PARAMETER C44E =     73000.00000    
+
+ PARAMETER C66E =     30500.00000    
+
+ PARAMETER E31 =   -0.4100000000E-02
+
+ PARAMETER E33 =    0.1410000000E-01
+
+ PARAMETER E15 =    0.1050000000E-01
+
+ PARAMETER EPS0 =    0.8854000000E-11
+
+ PARAMETER X11ABS =    0.7124000000E-08
+
+ PARAMETER X33ABS =    0.5841000000E-08
+
+ PARAMETER X11 =     804.6080867    
+
+ PARAMETER X33 =     659.7018297    
+
+ PARAMETER RHO_PZT =    0.7500000000E-08
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:53:59  SEP 24, 2026 CP=      0.598
+
+  Paper 6 sector SOLID226 both-faces short-circuit, 20x80x2 (2026-09-22)       
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ *** NOTE ***                            CP =       0.598   TIME= 16:53:59
+ For element type = 1 ( SOLID226 ), KEYOPT 1 = 0 is invalid.  This NOTE  
+ is normal behavior when a CDB file is used.                             
+
+ ELEMENT TYPE          1 IS SOLID226     BRICK COUPLED-FIELD SOLID   
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ ELEMENT TYPE       1 IS SOLID226     3-D 20-NODE STRU-ELECT SOLID
+  KEYOPT( 1- 6)=     1001      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    UZ    VOLT
+  THREE-DIMENSIONAL MODEL
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     1
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.13200E+06  71000.      73000.      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.13200E+06  73000.      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.11500E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 16  30500.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 19  73000.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 21  73000.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     1
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  1  0.0000      0.0000    -0.41000E-02  0.0000      0.0000    -0.41000E-02
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  7  0.0000      0.0000     0.14100E-01  0.0000      0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC= 13  0.0000     0.10500E-01  0.0000     0.10500E-01  0.0000      0.0000    
+
+ MATERIAL          1     PERX =   804.6081      
+
+ MATERIAL          1     PERY =   804.6081      
+
+ MATERIAL          1     PERZ =   659.7018      
+
+ MATERIAL          1     DENS =  0.7500000E-08  
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ CREATE A CYLINDRICAL VOLUME WITH
+ INNER RADIUS         =      30.00000000    
+ OUTER RADIUS         =      70.00000000    
+ STARTING THETA ANGLE =     -90.00000000    
+ ENDING   THETA ANGLE =      90.00000000    
+ END Z-DISTANCES FROM      -0.4000000000     TO     0.4000000000    
+
+      OUTPUT VOLUME =     1
+
+ *GET  NV        FROM  VOLU  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NV  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SELECT       FOR ITEM=VOLU COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  VOLUMES (OF        1  DEFINED) SELECTED BY  VSEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED VOLUMES
+      MAT =    1   REAL =       0   TYPE =    1   ESYS =    0   SECT =    0
+
+ ATTRIBUTES SET FOR      1 VOLUMES (OUT OF      1 SELECTED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ ACTIVE COORDINATE SYSTEM SET TO          1  (CYLINDRICAL) Z- CYL. AXIS
+
+ PARAMETER RINL =     29.70000000    
+
+ PARAMETER RINH =     30.30000000    
+
+ PARAMETER ROUTL =     69.70000000    
+
+ PARAMETER ROUTH =     70.30000000    
+
+ PARAMETER RMIDL =     49.00000000    
+
+ PARAMETER RMIDH =     51.00000000    
+
+ PARAMETER ZTOPL =    0.3500000000    
+
+ PARAMETER ZTOPH =    0.4500000000    
+
+ PARAMETER ZBOTL =   -0.4500000000    
+
+ PARAMETER ZBOTH =   -0.3500000000    
+
+ PARAMETER ZMIDL =   -0.5000000000E-01
+
+ PARAMETER ZMIDH =    0.5000000000E-01
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  29.700     AND   30.300    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+        4  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN-0.50000E-01 AND  0.50000E-01
+   KABS=  0.  TOLERANCE= 0.100000E-08
+
+        2  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  69.700     AND   70.300    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+        4  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN-0.50000E-01 AND  0.50000E-01
+   KABS=  0.  TOLERANCE= 0.100000E-08
+
+        2  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  49.000     AND   51.000    
+   KABS=  0.  TOLERANCE= 0.200000E-07
+
+        4  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN 0.35000     AND  0.45000    
+   KABS=  0.  TOLERANCE= 0.100000E-08
+
+        2  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   20,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  49.000     AND   51.000    
+   KABS=  0.  TOLERANCE= 0.200000E-07
+
+        4  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN-0.45000     AND -0.35000    
+   KABS=  0.  TOLERANCE= 0.100000E-08
+
+        2  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  2.00000000    
+
+ *IF  NL  ( =   2.00000     )  NE  
+      2  ( =   2.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   20,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  29.700     AND   30.300    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+        4  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN 0.35000     AND  0.45000    
+   KABS=  0.  TOLERANCE= 0.100000E-08
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   80,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  29.700     AND   30.300    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+        4  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN-0.45000     AND -0.35000    
+   KABS=  0.  TOLERANCE= 0.100000E-08
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   80,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  69.700     AND   70.300    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+        4  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN 0.35000     AND  0.45000    
+   KABS=  0.  TOLERANCE= 0.100000E-08
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   80,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  69.700     AND   70.300    
+   KABS=  0.  TOLERANCE= 0.600000E-08
+
+        4  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN-0.45000     AND -0.35000    
+   KABS=  0.  TOLERANCE= 0.100000E-08
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ *GET  NL        FROM  LINE  ITEM=COUN       VALUE=  1.00000000    
+
+ *IF  NL  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   80,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+ PRODUCE ALL HEXAHEDRAL ELEMENTS IN 3D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED VOLUMES  
+
+ NUMBER OF VOLUMES MESHED   =         1
+ MAXIMUM NODE NUMBER        =     18405
+ MAXIMUM ELEMENT NUMBER     =      3200
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ PARAMETER NEXPECT =     3200.000000    
+
+ *GET  NEL       FROM  ELEM  ITEM=COUN           VALUE=  3200.00000    
+
+ *IF  NEL  ( =   3200.00     )  NE  
+      NEXPECT  ( =   3200.00     )  THEN    
+
+ *ENDIF
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.707
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A MODAL ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ USE SYM. BLOCK LANCZOS MODE EXTRACTION METHOD
+  EXTRACT     6 MODES
+  NORMALIZE THE MODE SHAPES TO UNITY
+
+
+ NUMBER OF MODES TO EXPAND=     6
+  DO NOT CALCULATE ELEMENT RESULTS
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ PARAMETER XCL1 =   -0.2000000000E-01
+
+ PARAMETER XCL2 =    0.2000000000E-01
+
+ PARAMETER YCL1 =    -70.10000000    
+
+ PARAMETER YCL2 =    -29.90000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN-0.20000E-01 AND  0.20000E-01
+   KABS=  0.  TOLERANCE= 0.400000E-09
+
+        330  NODES (OF      18405  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -70.100     AND  -29.900    
+   KABS=  0.  TOLERANCE= 0.402000E-06
+
+        165  NODES (OF      18405  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NCLAMP    FROM  NODE  ITEM=COUN       VALUE=  165.000000     
+
+ *IF  NCLAMP  ( =   165.000     )  LT  
+      10  ( =   10.0000     )  THEN    
+
+ *ENDIF
+
+ SPECIFIED CONSTRAINT UX   FOR SELECTED NODES            1 TO       18405 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SPECIFIED CONSTRAINT UY   FOR SELECTED NODES            1 TO       18405 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SPECIFIED CONSTRAINT UZ   FOR SELECTED NODES            1 TO       18405 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ PARAMETER ZEL1 =    0.3950000000    
+
+ PARAMETER ZEL2 =    0.4050000000    
+
+ PARAMETER ZEL3 =   -0.4050000000    
+
+ PARAMETER ZEL4 =   -0.3950000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Z     BETWEEN 0.39500     AND  0.40500    
+   KABS=  0.  TOLERANCE= 0.100000E-09
+
+       5001  NODES (OF      18405  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Z     BETWEEN-0.40500     AND -0.39500    
+   KABS=  0.  TOLERANCE= 0.100000E-09
+
+      10002  NODES (OF      18405  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NELEC     FROM  NODE  ITEM=COUN       VALUE=  10002.0000     
+
+ *IF  NELEC  ( =   10002.0     )  LT  
+      100  ( =   100.000     )  THEN    
+
+ *ENDIF
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO       18405 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:54:00  SEP 24, 2026 CP=      1.084
+
+  Paper 6 sector SOLID226 both-faces short-circuit, 20x80x2 (2026-09-22)       
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .3-D                  
+   DEGREES OF FREEDOM. . . . . . UX   UY   UZ   VOLT
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .MODAL                
+      EXTRACTION METHOD. . . . . . . . . . . . . .BLOCK LANCZOS
+   NUMBER OF MODES TO EXTRACT. . . . . . . . . . .     6
+   SHIFT POINT . . . . . . . . . . . . . . . . . . -1.0000    
+   NORMALIZE MODES TO UNITY. . . . . . . . . . . .YES
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+   NUMBER OF MODES TO EXPAND . . . . . . . . . . .     6
+   ELEMENT RESULTS CALCULATION . . . . . . . . . .OFF
+
+ *** NOTE ***                            CP =       1.117   TIME= 16:54:00
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ SOLID226 will be piezoelectric.                                         
+
+ *** NOTE ***                            CP =       1.122   TIME= 16:54:00
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   THERMAL STRAINS INCLUDED IN THE LOAD VECTOR . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS. . . . . . . . . . . .ALL DATA WRITTEN
+
+
+
+                         ***********  PRECISE MASS SUMMARY  ***********
+
+   TOTAL RIGID BODY MASS MATRIX ABOUT ORIGIN
+               Translational mass               |   Coupled translational/rotational mass
+        0.37699E-04    0.0000        0.0000     |     0.0000      -0.60384E-22   0.29477E-18
+         0.0000       0.37699E-04    0.0000     |    0.36810E-22    0.0000       0.12640E-02
+         0.0000        0.0000       0.37699E-04 |   -0.29816E-18  -0.12640E-02    0.0000    
+     ------------------------------------------ | ------------------------------------------
+                                                |         Rotational mass (inertia)
+                                                |    0.54666E-01  -0.46313E-15   0.47009E-20
+                                                |   -0.45749E-15   0.54666E-01  -0.23558E-20
+                                                |    0.58556E-20  -0.63527E-21   0.10933    
+
+   TOTAL MASS = 0.37699E-04
+     The mass principal axes coincide with the global Cartesian axes
+
+   CENTER OF MASS (X,Y,Z)=    33.529      -0.78189E-14  -0.16017E-17
+
+   TOTAL INERTIA ABOUT CENTER OF MASS
+        0.54666E-01  -0.47313E-15   0.34667E-20
+       -0.47313E-15   0.12286E-01  -0.23558E-20
+        0.34667E-20  -0.23558E-20   0.66947E-01
+     The inertia principal axes coincide with the global Cartesian axes
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.376991E-04
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 983971.162 at element 1680.                                   
+ Minimum = 453090.037 at element 1562.                                   
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1      3200  SOLID226      2.566   0.000802
+ Time at end of element matrix formulation CP = 5.0262742.               
+
+  BLOCK LANCZOS CALCULATION OF UP TO     6 EIGENVECTORS.
+  NUMBER OF EQUATIONS              =        63123
+  MAXIMUM WAVEFRONT                =          236
+  MAXIMUM MODES STORED             =            6
+  MINIMUM EIGENVALUE               = -0.10000E+01
+  MAXIMUM EIGENVALUE               =  0.10000E+31
+
+
+ *** NOTE ***                            CP =      10.821   TIME= 16:54:02
+ The initial memory allocation (-m) has been exceeded.                   
+  Supplemental memory allocations are being used.                        
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =   409.644 MB
+  Equation solver memory required for in-core mode     =   390.287 MB
+  Equation solver memory required for out-of-core mode =   115.680 MB
+  Total (solver and non-solver) memory allocated       =  1603.757 MB
+
+ *** NOTE ***                            CP =      10.823   TIME= 16:54:02
+ The Sparse Matrix Solver used by the Block Lanczos eigensolver is       
+ currently running in the in-core memory mode.  This memory mode uses    
+ the most amount of memory in order to avoid using the hard drive as     
+ much as possible, which most often results in the fastest solution      
+ time.  This mode is recommended if enough physical memory is present    
+ to accommodate all of the solver data.                                  
+
+  Process memory required for in-core LANCZOS Workspace             =     243.204178 MB
+  Process memory required for out-of-core LANCZOS Workspace         =     6.261765 MB
+  Lanczos Memory Mode : INCORE
+
+
+  >> Shift # 1 :  |                                  : 6 Eigenvalues Converged
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:54:03  SEP 24, 2026 CP=     19.981
+
+  Paper 6 sector SOLID226 both-faces short-circuit, 20x80x2 (2026-09-22)       
+
+
+
+ *** FREQUENCIES FROM BLOCK LANCZOS ITERATION ***
+
+  MODE    FREQUENCY (HERTZ)      
+
+
+   FREQUENCY RANGE REQUESTED=    6 MODES ABOVE  -1.00000     HERTZ
+
+    1     27.41940014344    
+    2     67.01963995415    
+    3     200.2807412555    
+    4     287.3284226679    
+    5     464.1580065732    
+    6     628.8992488114    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:54:03  SEP 24, 2026 CP=     21.333
+
+  Paper 6 sector SOLID226 both-faces short-circuit, 20x80x2 (2026-09-22)       
+
+
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  X  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     27.4194       0.36471E-01    0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     67.0196       0.14921E-01    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     200.281       0.49930E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     287.328       0.34803E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     464.158       0.21544E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     628.899       0.15901E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Y  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     27.4194       0.36471E-01    0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     67.0196       0.14921E-01    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     200.281       0.49930E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     287.328       0.34803E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     464.158       0.21544E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     628.899       0.15901E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Z  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     27.4194       0.36471E-01  -0.47114E-02    1.000000    0.221969E-04    0.671355        0.588792    
+     2     67.0196       0.14921E-01  -0.21328E-02    0.452703    0.454904E-05    0.808942        0.120667    
+     3     200.281       0.49930E-02  -0.21469E-02    0.455683    0.460912E-05    0.948347        0.122261    
+     4     287.328       0.34803E-02  -0.38526E-03    0.081772    0.148424E-06    0.952836        0.393707E-02
+     5     464.158       0.21544E-02  -0.12393E-02    0.263043    0.153585E-05    0.999288        0.407396E-01
+     6     628.899       0.15901E-02  -0.15338E-03    0.032556    0.235267E-07     1.00000        0.624066E-03
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.330629E-04                    0.877021    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTX DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     27.4194       0.36471E-01  -0.14766        1.000000    0.218030E-01    0.509990        0.398842    
+     2     67.0196       0.14921E-01   0.89864E-01    0.608597    0.807561E-02    0.698885        0.147727    
+     3     200.281       0.49930E-02   0.86430E-01    0.585337    0.747013E-02    0.873617        0.136651    
+     4     287.328       0.34803E-02   0.39963E-01    0.270642    0.159701E-02    0.910973        0.292140E-01
+     5     464.158       0.21544E-02   0.60954E-01    0.412805    0.371540E-02    0.997879        0.679658E-01
+     6     628.899       0.15901E-02  -0.95227E-02    0.064491    0.906816E-04     1.00000        0.165884E-02
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.427518E-01                    0.782058    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTY DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     27.4194       0.36471E-01   0.15592        0.960482    0.243125E-01    0.447640        0.444748    
+     2     67.0196       0.14921E-01   0.16234        1.000000    0.263543E-01    0.932873        0.482099    
+     3     200.281       0.49930E-02   0.52910E-01    0.325918    0.279942E-02    0.984416        0.512098E-01
+     4     287.328       0.34803E-02   0.18783E-01    0.115702    0.352802E-03    0.990912        0.645380E-02
+     5     464.158       0.21544E-02   0.22192E-01    0.136701    0.492486E-03    0.999979        0.900905E-02
+     6     628.899       0.15901E-02  -0.10558E-02    0.006504    0.111480E-05     1.00000        0.203930E-04
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.543126E-01                    0.993540    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTZ DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1     27.4194       0.36471E-01    0.0000        0.000000     0.00000         0.00000         0.00000    
+     2     67.0196       0.14921E-01    0.0000        0.000000     0.00000         0.00000         0.00000    
+     3     200.281       0.49930E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     4     287.328       0.34803E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     5     464.158       0.21544E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+     6     628.899       0.15901E-02    0.0000        0.000000     0.00000         0.00000         0.00000    
+
+
+
+
+
+        ***** MODAL MASSES, KINETIC ENERGIES, AND TRANSLATIONAL EFFECTIVE MASSES SUMMARY *****
+
+                                                                         EFFECTIVE MASS
+  MODE  FREQUENCY   MODAL MASS     KENE      |      X-DIR      RATIO%   Y-DIR      RATIO%   Z-DIR      RATIO% 
+     1   27.42      0.3298E-08  0.4894E-04   |     0.000        0.00   0.000        0.00  0.2220E-04   58.88
+     2   67.02      0.1247E-08  0.1105E-03   |     0.000        0.00   0.000        0.00  0.4549E-05   12.07
+     3   200.3      0.1307E-09  0.1035E-03   |     0.000        0.00   0.000        0.00  0.4609E-05   12.23
+     4   287.3      0.1611E-09  0.2625E-03   |     0.000        0.00   0.000        0.00  0.1484E-06    0.39
+     5   464.2      0.4608E-10  0.1960E-03   |     0.000        0.00   0.000        0.00  0.1536E-05    4.07
+     6   628.9      0.1158E-10  0.9043E-04   |     0.000        0.00   0.000        0.00  0.2353E-07    0.06
+ --------------------------------------------------------------------------------------------------------------
+   sum                                       |     0.000        0.00   0.000        0.00  0.3306E-04   87.70
+ --------------------------------------------------------------------------------------------------------------
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        3.812 MB WRITTEN ON ELEMENT SAVED DATA FILE: p6_sector_sc_coarse_e31m.esav
+       83.250 MB WRITTEN ON ASSEMBLED MATRIX FILE: p6_sector_sc_coarse_e31m.full
+        3.188 MB WRITTEN ON MODAL MATRIX FILE: p6_sector_sc_coarse_e31m.mode
+        5.625 MB WRITTEN ON RESULTS FILE: p6_sector_sc_coarse_e31m.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        21.854
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:54:03  SEP 24, 2026 CP=     21.856
+
+  Paper 6 sector SOLID226 both-faces short-circuit, 20x80x2 (2026-09-22)       
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =      21.856   TIME= 16:54:03
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+ SET PARAMETER DIMENSIONS ON  FR1 TYPE=ARRA  DIMENSIONS=     6     1     1
+
+ SET PARAMETER DIMENSIONS ON  IDXARR TYPE=ARRA  DIMENSIONS=     6     1     1
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  6.0000     BY  1.0000    
+
+ *GET  FR1       FROM  MODE      1  ITEM=FREQ       VALUE=  27.4194001    
+
+ PARAMETER IDXARR(I) =     1.000000000    
+
+ *ENDDO  INDEX= I                               
+
+ OPENED FILE= ansys_p6_sector_sc_coarse_modes_e31m.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ PARAMETER NSAMP =     15.00000000    
+
+ SET PARAMETER DIMENSIONS ON  RS TYPE=ARRA  DIMENSIONS=    15     1     1
+
+ SET PARAMETER DIMENSIONS ON  TS TYPE=ARRA  DIMENSIONS=    15     1     1
+
+ PARAMETER RS(1) =     40.00000000    
+
+ PARAMETER TS(1) =    -67.50000000    
+
+ PARAMETER RS(2) =     40.00000000    
+
+ PARAMETER TS(2) =    -45.00000000    
+
+ PARAMETER RS(3) =     40.00000000    
+
+ PARAMETER TS(3) =     0.000000000    
+
+ PARAMETER RS(4) =     40.00000000    
+
+ PARAMETER TS(4) =     45.00000000    
+
+ PARAMETER RS(5) =     40.00000000    
+
+ PARAMETER TS(5) =     67.50000000    
+
+ PARAMETER RS(6) =     50.00000000    
+
+ PARAMETER TS(6) =    -67.50000000    
+
+ PARAMETER RS(7) =     50.00000000    
+
+ PARAMETER TS(7) =    -45.00000000    
+
+ PARAMETER RS(8) =     50.00000000    
+
+ PARAMETER TS(8) =     0.000000000    
+
+ PARAMETER RS(9) =     50.00000000    
+
+ PARAMETER TS(9) =     45.00000000    
+
+ PARAMETER RS(10) =     50.00000000    
+
+ PARAMETER TS(10) =     67.50000000    
+
+ PARAMETER RS(11) =     70.00000000    
+
+ PARAMETER TS(11) =    -67.50000000    
+
+ PARAMETER RS(12) =     70.00000000    
+
+ PARAMETER TS(12) =    -45.00000000    
+
+ PARAMETER RS(13) =     70.00000000    
+
+ PARAMETER TS(13) =     0.000000000    
+
+ PARAMETER RS(14) =     70.00000000    
+
+ PARAMETER TS(14) =     45.00000000    
+
+ PARAMETER RS(15) =     70.00000000    
+
+ PARAMETER TS(15) =     67.50000000    
+
+ OPENED FILE= ansys_p6_sector_sc_coarse_discriminator_e31m.txt FOR COMMAND FILE DATA 
+
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  6.0000     BY  1.0000    
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  27.419    
+ TITLE=  Paper 6 sector SOLID226 both-faces short-circuit, 20x80x2 (2026-09-22) 
+
+ *DO LOOP ON PARAMETER= K FROM  1.0000     TO  15.000     BY  1.0000    
+
+ ACTIVE COORDINATE SYSTEM SET TO          1  (CYLINDRICAL) Z- CYL. AXIS
+
+ PARAMETER R1 =     39.95000000    
+
+ PARAMETER R2 =     40.05000000    
+
+ PARAMETER T1 =    -67.55000000    
+
+ PARAMETER T2 =    -67.45000000    
+
+ PARAMETER Z1 =    0.3950000000    
+
+ PARAMETER Z2 =    0.4050000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  39.950     AND   40.050    
+   KABS=  0.  TOLERANCE= 0.100000E-08
+
+        645  NODES (OF      18405  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -67.550     AND  -67.450    
+   KABS=  0.  TOLERANCE= 0.100000E-08
+
+          5  NODES (OF      18405  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Z     BETWEEN 0.39500     AND  0.40500    
+   KABS=  0.  TOLERANCE= 0.100000E-09
+
+          1  NODES (OF      18405  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NC        FROM  NODE  ITEM=COUN       VALUE=  1.00000000     
+
+ *IF  NC  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ *GET  NN        FROM  NODE  ITEM=NUM  MIN   VALUE=  5972.00000     
+
+ ACTIVE COORDINATE SYSTEM SET TO          0  (CARTESIAN)  
+
+ *GET  GVX       FROM  NODE   5972  ITEM=U    X     VALUE= 0.155371637E-04
+
+ *GET  GVY       FROM  NODE   5972  ITEM=U    Y     VALUE= 0.125391064E-04
+
+ *GET  GVZ       FROM  NODE   5972  ITEM=U    Z     VALUE=-0.385203223E-03
+
+ *ENDDO  INDEX= K                               
+
+ *ENDDO  INDEX= I                               
+
+  COMMAND FILE CLOSED 
+
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =        23.928
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= p6_sector_sc_coarse_e31m.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          0
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2025 R1            Build: 25.1       Update: UP20241202   Platform: LINUX x64   
+Date Run: 09/24/2026   Time: 16:54     Process ID: 1759987
+Operating System: AlmaLinux release 8.10 (Cerulean Leopard)
+
+Processor Model: Intel(R) Xeon(R) Gold 6248 CPU @ 2.50GHz
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303
+
+Number of machines requested            :    1
+Total number of cores available         :   40
+Number of physical cores available      :   40
+Number of processes requested           :    1
+Number of threads per process requested :    8
+Total number of cores requested         :    8 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: p6_sector_sc_coarse_e31m
+Input File: ansys_p6_sector_sc_coarse_e31m_2026-09-24.inp
+Working Directory: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys
+
+Total CPU time for main thread                    :        4.5 seconds
+Total CPU time summed for all threads             :       25.4 seconds
+
+Elapsed time spent obtaining a license            :        1.5 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.1 seconds
+Elapsed time spent solution - preprocessing       :        0.0 seconds
+Elapsed time spent computing solution             :        3.6 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.3 seconds
+ 
+Eigensolver used                                  :            Block Lanczos
+Equation solver computational rate                :       91.0 Gflops
+
+Sum of disk space used on all processes           :      103.9 MB
+
+Sum of memory used on all processes               :      701.0 MB
+Sum of memory allocated on all processes          :     2816.0 MB
+Physical memory available                         :        187 GB
+Total amount of I/O written to disk               :        0.0 GB
+Total amount of I/O read from disk                :        0.0 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+ |  Maximum Database Used      13 MB     Maximum Scratch Memory Used    688 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =         25.405       Time  =  16:54:05          |
+ |        Elapsed Time (sec) =          9.000       Date  =  09/24/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

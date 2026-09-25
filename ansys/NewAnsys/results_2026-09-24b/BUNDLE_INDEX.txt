@@ -1,0 +1,491 @@
+results bundle for ansys_queue_manifest_combined_2026-09-24b.txt (job 2532086)
+
+ansys_p5mix_e31m_ff_c73_m80_2026-09-24.inp
+   ansys_p5mix_e31m_ff_c73_m80_2026-09-24_out.txt
+   ansys_p5mix_e31m_ff_c73_m80_freqs.txt
+   ansys_p5mix_e31m_ff_c73_m80_ls1.txt
+   ansys_p5mix_e31m_ff_c73_m80_ls2.txt
+   ansys_p5mix_e31m_ff_c73_m80_ls3.txt
+   ansys_p5mix_e31m_ff_c73_m80_ls4.txt
+   ansys_p5mix_e31m_ff_c73_m80_ls5.txt
+   ansys_p5mix_e31m_ff_c73_m80_ls6.txt
+ansys_p5mix_e31m_ff_c73_m160_2026-09-24.inp
+   ansys_p5mix_e31m_ff_c73_m160_2026-09-24_out.txt
+   ansys_p5mix_e31m_ff_c73_m160_freqs.txt
+   ansys_p5mix_e31m_ff_c73_m160_ls1.txt
+   ansys_p5mix_e31m_ff_c73_m160_ls2.txt
+   ansys_p5mix_e31m_ff_c73_m160_ls3.txt
+   ansys_p5mix_e31m_ff_c73_m160_ls4.txt
+   ansys_p5mix_e31m_ff_c73_m160_ls5.txt
+   ansys_p5mix_e31m_ff_c73_m160_ls6.txt
+ansys_p5mix_e31m_ff_c73_m320_2026-09-24.inp
+   ansys_p5mix_e31m_ff_c73_m320_2026-09-24_out.txt
+   ansys_p5mix_e31m_ff_c73_m320_freqs.txt
+   ansys_p5mix_e31m_ff_c73_m320_ls1.txt
+   ansys_p5mix_e31m_ff_c73_m320_ls2.txt
+   ansys_p5mix_e31m_ff_c73_m320_ls3.txt
+   ansys_p5mix_e31m_ff_c73_m320_ls4.txt
+   ansys_p5mix_e31m_ff_c73_m320_ls5.txt
+   ansys_p5mix_e31m_ff_c73_m320_ls6.txt
+ansys_p5mix_e31m_ff_c26_m80_2026-09-24.inp
+   ansys_p5mix_e31m_ff_c26_m80_2026-09-24_out.txt
+   ansys_p5mix_e31m_ff_c26_m80_freqs.txt
+   ansys_p5mix_e31m_ff_c26_m80_ls1.txt
+   ansys_p5mix_e31m_ff_c26_m80_ls2.txt
+   ansys_p5mix_e31m_ff_c26_m80_ls3.txt
+   ansys_p5mix_e31m_ff_c26_m80_ls4.txt
+   ansys_p5mix_e31m_ff_c26_m80_ls5.txt
+   ansys_p5mix_e31m_ff_c26_m80_ls6.txt
+ansys_p5mix_e31m_ff_c26_m160_2026-09-24.inp
+   ansys_p5mix_e31m_ff_c26_m160_2026-09-24_out.txt
+   ansys_p5mix_e31m_ff_c26_m160_freqs.txt
+   ansys_p5mix_e31m_ff_c26_m160_ls1.txt
+   ansys_p5mix_e31m_ff_c26_m160_ls2.txt
+   ansys_p5mix_e31m_ff_c26_m160_ls3.txt
+   ansys_p5mix_e31m_ff_c26_m160_ls4.txt
+   ansys_p5mix_e31m_ff_c26_m160_ls5.txt
+   ansys_p5mix_e31m_ff_c26_m160_ls6.txt
+ansys_p5mix_e31m_ff_c26_m320_2026-09-24.inp
+   ansys_p5mix_e31m_ff_c26_m320_2026-09-24_out.txt
+   ansys_p5mix_e31m_ff_c26_m320_freqs.txt
+   ansys_p5mix_e31m_ff_c26_m320_ls1.txt
+   ansys_p5mix_e31m_ff_c26_m320_ls2.txt
+   ansys_p5mix_e31m_ff_c26_m320_ls3.txt
+   ansys_p5mix_e31m_ff_c26_m320_ls4.txt
+   ansys_p5mix_e31m_ff_c26_m320_ls5.txt
+   ansys_p5mix_e31m_ff_c26_m320_ls6.txt
+ansys_p5mix_e31m_cc_c73_m80_2026-09-24.inp
+   ansys_p5mix_e31m_cc_c73_m80_2026-09-24_out.txt
+   ansys_p5mix_e31m_cc_c73_m80_freqs.txt
+   ansys_p5mix_e31m_cc_c73_m80_ls1.txt
+   ansys_p5mix_e31m_cc_c73_m80_ls2.txt
+   ansys_p5mix_e31m_cc_c73_m80_ls3.txt
+   ansys_p5mix_e31m_cc_c73_m80_ls4.txt
+   ansys_p5mix_e31m_cc_c73_m80_ls5.txt
+   ansys_p5mix_e31m_cc_c73_m80_ls6.txt
+ansys_p5mix_e31m_cc_c73_m160_2026-09-24.inp
+   ansys_p5mix_e31m_cc_c73_m160_2026-09-24_out.txt
+   ansys_p5mix_e31m_cc_c73_m160_freqs.txt
+   ansys_p5mix_e31m_cc_c73_m160_ls1.txt
+   ansys_p5mix_e31m_cc_c73_m160_ls2.txt
+   ansys_p5mix_e31m_cc_c73_m160_ls3.txt
+   ansys_p5mix_e31m_cc_c73_m160_ls4.txt
+   ansys_p5mix_e31m_cc_c73_m160_ls5.txt
+   ansys_p5mix_e31m_cc_c73_m160_ls6.txt
+ansys_p5mix_e31m_cc_c73_m320_2026-09-24.inp
+   ansys_p5mix_e31m_cc_c73_m320_2026-09-24_out.txt
+   ansys_p5mix_e31m_cc_c73_m320_freqs.txt
+   ansys_p5mix_e31m_cc_c73_m320_ls1.txt
+   ansys_p5mix_e31m_cc_c73_m320_ls2.txt
+   ansys_p5mix_e31m_cc_c73_m320_ls3.txt
+   ansys_p5mix_e31m_cc_c73_m320_ls4.txt
+   ansys_p5mix_e31m_cc_c73_m320_ls5.txt
+   ansys_p5mix_e31m_cc_c73_m320_ls6.txt
+ansys_p5mix_e31m_cc_c26_m80_2026-09-24.inp
+   ansys_p5mix_e31m_cc_c26_m80_2026-09-24_out.txt
+   ansys_p5mix_e31m_cc_c26_m80_freqs.txt
+   ansys_p5mix_e31m_cc_c26_m80_ls1.txt
+   ansys_p5mix_e31m_cc_c26_m80_ls2.txt
+   ansys_p5mix_e31m_cc_c26_m80_ls3.txt
+   ansys_p5mix_e31m_cc_c26_m80_ls4.txt
+   ansys_p5mix_e31m_cc_c26_m80_ls5.txt
+   ansys_p5mix_e31m_cc_c26_m80_ls6.txt
+ansys_p5mix_e31m_cc_c26_m160_2026-09-24.inp
+   ansys_p5mix_e31m_cc_c26_m160_2026-09-24_out.txt
+   ansys_p5mix_e31m_cc_c26_m160_freqs.txt
+   ansys_p5mix_e31m_cc_c26_m160_ls1.txt
+   ansys_p5mix_e31m_cc_c26_m160_ls2.txt
+   ansys_p5mix_e31m_cc_c26_m160_ls3.txt
+   ansys_p5mix_e31m_cc_c26_m160_ls4.txt
+   ansys_p5mix_e31m_cc_c26_m160_ls5.txt
+   ansys_p5mix_e31m_cc_c26_m160_ls6.txt
+ansys_p5mix_e31m_cc_c26_m320_2026-09-24.inp
+   ansys_p5mix_e31m_cc_c26_m320_2026-09-24_out.txt
+   ansys_p5mix_e31m_cc_c26_m320_freqs.txt
+   ansys_p5mix_e31m_cc_c26_m320_ls1.txt
+   ansys_p5mix_e31m_cc_c26_m320_ls2.txt
+   ansys_p5mix_e31m_cc_c26_m320_ls3.txt
+   ansys_p5mix_e31m_cc_c26_m320_ls4.txt
+   ansys_p5mix_e31m_cc_c26_m320_ls5.txt
+   ansys_p5mix_e31m_cc_c26_m320_ls6.txt
+ansys_p5mix_e31m_cf_c73_m80_2026-09-24.inp
+   ansys_p5mix_e31m_cf_c73_m80_2026-09-24_out.txt
+   ansys_p5mix_e31m_cf_c73_m80_freqs.txt
+   ansys_p5mix_e31m_cf_c73_m80_ls1.txt
+   ansys_p5mix_e31m_cf_c73_m80_ls2.txt
+   ansys_p5mix_e31m_cf_c73_m80_ls3.txt
+   ansys_p5mix_e31m_cf_c73_m80_ls4.txt
+   ansys_p5mix_e31m_cf_c73_m80_ls5.txt
+   ansys_p5mix_e31m_cf_c73_m80_ls6.txt
+ansys_p5mix_e31m_cf_c73_m160_2026-09-24.inp
+   ansys_p5mix_e31m_cf_c73_m160_2026-09-24_out.txt
+   ansys_p5mix_e31m_cf_c73_m160_freqs.txt
+   ansys_p5mix_e31m_cf_c73_m160_ls1.txt
+   ansys_p5mix_e31m_cf_c73_m160_ls2.txt
+   ansys_p5mix_e31m_cf_c73_m160_ls3.txt
+   ansys_p5mix_e31m_cf_c73_m160_ls4.txt
+   ansys_p5mix_e31m_cf_c73_m160_ls5.txt
+   ansys_p5mix_e31m_cf_c73_m160_ls6.txt
+ansys_p5mix_e31m_cf_c73_m320_2026-09-24.inp
+   ansys_p5mix_e31m_cf_c73_m320_2026-09-24_out.txt
+   ansys_p5mix_e31m_cf_c73_m320_freqs.txt
+   ansys_p5mix_e31m_cf_c73_m320_ls1.txt
+   ansys_p5mix_e31m_cf_c73_m320_ls2.txt
+   ansys_p5mix_e31m_cf_c73_m320_ls3.txt
+   ansys_p5mix_e31m_cf_c73_m320_ls4.txt
+   ansys_p5mix_e31m_cf_c73_m320_ls5.txt
+   ansys_p5mix_e31m_cf_c73_m320_ls6.txt
+ansys_p5mix_e31m_cf_c26_m80_2026-09-24.inp
+   ansys_p5mix_e31m_cf_c26_m80_2026-09-24_out.txt
+   ansys_p5mix_e31m_cf_c26_m80_freqs.txt
+   ansys_p5mix_e31m_cf_c26_m80_ls1.txt
+   ansys_p5mix_e31m_cf_c26_m80_ls2.txt
+   ansys_p5mix_e31m_cf_c26_m80_ls3.txt
+   ansys_p5mix_e31m_cf_c26_m80_ls4.txt
+   ansys_p5mix_e31m_cf_c26_m80_ls5.txt
+   ansys_p5mix_e31m_cf_c26_m80_ls6.txt
+ansys_p5mix_e31m_cf_c26_m160_2026-09-24.inp
+   ansys_p5mix_e31m_cf_c26_m160_2026-09-24_out.txt
+   ansys_p5mix_e31m_cf_c26_m160_freqs.txt
+   ansys_p5mix_e31m_cf_c26_m160_ls1.txt
+   ansys_p5mix_e31m_cf_c26_m160_ls2.txt
+   ansys_p5mix_e31m_cf_c26_m160_ls3.txt
+   ansys_p5mix_e31m_cf_c26_m160_ls4.txt
+   ansys_p5mix_e31m_cf_c26_m160_ls5.txt
+   ansys_p5mix_e31m_cf_c26_m160_ls6.txt
+ansys_p5mix_e31m_cf_c26_m320_2026-09-24.inp
+   ansys_p5mix_e31m_cf_c26_m320_2026-09-24_out.txt
+   ansys_p5mix_e31m_cf_c26_m320_freqs.txt
+   ansys_p5mix_e31m_cf_c26_m320_ls1.txt
+   ansys_p5mix_e31m_cf_c26_m320_ls2.txt
+   ansys_p5mix_e31m_cf_c26_m320_ls3.txt
+   ansys_p5mix_e31m_cf_c26_m320_ls4.txt
+   ansys_p5mix_e31m_cf_c26_m320_ls5.txt
+   ansys_p5mix_e31m_cf_c26_m320_ls6.txt
+ansys_p5mix_e31m_fc_c73_m80_2026-09-24.inp
+   ansys_p5mix_e31m_fc_c73_m80_2026-09-24_out.txt
+   ansys_p5mix_e31m_fc_c73_m80_freqs.txt
+   ansys_p5mix_e31m_fc_c73_m80_ls1.txt
+   ansys_p5mix_e31m_fc_c73_m80_ls2.txt
+   ansys_p5mix_e31m_fc_c73_m80_ls3.txt
+   ansys_p5mix_e31m_fc_c73_m80_ls4.txt
+   ansys_p5mix_e31m_fc_c73_m80_ls5.txt
+   ansys_p5mix_e31m_fc_c73_m80_ls6.txt
+ansys_p5mix_e31m_fc_c73_m160_2026-09-24.inp
+   ansys_p5mix_e31m_fc_c73_m160_2026-09-24_out.txt
+   ansys_p5mix_e31m_fc_c73_m160_freqs.txt
+   ansys_p5mix_e31m_fc_c73_m160_ls1.txt
+   ansys_p5mix_e31m_fc_c73_m160_ls2.txt
+   ansys_p5mix_e31m_fc_c73_m160_ls3.txt
+   ansys_p5mix_e31m_fc_c73_m160_ls4.txt
+   ansys_p5mix_e31m_fc_c73_m160_ls5.txt
+   ansys_p5mix_e31m_fc_c73_m160_ls6.txt
+ansys_p5mix_e31m_fc_c73_m320_2026-09-24.inp
+   ansys_p5mix_e31m_fc_c73_m320_2026-09-24_out.txt
+   ansys_p5mix_e31m_fc_c73_m320_freqs.txt
+   ansys_p5mix_e31m_fc_c73_m320_ls1.txt
+   ansys_p5mix_e31m_fc_c73_m320_ls2.txt
+   ansys_p5mix_e31m_fc_c73_m320_ls3.txt
+   ansys_p5mix_e31m_fc_c73_m320_ls4.txt
+   ansys_p5mix_e31m_fc_c73_m320_ls5.txt
+   ansys_p5mix_e31m_fc_c73_m320_ls6.txt
+ansys_p5mix_e31m_fc_c26_m80_2026-09-24.inp
+   ansys_p5mix_e31m_fc_c26_m80_2026-09-24_out.txt
+   ansys_p5mix_e31m_fc_c26_m80_freqs.txt
+   ansys_p5mix_e31m_fc_c26_m80_ls1.txt
+   ansys_p5mix_e31m_fc_c26_m80_ls2.txt
+   ansys_p5mix_e31m_fc_c26_m80_ls3.txt
+   ansys_p5mix_e31m_fc_c26_m80_ls4.txt
+   ansys_p5mix_e31m_fc_c26_m80_ls5.txt
+   ansys_p5mix_e31m_fc_c26_m80_ls6.txt
+ansys_p5mix_e31m_fc_c26_m160_2026-09-24.inp
+   ansys_p5mix_e31m_fc_c26_m160_2026-09-24_out.txt
+   ansys_p5mix_e31m_fc_c26_m160_freqs.txt
+   ansys_p5mix_e31m_fc_c26_m160_ls1.txt
+   ansys_p5mix_e31m_fc_c26_m160_ls2.txt
+   ansys_p5mix_e31m_fc_c26_m160_ls3.txt
+   ansys_p5mix_e31m_fc_c26_m160_ls4.txt
+   ansys_p5mix_e31m_fc_c26_m160_ls5.txt
+   ansys_p5mix_e31m_fc_c26_m160_ls6.txt
+ansys_p5mix_e31m_fc_c26_m320_2026-09-24.inp
+   ansys_p5mix_e31m_fc_c26_m320_2026-09-24_out.txt
+   ansys_p5mix_e31m_fc_c26_m320_freqs.txt
+   ansys_p5mix_e31m_fc_c26_m320_ls1.txt
+   ansys_p5mix_e31m_fc_c26_m320_ls2.txt
+   ansys_p5mix_e31m_fc_c26_m320_ls3.txt
+   ansys_p5mix_e31m_fc_c26_m320_ls4.txt
+   ansys_p5mix_e31m_fc_c26_m320_ls5.txt
+   ansys_p5mix_e31m_fc_c26_m320_ls6.txt
+ansys_pcm_p41_sc_m80_2026-09-24.inp
+   ansys_pcm_p41_sc_m80_2026-09-24_out.txt
+   ansys_pcm_p41_sc_m80_modes.txt
+ansys_pcm_p41_sc_m160_2026-09-24.inp
+   ansys_pcm_p41_sc_m160_2026-09-24_out.txt
+   ansys_pcm_p41_sc_m160_modes.txt
+ansys_pcm_p41_oc_m80_2026-09-24.inp
+   ansys_pcm_p41_oc_m80_2026-09-24_out.txt
+   ansys_pcm_p41_oc_m80_modes.txt
+ansys_pcm_p41_oc_m160_2026-09-24.inp
+   ansys_pcm_p41_oc_m160_2026-09-24_out.txt
+   ansys_pcm_p41_oc_m160_modes.txt
+ansys_pcm_p41_harm_m80_2026-09-24.inp
+   ansys_pcm_p41_harm_m80_2026-09-24_out.txt
+   ansys_pcm_p41_harm_m80_freqs.txt
+   ansys_pcm_p41_harm_m80_ls1.txt
+   ansys_pcm_p41_harm_m80_ls2.txt
+   ansys_pcm_p41_harm_m80_ls3.txt
+   ansys_pcm_p41_harm_m80_ls4.txt
+ansys_pcm_p41_harm_m160_2026-09-24.inp
+   ansys_pcm_p41_harm_m160_2026-09-24_out.txt
+   ansys_pcm_p41_harm_m160_freqs.txt
+   ansys_pcm_p41_harm_m160_ls1.txt
+   ansys_pcm_p41_harm_m160_ls2.txt
+   ansys_pcm_p41_harm_m160_ls3.txt
+   ansys_pcm_p41_harm_m160_ls4.txt
+ansys_pcm_m41_sc_m80_2026-09-24.inp
+   ansys_pcm_m41_sc_m80_2026-09-24_out.txt
+   ansys_pcm_m41_sc_m80_modes.txt
+ansys_pcm_m41_sc_m160_2026-09-24.inp
+   ansys_pcm_m41_sc_m160_2026-09-24_out.txt
+   ansys_pcm_m41_sc_m160_modes.txt
+ansys_pcm_m41_oc_m80_2026-09-24.inp
+   ansys_pcm_m41_oc_m80_2026-09-24_out.txt
+   ansys_pcm_m41_oc_m80_modes.txt
+ansys_pcm_m41_oc_m160_2026-09-24.inp
+   ansys_pcm_m41_oc_m160_2026-09-24_out.txt
+   ansys_pcm_m41_oc_m160_modes.txt
+ansys_pcm_m41_harm_m80_2026-09-24.inp
+   ansys_pcm_m41_harm_m80_2026-09-24_out.txt
+   ansys_pcm_m41_harm_m80_freqs.txt
+   ansys_pcm_m41_harm_m80_ls1.txt
+   ansys_pcm_m41_harm_m80_ls2.txt
+   ansys_pcm_m41_harm_m80_ls3.txt
+   ansys_pcm_m41_harm_m80_ls4.txt
+   ansys_pcm_m41_harm_m80_ls5.txt
+ansys_pcm_m41_harm_m160_2026-09-24.inp
+   ansys_pcm_m41_harm_m160_2026-09-24_out.txt
+   ansys_pcm_m41_harm_m160_freqs.txt
+   ansys_pcm_m41_harm_m160_ls1.txt
+   ansys_pcm_m41_harm_m160_ls2.txt
+   ansys_pcm_m41_harm_m160_ls3.txt
+   ansys_pcm_m41_harm_m160_ls4.txt
+   ansys_pcm_m41_harm_m160_ls5.txt
+ansys_parashar_ff_sc_m60_2026-09-24.inp
+   ansys_parashar_ff_sc_m60_2026-09-24_out.txt
+   ansys_parashar_ff_sc_m60_modes.txt
+ansys_parashar_ff_sc_m120_2026-09-24.inp
+   ansys_parashar_ff_sc_m120_2026-09-24_out.txt
+   ansys_parashar_ff_sc_m120_modes.txt
+ansys_parashar_ff_e0_m120_2026-09-24.inp
+   ansys_parashar_ff_e0_m120_2026-09-24_out.txt
+   ansys_parashar_ff_e0_m120_modes.txt
+ansys_parashar_cf_sc_m60_2026-09-24.inp
+   ansys_parashar_cf_sc_m60_2026-09-24_out.txt
+   ansys_parashar_cf_sc_m60_modes.txt
+ansys_parashar_cf_sc_m120_2026-09-24.inp
+   ansys_parashar_cf_sc_m120_2026-09-24_out.txt
+   ansys_parashar_cf_sc_m120_modes.txt
+ansys_parashar_cf_e0_m120_2026-09-24.inp
+   ansys_parashar_cf_e0_m120_2026-09-24_out.txt
+   ansys_parashar_cf_e0_m120_modes.txt
+ansys_p4_epsrel_ff_lanb_e31m_2026-09-24.inp
+   ansys_p4_epsrel_ff_lanb_discriminator_e31m.txt
+   ansys_p4_epsrel_ff_lanb_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_ff_lanb_modes_e31m.txt
+ansys_p4_epsrel_ff_subsp_e31m_2026-09-24.inp
+   ansys_p4_epsrel_ff_subsp_discriminator_e31m.txt
+   ansys_p4_epsrel_ff_subsp_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_ff_subsp_modes_e31m.txt
+ansys_p4_epsrel_cc_lanb_e31m_2026-09-24.inp
+   ansys_p4_epsrel_cc_lanb_discriminator_e31m.txt
+   ansys_p4_epsrel_cc_lanb_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_cc_lanb_modes_e31m.txt
+ansys_p4_epsrel_ff_lanb_h18_e31m_2026-09-24.inp
+   ansys_p4_epsrel_ff_lanb_h18_discriminator_e31m.txt
+   ansys_p4_epsrel_ff_lanb_h18_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_ff_lanb_h18_modes_e31m.txt
+ansys_p4_epsrel_ff_lanb_h15_e31m_2026-09-24.inp
+   ansys_p4_epsrel_ff_lanb_h15_discriminator_e31m.txt
+   ansys_p4_epsrel_ff_lanb_h15_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_ff_lanb_h15_modes_e31m.txt
+ansys_p4_epsrel_ff_lanb_oc_e31m_2026-09-24.inp
+   ansys_p4_epsrel_ff_lanb_oc_discriminator_e31m.txt
+   ansys_p4_epsrel_ff_lanb_oc_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_ff_lanb_oc_modes_e31m.txt
+ansys_p4_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp
+   ansys_p4_epsrel_ff_lanb_scboth_discriminator_e31m.txt
+   ansys_p4_epsrel_ff_lanb_scboth_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_ff_lanb_scboth_modes_e31m.txt
+ansys_p4_epsrel_ff_lanb_h18_oc_e31m_2026-09-24.inp
+   ansys_p4_epsrel_ff_lanb_h18_oc_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_ff_lanb_oc_h18_discriminator_e31m.txt
+   ansys_p4_epsrel_ff_lanb_oc_h18_modes_e31m.txt
+ansys_p4_epsrel_ff_lanb_h18_scboth_e31m_2026-09-24.inp
+   ansys_p4_epsrel_ff_lanb_h18_scboth_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_ff_lanb_scboth_h18_discriminator_e31m.txt
+   ansys_p4_epsrel_ff_lanb_scboth_h18_modes_e31m.txt
+ansys_p4_epsrel_ff_lanb_h15_oc_e31m_2026-09-24.inp
+   ansys_p4_epsrel_ff_lanb_h15_oc_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_ff_lanb_oc_h15_discriminator_e31m.txt
+   ansys_p4_epsrel_ff_lanb_oc_h15_modes_e31m.txt
+ansys_p4_epsrel_ff_lanb_h15_scboth_e31m_2026-09-24.inp
+   ansys_p4_epsrel_ff_lanb_h15_scboth_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_ff_lanb_scboth_h15_discriminator_e31m.txt
+   ansys_p4_epsrel_ff_lanb_scboth_h15_modes_e31m.txt
+ansys_p4_zp4_ff_oc_h112_e31m_2026-09-24.inp
+   ansys_p4_zp4_ff_oc_h112_discriminator_e31m.txt
+   ansys_p4_zp4_ff_oc_h112_e31m_2026-09-24_out.txt
+   ansys_p4_zp4_ff_oc_h112_modes_e31m.txt
+ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24.inp
+   ansys_p4_zp4_ff_sc_h112_discriminator_e31m.txt
+   ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24_out.txt
+   ansys_p4_zp4_ff_sc_h112_modes_e31m.txt
+ansys_p4_zp4_ff_oc_h18_e31m_2026-09-24.inp
+   ansys_p4_zp4_ff_oc_h18_discriminator_e31m.txt
+   ansys_p4_zp4_ff_oc_h18_e31m_2026-09-24_out.txt
+   ansys_p4_zp4_ff_oc_h18_modes_e31m.txt
+ansys_p4_zp4_ff_sc_h18_e31m_2026-09-24.inp
+   ansys_p4_zp4_ff_sc_h18_discriminator_e31m.txt
+   ansys_p4_zp4_ff_sc_h18_e31m_2026-09-24_out.txt
+   ansys_p4_zp4_ff_sc_h18_modes_e31m.txt
+ansys_p4_zp4_ff_oc_h15_e31m_2026-09-24.inp
+   ansys_p4_zp4_ff_oc_h15_discriminator_e31m.txt
+   ansys_p4_zp4_ff_oc_h15_e31m_2026-09-24_out.txt
+   ansys_p4_zp4_ff_oc_h15_modes_e31m.txt
+ansys_p4_zp4_ff_sc_h15_e31m_2026-09-24.inp
+   ansys_p4_zp4_ff_sc_h15_discriminator_e31m.txt
+   ansys_p4_zp4_ff_sc_h15_e31m_2026-09-24_out.txt
+   ansys_p4_zp4_ff_sc_h15_modes_e31m.txt
+ansys_p4_harm_ff_y_v2_h112_e31m_2026-09-24.inp
+   ansys_p4_harm_ff_y_v2_h112_e31m_2026-09-24_out.txt
+   ansys_p4_harm_ff_y_v2_h112_sweep_e31m.csv
+ansys_p4_epsrel_cf_lanb_oc_e31m_2026-09-24.inp
+   ansys_p4_epsrel_cf_lanb_oc_discriminator_e31m.txt
+   ansys_p4_epsrel_cf_lanb_oc_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_cf_lanb_oc_modes_e31m.txt
+ansys_p4_epsrel_cf_lanb_scboth_e31m_2026-09-24.inp
+   ansys_p4_epsrel_cf_lanb_scboth_discriminator_e31m.txt
+   ansys_p4_epsrel_cf_lanb_scboth_e31m_2026-09-24_out.txt
+   ansys_p4_epsrel_cf_lanb_scboth_modes_e31m.txt
+ansys_p4_3d_h112_sc_coarse_e31m_2026-09-24.inp
+   ansys_p4_3d_h112_sc_coarse_e31m_2026-09-24_out.txt
+   ansys_p4_3d_h112_sc_coarse_modes_e31m.txt
+   ansys_p4_3d_h112_sc_coarse_samplecoords_e31m.txt
+   ansys_p4_3d_h112_sc_coarse_samples_e31m.txt
+ansys_p4_3d_h112_sc_fine_e31m_2026-09-24.inp
+   ansys_p4_3d_h112_sc_fine_e31m_2026-09-24_out.txt
+   ansys_p4_3d_h112_sc_fine_modes_e31m.txt
+   ansys_p4_3d_h112_sc_fine_samplecoords_e31m.txt
+   ansys_p4_3d_h112_sc_fine_samples_e31m.txt
+ansys_p4_3d_h112_oc_fine_e31m_2026-09-24.inp
+   ansys_p4_3d_h112_oc_fine_e31m_2026-09-24_out.txt
+   ansys_p4_3d_h112_oc_fine_modes_e31m.txt
+   ansys_p4_3d_h112_oc_fine_samplecoords_e31m.txt
+   ansys_p4_3d_h112_oc_fine_samples_e31m.txt
+ansys_p4_3d_h15_sc_coarse_e31m_2026-09-24.inp
+   ansys_p4_3d_h15_sc_coarse_e31m_2026-09-24_out.txt
+   ansys_p4_3d_h15_sc_coarse_modes_e31m.txt
+   ansys_p4_3d_h15_sc_coarse_samplecoords_e31m.txt
+   ansys_p4_3d_h15_sc_coarse_samples_e31m.txt
+ansys_p4_3d_h15_sc_fine_e31m_2026-09-24.inp
+   ansys_p4_3d_h15_sc_fine_e31m_2026-09-24_out.txt
+   ansys_p4_3d_h15_sc_fine_modes_e31m.txt
+   ansys_p4_3d_h15_sc_fine_samplecoords_e31m.txt
+   ansys_p4_3d_h15_sc_fine_samples_e31m.txt
+ansys_p4_3d_h15_oc_fine_e31m_2026-09-24.inp
+   ansys_p4_3d_h15_oc_fine_e31m_2026-09-24_out.txt
+   ansys_p4_3d_h15_oc_fine_modes_e31m.txt
+   ansys_p4_3d_h15_oc_fine_samplecoords_e31m.txt
+   ansys_p4_3d_h15_oc_fine_samples_e31m.txt
+ansys_p4_liudisk2_sc_C_e31m_2026-09-24.inp
+   ansys_p4_liudisk2_sc_C_e31m_2026-09-24_out.txt
+   ansys_p4_liudisk2_sc_C_modes_e31m.txt
+   ansys_p4_liudisk2_sc_C_samplecoords_e31m.txt
+   ansys_p4_liudisk2_sc_C_samples_e31m.txt
+ansys_p4_liudisk2_sc_S_e31m_2026-09-24.inp
+   ansys_p4_liudisk2_sc_S_e31m_2026-09-24_out.txt
+   ansys_p4_liudisk2_sc_S_modes_e31m.txt
+   ansys_p4_liudisk2_sc_S_samplecoords_e31m.txt
+   ansys_p4_liudisk2_sc_S_samples_e31m.txt
+ansys_p5_epsrel_ff_lanb_oc_e31m_2026-09-24.inp
+   ansys_p5_epsrel_ff_lanb_oc_discriminator_e31m.txt
+   ansys_p5_epsrel_ff_lanb_oc_e31m_2026-09-24_out.txt
+   ansys_p5_epsrel_ff_lanb_oc_modes_e31m.txt
+ansys_p5_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp
+   ansys_p5_epsrel_ff_lanb_scboth_discriminator_e31m.txt
+   ansys_p5_epsrel_ff_lanb_scboth_e31m_2026-09-24_out.txt
+   ansys_p5_epsrel_ff_lanb_scboth_modes_e31m.txt
+ansys_p6_sector_sc_coarse_e31m_2026-09-24.inp
+   ansys_p6_sector_sc_coarse_discriminator_e31m.txt
+   ansys_p6_sector_sc_coarse_e31m_2026-09-24_out.txt
+   ansys_p6_sector_sc_coarse_modes_e31m.txt
+ansys_p6_sector_sc_fine_e31m_2026-09-24.inp
+   ansys_p6_sector_sc_fine_discriminator_e31m.txt
+   ansys_p6_sector_sc_fine_e31m_2026-09-24_out.txt
+   ansys_p6_sector_sc_fine_modes_e31m.txt
+ansys_p5seg_e31m_c73_m40_2026-09-24.inp
+   ansys_p5seg_e31m_c73_m40_2026-09-24_out.txt
+   ansys_p5seg_e31m_c73_m40_freqs.txt
+   ansys_p5seg_e31m_c73_m40_ls1.txt
+   ansys_p5seg_e31m_c73_m40_ls2.txt
+   ansys_p5seg_e31m_c73_m40_ls3.txt
+   ansys_p5seg_e31m_c73_m40_ls4.txt
+   ansys_p5seg_e31m_c73_m40_ls5.txt
+   ansys_p5seg_e31m_c73_m40_ls6.txt
+ansys_p5seg_e31m_c73_m80_2026-09-24.inp
+   ansys_p5seg_e31m_c73_m80_2026-09-24_out.txt
+   ansys_p5seg_e31m_c73_m80_freqs.txt
+   ansys_p5seg_e31m_c73_m80_ls1.txt
+   ansys_p5seg_e31m_c73_m80_ls2.txt
+   ansys_p5seg_e31m_c73_m80_ls3.txt
+   ansys_p5seg_e31m_c73_m80_ls4.txt
+   ansys_p5seg_e31m_c73_m80_ls5.txt
+   ansys_p5seg_e31m_c73_m80_ls6.txt
+ansys_p5seg_e31m_c73_m160_2026-09-24.inp
+   ansys_p5seg_e31m_c73_m160_2026-09-24_out.txt
+   ansys_p5seg_e31m_c73_m160_freqs.txt
+   ansys_p5seg_e31m_c73_m160_ls1.txt
+   ansys_p5seg_e31m_c73_m160_ls2.txt
+   ansys_p5seg_e31m_c73_m160_ls3.txt
+   ansys_p5seg_e31m_c73_m160_ls4.txt
+   ansys_p5seg_e31m_c73_m160_ls5.txt
+   ansys_p5seg_e31m_c73_m160_ls6.txt
+ansys_p5seg_e31m_c26_m40_2026-09-24.inp
+   ansys_p5seg_e31m_c26_m40_2026-09-24_out.txt
+   ansys_p5seg_e31m_c26_m40_freqs.txt
+   ansys_p5seg_e31m_c26_m40_ls1.txt
+   ansys_p5seg_e31m_c26_m40_ls2.txt
+   ansys_p5seg_e31m_c26_m40_ls3.txt
+   ansys_p5seg_e31m_c26_m40_ls4.txt
+   ansys_p5seg_e31m_c26_m40_ls5.txt
+   ansys_p5seg_e31m_c26_m40_ls6.txt
+ansys_p5seg_e31m_c26_m80_2026-09-24.inp
+   ansys_p5seg_e31m_c26_m80_2026-09-24_out.txt
+   ansys_p5seg_e31m_c26_m80_freqs.txt
+   ansys_p5seg_e31m_c26_m80_ls1.txt
+   ansys_p5seg_e31m_c26_m80_ls2.txt
+   ansys_p5seg_e31m_c26_m80_ls3.txt
+   ansys_p5seg_e31m_c26_m80_ls4.txt
+   ansys_p5seg_e31m_c26_m80_ls5.txt
+   ansys_p5seg_e31m_c26_m80_ls6.txt
+ansys_p5seg_e31m_c26_m160_2026-09-24.inp
+   ansys_p5seg_e31m_c26_m160_2026-09-24_out.txt
+   ansys_p5seg_e31m_c26_m160_freqs.txt
+   ansys_p5seg_e31m_c26_m160_ls1.txt
+   ansys_p5seg_e31m_c26_m160_ls2.txt
+   ansys_p5seg_e31m_c26_m160_ls3.txt
+   ansys_p5seg_e31m_c26_m160_ls4.txt
+   ansys_p5seg_e31m_c26_m160_ls5.txt
+   ansys_p5seg_e31m_c26_m160_ls6.txt
+
+extra: score_p5mix_e31m_fe_2026-09-24.txt
+extra: score_pcm_fe_2026-09-24.txt
+extra: score_parashar_fe_2026-09-24.txt
+extra: score_p5seg_e31m_fe_2026-09-24.txt
+extra: targets_p5mix_e31m_2026-09-24.json
+extra: targets_pcm_2026-09-24.json
+extra: targets_parashar_2026-09-24.json
+extra: targets_p5seg_e31m_2026-09-24.json
+extra: ansys_queue_manifest_combined_2026-09-24b.txt
+extra: ansys_queue_combined_2026-09-24b_2532086.out
+extra: ansys_queue_combined_2026-09-24b_2532086.err

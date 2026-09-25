@@ -1,0 +1,20 @@
+Job 2532146 on compute-34-04.mill
+Start: Thu Sep 24 18:42:31 CDT 2026
+ANSYS module: ansys/2025R1
+MAPDL launcher: /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/bin/mapdl
+================================================================
+  run_ansys_queue.sh -- Thu Sep 24 18:42:32 CDT 2026
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys  manifest=ansys_queue_manifest_p4_harm_v3_e31m_2026-09-24.txt  cpus/deck=8  stop_on_fail=0
+================================================================
+
+---- [1] ansys_p4_harm_ff_y_v3_h112_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_harm_ff_y_v3_h112_e31) -- Thu Sep 24 18:42:32 CDT 2026 ----
+---- [1] ansys_p4_harm_ff_y_v3_h112_e31m_2026-09-24.inp : OK (10s), wrote ansys_p4_harm_ff_y_v3_h112_e31m_2026-09-24_out.txt, sentinel=ansys_p4_harm_ff_y_v3_h112_e31m_2026-09-24.inp.QUEUE_OK ----
+
+================================================================
+  QUEUE SUMMARY -- Thu Sep 24 18:42:42 CDT 2026  (total wall: 0 min)
+================================================================
+  ansys_p4_harm_ff_y_v3_h112_e31m_2026-09-24.inp : OK (10s)
+
+  total=1  ok=1  skip=0  fail=0
+End: Thu Sep 24 18:42:42 CDT 2026
+Download: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p4_harm_ff_y_v2_h112_sweep_e31m_v3.csv and ansys_p4_harm_ff_y_v3_h112_e31m_2026-09-24_out.txt

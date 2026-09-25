@@ -1,0 +1,1386 @@
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2025 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2025 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+
+ AFTER YOU HAVE READ, UNDERSTOOD, AND AGREED TO THE PREVIOUS NOTICES,
+ PRESS <CR> OR <ENTER> TO CONTINUE
+ 2025 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2025 R1 
+ AVxcelerate Sensors 2025 R1 
+ AVxcelerate Sensors Library for SCANeR 2025 R1  
+ AVxcelerate Sensors Library for CarMaker 2025 R1
+ TwinAI 2025 R1  
+ Electromagnetics Suite 2025 R1  
+ Electromagnetics RSM 2025 R1
+ Ansys Dynamic Reporting 2025 R1 
+ Core WB Files 2025 R1   
+ BladeModeler 2025 R1
+ CFD-Post only 2025 R1   
+ CFX (includes CFD-Post) 2025 R1 
+ Chemkin 2025 R1 
+ EnSight 2025 R1 
+ FENSAP-ICE 2025 R1  
+ Fluent (includes CFD-Post) 2025 R1  
+ Polyflow (includes CFD-Post) 2025 R1
+ Forte (includes EnSight) 2025 R1
+ ICEM CFD 2025 R1
+ Rocky 2025 R1   
+ TurboGrid 2025 R1   
+ Lumerical 2025 R1   
+ Lumerical Photonic Verilog-A 2025 R1
+ Speos HPC 2025 R1   
+ Speos RPC 2025 R1   
+ optiSLang 2025 R1   
+ Remote Solve Manager Standalone Services 2025 R1
+ Additive 2025 R1
+ Aqwa 2025 R1
+ Autodyn 2025 R1 
+ Customization Files for User Programmable Features 2025 R1  
+ LS-DYNA 2025 R1 
+ Mechanical Products 2025 R1 
+ Motion 2025 R1  
+ Sherlock 2025 R1
+ ACIS Geometry Interface 2025 R1 
+ Catia, Version 5 Geometry Interface 2025 R1 
+ Parasolid Geometry Interface 2025 R1
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = pcm_m41_harm_m80_2026_09                                                                                                                                                                                                                                
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  SHARED MEMORY PARALLEL REQUESTED
+    SINGLE PROCESS WITH   8 THREADS REQUESTED
+    TOTAL OF     8 CORES REQUESTED
+  INPUT FILE NAME              = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_pcm_m41_harm_m80_2026-09-24.inp
+  OUTPUT FILE NAME             = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_pcm_m41_harm_m80_2026-09-24_out.txt
+
+ RELEASE= 2025 R1              BUILD= 25.1      UP20241202   VERSION=LINUX x64   
+ CURRENT JOBNAME=pcm_m41_harm_m80_2026_09  16:42:55  SEP 24, 2026 CP=      0.286
+
+     1  ! ansys_pcm_m41_harm_m80_2026-09-24.inp 
+     2  ! Piezoelectric contour-mode (n = 0 radial) FE, Paper 5 monolithic ring (2026-09-24).   
+     3  ! Built by build_pcm_decks_2026-09-24.py. Do not hand-edit; rebuild.
+     4  ! Pre-registration: CONTOUR_MODE_N0_DERIVATION_2026-09-24.md Sec 5. 
+     5  ! e31 = -4.1 (deck value -4.1E-3 in mm-N-s units) C/m^2 (sign printed by Duan 2005 / Liu 2002; physical PZT-4 e31 < 0). Harmonic, top face at 1 V, bottom grounded. 
+     6  ! Thin-plate model (probe_piezo_contour_n0_2026-09-24.py), radial modes:
+     7  !   m1  fr 1669.6949 Hz  fa 1852.4000 Hz  split +10.9424%  keff^2 0.18753   
+     8  !   m2  fr 4293.5856 Hz  fa 4475.6457 Hz  split +4.2403%  keff^2 0.07970
+     9  !   m3  fr 7235.9906 Hz  fa 7258.1877 Hz  split +0.3068%  keff^2 0.00611
+    10  !   m4  fr 10443.1644 Hz  fa 10539.5779 Hz  split +0.9232%  keff^2 0.01821  
+    11  !   m5  fr 13740.1209 Hz  fa 13752.8220 Hz  split +0.0924%  keff^2 0.00185  
+    12  !   m6  fr 17072.2629 Hz  fa 17132.4077 Hz  split +0.3523%  keff^2 0.00701  
+    13  ! UNITS: mm-N-s-tonne, real volts; Hz; CHRG in mC.  
+    14  ! Do not put the MAPDL failure token in this file (queue grep false-fail).  
+    15  ! ============================================================  
+    16  FINISH  
+    17  /CLEAR,NOSTART  
+    18  /TITLE, Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)
+    19  RI     = 100.0  
+    20  RO     = 600.0  
+    21  H      = 10.0   
+    22  TOL    = 1.0E-3 
+    23  NDIV_R = 80 
+    24  NDIV_Z = 12 
+    25  NMODES = 30 
+    26  C11E = 1.320E5  
+    27  C12E = 7.100E4  
+    28  C13E = 7.300E4  
+    29  C33E = 1.150E5  
+    30  C44E = 7.300E4  
+    31  C66E = (C11E-C12E)/2
+    32  E31  = -4.1E-3  
+    33  E33  = 1.41E-2  
+    34  E15  = 1.05E-2  
+    35  EPS0   = 8.854E-12  
+    36  X11ABS = 7.124E-9   
+    37  X33ABS = 5.841E-9   
+    38  X11    = X11ABS/EPS0
+    39  X33    = X33ABS/EPS0
+    40  RHO_PZT = 7.500E-9  
+    41  /PREP7  
+    42  ET,1,PLANE223   
+    43  KEYOPT,1,1,1001 
+    44  KEYOPT,1,3,1
+    45  TB,ANEL,1,1,,0  
+    46  TBDATA,1,C11E,C13E,C12E,0,0,0   
+    47  TBDATA,7,C33E,C13E,0,0,0
+    48  TBDATA,12,C11E,0,0,0
+    49  TBDATA,16,C44E,0,0  
+    50  TBDATA,19,C66E,0
+    51  TBDATA,21,C44E  
+    52  TB,PIEZ,1   
+    53  TBDATA,1,0,E31,0,0,E33,0
+    54  TBDATA,7,0,E31,0,E15,0,0
+    55  TBDATA,13,0,0,E15,0,0,0 
+    56  MP,PERX,1,X11   
+    57  MP,PERY,1,X33   
+    58  MP,PERZ,1,X11   
+    59  MP,DENS,1,RHO_PZT   
+    60  RECTNG,RI,RO,-H,H   
+    61  ASEL,S,AREA,,1  
+    62  AATT,1,,1   
+    63  LSLA,S  
+    64  LSEL,R,LOC,X,RI 
+    65  LESIZE,ALL,,,NDIV_Z,,,,,1   
+    66  LSLA,S  
+    67  LSEL,R,LOC,X,RO 
+    68  LESIZE,ALL,,,NDIV_Z,,,,,1   
+    69  LSLA,S  
+    70  LSEL,R,LOC,Y,-H 
+    71  LESIZE,ALL,,,NDIV_R,,,,,1   
+    72  LSLA,S  
+    73  LSEL,R,LOC,Y,H  
+    74  LESIZE,ALL,,,NDIV_R,,,,,1   
+    75  ALLSEL,ALL  
+    76  ASEL,S,AREA,,1  
+    77  MSHAPE,0,2D 
+    78  MSHKEY,1
+    79  AMESH,ALL   
+    80  ALLSEL,ALL  
+    81  *GET,NELEM,ELEM,0,COUNT 
+    82  *IF,NELEM,NE,NDIV_R*NDIV_Z,THEN 
+    83    *MSG,FATAL
+    84  Mapped mesh element count does not equal NDIV_R*NDIV_Z. 
+    85  *ENDIF  
+    86  FINISH  
+    87  /SOLU   
+    88  ANTYPE,HARMIC   
+    89  HROPT,FULL  
+    90  HROUT,OFF   
+    91  OUTRES,NSOL,ALL 
+    92  OUTRES,RSOL,ALL 
+    93  KBC,1   
+    94  EQSLV,SPARSE
+    95  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+    96  D,ALL,VOLT,0
+    97  NSEL,S,LOC,Y,H-TOL,H+TOL
+    98  D,ALL,VOLT,1.0  
+    99  ALLSEL,ALL  
+   100  HARFRQ,1.000000000,1.000000000  
+   101  NSUBST,1
+   102  LSWRITE,1   
+   103  HARFRQ,834.847465904,834.847465904  
+   104  NSUBST,1
+   105  LSWRITE,2   
+   106  HARFRQ,1758.676467923,1758.676467923
+   107  NSUBST,1
+   108  LSWRITE,3   
+   109  HARFRQ,2820.184029916,2820.184029916
+   110  NSUBST,1
+   111  LSWRITE,4   
+   112  HARFRQ,5690.846166261,5690.846166261
+   113  NSUBST,1
+   114  LSWRITE,5   
+   115      
+   116  LSSOLVE,1,5 
+   117  FINISH  
+   118  /POST1  
+   119  NSEL,S,LOC,Y,H-TOL,H+TOL
+   120  *GET,NTOP,NODE,0,COUNT  
+   121  ALLSEL,ALL  
+   122  *DIM,IDX,ARRAY,NTOP 
+   123  *DIM,RT,ARRAY,NTOP  
+   124  *DIM,FRQ,ARRAY,5
+   125  *DIM,LSN,ARRAY,5
+   126  ! ---- load step 1 ---- 
+   127  *DIM,QR1,ARRAY,NTOP 
+   128  *DIM,QI1,ARRAY,NTOP 
+   129  SET,1,1,,0  
+   130  *GET,FRQ(1),ACTIVE,0,SET,FREQ   
+   131  LSN(1)=1
+   132  NSEL,S,LOC,Y,H-TOL,H+TOL
+   133  ND=0
+   134  *DO,I,1,NTOP
+   135    ND=NDNEXT(ND) 
+   136    IDX(I)=I  
+   137    RT(I)=NX(ND)  
+   138    *GET,QR1(I),NODE,ND,RF,CHRG   
+   139  *ENDDO  
+   140  SET,1,1,,1  
+   141  ND=0
+   142  *DO,I,1,NTOP
+   143    ND=NDNEXT(ND) 
+   144    *GET,QI1(I),NODE,ND,RF,CHRG   
+   145  *ENDDO  
+   146  ALLSEL,ALL  
+   147  *CFOPEN,ansys_pcm_m41_harm_m80_ls1,txt  
+   148  *VWRITE 
+   149  ('i  r_top  QtopRe  QtopIm   [mm, mC]') 
+   150  *VWRITE,IDX(1),RT(1),QR1(1),QI1(1)  
+   151  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12)
+   152  *CFCLOS 
+   153  ! ---- load step 2 ---- 
+   154  *DIM,QR2,ARRAY,NTOP 
+   155  *DIM,QI2,ARRAY,NTOP 
+   156  SET,2,1,,0  
+   157  *GET,FRQ(2),ACTIVE,0,SET,FREQ   
+   158  LSN(2)=2
+   159  NSEL,S,LOC,Y,H-TOL,H+TOL
+   160  ND=0
+   161  *DO,I,1,NTOP
+   162    ND=NDNEXT(ND) 
+   163    IDX(I)=I  
+   164    RT(I)=NX(ND)  
+   165    *GET,QR2(I),NODE,ND,RF,CHRG   
+   166  *ENDDO  
+   167  SET,2,1,,1  
+   168  ND=0
+   169  *DO,I,1,NTOP
+   170    ND=NDNEXT(ND) 
+   171    *GET,QI2(I),NODE,ND,RF,CHRG   
+   172  *ENDDO  
+   173  ALLSEL,ALL  
+   174  *CFOPEN,ansys_pcm_m41_harm_m80_ls2,txt  
+   175  *VWRITE 
+   176  ('i  r_top  QtopRe  QtopIm   [mm, mC]') 
+   177  *VWRITE,IDX(1),RT(1),QR2(1),QI2(1)  
+   178  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12)
+   179  *CFCLOS 
+   180  ! ---- load step 3 ---- 
+   181  *DIM,QR3,ARRAY,NTOP 
+   182  *DIM,QI3,ARRAY,NTOP 
+   183  SET,3,1,,0  
+   184  *GET,FRQ(3),ACTIVE,0,SET,FREQ   
+   185  LSN(3)=3
+   186  NSEL,S,LOC,Y,H-TOL,H+TOL
+   187  ND=0
+   188  *DO,I,1,NTOP
+   189    ND=NDNEXT(ND) 
+   190    IDX(I)=I  
+   191    RT(I)=NX(ND)  
+   192    *GET,QR3(I),NODE,ND,RF,CHRG   
+   193  *ENDDO  
+   194  SET,3,1,,1  
+   195  ND=0
+   196  *DO,I,1,NTOP
+   197    ND=NDNEXT(ND) 
+   198    *GET,QI3(I),NODE,ND,RF,CHRG   
+   199  *ENDDO  
+   200  ALLSEL,ALL  
+   201  *CFOPEN,ansys_pcm_m41_harm_m80_ls3,txt  
+   202  *VWRITE 
+   203  ('i  r_top  QtopRe  QtopIm   [mm, mC]') 
+   204  *VWRITE,IDX(1),RT(1),QR3(1),QI3(1)  
+   205  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12)
+   206  *CFCLOS 
+   207  ! ---- load step 4 ---- 
+   208  *DIM,QR4,ARRAY,NTOP 
+   209  *DIM,QI4,ARRAY,NTOP 
+   210  SET,4,1,,0  
+   211  *GET,FRQ(4),ACTIVE,0,SET,FREQ   
+   212  LSN(4)=4
+   213  NSEL,S,LOC,Y,H-TOL,H+TOL
+   214  ND=0
+   215  *DO,I,1,NTOP
+   216    ND=NDNEXT(ND) 
+   217    IDX(I)=I  
+   218    RT(I)=NX(ND)  
+   219    *GET,QR4(I),NODE,ND,RF,CHRG   
+   220  *ENDDO  
+   221  SET,4,1,,1  
+   222  ND=0
+   223  *DO,I,1,NTOP
+   224    ND=NDNEXT(ND) 
+   225    *GET,QI4(I),NODE,ND,RF,CHRG   
+   226  *ENDDO  
+   227  ALLSEL,ALL  
+   228  *CFOPEN,ansys_pcm_m41_harm_m80_ls4,txt  
+   229  *VWRITE 
+   230  ('i  r_top  QtopRe  QtopIm   [mm, mC]') 
+   231  *VWRITE,IDX(1),RT(1),QR4(1),QI4(1)  
+   232  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12)
+   233  *CFCLOS 
+   234  ! ---- load step 5 ---- 
+   235  *DIM,QR5,ARRAY,NTOP 
+   236  *DIM,QI5,ARRAY,NTOP 
+   237  SET,5,1,,0  
+   238  *GET,FRQ(5),ACTIVE,0,SET,FREQ   
+   239  LSN(5)=5
+   240  NSEL,S,LOC,Y,H-TOL,H+TOL
+   241  ND=0
+   242  *DO,I,1,NTOP
+   243    ND=NDNEXT(ND) 
+   244    IDX(I)=I  
+   245    RT(I)=NX(ND)  
+   246    *GET,QR5(I),NODE,ND,RF,CHRG   
+   247  *ENDDO  
+   248  SET,5,1,,1  
+   249  ND=0
+   250  *DO,I,1,NTOP
+   251    ND=NDNEXT(ND) 
+   252    *GET,QI5(I),NODE,ND,RF,CHRG   
+   253  *ENDDO  
+   254  ALLSEL,ALL  
+   255  *CFOPEN,ansys_pcm_m41_harm_m80_ls5,txt  
+   256  *VWRITE 
+   257  ('i  r_top  QtopRe  QtopIm   [mm, mC]') 
+   258  *VWRITE,IDX(1),RT(1),QR5(1),QI5(1)  
+   259  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12)
+   260  *CFCLOS 
+   261      
+   262  *CFOPEN,ansys_pcm_m41_harm_m80_freqs,txt
+   263  *VWRITE 
+   264  ('ls   freq_Hz')
+   265  *VWRITE,LSN(1),FRQ(1)   
+   266  (F4.0,3X,E20.12)
+   267  *CFCLOS 
+   268  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans
+
+ /INPUT FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans  LINE=       0
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)                 
+
+
+ PARAMETER RI =     100.0000000    
+
+ PARAMETER RO =     600.0000000    
+
+ PARAMETER H =     10.00000000    
+
+ PARAMETER TOL =    0.1000000000E-02
+
+ PARAMETER NDIV_R =     80.00000000    
+
+ PARAMETER NDIV_Z =     12.00000000    
+
+ PARAMETER NMODES =     30.00000000    
+
+ PARAMETER C11E =     132000.0000    
+
+ PARAMETER C12E =     71000.00000    
+
+ PARAMETER C13E =     73000.00000    
+
+ PARAMETER C33E =     115000.0000    
+
+ PARAMETER C44E =     73000.00000    
+
+ PARAMETER C66E =     30500.00000    
+
+ PARAMETER E31 =   -0.4100000000E-02
+
+ PARAMETER E33 =    0.1410000000E-01
+
+ PARAMETER E15 =    0.1050000000E-01
+
+ PARAMETER EPS0 =    0.8854000000E-11
+
+ PARAMETER X11ABS =    0.7124000000E-08
+
+ PARAMETER X33ABS =    0.5841000000E-08
+
+ PARAMETER X11 =     804.6080867    
+
+ PARAMETER X33 =     659.7018297    
+
+ PARAMETER RHO_PZT =    0.7500000000E-08
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:42:55  SEP 24, 2026 CP=      0.589
+
+  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)                 
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ *** NOTE ***                            CP =       0.589   TIME= 16:42:55
+ For element type = 1 ( PLANE223 ), KEYOPT 1 = 0 is invalid.  This NOTE  
+ is normal behavior when a CDB file is used.                             
+
+ ELEMENT TYPE          1 IS PLANE223     QUAD COUPLED-FIELD SOLID    
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ ELEMENT TYPE       1 IS PLANE223     2-D 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  TWO-DIMENSIONAL MODEL
+
+ ELEMENT TYPE       1 IS PLANE223     AXI 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      1        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  AXISYMMETRIC MODEL
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     1
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.13200E+06  73000.      71000.      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.11500E+06  73000.      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.13200E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 16  73000.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 19  30500.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 21  73000.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     1
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  1  0.0000    -0.41000E-02  0.0000      0.0000     0.14100E-01  0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  7  0.0000    -0.41000E-02  0.0000     0.10500E-01  0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC= 13  0.0000      0.0000     0.10500E-01  0.0000      0.0000      0.0000    
+
+ MATERIAL          1     PERX =   804.6081      
+
+ MATERIAL          1     PERY =   659.7018      
+
+ MATERIAL          1     PERZ =   804.6081      
+
+ MATERIAL          1     DENS =  0.7500000E-08  
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM     -10.00000000     TO      10.00000000    
+
+      OUTPUT AREA =     1
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        1  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    1   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   12,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   12,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   80,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   80,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        1  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     1 MESHED WITH     960 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =       3065
+ MAXIMUM ELEMENT NUMBER     =        960
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *GET  NELEM     FROM  ELEM  ITEM=COUN           VALUE=  960.000000    
+
+ *IF  NELEM  ( =   960.000     )  NE  
+      NDIV_R*NDIV_Z  ( =   960.000     )  THEN    
+
+ *ENDIF
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.604
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A HARMONIC ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ PERFORM A FULL HARMONIC RESPONSE ANALYSIS
+
+ PRINT COMPLEX DISPLACEMENTS AS AMPLITUDE AND PHASE ANGLE (IN DEGREES)
+
+ WRITE NSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE RSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ STEP BOUNDARY CONDITION KEY= 1
+
+ USE SPARSE MATRIX DIRECT SOLVER
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        161  NODES (OF       3065  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO        3065 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        161  NODES (OF       3065  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO        3065 BY           1
+ REAL=  1.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ HARMONIC FREQUENCY RANGE - END=  1.0000      BEGIN=  1.0000    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=pcm_m41_harm_m80_2026_09.s01                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  834.85      BEGIN=  834.85    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=pcm_m41_harm_m80_2026_09.s02                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  1758.7      BEGIN=  1758.7    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=pcm_m41_harm_m80_2026_09.s03                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  2820.2      BEGIN=  2820.2    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=pcm_m41_harm_m80_2026_09.s04                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  5690.8      BEGIN=  5690.8    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=pcm_m41_harm_m80_2026_09.s05                                                                                                                                                                                                                                        
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       16:42:55
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 1.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       1.057   TIME= 16:42:55
+ Axisymmetric elements are present.  The nodal loads input with the F    
+ commands and the reaction forces are on a full circle basis.  This      
+ differs from the pre-MAPDL 5.0 interpretation.                          
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:42:55  SEP 24, 2026 CP=      1.068
+
+  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)                 
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .AXISYMMETRIC         
+   DEGREES OF FREEDOM. . . . . . UX   UY   VOLT
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .HARMONIC             
+      SOLUTION METHOD. . . . . . . . . . . . . . .FULL
+   EQUATION SOLVER OPTION. . . . . . . . . . . . .SPARSE             
+   COMPLEX DISPLACEMENT PRINT OPTION . . . . . . .REAL AND IMAGINARY       
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+
+ *** NOTE ***                            CP =       1.089   TIME= 16:42:55
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** NOTE ***                            CP =       1.092   TIME= 16:42:55
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  1.0000     TO   1.0000    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =  0.16493    
+
+
+ MASS AND MOMENT VALUES ARE EVALUATED FOR AN AXISYMMETRIC 360. DEGREE MODEL.
+
+                    MOM. OF INERTIA      MOM. OF INERTIA     RADIUS OF GYRATION
+ CENTER OF MASS      ABOUT ORIGIN     ABOUT CENTER OF MASS  ABOUT CENTER OF MASS
+
+ XC =   0.0000       IXX =   0.1526E+05   IXX =   0.1526E+05  RGX =    304.2    
+ YC =  0.43911E-15   IYY =   0.3051E+05   IYY =   0.3051E+05  RGY =    430.1    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.164934    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 2.915185343E+09 at element 240.                               
+ Minimum = 509897068 at element 721.                                     
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       960  PLANE223      0.913   0.000952
+ Time at end of element matrix formulation CP = 1.59763706.              
+
+ SPARSE MATRIX DIRECT SOLVER.
+  Number of equations =        8873,    Maximum wavefront =     57
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =    32.990 MB
+  Equation solver memory required for in-core mode     =    31.680 MB
+  Equation solver memory required for out-of-core mode =    16.282 MB
+  Total (solver and non-solver) memory allocated       =   568.467 MB
+
+ *** NOTE ***                            CP =       2.020   TIME= 16:42:55
+ The Sparse Matrix Solver is currently running in the in-core memory     
+ mode.  This memory mode uses the most amount of memory in order to      
+ avoid using the hard drive as much as possible, which most often        
+ results in the fastest solution time.  This mode is recommended if      
+ enough physical memory is present to accommodate all of the solver      
+ data.                                                                   
+ Sparse solver maximum pivot= 5.663083787E+09 at node 2974 UY.           
+ Sparse solver minimum pivot= 6.51159769 at node 1713 UY.                
+ Sparse solver minimum pivot in absolute value= 6.51159769 at node 1713  
+ UY.                                                                     
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       960  PLANE223      1.252   0.001305
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       960  PLANE223      0.342   0.000357
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.  FREQUENCY=   1.00000    
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.500 MB WRITTEN ON ELEMENT SAVED DATA FILE: pcm_m41_harm_m80_2026_09.esav
+        3.938 MB WRITTEN ON ASSEMBLED MATRIX FILE: pcm_m41_harm_m80_2026_09.full
+        1.562 MB WRITTEN ON RESULTS FILE: pcm_m41_harm_m80_2026_09.rst
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       16:42:55
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 2.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       3.232   TIME= 16:42:55
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:42:55  SEP 24, 2026 CP=      3.247
+
+  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)                 
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     2
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  834.85     TO   834.85    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     2   SUBSTEP     1  COMPLETED.  FREQUENCY=   834.847    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       16:42:55
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 3.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       4.414   TIME= 16:42:55
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:42:55  SEP 24, 2026 CP=      4.428
+
+  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)                 
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     3
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  1758.7     TO   1758.7    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     3   SUBSTEP     1  COMPLETED.  FREQUENCY=   1758.68    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       16:42:55
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 4.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       5.586   TIME= 16:42:56
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:42:56  SEP 24, 2026 CP=      5.599
+
+  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)                 
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     4
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  2820.2     TO   2820.2    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     4   SUBSTEP     1  COMPLETED.  FREQUENCY=   2820.18    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       16:42:55
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 5.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       6.766   TIME= 16:42:56
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:42:56  SEP 24, 2026 CP=      6.779
+
+  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)                 
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     5
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  5690.8     TO   5690.8    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     5   SUBSTEP     1  COMPLETED.  FREQUENCY=   5690.85    
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         8.207
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     16:42:56  SEP 24, 2026 CP=      8.219
+
+  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)                 
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =       8.220   TIME= 16:42:56
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        161  NODES (OF       3065  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NTOP      FROM  NODE  ITEM=COUN       VALUE=  161.000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SET PARAMETER DIMENSIONS ON  IDX TYPE=ARRA  DIMENSIONS=   161     1     1
+
+ SET PARAMETER DIMENSIONS ON  RT TYPE=ARRA  DIMENSIONS=   161     1     1
+
+ SET PARAMETER DIMENSIONS ON  FRQ TYPE=ARRA  DIMENSIONS=     5     1     1
+
+ SET PARAMETER DIMENSIONS ON  LSN TYPE=ARRA  DIMENSIONS=     5     1     1
+
+ SET PARAMETER DIMENSIONS ON  QR1 TYPE=ARRA  DIMENSIONS=   161     1     1
+
+ SET PARAMETER DIMENSIONS ON  QI1 TYPE=ARRA  DIMENSIONS=   161     1     1
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  1.0000    
+ TITLE=  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)           
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  1.00000000    
+
+ PARAMETER LSN(1) =     1.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        161  NODES (OF       3065  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  161.00     BY  1.0000    
+
+ PARAMETER ND =     162.0000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QR1       FROM  NODE       162  ITEM=RF   CHRG  VALUE=-0.209256920E-005
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  1.0000          (IMAGINARY) 
+ TITLE=  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)           
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  161.00     BY  1.0000    
+
+ PARAMETER ND =     162.0000000    
+
+ *GET  QI1       FROM  NODE       162  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_pcm_m41_harm_m80_ls1.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QR2 TYPE=ARRA  DIMENSIONS=   161     1     1
+
+ SET PARAMETER DIMENSIONS ON  QI2 TYPE=ARRA  DIMENSIONS=   161     1     1
+
+
+ USE LOAD STEP     2  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     2  SUBSTEP=     1  CUMULATIVE ITERATION=     2
+   TIME/FREQUENCY=  834.85    
+ TITLE=  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)           
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  834.847466    
+
+ PARAMETER LSN(2) =     2.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        161  NODES (OF       3065  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  161.00     BY  1.0000    
+
+ PARAMETER ND =     162.0000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QR2       FROM  NODE       162  ITEM=RF   CHRG  VALUE=-0.214695104E-005
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     2  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     2  SUBSTEP=     1  CUMULATIVE ITERATION=     2
+   TIME/FREQUENCY=  834.85          (IMAGINARY) 
+ TITLE=  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)           
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  161.00     BY  1.0000    
+
+ PARAMETER ND =     162.0000000    
+
+ *GET  QI2       FROM  NODE       162  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_pcm_m41_harm_m80_ls2.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QR3 TYPE=ARRA  DIMENSIONS=   161     1     1
+
+ SET PARAMETER DIMENSIONS ON  QI3 TYPE=ARRA  DIMENSIONS=   161     1     1
+
+
+ USE LOAD STEP     3  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     3  SUBSTEP=     1  CUMULATIVE ITERATION=     3
+   TIME/FREQUENCY=  1758.7    
+ TITLE=  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)           
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  1758.67647    
+
+ PARAMETER LSN(3) =     3.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        161  NODES (OF       3065  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  161.00     BY  1.0000    
+
+ PARAMETER ND =     162.0000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QR3       FROM  NODE       162  ITEM=RF   CHRG  VALUE=-0.494233524E-006
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     3  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     3  SUBSTEP=     1  CUMULATIVE ITERATION=     3
+   TIME/FREQUENCY=  1758.7          (IMAGINARY) 
+ TITLE=  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)           
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  161.00     BY  1.0000    
+
+ PARAMETER ND =     162.0000000    
+
+ *GET  QI3       FROM  NODE       162  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_pcm_m41_harm_m80_ls3.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QR4 TYPE=ARRA  DIMENSIONS=   161     1     1
+
+ SET PARAMETER DIMENSIONS ON  QI4 TYPE=ARRA  DIMENSIONS=   161     1     1
+
+
+ USE LOAD STEP     4  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     4  SUBSTEP=     1  CUMULATIVE ITERATION=     4
+   TIME/FREQUENCY=  2820.2    
+ TITLE=  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)           
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  2820.18403    
+
+ PARAMETER LSN(4) =     4.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        161  NODES (OF       3065  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  161.00     BY  1.0000    
+
+ PARAMETER ND =     162.0000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QR4       FROM  NODE       162  ITEM=RF   CHRG  VALUE=-0.187588529E-005
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     4  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     4  SUBSTEP=     1  CUMULATIVE ITERATION=     4
+   TIME/FREQUENCY=  2820.2          (IMAGINARY) 
+ TITLE=  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)           
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  161.00     BY  1.0000    
+
+ PARAMETER ND =     162.0000000    
+
+ *GET  QI4       FROM  NODE       162  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_pcm_m41_harm_m80_ls4.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QR5 TYPE=ARRA  DIMENSIONS=   161     1     1
+
+ SET PARAMETER DIMENSIONS ON  QI5 TYPE=ARRA  DIMENSIONS=   161     1     1
+
+
+ USE LOAD STEP     5  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     5  SUBSTEP=     1  CUMULATIVE ITERATION=     5
+   TIME/FREQUENCY=  5690.8    
+ TITLE=  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)           
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  5690.84617    
+
+ PARAMETER LSN(5) =     5.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        161  NODES (OF       3065  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  161.00     BY  1.0000    
+
+ PARAMETER ND =     162.0000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QR5       FROM  NODE       162  ITEM=RF   CHRG  VALUE=-0.185901079E-005
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     5  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     5  SUBSTEP=     1  CUMULATIVE ITERATION=     5
+   TIME/FREQUENCY=  5690.8          (IMAGINARY) 
+ TITLE=  Contour-mode PZT-4 ring harm e31=m41 mesh 80x12 (2026-09-24)           
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  161.00     BY  1.0000    
+
+ PARAMETER ND =     162.0000000    
+
+ *GET  QI5       FROM  NODE       162  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_pcm_m41_harm_m80_ls5.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ OPENED FILE= ansys_pcm_m41_harm_m80_freqs.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =         9.626
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= pcm_m41_harm_m80_2026_09.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          0
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2025 R1            Build: 25.1       Update: UP20241202   Platform: LINUX x64   
+Date Run: 09/24/2026   Time: 16:42     Process ID: 1748896
+Operating System: AlmaLinux release 8.10 (Cerulean Leopard)
+
+Processor Model: Intel(R) Xeon(R) Gold 6248 CPU @ 2.50GHz
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303
+
+Number of machines requested            :    1
+Total number of cores available         :   40
+Number of physical cores available      :   40
+Number of processes requested           :    1
+Number of threads per process requested :    8
+Total number of cores requested         :    8 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: pcm_m41_harm_m80_2026_09
+Input File: ansys_pcm_m41_harm_m80_2026-09-24.inp
+Working Directory: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys
+
+Total CPU time for main thread                    :        1.9 seconds
+Total CPU time summed for all threads             :       10.9 seconds
+
+Elapsed time spent obtaining a license            :        1.5 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.0 seconds
+Elapsed time spent solution - preprocessing       :        0.0 seconds
+Elapsed time spent computing solution             :        0.8 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.2 seconds
+ 
+Equation solver used                              :            Sparse (symmetric)
+Equation solver computational rate                :        7.0 Gflops
+
+Sum of disk space used on all processes           :       10.8 MB
+
+Sum of memory used on all processes               :       56.0 MB
+Sum of memory allocated on all processes          :     2304.0 MB
+Physical memory available                         :        187 GB
+Total amount of I/O written to disk               :        0.0 GB
+Total amount of I/O read from disk                :        0.0 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+ |  Maximum Database Used       5 MB     Maximum Scratch Memory Used     51 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =         10.883       Time  =  16:42:57          |
+ |        Elapsed Time (sec) =          5.000       Date  =  09/24/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

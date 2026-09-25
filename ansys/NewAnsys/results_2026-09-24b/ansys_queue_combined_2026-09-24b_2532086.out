@@ -1,0 +1,355 @@
+Job 2532086 on compute-34-04.mill
+Start: Thu Sep 24 16:37:56 CDT 2026
+ANSYS module: ansys/2025R1
+MAPDL launcher: /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/bin/mapdl
+================================================================
+  run_ansys_queue.sh -- Thu Sep 24 16:37:56 CDT 2026
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys  manifest=ansys_queue_manifest_combined_2026-09-24b.txt  cpus/deck=8  stop_on_fail=0
+================================================================
+
+---- [1] ansys_p5mix_e31m_ff_c73_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_ff_c73_m80_20) -- Thu Sep 24 16:37:56 CDT 2026 ----
+---- [1] ansys_p5mix_e31m_ff_c73_m80_2026-09-24.inp : OK (7s), wrote ansys_p5mix_e31m_ff_c73_m80_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_ff_c73_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [2] ansys_p5mix_e31m_ff_c73_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_ff_c73_m160_2) -- Thu Sep 24 16:38:03 CDT 2026 ----
+---- [2] ansys_p5mix_e31m_ff_c73_m160_2026-09-24.inp : OK (8s), wrote ansys_p5mix_e31m_ff_c73_m160_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_ff_c73_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [3] ansys_p5mix_e31m_ff_c73_m320_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_ff_c73_m320_2) -- Thu Sep 24 16:38:11 CDT 2026 ----
+---- [3] ansys_p5mix_e31m_ff_c73_m320_2026-09-24.inp : OK (15s), wrote ansys_p5mix_e31m_ff_c73_m320_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_ff_c73_m320_2026-09-24.inp.QUEUE_OK ----
+
+---- [4] ansys_p5mix_e31m_ff_c26_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_ff_c26_m80_20) -- Thu Sep 24 16:38:26 CDT 2026 ----
+---- [4] ansys_p5mix_e31m_ff_c26_m80_2026-09-24.inp : OK (6s), wrote ansys_p5mix_e31m_ff_c26_m80_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_ff_c26_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [5] ansys_p5mix_e31m_ff_c26_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_ff_c26_m160_2) -- Thu Sep 24 16:38:32 CDT 2026 ----
+---- [5] ansys_p5mix_e31m_ff_c26_m160_2026-09-24.inp : OK (8s), wrote ansys_p5mix_e31m_ff_c26_m160_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_ff_c26_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [6] ansys_p5mix_e31m_ff_c26_m320_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_ff_c26_m320_2) -- Thu Sep 24 16:38:40 CDT 2026 ----
+---- [6] ansys_p5mix_e31m_ff_c26_m320_2026-09-24.inp : OK (13s), wrote ansys_p5mix_e31m_ff_c26_m320_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_ff_c26_m320_2026-09-24.inp.QUEUE_OK ----
+
+---- [7] ansys_p5mix_e31m_cc_c73_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cc_c73_m80_20) -- Thu Sep 24 16:38:53 CDT 2026 ----
+---- [7] ansys_p5mix_e31m_cc_c73_m80_2026-09-24.inp : OK (6s), wrote ansys_p5mix_e31m_cc_c73_m80_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cc_c73_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [8] ansys_p5mix_e31m_cc_c73_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cc_c73_m160_2) -- Thu Sep 24 16:39:00 CDT 2026 ----
+---- [8] ansys_p5mix_e31m_cc_c73_m160_2026-09-24.inp : OK (7s), wrote ansys_p5mix_e31m_cc_c73_m160_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cc_c73_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [9] ansys_p5mix_e31m_cc_c73_m320_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cc_c73_m320_2) -- Thu Sep 24 16:39:07 CDT 2026 ----
+---- [9] ansys_p5mix_e31m_cc_c73_m320_2026-09-24.inp : OK (14s), wrote ansys_p5mix_e31m_cc_c73_m320_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cc_c73_m320_2026-09-24.inp.QUEUE_OK ----
+
+---- [10] ansys_p5mix_e31m_cc_c26_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cc_c26_m80_20) -- Thu Sep 24 16:39:21 CDT 2026 ----
+---- [10] ansys_p5mix_e31m_cc_c26_m80_2026-09-24.inp : OK (6s), wrote ansys_p5mix_e31m_cc_c26_m80_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cc_c26_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [11] ansys_p5mix_e31m_cc_c26_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cc_c26_m160_2) -- Thu Sep 24 16:39:27 CDT 2026 ----
+---- [11] ansys_p5mix_e31m_cc_c26_m160_2026-09-24.inp : OK (8s), wrote ansys_p5mix_e31m_cc_c26_m160_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cc_c26_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [12] ansys_p5mix_e31m_cc_c26_m320_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cc_c26_m320_2) -- Thu Sep 24 16:39:35 CDT 2026 ----
+---- [12] ansys_p5mix_e31m_cc_c26_m320_2026-09-24.inp : OK (14s), wrote ansys_p5mix_e31m_cc_c26_m320_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cc_c26_m320_2026-09-24.inp.QUEUE_OK ----
+
+---- [13] ansys_p5mix_e31m_cf_c73_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cf_c73_m80_20) -- Thu Sep 24 16:39:49 CDT 2026 ----
+---- [13] ansys_p5mix_e31m_cf_c73_m80_2026-09-24.inp : OK (6s), wrote ansys_p5mix_e31m_cf_c73_m80_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cf_c73_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [14] ansys_p5mix_e31m_cf_c73_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cf_c73_m160_2) -- Thu Sep 24 16:39:55 CDT 2026 ----
+---- [14] ansys_p5mix_e31m_cf_c73_m160_2026-09-24.inp : OK (8s), wrote ansys_p5mix_e31m_cf_c73_m160_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cf_c73_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [15] ansys_p5mix_e31m_cf_c73_m320_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cf_c73_m320_2) -- Thu Sep 24 16:40:03 CDT 2026 ----
+---- [15] ansys_p5mix_e31m_cf_c73_m320_2026-09-24.inp : OK (14s), wrote ansys_p5mix_e31m_cf_c73_m320_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cf_c73_m320_2026-09-24.inp.QUEUE_OK ----
+
+---- [16] ansys_p5mix_e31m_cf_c26_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cf_c26_m80_20) -- Thu Sep 24 16:40:17 CDT 2026 ----
+---- [16] ansys_p5mix_e31m_cf_c26_m80_2026-09-24.inp : OK (6s), wrote ansys_p5mix_e31m_cf_c26_m80_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cf_c26_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [17] ansys_p5mix_e31m_cf_c26_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cf_c26_m160_2) -- Thu Sep 24 16:40:23 CDT 2026 ----
+---- [17] ansys_p5mix_e31m_cf_c26_m160_2026-09-24.inp : OK (8s), wrote ansys_p5mix_e31m_cf_c26_m160_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cf_c26_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [18] ansys_p5mix_e31m_cf_c26_m320_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_cf_c26_m320_2) -- Thu Sep 24 16:40:31 CDT 2026 ----
+---- [18] ansys_p5mix_e31m_cf_c26_m320_2026-09-24.inp : OK (14s), wrote ansys_p5mix_e31m_cf_c26_m320_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_cf_c26_m320_2026-09-24.inp.QUEUE_OK ----
+
+---- [19] ansys_p5mix_e31m_fc_c73_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_fc_c73_m80_20) -- Thu Sep 24 16:40:45 CDT 2026 ----
+---- [19] ansys_p5mix_e31m_fc_c73_m80_2026-09-24.inp : OK (6s), wrote ansys_p5mix_e31m_fc_c73_m80_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_fc_c73_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [20] ansys_p5mix_e31m_fc_c73_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_fc_c73_m160_2) -- Thu Sep 24 16:40:51 CDT 2026 ----
+---- [20] ansys_p5mix_e31m_fc_c73_m160_2026-09-24.inp : OK (8s), wrote ansys_p5mix_e31m_fc_c73_m160_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_fc_c73_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [21] ansys_p5mix_e31m_fc_c73_m320_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_fc_c73_m320_2) -- Thu Sep 24 16:40:59 CDT 2026 ----
+---- [21] ansys_p5mix_e31m_fc_c73_m320_2026-09-24.inp : OK (14s), wrote ansys_p5mix_e31m_fc_c73_m320_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_fc_c73_m320_2026-09-24.inp.QUEUE_OK ----
+
+---- [22] ansys_p5mix_e31m_fc_c26_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_fc_c26_m80_20) -- Thu Sep 24 16:41:13 CDT 2026 ----
+---- [22] ansys_p5mix_e31m_fc_c26_m80_2026-09-24.inp : OK (6s), wrote ansys_p5mix_e31m_fc_c26_m80_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_fc_c26_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [23] ansys_p5mix_e31m_fc_c26_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_fc_c26_m160_2) -- Thu Sep 24 16:41:19 CDT 2026 ----
+---- [23] ansys_p5mix_e31m_fc_c26_m160_2026-09-24.inp : OK (8s), wrote ansys_p5mix_e31m_fc_c26_m160_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_fc_c26_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [24] ansys_p5mix_e31m_fc_c26_m320_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5mix_e31m_fc_c26_m320_2) -- Thu Sep 24 16:41:27 CDT 2026 ----
+---- [24] ansys_p5mix_e31m_fc_c26_m320_2026-09-24.inp : OK (14s), wrote ansys_p5mix_e31m_fc_c26_m320_2026-09-24_out.txt, sentinel=ansys_p5mix_e31m_fc_c26_m320_2026-09-24.inp.QUEUE_OK ----
+
+---- [25] ansys_pcm_p41_sc_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_p41_sc_m80_2026_09_2) -- Thu Sep 24 16:41:41 CDT 2026 ----
+---- [25] ansys_pcm_p41_sc_m80_2026-09-24.inp : OK (6s), wrote ansys_pcm_p41_sc_m80_2026-09-24_out.txt, sentinel=ansys_pcm_p41_sc_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [26] ansys_pcm_p41_sc_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_p41_sc_m160_2026_09_) -- Thu Sep 24 16:41:47 CDT 2026 ----
+---- [26] ansys_pcm_p41_sc_m160_2026-09-24.inp : OK (8s), wrote ansys_pcm_p41_sc_m160_2026-09-24_out.txt, sentinel=ansys_pcm_p41_sc_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [27] ansys_pcm_p41_oc_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_p41_oc_m80_2026_09_2) -- Thu Sep 24 16:41:55 CDT 2026 ----
+---- [27] ansys_pcm_p41_oc_m80_2026-09-24.inp : OK (6s), wrote ansys_pcm_p41_oc_m80_2026-09-24_out.txt, sentinel=ansys_pcm_p41_oc_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [28] ansys_pcm_p41_oc_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_p41_oc_m160_2026_09_) -- Thu Sep 24 16:42:01 CDT 2026 ----
+---- [28] ansys_pcm_p41_oc_m160_2026-09-24.inp : OK (8s), wrote ansys_pcm_p41_oc_m160_2026-09-24_out.txt, sentinel=ansys_pcm_p41_oc_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [29] ansys_pcm_p41_harm_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_p41_harm_m80_2026_09) -- Thu Sep 24 16:42:09 CDT 2026 ----
+---- [29] ansys_pcm_p41_harm_m80_2026-09-24.inp : OK (6s), wrote ansys_pcm_p41_harm_m80_2026-09-24_out.txt, sentinel=ansys_pcm_p41_harm_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [30] ansys_pcm_p41_harm_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_p41_harm_m160_2026_0) -- Thu Sep 24 16:42:15 CDT 2026 ----
+---- [30] ansys_pcm_p41_harm_m160_2026-09-24.inp : OK (8s), wrote ansys_pcm_p41_harm_m160_2026-09-24_out.txt, sentinel=ansys_pcm_p41_harm_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [31] ansys_pcm_m41_sc_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_m41_sc_m80_2026_09_2) -- Thu Sep 24 16:42:23 CDT 2026 ----
+---- [31] ansys_pcm_m41_sc_m80_2026-09-24.inp : OK (6s), wrote ansys_pcm_m41_sc_m80_2026-09-24_out.txt, sentinel=ansys_pcm_m41_sc_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [32] ansys_pcm_m41_sc_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_m41_sc_m160_2026_09_) -- Thu Sep 24 16:42:29 CDT 2026 ----
+---- [32] ansys_pcm_m41_sc_m160_2026-09-24.inp : OK (8s), wrote ansys_pcm_m41_sc_m160_2026-09-24_out.txt, sentinel=ansys_pcm_m41_sc_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [33] ansys_pcm_m41_oc_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_m41_oc_m80_2026_09_2) -- Thu Sep 24 16:42:37 CDT 2026 ----
+---- [33] ansys_pcm_m41_oc_m80_2026-09-24.inp : OK (6s), wrote ansys_pcm_m41_oc_m80_2026-09-24_out.txt, sentinel=ansys_pcm_m41_oc_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [34] ansys_pcm_m41_oc_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_m41_oc_m160_2026_09_) -- Thu Sep 24 16:42:43 CDT 2026 ----
+---- [34] ansys_pcm_m41_oc_m160_2026-09-24.inp : OK (8s), wrote ansys_pcm_m41_oc_m160_2026-09-24_out.txt, sentinel=ansys_pcm_m41_oc_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [35] ansys_pcm_m41_harm_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_m41_harm_m80_2026_09) -- Thu Sep 24 16:42:51 CDT 2026 ----
+---- [35] ansys_pcm_m41_harm_m80_2026-09-24.inp : OK (6s), wrote ansys_pcm_m41_harm_m80_2026-09-24_out.txt, sentinel=ansys_pcm_m41_harm_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [36] ansys_pcm_m41_harm_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j pcm_m41_harm_m160_2026_0) -- Thu Sep 24 16:42:57 CDT 2026 ----
+---- [36] ansys_pcm_m41_harm_m160_2026-09-24.inp : OK (8s), wrote ansys_pcm_m41_harm_m160_2026-09-24_out.txt, sentinel=ansys_pcm_m41_harm_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [37] ansys_parashar_ff_sc_m60_2026-09-24.inp : RUNNING (mapdl -np 8 -j parashar_ff_sc_m60_2026_) -- Thu Sep 24 16:43:05 CDT 2026 ----
+---- [37] ansys_parashar_ff_sc_m60_2026-09-24.inp : OK (6s), wrote ansys_parashar_ff_sc_m60_2026-09-24_out.txt, sentinel=ansys_parashar_ff_sc_m60_2026-09-24.inp.QUEUE_OK ----
+
+---- [38] ansys_parashar_ff_sc_m120_2026-09-24.inp : RUNNING (mapdl -np 8 -j parashar_ff_sc_m120_2026) -- Thu Sep 24 16:43:12 CDT 2026 ----
+---- [38] ansys_parashar_ff_sc_m120_2026-09-24.inp : OK (10s), wrote ansys_parashar_ff_sc_m120_2026-09-24_out.txt, sentinel=ansys_parashar_ff_sc_m120_2026-09-24.inp.QUEUE_OK ----
+
+---- [39] ansys_parashar_ff_e0_m120_2026-09-24.inp : RUNNING (mapdl -np 8 -j parashar_ff_e0_m120_2026) -- Thu Sep 24 16:43:22 CDT 2026 ----
+---- [39] ansys_parashar_ff_e0_m120_2026-09-24.inp : OK (11s), wrote ansys_parashar_ff_e0_m120_2026-09-24_out.txt, sentinel=ansys_parashar_ff_e0_m120_2026-09-24.inp.QUEUE_OK ----
+
+---- [40] ansys_parashar_cf_sc_m60_2026-09-24.inp : RUNNING (mapdl -np 8 -j parashar_cf_sc_m60_2026_) -- Thu Sep 24 16:43:33 CDT 2026 ----
+---- [40] ansys_parashar_cf_sc_m60_2026-09-24.inp : OK (6s), wrote ansys_parashar_cf_sc_m60_2026-09-24_out.txt, sentinel=ansys_parashar_cf_sc_m60_2026-09-24.inp.QUEUE_OK ----
+
+---- [41] ansys_parashar_cf_sc_m120_2026-09-24.inp : RUNNING (mapdl -np 8 -j parashar_cf_sc_m120_2026) -- Thu Sep 24 16:43:39 CDT 2026 ----
+---- [41] ansys_parashar_cf_sc_m120_2026-09-24.inp : OK (7s), wrote ansys_parashar_cf_sc_m120_2026-09-24_out.txt, sentinel=ansys_parashar_cf_sc_m120_2026-09-24.inp.QUEUE_OK ----
+
+---- [42] ansys_parashar_cf_e0_m120_2026-09-24.inp : RUNNING (mapdl -np 8 -j parashar_cf_e0_m120_2026) -- Thu Sep 24 16:43:46 CDT 2026 ----
+---- [42] ansys_parashar_cf_e0_m120_2026-09-24.inp : OK (8s), wrote ansys_parashar_cf_e0_m120_2026-09-24_out.txt, sentinel=ansys_parashar_cf_e0_m120_2026-09-24.inp.QUEUE_OK ----
+
+---- [43] ansys_p4_epsrel_ff_lanb_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_e31m_2) -- Thu Sep 24 16:43:54 CDT 2026 ----
+---- [43] ansys_p4_epsrel_ff_lanb_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_ff_lanb_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_ff_lanb_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [44] ansys_p4_epsrel_ff_subsp_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_subsp_e31m_) -- Thu Sep 24 16:44:00 CDT 2026 ----
+---- [44] ansys_p4_epsrel_ff_subsp_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_ff_subsp_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_ff_subsp_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [45] ansys_p4_epsrel_cc_lanb_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_cc_lanb_e31m_2) -- Thu Sep 24 16:44:06 CDT 2026 ----
+---- [45] ansys_p4_epsrel_cc_lanb_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_cc_lanb_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_cc_lanb_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [46] ansys_p4_epsrel_ff_lanb_h18_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h18_e3) -- Thu Sep 24 16:44:12 CDT 2026 ----
+---- [46] ansys_p4_epsrel_ff_lanb_h18_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_ff_lanb_h18_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_ff_lanb_h18_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [47] ansys_p4_epsrel_ff_lanb_h15_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h15_e3) -- Thu Sep 24 16:44:18 CDT 2026 ----
+---- [47] ansys_p4_epsrel_ff_lanb_h15_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_ff_lanb_h15_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_ff_lanb_h15_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [48] ansys_p4_epsrel_ff_lanb_oc_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_oc_e31) -- Thu Sep 24 16:44:24 CDT 2026 ----
+---- [48] ansys_p4_epsrel_ff_lanb_oc_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_ff_lanb_oc_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_ff_lanb_oc_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [49] ansys_p4_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_scboth) -- Thu Sep 24 16:44:30 CDT 2026 ----
+---- [49] ansys_p4_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_ff_lanb_scboth_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [50] ansys_p4_epsrel_ff_lanb_h18_oc_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h18_oc) -- Thu Sep 24 16:44:36 CDT 2026 ----
+---- [50] ansys_p4_epsrel_ff_lanb_h18_oc_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_ff_lanb_h18_oc_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_ff_lanb_h18_oc_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [51] ansys_p4_epsrel_ff_lanb_h18_scboth_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h18_sc) -- Thu Sep 24 16:44:42 CDT 2026 ----
+---- [51] ansys_p4_epsrel_ff_lanb_h18_scboth_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_ff_lanb_h18_scboth_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_ff_lanb_h18_scboth_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [52] ansys_p4_epsrel_ff_lanb_h15_oc_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h15_oc) -- Thu Sep 24 16:44:48 CDT 2026 ----
+---- [52] ansys_p4_epsrel_ff_lanb_h15_oc_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_ff_lanb_h15_oc_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_ff_lanb_h15_oc_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [53] ansys_p4_epsrel_ff_lanb_h15_scboth_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_ff_lanb_h15_sc) -- Thu Sep 24 16:44:54 CDT 2026 ----
+---- [53] ansys_p4_epsrel_ff_lanb_h15_scboth_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_ff_lanb_h15_scboth_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_ff_lanb_h15_scboth_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [54] ansys_p4_zp4_ff_oc_h112_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_zp4_ff_oc_h112_e31m_2) -- Thu Sep 24 16:45:00 CDT 2026 ----
+---- [54] ansys_p4_zp4_ff_oc_h112_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_zp4_ff_oc_h112_e31m_2026-09-24_out.txt, sentinel=ansys_p4_zp4_ff_oc_h112_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [55] ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_zp4_ff_sc_h112_e31m_2) -- Thu Sep 24 16:45:06 CDT 2026 ----
+---- [55] ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24_out.txt, sentinel=ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [56] ansys_p4_zp4_ff_oc_h18_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_zp4_ff_oc_h18_e31m_20) -- Thu Sep 24 16:45:12 CDT 2026 ----
+---- [56] ansys_p4_zp4_ff_oc_h18_e31m_2026-09-24.inp : OK (5s), wrote ansys_p4_zp4_ff_oc_h18_e31m_2026-09-24_out.txt, sentinel=ansys_p4_zp4_ff_oc_h18_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [57] ansys_p4_zp4_ff_sc_h18_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_zp4_ff_sc_h18_e31m_20) -- Thu Sep 24 16:45:17 CDT 2026 ----
+---- [57] ansys_p4_zp4_ff_sc_h18_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_zp4_ff_sc_h18_e31m_2026-09-24_out.txt, sentinel=ansys_p4_zp4_ff_sc_h18_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [58] ansys_p4_zp4_ff_oc_h15_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_zp4_ff_oc_h15_e31m_20) -- Thu Sep 24 16:45:23 CDT 2026 ----
+---- [58] ansys_p4_zp4_ff_oc_h15_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_zp4_ff_oc_h15_e31m_2026-09-24_out.txt, sentinel=ansys_p4_zp4_ff_oc_h15_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [59] ansys_p4_zp4_ff_sc_h15_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_zp4_ff_sc_h15_e31m_20) -- Thu Sep 24 16:45:29 CDT 2026 ----
+---- [59] ansys_p4_zp4_ff_sc_h15_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_zp4_ff_sc_h15_e31m_2026-09-24_out.txt, sentinel=ansys_p4_zp4_ff_sc_h15_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [60] ansys_p4_harm_ff_y_v2_h112_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_harm_ff_y_v2_h112_e31) -- Thu Sep 24 16:45:35 CDT 2026 ----
+---- [60] ansys_p4_harm_ff_y_v2_h112_e31m_2026-09-24.inp : OK (7s), wrote ansys_p4_harm_ff_y_v2_h112_e31m_2026-09-24_out.txt, sentinel=ansys_p4_harm_ff_y_v2_h112_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [61] ansys_p4_epsrel_cf_lanb_oc_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_cf_lanb_oc_e31) -- Thu Sep 24 16:45:42 CDT 2026 ----
+---- [61] ansys_p4_epsrel_cf_lanb_oc_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_cf_lanb_oc_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_cf_lanb_oc_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [62] ansys_p4_epsrel_cf_lanb_scboth_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_epsrel_cf_lanb_scboth) -- Thu Sep 24 16:45:48 CDT 2026 ----
+---- [62] ansys_p4_epsrel_cf_lanb_scboth_e31m_2026-09-24.inp : OK (6s), wrote ansys_p4_epsrel_cf_lanb_scboth_e31m_2026-09-24_out.txt, sentinel=ansys_p4_epsrel_cf_lanb_scboth_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [63] ansys_p4_3d_h112_sc_coarse_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_3d_h112_sc_coarse_e31) -- Thu Sep 24 16:45:54 CDT 2026 ----
+---- [63] ansys_p4_3d_h112_sc_coarse_e31m_2026-09-24.inp : OK (18s), wrote ansys_p4_3d_h112_sc_coarse_e31m_2026-09-24_out.txt, sentinel=ansys_p4_3d_h112_sc_coarse_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [64] ansys_p4_3d_h112_sc_fine_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_3d_h112_sc_fine_e31m_) -- Thu Sep 24 16:46:12 CDT 2026 ----
+---- [64] ansys_p4_3d_h112_sc_fine_e31m_2026-09-24.inp : OK (97s), wrote ansys_p4_3d_h112_sc_fine_e31m_2026-09-24_out.txt, sentinel=ansys_p4_3d_h112_sc_fine_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [65] ansys_p4_3d_h112_oc_fine_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_3d_h112_oc_fine_e31m_) -- Thu Sep 24 16:47:49 CDT 2026 ----
+---- [65] ansys_p4_3d_h112_oc_fine_e31m_2026-09-24.inp : OK (98s), wrote ansys_p4_3d_h112_oc_fine_e31m_2026-09-24_out.txt, sentinel=ansys_p4_3d_h112_oc_fine_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [66] ansys_p4_3d_h15_sc_coarse_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_3d_h15_sc_coarse_e31m) -- Thu Sep 24 16:49:27 CDT 2026 ----
+---- [66] ansys_p4_3d_h15_sc_coarse_e31m_2026-09-24.inp : OK (18s), wrote ansys_p4_3d_h15_sc_coarse_e31m_2026-09-24_out.txt, sentinel=ansys_p4_3d_h15_sc_coarse_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [67] ansys_p4_3d_h15_sc_fine_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_3d_h15_sc_fine_e31m_2) -- Thu Sep 24 16:49:45 CDT 2026 ----
+---- [67] ansys_p4_3d_h15_sc_fine_e31m_2026-09-24.inp : OK (99s), wrote ansys_p4_3d_h15_sc_fine_e31m_2026-09-24_out.txt, sentinel=ansys_p4_3d_h15_sc_fine_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [68] ansys_p4_3d_h15_oc_fine_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_3d_h15_oc_fine_e31m_2) -- Thu Sep 24 16:51:24 CDT 2026 ----
+---- [68] ansys_p4_3d_h15_oc_fine_e31m_2026-09-24.inp : OK (101s), wrote ansys_p4_3d_h15_oc_fine_e31m_2026-09-24_out.txt, sentinel=ansys_p4_3d_h15_oc_fine_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [69] ansys_p4_liudisk2_sc_C_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_liudisk2_sc_C_e31m_20) -- Thu Sep 24 16:53:05 CDT 2026 ----
+---- [69] ansys_p4_liudisk2_sc_C_e31m_2026-09-24.inp : OK (19s), wrote ansys_p4_liudisk2_sc_C_e31m_2026-09-24_out.txt, sentinel=ansys_p4_liudisk2_sc_C_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [70] ansys_p4_liudisk2_sc_S_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p4_liudisk2_sc_S_e31m_20) -- Thu Sep 24 16:53:24 CDT 2026 ----
+---- [70] ansys_p4_liudisk2_sc_S_e31m_2026-09-24.inp : OK (19s), wrote ansys_p4_liudisk2_sc_S_e31m_2026-09-24_out.txt, sentinel=ansys_p4_liudisk2_sc_S_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [71] ansys_p5_epsrel_ff_lanb_oc_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5_epsrel_ff_lanb_oc_e31) -- Thu Sep 24 16:53:43 CDT 2026 ----
+---- [71] ansys_p5_epsrel_ff_lanb_oc_e31m_2026-09-24.inp : OK (6s), wrote ansys_p5_epsrel_ff_lanb_oc_e31m_2026-09-24_out.txt, sentinel=ansys_p5_epsrel_ff_lanb_oc_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [72] ansys_p5_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5_epsrel_ff_lanb_scboth) -- Thu Sep 24 16:53:49 CDT 2026 ----
+---- [72] ansys_p5_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp : OK (6s), wrote ansys_p5_epsrel_ff_lanb_scboth_e31m_2026-09-24_out.txt, sentinel=ansys_p5_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [73] ansys_p6_sector_sc_coarse_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p6_sector_sc_coarse_e31m) -- Thu Sep 24 16:53:55 CDT 2026 ----
+---- [73] ansys_p6_sector_sc_coarse_e31m_2026-09-24.inp : OK (10s), wrote ansys_p6_sector_sc_coarse_e31m_2026-09-24_out.txt, sentinel=ansys_p6_sector_sc_coarse_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [74] ansys_p6_sector_sc_fine_e31m_2026-09-24.inp : RUNNING (mapdl -np 8 -j p6_sector_sc_fine_e31m_2) -- Thu Sep 24 16:54:05 CDT 2026 ----
+---- [74] ansys_p6_sector_sc_fine_e31m_2026-09-24.inp : OK (64s), wrote ansys_p6_sector_sc_fine_e31m_2026-09-24_out.txt, sentinel=ansys_p6_sector_sc_fine_e31m_2026-09-24.inp.QUEUE_OK ----
+
+---- [75] ansys_p5seg_e31m_c73_m40_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_e31m_c73_m40_2026_) -- Thu Sep 24 16:55:09 CDT 2026 ----
+---- [75] ansys_p5seg_e31m_c73_m40_2026-09-24.inp : OK (6s), wrote ansys_p5seg_e31m_c73_m40_2026-09-24_out.txt, sentinel=ansys_p5seg_e31m_c73_m40_2026-09-24.inp.QUEUE_OK ----
+
+---- [76] ansys_p5seg_e31m_c73_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_e31m_c73_m80_2026_) -- Thu Sep 24 16:55:15 CDT 2026 ----
+---- [76] ansys_p5seg_e31m_c73_m80_2026-09-24.inp : OK (6s), wrote ansys_p5seg_e31m_c73_m80_2026-09-24_out.txt, sentinel=ansys_p5seg_e31m_c73_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [77] ansys_p5seg_e31m_c73_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_e31m_c73_m160_2026) -- Thu Sep 24 16:55:21 CDT 2026 ----
+---- [77] ansys_p5seg_e31m_c73_m160_2026-09-24.inp : OK (8s), wrote ansys_p5seg_e31m_c73_m160_2026-09-24_out.txt, sentinel=ansys_p5seg_e31m_c73_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [78] ansys_p5seg_e31m_c26_m40_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_e31m_c26_m40_2026_) -- Thu Sep 24 16:55:29 CDT 2026 ----
+---- [78] ansys_p5seg_e31m_c26_m40_2026-09-24.inp : OK (6s), wrote ansys_p5seg_e31m_c26_m40_2026-09-24_out.txt, sentinel=ansys_p5seg_e31m_c26_m40_2026-09-24.inp.QUEUE_OK ----
+
+---- [79] ansys_p5seg_e31m_c26_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_e31m_c26_m80_2026_) -- Thu Sep 24 16:55:35 CDT 2026 ----
+---- [79] ansys_p5seg_e31m_c26_m80_2026-09-24.inp : OK (6s), wrote ansys_p5seg_e31m_c26_m80_2026-09-24_out.txt, sentinel=ansys_p5seg_e31m_c26_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [80] ansys_p5seg_e31m_c26_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_e31m_c26_m160_2026) -- Thu Sep 24 16:55:41 CDT 2026 ----
+---- [80] ansys_p5seg_e31m_c26_m160_2026-09-24.inp : OK (8s), wrote ansys_p5seg_e31m_c26_m160_2026-09-24_out.txt, sentinel=ansys_p5seg_e31m_c26_m160_2026-09-24.inp.QUEUE_OK ----
+
+================================================================
+  QUEUE SUMMARY -- Thu Sep 24 16:55:49 CDT 2026  (total wall: 17 min)
+================================================================
+  ansys_p5mix_e31m_ff_c73_m80_2026-09-24.inp : OK (7s)
+  ansys_p5mix_e31m_ff_c73_m160_2026-09-24.inp : OK (8s)
+  ansys_p5mix_e31m_ff_c73_m320_2026-09-24.inp : OK (15s)
+  ansys_p5mix_e31m_ff_c26_m80_2026-09-24.inp : OK (6s)
+  ansys_p5mix_e31m_ff_c26_m160_2026-09-24.inp : OK (8s)
+  ansys_p5mix_e31m_ff_c26_m320_2026-09-24.inp : OK (13s)
+  ansys_p5mix_e31m_cc_c73_m80_2026-09-24.inp : OK (6s)
+  ansys_p5mix_e31m_cc_c73_m160_2026-09-24.inp : OK (7s)
+  ansys_p5mix_e31m_cc_c73_m320_2026-09-24.inp : OK (14s)
+  ansys_p5mix_e31m_cc_c26_m80_2026-09-24.inp : OK (6s)
+  ansys_p5mix_e31m_cc_c26_m160_2026-09-24.inp : OK (8s)
+  ansys_p5mix_e31m_cc_c26_m320_2026-09-24.inp : OK (14s)
+  ansys_p5mix_e31m_cf_c73_m80_2026-09-24.inp : OK (6s)
+  ansys_p5mix_e31m_cf_c73_m160_2026-09-24.inp : OK (8s)
+  ansys_p5mix_e31m_cf_c73_m320_2026-09-24.inp : OK (14s)
+  ansys_p5mix_e31m_cf_c26_m80_2026-09-24.inp : OK (6s)
+  ansys_p5mix_e31m_cf_c26_m160_2026-09-24.inp : OK (8s)
+  ansys_p5mix_e31m_cf_c26_m320_2026-09-24.inp : OK (14s)
+  ansys_p5mix_e31m_fc_c73_m80_2026-09-24.inp : OK (6s)
+  ansys_p5mix_e31m_fc_c73_m160_2026-09-24.inp : OK (8s)
+  ansys_p5mix_e31m_fc_c73_m320_2026-09-24.inp : OK (14s)
+  ansys_p5mix_e31m_fc_c26_m80_2026-09-24.inp : OK (6s)
+  ansys_p5mix_e31m_fc_c26_m160_2026-09-24.inp : OK (8s)
+  ansys_p5mix_e31m_fc_c26_m320_2026-09-24.inp : OK (14s)
+  ansys_pcm_p41_sc_m80_2026-09-24.inp : OK (6s)
+  ansys_pcm_p41_sc_m160_2026-09-24.inp : OK (8s)
+  ansys_pcm_p41_oc_m80_2026-09-24.inp : OK (6s)
+  ansys_pcm_p41_oc_m160_2026-09-24.inp : OK (8s)
+  ansys_pcm_p41_harm_m80_2026-09-24.inp : OK (6s)
+  ansys_pcm_p41_harm_m160_2026-09-24.inp : OK (8s)
+  ansys_pcm_m41_sc_m80_2026-09-24.inp : OK (6s)
+  ansys_pcm_m41_sc_m160_2026-09-24.inp : OK (8s)
+  ansys_pcm_m41_oc_m80_2026-09-24.inp : OK (6s)
+  ansys_pcm_m41_oc_m160_2026-09-24.inp : OK (8s)
+  ansys_pcm_m41_harm_m80_2026-09-24.inp : OK (6s)
+  ansys_pcm_m41_harm_m160_2026-09-24.inp : OK (8s)
+  ansys_parashar_ff_sc_m60_2026-09-24.inp : OK (6s)
+  ansys_parashar_ff_sc_m120_2026-09-24.inp : OK (10s)
+  ansys_parashar_ff_e0_m120_2026-09-24.inp : OK (11s)
+  ansys_parashar_cf_sc_m60_2026-09-24.inp : OK (6s)
+  ansys_parashar_cf_sc_m120_2026-09-24.inp : OK (7s)
+  ansys_parashar_cf_e0_m120_2026-09-24.inp : OK (8s)
+  ansys_p4_epsrel_ff_lanb_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_epsrel_ff_subsp_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_epsrel_cc_lanb_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_epsrel_ff_lanb_h18_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_epsrel_ff_lanb_h15_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_epsrel_ff_lanb_oc_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_epsrel_ff_lanb_h18_oc_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_epsrel_ff_lanb_h18_scboth_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_epsrel_ff_lanb_h15_oc_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_epsrel_ff_lanb_h15_scboth_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_zp4_ff_oc_h112_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_zp4_ff_sc_h112_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_zp4_ff_oc_h18_e31m_2026-09-24.inp : OK (5s)
+  ansys_p4_zp4_ff_sc_h18_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_zp4_ff_oc_h15_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_zp4_ff_sc_h15_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_harm_ff_y_v2_h112_e31m_2026-09-24.inp : OK (7s)
+  ansys_p4_epsrel_cf_lanb_oc_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_epsrel_cf_lanb_scboth_e31m_2026-09-24.inp : OK (6s)
+  ansys_p4_3d_h112_sc_coarse_e31m_2026-09-24.inp : OK (18s)
+  ansys_p4_3d_h112_sc_fine_e31m_2026-09-24.inp : OK (97s)
+  ansys_p4_3d_h112_oc_fine_e31m_2026-09-24.inp : OK (98s)
+  ansys_p4_3d_h15_sc_coarse_e31m_2026-09-24.inp : OK (18s)
+  ansys_p4_3d_h15_sc_fine_e31m_2026-09-24.inp : OK (99s)
+  ansys_p4_3d_h15_oc_fine_e31m_2026-09-24.inp : OK (101s)
+  ansys_p4_liudisk2_sc_C_e31m_2026-09-24.inp : OK (19s)
+  ansys_p4_liudisk2_sc_S_e31m_2026-09-24.inp : OK (19s)
+  ansys_p5_epsrel_ff_lanb_oc_e31m_2026-09-24.inp : OK (6s)
+  ansys_p5_epsrel_ff_lanb_scboth_e31m_2026-09-24.inp : OK (6s)
+  ansys_p6_sector_sc_coarse_e31m_2026-09-24.inp : OK (10s)
+  ansys_p6_sector_sc_fine_e31m_2026-09-24.inp : OK (64s)
+  ansys_p5seg_e31m_c73_m40_2026-09-24.inp : OK (6s)
+  ansys_p5seg_e31m_c73_m80_2026-09-24.inp : OK (6s)
+  ansys_p5seg_e31m_c73_m160_2026-09-24.inp : OK (8s)
+  ansys_p5seg_e31m_c26_m40_2026-09-24.inp : OK (6s)
+  ansys_p5seg_e31m_c26_m80_2026-09-24.inp : OK (6s)
+  ansys_p5seg_e31m_c26_m160_2026-09-24.inp : OK (8s)
+
+  total=80  ok=80  skip=0  fail=0
+End: Thu Sep 24 16:55:49 CDT 2026
+==> score_p5mix_e31m_fe_2026-09-24.txt <==
+  FC  c44_26  in_125    free     0.9945..1.0010   0.9945..1.0010   ok      BOTH
+
+VERDICT: CORRECTED -- kappa carries over to C-C, C-F and F-C at both c44 (F-F control reproduced)
+
+==> score_pcm_fe_2026-09-24.txt <==
+  gates: {'cls': True, 'fr': True, 'fa': True, 'split': True, 'mesh': True, 'static': True, 'harm': True}
+
+VERDICT: CONFIRMED -- thin-plate contour model matches FE at both e31 signs
+
+==> score_parashar_fe_2026-09-24.txt <==
+
+G_mesh (m60 vs m120 within 0.2%): PASS
+VERDICT: {'ff': 'NEITHER', 'cf': 'MODEL'}
+
+==> score_p5seg_e31m_fe_2026-09-24.txt <==
+
+G_mesh (m80 vs m160 within 1%): PASS
+VERDICT: CORRECTED -- e15 shear term confirmed at both c44
+Download: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/results_2026-09-24b_2532086.zip

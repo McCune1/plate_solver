@@ -1,0 +1,2692 @@
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2025 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2025 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+
+ AFTER YOU HAVE READ, UNDERSTOOD, AND AGREED TO THE PREVIOUS NOTICES,
+ PRESS <CR> OR <ENTER> TO CONTINUE
+ 2025 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2025 R1 
+ AVxcelerate Sensors 2025 R1 
+ AVxcelerate Sensors Library for SCANeR 2025 R1  
+ AVxcelerate Sensors Library for CarMaker 2025 R1
+ TwinAI 2025 R1  
+ Electromagnetics Suite 2025 R1  
+ Electromagnetics RSM 2025 R1
+ Ansys Dynamic Reporting 2025 R1 
+ Core WB Files 2025 R1   
+ BladeModeler 2025 R1
+ CFD-Post only 2025 R1   
+ CFX (includes CFD-Post) 2025 R1 
+ Chemkin 2025 R1 
+ EnSight 2025 R1 
+ FENSAP-ICE 2025 R1  
+ Fluent (includes CFD-Post) 2025 R1  
+ Polyflow (includes CFD-Post) 2025 R1
+ Forte (includes EnSight) 2025 R1
+ ICEM CFD 2025 R1
+ Rocky 2025 R1   
+ TurboGrid 2025 R1   
+ Lumerical 2025 R1   
+ Lumerical Photonic Verilog-A 2025 R1
+ Speos HPC 2025 R1   
+ Speos RPC 2025 R1   
+ optiSLang 2025 R1   
+ Remote Solve Manager Standalone Services 2025 R1
+ Additive 2025 R1
+ Aqwa 2025 R1
+ Autodyn 2025 R1 
+ Customization Files for User Programmable Features 2025 R1  
+ LS-DYNA 2025 R1 
+ Mechanical Products 2025 R1 
+ Motion 2025 R1  
+ Sherlock 2025 R1
+ ACIS Geometry Interface 2025 R1 
+ Catia, Version 5 Geometry Interface 2025 R1 
+ Parasolid Geometry Interface 2025 R1
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = p4_harm_ff_y_v3_h112_e31                                                                                                                                                                                                                                
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  SHARED MEMORY PARALLEL REQUESTED
+    SINGLE PROCESS WITH   8 THREADS REQUESTED
+    TOTAL OF     8 CORES REQUESTED
+  INPUT FILE NAME              = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p4_harm_ff_y_v3_h112_e31m_2026-09-24.inp
+  OUTPUT FILE NAME             = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p4_harm_ff_y_v3_h112_e31m_2026-09-24_out.txt
+
+ RELEASE= 2025 R1              BUILD= 25.1      UP20241202   VERSION=LINUX x64   
+ CURRENT JOBNAME=p4_harm_ff_y_v3_h112_e31  18:42:36  SEP 24, 2026 CP=      0.293
+
+     1  ! ansys_p4_harm_ff_y_v3_h112_e31m_2026-09-24.inp
+     2  ! v3 of the e31 = -4.1 admittance clone (LESSONS Sec 18.245): the only change   
+     3  ! from ansys_p4_harm_ff_y_v2_h112_e31m_2026-09-24.inp is the sweep window,  
+     4  ! 118.50-120.20 Hz / 35 substeps -> 118.50-122.00 Hz / 70 substeps (same
+     5  ! 0.05 Hz spacing), because at -4.1 the admittance zero (OC root, model 
+     6  ! 121.37 Hz x FE offset ~ 121.13 Hz) lies above the old window. Outputs 
+     7  ! renamed *_e31m_v3. Post arrays resized: NROW 37 -> 72, NSBLIST(1) 35 -> 70.   
+     8  ! ansys_p4_harm_ff_y_v2_h112_e31m_2026-09-24.inp
+     9  ! e31 SIGN CLONE (2026-09-24, clone_e31m_decks_2026-09-24.py, LESSONS Sec 18.244).  
+    10  ! Parent: ansys_p4_harm_ff_y_v2_h112_2026-09-16.inp. Only changes: E31 = -4.1E-3 (Liu 2002 / Duan 2005  
+    11  ! Table 1 as printed) and every *CFOPEN output name + '_e31m'.  
+    12  ! Targets quoted in the parent header below are the OLD +4.1 values.
+    13  ! Do not put the MAPDL failure token in this file.  
+    14  ! ansys_p4_ff_piezo_ring_2026-09-15.inp 
+    15  ! Paper 4 (piezoelectric ring) -- first FE cross-check deck for the F-F 
+    16  ! (free-free) piezo-coupled LAYERED annular ring, p=0 (axisymmetric),   
+    17  ! h1/2h=1/12. Written 2026-09-15, same session as LESSONS_LEARNED.md
+    18  ! Sec 18.149 (F-F derivation + validation) and the sibling scripts  
+    19  ! probe_piezo_p4_ff_forward_model_2026-09-15.py /   
+    20  ! probe_piezo_p4_elastic_ff_baseline_2026-09-15.py. 
+    21  !   
+    22  ! ============================================================  
+    23  !   
+    24  ! ============================================================  
+    25  ! UNITS RESCALE (2026-09-16), following LESSONS_LEARNED.md Sec 18.161's 
+    26  ! "next concrete step, not yet attempted": a from-scratch, validated,   
+    27  ! consistent unit-system rescale of the whole piezo deck family, to 
+    28  ! shrink the ~20-order-of-magnitude spread between the mechanical block 
+    29  ! (order 1E9-1E13 in SI Pa-based units) and the electrical/piezoelectric
+    30  ! block (permittivity order 1E-9 F/m) that five independent cheap-lever 
+    31  ! probes (jobs 2490482, 2490571/2490582, 2490583) could not resolve.
+    32  !   
+    33  ! CHOSEN SYSTEM: mm - N - s - tonne (mechanical), REAL VOLTS (electrical
+    34  ! potential unchanged). This is NOT an arbitrary or guessed choice -- it
+    35  ! is the one non-SI system where the force unit N and the time unit s   
+    36  ! are UNCHANGED from SI (since tonne*mm/s^2 = 1000kg*1e-3m/s^2 = kg*m/s^2   
+    37  ! = N exactly), which is why frequencies (1/s) come out in real Hz with 
+    38  ! zero further conversion, and it is the standard "mm-N-s-tonne" system 
+    39  ! already ubiquitous in mm-scale FE work (ANSYS/LS-DYNA/Abaqus alike).  
+    40  !   
+    41  ! DERIVATION (first principles, cross-checked 3 independent ways -- T-  
+    42  ! equation substitution, electromechanical energy-density bookkeeping,  
+    43  ! and base-unit/derived-charge-unit substitution -- all three agree):   
+    44  !   
+    45  !  length      L' = L[m] * 1000                      (m -> mm)  
+    46  !  mass        M' = M[kg] * 1e-3                      (kg -> tonne; 
+    47  !                                                       DERIVED, not
+    48  !                                                       independently   
+    49  !                                                       chosen, from
+    50  !                                                       F=ma consistency)   
+    51  !  density     rho' = rho[kg/m^3] * 1e-12             (kg/m^3 -> tonne/mm^3)
+    52  !  stress/     E' = E[Pa] * 1e-6                       (Pa -> MPa = N/mm^2; 
+    53  !  modulus                                             an exact, always-
+    54  !                                                       valid physical  
+    55  !                                                       unit conversion)
+    56  !  potential   V' = V[Volt]  (UNCHANGED -- our deliberate choice, so
+    57  !                              VOLT dof / D,ALL,VOLT,0 BCs stay literal,
+    58  !                              physical volts, no BC rewriting needed)  
+    59  !  el. field   E_field'[V/mm] = E_field[V/m] * 1e-3   (implied by the   
+    60  !                              geometry now being in mm; not a material 
+    61  !                              constant, so nothing to type in directly)
+    62  !  ABS.        eps' = eps[F/m]  UNCHANGED NUMERICALLY. Proof: F/m, fully
+    63  !  PERMITTIVITY decomposed into base units, is F/m = (C^2/(N*m))/m =
+    64  !  (MP,PERx)   C^2/(N*m^2); substituting the SI identity C = N*m/V (from
+    65  !              V=J/C, J=N*m) gives C^2/(N*m^2) = N/V^2 -- the "m" cancels   
+    66  !              EXACTLY, so absolute permittivity has NO net length  
+    67  !              dependence once expressed in N and V (which are both 
+    68  !              unchanged in this system) -- confirmed independently by  
+    69  !              the energy-density route (T-form energy density (1/2)eps*
+    70  !              E^2 must equal (1/2)eps'*E'^2 once both are expressed in 
+    71  !              the new energy-density unit MPa=mJ/mm^3, and E'=E*1e-3   
+    72  !              exactly cancels the implied 1e-6 from Pa->MPa against
+    73  !              eps' = eps, i.e. no eps rescale needed). 
+    74  !  PIEZO e-    e' = e[C/m^2] * 1e-3. Derived from the T-equation
+    75  !  CONSTANT    T = c:S - e^T:E: converting T and c from Pa to MPa (each 
+    76  !  (TB,PIEZ,   x1e-6) and E from V/m to V/mm (x1e-3, i.e. E=E'*1e3),
+    77  !  TBDATA,     T'*1e6 = c'*1e6*S - e*(E'*1e3)  =>  T' = c'*S - (e*1e-3)*E'  
+    78  !  stress form)  => e' = e*1e-3. Independently re-derived via the   
+    79  !              charge-unit-substitution method (deriving the coherent   
+    80  !              charge unit Q* implied by keeping real Volts and mJ=N*mm 
+    81  !              energy, Q*=1e-3 C, then re-expressing C/m^2 in Q*/mm^2)  
+    82  !              -- both methods agree exactly: e' = e[C/m^2] * 1e-3. 
+    83  !  length      any PURE length tolerance (e.g. NUMMRG's node-merge  
+    84  !  tolerance   distance) is rescaled x1000 like any other length, e.g.  
+    85  !              1.0E-8 m -> 1.0E-5 mm.   
+    86  !   
+    87  ! NOT hand-derived from an "empirical" ABAQUS-forum factor (the risk the
+    88  ! session notes flagged) -- every factor above follows from ANSYS's own 
+    89  ! documented TB,PIEZ constitutive form (T=c:S-e^T:E, D=e:S+eps^S:E, 
+    90  ! stress-form default TBOPT, already independently confirmed correct in 
+    91  ! Sec 18.157) and ordinary SI dimensional analysis, not a borrowed number.  
+    92  !   
+    93  ! VALIDATION STAGING (per the ground rules -- do NOT trust a coupled
+    94  ! result in the new units before these pass): this submission batches   
+    95  ! the bare-host elastic-only deck and the piezo-coupling-off deck   
+    96  ! rescaled into these SAME units FIRST. Both are purely mechanical  
+    97  ! eigenvalue problems (piezo-coupling-off has e=0 everywhere, so its
+    98  ! VOLT dof is present but completely decoupled from the mechanical  
+    99  ! modes) -- their frequencies are mathematically GUARANTEED invariant   
+   100  ! under any internally-consistent unit rescaling, so they are a real
+   101  ! check on the ARITHMETIC of this conversion (did every E, rho, C_ij
+   102  ! actually get rescaled correctly), not on the physics. Confirmation
+   103  ! criteria: (a) rescaled bare-host mode 2 must reproduce 114.89 Hz  
+   104  ! (job 2490363's own result) to at least 4 significant figures -- NOT   
+   105  ! merely "close to 115.68 Hz", since a few-percent FE-discretization
+   106  ! gap is expected and already characterized, but ANY unit-conversion
+   107  ! arithmetic error would show up as a gap much larger than that 
+   108  ! already-known discretization error, or as a wildly wrong number; (b)  
+   109  ! rescaled piezo-coupling-off mode 2 must reproduce 118.81016 Hz (job   
+   110  ! 2490456's own result) to at least 4 significant figures, same 
+   111  ! reasoning. If EITHER fails, the units arithmetic (not the physics) is 
+   112  ! wrong and the FIX-v6-coupled result below must not be trusted.
+   113  !   
+   114  ! ONLY once (a) and (b) both pass does the coupled result below become  
+   115  ! trustworthy: mode 2 should land near 119.058 Hz (closed-form target)  
+   116  ! with a real O(0.1-1)-magnitude bending discriminator and the exact 0 Hz   
+   117  ! rigid-body mode should reappear, if the ~20-order-of-magnitude SI-units   
+   118  ! disparity really was the root cause of the catastrophic ill-  
+   119  ! conditioning (residual 4.15E+02 at full coupling, job 2490482).   
+   120  ! ============================================================  
+   121  ! WHY THIS DECK: no literature F-F piezo benchmark exists (LESSONS_LEARNED  
+   122  ! Sec 18.144 Finding 2 -- confirmed again, not re-litigated here), so FE is 
+   123  ! the ONLY external validation channel available for the F-F piezo-coupled  
+   124  ! forward model, per PAPER4_PIEZO_ROADMAP.md Sec 8 step 3. This is the  
+   125  ! layered-ring FE cross-check the C-C side never needed (C-C had Duan2005   
+   126  ! Table 4 to check against directly) and the disk smoke deck
+   127  ! (ansys_piezo_disk_modal_plane223.inp) was NOT (monolithic disk, different 
+   128  ! geometry, no benchmark target either -- see that deck's own header).  
+   129  !   
+   130  ! TARGET TO CHECK AGAINST: probe_piezo_p4_ff_forward_model_2026-09-15.py's  
+   131  ! own p=0, h1/2h=1/12 result: omega=747.9929 rad/s => f=119.058 Hz. This
+   132  ! deck's job is to find a genuine FE flexural mode near that frequency, not 
+   133  ! to blindly trust whichever mode number happens to fall near it -- see the 
+   134  ! MODE-SHAPE DISCRIMINATOR note below, this matters because a layered   
+   135  ! axisymmetric solid mesh mixes flexural (bending) and extensional  
+   136  ! (breathing/radial) mode families in one spectrum, unlike the pure-
+   137  ! bending Kirchhoff theory this project's own solver assumes.   
+   138  !   
+   139  ! GEOMETRY: layered annular ring, R_i=0.1 m, R_o=0.6 m (Duan2005 Table 4's  
+   140  ! own target), steel host |z|<=h (h=0.01, Duan's own half-thickness 
+   141  ! symbol), PZT4 piezo layers bonded symmetrically on both faces,
+   142  ! h<=z<=h+h1 and mirror -h-h1<=z<=-h, h1=2h/12 (Table-4 ratio 1/12).
+   143  ! TRUE FREE-FREE: since R_i=0.1 > 0, the ring does NOT touch the axis of
+   144  ! revolution, so (unlike the disk smoke deck, which needed UX=0 at r=0 to   
+   145  ! suppress the on-axis singularity) NO mechanical constraint is applied 
+   146  ! anywhere -- this is a genuinely unconstrained modal solve. Expect rigid-  
+   147  ! body translation (and, if p>0 were modeled, rotation) modes near f=0 Hz   
+   148  ! at the bottom of the spectrum; these are correct, not a bug (same 
+   149  ! precedent as the disk smoke deck's own mode-1-at-0-Hz note).  
+   150  !   
+   151  ! ELEMENT/MATERIAL STRATEGY: ONE element type (PLANE223, KEYOPT(1)=1001,
+   152  ! KEYOPT(3)=1 axisymmetric) used for BOTH the steel host AND the PZT4   
+   153  ! layers, with two different material IDs -- NOT two different element  
+   154  ! types -- specifically so the host/piezo interface line shares nodes   
+   155  ! naturally through ordinary area meshing (no manual node-merging step, 
+   156  ! no mismatched-DOF-set interface to debug). The steel material gets the
+   157  ! piezoelectric (TB,PIEZ) terms all zero and a small nominal permittivity   
+   158  ! (not exactly zero -- an exactly-zero diagonal permittivity would leave
+   159  ! VOLT undefined/singular at any node touching ONLY steel elements) so  
+   160  ! every node in the mesh carries a well-posed VOLT dof, even though VOLT
+   161  ! is physically meaningless in the steel region (e=0 there, so it never 
+   162  ! couples to anything mechanical) -- this mirrors how coupled-field meshes  
+   163  ! with an inert region are conventionally built, not a project-specific 
+   164  ! trick.
+   165  !   
+   166  ! ELECTRICAL BC: DRIVEN 1 V (lever 9), not open-circuit and not 
+   167  ! both-faces SC. VOLT=0 on the host/piezo INTERFACE (z=+-h). Outer  
+   168  ! faces z=+-(h+h1) have D,VOLT,1.0 on every node (prescribed 1 V
+   169  ! bus). Do not re-open mesh/units/TB,PIEZ.  
+   170  !   
+   171  ! MODE-SHAPE DISCRIMINATOR (read the postprocessing section before  
+   172  ! trusting a specific mode number as "the" flexural mode): a genuine
+   173  ! p=0 axisymmetric BENDING mode has UY (axial = out-of-plane transverse 
+   174  ! displacement, matching this project's w) nearly the SAME SIGN AND 
+   175  ! MAGNITUDE through the thickness at a given r (Kirchhoff kinematics:   
+   176  ! uz=w(r), no z-dependence), while UX (radial, in-plane) has OPPOSITE   
+   177  ! SIGN top vs bottom (bending strain ur=-z*dw/dr, linear in z, flips sign   
+   178  ! through the mid-plane). A "breathing"/extensional mode is the reverse:
+   179  ! UX same sign top/bottom (uniform radial stretch), UY small/near-zero. 
+   180  ! The postprocessing block below prints UX and UY at matched top/bottom 
+   181  ! node pairs at the outer radius for every extracted mode specifically so   
+   182  ! this can be checked by eye against the printed table, rather than 
+   183  ! trusting mode order alone.
+   184  !   
+   185  ! STATUS (2026-09-15, UPDATED post-job-2490363 isolation test, FIX v4): 
+   186  ! FOUR runs of THIS deck so far (2489625, 2490219, 2490239 all byte-
+   187  ! identical nonphysical; 2490350 confirmed the v3 mesh fix correct --   
+   188  ! piezo layers 80/80 elements, warnings 85->2 -- but frequency barely   
+   189  ! moved, 3427->3422 Hz, still ~29x off 119.058 Hz target). The only 
+   190  ! remaining non-routine warning in 2490350's log was ANSYS's own
+   191  ! eigensolver ill-conditioning note. A SEPARATE bare-host isolation deck
+   192  ! (ansys_p4_ff_bare_host_smoke_2026-09-15.inp, no piezo/VOLT coupling at
+   193  ! all) then ran clean (job 2490363): 0 mesh warnings, NO ill-conditioning   
+   194  ! warning, mode 2 within 0.68% of its 115.68 Hz target, clean bending   
+   195  ! discriminator signature -- DECISIVELY ruling out geometry/meshing/
+   196  ! free-free-BC as the cause and narrowing the search to THIS deck's own 
+   197  ! piezo coupled-field/permittivity setup. FIX v4 applied below: X_INERT 
+   198  ! raised from 1.0E-15 to 1.0E-9 (same order of magnitude as the real
+   199  ! PZT4 X11/X33, not 6-7 orders below them) -- see the X_INERT definition
+   200  ! itself and LESSONS_LEARNED.md Sec 18.154 for the full rationale and   
+   201  ! pre-registered confirmation criteria. NOT YET RE-RUN. 
+   202  !   
+   203  ! STATUS UPDATE (2026-09-15, FIX v6, following the piezo-coupling-off   
+   204  ! isolation deck's DECISIVE PASS, job 2490456 -- LESSONS_LEARNED.md Sec 
+   205  ! 18.156): the elastic layered composite alone (TB,PIEZ,2 zeroed) lands 
+   206  ! at 118.81 Hz, 0.21% from the 119.058 Hz target -- conclusively
+   207  ! implicating THIS material's TB,PIEZ,2 TBDATA block as the sole
+   208  ! remaining cause. A from-scratch re-derivation of ANSYS's TB,PIEZ  
+   209  ! TBDATA convention (cross-checked against ANSYS's own coupled-field
+   210  ! docs AND an independent forum-posted worked example for a Y-poled 
+   211  ! material, both agreeing exactly) found the convention is: 18 values,  
+   212  ! grouped by STRESS/STRAIN ROW (x,y,z,xy,yz,zx -- 6 groups of 3), each  
+   213  ! group cycling the electric FIELD column (X,Y,Z) fastest -- i.e.   
+   214  ! TBDATA index = (stress_row-1)*3 + field_col. This deck's PREVIOUS 
+   215  ! block (and the disk-smoke deck's, ansys_piezo_disk_modal_plane223.inp,
+   216  ! it was copied from) instead filled TBDATA as if grouped by FIELD row  
+   217  ! (3 groups of 6, stress cycling fastest) -- the TRANSPOSE of ANSYS's   
+   218  ! actual matrix, an easy mistake for TB,PIEZ specifically since (unlike 
+   219  ! the symmetric TB,ANEL block, which this same deck gets right) the 
+   220  ! piezoelectric matrix is a non-square 6x3 and the row/column meaning   
+   221  ! is easy to invert. Read literally, the OLD block placed the response  
+   222  ! of the HOOP normal stress (row 3) to the RADIAL field (E31, should be 
+   223  ! exactly zero by transverse-isotropy symmetry) and to the POLING field 
+   224  ! (E33=14.1 instead of the correct E31=4.1, ~3.4x too large) -- while   
+   225  ! leaving ALL THREE of the physically dominant, active bending-relevant 
+   226  ! terms exactly zero: radial-normal-stress<->poling-field (E31, row 1), 
+   227  ! axial-normal-stress<->poling-field (E33, row 2), and the r-z bending  
+   228  ! shear<->radial-field term (E15, row 4, the only piezo term that   
+   229  ! directly couples to Kirchhoff-type bending shear). This fully accounts
+   230  ! for a spurious, physically nonsensical dominant electromechanical term
+   231  ! unrelated to true bending stiffness -- consistent with the observed   
+   232  ! ~29x frequency / ~840x apparent-stiffness anomaly, far beyond real
+   233  ! PZT4 coupling factors (k^2~0.3-0.7). FIX v6 (below): TB,PIEZ,2's  
+   234  ! TBDATA rewritten to the verified-correct layout -- nonzero at 
+   235  ! positions 2 (E31), 5 (E33), 8 (E31), 10 (E15); position 15 (E15) is   
+   236  ! the second, symmetric shear term but is kinematically inert here (no  
+   237  ! hoop displacement DOF in this axisymmetric, non-torsion element, same 
+   238  ! as rows 5/6 already being inert per the Sec 18.156 manual audit). 
+   239  ! PRE-REGISTERED CONFIRMATION CRITERIA for the next run: (a) mode 2 
+   240  ! should land close to the 119.058 Hz closed-form target -- given the   
+   241  ! coupling-off baseline is already 118.81 Hz (0.21% off), the genuine   
+   242  ! coupling-induced shift should be small (a fraction of a percent, NOT  
+   243  ! a jump to/near 3422 Hz); (b) the discriminator should show the same   
+   244  ! clean bending signature as job 2490456 (UY_top~=UY_bot, UX_top~=-UX_bot)  
+   245  ! at that mode, not the 1E-10-to-1E-17 noise floor seen in every prior  
+   246  ! coupled run; (c) no ill-conditioning warning (X_INERT=1.0E-9, FIX v4, 
+   247  ! is untouched by this fix and was already only a partial, unrelated
+   248  ! conditioning improvement -- see Sec 18.155). If (a)-(b) still fail,   
+   249  ! the index/orientation hypothesis itself is wrong and the search must  
+   250  ! move to the PZT4 constants' own values/units next, treating this  
+   251  ! index-convention fix as closed rather than re-litigating it. NOT YET  
+   252  ! RUN -- push to the cluster before the next sbatch submission. 
+   253  ! ============================================================  
+   254      
+   255  !   
+   256  ! ============================================================  
+   257  ! HARMONIC DRIVEN-Y CLONE (2026-09-16): PREP7 cloned from the   
+   258  ! cluster-confirmed h1/2h=1/12 OC modal parent (job 2491761).   
+   259  ! Mesh, mm-N-s-tonne, relative permittivity, FIX v6 TB,PIEZ,
+   260  ! free-free mechanical BC: UNCHANGED. Solution type is NEW  
+   261  ! (ANTYPE,HARMIC, not LANB).
+   262  !   
+   263  ! THIS DECK's electrical BC is the DRIVEN problem:  
+   264  !   inner electrodes (host/piezo interface, z=+-h): VOLT=0  
+   265  !   outer electrodes (z=+-(h+h1)): D,VOLT,1.0 on every outer node   
+   266  ! Analytic pole 119.047 Hz, zero 119.405 Hz (job 2491920). FE modal 
+   267  ! pair 118.811 / 119.143 Hz. Read the sweep CSV, never .QUEUE_OK.   
+   268  ! ============================================================  
+   269  !   
+   270  ! ============================================================  
+   271  ! LEVER 9 HARMONIC ADMITTANCE (2026-09-16): PREP7 cloned from   
+   272  ! the confirmed h1/2h=1/12 OC modal parent (job 2491761).   
+   273  ! Mesh/units/TB,PIEZ unchanged. NEW solution type: ANTYPE,  
+   274  ! HARMIC, driven 1 V on the outer bus. h1/2h=1/12 only. 
+   275  ! Analytic pole 119.047 Hz, zero 119.405 Hz (job 2491920).  
+   276  ! FE modal pair 118.811 / 119.143 Hz. Tiny DMPRAT=1e-4. 
+   277  ! PASS: RUN COMPLETED, 0 MAPDL error lines, |Y| peak then   
+   278  ! dip in 118.5-120.2 Hz with dip above peak. Read the CSV,  
+   279  ! never the queue script's own PASS/FAIL label. 
+   280  ! ============================================================  
+   281  !   
+   282  ! ============================================================  
+   283  ! LEVER 9 v2 (2026-09-16): dump fix of job 2494669. Same mesh,  
+   284  ! HARFRQ, DMPRAT, KEYOPT(1)=1001. Isolated changes: force label 
+   285  ! CHRG (not AMPS), OUTRES,RSOL, CP-master D,VOLT,1. PASS: RUN   
+   286  ! COMPLETED, 0 MAPDL error lines, |Y| peak then dip in  
+   287  ! 118.5-120.2 Hz with dip above peak, 80 Hz and 140 Hz finite   
+   288  ! and not ~1e-27. Read the CSV and PRRSOL block, never the  
+   289  ! queue script's own PASS/FAIL label.   
+   290  ! ============================================================  
+   291  FINISH  
+   292  /CLEAR,NOSTART  
+   293  /TITLE, Paper 4 F-F piezo ring EPSREL HARMIC driven Y v2 CHRG dump, p=0, h1/2h=1/12 (2026-09-16)
+   294      
+   295  ! ---- Geometry (SI units, meters) ---- 
+   296  RI     = 100.0  
+   297  RO     = 600.0  
+   298  H      = 10.0           ! host HALF-thickness [mm] (Duan2005's own h symbol)
+   299  H1     = 2*H/12         ! piezo layer thickness, Table-4 ratio 1/12 
+   300  NDIV_R = 40 
+   301  NDIV_ZH = 6              ! through-thickness divisions, host
+   302  NDIV_ZP = 2              ! through-thickness divisions, each piezo layer
+   303  NMODES = 20 
+   304      
+   305  ! ---- Steel host material (elastic only) ----  
+   306  E_STEEL   = 2.00E5      ! [MPa] = 200 GPa   
+   307  NU_STEEL  = 0.3 
+   308  RHO_STEEL = 7.800E-9    ! [tonne/mm^3]  
+   309      
+   310  ! ---- PZT4 piezo material, Duan2005 Table 1, IEEE z-poled convention ----  
+   311  C11E = 1.320E5          ! [MPa] 
+   312  C12E = 7.100E4          ! [MPa] 
+   313  C13E = 7.300E4          ! [MPa] 
+   314  C33E = 1.150E5          ! [MPa] 
+   315  C44E = 7.300E4          ! [MPa] 
+   316  C66E = (C11E-C12E)/2
+   317  E31  = -4.1E-3           ! [C/mm^2-equivalent, N/(V*mm)] (C/m^2 -> x1e-3, see units header)    ! e31 SIGN CLONE: was +4.1E-3
+   318  E33  = 1.41E-2          ! (x1e-3)   
+   319  E15  = 1.05E-2          ! (x1e-3)   
+   320  EPS0   = 8.854E-12       ! F/m. PLANE223 MP,PERx is RELATIVE, not absolute. 
+   321  X11ABS = 7.124E-9        ! Duan2005 Table 1 absolute F/m
+   322  X33ABS = 5.841E-9   
+   323  X11    = X11ABS/EPS0     ! ~804.8 relative  
+   324  X33    = X33ABS/EPS0     ! ~659.7 relative  
+   325  RHO_PZT = 7.500E-9      ! [tonne/mm^3]  
+   326      
+   327  ! Nominal inert permittivity for the steel region -- NOT physical, only 
+   328  ! keeps VOLT well-posed there (see header). The steel material's own
+   329  ! TB,PIEZ block is all-zero (e=0), so X_INERT's VALUE cannot mechanically   
+   330  ! couple to anything regardless of scale -- only VOLT-dof conditioning is   
+   331  ! affected. FIX v4 2026-09-15 (LESSONS_LEARNED Sec 18.154, following the
+   332  ! bare-host isolation deck's DECISIVE clean result, job 2490363, which  
+   333  ! ruled out geometry/meshing/free-free-BC entirely and narrowed the 
+   334  ! search to this permittivity scale): raised from 1.0E-15 to 1.0E-9,
+   335  ! the SAME ORDER OF MAGNITUDE as the real PZT4 values (X11=7.124E-9,
+   336  ! X33=5.841E-9) instead of ~6-7 orders of magnitude below them. ANSYS's 
+   337  ! own coupled-field modeling guidance for an inert region sharing a mesh
+   338  ! with a real piezo material is that the inert permittivity should not  
+   339  ! be many orders of magnitude smaller than the surrounding material,
+   340  ! since that scale mismatch is a textbook cause of the Block-Lanczos
+   341  ! ill-conditioning warning seen in job 2490350 ("relative residual from 
+   342  ! test linear solve: 9.147498E-02"). NOT YET RE-RUN -- see Sec 18.154   
+   343  ! for the full pre-registered confirmation criteria.
+   344  X_INERT = 1.0           ! relative (host VOLT well-posed). Was 1.0E-9 fed as if absolute.   
+   345      
+   346  !   
+   347  ! ============================================================  
+   348  ! EPSREL FIX (2026-09-16): PLANE223 MP,PERx is RELATIVE permittivity.   
+   349  ! Duan2005 Table 1 X11=7.124e-9 / X33=5.841e-9 are ABSOLUTE (F/m =  
+   350  ! eps_r * eps0). Parent UNITS_MM decks fed those F/m numbers to MP,PERX 
+   351  ! unchanged. Coupled-Field Guide 2.3.2.1: for PLANE223, MP,PERX and 
+   352  ! TB,DPER are ALWAYS relative. The SOLID5/SOLID98 "value<1 means
+   353  ! absolute" exception does NOT apply. Default EPZRO is left alone   
+   354  ! (8.85e-12 F/m); relative ~805 * EPZRO recovers the Duan absolute  
+   355  ! value, which is also the correct mm-N-s-tonne number (permittivity
+   356  ! is numerically invariant under that rescale). Host X_INERT is now a   
+   357  ! small relative value (1.0), not 1.0E-9-fed-as-relative. NOTHING else  
+   358  ! in the mesh, TB,PIEZ FIX v6, units, or electrical BC is changed   
+   359  ! unless a deck's own name says so (subsp / e0 / cc).   
+   360  ! ============================================================  
+   361  /PREP7  
+   362  ET,1,PLANE223   
+   363  KEYOPT,1,1,1001    ! structural-piezoelectric dof set (Table 223.2, sourced Sec 18.144) 
+   364  KEYOPT,1,3,1       ! axisymmetric (sourced Sec 18.144)  
+   365      
+   366  ! ---- Material 1: steel host, elastic only, inert electrical props ----
+   367  TB,ANEL,1,1,,0  
+   368  TBDATA,1, (E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0
+   369  TBDATA,7, (E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))), (E_STEEL*NU_STEEL/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0  
+   370  TBDATA,12,(E_STEEL*(1-NU_STEEL)/((1+NU_STEEL)*(1-2*NU_STEEL))),0,0,0
+   371  TBDATA,16,(E_STEEL/(2*(1+NU_STEEL))),0,0
+   372  TBDATA,19,(E_STEEL/(2*(1+NU_STEEL))),0  
+   373  TBDATA,21,(E_STEEL/(2*(1+NU_STEEL)))
+   374  TB,PIEZ,1   
+   375  TBDATA,1,0,0,0,0,0,0
+   376  TBDATA,7,0,0,0,0,0,0
+   377  TBDATA,13,0,0,0,0,0,0   
+   378  MP,PERX,1,X_INERT   
+   379  MP,PERY,1,X_INERT   
+   380  MP,PERZ,1,X_INERT   
+   381  MP,DENS,1,RHO_STEEL 
+   382      
+   383  ! ---- Material 2: PZT4 piezo layer (identical to the confirmed-working 
+   384  ! disk smoke deck's own material block -- ansys_piezo_disk_modal_   
+   385  ! plane223.inp -- copied unchanged, same axis-mapping citations apply) ---- 
+   386  TB,ANEL,2,1,,0  
+   387  TBDATA,1,C11E,C13E,C12E,0,0,0   
+   388  TBDATA,7,C33E,C13E,0,0,0
+   389  TBDATA,12,C11E,0,0,0
+   390  TBDATA,16,C44E,0,0  
+   391  TBDATA,19,C66E,0
+   392  TBDATA,21,C44E  
+   393  TB,PIEZ,2   
+   394  TBDATA,1,0,E31,0,0,E33,0
+   395  TBDATA,7,0,E31,0,E15,0,0
+   396  TBDATA,13,0,0,E15,0,0,0 
+   397  MP,PERX,2,X11   
+   398  MP,PERY,2,X33   
+   399  MP,PERZ,2,X11   
+   400  MP,DENS,2,RHO_PZT   
+   401      
+   402  ! ---- Geometry: three stacked rectangles (r x z), host + top/bottom piezo ---- 
+   403  RECTNG,RI,RO,-H,H              ! area 1: steel host 
+   404  RECTNG,RI,RO,H,H+H1            ! area 2: piezo top  
+   405  RECTNG,RI,RO,-H-H1,-H          ! area 3: piezo bottom   
+   406      
+   407  ! FIX v2 2026-09-15 (job 2490219 post-mortem -- v1 fix above was diagnosed  
+   408  ! wrong): the TRUE bug is that LSEL,,LOC,... is a GLOBAL, area-UNSCOPED 
+   409  ! select -- at X=RI/X=RO/Y=H etc, it matches every line at that coordinate  
+   410  ! across ALL THREE stacked areas (their edges are coincident/touching by
+   411  ! construction), not just the area currently being processed. Area 1's  
+   412  ! block (run first) ends up setting NDIV=6 on ALL SIX vertical lines in 
+   413  ! the model, including area 2/3's own -- so when area 2/3's blocks later
+   414  ! try LESIZE,...,NDIV_ZP(=2) on their vertical edges, LESIZE's default  
+   415  ! KFORCE=0 silently REFUSES to change an already-nonzero division ("
+   416  ! PREVIOUS NONZERO VALUES WILL NOT BE ALTERED", confirmed in job 2490219's  
+   417  ! own log) -- NDIV_ZP never actually takes effect on either piezo layer,
+   418  ! both stay at NDIV=6. Combined with the (correctly working) NDIV_R=40  
+   419  ! radial sizing, that's 40 x 6 = 240 elements/layer at aspect ratio 45 --   
+   420  ! exactly what both job 2489625 and 2490219 produced, unchanged, because
+   421  ! the v1 fix touched the radial dimension, which was never the broken one.  
+   422  ! REAL FIX: scope every LSEL to the CURRENTLY SELECTED AREA's own lines 
+   423  ! via LSLA,S (lines belonging to selected areas) before refining by LOC,
+   424  ! so no area's block can ever touch another area's lines -- eliminates the  
+   425  ! whole KFORCE cross-contamination class, not just this one instance.   
+   426  ! FIX v3 2026-09-15 (job 2490239 post-mortem -- v2 fix above was STILL  
+   427  ! wrong, confirmed by a THIRD byte-identical result). Root cause, this  
+   428  ! time confirmed directly against the log's own selection-count lines,  
+   429  ! not inferred: LSLA,S + LSEL,R correctly scopes the FIRST line of each 
+   430  ! pair to the current area (verified: "4 LINES...1 SELECTED AREAS BY LSLA"  
+   431  ! then "1 LINE...SELECTED BY LSEL" for the R-type reselect). But the
+   432  ! SECOND line of each pair used LSEL,A ("ALSO SELECT") -- and A-type is a   
+   433  ! UNION WITH THE FULL DATABASE, not an intersect within whatever LSLA had   
+   434  ! scoped -- it is NOT constrained by the preceding LSLA,S at all. So
+   435  ! area 1's block (run first) still globally swept every area's RO-edge  
+   436  ! line via its own LSEL,A,LOC,X,RO and set them ALL to NDIV_ZH=6 -- 
+   437  ! including area 2's and area 3's own outer vertical edges, before either   
+   438  ! area had been touched. When area 2/3's own blocks later tried 
+   439  ! LESIZE,...,NDIV_ZP=2 on those same (now-already-6) RO lines, KFORCE=0 
+   440  ! silently blocked it (confirmed in the log). Net effect unchanged from 
+   441  ! v1/v2: both piezo layers still mesh at an effective 40(radial) x  
+   442  ! 6(thru, stuck) = 240 elements, AR=45. 
+   443  ! REAL FIX: never use LSEL,A (or any global LOC-based select) anywhere in   
+   444  ! this block. Every line is now sized by its OWN single-line LSLA,S +   
+   445  ! LSEL,R + LESIZE sequence -- four separate calls per area instead of two   
+   446  ! combined ones -- so no selection ever reaches outside the lines already   
+   447  ! scoped to the current area, and the A-type leak this class of bug 
+   448  ! depends on never occurs.  
+   449  ASEL,S,AREA,,1  
+   450  AATT,1,,1   
+   451  LSLA,S  
+   452  LSEL,R,LOC,X,RI 
+   453  LESIZE,ALL,,,NDIV_ZH,,,,,1  
+   454  LSLA,S  
+   455  LSEL,R,LOC,X,RO 
+   456  LESIZE,ALL,,,NDIV_ZH,,,,,1  
+   457  LSLA,S  
+   458  LSEL,R,LOC,Y,-H 
+   459  LESIZE,ALL,,,NDIV_R,,,,,1   
+   460  LSLA,S  
+   461  LSEL,R,LOC,Y,H  
+   462  LESIZE,ALL,,,NDIV_R,,,,,1   
+   463  ALLSEL,ALL  
+   464  ASEL,S,AREA,,1  
+   465  MSHAPE,0,2D 
+   466  MSHKEY,1
+   467  AMESH,ALL   
+   468      
+   469  ASEL,S,AREA,,2  
+   470  AATT,2,,1   
+   471  LSLA,S  
+   472  LSEL,R,LOC,X,RI 
+   473  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   474  LSLA,S  
+   475  LSEL,R,LOC,X,RO 
+   476  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   477  LSLA,S  
+   478  LSEL,R,LOC,Y,H  
+   479  LESIZE,ALL,,,NDIV_R,,,,,1   
+   480  LSLA,S  
+   481  LSEL,R,LOC,Y,H+H1   
+   482  LESIZE,ALL,,,NDIV_R,,,,,1   
+   483  ALLSEL,ALL  
+   484  ASEL,S,AREA,,2  
+   485  MSHAPE,0,2D 
+   486  MSHKEY,1
+   487  AMESH,ALL   
+   488      
+   489  ASEL,S,AREA,,3  
+   490  AATT,2,,1   
+   491  LSLA,S  
+   492  LSEL,R,LOC,X,RI 
+   493  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   494  LSLA,S  
+   495  LSEL,R,LOC,X,RO 
+   496  LESIZE,ALL,,,NDIV_ZP,,,,,1  
+   497  LSLA,S  
+   498  LSEL,R,LOC,Y,-H-H1  
+   499  LESIZE,ALL,,,NDIV_R,,,,,1   
+   500  LSLA,S  
+   501  LSEL,R,LOC,Y,-H 
+   502  LESIZE,ALL,,,NDIV_R,,,,,1   
+   503  ALLSEL,ALL  
+   504  ASEL,S,AREA,,3  
+   505  MSHAPE,0,2D 
+   506  MSHKEY,1
+   507  AMESH,ALL   
+   508      
+   509  ALLSEL,ALL  
+   510  NUMMRG,NODES,1.0E-5     ! merge coincident nodes at the host/piezo interfaces [mm tolerance, was 1.0E-8 m]  
+   511                            ! (areas meshed separately above -- this is the   
+   512                            ! step that actually bonds them; if AMESH left
+   513                            ! non-coincident interface nodes for any reason   
+   514                            ! this is what fixes it, cheap insurance) 
+   515  FINISH  
+   516      
+   517  /SOLU   
+   518  ! Lever 9 v2. Same HARMIC / mesh / HARFRQ as job 2494669. Isolated  
+   519  ! dump fix: KEYOPT(1)=1001 force label is CHRG not AMPS; OUTRES,RSOL
+   520  ! so reactions are on the rst; CP outer bus and D the master only so
+   521  ! one node carries the total electrode charge. Do not retune mesh,  
+   522  ! units, TB,PIEZ, DMPRAT, or the frequency window.  
+   523  ANTYPE,HARMIC   
+   524  HROPT,FULL  
+   525  HROUT,OFF   
+   526  OUTRES,NSOL,ALL 
+   527  OUTRES,RSOL,ALL 
+   528  DMPRAT,1.0E-4   
+   529  KBC,1   
+   530  EQSLV,SPARSE
+   531      
+   532  NSEL,S,LOC,Y,H  
+   533  NSEL,A,LOC,Y,-H 
+   534  D,ALL,VOLT,0
+   535  ALLSEL,ALL  
+   536  NSEL,S,LOC,Y,H+H1   
+   537  NSEL,A,LOC,Y,-H-H1  
+   538  CP,1,VOLT,ALL   
+   539  *GET,NMAST,NODE,0,NUM,MIN   
+   540  D,NMAST,VOLT,1.0
+   541  ALLSEL,ALL  
+   542      
+   543  HARFRQ,118.50,122.00
+   544  NSUBST,70   
+   545  LSWRITE,1   
+   546      
+   547  HARFRQ,80.0,80.0
+   548  NSUBST,1
+   549  LSWRITE,2   
+   550      
+   551  HARFRQ,140.0,140.0  
+   552  NSUBST,1
+   553  LSWRITE,3   
+   554      
+   555  LSSOLVE,1,3 
+   556  FINISH  
+   557      
+   558  /POST1  
+   559  ! KEYOPT(1)=1001 -> VOLT reaction label is CHRG (charge). For V=1,  
+   560  ! Ceff=Q and |Y|=omega*|Q|. Pole/zero frequencies of Q and Y coincide   
+   561  ! for omega!=0. Read the CSV, never the queue script's own label.   
+   562  ! One PRRSOL at the first dense substep so a human can see the label
+   563  ! if *GET ever fails again. 
+   564  SET,1,1,,0  
+   565  NSEL,S,NODE,,NMAST  
+   566  PRRSOL,CHRG 
+   567  ALLSEL,ALL  
+   568      
+   569  NROW=72 
+   570  *DIM,LSARR,ARRAY,NROW   
+   571  *DIM,SBARR,ARRAY,NROW   
+   572  *DIM,FRARR,ARRAY,NROW   
+   573  *DIM,QREARR,ARRAY,NROW  
+   574  *DIM,QIMARR,ARRAY,NROW  
+   575  *DIM,YARR,ARRAY,NROW
+   576  *DIM,LSLIST,ARRAY,3 
+   577  *DIM,NSBLIST,ARRAY,3
+   578  LSLIST(1)=1 
+   579  LSLIST(2)=2 
+   580  LSLIST(3)=3 
+   581  NSBLIST(1)=70   
+   582  NSBLIST(2)=1
+   583  NSBLIST(3)=1
+   584  K=0 
+   585  *DO,IL,1,3  
+   586    LSNOW=LSLIST(IL)  
+   587    NSB=NSBLIST(IL)   
+   588    *DO,ISB,1,NSB 
+   589      K=K+1   
+   590      SET,LSNOW,ISB,,0
+   591      *GET,FREQV,ACTIVE,0,SET,FREQ
+   592      *GET,QREAC,NODE,NMAST,RF,CHRG   
+   593      SET,LSNOW,ISB,,1
+   594      *GET,QIMAG,NODE,NMAST,RF,CHRG   
+   595      OMEGA=2*3.141592653589793*FREQV 
+   596      QABS=SQRT(QREAC*QREAC+QIMAG*QIMAG)  
+   597      LSARR(K)=LSNOW  
+   598      SBARR(K)=ISB
+   599      FRARR(K)=FREQV  
+   600      QREARR(K)=QREAC 
+   601      QIMARR(K)=QIMAG 
+   602      YARR(K)=OMEGA*QABS  
+   603    *ENDDO
+   604  *ENDDO  
+   605  *CFOPEN,ansys_p4_harm_ff_y_v2_h112_sweep_e31m_v3,csv
+   606  *VWRITE 
+   607  ('ls,sb,freq_Hz,Qre,Qim,Yabs')  
+   608  *VWRITE,LSARR(1),SBARR(1),FRARR(1),QREARR(1),QIMARR(1),YARR(1)  
+   609  (F4.0,',',F4.0,',',E16.8,',',E16.8,',',E16.8,',',E16.8) 
+   610  *CFCLOS 
+   611  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans
+
+ /INPUT FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans  LINE=       0
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  Paper 4 F-F piezo ring EPSREL HARMIC driven Y v2 CHRG dump, p=0, h1/2h=1/12 (
+
+
+ PARAMETER RI =     100.0000000    
+
+ PARAMETER RO =     600.0000000    
+
+ PARAMETER H =     10.00000000    
+
+ PARAMETER H1 =     1.666666667    
+
+ PARAMETER NDIV_R =     40.00000000    
+
+ PARAMETER NDIV_ZH =     6.000000000    
+
+ PARAMETER NDIV_ZP =     2.000000000    
+
+ PARAMETER NMODES =     20.00000000    
+
+ PARAMETER E_STEEL =     200000.0000    
+
+ PARAMETER NU_STEEL =    0.3000000000    
+
+ PARAMETER RHO_STEEL =    0.7800000000E-08
+
+ PARAMETER C11E =     132000.0000    
+
+ PARAMETER C12E =     71000.00000    
+
+ PARAMETER C13E =     73000.00000    
+
+ PARAMETER C33E =     115000.0000    
+
+ PARAMETER C44E =     73000.00000    
+
+ PARAMETER C66E =     30500.00000    
+
+ PARAMETER E31 =   -0.4100000000E-02
+
+ PARAMETER E33 =    0.1410000000E-01
+
+ PARAMETER E15 =    0.1050000000E-01
+
+ PARAMETER EPS0 =    0.8854000000E-11
+
+ PARAMETER X11ABS =    0.7124000000E-08
+
+ PARAMETER X33ABS =    0.5841000000E-08
+
+ PARAMETER X11 =     804.6080867    
+
+ PARAMETER X33 =     659.7018297    
+
+ PARAMETER RHO_PZT =    0.7500000000E-08
+
+ PARAMETER X_INERT =     1.000000000    
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     18:42:36  SEP 24, 2026 CP=      0.624
+
+  Paper 4 F-F piezo ring EPSREL HARMIC driven Y v2 CHRG dump, p=0, h1/2h=1/12 (
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ *** NOTE ***                            CP =       0.624   TIME= 18:42:36
+ For element type = 1 ( PLANE223 ), KEYOPT 1 = 0 is invalid.  This NOTE  
+ is normal behavior when a CDB file is used.                             
+
+ ELEMENT TYPE          1 IS PLANE223     QUAD COUPLED-FIELD SOLID    
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ ELEMENT TYPE       1 IS PLANE223     2-D 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  TWO-DIMENSIONAL MODEL
+
+ ELEMENT TYPE       1 IS PLANE223     AXI 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      1        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  AXISYMMETRIC MODEL
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     1
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.26923E+06 0.11538E+06 0.11538E+06  0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.26923E+06 0.11538E+06  0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.26923E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 16  76923.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 19  76923.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 21  76923.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     1
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  1  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  7  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC= 13  0.0000      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ MATERIAL          1     PERX =   1.000000      
+
+ MATERIAL          1     PERY =   1.000000      
+
+ MATERIAL          1     PERZ =   1.000000      
+
+ MATERIAL          1     DENS =  0.7800000E-08  
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     2
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.13200E+06  73000.      71000.      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.11500E+06  73000.      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.13200E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 16  73000.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 19  30500.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   2 AT TEMPERATURE=  0.0000    
+ LOC= 21  73000.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     2
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC=  1  0.0000    -0.41000E-02  0.0000      0.0000     0.14100E-01  0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC=  7  0.0000    -0.41000E-02  0.0000     0.10500E-01  0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   2
+ LOC= 13  0.0000      0.0000     0.10500E-01  0.0000      0.0000      0.0000    
+
+ MATERIAL          2     PERX =   804.6081      
+
+ MATERIAL          2     PERY =   659.7018      
+
+ MATERIAL          2     PERZ =   804.6081      
+
+ MATERIAL          2     DENS =  0.7500000E-08  
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM     -10.00000000     TO      10.00000000    
+
+      OUTPUT AREA =     1
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM      10.00000000     TO      11.66666667    
+
+      OUTPUT AREA =     2
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM     -11.66666667     TO     -10.00000000    
+
+      OUTPUT AREA =     3
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    1   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    6,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    6,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     1 MESHED WITH     240 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =        813
+ MAXIMUM ELEMENT NUMBER     =        240
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         2 TO          2 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    2   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  11.667     AND   11.667    
+   KABS=  0.  TOLERANCE= 0.583333E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         2 TO          2 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     2 MESHED WITH      80 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =       1138
+ MAXIMUM ELEMENT NUMBER     =        320
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         3 TO          3 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    2   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    2,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -11.667     AND  -11.667    
+   KABS=  0.  TOLERANCE= 0.583333E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF       12  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF       12  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         3 TO          3 STEP          1
+
+        1  AREAS (OF        3  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     3 MESHED WITH      80 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =       1463
+ MAXIMUM ELEMENT NUMBER     =        400
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+  MERGE COINCIDENT NODES WITHIN TOLERANCE OF  0.10000E-04
+ NODE         1 USED FOR NODES      1224
+ NODE        94 USED FOR NODES       814
+ NODE       173 USED FOR NODES       816
+ NODE         3 USED FOR NODES      1303
+ NODE       172 USED FOR NODES       817
+ NODE         4 USED FOR NODES      1302
+ NODE       171 USED FOR NODES       818
+ NODE         5 USED FOR NODES      1301
+ NODE         6 USED FOR NODES      1300
+ NODE       170 USED FOR NODES       819
+ NODE       169 USED FOR NODES       820
+ NODE         7 USED FOR NODES      1299
+ NODE       168 USED FOR NODES       821
+ NODE         8 USED FOR NODES      1298
+ NODE       167 USED FOR NODES       822
+ NODE         9 USED FOR NODES      1297
+ NODE        10 USED FOR NODES      1296
+ NODE       166 USED FOR NODES       823
+ NODE       165 USED FOR NODES       824
+ NODE        11 USED FOR NODES      1295
+ NODE       164 USED FOR NODES       825
+ NODE        12 USED FOR NODES      1294
+ NODE       163 USED FOR NODES       826
+ NODE        13 USED FOR NODES      1293
+ NODE       162 USED FOR NODES       827
+ NODE        14 USED FOR NODES      1292
+ NODE       161 USED FOR NODES       828
+ NODE        15 USED FOR NODES      1291
+ NODE       160 USED FOR NODES       829
+ NODE        16 USED FOR NODES      1290
+ NODE       159 USED FOR NODES       830
+ NODE        17 USED FOR NODES      1289
+ NODE       158 USED FOR NODES       831
+ NODE        18 USED FOR NODES      1288
+ NODE       157 USED FOR NODES       832
+ NODE        19 USED FOR NODES      1287
+ NODE       156 USED FOR NODES       833
+ NODE        20 USED FOR NODES      1286
+ NODE       155 USED FOR NODES       834
+ NODE        21 USED FOR NODES      1285
+ NODE       154 USED FOR NODES       835
+ NODE        22 USED FOR NODES      1284
+ NODE       153 USED FOR NODES       836
+ NODE        23 USED FOR NODES      1283
+ NODE       152 USED FOR NODES       837
+ NODE        24 USED FOR NODES      1282
+ NODE       151 USED FOR NODES       838
+ NODE        25 USED FOR NODES      1281
+ NODE       150 USED FOR NODES       839
+ NODE        26 USED FOR NODES      1280
+ NODE       149 USED FOR NODES       840
+ NODE        27 USED FOR NODES      1279
+ NODE       148 USED FOR NODES       841
+ NODE        28 USED FOR NODES      1278
+ NODE       147 USED FOR NODES       842
+ NODE        29 USED FOR NODES      1277
+ NODE       146 USED FOR NODES       843
+ NODE        30 USED FOR NODES      1276
+ NODE       145 USED FOR NODES       844
+ NODE        31 USED FOR NODES      1275
+ NODE       144 USED FOR NODES       845
+ NODE        32 USED FOR NODES      1274
+ NODE       143 USED FOR NODES       846
+ NODE        33 USED FOR NODES      1273
+ NODE       142 USED FOR NODES       847
+ NODE        34 USED FOR NODES      1272
+ NODE       141 USED FOR NODES       848
+ NODE        35 USED FOR NODES      1271
+ NODE       140 USED FOR NODES       849
+ NODE        36 USED FOR NODES      1270
+ NODE       139 USED FOR NODES       850
+ NODE        37 USED FOR NODES      1269
+ NODE       138 USED FOR NODES       851
+ NODE        38 USED FOR NODES      1268
+ NODE       137 USED FOR NODES       852
+ NODE        39 USED FOR NODES      1267
+ NODE       136 USED FOR NODES       853
+ NODE        40 USED FOR NODES      1266
+ NODE       135 USED FOR NODES       854
+ NODE        41 USED FOR NODES      1265
+ NODE       134 USED FOR NODES       855
+ NODE        42 USED FOR NODES      1264
+ NODE       133 USED FOR NODES       856
+ NODE        43 USED FOR NODES      1263
+ NODE       132 USED FOR NODES       857
+ NODE        44 USED FOR NODES      1262
+ NODE       131 USED FOR NODES       858
+ NODE        45 USED FOR NODES      1261
+ NODE       130 USED FOR NODES       859
+ NODE        46 USED FOR NODES      1260
+ NODE       129 USED FOR NODES       860
+ NODE        47 USED FOR NODES      1259
+ NODE        48 USED FOR NODES      1258
+ NODE       128 USED FOR NODES       861
+ NODE       127 USED FOR NODES       862
+ NODE        49 USED FOR NODES      1257
+ NODE       126 USED FOR NODES       863
+ NODE        50 USED FOR NODES      1256
+ NODE       125 USED FOR NODES       864
+ NODE        51 USED FOR NODES      1255
+ NODE       124 USED FOR NODES       865
+ NODE        52 USED FOR NODES      1254
+ NODE       123 USED FOR NODES       866
+ NODE        53 USED FOR NODES      1253
+ NODE       122 USED FOR NODES       867
+ NODE        54 USED FOR NODES      1252
+ NODE       121 USED FOR NODES       868
+ NODE        55 USED FOR NODES      1251
+ NODE       120 USED FOR NODES       869
+ NODE        56 USED FOR NODES      1250
+ NODE       119 USED FOR NODES       870
+ NODE        57 USED FOR NODES      1249
+ NODE        58 USED FOR NODES      1248
+ NODE       118 USED FOR NODES       871
+ NODE       117 USED FOR NODES       872
+ NODE        59 USED FOR NODES      1247
+ NODE       116 USED FOR NODES       873
+ NODE        60 USED FOR NODES      1246
+ NODE       115 USED FOR NODES       874
+ NODE        61 USED FOR NODES      1245
+ NODE       114 USED FOR NODES       875
+ NODE        62 USED FOR NODES      1244
+ NODE       113 USED FOR NODES       876
+ NODE        63 USED FOR NODES      1243
+ NODE       112 USED FOR NODES       877
+ NODE        64 USED FOR NODES      1242
+ NODE       111 USED FOR NODES       878
+ NODE        65 USED FOR NODES      1241
+ NODE       110 USED FOR NODES       879
+ NODE        66 USED FOR NODES      1240
+ NODE       109 USED FOR NODES       880
+ NODE        67 USED FOR NODES      1239
+ NODE        68 USED FOR NODES      1238
+ NODE       108 USED FOR NODES       881
+ NODE       107 USED FOR NODES       882
+ NODE        69 USED FOR NODES      1237
+ NODE       106 USED FOR NODES       883
+ NODE        70 USED FOR NODES      1236
+ NODE       105 USED FOR NODES       884
+ NODE        71 USED FOR NODES      1235
+ NODE       104 USED FOR NODES       885
+ NODE        72 USED FOR NODES      1234
+ NODE       103 USED FOR NODES       886
+ NODE        73 USED FOR NODES      1233
+ NODE       102 USED FOR NODES       887
+ NODE        74 USED FOR NODES      1232
+ NODE       101 USED FOR NODES       888
+ NODE        75 USED FOR NODES      1231
+ NODE       100 USED FOR NODES       889
+ NODE        76 USED FOR NODES      1230
+ NODE        99 USED FOR NODES       890
+ NODE        77 USED FOR NODES      1229
+ NODE        78 USED FOR NODES      1228
+ NODE        98 USED FOR NODES       891
+ NODE        97 USED FOR NODES       892
+ NODE        79 USED FOR NODES      1227
+ NODE        80 USED FOR NODES      1226
+ NODE        96 USED FOR NODES       893
+ NODE        95 USED FOR NODES       894
+ NODE        81 USED FOR NODES      1225
+ NODE         2 USED FOR NODES      1220
+ NODE        82 USED FOR NODES       815
+
+
+ A total of       162 nodes were merged at       162 locations.
+
+ *** WARNING ***                         CP =       0.645   TIME= 18:42:36
+ After NUMMRG,NODE, node 94 (and possibly others) is associated with     
+ more than one solid model entity.  Future commands which depend on the  
+ node to solid model connectivity (meshing, mesh clearing, solid         
+ boundary condition transfer, etc.) may not operate properly.            
+ NUMMRG,KP may correct this problem.                                     
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.646
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A HARMONIC ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ PERFORM A FULL HARMONIC RESPONSE ANALYSIS
+
+ PRINT COMPLEX DISPLACEMENTS AS AMPLITUDE AND PHASE ANGLE (IN DEGREES)
+
+ WRITE NSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE RSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ DAMPING RATIO =      0.0001
+
+ STEP BOUNDARY CONDITION KEY= 1
+
+ USE SPARSE MATRIX DIRECT SOLVER
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+         81  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        162  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO        1463 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  11.667     AND   11.667    
+   KABS=  0.  TOLERANCE= 0.583333E-01
+
+         81  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN -11.667     AND  -11.667    
+   KABS=  0.  TOLERANCE= 0.583333E-01
+
+        162  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ COUPLED SET =          1  DIRECTION= VOLT  TOTAL NODES=      162
+ MAXIMUM COUPLED SET NUMBER =          1
+
+ *GET  NMAST     FROM  NODE  ITEM=NUM  MIN   VALUE=  895.000000     
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES          895 TO         895 BY           1
+ REAL=  1.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ HARMONIC FREQUENCY RANGE - END=  122.00      BEGIN=  118.50    
+
+ USE    70 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p4_harm_ff_y_v3_h112_e31.s01                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  80.000      BEGIN=  80.000    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p4_harm_ff_y_v3_h112_e31.s02                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  140.00      BEGIN=  140.00    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p4_harm_ff_y_v3_h112_e31.s03                                                                                                                                                                                                                                        
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       18:42:36
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 1.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       0.967   TIME= 18:42:36
+ Axisymmetric elements are present.  The nodal loads input with the F    
+ commands and the reaction forces are on a full circle basis.  This      
+ differs from the pre-MAPDL 5.0 interpretation.                          
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     18:42:36  SEP 24, 2026 CP=      0.980
+
+  Paper 4 F-F piezo ring EPSREL HARMIC driven Y v2 CHRG dump, p=0, h1/2h=      
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .AXISYMMETRIC         
+   DEGREES OF FREEDOM. . . . . . UX   UY   VOLT
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .HARMONIC             
+      SOLUTION METHOD. . . . . . . . . . . . . . .FULL
+   EQUATION SOLVER OPTION. . . . . . . . . . . . .SPARSE             
+   COMPLEX DISPLACEMENT PRINT OPTION . . . . . . .REAL AND IMAGINARY       
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+
+ *** NOTE ***                            CP =       0.989   TIME= 18:42:36
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** WARNING ***                         CP =       0.991   TIME= 18:42:36
+ Constant modal damping ratio (DMPRAT) will not be supported in a full   
+ harmonic analysis at a future release.  To include damping, you may     
+ need to use constant structural damping coefficient (DMPSTR).           
+
+ *** NOTE ***                            CP =       0.998   TIME= 18:42:36
+ The step data was checked and warning messages were found.              
+  Please review output or errors file (                                  
+ /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/p4_harm_ff_ 
+ _y_v3_h112_e31.err ) for these warning messages.                        
+
+ *** NOTE ***                            CP =       0.999   TIME= 18:42:36
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  118.50     TO   122.00    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .    70
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   MODAL DAMPING RATIO . . . . . . . . . . . . . . 0.10000E-03
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =  0.19902    
+
+
+ MASS AND MOMENT VALUES ARE EVALUATED FOR AN AXISYMMETRIC 360. DEGREE MODEL.
+
+                    MOM. OF INERTIA      MOM. OF INERTIA     RADIUS OF GYRATION
+ CENTER OF MASS      ABOUT ORIGIN     ABOUT CENTER OF MASS  ABOUT CENTER OF MASS
+
+ XC =   0.0000       IXX =   0.1841E+05   IXX =   0.1841E+05  RGX =    304.2    
+ YC =  0.65808E-15   IYY =   0.3681E+05   IYY =   0.3681E+05  RGY =    430.1    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.199020    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 1.150891634E+10 at element 320.                               
+ Minimum = 1.239564161E+09 at element 1.                                 
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       400  PLANE223      0.468   0.001169
+ Time at end of element matrix formulation CP = 1.38823998.              
+
+ SPARSE MATRIX DIRECT SOLVER.
+  Number of equations =        3579,    Maximum wavefront =     60
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =    12.101 MB
+  Equation solver memory required for in-core mode     =    11.624 MB
+  Equation solver memory required for out-of-core mode =     6.239 MB
+  Total (solver and non-solver) memory allocated       =   534.035 MB
+
+ *** NOTE ***                            CP =       1.547   TIME= 18:42:36
+ The Sparse Matrix Solver is currently running in the in-core memory     
+ mode.  This memory mode uses the most amount of memory in order to      
+ avoid using the hard drive as much as possible, which most often        
+ results in the fastest solution time.  This mode is recommended if      
+ enough physical memory is present to accommodate all of the solver      
+ data.                                                                   
+ Sparse solver maximum pivot= 2.240920516E+12 at node 1456 VOLT.         
+ Sparse solver minimum pivot= 2140.10415 at node 503 UY.                 
+ Sparse solver minimum pivot in absolute value= 2140.10415 at node 503   
+ UY.                                                                     
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       400  PLANE223      0.544   0.001361
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       400  PLANE223      0.246   0.000616
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.  FREQUENCY=   118.550    
+ *** LOAD STEP     1   SUBSTEP     2  COMPLETED.  FREQUENCY=   118.600    
+ *** LOAD STEP     1   SUBSTEP     3  COMPLETED.  FREQUENCY=   118.650    
+ *** LOAD STEP     1   SUBSTEP     4  COMPLETED.  FREQUENCY=   118.700    
+ *** LOAD STEP     1   SUBSTEP     5  COMPLETED.  FREQUENCY=   118.750    
+ *** LOAD STEP     1   SUBSTEP     6  COMPLETED.  FREQUENCY=   118.800    
+ *** LOAD STEP     1   SUBSTEP     7  COMPLETED.  FREQUENCY=   118.850    
+ *** LOAD STEP     1   SUBSTEP     8  COMPLETED.  FREQUENCY=   118.900    
+ *** LOAD STEP     1   SUBSTEP     9  COMPLETED.  FREQUENCY=   118.950    
+ *** LOAD STEP     1   SUBSTEP    10  COMPLETED.  FREQUENCY=   119.000    
+ *** LOAD STEP     1   SUBSTEP    11  COMPLETED.  FREQUENCY=   119.050    
+ *** LOAD STEP     1   SUBSTEP    12  COMPLETED.  FREQUENCY=   119.100    
+ *** LOAD STEP     1   SUBSTEP    13  COMPLETED.  FREQUENCY=   119.150    
+ *** LOAD STEP     1   SUBSTEP    14  COMPLETED.  FREQUENCY=   119.200    
+ *** LOAD STEP     1   SUBSTEP    15  COMPLETED.  FREQUENCY=   119.250    
+ *** LOAD STEP     1   SUBSTEP    16  COMPLETED.  FREQUENCY=   119.300    
+ *** LOAD STEP     1   SUBSTEP    17  COMPLETED.  FREQUENCY=   119.350    
+ *** LOAD STEP     1   SUBSTEP    18  COMPLETED.  FREQUENCY=   119.400    
+ *** LOAD STEP     1   SUBSTEP    19  COMPLETED.  FREQUENCY=   119.450    
+ *** LOAD STEP     1   SUBSTEP    20  COMPLETED.  FREQUENCY=   119.500    
+ *** LOAD STEP     1   SUBSTEP    21  COMPLETED.  FREQUENCY=   119.550    
+ *** LOAD STEP     1   SUBSTEP    22  COMPLETED.  FREQUENCY=   119.600    
+ *** LOAD STEP     1   SUBSTEP    23  COMPLETED.  FREQUENCY=   119.650    
+ *** LOAD STEP     1   SUBSTEP    24  COMPLETED.  FREQUENCY=   119.700    
+ *** LOAD STEP     1   SUBSTEP    25  COMPLETED.  FREQUENCY=   119.750    
+ *** LOAD STEP     1   SUBSTEP    26  COMPLETED.  FREQUENCY=   119.800    
+ *** LOAD STEP     1   SUBSTEP    27  COMPLETED.  FREQUENCY=   119.850    
+ *** LOAD STEP     1   SUBSTEP    28  COMPLETED.  FREQUENCY=   119.900    
+ *** LOAD STEP     1   SUBSTEP    29  COMPLETED.  FREQUENCY=   119.950    
+ *** LOAD STEP     1   SUBSTEP    30  COMPLETED.  FREQUENCY=   120.000    
+ *** LOAD STEP     1   SUBSTEP    31  COMPLETED.  FREQUENCY=   120.050    
+ *** LOAD STEP     1   SUBSTEP    32  COMPLETED.  FREQUENCY=   120.100    
+ *** LOAD STEP     1   SUBSTEP    33  COMPLETED.  FREQUENCY=   120.150    
+ *** LOAD STEP     1   SUBSTEP    34  COMPLETED.  FREQUENCY=   120.200    
+ *** LOAD STEP     1   SUBSTEP    35  COMPLETED.  FREQUENCY=   120.250    
+ *** LOAD STEP     1   SUBSTEP    36  COMPLETED.  FREQUENCY=   120.300    
+ *** LOAD STEP     1   SUBSTEP    37  COMPLETED.  FREQUENCY=   120.350    
+ *** LOAD STEP     1   SUBSTEP    38  COMPLETED.  FREQUENCY=   120.400    
+ *** LOAD STEP     1   SUBSTEP    39  COMPLETED.  FREQUENCY=   120.450    
+ *** LOAD STEP     1   SUBSTEP    40  COMPLETED.  FREQUENCY=   120.500    
+ *** LOAD STEP     1   SUBSTEP    41  COMPLETED.  FREQUENCY=   120.550    
+ *** LOAD STEP     1   SUBSTEP    42  COMPLETED.  FREQUENCY=   120.600    
+ *** LOAD STEP     1   SUBSTEP    43  COMPLETED.  FREQUENCY=   120.650    
+ *** LOAD STEP     1   SUBSTEP    44  COMPLETED.  FREQUENCY=   120.700    
+ *** LOAD STEP     1   SUBSTEP    45  COMPLETED.  FREQUENCY=   120.750    
+ *** LOAD STEP     1   SUBSTEP    46  COMPLETED.  FREQUENCY=   120.800    
+ *** LOAD STEP     1   SUBSTEP    47  COMPLETED.  FREQUENCY=   120.850    
+ *** LOAD STEP     1   SUBSTEP    48  COMPLETED.  FREQUENCY=   120.900    
+ *** LOAD STEP     1   SUBSTEP    49  COMPLETED.  FREQUENCY=   120.950    
+ *** LOAD STEP     1   SUBSTEP    50  COMPLETED.  FREQUENCY=   121.000    
+ *** LOAD STEP     1   SUBSTEP    51  COMPLETED.  FREQUENCY=   121.050    
+ *** LOAD STEP     1   SUBSTEP    52  COMPLETED.  FREQUENCY=   121.100    
+ *** LOAD STEP     1   SUBSTEP    53  COMPLETED.  FREQUENCY=   121.150    
+ *** LOAD STEP     1   SUBSTEP    54  COMPLETED.  FREQUENCY=   121.200    
+ *** LOAD STEP     1   SUBSTEP    55  COMPLETED.  FREQUENCY=   121.250    
+ *** LOAD STEP     1   SUBSTEP    56  COMPLETED.  FREQUENCY=   121.300    
+ *** LOAD STEP     1   SUBSTEP    57  COMPLETED.  FREQUENCY=   121.350    
+ *** LOAD STEP     1   SUBSTEP    58  COMPLETED.  FREQUENCY=   121.400    
+ *** LOAD STEP     1   SUBSTEP    59  COMPLETED.  FREQUENCY=   121.450    
+ *** LOAD STEP     1   SUBSTEP    60  COMPLETED.  FREQUENCY=   121.500    
+ *** LOAD STEP     1   SUBSTEP    61  COMPLETED.  FREQUENCY=   121.550    
+ *** LOAD STEP     1   SUBSTEP    62  COMPLETED.  FREQUENCY=   121.600    
+ *** LOAD STEP     1   SUBSTEP    63  COMPLETED.  FREQUENCY=   121.650    
+ *** LOAD STEP     1   SUBSTEP    64  COMPLETED.  FREQUENCY=   121.700    
+ *** LOAD STEP     1   SUBSTEP    65  COMPLETED.  FREQUENCY=   121.750    
+ *** LOAD STEP     1   SUBSTEP    66  COMPLETED.  FREQUENCY=   121.800    
+ *** LOAD STEP     1   SUBSTEP    67  COMPLETED.  FREQUENCY=   121.850    
+ *** LOAD STEP     1   SUBSTEP    68  COMPLETED.  FREQUENCY=   121.900    
+ *** LOAD STEP     1   SUBSTEP    69  COMPLETED.  FREQUENCY=   121.950    
+ *** LOAD STEP     1   SUBSTEP    70  COMPLETED.  FREQUENCY=   122.000    
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.250 MB WRITTEN ON ELEMENT SAVED DATA FILE: p4_harm_ff_y_v3_h112_e31.esav
+        1.375 MB WRITTEN ON ASSEMBLED MATRIX FILE: p4_harm_ff_y_v3_h112_e31.full
+       46.250 MB WRITTEN ON RESULTS FILE: p4_harm_ff_y_v3_h112_e31.rst
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       18:42:36
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 2.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =      36.767   TIME= 18:42:41
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** WARNING ***                         CP =      36.768   TIME= 18:42:41
+ Constant modal damping ratio (DMPRAT) will not be supported in a full   
+ harmonic analysis at a future release.  To include damping, you may     
+ need to use constant structural damping coefficient (DMPSTR).           
+
+ *** NOTE ***                            CP =      36.776   TIME= 18:42:41
+ The step data was checked and warning messages were found.              
+  Please review output or errors file (                                  
+ /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/p4_harm_ff_ 
+ _y_v3_h112_e31.err ) for these warning messages.                        
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     18:42:41  SEP 24, 2026 CP=     36.788
+
+  Paper 4 F-F piezo ring EPSREL HARMIC driven Y v2 CHRG dump, p=0, h1/2h=      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     2
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  80.000     TO   80.000    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   MODAL DAMPING RATIO . . . . . . . . . . . . . . 0.10000E-03
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     2   SUBSTEP     1  COMPLETED.  FREQUENCY=   80.0000    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       18:42:36
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 3.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =      37.378   TIME= 18:42:41
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** WARNING ***                         CP =      37.379   TIME= 18:42:41
+ Constant modal damping ratio (DMPRAT) will not be supported in a full   
+ harmonic analysis at a future release.  To include damping, you may     
+ need to use constant structural damping coefficient (DMPSTR).           
+
+ *** NOTE ***                            CP =      37.386   TIME= 18:42:41
+ The step data was checked and warning messages were found.              
+  Please review output or errors file (                                  
+ /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/p4_harm_ff_ 
+ _y_v3_h112_e31.err ) for these warning messages.                        
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     18:42:41  SEP 24, 2026 CP=     37.394
+
+  Paper 4 F-F piezo ring EPSREL HARMIC driven Y v2 CHRG dump, p=0, h1/2h=      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     3
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  140.00     TO   140.00    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   MODAL DAMPING RATIO . . . . . . . . . . . . . . 0.10000E-03
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     3   SUBSTEP     1  COMPLETED.  FREQUENCY=   140.000    
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =        38.203
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     18:42:41  SEP 24, 2026 CP=     38.220
+
+  Paper 4 F-F piezo ring EPSREL HARMIC driven Y v2 CHRG dump, p=0, h1/2h=      
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =      38.222   TIME= 18:42:41
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+
+ *** WARNING ***                         CP =      38.300   TIME= 18:42:41
+ Cumulative iteration 1 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  118.55    
+ TITLE=  Paper 4 F-F piezo ring EPSREL HARMIC driven Y v2 CHRG dump, p=0, h1/2h=
+
+ SELECT       FOR ITEM=NODE COMPONENT=    
+  IN RANGE       895 TO        895 STEP          1
+
+          1  NODES (OF       1301  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PRINT CHRG REACTION SOLUTIONS PER NODE
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     18:42:41  SEP 24, 2026 CP=     38.347
+
+  Paper 4 F-F piezo ring EPSREL HARMIC driven Y v2 CHRG dump, p=0, h1/2h=      
+
+
+ 
+  ***** POST1 TOTAL REACTION SOLUTION LISTING *****                            
+ 
+  LOAD STEP=     1  SUBSTEP=     1                                             
+   FREQ=    118.55      LOAD CASE=   0                                         
+ 
+    NODE       CHRG  
+     895 -0.10101     
+
+ TOTAL VALUES
+ VALUE  -0.10101     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ PARAMETER NROW =     72.00000000    
+
+ SET PARAMETER DIMENSIONS ON  LSARR TYPE=ARRA  DIMENSIONS=    72     1     1
+
+ SET PARAMETER DIMENSIONS ON  SBARR TYPE=ARRA  DIMENSIONS=    72     1     1
+
+ SET PARAMETER DIMENSIONS ON  FRARR TYPE=ARRA  DIMENSIONS=    72     1     1
+
+ SET PARAMETER DIMENSIONS ON  QREARR TYPE=ARRA  DIMENSIONS=    72     1     1
+
+ SET PARAMETER DIMENSIONS ON  QIMARR TYPE=ARRA  DIMENSIONS=    72     1     1
+
+ SET PARAMETER DIMENSIONS ON  YARR TYPE=ARRA  DIMENSIONS=    72     1     1
+
+ SET PARAMETER DIMENSIONS ON  LSLIST TYPE=ARRA  DIMENSIONS=     3     1     1
+
+ SET PARAMETER DIMENSIONS ON  NSBLIST TYPE=ARRA  DIMENSIONS=     3     1     1
+
+ PARAMETER LSLIST(1) =     1.000000000    
+
+ PARAMETER LSLIST(2) =     2.000000000    
+
+ PARAMETER LSLIST(3) =     3.000000000    
+
+ PARAMETER NSBLIST(1) =     70.00000000    
+
+ PARAMETER NSBLIST(2) =     1.000000000    
+
+ PARAMETER NSBLIST(3) =     1.000000000    
+
+ PARAMETER K =     0.000000000    
+
+ *DO LOOP ON PARAMETER= IL FROM  1.0000     TO  3.0000     BY  1.0000    
+
+ PARAMETER LSNOW =     1.000000000    
+
+ PARAMETER NSB =     70.00000000    
+
+ *DO LOOP ON PARAMETER= ISB FROM  1.0000     TO  70.000     BY  1.0000    
+
+ PARAMETER K =     1.000000000    
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+
+ *** WARNING ***                         CP =      38.361   TIME= 18:42:41
+ Cumulative iteration 1 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  118.55    
+ TITLE=  Paper 4 F-F piezo ring EPSREL HARMIC driven Y v2 CHRG dump, p=0, h1/2h=
+
+ *GET  FREQV     FROM  ACTI  ITEM=SET  FREQ  VALUE=  118.550000    
+
+ *GET  QREAC     FROM  NODE       895  ITEM=RF   CHRG  VALUE=-0.101014936     
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ *** WARNING ***                         CP =      38.392   TIME= 18:42:41
+ Cumulative iteration 1 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  118.55          (IMAGINARY) 
+ TITLE=  Paper 4 F-F piezo ring EPSREL HARMIC driven Y v2 CHRG dump, p=0, h1/2h=
+
+ *GET  QIMAG     FROM  NODE       895  ITEM=RF   CHRG  VALUE= 0.404823766E-002
+
+ PARAMETER OMEGA =     744.8716182    
+
+ PARAMETER QABS =    0.1010960215    
+
+ PARAMETER LSARR(K) =     1.000000000    
+
+ PARAMETER SBARR(K) =     1.000000000    
+
+ PARAMETER FRARR(K) =     118.5500000    
+
+ PARAMETER QREARR(K) =   -0.1010149362    
+
+ PARAMETER QIMARR(K) =    0.4048237662E-02
+
+ PARAMETER YARR(K) =     75.30355713    
+
+ *ENDDO  INDEX= ISB                             
+
+ *** WARNING ***                         CP =      38.429   TIME= 18:42:41
+ Cumulative iteration 2 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.459   TIME= 18:42:41
+ Cumulative iteration 2 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.490   TIME= 18:42:41
+ Cumulative iteration 3 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.522   TIME= 18:42:41
+ Cumulative iteration 3 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.553   TIME= 18:42:41
+ Cumulative iteration 4 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.583   TIME= 18:42:41
+ Cumulative iteration 4 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.614   TIME= 18:42:41
+ Cumulative iteration 5 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.644   TIME= 18:42:41
+ Cumulative iteration 5 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.675   TIME= 18:42:41
+ Cumulative iteration 6 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.705   TIME= 18:42:41
+ Cumulative iteration 6 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.739   TIME= 18:42:41
+ Cumulative iteration 7 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.771   TIME= 18:42:41
+ Cumulative iteration 7 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.802   TIME= 18:42:41
+ Cumulative iteration 8 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.836   TIME= 18:42:41
+ Cumulative iteration 8 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.867   TIME= 18:42:41
+ Cumulative iteration 9 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.897   TIME= 18:42:41
+ Cumulative iteration 9 may have been solved using different model or    
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.928   TIME= 18:42:41
+ Cumulative iteration 10 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.961   TIME= 18:42:41
+ Cumulative iteration 10 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      38.992   TIME= 18:42:41
+ Cumulative iteration 11 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.023   TIME= 18:42:41
+ Cumulative iteration 11 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.054   TIME= 18:42:41
+ Cumulative iteration 12 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.085   TIME= 18:42:41
+ Cumulative iteration 12 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.116   TIME= 18:42:41
+ Cumulative iteration 13 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.150   TIME= 18:42:41
+ Cumulative iteration 13 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.181   TIME= 18:42:41
+ Cumulative iteration 14 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.208   TIME= 18:42:41
+ Cumulative iteration 14 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.211   TIME= 18:42:41
+ Cumulative iteration 15 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.215   TIME= 18:42:41
+ Cumulative iteration 15 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.219   TIME= 18:42:41
+ Cumulative iteration 16 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.222   TIME= 18:42:41
+ Cumulative iteration 16 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.225   TIME= 18:42:41
+ Cumulative iteration 17 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.229   TIME= 18:42:41
+ Cumulative iteration 17 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.232   TIME= 18:42:41
+ Cumulative iteration 18 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.236   TIME= 18:42:41
+ Cumulative iteration 18 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.239   TIME= 18:42:41
+ Cumulative iteration 19 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.243   TIME= 18:42:41
+ Cumulative iteration 19 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.246   TIME= 18:42:41
+ Cumulative iteration 20 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.250   TIME= 18:42:41
+ Cumulative iteration 20 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.253   TIME= 18:42:41
+ Cumulative iteration 21 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.257   TIME= 18:42:41
+ Cumulative iteration 21 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.260   TIME= 18:42:41
+ Cumulative iteration 22 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.264   TIME= 18:42:41
+ Cumulative iteration 22 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.267   TIME= 18:42:41
+ Cumulative iteration 23 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.270   TIME= 18:42:41
+ Cumulative iteration 23 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.274   TIME= 18:42:41
+ Cumulative iteration 24 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.277   TIME= 18:42:41
+ Cumulative iteration 24 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.281   TIME= 18:42:41
+ Cumulative iteration 25 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.284   TIME= 18:42:41
+ Cumulative iteration 25 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.287   TIME= 18:42:41
+ Cumulative iteration 26 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.291   TIME= 18:42:41
+ Cumulative iteration 26 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.295   TIME= 18:42:41
+ Cumulative iteration 27 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.298   TIME= 18:42:41
+ Cumulative iteration 27 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.301   TIME= 18:42:41
+ Cumulative iteration 28 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.305   TIME= 18:42:41
+ Cumulative iteration 28 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.308   TIME= 18:42:41
+ Cumulative iteration 29 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.312   TIME= 18:42:41
+ Cumulative iteration 29 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.315   TIME= 18:42:41
+ Cumulative iteration 30 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.319   TIME= 18:42:41
+ Cumulative iteration 30 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.322   TIME= 18:42:41
+ Cumulative iteration 31 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.326   TIME= 18:42:41
+ Cumulative iteration 31 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.329   TIME= 18:42:41
+ Cumulative iteration 32 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.333   TIME= 18:42:41
+ Cumulative iteration 32 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.336   TIME= 18:42:41
+ Cumulative iteration 33 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.340   TIME= 18:42:41
+ Cumulative iteration 33 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.343   TIME= 18:42:41
+ Cumulative iteration 34 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.347   TIME= 18:42:41
+ Cumulative iteration 34 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.350   TIME= 18:42:41
+ Cumulative iteration 35 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.353   TIME= 18:42:41
+ Cumulative iteration 35 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.357   TIME= 18:42:41
+ Cumulative iteration 36 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.360   TIME= 18:42:41
+ Cumulative iteration 36 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.363   TIME= 18:42:41
+ Cumulative iteration 37 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.367   TIME= 18:42:41
+ Cumulative iteration 37 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.371   TIME= 18:42:41
+ Cumulative iteration 38 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.374   TIME= 18:42:41
+ Cumulative iteration 38 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.377   TIME= 18:42:41
+ Cumulative iteration 39 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.381   TIME= 18:42:41
+ Cumulative iteration 39 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.384   TIME= 18:42:41
+ Cumulative iteration 40 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.388   TIME= 18:42:41
+ Cumulative iteration 40 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.391   TIME= 18:42:41
+ Cumulative iteration 41 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.395   TIME= 18:42:41
+ Cumulative iteration 41 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.398   TIME= 18:42:41
+ Cumulative iteration 42 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.402   TIME= 18:42:41
+ Cumulative iteration 42 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.406   TIME= 18:42:41
+ Cumulative iteration 43 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.409   TIME= 18:42:41
+ Cumulative iteration 43 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.412   TIME= 18:42:41
+ Cumulative iteration 44 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.416   TIME= 18:42:41
+ Cumulative iteration 44 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.419   TIME= 18:42:41
+ Cumulative iteration 45 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.423   TIME= 18:42:41
+ Cumulative iteration 45 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.426   TIME= 18:42:41
+ Cumulative iteration 46 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.430   TIME= 18:42:41
+ Cumulative iteration 46 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.433   TIME= 18:42:41
+ Cumulative iteration 47 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.437   TIME= 18:42:41
+ Cumulative iteration 47 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.440   TIME= 18:42:41
+ Cumulative iteration 48 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.444   TIME= 18:42:41
+ Cumulative iteration 48 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.447   TIME= 18:42:41
+ Cumulative iteration 49 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.451   TIME= 18:42:41
+ Cumulative iteration 49 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.454   TIME= 18:42:41
+ Cumulative iteration 50 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.458   TIME= 18:42:41
+ Cumulative iteration 50 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.461   TIME= 18:42:41
+ Cumulative iteration 51 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.465   TIME= 18:42:41
+ Cumulative iteration 51 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.468   TIME= 18:42:41
+ Cumulative iteration 52 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.471   TIME= 18:42:41
+ Cumulative iteration 52 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.475   TIME= 18:42:41
+ Cumulative iteration 53 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.478   TIME= 18:42:41
+ Cumulative iteration 53 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.482   TIME= 18:42:41
+ Cumulative iteration 54 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.485   TIME= 18:42:41
+ Cumulative iteration 54 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.489   TIME= 18:42:41
+ Cumulative iteration 55 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.492   TIME= 18:42:41
+ Cumulative iteration 55 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.496   TIME= 18:42:41
+ Cumulative iteration 56 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.499   TIME= 18:42:42
+ Cumulative iteration 56 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.503   TIME= 18:42:42
+ Cumulative iteration 57 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.506   TIME= 18:42:42
+ Cumulative iteration 57 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.510   TIME= 18:42:42
+ Cumulative iteration 58 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.514   TIME= 18:42:42
+ Cumulative iteration 58 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.517   TIME= 18:42:42
+ Cumulative iteration 59 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.520   TIME= 18:42:42
+ Cumulative iteration 59 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.524   TIME= 18:42:42
+ Cumulative iteration 60 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.527   TIME= 18:42:42
+ Cumulative iteration 60 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.531   TIME= 18:42:42
+ Cumulative iteration 61 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.534   TIME= 18:42:42
+ Cumulative iteration 61 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.538   TIME= 18:42:42
+ Cumulative iteration 62 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.541   TIME= 18:42:42
+ Cumulative iteration 62 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.545   TIME= 18:42:42
+ Cumulative iteration 63 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.548   TIME= 18:42:42
+ Cumulative iteration 63 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.552   TIME= 18:42:42
+ Cumulative iteration 64 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.555   TIME= 18:42:42
+ Cumulative iteration 64 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.559   TIME= 18:42:42
+ Cumulative iteration 65 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.562   TIME= 18:42:42
+ Cumulative iteration 65 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.566   TIME= 18:42:42
+ Cumulative iteration 66 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.569   TIME= 18:42:42
+ Cumulative iteration 66 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.573   TIME= 18:42:42
+ Cumulative iteration 67 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.576   TIME= 18:42:42
+ Cumulative iteration 67 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.580   TIME= 18:42:42
+ Cumulative iteration 68 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.583   TIME= 18:42:42
+ Cumulative iteration 68 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.586   TIME= 18:42:42
+ Cumulative iteration 69 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.590   TIME= 18:42:42
+ Cumulative iteration 69 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.594   TIME= 18:42:42
+ Cumulative iteration 70 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.597   TIME= 18:42:42
+ Cumulative iteration 70 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *ENDDO  INDEX= IL                              
+
+ *** WARNING ***                         CP =      39.601   TIME= 18:42:42
+ Cumulative iteration 71 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ *** WARNING ***                         CP =      39.604   TIME= 18:42:42
+ Cumulative iteration 71 may have been solved using different model or   
+ boundary condition data than currently stored.  POST1 results may be    
+ erroneous unless you RESUME from a Jobname.DB file for this substep.    
+
+ OPENED FILE= ansys_p4_harm_ff_y_v2_h112_sweep_e31m_v3.csv FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =        39.616
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= p4_harm_ff_y_v3_h112_e31.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=        147
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2025 R1            Build: 25.1       Update: UP20241202   Platform: LINUX x64   
+Date Run: 09/24/2026   Time: 18:42     Process ID: 1774470
+Operating System: AlmaLinux release 8.10 (Cerulean Leopard)
+
+Processor Model: Intel(R) Xeon(R) Gold 6248 CPU @ 2.50GHz
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303
+
+Number of machines requested            :    1
+Total number of cores available         :   40
+Number of physical cores available      :   40
+Number of processes requested           :    1
+Number of threads per process requested :    8
+Total number of cores requested         :    8 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: p4_harm_ff_y_v3_h112_e31
+Input File: ansys_p4_harm_ff_y_v3_h112_e31m_2026-09-24.inp
+Working Directory: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys
+
+Total CPU time for main thread                    :        5.6 seconds
+Total CPU time summed for all threads             :       39.7 seconds
+
+Elapsed time spent obtaining a license            :        1.5 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.0 seconds
+Elapsed time spent solution - preprocessing       :        0.0 seconds
+Elapsed time spent computing solution             :        4.6 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.6 seconds
+ 
+Equation solver used                              :            Sparse (symmetric)
+Equation solver computational rate                :        4.2 Gflops
+
+Sum of disk space used on all processes           :       49.6 MB
+
+Sum of memory used on all processes               :       47.0 MB
+Sum of memory allocated on all processes          :     2304.0 MB
+Physical memory available                         :        187 GB
+Total amount of I/O written to disk               :        0.1 GB
+Total amount of I/O read from disk                :        0.2 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+ |  Maximum Database Used       2 MB     Maximum Scratch Memory Used     45 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =         39.653       Time  =  18:42:42          |
+ |        Elapsed Time (sec) =          9.000       Date  =  09/24/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

@@ -1,0 +1,11 @@
+# Paper 5 segmented-electrode harmonic charge FE (2026-09-24).
+# Built by build_p5seg_decks_2026-09-24.py. Score with
+# python3 score_p5seg_fe_2026-09-24.py (bars fixed before the run
+# in targets_p5seg_2026-09-24.json). ONE licence seat.
+#
+ansys_p5seg_e31m_c73_m40_2026-09-24.inp
+ansys_p5seg_e31m_c73_m80_2026-09-24.inp
+ansys_p5seg_e31m_c73_m160_2026-09-24.inp
+ansys_p5seg_e31m_c26_m40_2026-09-24.inp
+ansys_p5seg_e31m_c26_m80_2026-09-24.inp
+ansys_p5seg_e31m_c26_m160_2026-09-24.inp
