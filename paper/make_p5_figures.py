@@ -80,16 +80,31 @@ sweep = [
     (485.0, 8.084682698928616e-11),
 ]
 om = np.array([p[0] for p in sweep])
-Y = np.array([p[1] for p in sweep])
+Y_code = np.array([p[1] for p in sweep])
 pole = 471.3646021920983
+# 2026-09-24 (LESSONS Sec 18.238/18.239): the values above are the code's
+# Q_segment/F = +pi*I0*Xi11*r*phibar'/F, i.e. MINUS the dielectric-flux
+# part Q0 of the free electrode charge. The free charge per face segment
+# is Q = kappa*Q0 with kappa from main-text Eq. (Ysense), FE-confirmed
+# (job 2531984). Closed-form kappa (probe_piezo_p5_e15_segment_charge_
+# 2026-09-24.py): c44 = 26 GPa -> -6.258132, 73 GPa -> -1.585088.
+KAPPA_26, KAPPA_73 = -6.258132, -1.585088
+Y0 = -Y_code                 # dielectric-flux part, free-charge sign
+Y = KAPPA_26 * Y0            # plotted quantity: Q_in/F at c44 = 26 GPa
 
 fig, axes = plt.subplots(1, 2, figsize=(9.4, 3.6))
 
 ax = axes[0]
-ax.semilogy(om, np.abs(Y), "o-", color="#2166ac", lw=1.3, ms=5)
+ax.semilogy(om, np.abs(Y), "o-", color="#2166ac", lw=1.3, ms=5,
+            label=r"$\kappa=-6.258$ ($c_{44}^E=26$ GPa)")
+ax.semilogy(om, np.abs(KAPPA_73 * Y0), "s--", color="#4d9221", lw=1.0, ms=3.5,
+            label=r"$\kappa=-1.585$ ($c_{44}^E=73$ GPa)")
+ax.semilogy(om, np.abs(Y0), "^:", color="#888888", lw=1.0, ms=3.5,
+            label=r"dielectric flux only ($\kappa=1$)")
+ax.legend(frameon=False, fontsize=7, loc="upper left")
 ax.axvline(pole, color="#c0392b", ls="--", lw=1.0)
 ax.set_xlabel(r"$\omega\ (\mathrm{rad\,s^{-1}})$")
-ax.set_ylabel(r"$|Y_{\mathrm{sense}}[r_*]|$")
+ax.set_ylabel(r"$|Y_{\mathrm{sense}}[r_*]|$ (C/N)")
 ax.set_title("(a) full pre-registered sweep")
 ax.grid(True, which="both", ls=":", lw=0.5, alpha=0.6)
 
@@ -102,7 +117,7 @@ ax.plot(near, Yn, color="#888", lw=1.0, zorder=2)
 ax.axhline(0, color="k", lw=0.6)
 ax.axvline(pole, color="#c0392b", ls="--", lw=1.0, label=r"$\omega=471.3646$")
 ax.set_xlabel(r"$\omega\ (\mathrm{rad\,s^{-1}})$")
-ax.set_ylabel(r"$Y_{\mathrm{sense}}[r_*]$")
+ax.set_ylabel(r"$Y_{\mathrm{sense}}[r_*]$ (C/N)")
 ax.set_title("(b) sign flip through the pole")
 ax.legend(frameon=False, fontsize=8, loc="upper left")
 ax.grid(True, ls=":", lw=0.5, alpha=0.6)

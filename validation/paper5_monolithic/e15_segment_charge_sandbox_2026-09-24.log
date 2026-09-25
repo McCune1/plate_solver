@@ -1,0 +1,7 @@
+omega=  100.0  Q_K=-5.688618e-12  kappa73=-1.58642  kappa26=-6.26188  relA=1.2e-41
+omega=  200.0  Q_K=-5.004059e-12  kappa73=-1.58612  kappa26=-6.26104  relA=0.0e+00
+omega=  800.0  Q_K=-1.294304e-11  kappa73=-1.58841  kappa26=-6.26745  relA=4.3e-41
+omega= 1000.0  Q_K=-1.243402e-11  kappa73=-1.58876  kappa26=-6.26845  relA=0.0e+00
+omega= 1200.0  Q_K=-1.277509e-11  kappa73=-1.58931  kappa26=-6.26999  relA=0.0e+00
+kappa_closed: {'c44_73': -1.585088, 'c44_26': -6.258132}
+SENTINEL PASS_ALL  G_A=True G_B=True G_C=True  (43.0 s)

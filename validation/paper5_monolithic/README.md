@@ -20,6 +20,8 @@ The finite-element decks for the free–free check, with their text
 outputs and queue log (job 2520476), are in `ansys/NewAnsys/`
 (`*_p5_*`); see `ansys/README.md`.
 
+**Segment charge, e15 term (2026-09-24).** `probe_piezo_p5_e15_segment_charge_2026-09-24.py` checks the closed-form factor κ (segment charge = κ × dielectric-flux value) against the driven 12×12 solve, then writes `piezo_p5_e15_segment_charge_predictions.json`. The FE decks in `ansys/NewAnsys/` (`ansys_p5seg_*`) are built from that file and scored against it. The sandbox log is `e15_segment_charge_sandbox_2026-09-24.log`.
+
 **Running.** Set `PKG_PATH` to the repository root. The `submit_*.sh`
 wrappers hardcode the original cluster paths; change them to your
 install.

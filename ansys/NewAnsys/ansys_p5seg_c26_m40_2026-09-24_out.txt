@@ -1,0 +1,2023 @@
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2025 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright 1971-2025 Ansys, Inc.  All rights reserved.       *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+
+ AFTER YOU HAVE READ, UNDERSTOOD, AND AGREED TO THE PREVIOUS NOTICES,
+ PRESS <CR> OR <ENTER> TO CONTINUE
+ 2025 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2025 R1 
+ AVxcelerate Sensors 2025 R1 
+ AVxcelerate Sensors Library for SCANeR 2025 R1  
+ AVxcelerate Sensors Library for CarMaker 2025 R1
+ TwinAI 2025 R1  
+ Electromagnetics Suite 2025 R1  
+ Electromagnetics RSM 2025 R1
+ Ansys Dynamic Reporting 2025 R1 
+ Core WB Files 2025 R1   
+ BladeModeler 2025 R1
+ CFD-Post only 2025 R1   
+ CFX (includes CFD-Post) 2025 R1 
+ Chemkin 2025 R1 
+ EnSight 2025 R1 
+ FENSAP-ICE 2025 R1  
+ Fluent (includes CFD-Post) 2025 R1  
+ Polyflow (includes CFD-Post) 2025 R1
+ Forte (includes EnSight) 2025 R1
+ ICEM CFD 2025 R1
+ Rocky 2025 R1   
+ TurboGrid 2025 R1   
+ Lumerical 2025 R1   
+ Lumerical Photonic Verilog-A 2025 R1
+ Speos HPC 2025 R1   
+ Speos RPC 2025 R1   
+ optiSLang 2025 R1   
+ Remote Solve Manager Standalone Services 2025 R1
+ Additive 2025 R1
+ Aqwa 2025 R1
+ Autodyn 2025 R1 
+ Customization Files for User Programmable Features 2025 R1  
+ LS-DYNA 2025 R1 
+ Mechanical Products 2025 R1 
+ Motion 2025 R1  
+ Sherlock 2025 R1
+ ACIS Geometry Interface 2025 R1 
+ Catia, Version 5 Geometry Interface 2025 R1 
+ Parasolid Geometry Interface 2025 R1
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = p5seg_c26_m40_2026_09_24                                                                                                                                                                                                                                
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  SHARED MEMORY PARALLEL REQUESTED
+    SINGLE PROCESS WITH   8 THREADS REQUESTED
+    TOTAL OF     8 CORES REQUESTED
+  INPUT FILE NAME              = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p5seg_c26_m40_2026-09-24.inp
+  OUTPUT FILE NAME             = /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys/ansys_p5seg_c26_m40_2026-09-24_out.txt
+
+ RELEASE= 2025 R1              BUILD= 25.1      UP20241202   VERSION=LINUX x64   
+ CURRENT JOBNAME=p5seg_c26_m40_2026_09_24  14:09:32  SEP 24, 2026 CP=      0.288
+
+     1  ! ansys_p5seg_c26_m40_2026-09-24.inp
+     2  ! Paper 5 segmented-electrode sensing charge, harmonic FE (2026-09-24). 
+     3  ! Built by build_p5seg_decks_2026-09-24.py. Do not hand-edit; rebuild.  
+     4  ! Pre-registration: PAPER5_E15_SEGMENT_CHARGE_DERIVATION_2026-09-24.md. 
+     5  ! Question: does the inner-segment face charge follow Kirchhoff 
+     6  ! (e15*gamma_rz dropped, Paper 5 Eq. Ysense) or the consistent  
+     7  ! leading-order model with the e15 shear term (kappa = -6.2581 x Kirchhoff  
+     8  ! at C44E = 26 GPa)?
+     9  ! Geometry/material/element: the Sec 18.201 Paper 5 F-F deck
+    10  ! (ansys_p5_epsrel_ff_lanb_scboth_2026-09-19.inp), C44E parameterised.  
+    11  ! UNITS: mm-N-s-tonne, real volts. CHRG comes out in mC (1e-3 C).   
+    12  ! LS1: sign calibration. Top inner segment (r <= RSTAR) at 1 V, all 
+    13  !      other face nodes 0 V, no force. Its CHRG sum must be > 0.
+    14  ! LS2..LS6: all face nodes 0 V (both faces fully electroded, SC),   
+    15  !      FY = 1 N total ring load at r = RLOAD (350 mm), spread over the through- 
+    16  !      thickness node line (symmetric in z: flexure only).  
+    17  ! Output: one file per load step, raw per-node r and CHRG (Re, Im) on   
+    18  ! the top and bottom faces. The scorer does every sum and ratio.
+    19  ! Do not put the MAPDL failure token in this file (queue grep false-fail).  
+    20  ! ============================================================  
+    21  FINISH  
+    22  /CLEAR,NOSTART  
+    23  /TITLE, Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (2026-09-24)
+    24      
+    25  RI     = 100.0  
+    26  RO     = 600.0  
+    27  H      = 10.0   
+    28  RLOAD  = 350.0  
+    29  RSTAR  = 300.0  
+    30  TOL    = 1.0E-3 
+    31  NDIV_R = 40 
+    32  NDIV_Z = 6  
+    33  FTOT   = 1.0
+    34      
+    35  C11E = 1.320E5  
+    36  C12E = 7.100E4  
+    37  C13E = 7.300E4  
+    38  C33E = 1.150E5  
+    39  C44E = 2.6000E+04   
+    40  C66E = (C11E-C12E)/2
+    41  E31  = 4.1E-3   
+    42  E33  = 1.41E-2  
+    43  E15  = 1.05E-2  
+    44  EPS0   = 8.854E-12  
+    45  X11ABS = 7.124E-9   
+    46  X33ABS = 5.841E-9   
+    47  X11    = X11ABS/EPS0
+    48  X33    = X33ABS/EPS0
+    49  RHO_PZT = 7.500E-9  
+    50      
+    51  /PREP7  
+    52  ET,1,PLANE223   
+    53  KEYOPT,1,1,1001 
+    54  KEYOPT,1,3,1
+    55      
+    56  TB,ANEL,1,1,,0  
+    57  TBDATA,1,C11E,C13E,C12E,0,0,0   
+    58  TBDATA,7,C33E,C13E,0,0,0
+    59  TBDATA,12,C11E,0,0,0
+    60  TBDATA,16,C44E,0,0  
+    61  TBDATA,19,C66E,0
+    62  TBDATA,21,C44E  
+    63  TB,PIEZ,1   
+    64  TBDATA,1,0,E31,0,0,E33,0
+    65  TBDATA,7,0,E31,0,E15,0,0
+    66  TBDATA,13,0,0,E15,0,0,0 
+    67  MP,PERX,1,X11   
+    68  MP,PERY,1,X33   
+    69  MP,PERZ,1,X11   
+    70  MP,DENS,1,RHO_PZT   
+    71      
+    72  RECTNG,RI,RO,-H,H   
+    73  ASEL,S,AREA,,1  
+    74  AATT,1,,1   
+    75  LSLA,S  
+    76  LSEL,R,LOC,X,RI 
+    77  LESIZE,ALL,,,NDIV_Z,,,,,1   
+    78  LSLA,S  
+    79  LSEL,R,LOC,X,RO 
+    80  LESIZE,ALL,,,NDIV_Z,,,,,1   
+    81  LSLA,S  
+    82  LSEL,R,LOC,Y,-H 
+    83  LESIZE,ALL,,,NDIV_R,,,,,1   
+    84  LSLA,S  
+    85  LSEL,R,LOC,Y,H  
+    86  LESIZE,ALL,,,NDIV_R,,,,,1   
+    87  ALLSEL,ALL  
+    88  ASEL,S,AREA,,1  
+    89  MSHAPE,0,2D 
+    90  MSHKEY,1
+    91  AMESH,ALL   
+    92  ALLSEL,ALL  
+    93  ! Mesh guards: RSTAR and RLOAD must be corner-node radii, and the element   
+    94  ! count must be NDIV_R*NDIV_Z. *MSG,FATAL stops the deck before any solve   
+    95  ! (same guard pattern as build_p4_3d_nge1_decks_2026-09-23.py). 
+    96  *GET,NELEM,ELEM,0,COUNT 
+    97  *IF,NELEM,NE,NDIV_R*NDIV_Z,THEN 
+    98    *MSG,FATAL
+    99  Mapped mesh element count does not equal NDIV_R*NDIV_Z. 
+   100  *ENDIF  
+   101  NSEL,S,LOC,Y,H-TOL,H+TOL
+   102  NSEL,R,LOC,X,RSTAR-TOL,RSTAR+TOL
+   103  *GET,NCHK1,NODE,0,COUNT 
+   104  NSEL,S,LOC,X,RLOAD-TOL,RLOAD+TOL
+   105  *GET,NFN,NODE,0,COUNT   
+   106  ALLSEL,ALL  
+   107  *IF,NCHK1,NE,1,THEN 
+   108    *MSG,FATAL
+   109  No single top-face node at r = RSTAR.   
+   110  *ENDIF  
+   111  *IF,NFN,NE,2*NDIV_Z+1,THEN  
+   112    *MSG,FATAL
+   113  Force node line at r = RLOAD is not 2*NDIV_Z+1 nodes.   
+   114  *ENDIF  
+   115  FINISH  
+   116      
+   117  /SOLU   
+   118  ANTYPE,HARMIC   
+   119  HROPT,FULL  
+   120  HROUT,OFF   
+   121  OUTRES,NSOL,ALL 
+   122  OUTRES,RSOL,ALL 
+   123  KBC,1   
+   124  EQSLV,SPARSE
+   125      
+   126  ! Both faces grounded everywhere.   
+   127  NSEL,S,LOC,Y,H-TOL,H+TOL
+   128  NSEL,A,LOC,Y,-H-TOL,-H+TOL  
+   129  D,ALL,VOLT,0
+   130  ALLSEL,ALL  
+   131      
+   132  ! LS1 -- sign calibration: top inner segment at 1 V, no force.  
+   133  NSEL,S,LOC,Y,H-TOL,H+TOL
+   134  NSEL,R,LOC,X,RI-TOL,RSTAR+TOL   
+   135  D,ALL,VOLT,1.0  
+   136  ALLSEL,ALL  
+   137  HARFRQ,15.915494309,15.915494309
+   138  NSUBST,1
+   139  LSWRITE,1   
+   140      
+   141  ! LS2..LS6 -- SC, ring load at RLOAD.   
+   142  NSEL,S,LOC,Y,H-TOL,H+TOL
+   143  NSEL,R,LOC,X,RI-TOL,RSTAR+TOL   
+   144  D,ALL,VOLT,0
+   145  NSEL,S,LOC,X,RLOAD-TOL,RLOAD+TOL
+   146  F,ALL,FY,FTOT/NFN   
+   147  ALLSEL,ALL  
+   148  HARFRQ,15.915494309,15.915494309
+   149  NSUBST,1
+   150  LSWRITE,2   
+   151  HARFRQ,31.830988618,31.830988618
+   152  NSUBST,1
+   153  LSWRITE,3   
+   154  HARFRQ,127.323954474,127.323954474  
+   155  NSUBST,1
+   156  LSWRITE,4   
+   157  HARFRQ,159.154943092,159.154943092  
+   158  NSUBST,1
+   159  LSWRITE,5   
+   160  HARFRQ,190.985931710,190.985931710  
+   161  NSUBST,1
+   162  LSWRITE,6   
+   163      
+   164  LSSOLVE,1,6 
+   165  FINISH  
+   166      
+   167  /POST1  
+   168  ! Human-readable label check (one PRRSOL, LS2 real part).   
+   169  SET,2,1,,0  
+   170  NSEL,S,LOC,Y,H-TOL,H+TOL
+   171  NSEL,R,LOC,X,RSTAR-TOL,RSTAR+TOL
+   172  PRRSOL,CHRG 
+   173  ALLSEL,ALL  
+   174      
+   175  NSEL,S,LOC,Y,H-TOL,H+TOL
+   176  *GET,NTOP,NODE,0,COUNT  
+   177  ALLSEL,ALL  
+   178  *DIM,IDX,ARRAY,NTOP 
+   179  *DIM,RT,ARRAY,NTOP  
+   180  *DIM,RB,ARRAY,NTOP  
+   181  *DIM,FRQ,ARRAY,6
+   182  *DIM,LSN,ARRAY,6
+   183  ! ---- load step 1 ---- 
+   184  *DIM,QTR1,ARRAY,NTOP
+   185  *DIM,QTI1,ARRAY,NTOP
+   186  *DIM,QBR1,ARRAY,NTOP
+   187  *DIM,QBI1,ARRAY,NTOP
+   188  SET,1,1,,0  
+   189  *GET,FRQ(1),ACTIVE,0,SET,FREQ   
+   190  LSN(1)=1
+   191  NSEL,S,LOC,Y,H-TOL,H+TOL
+   192  ND=0
+   193  *DO,I,1,NTOP
+   194    ND=NDNEXT(ND) 
+   195    IDX(I)=I  
+   196    RT(I)=NX(ND)  
+   197    *GET,QTR1(I),NODE,ND,RF,CHRG  
+   198  *ENDDO  
+   199  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   200  ND=0
+   201  *DO,I,1,NTOP
+   202    ND=NDNEXT(ND) 
+   203    RB(I)=NX(ND)  
+   204    *GET,QBR1(I),NODE,ND,RF,CHRG  
+   205  *ENDDO  
+   206  SET,1,1,,1  
+   207  NSEL,S,LOC,Y,H-TOL,H+TOL
+   208  ND=0
+   209  *DO,I,1,NTOP
+   210    ND=NDNEXT(ND) 
+   211    *GET,QTI1(I),NODE,ND,RF,CHRG  
+   212  *ENDDO  
+   213  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   214  ND=0
+   215  *DO,I,1,NTOP
+   216    ND=NDNEXT(ND) 
+   217    *GET,QBI1(I),NODE,ND,RF,CHRG  
+   218  *ENDDO  
+   219  ALLSEL,ALL  
+   220  *CFOPEN,ansys_p5seg_c26_m40_ls1,txt 
+   221  *VWRITE 
+   222  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   223  *VWRITE,IDX(1),RT(1),QTR1(1),QTI1(1),RB(1),QBR1(1),QBI1(1)  
+   224  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   225  *CFCLOS 
+   226  ! ---- load step 2 ---- 
+   227  *DIM,QTR2,ARRAY,NTOP
+   228  *DIM,QTI2,ARRAY,NTOP
+   229  *DIM,QBR2,ARRAY,NTOP
+   230  *DIM,QBI2,ARRAY,NTOP
+   231  SET,2,1,,0  
+   232  *GET,FRQ(2),ACTIVE,0,SET,FREQ   
+   233  LSN(2)=2
+   234  NSEL,S,LOC,Y,H-TOL,H+TOL
+   235  ND=0
+   236  *DO,I,1,NTOP
+   237    ND=NDNEXT(ND) 
+   238    IDX(I)=I  
+   239    RT(I)=NX(ND)  
+   240    *GET,QTR2(I),NODE,ND,RF,CHRG  
+   241  *ENDDO  
+   242  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   243  ND=0
+   244  *DO,I,1,NTOP
+   245    ND=NDNEXT(ND) 
+   246    RB(I)=NX(ND)  
+   247    *GET,QBR2(I),NODE,ND,RF,CHRG  
+   248  *ENDDO  
+   249  SET,2,1,,1  
+   250  NSEL,S,LOC,Y,H-TOL,H+TOL
+   251  ND=0
+   252  *DO,I,1,NTOP
+   253    ND=NDNEXT(ND) 
+   254    *GET,QTI2(I),NODE,ND,RF,CHRG  
+   255  *ENDDO  
+   256  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   257  ND=0
+   258  *DO,I,1,NTOP
+   259    ND=NDNEXT(ND) 
+   260    *GET,QBI2(I),NODE,ND,RF,CHRG  
+   261  *ENDDO  
+   262  ALLSEL,ALL  
+   263  *CFOPEN,ansys_p5seg_c26_m40_ls2,txt 
+   264  *VWRITE 
+   265  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   266  *VWRITE,IDX(1),RT(1),QTR2(1),QTI2(1),RB(1),QBR2(1),QBI2(1)  
+   267  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   268  *CFCLOS 
+   269  ! ---- load step 3 ---- 
+   270  *DIM,QTR3,ARRAY,NTOP
+   271  *DIM,QTI3,ARRAY,NTOP
+   272  *DIM,QBR3,ARRAY,NTOP
+   273  *DIM,QBI3,ARRAY,NTOP
+   274  SET,3,1,,0  
+   275  *GET,FRQ(3),ACTIVE,0,SET,FREQ   
+   276  LSN(3)=3
+   277  NSEL,S,LOC,Y,H-TOL,H+TOL
+   278  ND=0
+   279  *DO,I,1,NTOP
+   280    ND=NDNEXT(ND) 
+   281    IDX(I)=I  
+   282    RT(I)=NX(ND)  
+   283    *GET,QTR3(I),NODE,ND,RF,CHRG  
+   284  *ENDDO  
+   285  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   286  ND=0
+   287  *DO,I,1,NTOP
+   288    ND=NDNEXT(ND) 
+   289    RB(I)=NX(ND)  
+   290    *GET,QBR3(I),NODE,ND,RF,CHRG  
+   291  *ENDDO  
+   292  SET,3,1,,1  
+   293  NSEL,S,LOC,Y,H-TOL,H+TOL
+   294  ND=0
+   295  *DO,I,1,NTOP
+   296    ND=NDNEXT(ND) 
+   297    *GET,QTI3(I),NODE,ND,RF,CHRG  
+   298  *ENDDO  
+   299  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   300  ND=0
+   301  *DO,I,1,NTOP
+   302    ND=NDNEXT(ND) 
+   303    *GET,QBI3(I),NODE,ND,RF,CHRG  
+   304  *ENDDO  
+   305  ALLSEL,ALL  
+   306  *CFOPEN,ansys_p5seg_c26_m40_ls3,txt 
+   307  *VWRITE 
+   308  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   309  *VWRITE,IDX(1),RT(1),QTR3(1),QTI3(1),RB(1),QBR3(1),QBI3(1)  
+   310  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   311  *CFCLOS 
+   312  ! ---- load step 4 ---- 
+   313  *DIM,QTR4,ARRAY,NTOP
+   314  *DIM,QTI4,ARRAY,NTOP
+   315  *DIM,QBR4,ARRAY,NTOP
+   316  *DIM,QBI4,ARRAY,NTOP
+   317  SET,4,1,,0  
+   318  *GET,FRQ(4),ACTIVE,0,SET,FREQ   
+   319  LSN(4)=4
+   320  NSEL,S,LOC,Y,H-TOL,H+TOL
+   321  ND=0
+   322  *DO,I,1,NTOP
+   323    ND=NDNEXT(ND) 
+   324    IDX(I)=I  
+   325    RT(I)=NX(ND)  
+   326    *GET,QTR4(I),NODE,ND,RF,CHRG  
+   327  *ENDDO  
+   328  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   329  ND=0
+   330  *DO,I,1,NTOP
+   331    ND=NDNEXT(ND) 
+   332    RB(I)=NX(ND)  
+   333    *GET,QBR4(I),NODE,ND,RF,CHRG  
+   334  *ENDDO  
+   335  SET,4,1,,1  
+   336  NSEL,S,LOC,Y,H-TOL,H+TOL
+   337  ND=0
+   338  *DO,I,1,NTOP
+   339    ND=NDNEXT(ND) 
+   340    *GET,QTI4(I),NODE,ND,RF,CHRG  
+   341  *ENDDO  
+   342  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   343  ND=0
+   344  *DO,I,1,NTOP
+   345    ND=NDNEXT(ND) 
+   346    *GET,QBI4(I),NODE,ND,RF,CHRG  
+   347  *ENDDO  
+   348  ALLSEL,ALL  
+   349  *CFOPEN,ansys_p5seg_c26_m40_ls4,txt 
+   350  *VWRITE 
+   351  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   352  *VWRITE,IDX(1),RT(1),QTR4(1),QTI4(1),RB(1),QBR4(1),QBI4(1)  
+   353  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   354  *CFCLOS 
+   355  ! ---- load step 5 ---- 
+   356  *DIM,QTR5,ARRAY,NTOP
+   357  *DIM,QTI5,ARRAY,NTOP
+   358  *DIM,QBR5,ARRAY,NTOP
+   359  *DIM,QBI5,ARRAY,NTOP
+   360  SET,5,1,,0  
+   361  *GET,FRQ(5),ACTIVE,0,SET,FREQ   
+   362  LSN(5)=5
+   363  NSEL,S,LOC,Y,H-TOL,H+TOL
+   364  ND=0
+   365  *DO,I,1,NTOP
+   366    ND=NDNEXT(ND) 
+   367    IDX(I)=I  
+   368    RT(I)=NX(ND)  
+   369    *GET,QTR5(I),NODE,ND,RF,CHRG  
+   370  *ENDDO  
+   371  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   372  ND=0
+   373  *DO,I,1,NTOP
+   374    ND=NDNEXT(ND) 
+   375    RB(I)=NX(ND)  
+   376    *GET,QBR5(I),NODE,ND,RF,CHRG  
+   377  *ENDDO  
+   378  SET,5,1,,1  
+   379  NSEL,S,LOC,Y,H-TOL,H+TOL
+   380  ND=0
+   381  *DO,I,1,NTOP
+   382    ND=NDNEXT(ND) 
+   383    *GET,QTI5(I),NODE,ND,RF,CHRG  
+   384  *ENDDO  
+   385  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   386  ND=0
+   387  *DO,I,1,NTOP
+   388    ND=NDNEXT(ND) 
+   389    *GET,QBI5(I),NODE,ND,RF,CHRG  
+   390  *ENDDO  
+   391  ALLSEL,ALL  
+   392  *CFOPEN,ansys_p5seg_c26_m40_ls5,txt 
+   393  *VWRITE 
+   394  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   395  *VWRITE,IDX(1),RT(1),QTR5(1),QTI5(1),RB(1),QBR5(1),QBI5(1)  
+   396  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   397  *CFCLOS 
+   398  ! ---- load step 6 ---- 
+   399  *DIM,QTR6,ARRAY,NTOP
+   400  *DIM,QTI6,ARRAY,NTOP
+   401  *DIM,QBR6,ARRAY,NTOP
+   402  *DIM,QBI6,ARRAY,NTOP
+   403  SET,6,1,,0  
+   404  *GET,FRQ(6),ACTIVE,0,SET,FREQ   
+   405  LSN(6)=6
+   406  NSEL,S,LOC,Y,H-TOL,H+TOL
+   407  ND=0
+   408  *DO,I,1,NTOP
+   409    ND=NDNEXT(ND) 
+   410    IDX(I)=I  
+   411    RT(I)=NX(ND)  
+   412    *GET,QTR6(I),NODE,ND,RF,CHRG  
+   413  *ENDDO  
+   414  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   415  ND=0
+   416  *DO,I,1,NTOP
+   417    ND=NDNEXT(ND) 
+   418    RB(I)=NX(ND)  
+   419    *GET,QBR6(I),NODE,ND,RF,CHRG  
+   420  *ENDDO  
+   421  SET,6,1,,1  
+   422  NSEL,S,LOC,Y,H-TOL,H+TOL
+   423  ND=0
+   424  *DO,I,1,NTOP
+   425    ND=NDNEXT(ND) 
+   426    *GET,QTI6(I),NODE,ND,RF,CHRG  
+   427  *ENDDO  
+   428  NSEL,S,LOC,Y,-H-TOL,-H+TOL  
+   429  ND=0
+   430  *DO,I,1,NTOP
+   431    ND=NDNEXT(ND) 
+   432    *GET,QBI6(I),NODE,ND,RF,CHRG  
+   433  *ENDDO  
+   434  ALLSEL,ALL  
+   435  *CFOPEN,ansys_p5seg_c26_m40_ls6,txt 
+   436  *VWRITE 
+   437  ('i  r_top  QtopRe  QtopIm  r_bot  QbotRe  QbotIm   [mm, mC]')  
+   438  *VWRITE,IDX(1),RT(1),QTR6(1),QTI6(1),RB(1),QBR6(1),QBI6(1)  
+   439  (F6.0,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12,1X,E20.12)  
+   440  *CFCLOS 
+   441      
+   442  *CFOPEN,ansys_p5seg_c26_m40_freqs,txt   
+   443  *VWRITE 
+   444  ('ls   freq_Hz')
+   445  *VWRITE,LSN(1),FRQ(1)   
+   446  (F4.0,3X,E20.12)
+   447  *CFCLOS 
+   448  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans
+
+ /INPUT FILE= /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/apdl/start.ans  LINE=       0
+
+ CLEAR MAPDL DATABASE AND RESTART
+
+ Ansys Mechanical Enterprise Academic Teaching     
+
+ TITLE= 
+  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (2026-09-
+
+
+ PARAMETER RI =     100.0000000    
+
+ PARAMETER RO =     600.0000000    
+
+ PARAMETER H =     10.00000000    
+
+ PARAMETER RLOAD =     350.0000000    
+
+ PARAMETER RSTAR =     300.0000000    
+
+ PARAMETER TOL =    0.1000000000E-02
+
+ PARAMETER NDIV_R =     40.00000000    
+
+ PARAMETER NDIV_Z =     6.000000000    
+
+ PARAMETER FTOT =     1.000000000    
+
+ PARAMETER C11E =     132000.0000    
+
+ PARAMETER C12E =     71000.00000    
+
+ PARAMETER C13E =     73000.00000    
+
+ PARAMETER C33E =     115000.0000    
+
+ PARAMETER C44E =     26000.00000    
+
+ PARAMETER C66E =     30500.00000    
+
+ PARAMETER E31 =    0.4100000000E-02
+
+ PARAMETER E33 =    0.1410000000E-01
+
+ PARAMETER E15 =    0.1050000000E-01
+
+ PARAMETER EPS0 =    0.8854000000E-11
+
+ PARAMETER X11ABS =    0.7124000000E-08
+
+ PARAMETER X33ABS =    0.5841000000E-08
+
+ PARAMETER X11 =     804.6080867    
+
+ PARAMETER X33 =     659.7018297    
+
+ PARAMETER RHO_PZT =    0.7500000000E-08
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:09:32  SEP 24, 2026 CP=      0.591
+
+  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (2026-09-
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ *** NOTE ***                            CP =       0.591   TIME= 14:09:32
+ For element type = 1 ( PLANE223 ), KEYOPT 1 = 0 is invalid.  This NOTE  
+ is normal behavior when a CDB file is used.                             
+
+ ELEMENT TYPE          1 IS PLANE223     QUAD COUPLED-FIELD SOLID    
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ ELEMENT TYPE       1 IS PLANE223     2-D 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  TWO-DIMENSIONAL MODEL
+
+ ELEMENT TYPE       1 IS PLANE223     AXI 8-NODE STRU-ELECT SOLID 
+  KEYOPT( 1- 6)=     1001      0      1        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    VOLT
+  AXISYMMETRIC MODEL
+
+ DEFINE DATA TABLE  ANEL  FOR MATERIAL     1
+   WITH A MAXIMUM OF   1 TEMPERATURE SPECIFICATIONS
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  1 0.13200E+06  73000.      71000.      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC=  7 0.11500E+06  73000.      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 12 0.13200E+06  0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 16  26000.      0.0000      0.0000      0.0000      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 19  30500.      0.0000      0.0000    
+
+ DATA FOR  ANEL  TABLE FOR MATERIAL   1 AT TEMPERATURE=  0.0000    
+ LOC= 21  26000.    
+
+ DEFINE DATA TABLE  PIEZ  FOR MATERIAL     1
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  1  0.0000     0.41000E-02  0.0000      0.0000     0.14100E-01  0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC=  7  0.0000     0.41000E-02  0.0000     0.10500E-01  0.0000      0.0000    
+
+ DATA FOR  PIEZ  TABLE FOR MATERIAL   1
+ LOC= 13  0.0000      0.0000     0.10500E-01  0.0000      0.0000      0.0000    
+
+ MATERIAL          1     PERX =   804.6081      
+
+ MATERIAL          1     PERY =   659.7018      
+
+ MATERIAL          1     PERZ =   804.6081      
+
+ MATERIAL          1     DENS =  0.7500000E-08  
+
+ CREATE A PLANAR RECTANGULAR AREA WITH
+ X-DISTANCES FROM      100.0000000     TO      600.0000000    
+ Y-DISTANCES FROM     -10.00000000     TO      10.00000000    
+
+      OUTPUT AREA =     1
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        1  DEFINED) SELECTED BY  ASEL  COMMAND.
+
+ SET ATTRIBUTES FOR ALL SELECTED AREAS
+      MAT =    1   REAL =       0   TYPE =    1   ESYS =    0   SECN =    0
+
+ ATTRIBUTES SET FOR      1 AREAS (OUT OF      1 SELECTED)
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  100.00     AND   100.00    
+   KABS=  0.  TOLERANCE= 0.500000    
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    6,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  600.00     AND   600.00    
+   KABS=  0.  TOLERANCE=  3.00000    
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =    6,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.000     AND  -10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT      LINES ASSOCIATED WITH SELECTED AREAS
+
+        4  LINES (OF        4  DEFINED) SELECTED FROM
+        1 SELECTED AREAS BY  LSLA  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=Y     BETWEEN  10.000     AND   10.000    
+   KABS=  0.  TOLERANCE= 0.500000E-01
+
+        1  LINES (OF        4  DEFINED) SELECTED BY LSEL  COMMAND.
+
+ SET DIVISIONS ON ALL SELECTED LINES
+      TO  NDIV =   40,  SPACING RATIO =   1.000
+      (KFORCE = 0      PREVIOUS NONZERO VALUES WILL NOT BE ALTERED)
+ NDIV AND SPACE CAN BE OVERRIDDEN FOR CURVATURE OR PROXIMITY
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=AREA COMPONENT=    
+  IN RANGE         1 TO          1 STEP          1
+
+        1  AREAS (OF        1  DEFINED) SELECTED BY  ASEL  COMMAND.
+ PRODUCE ALL QUADRILATERAL ELEMENTS IN 2D.
+ USE THE MAPPED MESHER.
+
+ GENERATE NODES AND ELEMENTS   IN  ALL  SELECTED AREAS    
+    ** AREA     1 MESHED WITH     240 QUADRILATERALS,        0 TRIANGLES **
+
+ NUMBER OF AREAS MESHED     =          1
+ MAXIMUM NODE NUMBER        =        813
+ MAXIMUM ELEMENT NUMBER     =        240
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *GET  NELEM     FROM  ELEM  ITEM=COUN           VALUE=  240.000000    
+
+ *IF  NELEM  ( =   240.000     )  NE  
+      NDIV_R*NDIV_Z  ( =   240.000     )  THEN    
+
+ *ENDIF
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  300.00     AND   300.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+          1  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NCHK1     FROM  NODE  ITEM=COUN       VALUE=  1.00000000     
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  350.00     AND   350.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         13  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NFN       FROM  NODE  ITEM=COUN       VALUE=  13.0000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ *IF  NCHK1  ( =   1.00000     )  NE  
+      1  ( =   1.00000     )  THEN    
+
+ *ENDIF
+
+ *IF  NFN  ( =   13.0000     )  NE  
+      2*NDIV_Z+1  ( =   13.0000     )  THEN    
+
+ *ENDIF
+
+
+ ***** ROUTINE COMPLETED *****  CP =         0.602
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A HARMONIC ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+
+ PERFORM A FULL HARMONIC RESPONSE ANALYSIS
+
+ PRINT COMPLEX DISPLACEMENTS AS AMPLITUDE AND PHASE ANGLE (IN DEGREES)
+
+ WRITE NSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ WRITE RSOL ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ STEP BOUNDARY CONDITION KEY= 1
+
+ USE SPARSE MATRIX DIRECT SOLVER
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ ALSO SELECT  FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+        162  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO         813 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  99.999     AND   300.00    
+   KABS=  0.  TOLERANCE= 0.200002E-05
+
+         33  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO         813 BY           1
+ REAL=  1.00000000       IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ HARMONIC FREQUENCY RANGE - END=  15.915      BEGIN=  15.915    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5seg_c26_m40_2026_09_24.s01                                                                                                                                                                                                                                        
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  99.999     AND   300.00    
+   KABS=  0.  TOLERANCE= 0.200002E-05
+
+         33  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED CONSTRAINT VOLT FOR SELECTED NODES            1 TO         813 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=X     BETWEEN  350.00     AND   350.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         13  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ SPECIFIED NODAL LOAD FY   FOR SELECTED NODES         1 TO      813 BY        1
+  REAL= 7.692307692E-02   IMAG=  0.00000000    
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ HARMONIC FREQUENCY RANGE - END=  15.915      BEGIN=  15.915    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5seg_c26_m40_2026_09_24.s02                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  31.831      BEGIN=  31.831    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5seg_c26_m40_2026_09_24.s03                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  127.32      BEGIN=  127.32    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5seg_c26_m40_2026_09_24.s04                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  159.15      BEGIN=  159.15    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5seg_c26_m40_2026_09_24.s05                                                                                                                                                                                                                                        
+
+ HARMONIC FREQUENCY RANGE - END=  190.99      BEGIN=  190.99    
+
+ USE     1 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ WRITE ANSYS LOADS DATA AS FILE=p5seg_c26_m40_2026_09_24.s06                                                                                                                                                                                                                                        
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       14:09:32
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 1.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       0.624   TIME= 14:09:33
+ Axisymmetric elements are present.  The nodal loads input with the F    
+ commands and the reaction forces are on a full circle basis.  This      
+ differs from the pre-MAPDL 5.0 interpretation.                          
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:09:33  SEP 24, 2026 CP=      0.625
+
+  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20      
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .AXISYMMETRIC         
+   DEGREES OF FREEDOM. . . . . . UX   UY   VOLT
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .HARMONIC             
+      SOLUTION METHOD. . . . . . . . . . . . . . .FULL
+   EQUATION SOLVER OPTION. . . . . . . . . . . . .SPARSE             
+   COMPLEX DISPLACEMENT PRINT OPTION . . . . . . .REAL AND IMAGINARY       
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+
+ *** NOTE ***                            CP =       0.626   TIME= 14:09:33
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** NOTE ***                            CP =       0.626   TIME= 14:09:33
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  15.915     TO   15.915    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =  0.16493    
+
+
+ MASS AND MOMENT VALUES ARE EVALUATED FOR AN AXISYMMETRIC 360. DEGREE MODEL.
+
+                    MOM. OF INERTIA      MOM. OF INERTIA     RADIUS OF GYRATION
+ CENTER OF MASS      ABOUT ORIGIN     ABOUT CENTER OF MASS  ABOUT CENTER OF MASS
+
+ XC =   0.0000       IXX =   0.1526E+05   IXX =   0.1526E+05  RGX =    304.2    
+ YC =  0.11412E-14   IYY =   0.3051E+05   IYY =   0.3051E+05  RGY =    430.1    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.164934    
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 2.886707678E+09 at element 160.                               
+ Minimum = 528928429 at element 1.                                       
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       240  PLANE223      0.517   0.002153
+ Time at end of element matrix formulation CP = 0.711587012.             
+
+ SPARSE MATRIX DIRECT SOLVER.
+  Number of equations =        2277,    Maximum wavefront =     60
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =     7.201 MB
+  Equation solver memory required for in-core mode     =     6.922 MB
+  Equation solver memory required for out-of-core mode =     4.035 MB
+  Total (solver and non-solver) memory allocated       =   520.432 MB
+
+ *** NOTE ***                            CP =       0.828   TIME= 14:09:33
+ The Sparse Matrix Solver is currently running in the in-core memory     
+ mode.  This memory mode uses the most amount of memory in order to      
+ avoid using the hard drive as much as possible, which most often        
+ results in the fastest solution time.  This mode is recommended if      
+ enough physical memory is present to accommodate all of the solver      
+ data.                                                                   
+ Sparse solver maximum pivot= 5.009615278E+09 at node 786 UY.            
+ Sparse solver minimum pivot= 1672.92715 at node 495 UY.                 
+ Sparse solver minimum pivot in absolute value= 1672.92715 at node 495   
+ UY.                                                                     
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       240  PLANE223      0.337   0.001403
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+        1       240  PLANE223      0.116   0.000483
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.  FREQUENCY=   15.9155    
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.188 MB WRITTEN ON ELEMENT SAVED DATA FILE: p5seg_c26_m40_2026_09_24.esav
+        1.000 MB WRITTEN ON ASSEMBLED MATRIX FILE: p5seg_c26_m40_2026_09_24.full
+        0.625 MB WRITTEN ON RESULTS FILE: p5seg_c26_m40_2026_09_24.rst
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       14:09:32
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 2.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       1.530   TIME= 14:09:33
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:09:33  SEP 24, 2026 CP=      1.537
+
+  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     2
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  15.915     TO   15.915    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     2   SUBSTEP     1  COMPLETED.  FREQUENCY=   15.9155    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       14:09:32
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 3.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       1.909   TIME= 14:09:33
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:09:33  SEP 24, 2026 CP=      1.914
+
+  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     3
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  31.831     TO   31.831    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     3   SUBSTEP     1  COMPLETED.  FREQUENCY=   31.8310    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       14:09:32
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 4.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       2.389   TIME= 14:09:33
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:09:33  SEP 24, 2026 CP=      2.396
+
+  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     4
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  127.32     TO   127.32    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     4   SUBSTEP     1  COMPLETED.  FREQUENCY=   127.324    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       14:09:32
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 5.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       2.824   TIME= 14:09:33
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:09:33  SEP 24, 2026 CP=      2.830
+
+  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     5
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  159.15     TO   159.15    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     5   SUBSTEP     1  COMPLETED.  FREQUENCY=   159.155    
+ ANSYS RELEASE 2025 R1           BUILD 25.1      UP20241202       14:09:32
+
+ PRINTOUT RESUMED BY /GOP
+                                                                         
+ Load step file number 6.  Begin solution ...                            
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       3.192   TIME= 14:09:33
+ The structural-electrostatic analysis with KEYOPT(1) = 1001 of element  
+ PLANE223 will be piezoelectric.                                         
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:09:33  SEP 24, 2026 CP=      3.198
+
+  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20      
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     6
+   FREQUENCY RANGE . . . . . . . . . . . . . . . .  190.99     TO   190.99    
+   NUMBER OF SUBSTEPS. . . . . . . . . . . . . . .     1
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+      NSOL        ALL               
+      RSOL        ALL               
+
+ *** LOAD STEP     6   SUBSTEP     1  COMPLETED.  FREQUENCY=   190.986    
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =         3.771
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:09:33  SEP 24, 2026 CP=      3.788
+
+  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20      
+
+
+
+          ***** MAPDL RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =       3.789   TIME= 14:09:33
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+
+ USE LOAD STEP     2  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     2  SUBSTEP=     1  CUMULATIVE ITERATION=     2
+   TIME/FREQUENCY=  15.915    
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ RESELECT     FOR ITEM=LOC  COMPONENT=X     BETWEEN  300.00     AND   300.00    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+          1  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PRINT CHRG REACTION SOLUTIONS PER NODE
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2025 R1          25.1     ***
+ Ansys Mechanical Enterprise Academic Teaching     
+ 00241195  VERSION=LINUX x64     14:09:33  SEP 24, 2026 CP=      3.879
+
+  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20      
+
+
+ 
+  ***** POST1 TOTAL REACTION SOLUTION LISTING *****                            
+ 
+  LOAD STEP=     2  SUBSTEP=     1                                             
+   FREQ=    15.915      LOAD CASE=   0                                         
+ 
+    NODE       CHRG  
+     142 -0.93317E-009
+
+ TOTAL VALUES
+ VALUE  -0.93317E-009
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ *GET  NTOP      FROM  NODE  ITEM=COUN       VALUE=  81.0000000     
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ SET PARAMETER DIMENSIONS ON  IDX TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  RT TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  RB TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  FRQ TYPE=ARRA  DIMENSIONS=     6     1     1
+
+ SET PARAMETER DIMENSIONS ON  LSN TYPE=ARRA  DIMENSIONS=     6     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTR1 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI1 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR1 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI1 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  15.915    
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  15.9154943    
+
+ PARAMETER LSN(1) =     1.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR1      FROM  NODE        82  ITEM=RF   CHRG  VALUE=-0.138457088E-007
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR1      FROM  NODE         1  ITEM=RF   CHRG  VALUE= 0.515723122E-006
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY=  15.915          (IMAGINARY) 
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ *GET  QTI1      FROM  NODE        82  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI1      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5seg_c26_m40_ls1.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QTR2 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI2 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR2 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI2 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+
+ USE LOAD STEP     2  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     2  SUBSTEP=     1  CUMULATIVE ITERATION=     2
+   TIME/FREQUENCY=  15.915    
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  15.9154943    
+
+ PARAMETER LSN(2) =     2.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR2      FROM  NODE        82  ITEM=RF   CHRG  VALUE=-0.117301499E-008
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR2      FROM  NODE         1  ITEM=RF   CHRG  VALUE=-0.179963144E-009
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     2  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     2  SUBSTEP=     1  CUMULATIVE ITERATION=     2
+   TIME/FREQUENCY=  15.915          (IMAGINARY) 
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ *GET  QTI2      FROM  NODE        82  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI2      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5seg_c26_m40_ls2.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QTR3 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI3 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR3 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI3 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+
+ USE LOAD STEP     3  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     3  SUBSTEP=     1  CUMULATIVE ITERATION=     3
+   TIME/FREQUENCY=  31.831    
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  31.8309886    
+
+ PARAMETER LSN(3) =     3.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR3      FROM  NODE        82  ITEM=RF   CHRG  VALUE=-0.131610299E-008
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR3      FROM  NODE         1  ITEM=RF   CHRG  VALUE=-0.149824636E-009
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     3  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     3  SUBSTEP=     1  CUMULATIVE ITERATION=     3
+   TIME/FREQUENCY=  31.831          (IMAGINARY) 
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ *GET  QTI3      FROM  NODE        82  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI3      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5seg_c26_m40_ls3.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QTR4 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI4 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR4 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI4 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+
+ USE LOAD STEP     4  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     4  SUBSTEP=     1  CUMULATIVE ITERATION=     4
+   TIME/FREQUENCY=  127.32    
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  127.323954    
+
+ PARAMETER LSN(4) =     4.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR4      FROM  NODE        82  ITEM=RF   CHRG  VALUE=-0.200582885E-009
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR4      FROM  NODE         1  ITEM=RF   CHRG  VALUE=-0.593121445E-009
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     4  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     4  SUBSTEP=     1  CUMULATIVE ITERATION=     4
+   TIME/FREQUENCY=  127.32          (IMAGINARY) 
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ *GET  QTI4      FROM  NODE        82  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI4      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5seg_c26_m40_ls4.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QTR5 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI5 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR5 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI5 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+
+ USE LOAD STEP     5  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     5  SUBSTEP=     1  CUMULATIVE ITERATION=     5
+   TIME/FREQUENCY=  159.15    
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  159.154943    
+
+ PARAMETER LSN(5) =     5.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR5      FROM  NODE        82  ITEM=RF   CHRG  VALUE=-0.565293202E-009
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR5      FROM  NODE         1  ITEM=RF   CHRG  VALUE=-0.617202827E-009
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     5  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     5  SUBSTEP=     1  CUMULATIVE ITERATION=     5
+   TIME/FREQUENCY=  159.15          (IMAGINARY) 
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ *GET  QTI5      FROM  NODE        82  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI5      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5seg_c26_m40_ls5.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ SET PARAMETER DIMENSIONS ON  QTR6 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QTI6 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBR6 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+ SET PARAMETER DIMENSIONS ON  QBI6 TYPE=ARRA  DIMENSIONS=    81     1     1
+
+
+ USE LOAD STEP     6  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     6  SUBSTEP=     1  CUMULATIVE ITERATION=     6
+   TIME/FREQUENCY=  190.99    
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ *GET  FRQ       FROM  ACTI  ITEM=SET  FREQ  VALUE=  190.985932    
+
+ PARAMETER LSN(6) =     6.000000000    
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ PARAMETER IDX(I) =     1.000000000    
+
+ PARAMETER RT(I) =     600.0000000    
+
+ *GET  QTR6      FROM  NODE        82  ITEM=RF   CHRG  VALUE=-0.915048754E-009
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ PARAMETER RB(I) =     100.0000000    
+
+ *GET  QBR6      FROM  NODE         1  ITEM=RF   CHRG  VALUE=-0.706817258E-009
+
+ *ENDDO  INDEX= I                               
+
+
+ USE LOAD STEP     6  SUBSTEP     1  FOR LOAD CASE 0 
+ COMPLEX SOLUTION KEY =     1 (IMAGINARY)
+
+ SET COMMAND GOT LOAD STEP=     6  SUBSTEP=     1  CUMULATIVE ITERATION=     6
+   TIME/FREQUENCY=  190.99          (IMAGINARY) 
+ TITLE=  Paper 5 segmented-electrode harmonic charge, C44E=26 GPa, mesh 40x6 (20
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN  9.9990     AND   10.001    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     82.00000000    
+
+ *GET  QTI6      FROM  NODE        82  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT       FOR ITEM=LOC  COMPONENT=Y     BETWEEN -10.001     AND  -9.9990    
+   KABS=  0.  TOLERANCE= 0.200000E-10
+
+         81  NODES (OF        813  DEFINED) SELECTED BY  NSEL  COMMAND.
+
+ PARAMETER ND =     0.000000000    
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  81.000     BY  1.0000    
+
+ PARAMETER ND =     1.000000000    
+
+ *GET  QBI6      FROM  NODE         1  ITEM=RF   CHRG  VALUE=  0.00000000     
+
+ *ENDDO  INDEX= I                               
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ OPENED FILE= ansys_p5seg_c26_m40_ls6.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ OPENED FILE= ansys_p5seg_c26_m40_freqs.txt FOR COMMAND FILE DATA 
+
+
+  COMMAND FILE CLOSED 
+
+
+ EXIT THE MAPDL POST1 DATABASE PROCESSOR
+
+
+ ***** ROUTINE COMPLETED *****  CP =         4.893
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= p5seg_c26_m40_2026_09_24.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          0
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2025 R1            Build: 25.1       Update: UP20241202   Platform: LINUX x64   
+Date Run: 09/24/2026   Time: 14:09     Process ID: 1721560
+Operating System: AlmaLinux release 8.10 (Cerulean Leopard)
+
+Processor Model: Intel(R) Xeon(R) Gold 6248 CPU @ 2.50GHz
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303
+
+Number of machines requested            :    1
+Total number of cores available         :   40
+Number of physical cores available      :   40
+Number of processes requested           :    1
+Number of threads per process requested :    8
+Total number of cores requested         :    8 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: p5seg_c26_m40_2026_09_24
+Input File: ansys_p5seg_c26_m40_2026-09-24.inp
+Working Directory: /home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys
+
+Total CPU time for main thread                    :        1.4 seconds
+Total CPU time summed for all threads             :        4.9 seconds
+
+Elapsed time spent obtaining a license            :        1.5 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.0 seconds
+Elapsed time spent solution - preprocessing       :        0.0 seconds
+Elapsed time spent computing solution             :        0.3 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.2 seconds
+ 
+Equation solver used                              :            Sparse (symmetric)
+Equation solver computational rate                :        3.1 Gflops
+
+Sum of disk space used on all processes           :        3.3 MB
+
+Sum of memory used on all processes               :       45.0 MB
+Sum of memory allocated on all processes          :     2304.0 MB
+Physical memory available                         :        187 GB
+Total amount of I/O written to disk               :        0.0 GB
+Total amount of I/O read from disk                :        0.0 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2025 R1         Build 25.1         UP20241202    LINUX x64     |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)  1024 MB     Scratch Memory Requested      1024 MB |
+ |  Maximum Database Used       2 MB     Maximum Scratch Memory Used     43 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =          4.934       Time  =  14:09:34          |
+ |        Elapsed Time (sec) =          5.000       Date  =  09/24/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

@@ -1,0 +1,47 @@
+Job 2531984 on compute-34-04.mill
+Start: Thu Sep 24 14:09:07 CDT 2026
+ANSYS module: ansys/2025R1
+MAPDL launcher: /share/apps/common/ansys/2025R1/ansys_inc/v251/ansys/bin/mapdl
+================================================================
+  run_ansys_queue.sh -- Thu Sep 24 14:09:08 CDT 2026
+  cwd=/home/ghmkfh/PythonMill/Plate_Solver_Package/Ansys/NewAnsys  manifest=ansys_queue_manifest_piezo_p5seg_2026-09-24.txt  cpus/deck=8  stop_on_fail=0
+================================================================
+
+---- [1] ansys_p5seg_c73_m40_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_c73_m40_2026_09_24) -- Thu Sep 24 14:09:08 CDT 2026 ----
+---- [1] ansys_p5seg_c73_m40_2026-09-24.inp : OK (6s), wrote ansys_p5seg_c73_m40_2026-09-24_out.txt, sentinel=ansys_p5seg_c73_m40_2026-09-24.inp.QUEUE_OK ----
+
+---- [2] ansys_p5seg_c73_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_c73_m80_2026_09_24) -- Thu Sep 24 14:09:14 CDT 2026 ----
+---- [2] ansys_p5seg_c73_m80_2026-09-24.inp : OK (6s), wrote ansys_p5seg_c73_m80_2026-09-24_out.txt, sentinel=ansys_p5seg_c73_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [3] ansys_p5seg_c73_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_c73_m160_2026_09_2) -- Thu Sep 24 14:09:20 CDT 2026 ----
+---- [3] ansys_p5seg_c73_m160_2026-09-24.inp : OK (8s), wrote ansys_p5seg_c73_m160_2026-09-24_out.txt, sentinel=ansys_p5seg_c73_m160_2026-09-24.inp.QUEUE_OK ----
+
+---- [4] ansys_p5seg_c26_m40_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_c26_m40_2026_09_24) -- Thu Sep 24 14:09:28 CDT 2026 ----
+---- [4] ansys_p5seg_c26_m40_2026-09-24.inp : OK (6s), wrote ansys_p5seg_c26_m40_2026-09-24_out.txt, sentinel=ansys_p5seg_c26_m40_2026-09-24.inp.QUEUE_OK ----
+
+---- [5] ansys_p5seg_c26_m80_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_c26_m80_2026_09_24) -- Thu Sep 24 14:09:34 CDT 2026 ----
+---- [5] ansys_p5seg_c26_m80_2026-09-24.inp : OK (6s), wrote ansys_p5seg_c26_m80_2026-09-24_out.txt, sentinel=ansys_p5seg_c26_m80_2026-09-24.inp.QUEUE_OK ----
+
+---- [6] ansys_p5seg_c26_m160_2026-09-24.inp : RUNNING (mapdl -np 8 -j p5seg_c26_m160_2026_09_2) -- Thu Sep 24 14:09:40 CDT 2026 ----
+---- [6] ansys_p5seg_c26_m160_2026-09-24.inp : OK (8s), wrote ansys_p5seg_c26_m160_2026-09-24_out.txt, sentinel=ansys_p5seg_c26_m160_2026-09-24.inp.QUEUE_OK ----
+
+================================================================
+  QUEUE SUMMARY -- Thu Sep 24 14:09:48 CDT 2026  (total wall: 0 min)
+================================================================
+  ansys_p5seg_c73_m40_2026-09-24.inp : OK (6s)
+  ansys_p5seg_c73_m80_2026-09-24.inp : OK (6s)
+  ansys_p5seg_c73_m160_2026-09-24.inp : OK (8s)
+  ansys_p5seg_c26_m40_2026-09-24.inp : OK (6s)
+  ansys_p5seg_c26_m80_2026-09-24.inp : OK (6s)
+  ansys_p5seg_c26_m160_2026-09-24.inp : OK (8s)
+
+  total=6  ok=6  skip=0  fail=0
+End: Thu Sep 24 14:09:48 CDT 2026
+ansys_p5seg_c73_m40_2026-09-24.inp       RUN_BAD errors=-1
+ansys_p5seg_c73_m80_2026-09-24.inp       RUN_BAD errors=-1
+ansys_p5seg_c73_m160_2026-09-24.inp      RUN_BAD errors=-1
+ansys_p5seg_c26_m40_2026-09-24.inp       RUN_BAD errors=-1
+ansys_p5seg_c26_m80_2026-09-24.inp       RUN_BAD errors=-1
+ansys_p5seg_c26_m160_2026-09-24.inp      RUN_BAD errors=-1
+G_run: FAIL
+VERDICT: INCOMPLETE -- fix the run before reading any ratio.
