@@ -109,91 +109,101 @@ mixed edge the same $\alpha S$ is added only where $M_{rr}=0$ is
 imposed (the free edge). Driven
 $Q/V$ uses the same $4\times4$ with right-hand side
 $M_p=2\eebar(h+h_1/2)V$ on both moment rows. An independent bisection
-of this $Q/V$ recovers the open-circuit root to $1.4\times10^{-15}$
+of this $Q/V$ recovers the open-circuit root to $9\times10^{-15}$
 relative.
 
 \section{Inverse on-branch cross-check}
 \label{sec:s2}
 For the two clamped--clamped short-circuit recoveries, the product
 $(\mathrm{d}\omega/\mathrm{d}p)(\mathrm{d}p/\mathrm{d}\omega)$ on the
-solution branch is $1.000009$ ($e_{31}$) and $1.000008$ ($E$).
+solution branch is $0.999999$ ($e_{31}$) and $1.000008$ ($E$).
 Propagated uncertainties at $0.10\%$ frequency precision are ten times
-the $0.01\%$ values in main-text Table~4: $0.246\%$ of $E$, $8885\%$ of
-short-circuit $e_{31}$, and $21.3\%$ of open-circuit $e_{31}$ at
+the $0.01\%$ values in main-text Table~4: $0.246\%$ of $E$, $3303\%$ of
+short-circuit $e_{31}$, and $8.70\%$ of open-circuit $e_{31}$ at
 $h_1/2h=1/12$.
 
-The sequential recovery (main text \S6, job 2494216) was
-run at full production precision (\texttt{dps=100}) on the cluster and
-reproduces the in-sandbox validation run bit-for-bit. Round trip:
+The sequential recovery (main text \S6) was run at full production
+precision (\texttt{dps=100}). Round trip:
 $\hat E=2.000000009\times10^{11}\,\mathrm{Pa}$
 ($4.5\times10^{-9}$ relative), then, holding $\hat E$,
-$\hat e_{31}=4.100001626\,\mathrm{C\,m^{-2}}$
-($4.0\times10^{-7}$ relative); both below the $10^{-6}$ bar. On-branch
+$\hat e_{31}=-4.099999346\,\mathrm{C\,m^{-2}}$
+($1.6\times10^{-7}$ relative); both below the $10^{-6}$ bar. On-branch
 sensitivities at $h_1/2h=1/12$:
 $\mathrm{d}\omega_{\mathrm{SC}}/\mathrm{d}E=5.678\times10^{-9}\,\mathrm{rad\,s^{-1}\,Pa^{-1}}$,
-$\mathrm{d}\omega_{\mathrm{OC}}/\mathrm{d}e_{31}=-0.8577\,\mathrm{rad\,s^{-1}\,m^2\,C^{-1}}$,
-$\mathrm{d}\omega_{\mathrm{OC}}/\mathrm{d}E=1.518\times10^{-9}\,\mathrm{rad\,s^{-1}\,Pa^{-1}}$,
-giving an implicit $\mathrm{d}e_{31}/\mathrm{d}E|_{\omega_{\mathrm{OC}}}=1.769\times10^{-9}\,\mathrm{C\,m^{-2}\,Pa^{-1}}$.
-At $0.01\%$ frequency precision this splits the $3.01\%$ total of
-main-text Table~4 into a $2.133\%$ direct term and a $2.122\%$ term from
-propagating $\hat E$'s own $0.0246\%$ uncertainty; at $0.10\%$ frequency
-precision the same split gives $21.33\%$ and $21.22\%$, total
-$30.09\%$. The negative control substitutes the clamped--clamped
+$\mathrm{d}\omega_{\mathrm{OC}}/\mathrm{d}e_{31}=-2.1375\,\mathrm{rad\,s^{-1}\,m^2\,C^{-1}}$,
+$\mathrm{d}\omega_{\mathrm{OC}}/\mathrm{d}E=1.494\times10^{-9}\,\mathrm{rad\,s^{-1}\,Pa^{-1}}$,
+giving an implicit $\mathrm{d}e_{31}/\mathrm{d}E|_{\omega_{\mathrm{OC}}}=6.992\times10^{-10}\,\mathrm{C\,m^{-2}\,Pa^{-1}}$.
+At $0.01\%$ frequency precision this splits the $1.21\%$ total of
+main-text Table~4 into a $0.870\%$ direct term and a $0.839\%$ term from
+propagating $\hat E$'s own $0.0246\%$ uncertainty, added in quadrature;
+at $0.10\%$ frequency precision the same split gives $8.70\%$ and
+$8.39\%$, total $12.08\%$. The recovered $\hat e_{31}$ is on the printed
+branch, not the reflection twin at $22.0\,\mathrm{C\,m^{-2}}$. The
+negative control substitutes the clamped--clamped
 open-circuit root for the free--free one in the second step:
-$\hat e_{31}=4.100662522\,\mathrm{C\,m^{-2}}$ still solves (sign flip
+$\hat e_{31}=-4.09975379\,\mathrm{C\,m^{-2}}$ still solves (sign flip
 present), but
-$\mathrm{d}\omega_{\mathrm{SC}}/\mathrm{d}e_{31}|_{\hat E}=-7.664\times10^{-3}\,\mathrm{rad\,s^{-1}\,m^2\,C^{-1}}$
-propagates to $888.5\%$ of $e_{31}$ at $0.01\%$ frequency precision --
-the same order as the single-parameter clamped--clamped figure in
+$\mathrm{d}\omega_{\mathrm{SC}}/\mathrm{d}e_{31}|_{\hat E}=-2.062\times10^{-2}\,\mathrm{rad\,s^{-1}\,m^2\,C^{-1}}$
+propagates to $330.3\%$ of $e_{31}$ at $0.01\%$ frequency precision --
+the single-parameter clamped--clamped figure of
 main-text Table~4, confirming the control fails as required.
 
 \section{Finite-element discriminator and mixed electrical boundary}
 \label{sec:s3}
 Axisymmetric PLANE223, KEYOPT(1)=1001, millimetre--newton--second--tonne,
 relative permittivity, one mesh for every electrical condition compared.
-Mode~1 is the numerical rigid body ($\le 0.003\,\mathrm{Hz}$). Mode~2 is
+Mode~1 is the numerical rigid body ($\le 0.004\,\mathrm{Hz}$). Mode~2 is
 bending: transverse displacement same sign and magnitude at the host top
 and bottom at $r=r_o$; radial displacement opposite. The ratio of those
-components is $19.71$ (both-faces short-circuit), $19.75$ (open-circuit),
-and $19.72$ (outer-only ground). Open-circuit mechanical amplitudes are
+components at $h_1/2h=1/12$ is $19.71$ (both-faces short-circuit) and
+$20.06$ (open-circuit). Open-circuit mechanical amplitudes are
 smaller under unity-normalization because VOLT participates in the norm;
-the ratio is the identifier.
+the ratio is the identifier. Every number in this section is from the
+$e_{31}=-4.1\,\mathrm{C\,m^{-2}}$ rerun of the decks (job 2532086,
+\S\ref{sec:jobs}); coupling-off decks carry no $e_{ij}$ and were not
+rerun.
 
 The outer-only-ground deck (VOLT$=0$ on $z=\pm(h+h_1)$, interface free)
-gives $119.242\,\mathrm{Hz}$. That is $0.36\%$ above true both-faces
-short-circuit ($118.811\,\mathrm{Hz}$) and is not used as the
-short-circuit baseline in the main text. Coupling-off is
-$118.810\,\mathrm{Hz}$.
+gives $121.859\,\mathrm{Hz}$. That is $2.56\%$ above true both-faces
+short-circuit ($118.816\,\mathrm{Hz}$), and $0.60\%$ above open-circuit,
+and is not used as the short-circuit baseline in the main text.
+Coupling-off is $118.810\,\mathrm{Hz}$.
 
-The same fair open-circuit/both-faces-short-circuit pair was cloned,
-unmeshed, to $h_1/2h=1/8$ and $1/5$ (job 2494226). At $1/8$: mode~2 is
-$121.839\,\mathrm{Hz}$ open-circuit, $121.348\,\mathrm{Hz}$ short-circuit,
-discriminator ratio $19.77$ and $19.70$. At $1/5$: mode~2 is
-$127.809\,\mathrm{Hz}$ open-circuit, $127.047\,\mathrm{Hz}$
-short-circuit, discriminator ratio $19.80$ and $19.69$. All four runs
-show mode~1 at $0\,\mathrm{Hz}$ (rigid body) and zero MAPDL
-\texttt{*** ERROR ***} lines in the MAPDL statistics block. The queue
-script's own automated pass/fail scan reported all four as FAILED; that
-scan greps each run's transcript for the literal string
-\texttt{*** ERROR ***} and matched it against that same string appearing
-inside this deck family's own pre-registration comment, not against an
-actual MAPDL error line. The raw \texttt{NUMBER OF ERROR MESSAGES
-ENCOUNTERED} line in each transcript reads zero, and the run completed
-(\texttt{RUN COMPLETED}) in every case; the numbers above are read from
-that completed output, not from the scan's own label.
+At $h_1/2h=1/8$: mode~2 is $124.722\,\mathrm{Hz}$ open-circuit,
+$121.364\,\mathrm{Hz}$ short-circuit, discriminator ratio $20.20$ and
+$19.70$. At $1/5$: mode~2 is $132.183\,\mathrm{Hz}$ open-circuit,
+$127.105\,\mathrm{Hz}$ short-circuit, discriminator ratio $20.43$ and
+$19.70$. All runs show mode~1 at $0\,\mathrm{Hz}$ (rigid body), end
+with \texttt{RUN COMPLETED}, and report zero in the MAPDL
+\texttt{NUMBER OF ERROR MESSAGES ENCOUNTERED} line. (The original
+$+4.1$ decks carried the literal string \texttt{*** ERROR ***} in a
+pre-registration comment, which a queue script's text scan once
+misreported as a failure; the rerun decks neutralize that token.)
 
-The same fair pair was then remeshed with the piezo through-thickness
-division count doubled from 2 to 4, leaving radial divisions, host
-through-thickness divisions, units, and electrical BC unchanged (job
-2494665). Mode~2 frequencies are unchanged at the printed precision:
-$119.143$ vs $118.811\,\mathrm{Hz}$ at $1/12$, $121.839$ vs
-$121.348\,\mathrm{Hz}$ at $1/8$, $127.809$ vs $127.047\,\mathrm{Hz}$
-at $1/5$. Discriminator ratios remain $19.7$--$19.8$. The
-$93\%/90\%/86\%$ recovery of the earlier, non-reciprocal closed-form
-split was therefore not a through-thickness mesh effect; it is the
-charge-arm ratio $(h+h_1/2)/(h+h_1)=0.929/0.900/0.857$. Against the
-reciprocal closed form the three finite-element splits are
-$99.9\%/99.9\%/99.8\%$ of the analytic value.
+The same pair with the piezo through-thickness division count doubled
+from 2 to 4, leaving radial divisions, host through-thickness divisions,
+units, and electrical BC unchanged, moves the three splits by at most
+$4\times10^{-5}$ of their value ($1.9438\%$, $2.7661\%$, $3.9951\%$
+against $1.9438\%$, $2.7662\%$, $3.9953\%$). The finite-element splits
+are $99.7\%$, $99.6\%$ and $99.5\%$ of the tabulated closed-form
+$\Delta_{\mathrm{OC}}$, and $99.7\%$, $99.7\%$ and $99.7\%$ of the
+interior-enriched open-circuit root over the short-circuit $6\times6$
+($1.9493\%$, $2.7747\%$, $4.0080\%$), which is the like-for-like
+quantity.
+
+\paragraph{Sign control.} The same decks were first run with
+$e_{31}=+4.1\,\mathrm{C\,m^{-2}}$ ($\eebar=-4.85$; jobs 2491761,
+2491831, 2494226, 2494665, 2495593 of \S\ref{sec:jobs}). Their splits,
+$0.2795\%$, $0.4047\%$ and $0.6002\%$ (F--F) and $0.2593\%$ (C--F),
+are $99.9\%$, $99.9\%$, $99.9\%$ and $98.9\%$ of the closed form at that
+sign. Across the two signs the finite-element F--F split grows by
+factors of $6.95$, $6.84$ and $6.66$ at the three ratios, against
+closed-form factors of $6.97$, $6.85$ and $6.68$; the open-circuit
+update tracks $\eebar^{\,2}$, not one calibrated point. An earlier
+version of this model took the bus charge at the outer face (arm
+$h+h_1$); against it the $+4.1$ finite elements recovered
+$93\%/90\%/86\%$, which is the charge-arm ratio
+$(h+h_1/2)/(h+h_1)=0.929/0.900/0.857$ and not a mesh effect.
 
 \section{Wide-axis admittance}
 \label{sec:s4}
@@ -202,15 +212,21 @@ $99.9\%/99.9\%/99.8\%$ of the analytic value.
 \includegraphics[width=0.92\linewidth]{piezo_p4_admittance_sweep.png}
 \caption{Driven $C_{\mathrm{eff}}/C_0$ and $|Y|$ on $95$--$145\,\mathrm{Hz}$
 at $h_1/2h=1/12$. The pole and zero of the first $n=0$ pair differ by
-$0.28\%$ and overlap on this axis; main-text Fig.~4 zooms
-$118.6$--$120\,\mathrm{Hz}$.}
+$1.95\%$; main-text Fig.~4 zooms $116$--$122.5\,\mathrm{Hz}$.}
 \label{fig:s1}
 \end{figure}
 
-A harmonic PLANE223 run on the same mesh (job 2494863; $1\,\mathrm{V}$
-on the outer-bus master, KEYOPT(1)=1001 charge reaction) places the
-$|Y|$ peak at $118.79\,\mathrm{Hz}$ and the charge-zero at
-$119.13\,\mathrm{Hz}$, against the modal pair $118.811$ /
+A harmonic PLANE223 run on the same mesh (job 2532146; $1\,\mathrm{V}$
+on the outer-bus master, KEYOPT(1)=1001 charge reaction,
+$118.55$--$122\,\mathrm{Hz}$ in $70$ substeps) places the
+$|Y|$ peak at $118.80\,\mathrm{Hz}$, the charge changing sign through the
+pole between $118.80$ and $118.85\,\mathrm{Hz}$ ($118.82\,\mathrm{Hz}$ by
+linear interpolation of $1/Q$), and the charge-zero at
+$121.126\,\mathrm{Hz}$, against the modal pair $118.816$ /
+$121.126\,\mathrm{Hz}$. The same deck in job 2532086 swept only the
+narrower window of the $e_{31}=+4.1$ run and did not reach the zero; it
+is superseded. At $+4.1$ (job 2494863) the same construction placed the
+pair at $118.79$ / $119.13\,\mathrm{Hz}$ against $118.811$ /
 $119.143\,\mathrm{Hz}$. An earlier harmonic dump (job 2494669) used
 the current label \texttt{AMPS}, which is KEYOPT(1)=101, and returned
 a numerical-zero bus current at every frequency; that run is not a
@@ -223,12 +239,12 @@ Figure~\ref{fig:s2} is the closed-form $h_1/2h$ sweep that sits
 underneath main-text Table~2 and Fig.~2: eleven ratios from $1/40$ to
 $1/4$, linear-potential open-circuit $4\times4$ against the elastic
 bilayer. The three Duan Table~4 ratios (red) lie on the curve. The
-thin-layer intercept $\Delta_{\mathrm{OC}}/(h_1/2h)\to 0.035$ is the
+thin-layer intercept $\Delta_{\mathrm{OC}}/(h_1/2h)\to 0.25$ is the
 leading $h_1$ scaling of the rank-1 coefficient $\alpha$ (the same limit
 under either charge arm, since $h_1\to0$). The bottom
 panel is the single-parameter $e_{31}$ G2 at $0.01\%$ frequency
-precision (host $E$ known exactly); it is $6.80\%$ at $1/40$ and
-$0.85\%$ at $1/4$.
+precision (host $E$ known exactly); it is $2.60\%$ at $1/40$ and
+$0.40\%$ at $1/4$.
 
 \begin{figure}[ht]
 \centering
@@ -241,12 +257,13 @@ ratios already in the main text.}
 
 Figure~\ref{fig:s3} is the driven $Q/V$ problem at the other two
 Table~4 ratios. Independent bisection of $Q/V$ recovers
-\texttt{oc\_ff\_bisect} to $2.5\times10^{-14}$ ($1/8$) and
-$9.6\times10^{-14}$ ($1/5$); $k_{\mathrm{eff}}^2$ from the driven
-pole/zero is $0.00805$ and $0.01191$. $C_0=6.66\,\mathrm{\mu F}$ at
+\texttt{oc\_ff\_bisect} to $1.7\times10^{-14}$ ($1/8$) and
+$3\times10^{-16}$ ($1/5$); $k_{\mathrm{eff}}^2$ from the driven
+pole/zero is $0.0533$ and $0.0757$. $C_0=6.66\,\mathrm{\mu F}$ at
 $1/8$ and $4.16\,\mathrm{\mu F}$ at $1/5$. Off-resonance
-Butterworth--van Dyke shape: $C_{\mathrm{eff}}/C_0=1.019$ below the
-pole and $0.961$ above the zero at $1/8$; $1.028$ and $0.943$ at $1/5$.
+Butterworth--van Dyke shape: $C_{\mathrm{eff}}/C_0=1.135$ at
+$0.55\,\omega_{\mathrm{el}}$ and $0.797$ at $1.08\,\omega_{\mathrm{OC}}$
+at $1/8$; $1.201$ and $0.740$ at $1/5$.
 
 \begin{figure}[ht]
 \centering
@@ -263,7 +280,10 @@ open-circuit root, same linear-potential operator as main-text Fig.~4.}
 \label{sec:jobs}
 All jobs on The Mill \cite{mill2024}, solver snapshot
 \texttt{2026-07-10.s10}. Piezoelectric paths are new and unused by the
-elastic default.
+elastic default. Jobs up to 2531012 used $e_{31}=+4.1\,\mathrm{C\,m^{-2}}$;
+the paper's numbers are from the $e_{31}=-4.1$ rerun described at the
+end of this section, and the earlier jobs are kept as the sign control
+of \S\ref{sec:s3}.
 
 \begin{itemize}
 \item 2489140 --- clamped--clamped Table~4 gate, 27/27, worst $-0.0476\%$.
@@ -342,13 +362,45 @@ elastic default.
 \noindent\textbf{Consistent-projection rerun (2026-09-23).} Every
 analytic job above (all but the finite-element jobs) used the Gauss-law
 closure of \S\ref{sec:s1} and the outer-face charge arm. Every
-package-based probe was re-run unchanged against the corrected solver
+package-based probe was re-run against the corrected solver
 (default \texttt{projection='consistent'}; \texttt{projection='duan'}
 reproduces the jobs above bit-for-bit), with only the hard-coded
 open-circuit regression anchors of four probes moved to the new values.
-All pass (\texttt{SENTINEL PASS\_ALL}), and every analytic number in
-this document and the main text is from that rerun. The rerun was done in-sandbox at the probes' production precision; it was not repeated on the cluster, because every earlier cluster archival run of these same probes reproduced its in-sandbox run bit-for-bit. The finite-element jobs
-are unchanged. Their decks, text outputs, manifests and queue logs are in
+All passed.
+
+\noindent\textbf{$e_{31}=-4.1$ rerun (2026-09-24).} The piezoelectric
+material bundle now carries $e_{31}=-4.1\,\mathrm{C\,m^{-2}}$ as printed
+in Liu, Wang and Quek's and Duan, Quek and Wang's Table~1. Every
+package-based probe behind a number in the main text or this document
+was copied with $e_{31}=-4.1$ and every $e_{31}$ bracket moved to
+$[-10,-1]\,\mathrm{C\,m^{-2}}$ (which excludes the reflection twin at
+$22.0$). Magnitude windows that were pre-registered for $e_{31}=+4.1$
+were multiplied by $(13.05/4.85)^2=7.24$ before the run. Regression
+anchors that encoded $+4.1$ values were re-anchored to the $-4.1$ value
+of an independent probe, never to the probe's own output: the
+thickness-ratio sweep to the open-circuit and driven-$Q/V$ probes, the
+driven $Q/V$ probes to the thickness sweep's free-vibration roots, and
+the precision sweep to the open-circuit and mixed-edge probes, and the
+wide overtone scan to the narrow one. Eleven
+of the twelve gated probes end \texttt{SENTINEL PASS\_ALL}. The
+twelfth, the narrow $n=0$ overtone scan, fails its pre-registered bar of
+two overtones below $4000\,\mathrm{rad\,s^{-1}}$ exactly as job 2494865
+did at $+4.1$ (there is one), and the wide scan finds the second; four
+short scripts supply Table~4 in both closures, the clamped--clamped
+short-circuit $e_{31}$ sensitivity, the interior-enriched open-circuit
+root, and the solid-disk roots of \S\ref{sec:liu-disk}. The runs were made at
+the probes' production precision (\texttt{dps} $40$--$100$) on a
+two-core cloud workstation, not on the cluster; every earlier cluster
+archival run of these probes reproduced its off-cluster run
+bit-for-bit. The package test suite passes (110 tests; four of them pin
+the $-4.1$ default, the Table~4 fundamentals, the open-circuit split and
+the monolithic short-circuit root, and the solid-disk anchors of
+\S\ref{sec:liu-disk} were moved to their $-4.1$ values). Finite elements: job 2532086 (ANSYS
+2025~R1) reran every coupled deck of \S\ref{sec:s3}, \S\ref{sec:scf},
+\S\ref{sec:s9} and \S\ref{sec:liu-disk} at $e_{31}=-4.1$, all
+\texttt{RUN COMPLETED} with zero MAPDL errors; job 2532146 reran the
+harmonic admittance deck on a window that contains the new zero.
+Decks, text outputs, manifests, scorers and queue logs are in
 \texttt{ansys/NewAnsys/} of the public code tree.
 
 \section{Mixed-edge C--F / F--C closed form}
@@ -364,18 +416,20 @@ free--free and clamped--clamped determinants bit-exactly when both
 edges are set equal. Bare-host $n=0$ roots match Paper~3's live
 Frobenius solver at relative $4.45\times10^{-10}$ (C--F,
 $410.074181\,\mathrm{rad\,s^{-1}}$) and $2.28\times10^{-10}$ (F--C,
-$873.221632\,\mathrm{rad\,s^{-1}}$). In-sandbox SENTINEL PASS\_ALL
+$873.221632\,\mathrm{rad\,s^{-1}}$). SENTINEL PASS\_ALL
 (\texttt{probe\_piezo\_p4\_cf\_mixed\_edge\_2026-09-16.py},
-\texttt{dps=60}, 2026-09-23 consistent-projection rerun): C--F
-open-circuit $+0.262\%$, $k_{\mathrm{eff}}^2=0.00522$, $e_{31}$ G2
-$2.28\%$ at $0.01\%$ frequency; F--C open-circuit $+0.00538\%$,
-$k_{\mathrm{eff}}^2=0.000108$. Inverse round-trip on C--F $e_{31}$ is
-$4.0\times10^{-9}$. (Cluster archival job 2495528 confirmed the earlier
-closure's $+0.282\%$ bit-for-bit.) Optional C--F FE job 2495593:
-scboth $67.071\,\mathrm{Hz}$, OC $67.245\,\mathrm{Hz}$, split
-$+0.259\%$ ($98.9\%$ of $+0.262\%$; $92\%$ of the earlier $+0.282\%$),
-no $0\,\mathrm{Hz}$ rigid body, bending discriminator, 0 MAPDL
-errors. \texttt{SOLVER\_VERSION} remains \texttt{2026-07-10.s10}.
+\texttt{dps=60}; $e_{31}=-4.1$ copy
+\texttt{probe\_piezo\_p4\_cf\_mixed\_edge\_e31m\_2026-09-24.py}): C--F
+open-circuit $+1.826\%$, $k_{\mathrm{eff}}^2=0.0355$, $e_{31}$ G2
+$0.93\%$ at $0.01\%$ frequency; F--C open-circuit $+0.0388\%$,
+$k_{\mathrm{eff}}^2=0.00078$. Short-circuit $6\times6$ over the mixed
+bilayer is $+0.0061\%$ (C--F) and $+0.0039\%$ (F--C). Inverse round-trip
+on C--F $e_{31}$ is $4.0\times10^{-9}$. C--F finite elements (job
+2532086): scboth $67.076\,\mathrm{Hz}$, OC $68.290\,\mathrm{Hz}$, split
+$+1.811\%$ ($99.2\%$ of $+1.826\%$), no $0\,\mathrm{Hz}$ rigid body,
+bending discriminator $45.5$ and $47.0$, 0 MAPDL errors. The $+4.1$
+control (job 2495593) gave $+0.259\%$ against $+0.262\%$.
+\texttt{SOLVER\_VERSION} remains \texttt{2026-07-10.s10}.
 
 \section{Frequency-precision sweep and lab noise floor}
 \label{sec:noisefloor}
@@ -412,14 +466,14 @@ assumed frequency errors) is exact to $10^{-9}$.}
 \toprule
 assumed rel.\ freq.\ error & F--F OC unc.\ of $e_{31}$ & C--F OC unc.\ of $e_{31}$ \\
 \midrule
-$0.001\%$  & $0.213\%$  & $0.228\%$  \\
-$0.003\%$  & $0.640\%$  & $0.683\%$  \\
-$0.01\%$   & $2.133\%$  & $2.276\%$  \\
-$0.03\%$   & $6.399\%$  & $6.829\%$  \\
-$0.1\%$    & $21.331\%$ & $22.764\%$ \\
-$0.102\%$ (Boeringa--McCune floor \cite{boeringa2026}) & $21.758\%$ & $23.219\%$ \\
-$0.3\%$    & $63.993\%$ & $68.291\%$ \\
-$1\%$      & $213.311\%$ & $227.638\%$ \\
+$0.001\%$  & $0.087\%$ & $0.093\%$ \\
+$0.003\%$  & $0.261\%$ & $0.278\%$ \\
+$0.01\%$   & $0.870\%$ & $0.928\%$ \\
+$0.03\%$   & $2.610\%$ & $2.785\%$ \\
+$0.1\%$    & $8.701\%$ & $9.282\%$ \\
+$0.102\%$ (Boeringa--McCune floor \cite{boeringa2026}) & $8.875\%$ & $9.468\%$ \\
+$0.3\%$    & $26.104\%$ & $27.847\%$ \\
+$1\%$      & $87.013\%$ & $92.824\%$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -427,13 +481,11 @@ $1\%$      & $213.311\%$ & $227.638\%$ \\
 Delivered as
 \texttt{Paper4\_Piezo/probe\_piezo\_p4\_lever16\_freq\_noise\_floor\_2026-09-16.py}
 (LF) with matching submit script (\texttt{dps=60}, mirroring the
-free--free/clamped--free probes' own settings). In-sandbox SENTINEL
-PASS\_ALL, $\sim\!85\,\mathrm{s}$ wall. Cluster archival job
-2495751 (\texttt{compute-34-04.mill}, $\sim\!101\,\mathrm{s}$
-wall, empty \texttt{.err}): SENTINEL PASS\_ALL, every reported
-number bit-identical to the in-sandbox run (only per-call wall-clock
-timings differ). No package code was touched and
-\texttt{SOLVER\_VERSION} remains \texttt{2026-07-10.s10}.
+free--free/clamped--free probes' own settings); its $e_{31}=-4.1$ copy
+(\texttt{\ldots\_e31m\_2026-09-24.py}) produced the table above,
+SENTINEL PASS\_ALL. The $+4.1$ version was archived on the cluster (job
+2495751) bit-identical to its off-cluster run. \texttt{SOLVER\_VERSION}
+remains \texttt{2026-07-10.s10}.
 
 \section{Three-dimensional $n\ge1$ finite-element check}
 \label{sec:s9}
@@ -449,9 +501,10 @@ $40\times144\times(4+2+2)$ (radial, circumferential, host and each
 skin). Circumferential order is read from a discrete cosine transform of
 $U_Z$ at $13$ angles on five radii; every scored mode has purity
 $1.0000$. Coarse-to-fine changes are at most $0.025\%$ in frequency and
-$0.2\%$ in the short-circuit shift. ANSYS 2025~R1; every other
-finite-element job in \S\ref{sec:jobs} used 2024~R2, and the $n=0$
-coupling-off root agrees with the axisymmetric one to $0.0003\%$.
+$0.2\%$ in the short-circuit shift. ANSYS 2025~R1 (job 2530423 at
+$e_{31}=+4.1$; coupled decks rerun at $-4.1$ in job 2532086); the
+axisymmetric coupling-off deck ran under 2024~R2, and the $n=0$
+coupling-off root agrees with it to $0.0003\%$.
 Every quantity below is a ratio of raw MAPDL frequencies. Criteria were
 fixed before the run.
 
@@ -462,30 +515,31 @@ closed form, first radial root. Shift: short-circuit over coupling-off
 minus one (finite elements) and short-circuit $6\times6$ over elastic
 $4\times4$ minus one (closed form). Offset: coupling-off over the
 elastic bilayer minus one. Open-circuit minus short-circuit is below
-$1.4\times10^{-10}$ relative at every $n\ge1$.}
+$3\times10^{-10}$ relative at every $n\ge1$.}
 \label{tab:s9}
 \small
 \begin{tabular}{@{}lrrrrr@{}}
 \toprule
 $h_1/2h$, $n$ & FE shift & closed-form shift & FE/closed $-1$ & FE coupling-off (Hz) & offset \\
 \midrule
-$1/12$, 0 & $7.245\times10^{-6}$ & $7.200\times10^{-6}$ & $+0.6\%$ & 118.8105 & $-0.198\%$ \\
-$1/12$, 1 & $6.874\times10^{-6}$ & $6.796\times10^{-6}$ & $+1.1\%$ & 276.6199 & $-1.022\%$ \\
-$1/12$, 2 & $1.454\times10^{-6}$ & $1.448\times10^{-6}$ & $+0.4\%$ & 72.3441 & $-0.533\%$ \\
-$1/12$, 3 & $1.918\times10^{-6}$ & $1.929\times10^{-6}$ & $-0.6\%$ & 172.2871 & $-0.647\%$ \\
-$1/12$, 4 & $2.414\times10^{-6}$ & $2.406\times10^{-6}$ & $+0.3\%$ & 301.9394 & $-0.935\%$ \\
-$1/5$, 0 & $7.352\times10^{-5}$ & $7.304\times10^{-5}$ & $+0.7\%$ & 127.0378 & $-0.262\%$ \\
-$1/5$, 1 & $6.965\times10^{-5}$ & $6.879\times10^{-5}$ & $+1.2\%$ & 295.4942 & $-1.192\%$ \\
-$1/5$, 2 & $1.479\times10^{-5}$ & $1.472\times10^{-5}$ & $+0.5\%$ & 77.4742 & $-0.604\%$ \\
-$1/5$, 3 & $1.948\times10^{-5}$ & $1.960\times10^{-5}$ & $-0.6\%$ & 184.4153 & $-0.753\%$ \\
-$1/5$, 4 & $2.452\times10^{-5}$ & $2.444\times10^{-5}$ & $+0.4\%$ & 322.9683 & $-1.097\%$ \\
+$1/12$, 0 & $5.230\times10^{-5}$ & $5.212\times10^{-5}$ & $+0.3\%$ & 118.8105 & $-0.198\%$ \\
+$1/12$, 1 & $4.929\times10^{-5}$ & $4.920\times10^{-5}$ & $+0.2\%$ & 276.6199 & $-1.022\%$ \\
+$1/12$, 2 & $1.045\times10^{-5}$ & $1.048\times10^{-5}$ & $-0.3\%$ & 72.3441 & $-0.533\%$ \\
+$1/12$, 3 & $1.367\times10^{-5}$ & $1.396\times10^{-5}$ & $-2.1\%$ & 172.2871 & $-0.647\%$ \\
+$1/12$, 4 & $1.706\times10^{-5}$ & $1.742\times10^{-5}$ & $-2.1\%$ & 301.9394 & $-0.935\%$ \\
+$1/5$, 0 & $5.300\times10^{-4}$ & $5.285\times10^{-4}$ & $+0.3\%$ & 127.0378 & $-0.262\%$ \\
+$1/5$, 1 & $4.984\times10^{-4}$ & $4.978\times10^{-4}$ & $+0.1\%$ & 295.4942 & $-1.192\%$ \\
+$1/5$, 2 & $1.059\times10^{-4}$ & $1.065\times10^{-4}$ & $-0.5\%$ & 77.4742 & $-0.604\%$ \\
+$1/5$, 3 & $1.382\times10^{-4}$ & $1.417\times10^{-4}$ & $-2.5\%$ & 184.4153 & $-0.753\%$ \\
+$1/5$, 4 & $1.722\times10^{-4}$ & $1.768\times10^{-4}$ & $-2.6\%$ & 322.9683 & $-1.097\%$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 Against the pre-registered criteria: the axisymmetric control, mesh
 convergence, the open-circuit/short-circuit coincidence at $n\ge1$, and
-the shift ($\pm10\%$, all ten within $\pm1.2\%$) pass. The elastic
+the shift ($\pm10\%$, all ten within $\pm2.6\%$; within $\pm1.2\%$ in the
+$+4.1$ run, where the shift is $7.24$ times smaller) pass. The elastic
 offset criterion, $|\text{offset}|\le1\%$ at $n=1$--$4$, fails at three
 of eight points ($1/12$ $n=1$; $1/5$ $n=1$ and $4$). It was set on the
 assumption that the offset would grow from its $n=0$ value with
@@ -564,8 +618,8 @@ classical-plate column $x_{\mathrm{kir}}$ is scored here; their Mindlin
 and three-dimensional finite-element columns are not. Geometry of their
 Tables~2 and~6: $r_0=0.6\,\mathrm{m}$, host half-thickness
 $h=0.01\,\mathrm{m}$, skin thickness $h_1=0.002\,\mathrm{m}$
-($r_0/h=60$); materials as their Table~1, with $e_{31}=+4.1\,\mathrm{C\,m^{-2}}$
-as in the main text.
+($r_0/h=60$); materials as their Table~1, including
+$e_{31}=-4.1\,\mathrm{C\,m^{-2}}$, as in the main text.
 
 The solid disk has its own determinant. Keeping only the centre-regular
 Bessel function of each of the three $\chi$-branches of
@@ -585,33 +639,38 @@ bracket. The first two roots of each $n$ are the six modes of each table,
 with no extra or missing root in the window.
 
 Tables~\ref{tab:liu-t2} and~\ref{tab:liu-t6} give the result. All twelve
-roots agree with $x_{\mathrm{kir}}$ to better than $1\times10^{-4}$. All lie
-slightly below it (by $4\times10^{-7}$ to $9\times10^{-5}$), which for the
-higher modes exceeds the rounding of Liu's printed values; the
-reference model or its constants differ from ours at that level.
+roots agree with $x_{\mathrm{kir}}$ to better than $1\times10^{-4}$, with
+both signs of error, and eleven of the twelve round to Liu's printed
+value (the twelfth, $6193.976$ against $6193.9$, is $1.2\times10^{-5}$
+off). With $e_{31}=+4.1$ the same roots all fell below $x_{\mathrm{kir}}$,
+by up to $9\times10^{-5}$, beyond the rounding of the higher modes.
 
-This comparison does not test the electromechanical coupling. On this
-geometry, reducing $e_{31}$ from $4.1$ to $0.01\,\mathrm{C\,m^{-2}}$ moves
-every root by less than $4\times10^{-5}$, and replacing the projection of
+This comparison tests the electromechanical coupling only weakly. On
+this geometry, changing $e_{31}$ from $-4.1$ to $0.01\,\mathrm{C\,m^{-2}}$
+(so $\eebar^{\,2}$ falls from $170$ to $80\,\mathrm{C^2\,m^{-4}}$) moves
+every root by $4$--$6\times10^{-5}$, and replacing the projection of
 Section~\ref{sec:s1} by the Duan-type closure of \cite{duan2005} moves it
-by less than $4\times10^{-6}$, so the tables cannot tell the two apart. What the
-tables do confirm is the solid-disk determinant, both outer edge rows, and
-the laminate stiffness and inertia on a geometry other than the ring of the
-main text. Script and output:
-\texttt{validation/paper4\_piezo/probe\_piezo\_p4\_liu\_disk\_gate2\_2026-09-24.py}.
+by $2\times10^{-5}$, both comparable to the rounding of the printed
+values. What the tables confirm is the solid-disk determinant, both
+outer edge rows, and the laminate stiffness and inertia on a geometry
+other than the ring of the main text. Script and output:
+\texttt{validation/paper4\_piezo/probe\_piezo\_p4\_liu\_disk\_gate2\_2026-09-24.py}
+(run at the $-4.1$ default).
 
 A three-dimensional finite-element model of the same disk (SOLID226
 piezoelectric bricks, both faces of each skin grounded, half model, one
 mesh of 6912 elements with a free central hole of radius $3\,\mathrm{mm}$,
 $0.5\%$ of $r_0$) reproduces Liu's ABAQUS column for all twelve modes
-within the pre-registered $0.6\%$: from $+0.22$ to $+0.51\%$ for the
-clamped edge and from $-0.02$ to $+0.31\%$ for the simply supported one.
-Like theirs, it lies below the classical-plate roots, by $0.03$ to $2.0\%$
+within the pre-registered $0.6\%$: from $+0.22$ to $+0.52\%$ for the
+clamped edge and from $-0.01$ to $+0.31\%$ for the simply supported one.
+Like theirs, it lies below the classical-plate roots, by $0.02$ to $2.0\%$
 growing with mode order, which is the thickness effect at $r_0/h=60$.
 This checks the finite-element pipeline used elsewhere in this paper
 against an independent code; it is not a test of the classical-plate
-roots (job 2531012, \S\ref{sec:jobs}; decks and scorer in
-\texttt{ansys/NewAnsys/ansys\_p4\_liudisk2\_*}).
+roots (job 2532086 at $e_{31}=-4.1$; job 2531012 at $+4.1$ differs from it by
+at most $0.007\%$; decks and scorers in
+\texttt{ansys/NewAnsys/ansys\_p4\_liudisk2\_*} and
+\texttt{score\_liudisk2\_fe\_e31m\_2026-09-24.txt}).
 
 \begin{table}[ht]
 \centering
@@ -622,12 +681,12 @@ roots (job 2531012, \S\ref{sec:jobs}; decks and scorer in
 \toprule
 $n$ & $m$ & $\omega$ (this work) & $x_{\mathrm{kir}}$ (Liu) & $\omega/x_{\mathrm{kir}}-1$ \\
 \midrule
-0 & 1 & 902.4165 & 902.5 & $-9.25\times10^{-5}$ \\
-1 & 1 & 1878.0404 & 1878.2 & $-8.50\times10^{-5}$ \\
-2 & 1 & 3080.8681 & 3081.1 & $-7.53\times10^{-5}$ \\
-0 & 2 & 3513.1902 & 3513.4 & $-5.97\times10^{-5}$ \\
-1 & 2 & 5373.3097 & 5373.7 & $-7.26\times10^{-5}$ \\
-2 & 2 & 7471.6208 & 7472.1 & $-6.41\times10^{-5}$ \\
+0 & 1 & 902.4785 & 902.5 & $-2.38\times10^{-5}$ \\
+1 & 1 & 1878.1694 & 1878.2 & $-1.63\times10^{-5}$ \\
+2 & 1 & 3081.0798 & 3081.1 & $-6.56\times10^{-6}$ \\
+0 & 2 & 3513.4317 & 3513.4 & $+9.01\times10^{-6}$ \\
+1 & 2 & 5373.6789 & 5373.7 & $-3.92\times10^{-6}$ \\
+2 & 2 & 7472.1342 & 7472.1 & $+4.58\times10^{-6}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -641,12 +700,12 @@ $n$ & $m$ & $\omega$ (this work) & $x_{\mathrm{kir}}$ (Liu) & $\omega/x_{\mathrm
 \toprule
 $n$ & $m$ & $\omega$ (this work) & $x_{\mathrm{kir}}$ (Liu) & $\omega/x_{\mathrm{kir}}-1$ \\
 \midrule
-0 & 1 & 435.5998 & 435.6 & $-4.20\times10^{-7}$ \\
-1 & 1 & 1227.4015 & 1227.5 & $-8.03\times10^{-5}$ \\
-2 & 1 & 2262.2762 & 2262.4 & $-5.47\times10^{-5}$ \\
-0 & 2 & 2625.0503 & 2625.2 & $-5.70\times10^{-5}$ \\
-1 & 2 & 4282.1310 & 4282.4 & $-6.28\times10^{-5}$ \\
-2 & 2 & 6193.5412 & 6193.9 & $-5.79\times10^{-5}$ \\
+0 & 1 & 435.6424 & 435.6 & $+9.73\times10^{-5}$ \\
+1 & 1 & 1227.4965 & 1227.5 & $-2.82\times10^{-6}$ \\
+2 & 1 & 2262.4418 & 2262.4 & $+1.85\times10^{-5}$ \\
+0 & 2 & 2625.2406 & 2625.2 & $+1.54\times10^{-5}$ \\
+1 & 2 & 4282.4347 & 4282.4 & $+8.11\times10^{-6}$ \\
+2 & 2 & 6193.9762 & 6193.9 & $+1.23\times10^{-5}$ \\
 \bottomrule
 \end{tabular}
 \end{table}

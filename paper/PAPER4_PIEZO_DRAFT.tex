@@ -55,10 +55,11 @@ through-thickness potential that vanishes on every electrode, projected
 by the same Galerkin weight as the flexural equation, reduces the
 coupled flexural problem to three Helmholtz branches and a $6\times6$
 edge matrix. That construction recovers all 27 non-trivial frequencies
-of Duan, Quek and Wang's Table~4, with worst relative error $-0.049\%$. The same
+of Duan, Quek and Wang's Table~4: every root rounds to the printed
+integer, and the worst relative error is $-0.016\%$. The same
 short-circuit flexural frequency is nonetheless a poor observable for
 the piezoelectric stress constant $e_{31}$: a $0.01\%$ error in frequency
-maps to an $889\%$ error in recovered $e_{31}$, while the host Young's
+maps to a $330\%$ error in recovered $e_{31}$, while the host Young's
 modulus $E$ recovers at $0.025\%$. The obstruction is electrical. Fully
 electroded Kirchhoff flexure with a spatially constant electrode voltage
 produces a constant piezo moment; Green's identity then forces the net
@@ -69,24 +70,24 @@ through-thickness potential with $Q=0$ on the outer-electrode bus
 updates the elastic $4\times4$ by a rank-1 moment term. With the bus
 charge taken as the variable conjugate to $V$ -- so that the charge and
 moment rows share the same lever arm and the operator is reciprocal --
-it raises the first $n=0$ root by $0.280\%$, $0.405\%$, and $0.601\%$
+it raises the first $n=0$ root by $1.950\%$, $2.776\%$, and $4.016\%$
 at $h_1/2h=1/12$, $1/8$, and $1/5$. The same update on a clamped-inner,
-free-outer (C--F) pair raises that root by $0.262\%$ at $h_1/2h=1/12$;
-the swapped pair (F--C) splits by only $0.0054\%$, because only the
+free-outer (C--F) pair raises that root by $1.826\%$ at $h_1/2h=1/12$;
+the swapped pair (F--C) splits by only $0.039\%$, because only the
 small inner edge sees the piezo moment. Axisymmetric piezoelectric finite
 elements on a fair both-faces-grounded partner reproduce the split at
-all three ratios to within $0.2\%$ of its value, and with only the inner
-radius clamped reproduce the clamped--free split to within $1.1\%$. From
+all three ratios to $99.5$--$99.7\%$ of its value, and with only the inner
+radius clamped reproduce the clamped--free split to within $0.9\%$. From
 those open-circuit frequencies, $0.01\%$ frequency precision maps to
-$2.13\%$, $1.48\%$, and $1.00\%$ uncertainty in $e_{31}$ when the host
+$0.87\%$, $0.63\%$, and $0.45\%$ uncertainty in $e_{31}$ when the host
 modulus is known exactly; recovering $E$ and $e_{31}$ in the sequence
 an experiment actually would compounds the $h_1/2h=1/12$ figure to
-$3.01\%$. The driven admittance $Y(\omega)=j\omega Q/V$ of the same
+$1.21\%$. The driven admittance $Y(\omega)=j\omega Q/V$ of the same
 model has its pole at the short-circuit root and its zero at the
 open-circuit root; an independent bisection of $Q/V$ reproduces the
 open-circuit frequency to better than $10^{-13}$ relative at each
 of the three Table~4 ratios, and
-$k_{\mathrm{eff}}^2=1-(f_r/f_a)^2=0.00557$ at $h_1/2h=1/12$.
+$k_{\mathrm{eff}}^2=1-(f_r/f_a)^2=0.0379$ at $h_1/2h=1/12$.
 \end{abstract}
 
 \noindent\textbf{Keywords:} piezoelectric annular plate; open-circuit;
@@ -107,8 +108,10 @@ through-thickness potential that vanishes on both electrode faces, and
 tabulated clamped--clamped frequencies. Liu, Wang and Quek
 \cite{liu2002} gave the circular Mindlin analogue (Supplementary~\S S.10
 checks our Kirchhoff solid-disk roots against their
-classical-plate column; the coupling moves those roots by less than
-$4\times10^{-5}$, so that check covers the laminate reduction only). In
+classical-plate column: eleven of twelve roots round to their printed
+values, but changing $e_{31}$ from its printed value to nearly zero moves
+those roots by less than $10^{-4}$, so that check covers mainly the
+laminate reduction). In
 both constructions
 the electrodes are shorted, and Duan, Quek and Wang's own decomposition
 of the frequency shift (their Fig.~3) already shows that, under that
@@ -166,10 +169,12 @@ Duan, Quek and Wang \cite{duan2005}: $r_i=0.1\,\mathrm{m}$,
 $r_o=0.6\,\mathrm{m}$, $h=0.01\,\mathrm{m}$, $E=200\,\mathrm{GPa}$,
 $\nu=0.3$, $\rho=7800\,\mathrm{kg\,m^{-3}}$, $c_{11}^E=132$,
 $c_{12}^E=71$, $c_{13}^E=73$, $c_{33}^E=115\,\mathrm{GPa}$,
-$e_{31}=4.1$, $e_{33}=14.1\,\mathrm{C\,m^{-2}}$,
+$e_{31}=-4.1$, $e_{33}=14.1\,\mathrm{C\,m^{-2}}$,
 $\Xi_{11}=7.124\times10^{-9}$, $\Xi_{33}=5.841\times10^{-9}\,\mathrm{F\,m^{-1}}$,
 $\rho_p=7500\,\mathrm{kg\,m^{-3}}$. Thickness ratios $h_1/2h=1/12$,
-$1/8$, and $1/5$ are those of their Table~4. Figure~\ref{fig:geom} is a
+$1/8$, and $1/5$ are those of their Table~4. The constants are those
+printed in their Table~1 and in Liu, Wang and Quek's Table~1
+\cite{liu2002}, including the sign of $e_{31}$. Figure~\ref{fig:geom} is a
 through-thickness slice: inner electrodes at the host/piezo interfaces,
 outer electrodes on the free faces.
 
@@ -190,13 +195,15 @@ plane-stress reduction of each piezo layer, produce the reduced constants
 \Xibar = \Xi_{33}+\frac{e_{33}^2}{c_{33}^E}.
 \label{eq:reduced}
 \end{equation}
-For the PZT-4 values above, $\eebar=-4.85\,\mathrm{C\,m^{-2}}$: the
-$c_{13}^E e_{33}/c_{33}^E$ correction exceeds $e_{31}$ itself, so the
-sign of the reduced constant is opposite the tabulated $e_{31}$. Duan,
-Quek and Wang's own tables print $e_{31}=-4.1\,\mathrm{C\,m^{-2}}$; the
-$+4.1$ used here is a deliberate sign convention consistent with this
-group's related work, not a correction to their value or a discrepancy
-to be reconciled. Bending
+For the PZT-4 values above, $\eebar=-13.05\,\mathrm{C\,m^{-2}}$: the
+correction $c_{13}^E e_{33}/c_{33}^E=8.95\,\mathrm{C\,m^{-2}}$ has the
+same sign as $e_{31}$ and more than twice its size, so it dominates the
+reduced constant. Every electromechanical effect in this paper scales
+with $\eebar^{\,2}$, so the sign of the tabulated $e_{31}$ matters: read
+as $+4.1$ it would give $\eebar=-4.85\,\mathrm{C\,m^{-2}}$ and couplings
+$(13.05/4.85)^2=7.24$ times smaller. Section~\ref{sec:forward} shows
+that Duan, Quek and Wang's Table~4 and independent finite elements both
+resolve that difference. Bending
 stiffness splits into a host contribution and a purely elastic
 contribution from the two layers,
 \begin{equation}
@@ -230,8 +237,9 @@ and in the long-wave limit it overstates each layer's own short-circuit
 stiffening, $h_1^3\eebar^{\,2}/(12\Xibar)$, by exactly $12/\pi^2$. The
 quadratic \eqref{eq:sine} is the one-term profile whose projected
 long-wave stiffening is exact (Supplementary~\S S.1). On this
-steel-dominated stack the difference is invisible at Table~4's printed
-precision (the largest root moves by $0.0015\%$). Substituting
+steel-dominated stack the two closures differ by at most $0.011\%$ in
+any Table~4 root, below the rounding of that table's integers
+(\S\ref{sec:table4}). Substituting
 \eqref{eq:sine} into the flexural operator and the projected electrical
 equation, and positing
 $\bar\varphi=\chi w$ with $\chi$ independent of $r$, produces two
@@ -343,7 +351,7 @@ potential already in the $6\times6$, whose frequency effect is $0.01\%$ in Duan,
 Quek and Wang's Fig.~3 \cite{duan2005}. A frequency-based inverse for
 $e_{31}$ from a clamped--clamped short-circuit mode is therefore asking
 a $0.01\%$ correction to identify a constitutive constant.
-Section~\ref{sec:inverse} measures that as an $889\%$ uncertainty at
+Section~\ref{sec:inverse} measures that as a $330\%$ uncertainty at
 $0.01\%$ frequency precision. Switching the same mode to open-circuit
 does not help. Free--free axisymmetric motion does: $S\neq0$ in general,
 $V$ is alive, and $M_p$ is seen by $M_{rr}=0$. A mixed mechanical edge
@@ -361,55 +369,62 @@ Wang's Table~4 \cite{duan2005}: circumferential orders $p=0,1,2$, the
 first three radial indices, and the three thickness ratios. Targets are
 the printed integers. The $6\times6$ is searched from scratch; a
 pre-registered relative bar of $0.15\%$ is applied after the fact and is
-not used to retune a root. All 27 points pass. The worst relative error
-is $-0.0490\%$, at $p=2$, first radial, $h_1/2h=1/5$. Duan, Quek and
-Wang's own sine closure reproduces the same 27 points (worst
-$-0.0476\%$), and no root differs between the two closures by more
-than $0.0015\%$. The integer-Hz
-table does not resolve the $0.01\%$ electromechanical correction, so
-this comparison confirms the layered Kirchhoff operator including
-added-layer stiffness, not the open-circuit splitting of
-\S\ref{sec:ffoc}.
+not used to retune a root. All 27 points pass, and every root rounds to
+the printed integer (largest absolute difference
+$0.49\,\mathrm{rad\,s^{-1}}$). The worst relative error is $-0.016\%$,
+at $p=0$, first radial, $h_1/2h=1/8$, which is within the rounding of
+that entry. Duan, Quek and Wang's own sine closure also passes the bar
+at every point (worst $+0.013\%$) but rounds to only 19 of the 27
+integers; no root differs between the two closures by more than
+$0.011\%$. The table is sensitive to the sign of $e_{31}$. With
+$e_{31}=+4.1\,\mathrm{C\,m^{-2}}$ the same operator falls
+systematically below the table, by up to $0.049\%$ at $h_1/2h=1/5$,
+with a bias that grows with layer thickness, as a short-circuit
+stiffening $7.24$ times too weak would. The printed sign removes it.
+The integer table still does not resolve the open-circuit splitting of
+\S\ref{sec:ffoc}, which is not a short-circuit quantity; this comparison
+confirms the layered Kirchhoff operator, its added-layer stiffness, and
+the short-circuit interior-potential stiffening.
 
 \begin{table}[H]
 \centering
 \caption{Clamped--clamped short-circuit frequencies ($\mathrm{rad\,s^{-1}}$)
 against Duan, Quek and Wang Table~4 \cite{duan2005}. $p$ is
 circumferential order; $s$ is radial index as in that table. Bar:
-$0.15\%$. All 27 pass.}
+$0.15\%$. All 27 pass, and all 27 round to the printed integer.}
 \label{tab:duan}
 \small
 \begin{tabular}{@{}rrrcccc@{}}
 \toprule
 $p$ & $s$ & $h_1/2h$ & Table~4 & present & rel.\ \% \\
 \midrule
-0 & 0 & $1/12$ & 2792 & 2791.78 & $-0.0078$ \\
-0 & 0 & $1/8$  & 2853 & 2852.18 & $-0.0286$ \\
-0 & 0 & $1/5$  & 2989 & 2987.69 & $-0.0437$ \\
-0 & 1 & $1/12$ & 7723 & 7722.70 & $-0.0039$ \\
-0 & 1 & $1/8$  & 7891 & 7889.78 & $-0.0155$ \\
-0 & 1 & $1/5$  & 8268 & 8264.63 & $-0.0407$ \\
-0 & 2 & $1/12$ & 15182 & 15181.11 & $-0.0058$ \\
-0 & 2 & $1/8$  & 15512 & 15509.56 & $-0.0157$ \\
-0 & 2 & $1/5$  & 16253 & 16246.44 & $-0.0404$ \\
-1 & 0 & $1/12$ & 2928 & 2928.22 & $+0.0074$ \\
-1 & 0 & $1/8$  & 2992 & 2991.57 & $-0.0144$ \\
-1 & 0 & $1/5$  & 3135 & 3133.70 & $-0.0413$ \\
-1 & 1 & $1/12$ & 7965 & 7964.36 & $-0.0080$ \\
-1 & 1 & $1/8$  & 8138 & 8136.67 & $-0.0163$ \\
-1 & 1 & $1/5$  & 8527 & 8523.26 & $-0.0439$ \\
-1 & 2 & $1/12$ & 15482 & 15480.88 & $-0.0073$ \\
-1 & 2 & $1/8$  & 15818 & 15815.81 & $-0.0139$ \\
-1 & 2 & $1/5$  & 16574 & 16567.24 & $-0.0408$ \\
-2 & 0 & $1/12$ & 3477 & 3477.17 & $+0.0048$ \\
-2 & 0 & $1/8$  & 3553 & 3552.40 & $-0.0170$ \\
-2 & 0 & $1/5$  & 3723 & 3721.17 & $-0.0490$ \\
-2 & 1 & $1/12$ & 8768 & 8768.04 & $+0.0004$ \\
-2 & 1 & $1/8$  & 8959 & 8957.73 & $-0.0141$ \\
-2 & 1 & $1/5$  & 9387 & 9383.33 & $-0.0391$ \\
-2 & 2 & $1/12$ & 16434 & 16433.67 & $-0.0020$ \\
-2 & 2 & $1/8$  & 16791 & 16789.22 & $-0.0106$ \\
-2 & 2 & $1/5$  & 17594 & 17586.89 & $-0.0404$ \\
+0 & 0 & $1/12$ & 2792 & 2791.90 & $-0.0036$ \\
+0 & 0 & $1/8$  & 2853 & 2852.54 & $-0.0161$ \\
+0 & 0 & $1/5$  & 2989 & 2988.95 & $-0.0017$ \\
+0 & 1 & $1/12$ & 7723 & 7723.02 & $+0.0002$ \\
+0 & 1 & $1/8$  & 7891 & 7890.77 & $-0.0029$ \\
+0 & 1 & $1/5$  & 8268 & 8268.10 & $+0.0012$ \\
+0 & 2 & $1/12$ & 15182 & 15181.74 & $-0.0017$ \\
+0 & 2 & $1/8$  & 15512 & 15511.51 & $-0.0032$ \\
+0 & 2 & $1/5$  & 16253 & 16253.26 & $+0.0016$ \\
+1 & 0 & $1/12$ & 2928 & 2928.34 & $+0.0116$ \\
+1 & 0 & $1/8$  & 2992 & 2991.95 & $-0.0018$ \\
+1 & 0 & $1/5$  & 3135 & 3135.02 & $+0.0006$ \\
+1 & 1 & $1/12$ & 7965 & 7964.69 & $-0.0039$ \\
+1 & 1 & $1/8$  & 8138 & 8137.69 & $-0.0037$ \\
+1 & 1 & $1/5$  & 8527 & 8526.84 & $-0.0019$ \\
+1 & 2 & $1/12$ & 15482 & 15481.52 & $-0.0031$ \\
+1 & 2 & $1/8$  & 15818 & 15817.80 & $-0.0013$ \\
+1 & 2 & $1/5$  & 16574 & 16574.19 & $+0.0012$ \\
+2 & 0 & $1/12$ & 3477 & 3477.31 & $+0.0089$ \\
+2 & 0 & $1/8$  & 3553 & 3552.84 & $-0.0045$ \\
+2 & 0 & $1/5$  & 3723 & 3722.74 & $-0.0071$ \\
+2 & 1 & $1/12$ & 8768 & 8768.40 & $+0.0046$ \\
+2 & 1 & $1/8$  & 8959 & 8958.86 & $-0.0016$ \\
+2 & 1 & $1/5$  & 9387 & 9387.27 & $+0.0029$ \\
+2 & 2 & $1/12$ & 16434 & 16434.35 & $+0.0021$ \\
+2 & 2 & $1/8$  & 16791 & 16791.32 & $+0.0019$ \\
+2 & 2 & $1/5$  & 17594 & 17594.27 & $+0.0016$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -420,24 +435,24 @@ No literature table exists for free--free piezoelectric rings. Closed
 form is still exact. Table~\ref{tab:ff} reports the first $n=0$ flexural
 root of the elastic bilayer, of the short-circuit $6\times6$, and of the
 open-circuit rank-1 $4\times4$, at all three of Duan, Quek and Wang's Table~4 thickness ratios.
-Short-circuit coupling on this mode is $+0.00072\%$ to $+0.0073\%$
+Short-circuit coupling on this mode is $+0.0052\%$ to $+0.053\%$
 relative to the bilayer: that is Duan, Quek and Wang's Fig.~3 in
-numbers. Open-circuit coupling is two orders of magnitude larger, and it
-grows with $h_1/2h$: $+0.280\%$, $+0.405\%$, $+0.601\%$. Thicker layers
+numbers. Open-circuit coupling is $76$ to $374$ times larger, and it
+grows with $h_1/2h$: $+1.950\%$, $+2.776\%$, $+4.016\%$. Thicker layers
 put more of the bending stiffness in the piezo and give the rank-1
 moment a longer lever arm, so the identifying split is not a property of
 one geometry. A closed-form sweep of eleven ratios from $h_1/2h=1/40$
 to $1/4$ places those three of Duan, Quek and Wang's Table~4 points on a smooth curve
 (Supplementary Fig.~S.2). As $h_1/2h\to0$ the split is linear in layer
-thickness: $\Delta_{\mathrm{OC}}/(h_1/2h)\to 0.035$. The same sweep
+thickness: $\Delta_{\mathrm{OC}}/(h_1/2h)\to 0.25$. The same sweep
 turns the three-point open-circuit $e_{31}$ column of
 Table~\ref{tab:inv} into a curve: $0.01\%$ frequency precision maps to
-$6.80\%$ of $e_{31}$ at $1/40$ and $0.85\%$ at $1/4$. The first $n=0$
+$2.60\%$ of $e_{31}$ at $1/40$ and $0.40\%$ at $1/4$. The first $n=0$
 radial overtone still splits, but more weakly: $3504.95$ vs
-$3509.42\,\mathrm{rad\,s^{-1}}$ ($+0.128\%$, $k_{\mathrm{eff}}^2=0.00255$),
-and $0.01\%$ frequency precision maps to $4.66\%$ of $e_{31}$. The next
-sits at $8515.06$ vs $8516.38\,\mathrm{rad\,s^{-1}}$ ($+0.016\%$,
-$38\%$ of $e_{31}$ at $0.01\%$ frequency). The identifying observable
+$3536.76\,\mathrm{rad\,s^{-1}}$ ($+0.908\%$, $k_{\mathrm{eff}}^2=0.0179$),
+and $0.01\%$ frequency precision maps to $1.80\%$ of $e_{31}$. The next
+sits at $8515.06$ vs $8524.53\,\mathrm{rad\,s^{-1}}$ ($+0.111\%$,
+$14.5\%$ of $e_{31}$ at $0.01\%$ frequency). The identifying observable
 remains the fundamental.
 
 \begin{table}[H]
@@ -445,7 +460,7 @@ remains the fundamental.
 \caption{First free--free $n=0$ flexural frequency. Closed-form values
 in $\mathrm{rad\,s^{-1}}$ (Hz in parentheses). $\Delta_{\mathrm{OC}}$
 is the rank-1 $4\times4$ relative to the elastic bilayer. Short-circuit
-$6\times6$ coupling on this mode is $+0.00072\%$ to $+0.0073\%$ and is
+$6\times6$ coupling on this mode is $+0.0052\%$ to $+0.053\%$ and is
 omitted from the last column.}
 \label{tab:ff}
 \small
@@ -453,9 +468,9 @@ omitted from the last column.}
 \toprule
 $h_1/2h$ & bilayer & SC $6\times6$ & OC $4\times4$ & $\Delta_{\mathrm{OC}}$ \\
 \midrule
-$1/12$ & 747.986 (119.046) & 747.992 (119.047) & 750.079 (119.379) & $+0.280\%$ \\
-$1/8$  & 764.113 (121.612) & 764.130 (121.615) & 767.209 (122.105) & $+0.405\%$ \\
-$1/5$  & 800.303 (127.372) & 800.361 (127.381) & 805.112 (128.138) & $+0.601\%$ \\
+$1/12$ & 747.986 (119.046) & 748.025 (119.052) & 762.569 (121.367) & $+1.950\%$ \\
+$1/8$  & 764.113 (121.612) & 764.234 (121.632) & 785.327 (124.989) & $+2.776\%$ \\
+$1/5$  & 800.303 (127.372) & 800.726 (127.439) & 832.439 (132.487) & $+4.016\%$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -465,33 +480,45 @@ finite elements (PLANE223, KEYOPT(1)=1001) on one mesh, in the
 millimetre--newton--second--tonne system with relative permittivity.
 Coupling-off ($e_{ij}=0$) gives $118.810\,\mathrm{Hz}$. Both-faces
 short-circuit (VOLT$=0$ on $z=\pm h$ and $z=\pm(h+h_1)$) gives
-$118.811\,\mathrm{Hz}$, matching coupling-off to $+0.0007\%$ and
-confirming that true short-circuit on this mode is the bilayer.
+$118.816\,\mathrm{Hz}$, $+0.0052\%$ above coupling-off, against the
+closed-form short-circuit stiffening of $+0.0052\%$ in
+Table~\ref{tab:ff}: true short-circuit on this mode is the bilayer plus
+the interior-potential correction, and nothing else.
 Open-circuit (VOLT$=0$ on the interfaces; one coupled VOLT set on both
-outer faces, unconstrained) gives $119.143\,\mathrm{Hz}$. The
-finite-element split relative to true short-circuit is $+0.279\%$,
-against the closed-form $+0.280\%$ (ratio $0.999$). Both modes are bending:
+outer faces, unconstrained) gives $121.126\,\mathrm{Hz}$. The
+finite-element split relative to true short-circuit is $+1.944\%$,
+against the closed-form $+1.950\%$ (ratio $0.997$). The finite-element
+open circuit carries the interior potential as well as the bus field, so
+the like-for-like closed-form quantity is the open-circuit root with the
+interior potential added (\S\ref{sec:disc}) over the short-circuit
+$6\times6$; that is $+1.949\%$, within $0.02\%$ of the tabulated
+$\Delta_{\mathrm{OC}}$, which is why the table's column is the one
+scored. Both modes are bending:
 transverse displacement has the same sign through the thickness at
 $r=r_o$, radial displacement is opposite, and the ratio of those
-components is $19.71$ (short-circuit) and $19.75$ (open-circuit). A deck
+components is $19.71$ (short-circuit) and $20.06$ (open-circuit). A deck
 that grounds only the outer faces and leaves the interface free sits at
-$119.242\,\mathrm{Hz}$ and is a mixed electrical condition, $0.36\%$
-above true short-circuit; it is not used as the short-circuit baseline
-(Supplementary~\S S.3).
+$121.859\,\mathrm{Hz}$ and is a mixed electrical condition, $2.56\%$
+above true short-circuit and above open-circuit as well; it is not used
+as the short-circuit baseline (Supplementary~\S S.3).
 
 The same fair pair, cloned without remeshing to the other two Table~4
 ratios, confirms the same stiffening trend. At $h_1/2h=1/8$,
-open-circuit gives $121.839\,\mathrm{Hz}$ against $121.348\,\mathrm{Hz}$
-both-faces short-circuit, a $+0.405\%$ split against the closed-form
-$+0.405\%$; at $h_1/2h=1/5$, $127.809\,\mathrm{Hz}$ against
-$127.047\,\mathrm{Hz}$, a $+0.600\%$ split against the closed-form
-$+0.601\%$. Every deck shows the same bending signature
-(ratio of thickness-through components $19.7$--$19.8$) and a $0\,\mathrm{Hz}$
+open-circuit gives $124.722\,\mathrm{Hz}$ against $121.364\,\mathrm{Hz}$
+both-faces short-circuit, a $+2.766\%$ split against the closed-form
+$+2.776\%$; at $h_1/2h=1/5$, $132.183\,\mathrm{Hz}$ against
+$127.105\,\mathrm{Hz}$, a $+3.995\%$ split against the closed-form
+$+4.016\%$. Every deck shows the same bending signature
+(ratio of thickness-through components $19.7$--$20.4$) and a $0\,\mathrm{Hz}$
 rigid-body mode, and no run printed an element-level error. The
-finite-element split is $99.9\%$, $99.9\%$, and $99.8\%$ of the
-closed-form split. An earlier version of this model took the bus charge
+finite-element split is $99.7\%$, $99.6\%$, and $99.5\%$ of the
+closed-form split. The same decks with $e_{31}=+4.1\,\mathrm{C\,m^{-2}}$
+give splits $6.7$ to $7.0$ times smaller ($+0.280\%$, $+0.405\%$, $+0.600\%$),
+within $0.2\%$ of the closed form at that sign, so the finite elements
+follow the $\eebar^{\,2}$ scaling of \eqref{eq:alpha} rather than one
+calibrated point. An earlier version of this model took the bus charge
 from $D_z$ at the outer electrode (arm $h+h_1$); finite elements then
-recovered $93\%$, $90\%$, and $86\%$ of its splits, which is
+recovered (at $e_{31}=+4.1$) $93\%$, $90\%$, and $86\%$ of its splits, which is
 $(h+h_1/2)/(h+h_1)$ at each ratio to within $0.5\%$ and is how the
 non-reciprocal charge row was found. Doubling the piezo through-thickness
 divisions on the same electrical pair leaves the three finite-element
@@ -505,13 +532,13 @@ appears in one solve; same materials, units, and electrical conditions)
 was run at $h_1/2h=1/12$ and $1/5$ on two meshes
 (Supplementary~\S S.9). Its $n=0$ roots reproduce the axisymmetric
 ones: coupling-off $118.8105$ against $118.8102\,\mathrm{Hz}$, and
-open-/short-circuit splits of $0.2796\%$ and $0.6002\%$ against
-$0.2795\%$ and $0.6002\%$. At $n=1$--$4$ it gives three results. Open
-circuit coincides with short circuit to $10^{-10}$ relative, with a bus
-voltage below $10^{-9}$ of its $n=0$ value, as the no-net-charge
+open-/short-circuit splits of $1.945\%$ and $3.997\%$ against
+$1.944\%$ and $3.995\%$. At $n=1$--$4$ it gives three results. Open
+circuit coincides with short circuit to $3\times10^{-10}$ relative, with a bus
+voltage below $10^{-10}$ of its $n=0$ value, as the no-net-charge
 argument of \S\ref{sec:oc} requires. The short-circuit stiffening from
-the interior potential, $1.4\times10^{-6}$ to $7.3\times10^{-5}$
-relative and non-monotone in $n$, is reproduced to within $1.2\%$ of
+the interior potential, $1.0\times10^{-5}$ to $5.3\times10^{-4}$
+relative and non-monotone in $n$, is reproduced to within $2.6\%$ of
 the $6\times6$ value at every $n=0$--$4$ and both ratios; that is the
 coupled $n\ge1$ content of the model, and nothing else checks it. The
 elastic roots themselves sit $0.53\%$ to $1.19\%$ below the thin-plate
@@ -539,23 +566,23 @@ by $w=w'=0$; F--C is the swap. At $h_1=0$ those determinants recover
 the live Paper~3 ring solver on this geometry to $4.5\times10^{-10}$
 (C--F) and $2.3\times10^{-10}$ (F--C) relative. Short-circuit coupling
 on the mixed $6\times6$ remains the usual interior-potential correction,
-$+0.00084\%$ (C--F) and $+0.00054\%$ (F--C) at $h_1/2h=1/12$.
+$+0.0061\%$ (C--F) and $+0.0039\%$ (F--C) at $h_1/2h=1/12$.
 Open-circuit does not coincide with that bilayer. Table~\ref{tab:cf}
-records the first $n=0$ root. C--F splits by $+0.262\%$
-($k_{\mathrm{eff}}^2=0.00522$), comparable to the free--free
-$+0.280\%$ at the same ratio, because the free outer radius still
-carries $S=r_o w'(r_o)$. F--C splits by $+0.00538\%$
-($k_{\mathrm{eff}}^2=0.000108$): only the inner hole is free, so
+records the first $n=0$ root. C--F splits by $+1.826\%$
+($k_{\mathrm{eff}}^2=0.0355$), comparable to the free--free
+$+1.950\%$ at the same ratio, because the free outer radius still
+carries $S=r_o w'(r_o)$. F--C splits by $+0.039\%$
+($k_{\mathrm{eff}}^2=0.00078$): only the inner hole is free, so
 $S=-r_i w'(r_i)$ and the rank-1 moment acts on the smaller edge.
 $n\neq0$ open-circuit is bit-identical to the mixed elastic $4\times4$
 on both pairs, as for free--free. Axisymmetric finite elements on the
 same mesh as \S\ref{sec:ffoc}, with only the inner radius clamped
 ($U_X=U_Y=0$ through the stack, outer free), confirm the C--F split:
-both-faces short-circuit $67.071\,\mathrm{Hz}$ against open-circuit
-$67.245\,\mathrm{Hz}$, $+0.259\%$, against the closed-form $+0.262\%$
-(ratio $0.989$). No $0\,\mathrm{Hz}$ rigid body (the clamp took). Both
+both-faces short-circuit $67.076\,\mathrm{Hz}$ against open-circuit
+$68.290\,\mathrm{Hz}$, $+1.811\%$, against the closed-form $+1.826\%$
+(ratio $0.992$). No $0\,\mathrm{Hz}$ rigid body (the clamp took). Both
 modes are bending ($U_Y$ same sign through the thickness at $r=r_o$,
-$U_X$ opposite, ratio $\approx 45.6$). F--C was not meshed.
+$U_X$ opposite, ratio $45.5$ and $47.0$). F--C was not meshed.
 
 \begin{table}[H]
 \centering
@@ -569,8 +596,8 @@ mixed-edge elastic bilayer.}
 \toprule
 edge & bilayer & SC $6\times6$ & OC $4\times4$ & $\Delta_{\mathrm{OC}}$ \\
 \midrule
-C--F & 421.895 (67.147) & 421.898 (67.147) & 423.001 (67.323) & $+0.262\%$ \\
-F--C & 899.061 (143.090) & 899.066 (143.091) & 899.110 (143.098) & $+0.00538\%$ \\
+C--F & 421.895 (67.147) & 421.920 (67.151) & 429.599 (68.373) & $+1.826\%$ \\
+F--C & 899.061 (143.090) & 899.096 (143.096) & 899.410 (143.146) & $+0.0388\%$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -599,14 +626,14 @@ all three thickness ratios for free--free and at $h_1/2h=1/12$ for
 clamped--free. Host $E$ is well conditioned under
 short-circuit, as required by $\omega\sim\sqrt{E}$ (relative $E$
 uncertainty $\approx 2$ times frequency precision). Short-circuit
-$e_{31}$ is not: $0.01\%$ in frequency becomes $889\%$, $294\%$, and
-$88\%$ in $e_{31}$ as the layer thickens. Open-circuit reduces those
-figures to $2.13\%$, $1.48\%$, and $1.00\%$. Clamped--free open-circuit
-at $h_1/2h=1/12$ is $2.28\%$, the same class as free--free.
+$e_{31}$ is not: $0.01\%$ in frequency becomes $330\%$, $109\%$, and
+$33\%$ in $e_{31}$ as the layer thickens. Open-circuit reduces those
+figures to $0.87\%$, $0.63\%$, and $0.45\%$. Clamped--free open-circuit
+at $h_1/2h=1/12$ is $0.93\%$, the same class as free--free.
 Thickness helps both
 electrical conditions, because more of the bending stiffness sits in the
 piezo, but it does not close the electrical gap: at $h_1/2h=1/5$
-short-circuit is still two orders of magnitude worse than open-circuit.
+short-circuit is still $72$ times worse than open-circuit.
 Figure~\ref{fig:id} is the same comparison.
 
 Those open-circuit figures hold $E$ at its true value, which no
@@ -615,29 +642,33 @@ $E$ from the clamped--clamped short-circuit fundamental first, then
 $e_{31}$ from the free--free open-circuit root using that recovered
 $\hat E$, and propagates $\hat E$'s own uncertainty forward into
 $e_{31}$ -- the two-step protocol an actual measurement would follow, at
-$h_1/2h=1/12$. The result is $3.01\%$ of $e_{31}$ at $0.01\%$ frequency
-precision: a direct term of $2.13\%$, matching the idealized row above,
-plus an almost equally large term of $2.12\%$ from propagating $\hat E$'s
+$h_1/2h=1/12$. The result is $1.21\%$ of $e_{31}$ at $0.01\%$ frequency
+precision: a direct term of $0.87\%$, matching the idealized row above,
+plus a nearly equal term of $0.84\%$ from propagating $\hat E$'s
 own $0.025\%$ uncertainty through the open-circuit root's weak but
-nonzero dependence on $E$. Substituting the clamped--clamped open-circuit
+nonzero dependence on $E$, combined in quadrature. Substituting the
+clamped--clamped open-circuit
 root for the free--free one in the second step -- the negative
-control -- reproduces the $889\%$ short-circuit figure instead
-($888.5\%$), confirming that the sequential protocol still requires the
+control -- reproduces the $330\%$ short-circuit figure instead
+($330.3\%$), confirming that the sequential protocol still requires the
 free--free open-circuit observable and gains nothing from the
 clamped--clamped one.
 Host $E$ recovered from free--free $n=0$ elastic or open-circuit
 flexure is the same thermometer as the clamped--clamped short-circuit
-channel to the printed digit ($0.025\%$ at $0.01\%$ frequency). From
+channel ($0.025\%$ and $0.026\%$ at $0.01\%$ frequency). From
 the same open-circuit fundamental, host $\nu$ and the piezo-layer
-$C_{11}^E$ recover at $0.107\%$ and $0.072\%$; $\Xi_{33}$ from that
-frequency is $4.67\%$, while the clamped capacitance $C_0$ identifies
-$\Xi_{33}$ at roundoff. Frequency is a poor dielectric thermometer;
-$C_0$ is the one.
+$C_{11}^E$ recover at $0.118\%$ and $0.074\%$; $\Xi_{33}$ from that
+frequency is $0.71\%$, while the clamped capacitance $C_0$ identifies
+$\Xi_{33}$ at roundoff. Frequency constrains $\Xi_{33}$ only as well as
+it constrains $e_{31}$, because both enter through $\eebar^{\,2}/\Xibar$;
+$C_0$ is the dielectric thermometer.
 
 \begin{table}[H]
 \centering
 \caption{Single-parameter inverse. Round-trip relative error on
-$p_{\mathrm{true}}$ is $4\times10^{-9}$ in every row (bar $10^{-6}$).
+$p_{\mathrm{true}}$ is $4\times10^{-9}$ in every $h_1/2h=1/12$ row and
+$1.6\times10^{-7}$ in the sequential row (bar $10^{-6}$); the $1/8$ and
+$1/5$ rows are on-branch sensitivities.
 Propagated relative uncertainty is at $0.01\%$ frequency precision.
 C--C SC: clamped--clamped short-circuit fundamental. F--F OC: free--free
 open-circuit, $n=0$. C--F OC: clamped-inner, free-outer open-circuit,
@@ -653,15 +684,15 @@ forward model & unknown & unc.\ at $0.01\%$ freq. \\
 \midrule
 C--C SC, $h_1/2h=1/12$ & $E=2\times10^{11}\,\mathrm{Pa}$ & $0.025\%$ of $E$ \\
 F--F elastic, $h_1/2h=1/12$ & $E$ & $0.025\%$ of $E$ \\
-F--F OC, $h_1/2h=1/12$ & $E$ & $0.025\%$ of $E$ \\
-C--C SC, $h_1/2h=1/12$ & $e_{31}$ & $889\%$ of $e_{31}$ \\
-C--C SC, $h_1/2h=1/8$  & $e_{31}$ & $294\%$ of $e_{31}$ \\
-C--C SC, $h_1/2h=1/5$  & $e_{31}$ & $88\%$ of $e_{31}$ \\
-F--F OC, $h_1/2h=1/12$ & $e_{31}$ & $2.13\%$ of $e_{31}$ \\
-C--F OC, $h_1/2h=1/12$ & $e_{31}$ & $2.28\%$ of $e_{31}$ \\
-F--F OC, $h_1/2h=1/8$  & $e_{31}$ & $1.48\%$ of $e_{31}$ \\
-F--F OC, $h_1/2h=1/5$  & $e_{31}$ & $1.00\%$ of $e_{31}$ \\
-F--F OC (seq.\ $\hat E$), $h_1/2h=1/12$ & $e_{31}$ & $3.01\%$ of $e_{31}$ \\
+F--F OC, $h_1/2h=1/12$ & $E$ & $0.026\%$ of $E$ \\
+C--C SC, $h_1/2h=1/12$ & $e_{31}$ & $330\%$ of $e_{31}$ \\
+C--C SC, $h_1/2h=1/8$  & $e_{31}$ & $109\%$ of $e_{31}$ \\
+C--C SC, $h_1/2h=1/5$  & $e_{31}$ & $33\%$ of $e_{31}$ \\
+F--F OC, $h_1/2h=1/12$ & $e_{31}$ & $0.87\%$ of $e_{31}$ \\
+C--F OC, $h_1/2h=1/12$ & $e_{31}$ & $0.93\%$ of $e_{31}$ \\
+F--F OC, $h_1/2h=1/8$  & $e_{31}$ & $0.63\%$ of $e_{31}$ \\
+F--F OC, $h_1/2h=1/5$  & $e_{31}$ & $0.45\%$ of $e_{31}$ \\
+F--F OC (seq.\ $\hat E$), $h_1/2h=1/12$ & $e_{31}$ & $1.21\%$ of $e_{31}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -679,25 +710,25 @@ grows; the electrical gap does not close.}
 Two caveats sit on the open-circuit inverse. First, $\omega_{\mathrm{OC}}$
 depends on $\eebar^2$, so a frequency determines $|\eebar|$ and therefore
 two raw $e_{31}$ values reflected about $(c_{13}^E/c_{33}^E)e_{33}\approx 8.95\,\mathrm{C\,m^{-2}}$.
-Duan, Quek and Wang's $e_{31}=4.1$ is the lower branch; the twin is near
-$13.8\,\mathrm{C\,m^{-2}}$, outside the bracket used here. Holding
+Duan, Quek and Wang's $e_{31}=-4.1$ is the lower branch; the twin is near
+$22.0\,\mathrm{C\,m^{-2}}$, outside the bracket $[-10,-1]\,\mathrm{C\,m^{-2}}$
+used here. Holding
 $e_{33}$ known, as a single-parameter recovery requires, selects the
 branch. A joint $(e_{31},e_{33})$ fit would re-open the reflection.
 Second, a joint $(E,e_{31})$ fit from one short-circuit frequency would
 be worse than the $e_{31}$-only short-circuit row, not better: one
 well-conditioned parameter cannot regularize an unidentifiable one.
 Additional short-circuit flexural modes of the same family will not
-collapse the $889\%$ figure, because they share the same $0.01\%$
-coupling. Open-circuit on a clamped--clamped mode will not either, by
+collapse the $330\%$ figure, because they share the same
+$10^{-4}$-level coupling. Open-circuit on a clamped--clamped mode will not either, by
 \S\ref{sec:theorem}. The identifying observable for $e_{31}$ is an
 axisymmetric open-circuit frequency on a plate that has at least one
 free edge: the free--free $n=0$ root, or the C--F $n=0$ root of
-Table~\ref{tab:cf} ($2.28\%$ of $e_{31}$ at $0.01\%$ frequency, against
-free--free's $2.13\%$). F--C open-circuit is not: its $0.0054\%$ split
-is two orders of magnitude smaller, and is a result, not a failed
-search.
+Table~\ref{tab:cf} ($0.93\%$ of $e_{31}$ at $0.01\%$ frequency, against
+free--free's $0.87\%$). F--C open-circuit is not: its $0.039\%$ split
+is $47$ times smaller, and is a result, not a failed search.
 
-The $2.13\%$/$2.28\%$ figures above assume $0.01\%$ frequency
+The $0.87\%$/$0.93\%$ figures above assume $0.01\%$ frequency
 precision, an optimistic narrow-band-tracking number rather than a
 measured instrument comparison. Figure~\ref{fig:noisefloor} extends
 the free--free and clamped--free open-circuit inverse along the
@@ -712,8 +743,8 @@ frequency disagreement measured on a physically distinct PZT rod
 specimen in companion experimental work from this group
 \cite{boeringa2026} (mean $0.10\%$ across five axial modes), lands
 within a few percent of the already-tabulated $0.1\%$ column for both
-channels ($21.8\%$ and $23.2\%$ of $e_{31}$, against $21.3\%$ and
-$22.8\%$). The gap between the idealized $0.01\%$ precision and this
+channels ($8.9\%$ and $9.5\%$ of $e_{31}$, against $8.7\%$ and
+$9.3\%$). The gap between the idealized $0.01\%$ precision and this
 cross-instrument comparison, not the choice between the free--free and
 clamped--free observables (which agree with each other to within about
 $7\%$ at every precision tested), is the dominant source of
@@ -732,7 +763,7 @@ closely with the already-tabulated $0.1\%$ column.}
 \label{fig:noisefloor}
 \end{figure}
 
-Read as a measurement promise, $2.13\%$ (F--F) and $2.28\%$ (C--F)
+Read as a measurement promise, $0.87\%$ (F--F) and $0.93\%$ (C--F)
 at $0.01\%$ frequency precision would require resolving these
 resonances to one part in ten thousand -- finer than the
 impedance-analyzer/SLDV comparison of Fig.~\ref{fig:noisefloor}
@@ -742,13 +773,13 @@ instrument: $\mathrm{d}\omega_{\mathrm{OC}}/\mathrm{d}e_{31}$ is
 nonzero and large enough that \emph{any} finite frequency measurement
 maps to a finite $e_{31}$ interval, in contrast to the short-circuit
 clamped--clamped channel, where the same derivative is so small that
-no realistic frequency precision recovers $e_{31}$ at all ($889\%$ at
+no realistic frequency precision recovers $e_{31}$ at all ($330\%$ at
 $0.01\%$, worse at any coarser floor). The $0.01\%$ column is
 therefore best read as characterizing the conditioning of the inverse
 problem -- how tightly a well-resolved frequency constrains
 $e_{31}$ -- rather than as a laboratory accuracy target; the number an
 actual bench measurement on this ring would deliver is closer to the
-Boeringa--McCune floor, roughly $22\%$. Both readings support the same
+Boeringa--McCune floor, roughly $9\%$. Both readings support the same
 qualitative conclusion, that the open-circuit observable unlocks
 $e_{31}$ where short-circuit cannot; only the second is the number to
 quote for what a real experiment on such a ring would recover.
@@ -763,38 +794,38 @@ $C_{\mathrm{eff}}=C_0$ identically: a continuous electrode carries no
 net motional charge in a nodal-diameter mode. For $n=0$,
 $C_{\mathrm{eff}}$ has a pole at the short-circuit (elastic) root and a
 zero at the open-circuit root. An independent bisection of $Q/V$ at
-$h_1/2h=1/12$ recovers $750.0794987774\,\mathrm{rad\,s^{-1}}$ at a
-relative difference of $1.4\times10^{-15}$ from the free-vibration
+$h_1/2h=1/12$ recovers $762.5693785054\,\mathrm{rad\,s^{-1}}$ at a
+relative difference of $9\times10^{-15}$ from the free-vibration
 $4\times4$. The IEEE coupling factor \cite{ieee176} built from those two
 frequencies is
 \begin{equation}
 k_{\mathrm{eff}}^{2}=1-(f_{r}/f_{a})^{2}.
 \label{eq:keff}
 \end{equation}
-At $h_1/2h=1/12$, $1/8$, and $1/5$ this is $0.00557$, $0.00805$, and
-$0.01191$ ($k_{\mathrm{eff}}=0.075$, $0.090$, $0.109$), tracking the
+At $h_1/2h=1/12$, $1/8$, and $1/5$ this is $0.0379$, $0.0533$, and
+$0.0757$ ($k_{\mathrm{eff}}=0.195$, $0.231$, $0.275$), tracking the
 open-circuit splits of Table~\ref{tab:ff}. Independent bisection of
 $Q/V$ at $1/8$ and $1/5$ recovers the matching open-circuit roots to
-$2.5\times10^{-14}$ and $9.6\times10^{-14}$ relative, so those
+$1.7\times10^{-14}$ and $3\times10^{-16}$ relative, so those
 $k_{\mathrm{eff}}$ values now come from the driven problem, not
 only from free vibration (Supplementary Fig.~S.3). Clamped capacitance
 scales as $1/h_1$: $C_0=9.99\,\mathrm{\mu F}$ at $1/12$,
 $6.66\,\mathrm{\mu F}$ at $1/8$, and $4.16\,\mathrm{\mu F}$ at $1/5$.
 Off resonance at $1/12$,
-$C_{\mathrm{eff}}/C_0=1.013$ at $400\,\mathrm{rad\,s^{-1}}$ (above
-unity, as a free plate must be) and $0.966$ at
-$800\,\mathrm{rad\,s^{-1}}$ (returning to $C_0$ from below), which is
+$C_{\mathrm{eff}}/C_0=1.092$ at $400\,\mathrm{rad\,s^{-1}}$ (above
+unity, as a free plate must be) and $0.752$ at
+$800\,\mathrm{rad\,s^{-1}}$ (just above the zero, returning to $C_0$
+from below), which is
 the Butterworth--van Dyke shape with motional capacitance
 $C_m=C_0 k_{\mathrm{eff}}^2/(1-k_{\mathrm{eff}}^2)$.
-Figure~\ref{fig:Y} zooms on the $0.28\%$ splitting; the same curve on a
-$95$--$145\,\mathrm{Hz}$ axis is Supplementary Fig.~S.1, where $f_r$ and
-$f_a$ overlap because that overlap \emph{is} the coupling factor.
+Figure~\ref{fig:Y} zooms on the $1.95\%$ splitting; the same curve on a
+$95$--$145\,\mathrm{Hz}$ axis is Supplementary Fig.~S.1.
 A harmonic PLANE223 run on the same mesh, with $1\,\mathrm{V}$ on the
-outer bus, places the $|Y|$ peak at $118.79\,\mathrm{Hz}$ and the
-charge-zero at $119.13\,\mathrm{Hz}$, against the modal
-both-faces-short-circuit / open-circuit pair $118.811$ /
-$119.143\,\mathrm{Hz}$ on that mesh (analytic $119.047$ /
-$119.379\,\mathrm{Hz}$; both finite-element frequencies sit $0.20\%$
+outer bus, places the pole at $118.82\,\mathrm{Hz}$ and the
+charge-zero at $121.126\,\mathrm{Hz}$, against the modal
+both-faces-short-circuit / open-circuit pair $118.816$ /
+$121.126\,\mathrm{Hz}$ on that mesh (analytic $119.052$ /
+$121.367\,\mathrm{Hz}$; both finite-element frequencies sit $0.20\%$
 below their analytic partners, the elastic Kirchhoff-versus-2D offset
 of the coupling-off deck). The driven finite-element pole/zero is the
 modal pair, not a third physics.
@@ -803,9 +834,11 @@ modal pair, not a third physics.
 \centering
 \includegraphics[width=0.92\linewidth]{piezo_p4_admittance_zoom.png}
 \caption{Effective capacitance of the driven free--free $n=0$ model at
-$h_1/2h=1/12$, $C_0=9.99\,\mathrm{\mu F}$. The pole is the short-circuit
-root $f_r=119.046\,\mathrm{Hz}$; the zero is the open-circuit root
-$f_a=119.379\,\mathrm{Hz}$.}
+$h_1/2h=1/12$, $C_0=9.99\,\mathrm{\mu F}$. The pole is the elastic
+bilayer root $f_r=119.046\,\mathrm{Hz}$, the short-circuit root of the
+linear-potential model (the $6\times6$ puts it at $119.052\,\mathrm{Hz}$);
+the zero is the open-circuit root
+$f_a=121.367\,\mathrm{Hz}$.}
 \label{fig:Y}
 \end{figure}
 
@@ -821,17 +854,21 @@ puts $e_{31}$ on a frequency.
 
 Limits, so they are not rediscovered as objections. The open-circuit
 model is leading-order linear potential; the short-circuit $6\times6$
-retains the interior potential. Their coupling corrections differ by two
-orders of magnitude on the first $n=0$ mode ($0.28\%$ versus $0.0007\%$),
-so comparing them as $f_a$ and $f_r$ is consistent at the precision of
-\eqref{eq:keff}. This was checked, not only argued from magnitude:
-enriching the open-circuit potential with the same interior potential
-used by the short-circuit $6\times6$ raises the free--free $n=0$
-open-circuit root by $7\times10^{-6}$ relative at $h_1/2h=1/12$, which
-is exactly the short-circuit interior stiffening -- under the consistent
-projection the two stiffenings simply add, because the uniform bus field
-and the interior field are orthogonal in the enthalpy -- so the
-leading-order model already used throughout is adequate here. Circumferential orders $n\neq0$ carry no net charge on a
+retains the interior potential. Their coupling corrections differ by
+$76$ to $374$ times on the first $n=0$ mode ($1.95\%$ versus $0.0052\%$
+at $h_1/2h=1/12$), so comparing them as $f_a$ and $f_r$ is consistent
+at the precision of \eqref{eq:keff}. This was checked, not only argued
+from magnitude: enriching the open-circuit potential with the same
+interior potential used by the short-circuit $6\times6$ raises the
+free--free $n=0$ open-circuit root by $4.8\times10^{-5}$,
+$1.4\times10^{-4}$ and $4.6\times10^{-4}$ relative at the three
+ratios, $86$--$93\%$ of the short-circuit interior stiffening. Under the
+consistent projection the uniform bus field and the interior field are
+orthogonal in the enthalpy, so the two stiffenings add at leading order,
+and the enriched open-circuit root over the short-circuit $6\times6$
+reproduces $\Delta_{\mathrm{OC}}$ of Table~\ref{tab:ff} to within
+$0.2\%$ of its value at every ratio. The leading-order model used
+throughout is adequate here. Circumferential orders $n\neq0$ carry no net charge on a
 continuous electrode and do not split; three-dimensional finite elements
 confirm this at $n=1$--$4$ to $10^{-10}$. Clamped--clamped open-circuit
 does not split at this order. Clamped--free $n=0$ open-circuit does,
@@ -855,36 +892,39 @@ accompanying McCune and Stutts \cite{mccune2026ring}.
 
 \section{Conclusions}\label{sec:conc}
 A layered piezoelectric annulus has a short-circuit $6\times6$ that
-recovers Duan, Quek and Wang's Table~4 at $27/27$, worst relative error
-$-0.049\%$, and a free--free open-circuit $4\times4$ whose first $n=0$
-root lies $0.280\%$, $0.405\%$, and $0.601\%$ above the elastic bilayer
+recovers Duan, Quek and Wang's Table~4 at $27/27$, every root rounding
+to the printed integer (worst relative error $-0.016\%$), and a
+free--free open-circuit $4\times4$ whose first $n=0$
+root lies $1.950\%$, $2.776\%$, and $4.016\%$ above the elastic bilayer
 at $h_1/2h=1/12$, $1/8$, and $1/5$. Piezoelectric finite elements at all
 three ratios reproduce that split against both-faces short-circuit to
-within $0.2\%$ of its value, once the bus charge is taken as the
-variable conjugate to the bus voltage. Clamped--free open-circuit on the
-same mesh reproduces its closed-form $+0.262\%$ split to within
-$1.1\%$. Three-dimensional coupled-field elements extend the check
+$99.5$--$99.7\%$ of its value, once the bus charge is taken as the
+variable conjugate to the bus voltage, and reproduce the $6.7$- to
+$7.0$-fold smaller split that a $+4.1$ reading of $e_{31}$ would give to
+within $0.2\%$. Clamped--free open-circuit on the
+same mesh reproduces its closed-form $+1.826\%$ split to within
+$0.9\%$. Three-dimensional coupled-field elements extend the check
 to $n=1$--$4$: open circuit equals short circuit there, and the
 short-circuit interior-potential stiffening is reproduced to within
-$1.2\%$. Host $E$ is recoverable from one short-circuit
+$2.6\%$. Host $E$ is recoverable from one short-circuit
 clamped--clamped frequency at $0.025\%$ for $0.01\%$ frequency
-precision, and from free--free elastic or open-circuit flexure at the
-same $0.025\%$; $e_{31}$ from the clamped--clamped short-circuit
-observable is not ($889\%$). The same
+precision, and from free--free elastic or open-circuit flexure at
+$0.025\%$ and $0.026\%$; $e_{31}$ from the clamped--clamped short-circuit
+observable is not ($330\%$). The same
 $e_{31}$ is recoverable from the free--free axisymmetric open-circuit
-frequency at $2.13\%$, $1.48\%$, and $1.00\%$ as the layer thickens,
+frequency at $0.87\%$, $0.63\%$, and $0.45\%$ as the layer thickens,
 assuming $E$ known exactly; short-circuit at the same three ratios
-remains $889\%$, $294\%$, and $88\%$. Recovering $E$ and $e_{31}$ in
+remains $330\%$, $109\%$, and $33\%$. Recovering $E$ and $e_{31}$ in
 sequence, as an actual measurement would, compounds the $h_1/2h=1/12$
-open-circuit figure to $3.01\%$ -- still two orders of magnitude better
+open-circuit figure to $1.21\%$ -- still two orders of magnitude better
 than the short-circuit route. The driven admittance
 of the open-circuit model has its pole and zero at those two
-frequencies at all three Table~4 ratios, with $k_{\mathrm{eff}}=0.075$,
-$0.090$, and $0.109$. That
+frequencies at all three Table~4 ratios, with $k_{\mathrm{eff}}=0.195$,
+$0.231$, and $0.275$. That
 pair, not a short-circuit flexural list, is the identifying observable
 for $e_{31}$. A clamped-inner, free-outer ring is a second channel of
-the same class ($+0.262\%$ closed-form, reproduced by finite elements
-to $1.1\%$, $2.28\%$ of $e_{31}$ at $0.01\%$ frequency); the swapped
+the same class ($+1.826\%$ closed-form, reproduced by finite elements
+to $0.9\%$, $0.93\%$ of $e_{31}$ at $0.01\%$ frequency); the swapped
 pair is not.
 
 \section*{Data and code availability}

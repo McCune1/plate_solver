@@ -1,0 +1,41 @@
+C n=0 m=1  omega=902.4785  kir=902.5  rel=-2.379e-05  | cons/duan-1=-1.7e-05  coupling=+4.2e-05  | lam2 rel=+1.1e-06
+C n=0 m=2  omega=3513.4317  kir=3513.4  rel=+9.014e-06  | cons/duan-1=-1.7e-05  coupling=+4.2e-05  | lam2 rel=+8.1e-08
+C n=1 m=1  omega=1878.1694  kir=1878.2  rel=-1.628e-05  | cons/duan-1=-1.7e-05  coupling=+4.2e-05  | lam2 rel=-3.4e-07
+C n=1 m=2  omega=5373.6789  kir=5373.7  rel=-3.919e-06  | cons/duan-1=-1.7e-05  coupling=+4.2e-05  | lam2 rel=-3.6e-08
+C n=2 m=1  omega=3081.0798  kir=3081.1  rel=-6.561e-06  | cons/duan-1=-1.7e-05  coupling=+4.2e-05  | lam2 rel=-1.3e-07
+C n=2 m=2  omega=7472.1342  kir=7472.1  rel=+4.582e-06  | cons/duan-1=-1.7e-05  coupling=+4.2e-05  | lam2 rel=-2.4e-07
+S n=0 m=1  omega=435.6424  kir=435.6  rel=+9.726e-05  | cons/duan-1=-2.4e-05  coupling=+6.0e-05  | lam2 rel=+4.5e-06
+S n=0 m=2  omega=2625.2406  kir=2625.2  rel=+1.545e-05  | cons/duan-1=-1.8e-05  coupling=+4.5e-05  | lam2 rel=+6.0e-07
+S n=1 m=1  omega=1227.4965  kir=1227.5  rel=-2.823e-06  | cons/duan-1=-1.9e-05  coupling=+4.8e-05  | lam2 rel=-7.9e-07
+S n=1 m=2  omega=4282.4347  kir=4282.4  rel=+8.114e-06  | cons/duan-1=-1.8e-05  coupling=+4.4e-05  | lam2 rel=-1.6e-07
+S n=2 m=1  omega=2262.4418  kir=2262.4  rel=+1.846e-05  | cons/duan-1=-1.8e-05  coupling=+4.5e-05  | lam2 rel=-9.5e-07
+S n=2 m=2  omega=6193.9762  kir=6193.9  rel=+1.230e-05  | cons/duan-1=-1.8e-05  coupling=+4.3e-05  | lam2 rel=-3.7e-08
+{
+ "verdict": "PASS_ALL",
+ "gates": {
+  "G2a": true,
+  "G2b": true,
+  "G2c": true,
+  "G2d": true
+ },
+ "n_rows": 12,
+ "dps_scan": 30,
+ "dps_prod": 100,
+ "n_grid": 800,
+ "windows": {
+  "C": [
+   50.0,
+   8000.0
+  ],
+  "S": [
+   50.0,
+   7000.0
+  ]
+ },
+ "max_abs_rel_kir": 9.726187175873591e-05,
+ "max_abs_D1": 2.4459962804868063e-05,
+ "max_abs_D2": 6.0143212919028244e-05,
+ "all_rel_kir_negative": false,
+ "elapsed_s": 152.33518600463867
+}
+PASS_ALL

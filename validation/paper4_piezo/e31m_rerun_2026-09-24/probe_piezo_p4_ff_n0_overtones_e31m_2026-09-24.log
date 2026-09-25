@@ -1,0 +1,8 @@
+job start: dps=40 iters=40 scan=[800,4000]/160
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+G_n1: n=1 oc==elastic True
+scan: 1 elastic flips, 1 OC flips (9.8s)
+elastic roots: ['3504.952818']
+OC roots:      ['3536.762179']
+overtone 1: el=3504.952818 oc=3536.762179 split=0.9076% k2=0.017907 G2@0.01%=1.804%
+SENTINEL FAIL_ALL n1=True found=False pair=True n=1

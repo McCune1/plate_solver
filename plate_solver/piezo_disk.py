@@ -284,7 +284,10 @@ class PiezoDiskSC:
         return float(mp.log10(ad))
 
 
-# Liu / project material bundle (e31 = +4.1 project convention)
+# Liu 2002 Table 1 PZT-4 bundle, used exactly as printed (e31 = -4.1).
+# Until 2026-09-24 the project ran e31 = +4.1; LESSONS Sec 18.244 retired
+# that convention (Duan 2005 Table 4 is reproduced to 0.013% at -4.1 vs
+# 0.048% at +4.1, and the monolithic-ring coupling depends on the sign).
 LIU_DISK_KWARGS = dict(
     h=0.01,          # host half-thickness (m); full host 2h = 20 mm
     E=200e9,
@@ -295,7 +298,7 @@ LIU_DISK_KWARGS = dict(
     C12E=71e9,
     C13E=73e9,
     C33E=115e9,
-    e31=4.1,         # project sign (+); Liu Table 1 prints -4.1
+    e31=-4.1,        # Liu 2002 / Duan 2005 Table 1 as printed (Sec 18.244)
     e33=14.1,
     X11=7.124e-9,
     X33=5.841e-9,

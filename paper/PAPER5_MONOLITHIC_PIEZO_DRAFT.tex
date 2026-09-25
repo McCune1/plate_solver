@@ -61,24 +61,32 @@ fully electroded open-circuit flexure coincides exactly with short-circuit
 flexure, and the electrode-voltage admittance degenerates to a
 frequency-independent capacitor, $Y=j\omega C_0$ with
 $k_{\mathrm{eff}}^2\equiv0$. Second, the short-circuit frequency itself
-becomes the identifying piezoelectric signal, sitting $+1.94\%$
-(free--free) to $+1.44\%$ (free--clamped) above the same plate's purely
-elastic frequency on a representative PZT-4 geometry -- an order of
-magnitude larger than the corresponding split on a steel-dominated
-layered sandwich, and well conditioned for inverting the piezoelectric
+becomes the identifying piezoelectric signal, sitting $+9.6\%$
+(free--clamped) to $+13.8\%$ (clamped--free) above the same plate's purely
+elastic frequency on a representative PZT-4 geometry -- several times
+the open-circuit split of a steel-dominated layered sandwich of the same
+material, and well conditioned for inverting the piezoelectric
 stress constant $e_{31}$: a $0.01\%$ frequency uncertainty propagates to
-only $0.32\%$--$0.34\%$ of $e_{31}$. The through-thickness potential is
+only $0.15\%$--$0.17\%$ of $e_{31}$. The through-thickness potential is
 closed by a Galerkin projection of the electric enthalpy, which makes the
 long-wave short-circuit stiffening exact; the thickness-integrated Gauss
 law used for layered plates overstates it by $12/\pi^2$. The elastic
 limit agrees with an independent closed-ring solver to
 $4.8\times10^{-10}$ relative, and finite elements confirm both the
 coincidence and the stiffening magnitude, reproducing the closed-form
-split to $0.1\%$ of its value. Because the voltage-driven route
+split to $0.03\%$ of its value. Because the voltage-driven route
 is trivial, sensing instead reads the mechanical side of the same
 coupling: a harmonic radial force drives a genuinely resonant charge
 response on a segmented electrode, even though the same force drives an
-identically zero charge on the full electroded face. A symmetric,
+identically zero charge on the full electroded face. That segment charge
+carries a transverse-shear piezoelectric ($e_{15}$) contribution that
+Kirchhoff kinematics discard but that enters at the same order as the
+dielectric flux. With it, the charge is a closed-form constant multiple
+$\kappa$ of the dielectric-flux value, $\kappa=-1.96$ for PZT-4, which
+coupled-field finite elements confirm at the tabulated shear stiffness
+to within $0.5\%$ on the free--free ring and within $4\%$ on clamped and
+mixed edges, provided the partition sits well clear of a clamped
+rim. A symmetric,
 thickness-poled monolithic plate can therefore be neither voltage-actuated
 nor full-electrode-sensed in flexure, but can be force-driven and
 segment-sensed -- the textbook justification for unimorph and bimorph
@@ -127,8 +135,8 @@ Two results follow directly from removing the offset skins. First, the
 short-circuit flexural frequency itself -- not an open-circuit split --
 becomes the piezoelectric signal, because the whole plate thickness is
 now piezoceramic rather than a thin fraction of it: the short-circuit
-coupling on this stacking is a few percent in frequency, where it was two
-to three orders of magnitude smaller on the layered plate. Second,
+coupling on this stacking is about ten percent in frequency, where it was
+two to three orders of magnitude smaller on the layered plate. Second,
 because the voltage-driven admittance degenerates to a frequency-%
 independent capacitor, the free--free resonance/antiresonance
 identification used on the layered plate is not available here. Sensing
@@ -191,8 +199,11 @@ u_\theta=-z\,r^{-1}\partial_\theta w,\qquad
 u_z=w(r,\theta,t),
 \end{equation}
 giving strains odd in $z$ and $\varepsilon_{rr}+\varepsilon_{\theta\theta}
-=-z\nabla^2 w$. Transverse shear vanishes identically, so $e_{15}$ never
-enters, as in the layered case.
+=-z\nabla^2 w$. Transverse shear strain vanishes identically in these
+kinematics, so $e_{15}$ does not enter any frequency in this paper, as in
+the layered case. It does enter the segment charge of
+\S\ref{sec:Y-sense} at leading order, through the transverse shear
+stress that equilibrium requires.
 
 Plane-stress reduction of the full three-dimensional piezoceramic
 constants follows the same construction as the layered plate
@@ -204,9 +215,9 @@ constants follows the same construction as the layered plate
 \label{eq:reduced}
 \end{equation}
 At the material point used throughout this paper (\S\ref{sec:forward}),
-$\eebar\approx-4.85\,\mathrm{C\,m^{-2}}$: the sign of the reduced constant
-is opposite the tabulated $e_{31}$, the same reduction and the same sign
-flip as the layered plate. Bending stiffness has no separate host or
+$\eebar\approx-13.05\,\mathrm{C\,m^{-2}}$: the correction
+$(c_{13}^E/c_{33}^E)e_{33}=8.95\,\mathrm{C\,m^{-2}}$ has the same sign as
+$e_{31}$ and dominates it, the same reduction as on the layered plate. Bending stiffness has no separate host or
 layer terms; the whole thickness is piezoceramic,
 \begin{equation}
 d=\tfrac{2}{3}\cbar H^3,\qquad
@@ -434,12 +445,19 @@ Wang's Table~1 \cite{duan2005}, the same source and the same values used
 for the layered plate \cite{mccune2026piezo}, so that the two papers
 compare the same material at two stackings rather than two materials:
 $c_{11}^E=132$, $c_{12}^E=71$, $c_{13}^E=73$, $c_{33}^E=115\,\mathrm{GPa}$,
-$e_{31}=+4.1$, $e_{33}=14.1\,\mathrm{C\,m^{-2}}$,
+$e_{31}=-4.1$, $e_{33}=14.1\,\mathrm{C\,m^{-2}}$,
 $\Xi_{11}=7.124\times10^{-9}$, $\Xi_{33}=5.841\times10^{-9}\,
-\mathrm{F\,m^{-1}}$, $\rho=7500\,\mathrm{kg\,m^{-3}}$. As with the layered
-plate, Duan, Quek and Wang tabulate $e_{31}=-4.1\,\mathrm{C\,m^{-2}}$; the
-$+4.1$ convention used here is consistent with this group's related work
-and is not a correction. Geometry is $r_i=0.1\,\mathrm{m}$,
+\mathrm{F\,m^{-1}}$, $\rho=7500\,\mathrm{kg\,m^{-3}}$, including the sign
+of $e_{31}$ as printed there and in Liu, Wang and Quek's Table~1
+\cite{liu2002}. Every frequency effect below scales with $\eebar^{\,2}$;
+the companion paper shows that Duan, Quek and Wang's own Table~4 and
+finite elements both resolve the printed sign \cite{mccune2026piezo}. The
+segment charge of \S\ref{sec:Y-sense}, and
+nothing else in this paper, also uses $e_{15}=10.5\,\mathrm{C\,m^{-2}}$
+and the transverse shear stiffness $c_{44}^E=26\,\mathrm{GPa}$ of Liu,
+Wang and Quek \cite{liu2002}. Duan, Quek and Wang print $73\,\mathrm{GPa}$
+for this constant, which we take to be their $c_{13}^E$ repeated, since
+PZT-4 is near $26\,\mathrm{GPa}$. Geometry is $r_i=0.1\,\mathrm{m}$,
 $r_o=0.6\,\mathrm{m}$, full ceramic thickness $2H=0.02\,\mathrm{m}$
 ($r_o/H=60$), the same radii as the layered plate's host, with the steel
 replaced entirely by ceramic. Figure~\ref{fig:geom} is the through-%
@@ -471,8 +489,8 @@ purely elastic ring and of the coupled short-circuit $6\times6$ (which,
 by the theorem of \S\ref{sec:oc}, is simultaneously the open-circuit
 root), on all four mechanical edge pairings. Short-circuit sits above
 elastic at every pairing, as required by the sign of
-\eqref{eq:stiffening}, and the split is a few percent rather than the
-$10^{-3}$--$10^{-2}\,\%$ range found on the layered plate's own
+\eqref{eq:stiffening}, and the split is about ten percent rather than the
+$0.005$--$0.05\%$ found on the layered plate's own
 short-circuit channel \cite{mccune2026piezo}: with no elastic host to
 carry most of the bending stiffness, the piezoelectric coupling is no
 longer a small correction to an otherwise elastic plate. The
@@ -499,10 +517,10 @@ outer; F--C is the swap.}
 \toprule
 edge & elastic & SC $=$ OC & split \\
 \midrule
-F--F & 462.398 (73.593) & 471.365 (75.020) & $+1.939\%$ \\
-C--C & 1726.890 (274.843) & 1757.694 (279.746) & $+1.784\%$ \\
-C--F & 1605.443 (255.514) & 1637.922 (260.683) & $+2.023\%$ \\
-F--C & 556.884 (88.631) & 564.900 (89.907) & $+1.439\%$ \\
+F--F & 462.398 (73.593) & 519.839 (82.735) & $+12.422\%$ \\
+C--C & 1726.890 (274.843) & 1938.861 (308.579) & $+12.275\%$ \\
+C--F & 1605.443 (255.514) & 1827.039 (290.782) & $+13.803\%$ \\
+F--C & 556.884 (88.631) & 610.530 (97.169) & $+9.633\%$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -518,15 +536,15 @@ Table~\ref{tab:stiffening}, by mechanical boundary condition.}
 The stiffening persists beyond the fundamental and beyond one thickness.
 A sign-flip scan of the free--free channel up to
 $6000\,\mathrm{rad\,s^{-1}}$ finds two further overtone pairs, both
-still short-circuit above elastic ($+1.57\%$ and $+1.61\%$, against
-$+1.94\%$ at the fundamental -- the split is not monotonic in overtone
-index); the clamped--clamped channel shows the same pattern over one
-further overtone ($+1.77\%$, against $+1.78\%$ at the fundamental). A
+still short-circuit above elastic ($+10.55\%$ and $+11.01\%$, against
+$+12.42\%$ at the fundamental -- the split is not monotonic in overtone
+index); the clamped--clamped channel stays flatter over one
+further overtone ($+12.18\%$, against $+12.27\%$ at the fundamental). A
 nine-point sweep of the ceramic thickness from $H/r_o=0.005$ to $0.18$,
 at fixed radii, confirms a falsifiable prediction of the long-wave
 reduction of \S\ref{sec:elastic} -- that the split is independent of
 $H$ at leading order -- below $H/r_o\approx0.025$, where the split stays
-flat near $1.94\%$; above that it drifts downward by about $4\%$
+flat near $12.42\%$; above that it drifts downward by about $4\%$
 relative by $H/r_o=0.18$, a finite-thickness correction beyond the
 long-wave leading order, consistent with Kirchhoff kinematics being
 best justified in exactly the thin regime this paper's own geometry sits
@@ -541,15 +559,18 @@ validated for the layered plate \cite{mccune2026piezo}, with the host
 volume deleted and the piezoceramic volume filling the full thickness,
 confirms both the coincidence theorem and the stiffening magnitude on
 free--free $n=0$. The finite-element open-circuit and short-circuit
-flexural modes agree with each other to five printed significant
+flexural modes agree with each other to all eight printed significant
 figures -- the coincidence theorem is not only a Kirchhoff-theory
 artifact, since the finite-element model carries genuinely
-two-dimensional coupled-field kinematics -- and both sit $1.942\%$
+two-dimensional coupled-field kinematics -- and both sit $12.426\%$
 above an uncoupled elastic control on the same mesh, against the
-closed-form $+1.939\%$ of Table~\ref{tab:stiffening}: the
-finite-element split reproduces the closed-form split to $0.1\%$ of its
-value. This comparison is also what exposed the projection issue of
-\S\ref{sec:sc}. The Gauss-law closure predicts $+2.347\%$ here, of which
+closed-form $+12.422\%$ of Table~\ref{tab:stiffening}: the
+finite-element split reproduces the closed-form split to $0.03\%$ of its
+value. Run with $e_{31}=+4.1$, the same decks give $+1.942\%$ against a
+closed-form $+1.939\%$, so the finite elements follow the
+$\eebar^{\,2}$ dependence, not one calibrated point. The $+4.1$
+comparison is also what exposed the projection issue of
+\S\ref{sec:sc}. The Gauss-law closure predicts $+2.347\%$ there, of which
 finite elements recover only $83\%$, and $1/0.83\approx12/\pi^2$; the
 same $12/\pi^2$ ratio separates that closure from a three-dimensional
 finite-element model of a clamped piezoceramic annular sector
@@ -559,7 +580,7 @@ identified by the same through-thickness displacement discriminator used
 throughout this series: transverse displacement of the same sign,
 in-plane displacement of opposite sign, at the two faces at the outer
 radius. A companion extensional mode on the same mesh does split between
-open- and short-circuit ($+1.80\%$) -- confirming, as a disclosed side
+open- and short-circuit ($+10.95\%$) -- confirming, as a disclosed side
 observation and not a Paper~5 result, that the linear (membrane) field
 does couple to extension even though it does not couple to bending, the
 negative control anticipated in \S\ref{sec:kinematics}. Full provenance
@@ -578,16 +599,18 @@ own forward frequency is exact to $2.5\times10^{-10}$ relative (bar
 $10^{-6}$) on both the free--free and clamped--clamped channels; the
 inverse machinery is not the issue, and the scientific content is the
 propagated uncertainty. On-branch sensitivity gives
-$\mathrm d\omega/\mathrm de_{31}=-3.618\,\mathrm{rad\,s^{-1}}$ per
-$\mathrm{C\,m^{-2}}$ (free--free) and $-12.590$ (clamped--clamped);
+$\mathrm d\omega/\mathrm de_{31}=-7.661\,\mathrm{rad\,s^{-1}}$ per
+$\mathrm{C\,m^{-2}}$ (free--free) and $-30.708$ (clamped--clamped);
 propagating a $0.01\%$ relative frequency uncertainty through those
-sensitivities gives $0.32\%$ and $0.34\%$ of $e_{31}$, respectively,
-two orders of magnitude better conditioned than the short-circuit
-inverse reported for the layered plate at a comparable thickness ratio
-\cite{mccune2026piezo}, and roughly the same class as that paper's own
-\emph{open}-circuit inverse -- because on this stacking the short-circuit
-frequency already carries the full interior-profile coupling that, on the
-layered plate, only the open-circuit channel could access. Do not invert
+sensitivities gives $0.17\%$ and $0.15\%$ of $e_{31}$, respectively,
+two to three orders of magnitude better conditioned than the
+short-circuit inverse reported for the layered plate
+($33$--$330\%$ over its three thickness ratios) \cite{mccune2026piezo},
+and $2.6$ to $5.6$ times better than that paper's own
+\emph{open}-circuit inverse ($0.45$--$0.87\%$) -- because on this
+stacking the short-circuit frequency already carries the full
+interior-profile coupling that, on the layered plate, only the
+open-circuit channel could access. Do not invert
 an open-circuit-versus-short-circuit split for $e_{31}$ here: no such
 split exists (\S\ref{sec:oc}), and this single-observable inverse does
 not jointly fit $\cbar$ and $e_{31}$ from one frequency.
@@ -599,10 +622,11 @@ zeros, under the reflection $\eebar\to-\eebar$ composed with
 $\chi\to-\chi$ (Supplementary~\S~S.4). Consequently every recovered root
 $e_{31}$ has a bit-identical-frequency reflection twin,
 $e_{31}^{\mathrm{twin}}=2(c_{13}^E/c_{33}^E)e_{33}-e_{31}
-\approx13.80\,\mathrm{C\,m^{-2}}$ at this material point, and the
-inversion bracket used throughout ($[1.0,8.0]\,\mathrm{C\,m^{-2}}$) is
-chosen specifically to exclude both the twin and the intermediate value
-at which the cubic's leading coefficient vanishes. This is the same
+\approx22.00\,\mathrm{C\,m^{-2}}$ at this material point, and the
+inversion bracket used throughout ($[-8.0,-1.0]\,\mathrm{C\,m^{-2}}$) is
+chosen to exclude both the twin and the intermediate value
+($e_{31}\approx8.95\,\mathrm{C\,m^{-2}}$, $\eebar=0$) at which the
+cubic's leading coefficient vanishes. This is the same
 caveat documented for the layered plate's own open-circuit inverse
 \cite{mccune2026piezo}, now derived explicitly for this operator rather
 than carried over by analogy alone.
@@ -643,15 +667,16 @@ mechanical force in, electrical charge out -- is well posed, and it is
 not trivial. A harmonic radial ring force $F$ at $r=r_F$ on the
 still-grounded, still fully electroded short-circuit free--free plate
 drives the two-region twelve-unknown system of \S\ref{sec:method}. Its
-homogeneous kernel is confirmed to sit exactly at the already-validated
+homogeneous kernel is confirmed to sit at the already-validated
 free--free short-circuit root: the driven system's own determinant and
-the free-vibration determinant agree to machine precision at the F--F
-fundamental of Table~\ref{tab:stiffening}. A global force-balance
+the free-vibration determinant vanish at the F--F fundamental of
+Table~\ref{tab:stiffening} to within $2\times10^{-13}$ relative, the
+bisection tolerance. A global force-balance
 identity, $2\pi\int_{r_i}^{r_o}r\,w(r)\,\mathrm dr=-F/(A_2\omega^2)$,
 which must hold on both the purely elastic and the piezoelectrically
 coupled version of this driven system at every off-resonance frequency,
 confirms the sign of the one inhomogeneous interface row (the shear
-jump) to $10^{-61}$ relative -- a check on the algebra, not a physical
+jump) at the working precision -- a check on the algebra, not a physical
 prediction, but one that rules out the single most consequential class
 of implementation error (a flipped sign on the load) independently of
 any charge computation.
@@ -668,45 +693,152 @@ would therefore be a second trivial capacitor under a different name.
 The nontrivial, resonance-showing output is the charge collected on a
 proper subset of the grounded face -- a segmented electrode, both
 segments still shorted to ground, current read from one segment. For an
-inner partition $[r_i,r_*]$ of the face, the collected charge reduces to
-the radial dielectric flux at the partition cut (Gauss's law through
-the thickness applied to the leading-order field, which gives the face
-charge as $\Xi_{11}\nabla^2\bar\phi\int_0^H(1-z^2/H^2)\,\mathrm dz$),
+inner partition $[r_i,r_*]$ of the face, Gauss's law on the column of
+ceramic under the partition (insulated inner rim) makes the free charge
+on each face segment equal to half the radial electric flux through the
+cut, $Q_{\mathrm{in}}=\pi r_*\int_{-H}^{H}D_r\,\mathrm dz\,\big|_{r_*}$;
+the top and bottom segments carry equal charge. Kirchhoff kinematics
+retain only the dielectric part $\Xi_{11}E_r$ of $D_r$. The transverse
+shear stress, however, is not zero: its thickness integral is the shear
+resultant $Q_r$ fixed by equilibrium. The shear strain is then set by the
+constitutive law, $T_{rz}=c_{44}^E\gamma_{rz}-e_{15}E_r$, and the
+piezoelectric shear term $e_{15}\gamma_{rz}$ in $D_r$ is of the same order
+in $H$ as $\Xi_{11}E_r$. Eliminating $\gamma_{rz}$ gives
 \begin{equation}
-Q_{\mathrm{in}}(r_*;\omega)=\tfrac{4\pi}{3}H\Xi_{11}\,r_*\,\bar\phi'(r_*;\omega),
-\qquad
-Y_{\mathrm{sense}}[r_*](\omega):=\frac{Q_{\mathrm{in}}(r_*;\omega)}{F}.
+\int_{-H}^{H}D_r\,\mathrm dz=\frac{e_{15}}{c_{44}^E}\,Q_r
+-\tfrac{4H}{3}\Bigl(\Xi_{11}+\frac{e_{15}^2}{c_{44}^E}\Bigr)\bar\phi'.
+\label{eq:Dr}
+\end{equation}
+At leading order $\bar\phi$ is proportional to $\nabla^2w$ and $Q_r$ to
+$(\nabla^2w)'$, so both terms of \eqref{eq:Dr} are proportional to
+$(\nabla^2w)'$ and the segment charge is a constant multiple of its
+dielectric-flux part,
+\begin{equation}
+\begin{gathered}
+Q_{\mathrm{in}}=\kappa\,Q_{\mathrm{in}}^{(0)},\qquad
+Q_{\mathrm{in}}^{(0)}(r_*;\omega)=-\tfrac{4\pi}{3}H\Xi_{11}\,r_*\,\bar\phi'(r_*;\omega),\\
+\kappa=1+\frac{e_{15}^2}{c_{44}^E\Xi_{11}}
++\frac{e_{15}\bigl(\cbar\Xibar+\eebar^{\,2}\bigr)}{c_{44}^E\Xi_{11}\,\eebar},\qquad
+Y_{\mathrm{sense}}[r_*](\omega):=\frac{Q_{\mathrm{in}}(r_*;\omega)}{F},
+\end{gathered}
 \label{eq:Ysense}
 \end{equation}
+with $\kappa$ independent of $\omega$, $H$, $r_F$, and $r_*$. At the
+material point of \S\ref{sec:forward}, $\kappa=-1.961$. The shear term is
+$-3.56$ times the dielectric term, opposite in sign and dominant, so the
+segment charge on this stacking is carried mainly by the $e_{15}$ shear
+coupling, not by the dielectric flux that Kirchhoff kinematics keep.
+Because $\kappa$ is a constant, it moves no pole or zero of
+$Y_{\mathrm{sense}}$. It fixes the sign and the scale. $Q_{\mathrm{in}}$ is
+the free charge on the electrode segment. $\kappa$ depends on
+$c_{44}^E$, which no frequency in this paper reads: at Duan's printed
+$73\,\mathrm{GPa}$ the two terms nearly cancel, $\kappa=-0.055$. It
+depends on the sign of $e_{31}$ as well, through $\eebar$: read as
+$+4.1\,\mathrm{C\,m^{-2}}$, $e_{31}$ would give $\kappa=-6.258$ at
+$26\,\mathrm{GPa}$. A measurement should therefore use measured
+constants.
+
+A harmonic, undamped, axisymmetric coupled-field model tests
+\eqref{eq:Ysense} directly. It uses the elements and mesh family of
+\S\ref{sec:fe}, with the ring load spread over the through-thickness
+node line at $r_F$, both faces grounded, and the charge summed over the
+inner face nodes. It also runs at both values of $c_{44}^E$, because the
+dielectric-flux value does not depend on $c_{44}^E$ and $\kappa$ does.
+The ratio of the finite-element charge to $Q_{\mathrm{in}}^{(0)}$ at
+$\omega=100$--$1200\,\mathrm{rad\,s^{-1}}$ is $-1.955$ to $-1.960$ at
+$26\,\mathrm{GPa}$, within $0.5\%$ of $\kappa$ at every frequency. At
+$73\,\mathrm{GPa}$, where $\kappa$ is small, it is $-0.0538$ to
+$-0.0550$, within $0.0022$ of $\kappa$, that is within $0.2\%$ of the
+dielectric-flux value the shear term almost cancels. It is
+mesh-converged to better than $0.01\%$, and the full-face charge sums to
+zero, as it must (Supplementary~\S~S.7). The same decks run with
+$e_{31}=+4.1$ reproduce $\kappa=-6.258$ and $-1.585$ to within $0.5\%$,
+so the finite elements also resolve the $\eebar$ dependence of $\kappa$.
+
 At the geometry of \S\ref{sec:forward} with $r_F=0.35\,\mathrm{m}$ and a
 partition radius $r_*=0.30\,\mathrm{m}$ (chosen away from $r_F$ so a
 load/cut coincidence is not built in), $Y_{\mathrm{sense}}$ is small and
-smoothly varying away from resonance and grows by roughly four orders of
+smoothly varying away from resonance and grows by three orders of
 magnitude, with a clean sign change, within $0.01\,\mathrm{rad\,s^{-1}}$
 of the free--free short-circuit fundamental of Table~\ref{tab:stiffening}
 (Figure~\ref{fig:ysense}); no damping is present in this operator, so the
 undamped magnitude formally diverges at the pole itself and the reported
 sweep is a sign-change/blow-up diagnostic rather than a finite peak
-height. As a limiting check, scaling $\eebar$ toward zero -- taking care
-to scale the raw material constants $e_{31}$ and $e_{33}$ together, since
-$\eebar$ itself is dominated by their combination at this material point
-and does not approach zero if only $e_{31}$ is scaled -- drives
-$Q_{\mathrm{in}}$ to zero linearly, matching the mechanical Helmholtz
-branches to the purely elastic wavenumber over several orders of
-magnitude in the scaling parameter (Supplementary~\S~S.7).
+height. As a limiting check on the driven operator, scaling $\eebar$
+toward zero -- taking care to scale the raw material constants $e_{31}$
+and $e_{33}$ together, since $\eebar$ itself is dominated by their
+combination at this material point and does not approach zero if only
+$e_{31}$ is scaled -- drives the dielectric part $Q_{\mathrm{in}}^{(0)}$
+to zero linearly, matching the mechanical Helmholtz branches to the
+purely elastic wavenumber over several orders of magnitude in the
+scaling parameter (Supplementary~\S~S.7). The shear part of
+\eqref{eq:Dr} does not vanish in that limit. It needs only $e_{15}$.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.92\linewidth]{piezo_p5_ysense_sweep.png}
 \caption{Segmented-electrode sensing admittance $Y_{\mathrm{sense}}[r_*]$
-near the free--free short-circuit fundamental
-($471.3646\,\mathrm{rad\,s^{-1}}$), $r_F=0.35\,\mathrm m$,
-$r_*=0.30\,\mathrm m$. (a) magnitude across the pre-registered validation
-sweep; (b) sign flip through the pole, undamped. Not a dense resonance
+(free charge per unit force on one inner face segment,
+\eqref{eq:Ysense}, $c_{44}^E=26\,\mathrm{GPa}$) near the free--free
+short-circuit fundamental ($519.8388\,\mathrm{rad\,s^{-1}}$),
+$r_F=0.35\,\mathrm m$, $r_*=0.30\,\mathrm m$. (a) magnitude across the
+pre-registered validation sweep, with the dielectric-flux part alone
+($\kappa=1$, dotted) and Duan's printed $c_{44}^E$ ($\kappa=-0.055$,
+dashed) for comparison; (b) sign flip through the pole, undamped. Not a dense resonance
 curve -- the nine points are the pre-registered validation gate, not a
 fitted or interpolated response.}
 \label{fig:ysense}
 \end{figure}
+
+\subsection{Clamped and mixed-edge sensing}\label{sec:Y-mixed}
+The driven twelve-unknown system carries over to the other three edge
+pairings by the same rim-row selection as the free-vibration
+determinants: a clamped rim imposes $w=w'=\bar\phi'=0$ in place of
+$M_{rr}=Q_r=\bar\phi'=0$, and the interface and load rows are unchanged.
+Its free--free path reproduces the free--free solver to $10^{-40}$; its
+own determinant changes sign at the clamped--clamped, clamped--free and
+free--clamped short-circuit roots of Table~\ref{tab:stiffening}; a
+force balance that now includes the rim reactions holds to $10^{-40}$
+at every test frequency; and Maxwell--Betti reciprocity between loads at
+$0.25$ and $0.45\,\mathrm m$ holds to $10^{-40}$. The driven $\kappa$ at
+an interior cut is within $0.5\%$ of the closed form at every tested
+frequency at $26\,\mathrm{GPa}$, and within $0.004$ of it at
+$73\,\mathrm{GPa}$, where $\kappa$ itself is small
+(Supplementary~\S~S.7).
+
+One thing is not a row swap. With the $e_{15}$ term kept, the insulated
+rim reads $\int D_r\,\mathrm dz=0$ in \eqref{eq:Dr}, which at a free rim
+($Q_r=0$ at $n=0$) is $\bar\phi'=0$, but at a clamped rim, where the
+reaction $Q_r$ is nonzero, is not. Neither $\bar\phi'=0$ (the rim row
+used above, M1) nor the rim-corrected row with the $e_{15}Q_r$ term
+(M2) is a strictly valid leading-order condition inside the electrical
+boundary layer, about $H$ wide, that the clamp excites. Because the
+segment charge depends only on $D_r$ at the cut, a cut several $H$ from
+every rim should not see the difference, and a cut close to a clamped
+rim will.
+
+Twenty-four harmonic finite-element decks tested this: the four edge
+pairings, both $c_{44}^E$, and three meshes, with the clamp applied to
+every node of the rim line and the rims electrically insulated. The
+criteria were fixed before the runs. At the two interior cuts
+($r_*=0.30$ and $0.45\,\mathrm m$, $15H$ or more from either rim) and
+five frequencies between $0.2$ and $0.85$ of each pairing's fundamental,
+the finite-element segment charge agrees with $\kappa Q_{\mathrm{in}}^{(0)}$
+in all eight (pairing, $c_{44}^E$) cells: at $26\,\mathrm{GPa}$ within
+$2\%$ at the four lower test frequencies and within $4\%$ at the
+highest, where the dropped $O((Hk)^2)$ terms grow; at $73\,\mathrm{GPa}$
+within $0.004$ of $\kappa$ in absolute terms. The dielectric-flux value alone
+($\kappa=1$) is rejected in every cell. The leading-order $\kappa$ is
+weakest where the cut carries only inertial shear, inside the load
+radius next to a free rim, because the sensed charge is itself small
+there; a cut between the load and a clamp avoids that. Near a clamped
+rim ($1.25H$ and $2.5H$ from it) the finite elements are closer to M1
+than to M2 at every cut, but neither model holds to $3\%$ at both
+stiffnesses, which was the pre-registered condition for quoting a
+near-rim number. None is quoted. Cuts $15H$ or more from a clamped rim
+satisfy $\kappa$ on every edge pairing and cuts at $2.5H$ do not; the
+distances in between were not tested, so the partition should sit more
+than about $3H$ from a clamped rim, and preferably much further.
 
 The applied reading is the one worth stating plainly: this specimen
 cannot be voltage-actuated in flexure, and it cannot be sensed in flexure
@@ -731,8 +863,8 @@ plate's neutral axis, as in the layered construction, makes a uniform
 electrode voltage a flexural actuator and turns the free--free
 open-circuit-versus-short-circuit split into the identifying observable
 for $e_{31}$; the short-circuit channel alone is nearly useless there,
-propagating $0.01\%$ frequency precision to hundreds of percent of
-$e_{31}$ \cite{mccune2026piezo}. Removing the host and centering the same
+propagating $0.01\%$ frequency precision to tens or hundreds of percent
+of $e_{31}$ \cite{mccune2026piezo}. Removing the host and centering the same
 ceramic on the neutral axis, as here, removes that actuation mechanism
 entirely -- not approximately, but as an algebraic identity holding for
 every mechanical boundary condition -- and simultaneously turns the
@@ -760,10 +892,10 @@ admittance are properties of this ansatz -- fully electroded faces,
 insulated rims -- and do not extend to a plate with a partially covered
 or patterned electrode, which is a different electrical boundary
 condition and not addressed here beyond the sensing partition of
-\S\ref{sec:Y-sense}. The force-driven sensing construction is axisymmetric
-and free--free only; clamped and mixed-edge sensing variants are the same
-interface-row substitution used for the free-vibration mixed-edge
-determinants and are left for later work. In-plane (extensional, contour)
+\S\ref{sec:Y-sense}. The force-driven sensing construction is
+axisymmetric; it holds on all four edge pairings with the partition more
+than about $3H$ from a clamped rim (\S\ref{sec:Y-mixed}), and no
+closed-form value is claimed closer to a clamp. In-plane (extensional, contour)
 piezoelectric coupling on this same monolithic stacking is disclosed as a
 genuine effect in \S\ref{sec:fe} but is not built here; it is claim~C of
 this series \cite{mccune2026piezo} and a natural companion paper on the
@@ -772,7 +904,12 @@ specimen would see exactly that contour response, not the flexural one
 studied here. A radially poled, shear-actuated specimen on Mindlin
 kinematics \cite{parashar2013} is a different poling axis, a different
 actuation mechanism, and a different plate theory, and is not scored by
-this Kirchhoff monolithic operator. No physical specimen is reported
+this Kirchhoff monolithic operator. The sensing magnitude is a
+leading-order thin-plate result, confirmed by finite elements to within
+$0.5\%$ on the free--free ring and $4\%$ on clamped and mixed edges at
+$r_o/H=60$ and $c_{44}^E=26\,\mathrm{GPa}$ (to $0.004$ absolute at
+$73\,\mathrm{GPa}$, where $\kappa$ nearly vanishes), and it reads $c_{44}^E$, $e_{15}$, and the sign of
+$e_{31}$, which the frequencies do not. No physical specimen is reported
 here; were one tested, short-circuit flexure of Table~\ref{tab:stiffening}
 is the observable for $e_{31}$, and a segmented-electrode measurement of
 $Y_{\mathrm{sense}}$ under mechanical excitation, not an impedance-%
@@ -799,24 +936,31 @@ coincides with short-circuit flexure for every mechanical boundary
 condition tested, not only the special case that held on the layered
 plate, and the voltage-driven admittance is a frequency-independent
 capacitor with $k_{\mathrm{eff}}^2\equiv0$. Finite elements confirm both
-the coincidence, to five significant figures, and the stiffening
-magnitude, reproducing the closed-form split to $0.1\%$ of its value with
+the coincidence, to eight significant figures, and the stiffening
+magnitude, reproducing the closed-form split to $0.03\%$ of its value with
 genuinely two-dimensional coupled-field kinematics, once the electrical
 equation is projected consistently with the mechanical one. The
 piezoelectric signal on this stacking is therefore the
-short-circuit-versus-elastic frequency gap itself: $+1.94\%$,
-$+1.78\%$, $+2.02\%$, and $+1.44\%$ on the free--free,
+short-circuit-versus-elastic frequency gap itself: $+12.4\%$,
+$+12.3\%$, $+13.8\%$, and $+9.6\%$ on the free--free,
 clamped--clamped, clamped--free, and free--clamped $n=0$ fundamentals of
 a representative PZT-4 geometry, propagating a $0.01\%$ frequency
-uncertainty to $0.32$--$0.34\%$ of $e_{31}$ -- two orders of
+uncertainty to $0.15\%$--$0.17\%$ of $e_{31}$ -- two to three orders of
 magnitude better conditioned than the corresponding short-circuit inverse
 on a layered sandwich of the same material. Because the electrode-voltage
 route to sensing is closed off by the same theorem that closes off
 actuation, sensing is read from the mechanical side instead: a harmonic
 radial force drives a genuinely resonant charge response on a segmented
 electrode, even though the same force drives an identically zero charge
-on the full electroded face. A symmetric, thickness-poled monolithic
-plate can be neither voltage-actuated nor full-electrode-sensed in
+on the full electroded face. That segment charge is carried mainly by
+the transverse-shear $e_{15}$ coupling, which Kirchhoff kinematics drop
+from the frequencies but which enters the charge at leading order. It is
+a closed-form multiple $\kappa=-1.96$ of the dielectric-flux value, and
+coupled-field finite elements confirm it at two shear stiffnesses; at
+the tabulated one, to within $0.5\%$ on the free--free ring and $4\%$
+on the clamped and mixed edges, with the partition kept well clear of a
+clamped rim (more than about $3H$). A symmetric, thickness-poled monolithic plate can be
+neither voltage-actuated nor full-electrode-sensed in
 flexure, but it can be force-driven and segment-sensed -- the textbook
 justification for unimorph and bimorph bending actuators, derived here as
 an exact property of the radial-determinant operator with a working

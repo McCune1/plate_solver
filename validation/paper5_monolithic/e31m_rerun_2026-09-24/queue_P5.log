@@ -1,0 +1,10 @@
+=== 19:11:28 start probe_piezo_p5_cf_boundary_e31m_2026-09-24.py
+=== 19:17:05 end probe_piezo_p5_cf_boundary_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL (335.4s total)
+=== 19:17:05 start probe_piezo_p5_thickness_sweep_e31m_2026-09-24.py
+=== 19:44:48 end probe_piezo_p5_thickness_sweep_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL all_pass=True (1662.5s total)
+=== 19:44:48 start probe_piezo_p5_yomega_sense_e31m_2026-09-24.py
+=== 19:49:24 end probe_piezo_p5_yomega_sense_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL (275.4s total)
+=== 19:49:24 start probe_piezo_p5_n0_overtones_e31m_2026-09-24.py
+=== 19:58:17 end probe_piezo_p5_n0_overtones_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL g_found=True (531.7s total)
+=== 19:58:17 start probe_piezo_p5_e31_inverse_e31m_2026-09-24.py
+=== 20:10:24 end probe_piezo_p5_e31_inverse_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL all_pass=True (726.6s total)

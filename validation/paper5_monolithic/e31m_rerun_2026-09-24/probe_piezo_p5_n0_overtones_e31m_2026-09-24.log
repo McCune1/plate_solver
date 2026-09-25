@@ -1,0 +1,18 @@
+job start: dps=60 inner_iters=45 ff_scan_n=600 cc_scan_n=500
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+preflight OK: coupled_bisect present
+FF scan: 3 elastic flips, 3 coupled flips in [455.0, 6000.0] (172.1s)
+FF elastic roots: ['462.397650', '2169.892674', '5270.649042']
+FF coupled roots: ['519.838812', '2398.890643', '5850.692991']
+FF pair 1: el=462.397650 sc=519.838812 split=12.42246% reflection_rel=6.561e-16 domega/de31=-7.661431e+00 g2@0.01%=0.1655% (27.1s)
+FF pair 2: el=2169.892674 sc=2398.890643 split=10.55342% reflection_rel=5.687e-16 domega/de31=-3.237892e+01 g2@0.01%=0.1807% (29.7s)
+FF pair 3: el=5270.649042 sc=5850.692991 split=11.00517% reflection_rel=6.218e-16 domega/de31=-8.348146e+01 g2@0.01%=0.1709% (30.9s)
+CC scan: 2 elastic flips, 2 coupled flips in [1700.0, 6000.0] (149.3s)
+CC elastic roots: ['1726.889796', '4776.964772']
+CC coupled roots: ['1938.860873', '5358.664065']
+CC pair 1: el=1726.889796 sc=1938.860873 split=12.27473% reflection_rel=5.864e-16 domega/de31=-3.070810e+01 g2@0.01%=0.1540% (27.8s)
+CC pair 2: el=4776.964772 sc=5358.664065 split=12.17717% reflection_rel=5.092e-16 domega/de31=-8.430141e+01 g2@0.01%=0.1550% (30.5s)
+--- summary ---
+  FF: n_pair=3 theorem=True reflection=True
+  CC: n_pair=2 theorem=True reflection=True
+SENTINEL PASS_ALL g_found=True (531.7s total)

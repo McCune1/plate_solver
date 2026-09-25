@@ -1,0 +1,9 @@
+..../usr/local/lib/python3.11/dist-packages/mpmath/calculus/polynomials.py:177: DeprecationWarning: Descending (wrt powers) order of polynomial coefficients is deprecated, please adapt you code to use ascending order, asc=True.
+  warnings.warn("Descending (wrt powers) order of polynomial "
+...............s.......s................s.......s..........................s........s.................  [selftest] Part 1 ODE residual: 2.42e-13  OK
+.  [selftest] Part 2 ODE residual: 1.95e-15  OK
+.s.
+----------------------------------------------------------------------
+Ran 110 tests in 1950.671s
+
+OK (skipped=7)

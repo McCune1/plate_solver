@@ -1,0 +1,26 @@
+job start: dps=60 inner_iters=45 scan_n=300
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+preflight OK: cf_coupled_bisect present
+G_reduce n=0 elastic FF: old==new -> True
+G_reduce n=0 elastic CC: old==new -> True
+G_reduce n=0 coupled FF: old==new -> True
+G_reduce n=0 coupled CC: old==new -> True
+G_reduce n=2 elastic FF: old==new -> True
+G_reduce n=2 elastic CC: old==new -> True
+G_reduce n=2 coupled FF: old==new -> True
+G_reduce n=2 coupled CC: old==new -> True
+G_reduce: all_equal=True (4.0s)
+CF scan: 1 elastic flips, 1 coupled flips in [1000.0, 2000.0] (114.1s)
+CF: el=1605.442764 sc=1827.039085 split=13.80282% found=True theorem=True (131.9s)
+FC scan: 1 elastic flips, 1 coupled flips in [400.0, 900.0] (112.1s)
+FC: el=556.884416 sc=610.530335 split=9.63322% found=True theorem=True (129.6s)
+G1 neg control (CF) PASS: coupled methods need e31, e33, X11, X33; use elastic_det / elastic_cc_
+G1 neg control (FC) PASS: coupled methods need e31, e33, X11, X33; use elastic_det / elastic_cc_
+G_worker CF: elastic in==worker True; coupled in==worker True
+G_worker FC: elastic in==worker True; coupled in==worker True
+G_worker: all_pass=True (70.0s)
+CF elastic frequency is 90.40% of the way from FF (462.3976) to CC (1726.8898)
+FC elastic frequency is 7.47% of the way from FF (462.3976) to CC (1726.8898)
+--- summary ---
+  G_reduce=True G_found=True G_theorem=True G1=True G_worker=True
+SENTINEL PASS_ALL (335.4s total)

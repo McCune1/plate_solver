@@ -1,0 +1,11 @@
+job start: dps=60
+preflight OK: SOLVER_VERSION=2026-07-10.s10 driven_ff_qv present
+C0=9.988093e-06 F
+G_n: n!=0 q/v==C0 pass=True
+G_pole: sign_flip=True |qv|/C0 lo=31.541 hi=29.450 pass=True
+G_zero: qv_bisect=762.5693785054 oc_ff=762.5693785053 rel=8.646867778480432e-15 pass=True
+G_shape: Ceff/C0 @400=1.0919 @800=0.7523 pass=True
+G_keff: k2_from_Y=3.788126e-02 k2_anchor=3.788126e-02 pass=True
+sweep 140 points
+wrote /tmp/claude-0/-home-claude/87239e35-fc7a-5d19-9fc6-bffcecd37a5b/scratchpad/pkg/Paper4_Piezo/piezo_p4_ff_admittance_sweep_e31m.png
+SENTINEL PASS_ALL all_pass=True k2=3.788126e-02

@@ -1,0 +1,16 @@
+job start: dps=40 iters=40
+preflight OK: SOLVER_VERSION=2026-07-10.s10 oc_ff_bisect present
+ratio=1/40  h1=0.000500  el=731.400098 oc=735.961756  split=0.6237%  k2=0.012358  G2@0.01%=2.604%  split/ratio=0.24948  (9.9s)
+ratio=1/30  h1=0.000667  el=733.287801 oc=739.334714  split=0.8246%  k2=0.016291  G2@0.01%=1.983%  split/ratio=0.24739  (9.8s)
+ratio=1/24  h1=0.000833  el=735.344966 oc=742.859267  split=1.0219%  k2=0.020128  G2@0.01%=1.610%  split/ratio=0.24525  (9.1s)
+ratio=1/20  h1=0.001000  el=737.566082 oc=746.529856  split=1.2153%  k2=0.023870  G2@0.01%=1.363%  split/ratio=0.24306  (9.1s)
+ratio=1/16  h1=0.001250  el=741.193585 oc=752.297972  split=1.4982%  k2=0.029303  G2@0.01%=1.116%  split/ratio=0.23971  (8.8s)
+ratio=1/12  h1=0.001667  el=747.986395 oc=762.569379  split=1.9496%  k2=0.037881  G2@0.01%=0.870%  split/ratio=0.23396  (9.5s) anchor_split=True (exp 1.950) anchor_k2=True anchor_g2=True (exp 0.87)
+ratio=1/10  h1=0.002000  el=754.050298 oc=771.337059  split=2.2925%  k2=0.044321  G2@0.01%=0.748%  split/ratio=0.22925  (9.5s)
+ratio=1/8   h1=0.002500  el=764.113327 oc=785.327352  split=2.7763%  k2=0.053296  G2@0.01%=0.628%  split/ratio=0.22210  (9.4s) anchor_split=True (exp 2.776) anchor_k2=True
+ratio=1/6   h1=0.003333  el=783.200951 oc=810.634331  split=3.5027%  k2=0.066538  G2@0.01%=0.510%  split/ratio=0.21016  (9.2s)
+ratio=1/5   h1=0.004000  el=800.302692 oc=832.438716  split=4.0155%  k2=0.075719  G2@0.01%=0.453%  split/ratio=0.20077  (8.7s) anchor_split=True (exp 4.016) anchor_k2=True
+ratio=1/4   h1=0.005000  el=828.555783 oc=867.337410  split=4.6806%  k2=0.087428  G2@0.01%=0.397%  split/ratio=0.18723  (9.9s)
+wrote /tmp/claude-0/-home-claude/87239e35-fc7a-5d19-9fc6-bffcecd37a5b/scratchpad/pkg/Paper4_Piezo/piezo_p4_h1_ratio_sweep_e31m.png
+thin-layer split/(h1/2h) at 1/40,1/30,1/24 = [0.24947540704408247, 0.24738905281626802, 0.24524984822159687]
+SENTINEL PASS_ALL split=True k2=True g2=True mono=True thin=True

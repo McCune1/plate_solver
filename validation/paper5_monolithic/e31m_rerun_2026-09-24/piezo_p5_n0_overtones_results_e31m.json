@@ -1,0 +1,149 @@
+{
+  "ff": {
+    "n_pair": 3,
+    "theorem_pass": true,
+    "reflection_pass": true,
+    "rows": [
+      {
+        "index": 1,
+        "omega_el": 462.39764973558187,
+        "omega_sc": 519.8388116516741,
+        "f_el_hz": 73.59287162949269,
+        "f_sc_hz": 82.73491648538068,
+        "split": 0.12422459748430693,
+        "split_pct": 12.422459748430693,
+        "reflection_omega_at_twin": 519.8388116516744,
+        "reflection_rel": 6.560889751213514e-16,
+        "domega_de31": -7.661431177837131,
+        "g2": {
+          "0.0001": {
+            "propagated_de31": 0.006785139741977396,
+            "propagated_de31_rel": 0.001654912132189609
+          },
+          "0.001": {
+            "propagated_de31": 0.06785139741977396,
+            "propagated_de31_rel": 0.01654912132189609
+          }
+        },
+        "elapsed_s": 27.10656762123108
+      },
+      {
+        "index": 2,
+        "omega_el": 2169.892674393656,
+        "omega_sc": 2398.8906426868,
+        "f_el_hz": 345.34914510864286,
+        "f_sc_hz": 381.79530372049794,
+        "split": 0.10553423724384638,
+        "split_pct": 10.553423724384638,
+        "reflection_omega_at_twin": 2398.8906426868016,
+        "reflection_rel": 5.686970587085274e-16,
+        "domega_de31": -32.37891758452662,
+        "g2": {
+          "0.0001": {
+            "propagated_de31": 0.007408804313561096,
+            "propagated_de31_rel": 0.0018070254423319747
+          },
+          "0.001": {
+            "propagated_de31": 0.07408804313561096,
+            "propagated_de31_rel": 0.018070254423319748
+          }
+        },
+        "elapsed_s": 29.7419376373291
+      },
+      {
+        "index": 3,
+        "omega_el": 5270.649041682479,
+        "omega_sc": 5850.692990759243,
+        "f_el_hz": 838.8498482863276,
+        "f_sc_hz": 931.1667099924383,
+        "split": 0.11005171175115926,
+        "split_pct": 11.005171175115926,
+        "reflection_omega_at_twin": 5850.692990759247,
+        "reflection_rel": 6.218030603960323e-16,
+        "domega_de31": -83.48146029618698,
+        "g2": {
+          "0.0001": {
+            "propagated_de31": 0.0070083740389798544,
+            "propagated_de31_rel": 0.0017093595217024036
+          },
+          "0.001": {
+            "propagated_de31": 0.07008374038979855,
+            "propagated_de31_rel": 0.017093595217024037
+          }
+        },
+        "elapsed_s": 30.943990230560303
+      }
+    ]
+  },
+  "cc": {
+    "n_pair": 2,
+    "theorem_pass": true,
+    "reflection_pass": true,
+    "rows": [
+      {
+        "index": 1,
+        "omega_el": 1726.8897958406749,
+        "omega_sc": 1938.8608732892685,
+        "f_el_hz": 274.8430471829974,
+        "f_sc_hz": 308.579291951456,
+        "split": 0.12274731019845019,
+        "split_pct": 12.274731019845019,
+        "reflection_omega_at_twin": 1938.8608732892696,
+        "reflection_rel": 5.863589249121668e-16,
+        "domega_de31": -30.70810420876747,
+        "g2": {
+          "0.0001": {
+            "propagated_de31": 0.006313840998154828,
+            "propagated_de31_rel": 0.0015399612190621532
+          },
+          "0.001": {
+            "propagated_de31": 0.06313840998154827,
+            "propagated_de31_rel": 0.015399612190621529
+          }
+        },
+        "elapsed_s": 27.775250673294067
+      },
+      {
+        "index": 2,
+        "omega_el": 4776.964772268977,
+        "omega_sc": 5358.664065394552,
+        "f_el_hz": 760.2775564824578,
+        "f_sc_hz": 852.8578743764546,
+        "split": 0.12177173599906582,
+        "split_pct": 12.177173599906583,
+        "reflection_omega_at_twin": 5358.664065394555,
+        "reflection_rel": 5.091724489577403e-16,
+        "domega_de31": -84.30141330761285,
+        "g2": {
+          "0.0001": {
+            "propagated_de31": 0.006356553057824759,
+            "propagated_de31_rel": 0.0015503787945914047
+          },
+          "0.001": {
+            "propagated_de31": 0.06356553057824758,
+            "propagated_de31_rel": 0.015503787945914047
+          }
+        },
+        "elapsed_s": 30.498955011367798
+      }
+    ]
+  },
+  "g_found_ff": true,
+  "g_found_cc": true,
+  "g_found": true,
+  "all_pass": true,
+  "elapsed_s": 531.7239260673523,
+  "log": [
+    "FF scan: 3 elastic flips, 3 coupled flips in [455.0, 6000.0] (172.1s)",
+    "FF elastic roots: ['462.397650', '2169.892674', '5270.649042']",
+    "FF coupled roots: ['519.838812', '2398.890643', '5850.692991']",
+    "FF pair 1: el=462.397650 sc=519.838812 split=12.42246% reflection_rel=6.561e-16 domega/de31=-7.661431e+00 g2@0.01%=0.1655% (27.1s)",
+    "FF pair 2: el=2169.892674 sc=2398.890643 split=10.55342% reflection_rel=5.687e-16 domega/de31=-3.237892e+01 g2@0.01%=0.1807% (29.7s)",
+    "FF pair 3: el=5270.649042 sc=5850.692991 split=11.00517% reflection_rel=6.218e-16 domega/de31=-8.348146e+01 g2@0.01%=0.1709% (30.9s)",
+    "CC scan: 2 elastic flips, 2 coupled flips in [1700.0, 6000.0] (149.3s)",
+    "CC elastic roots: ['1726.889796', '4776.964772']",
+    "CC coupled roots: ['1938.860873', '5358.664065']",
+    "CC pair 1: el=1726.889796 sc=1938.860873 split=12.27473% reflection_rel=5.864e-16 domega/de31=-3.070810e+01 g2@0.01%=0.1540% (27.8s)",
+    "CC pair 2: el=4776.964772 sc=5358.664065 split=12.17717% reflection_rel=5.092e-16 domega/de31=-8.430141e+01 g2@0.01%=0.1550% (30.5s)"
+  ]
+}

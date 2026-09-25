@@ -2195,11 +2195,14 @@ class TestPiezoDiskSC(unittest.TestCase):
         ('S', 0, 1): 4.935127,
         ('S', 1, 1): 13.898176,
     }
-    # Gate 2 SC roots at dps=100 (probe_piezo_p4_liu_disk_gate2_2026-09-24):
+    # Gate 2 SC roots at dps=100 with LIU_DISK_KWARGS, re-anchored 2026-09-24
+    # for e31 = -4.1 (Liu Table 1 as printed, LESSONS Sec 18.244; the +4.1
+    # anchors were 902.4165163374934 / 902.4186619938962 and
+    # 435.59981690040496 / 435.60128907622254).
     # (table, bc, n, m): (omega_consistent, omega_duan, omega_kir, lo, hi)
     LIU_CPT = {
-        (2, 'C', 0, 1): (902.4165163374934, 902.4186619938962, 902.5, 880.0, 930.0),
-        (6, 'S', 0, 1): (435.59981690040496, 435.60128907622254, 435.6, 420.0, 450.0),
+        (2, 'C', 0, 1): (902.4785335853126, 902.494065168716, 902.5, 880.0, 930.0),
+        (6, 'S', 0, 1): (435.6423672713382, 435.6530233280846, 435.6, 420.0, 450.0),
     }
     R0 = 0.6
     H_FULL = 0.02  # 2h
@@ -2278,6 +2281,59 @@ class TestPiezoDiskSC(unittest.TestCase):
                 "FAIL_GATE2_DUAN_REGRESSION T%s omega=%s ref=%s rel=%s"
                 % (table, wd, omega_d, rel_d))
 
+
+class TestE31PrintedSign(unittest.TestCase):
+    """2026-09-24, LESSONS Sec 18.244/18.245: the series material is Liu 2002 /
+    Duan 2005 Table 1 PZT-4 exactly as printed, e31 = -4.1 C/m^2.
+
+    The older piezo test classes above keep e31 = +4.1 on purpose: they pin
+    code paths to the anchors captured when those paths were written, and the
+    code does not depend on the sign. THIS class pins the physics of the sign:
+      (1) the default bundle carries -4.1;
+      (2) Duan 2005 Table 4 (C-C, p=0, first radial mode, projection 'duan',
+          Duan's own closure) is reproduced within 0.015% at all three
+          h1/2h ratios at -4.1, where +4.1 misses 1/5 by 0.042%;
+      (3) the -4.1 headline numbers FE-confirmed by job 2532086: Paper 5 F-F
+          SC root 519.8388116516741 rad/s (split +12.42%, FE +12.43%) and the
+          Paper 4 F-F OC/SC split at 1/12, 1.9443% (FE 1.9439%)."""
+
+    MAT = dict(C11E=132e9, C12E=71e9, C13E=73e9, C33E=115e9, e33=14.1,
+               X11=7.124e-9, X33=5.841e-9)
+
+    def _p4(self, den, e31, projection='consistent', dps=30):
+        return PiezoOutOfPlaneSolver(
+            r_i=0.1, r_o=0.6, h=0.01, E=200e9, nu=0.3, rho=7800.0,
+            h1=0.02 / den, e31=e31, rho_pzt=7500.0, dps=dps,
+            projection=projection, **self.MAT)
+
+    def test_default_bundle_is_printed_sign(self):
+        self.assertEqual(LIU_DISK_KWARGS['e31'], -4.1)
+
+    def test_duan_table4_cc_fundamental_prefers_printed_sign(self):
+        targets = {12: 2792.0, 8: 2853.0, 5: 2989.0}
+        for den, tg in targets.items():
+            w = self._p4(den, -4.1, projection='duan').cc_coupled_bisect(
+                tg * 0.97, tg * 1.03, 0, iters=40)
+            self.assertLess(abs(w / tg - 1.0), 1.5e-4,
+                            "FAIL_DUAN_T4 1/%d omega=%s target=%s" % (den, w, tg))
+        wp = self._p4(5, 4.1, projection='duan').cc_coupled_bisect(
+            2989.0 * 0.97, 2989.0 * 1.03, 0, iters=40)
+        self.assertGreater(abs(wp / 2989.0 - 1.0), 3.5e-4,
+                           "+4.1 unexpectedly matches Duan 1/5: %s" % wp)
+
+    def test_paper5_ff_sc_root_at_printed_sign(self):
+        s = PiezoMonolithicOutOfPlaneSolver(
+            0.1, 0.6, 0.01, 132e9, 71e9, 73e9, 115e9, 7500.0, e31=-4.1,
+            e33=14.1, X11=7.124e-9, X33=5.841e-9, dps=30)
+        w = s.coupled_bisect(515.0, 525.0, 0)
+        self.assertLess(abs(w - 519.8388116516741) / 519.8388116516741, 1e-9)
+
+    def test_paper4_ff_oc_sc_split_at_printed_sign(self):
+        s = self._p4(12, -4.1)
+        el = s.elastic_bisect(600.0, 900.0, 0, iters=50)
+        sc = s.coupled_bisect(el * 0.99, el * 1.01, 0, iters=45)
+        oc = s.oc_ff_bisect(el * 0.999, el * 1.10, 0, iters=50)
+        self.assertLess(abs((oc / sc - 1.0) - 0.019443190102619523), 1e-8)
 
 
 if __name__ == "__main__":

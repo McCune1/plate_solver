@@ -1,0 +1,18 @@
+job start: dps=60 inner_iters=45 scan_n=250
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+preflight OK: coupled_bisect present
+closed-form long-wave orientation: D-split=0.262654 freq-split=0.131327 (13.1327%)
+H/r_o=0.00500 H=0.003000 el=138.719295 sc=155.958148 split=12.42715% (348.6s)
+H/r_o=0.01000 H=0.006000 el=277.438590 sc=311.912433 split=12.42576% (128.2s)
+H/r_o=0.01667 H=0.010000 el=462.397650 sc=519.838812 split=12.42246% (111.5s)
+H/r_o=0.02500 H=0.015000 el=693.596475 sc=779.713687 split=12.41604% (280.1s)
+H/r_o=0.04000 H=0.024000 el=1109.754359 sc=1247.343244 split=12.39814% (321.1s)
+H/r_o=0.06000 H=0.036000 el=1664.631539 sc=1870.413204 split=12.36199% (160.0s)
+H/r_o=0.09000 H=0.054000 el=2496.947309 sc=2803.656995 split=12.28339% (128.4s)
+H/r_o=0.13000 H=0.078000 el=3606.701668 sc=4044.543838 split=12.13968% (118.3s)
+H/r_o=0.18000 H=0.108000 el=4993.894617 sc=5588.893006 split=11.91452% (66.3s)
+G_longwave: thinnest split=12.42715% vs closed-form long-wave 13.13270% ratio=0.9463 pass(0.5-2.0x)=True
+H-independence trend: split at H/r_o=0.00500 is 12.42715%; at H/r_o=0.18000 is 11.91452% (relative drift -4.1251%)
+--- summary ---
+  g_found=True g_theorem=True g_longwave=True
+SENTINEL PASS_ALL all_pass=True (1662.5s total)

@@ -1,0 +1,16 @@
+job start: dps=60 iters=40 outer_iters=26
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+preflight OK: mixed-edge methods present
+G0 identities: FF=True CC=True OCFF=True coupFF=True coupCC=True n1=True h1=0=True pass=True (2.1s)
+G0 ring_disk: C-F piezo=410.0741810220 rd=410.0741808395 rel=4.451e-10 native=0.3389349203; F-C piezo=873.2216324550 rd=873.2216326542 rel=2.281e-10 native=0.7217360135 pass=True (29.0s)
+G_stiffen_CF: el=421.8946812978 OC=429.5988367401 drel=1.826085e-02 SC=421.9204405522 drel_sc=6.105612e-05 stiffen=True sc=True (12.8s)
+G_stiffen_FC: el=899.0613175542 OC=899.4104116127 drel=3.882873e-04 SC=899.0961597075 drel_sc=3.875392e-05 stiffen=True sc=True (14.2s)
+G3 k_eff (reported): C-F k2=3.554514e-02 F-C k2=7.761225e-04
+G4 inverse G0 C-F: p_hat=-4.100000016 p_true=-4.1 rel_err=3.998e-09 sign_flip=True pass=True (105.8s)
+G1 root quality: pos_flip=True neg_control_no_flip=True pass=True (8.1s)
+G2 forward FD: domega/de31 = -1.128809e+00 rad/s per unit (7.9s)
+G2 propagated: 0.0100% freq -> de31=0.0380577 (0.9282% of e31_true)
+G2 propagated: 0.1000% freq -> de31=0.380577 (9.2824% of e31_true)
+--- summary ---
+  G0=True G_stiffen_CF=True G_stiffen_FC=True G_sc=True G1=True G4_rel=3.997872602074095e-09 G2_0.01%_unc=0.9282%
+SENTINEL PASS_ALL all_pass=True g2_expectation_ok=True

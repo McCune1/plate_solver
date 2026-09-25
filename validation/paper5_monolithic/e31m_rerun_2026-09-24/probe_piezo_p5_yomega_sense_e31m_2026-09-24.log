@@ -1,0 +1,29 @@
+job start: dps=60 dps_hi=80 inner_iters=60
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+preflight OK: Y_sense present
+G1 identity(G): lhs=-0.0000001666666666666666631972197147130525500652 rhs=-0.0000001666666666666666631972197147130525500652 rel_err=0.0 -> True (188.9s)
+G2 pole: coupled_bisect=519.8388116516741 driven12=519.8388116515830 rel_err=1.7517575635740084e-13 -> True (58.6s)
+G3 scale=1e+00 Q_in=1.1507340378860122e-11
+G3 scale=1e-01 Q_in=1.779275242208852e-12
+G3 scale=1e-02 Q_in=1.7887280753107099e-13
+G3 scale=1e-03 Q_in=1.788823047601698e-14
+G3 scale=1e-04 Q_in=1.7888239973691463e-15
+G3 decade ratios (Q_in[k]/Q_in[k+1]): [6.4674312921785635, 9.947153325134588, 9.99946907945358, 9.999994690548373]
+G3 log-log slope (scale=1e-2..1e-4) = 0.999988 -> True (9.0s)
+G_mu elastic mu=10.250145149520318  small-e31_bar branches=[(10.250145149520318+0j), (-10.250145149520318+0j)]  rel_errs=[0.0, 0.0] -> True (0.0s)
+G_mu note: this is the check that catches the 'scale e31 but not e33' harness bug -- that mistake gives branches converging to ~9.557 (WRONG) instead of 10.250145 (correct), because e31_bar = e31-(C13E/C33E)*e33 never actually reaches 0 when only e31 is scaled.
+G_worker at omega=200.0: direct=(1.1507340378860122e-11+0j) worker=(1.1507340378860122e-11+0j) -> True
+G_worker near pole omega=521.5: direct=(1.4054086233545436e-09+0j) worker=(1.4054086233545436e-09+0j) -> True (5.8s)
+sweep omega=508.5000 Y_sense=(-1.8288510564049633e-10+0j)
+sweep omega=516.5000 Y_sense=(-6.69135728395747e-10+0j)
+sweep omega=519.5000 Y_sense=(-6.771938006185193e-09+0j)
+sweep omega=519.3388 Y_sense=(-4.582340160713089e-09+0j)
+sweep omega=519.8288 Y_sense=(-2.3010244125078307e-07+0j)
+sweep omega=519.8488 Y_sense=(2.3014266723670577e-07+0j)
+sweep omega=520.3388 Y_sense=(4.622566145128649e-09+0j)
+sweep omega=526.5000 Y_sense=(3.656082854195262e-10+0j)
+sweep omega=533.5000 Y_sense=(1.8861945434845035e-10+0j)
+sweep done (13.1s)
+--- summary ---
+  G1=True G2=True G3=True G_mu=True G_worker=True
+SENTINEL PASS_ALL (275.4s total)

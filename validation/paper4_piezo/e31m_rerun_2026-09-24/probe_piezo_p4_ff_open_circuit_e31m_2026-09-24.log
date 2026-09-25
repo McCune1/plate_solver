@@ -1,0 +1,14 @@
+job start: dps=60 iters=40 outer_iters=26
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+preflight OK: oc_ff_det present
+G0 identities: n!=0 oc==elastic True; h1=0 oc==elastic True pass=True (0.6s)
+G_stiffen: omega_el=747.9863950952 omega_oc=762.5693785053 drel=1.949632e-02 pass=True (8.5s)
+G3 k_eff: k2_from_elastic=3.788126e-02 k2_from_sine_SC=3.778097e-02 omega_sc_sine=748.0253788625 pass=True (5.4s)
+G4 inverse G0: p_hat=-4.100000016 p_true=-4.1 rel_err=3.998e-09 sign_flip=True pass=True (113.6s)
+G1 root quality: pos_flip=True neg_control_no_flip=True pass=True (8.1s)
+G2 forward FD: domega/de31 = -2.137534e+00 rad/s per unit (8.2s)
+G2 propagated: 0.0100% freq -> de31=0.0356752 (0.8701% of e31_true)
+G2 propagated: 0.1000% freq -> de31=0.356752 (8.7013% of e31_true)
+--- summary ---
+  G0=True G_stiffen=True G1=True G3=True G4_rel=3.997872602074095e-09 G2_0.01%_unc=0.8701%
+SENTINEL PASS_ALL all_pass=True g2_expectation_ok=True

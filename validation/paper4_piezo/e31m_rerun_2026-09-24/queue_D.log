@@ -1,0 +1,6 @@
+=== 19:07:22 start probe_piezo_p4_h1_ratio_sweep_e31m_2026-09-24.py
+=== 19:09:07 end probe_piezo_p4_h1_ratio_sweep_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL split=True k2=True g2=True mono=True thin=True
+=== 19:17:27 start probe_piezo_p4_lever16_freq_noise_floor_e31m_2026-09-24.py
+=== 19:21:44 end probe_piezo_p4_lever16_freq_noise_floor_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL all_pass=True
+=== 19:48:15 start probe_piezo_p4_ff_n0_overtones_wide_e31m_2026-09-24.py
+=== 19:50:00 end probe_piezo_p4_ff_n0_overtones_wide_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL n1=True anchor=True more=True pair=True n=2

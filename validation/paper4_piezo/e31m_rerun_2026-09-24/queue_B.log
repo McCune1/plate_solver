@@ -1,0 +1,12 @@
+=== 18:56:24 start probe_piezo_p4_sequential_e_e31_e31m_2026-09-24.py
+=== 19:11:43 end probe_piezo_p4_sequential_e_e31_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL g0=True g1=True g_branch=True g_neg=True
+=== 19:11:43 start probe_piezo_p4_lever16_freq_noise_floor_e31m_2026-09-24.py
+=== 19:14:44 end probe_piezo_p4_lever16_freq_noise_floor_e31m_2026-09-24.py rc=0 SENTINEL FAIL_ALL all_pass=False
+=== 19:14:44 start probe_piezo_p4_other_const_inverse_e31m_2026-09-24.py
+=== 19:17:16 end probe_piezo_p4_other_const_inverse_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL g0=True g1=True
+=== 19:17:16 start probe_piezo_p4_inverse_recovery_e31m_2026-09-24.py
+=== 19:43:44 end probe_piezo_p4_inverse_recovery_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL g0_g1_pass=True
+=== 19:43:44 start probe_piezo_p4_ff_n0_overtones_wide_e31m_2026-09-24.py
+=== 19:45:41 end probe_piezo_p4_ff_n0_overtones_wide_e31m_2026-09-24.py rc=0 SENTINEL FAIL_ALL n1=True anchor=False more=True pair=True n=2
+=== 19:45:41 start probe_piezo_p4_ff_n0_overtones_e31m_2026-09-24.py
+=== 19:45:58 end probe_piezo_p4_ff_n0_overtones_e31m_2026-09-24.py rc=0 SENTINEL FAIL_ALL n1=True found=False pair=True n=1

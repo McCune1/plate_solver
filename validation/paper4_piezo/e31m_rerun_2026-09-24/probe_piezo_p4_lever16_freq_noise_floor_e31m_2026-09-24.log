@@ -1,0 +1,35 @@
+job start: dps=60 iters=40 outer_iters=26
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+preflight OK: oc_ff_bisect + oc_cf_bisect present
+[ff] omega_target(e31_true)=762.5693785053 (4.7s)
+[ff] G0 round-trip: p_hat=-4.100000016 rel_err=3.998e-09 sign_flip=True pass=True (119.5s)
+[ff] forward FD: domega/de31=-2.137534e+00 rad/s per C/m^2 (8.3s)
+[ff] rel_prec=0.00100% -> e31 unc=0.0870%
+[ff] rel_prec=0.00300% -> e31 unc=0.2610%
+[ff] rel_prec=0.01000% -> e31 unc=0.8701%
+[ff] rel_prec=0.03000% -> e31 unc=2.6104%
+[ff] rel_prec=0.10000% -> e31 unc=8.7013%
+[ff] rel_prec=0.10200% -> e31 unc=8.8753%  <-- Boeringa-McCune impedance/SLDV floor
+[ff] rel_prec=0.30000% -> e31 unc=26.1038%
+[ff] rel_prec=1.00000% -> e31 unc=87.0127%
+[ff] G_anchor rel_prec=0.0100%: computed=0.8701% published=0.8700% rel_diff=1.4572e-04 pass=True
+[ff] G_anchor rel_prec=0.1000%: computed=8.7013% published=8.7000% rel_diff=1.4572e-04 pass=True
+[ff] linearity self-check pass=True
+[cf] omega_target(e31_true)=429.5988367401 (4.1s)
+[cf] G0 round-trip: p_hat=-4.100000016 rel_err=3.998e-09 sign_flip=True pass=True (110.6s)
+[cf] forward FD: domega/de31=-1.128809e+00 rad/s per C/m^2 (8.1s)
+[cf] rel_prec=0.00100% -> e31 unc=0.0928%
+[cf] rel_prec=0.00300% -> e31 unc=0.2785%
+[cf] rel_prec=0.01000% -> e31 unc=0.9282%
+[cf] rel_prec=0.03000% -> e31 unc=2.7847%
+[cf] rel_prec=0.10000% -> e31 unc=9.2824%
+[cf] rel_prec=0.10200% -> e31 unc=9.4680%  <-- Boeringa-McCune impedance/SLDV floor
+[cf] rel_prec=0.30000% -> e31 unc=27.8471%
+[cf] rel_prec=1.00000% -> e31 unc=92.8237%
+[cf] G_anchor rel_prec=0.0100%: computed=0.9282% published=0.9280% rel_diff=2.5540e-04 pass=True
+[cf] G_anchor rel_prec=0.1000%: computed=9.2824% published=9.2800% rel_diff=2.5540e-04 pass=True
+[cf] linearity self-check pass=True
+--- summary ---
+  F-F: G0=True G_anchor=True linearity=True lab_floor(0.1020%)=8.8753%
+  C-F: G0=True G_anchor=True linearity=True lab_floor(0.1020%)=9.4680%
+SENTINEL PASS_ALL all_pass=True

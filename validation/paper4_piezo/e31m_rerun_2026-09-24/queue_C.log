@@ -1,0 +1,4 @@
+=== 19:05:21 start probe_piezo_p4_ff_admittance_sweep_e31m_2026-09-24.py
+=== 19:05:38 end probe_piezo_p4_ff_admittance_sweep_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL all_pass=True k2=3.788126e-02
+=== 19:05:38 start probe_piezo_p4_ff_admittance_ratios_e31m_2026-09-24.py
+=== 19:06:04 end probe_piezo_p4_ff_admittance_ratios_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL all_pass=True

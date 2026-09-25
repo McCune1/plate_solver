@@ -1,0 +1,12 @@
+=== 18:56:24 start probe_piezo_p4_ff_open_circuit_e31m_2026-09-24.py
+=== 18:58:50 end probe_piezo_p4_ff_open_circuit_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL all_pass=True g2_expectation_ok=True
+=== 18:58:50 start probe_piezo_p4_cf_mixed_edge_e31m_2026-09-24.py
+=== 19:01:51 end probe_piezo_p4_cf_mixed_edge_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL all_pass=True g2_expectation_ok=True
+=== 19:01:51 start probe_piezo_p4_h1_ratio_sweep_e31m_2026-09-24.py
+=== 19:04:14 end probe_piezo_p4_h1_ratio_sweep_e31m_2026-09-24.py rc=0 SENTINEL FAIL_ALL split=False k2=False g2=False mono=True thin=False
+=== 19:04:14 start probe_piezo_p4_ff_admittance_ratios_e31m_2026-09-24.py
+=== 19:04:41 end probe_piezo_p4_ff_admittance_ratios_e31m_2026-09-24.py rc=0 SENTINEL FAIL_ALL all_pass=False
+=== 19:04:41 start probe_piezo_p4_ff_admittance_sweep_e31m_2026-09-24.py
+=== 19:04:59 end probe_piezo_p4_ff_admittance_sweep_e31m_2026-09-24.py rc=0 SENTINEL FAIL_ALL all_pass=False k2=nan
+=== 19:04:59 start probe_piezo_p4_ff_E_channel_e31m_2026-09-24.py
+=== 19:07:41 end probe_piezo_p4_ff_E_channel_e31m_2026-09-24.py rc=0 SENTINEL PASS_ALL g0=True g1=True g2_order=True

@@ -1,0 +1,40 @@
+{
+  "g0_pass": true,
+  "g_stiffen_pass": true,
+  "g1_pass": true,
+  "g3_k2_elastic": 0.03788126062039632,
+  "g3_k2_sine_sc": 0.03778097005175307,
+  "g3_pass": true,
+  "g4_p_hat": -4.100000016391277,
+  "g4_rel_err": 3.997872602074095e-09,
+  "g4_pass": true,
+  "omega_elastic": 747.9863950952495,
+  "omega_oc": 762.5693785053227,
+  "omega_sc_sine": 748.0253788625487,
+  "drel_oc_vs_elastic": 0.01949632173218364,
+  "g2_domega_de31": -2.137533708109248,
+  "g2_propagated": {
+    "0.0001": {
+      "assumed_omega_rel_precision": 0.0001,
+      "propagated_dp": 0.035675197804475894,
+      "propagated_dp_rel_to_p_true": 0.008701267757189244
+    },
+    "0.001": {
+      "assumed_omega_rel_precision": 0.001,
+      "propagated_dp": 0.356751978044759,
+      "propagated_dp_rel_to_p_true": 0.08701267757189245
+    }
+  },
+  "g2_expectation_ok": true,
+  "elapsed_s": 144.27961897850037,
+  "log": [
+    "G0 identities: n!=0 oc==elastic True; h1=0 oc==elastic True pass=True (0.6s)",
+    "G_stiffen: omega_el=747.9863950952 omega_oc=762.5693785053 drel=1.949632e-02 pass=True (8.5s)",
+    "G3 k_eff: k2_from_elastic=3.788126e-02 k2_from_sine_SC=3.778097e-02 omega_sc_sine=748.0253788625 pass=True (5.4s)",
+    "G4 inverse G0: p_hat=-4.100000016 p_true=-4.1 rel_err=3.998e-09 sign_flip=True pass=True (113.6s)",
+    "G1 root quality: pos_flip=True neg_control_no_flip=True pass=True (8.1s)",
+    "G2 forward FD: domega/de31 = -2.137534e+00 rad/s per unit (8.2s)",
+    "G2 propagated: 0.0100% freq -> de31=0.0356752 (0.8701% of e31_true)",
+    "G2 propagated: 0.1000% freq -> de31=0.356752 (8.7013% of e31_true)"
+  ]
+}

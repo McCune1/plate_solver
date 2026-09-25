@@ -1,0 +1,22 @@
+job start: dps=60 inner_iters=45 outer_iters=30 run_cc=True
+preflight OK: SOLVER_VERSION=2026-07-10.s10
+preflight OK: coupled_bisect present
+REFLECTION_TWIN(e31=-4.1000) = 22.0008695652  (2*(C13E/C33E)*e33 - e31)
+FF G_worker: in_process=519.8388116517 worker=519.8388116517 rel=0.000e+00 pass=True (18.3s)
+FF G0: e31_hat=-4.100000001 e31_true=-4.1 rel_err=2.499e-10 sign_flip=True pass=True (287.8s)
+FF G1: neg_bracket_sign_flip=False (want False) wrong_sign_omega=471.364602 vs target=519.838812 (far=True) e31=0_raises=True pass=True (25.9s)
+FF G2 forward FD: domega/de31=-7.661431e+00 rad/s per C/m^2 (18.1s)
+FF G2 propagated: 0.0100% freq -> de31=0.00678514 (0.1655% of e31_true)
+FF G2 propagated: 0.1000% freq -> de31=0.0678514 (1.6549% of e31_true)
+FF G_reflection: twin=22.0008695652 omega(twin)=519.8388116517 vs true=519.8388116517 rel=0.000e+00 (8.9s)
+CC G_worker: in_process=1938.8608732893 worker=1938.8608732893 rel=0.000e+00 pass=True (18.3s)
+CC G0: e31_hat=-4.100000001 e31_true=-4.1 rel_err=2.499e-10 sign_flip=True pass=True (294.6s)
+CC G1: neg_bracket_sign_flip=False (want False) wrong_sign_omega=1757.694305 vs target=1938.860873 (far=True) e31=0_raises=True pass=True (26.8s)
+CC G2 forward FD: domega/de31=-3.070810e+01 rad/s per C/m^2 (18.6s)
+CC G2 propagated: 0.0100% freq -> de31=0.00631384 (0.1540% of e31_true)
+CC G2 propagated: 0.1000% freq -> de31=0.0631384 (1.5400% of e31_true)
+CC G_reflection: twin=22.0008695652 omega(twin)=1938.8608732893 vs true=1938.8608732893 rel=0.000e+00 (9.3s)
+--- summary ---
+  FF: g_worker=True g0_rel=2.499e-10 g1=True g2@0.01%=0.1655% g2@0.1%=1.6549%
+  CC: g_worker=True g0_rel=2.499e-10 g1=True g2@0.01%=0.1540% g2@0.1%=1.5400%
+SENTINEL PASS_ALL all_pass=True (726.6s total)
