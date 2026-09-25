@@ -63,6 +63,7 @@ with the ratio after the BC tag.
 | 2494863 | `harm_ff_y_v2_h112` (+ `_sweep.csv`) | driven admittance, `RF,CHRG` (§7, SM §S.4) | \|Y\| pole 118.79 Hz, zero 119.13 Hz |
 | 2495593 | `epsrel_cf_lanb_oc`, `epsrel_cf_lanb_scboth` | C–F split (§5.3) | mode 1: 67.24530 / 67.07141 Hz |
 | 2520476 | `ansys_p5_epsrel_ff_lanb_{e0,oc,scboth}_2026-09-19.inp` | Paper 5 F–F SC/OC check | e0 73.50629 Hz; OC = scboth 74.93378 Hz (+1.942%) |
+| 2531984 | `ansys_p5seg_{c73,c26}_m{40,80,160}_2026-09-24.inp` (builder `build_p5seg_decks_2026-09-24.py`) | Paper 5 segmented-electrode harmonic charge (e15 term), SM §S.7.1 | CORRECTED: FE/κ = 0.996–0.999 at c44 = 73 and 26 GPa; CHRG reaction = −(electrode charge), calibrated by LS1; score `score_p5seg_fe_2026-09-24.txt` |
 
 The `epsrel_cc_lanb` deck ran in the same job as the free–free decks.
 No Paper 4 number depends on it.
