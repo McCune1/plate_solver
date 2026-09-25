@@ -838,7 +838,8 @@ independently published table, matched directly
 One-to-one = every candidate individually cross-matched to an FE mode;
 raw rate = nearest-neighbor FE-match fraction; MAC = the two-sided
 mode-shape bar of \S\ref{sec:ipmacbar}. $\nu=0.30$ except the
-24-geometry sweep and the extensional MAC sweep (both $\nu=0.35$).
+cantilever replication (\S6.1), the 24-geometry sweep and the
+extensional MAC sweep (all $\nu=0.35$).
 $^{*}$one-to-one matching does not mean every target has its own
 distinct root (see text).}
 \label{tab:roadmap}
@@ -879,7 +880,9 @@ The implementation reproduces the tabulated frequencies of
 (Table~\ref{tab:cantilever-oop}, Table~\ref{tab:cantilever-ip}) was
 regenerated from scratch under the deployed
 \texttt{SOLVER\_VERSION} \texttt{2026-07-10.s10}, one geometry per task,
-with no value carried over from an earlier capture. At the production
+with no value carried over from an earlier capture. These rows use
+$\nu=0.35$, the material of that published comparison, not the
+$\nu=0.30$ of the free-free tables below. At the production
 basis sizes ($n=20$ for $2\Theta/\pi\le0.5$; otherwise $n=16$ out-of-plane
 and $n=14$ in-plane) every published entry matches, to $1.23\%$
 out-of-plane and $1.39\%$ in-plane. These production values are not
@@ -2065,8 +2068,10 @@ out-of-plane and in-plane motion, as an arbitrary-precision package
 
 Six results follow. (i)~A from-scratch reimplementation reproduces all
 29 tabulated cantilever frequencies (\S6.1); a finite-element check of
-the nine in-plane rows attributes the solver's in-plane deviations to a
-finite-basis splitting of the papers' double root. (ii)~The free-free boundary
+the nine in-plane rows shows that the three production values more than
+$0.7\%$ below finite elements are the lower members of a split pair
+(\S6.1), and the other six lie within $0.67\%$ of finite elements.
+(ii)~The free-free boundary
 determinant, with the edge-orientation bookkeeping a naive transplant of
 the cantilever corner terms gets wrong, decouples into even and odd
 parity blocks (\S3.3); corner-term magnitude and alternation are derived

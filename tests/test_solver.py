@@ -119,7 +119,7 @@ from plate_solver.workers import (
 )
 from plate_solver.ring_disk import (
     DISK_4X4_AT_RI0_IS_NOT_THE_DISK,
-    FFP1_MODE7_ANSYS_LIT, FFP1_MODE7_NATIVE,
+    FFP1_MODE7_LAM2, FFP1_MODE7_NATIVE,
     SECTION_18_38_N0_LOGABSDET, SECTION_18_38_N0_OM,
     SECTION_18_38_N2_LOGABSDET, SECTION_18_38_N2_OM,
     UnsupportedRingBC,
@@ -463,19 +463,21 @@ class TestRingDisk(unittest.TestCase):
                     "FAIL_IP_LMAT: L[%s,%s]=%s" % (i, j, z))
 
     def test_flexural_conversion_ffp1_mode7(self):
-        """FF-P1 mode 7 native 1.369611 -> Ansys Omega_lit 54.0755 at ~0.01%.
+        """FF-P1 mode 7 native 1.369611 -> Kirchhoff lambda^2 54.070.
 
-        The factor 39.478... is geometry-specific (job 2406948), not a
-        universal constant: b/a=0.3 must not reuse it. IP Irie lambda is
-        a different symbol and must not reuse the flexural factor.
+        Paper 1 Table 6 prints FEM 53.828 for this mode (0.45%). That
+        finite-element residual is not this check. The factor 39.478...
+        is geometry-specific (job 2406948), not a universal constant:
+        b/a=0.3 must not reuse it. IP Irie lambda is a different symbol
+        and must not reuse the flexural factor.
         """
         import math as _math
         _solver, geom, mat = make_annulus_solver(0.5, nu=0.30, motion="oop")
         om_lit = flexural_lambda2(FFP1_MODE7_NATIVE, geom, mat)
-        rel = abs(om_lit - FFP1_MODE7_ANSYS_LIT) / FFP1_MODE7_ANSYS_LIT
-        self.assertLess(rel, 2.0e-4,  # 0.02%; measured 0.010%
-                        "FF-P1 mode 7 conversion %s vs Ansys %s rel=%s"
-                        % (om_lit, FFP1_MODE7_ANSYS_LIT, rel))
+        rel = abs(om_lit - FFP1_MODE7_LAM2) / FFP1_MODE7_LAM2
+        self.assertLess(rel, 2.0e-5,
+                        "FF-P1 mode 7 conversion %s vs Kirchhoff %s rel=%s"
+                        % (om_lit, FFP1_MODE7_LAM2, rel))
         factor_ba05 = flexural_lambda2(1.0, geom, mat)
         _s3, geom3, mat3 = make_annulus_solver(0.3, nu=0.30, motion="oop")
         factor_ba03 = flexural_lambda2(1.0, geom3, mat3)

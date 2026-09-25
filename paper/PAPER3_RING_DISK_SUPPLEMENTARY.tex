@@ -181,8 +181,8 @@ Two conversion constants are used in this paper and neither is universal.
 
 \subsection{Flexural}\label{sec:sm-conv-flex}
 The literature parameter is
-$\lamsq=\omega a^{2}\sqrt{\rho/D}$ with $a=R_o$, $D=Eh^{3}/12(1-\nu^{2})$ and
-$h$ the full thickness. The solver's native $\Omega$ is a different
+$\lamsq=\omega a^{2}\sqrt{\rho h/D}$ with $a=R_o$, $D=Eh^{3}/12(1-\nu^{2})$,
+$h$ the full thickness and $\rho$ the volume density. The solver's native $\Omega$ is a different
 nondimensionalisation, and the map between them is recomputed from the
 geometry and material of each run rather than stored. Concretely, the map is
 linear, $\lamsq=\kappa\,\Omega$, with $\kappa$ obtained by evaluating the
@@ -191,8 +191,10 @@ conversion at $\Omega=1$.
 The worked case is the free--free steel anchor plate of
 \cite{mccune2026annular}: $R_o=8$~m, full thickness $0.08$~m, $\ba=0.5$. There
 $\kappa=4\pi^{2}=39.4784\ldots$, and the anchor's mode~7 at native
-$\Omega=1.369611$ maps to $\lamsq=54.0755$, which agrees with the
-finite-element value for that mode to $0.01\%$. This is a unit test in the
+$\Omega=1.369611$ maps to $\lamsq=54.070$. The finite-element value
+for that mode in \cite{mccune2026annular} is $53.828$ ($0.45\%$).
+The regression check compares the conversion with $54.070$, not with
+that finite-element frequency. This is a unit test in the
 regression suite, not a derivation.
 
 The number $4\pi^{2}$ is an accident of that particular geometry and material

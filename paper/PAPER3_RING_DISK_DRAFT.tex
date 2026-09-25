@@ -213,19 +213,20 @@ claimed here as $R_i=0$.
 \subsection{Conversion}\label{sec:conv}
 All flexural comparisons use
 \begin{equation}
-\lamsq=\omega a^{2}\sqrt{\rho/D},\qquad a=R_o,\qquad
+\lamsq=\omega a^{2}\sqrt{\rho h/D},\qquad a=R_o,\qquad
 D=\frac{Eh^{3}}{12(1-\nu^{2})},
 \label{eq:lam2}
 \end{equation}
-with $h$ the full thickness. The map from the solver's native $\Omega$ to
+with $h$ the full thickness and $\rho$ the volume density. The map from the solver's native $\Omega$ to
 \eqref{eq:lam2} is recomputed from the geometry and material of each run and
 is \emph{not} a universal constant. On the free--free steel plate used as the
 fidelity anchor in \cite{mccune2026annular} ($R_o=8$~m, thickness $0.08$~m,
 $\ba=0.5$) the factor happens to be $4\pi^{2}\approx39.478$; at $\ba=0.3$ it
 is a different number, and reusing it is an error the series has made once and
 now regression-tests against. The unit test is the anchor's mode~7: native
-$\Omega=1.369611$ converts to $\lamsq=54.0755$, matching the finite-element
-value to $0.01\%$. Native $\Omega$ is never printed with a $\lamsq$ label.
+$\Omega=1.369611$ converts to $\lamsq=54.070$. That is the Kirchhoff
+value. The finite-element frequency for the same mode in
+\cite{mccune2026annular} is $53.828$ ($0.45\%$). Native $\Omega$ is never printed with a $\lamsq$ label.
 A third flexural parameter appears once, for the guided--guided ring of
 \S\ref{sec:guided}: Bhaskara Rao and Kameswara Rao \cite{bhaskararao2016}
 report $k=a(\rho h\omega^{2}/D)^{1/4}$, so $\lamsq=k^{2}$ under

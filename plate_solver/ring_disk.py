@@ -70,9 +70,13 @@ SECTION_18_38_N0_LOGABSDET = -11.4312477453016985
 SECTION_18_38_NEG_N0_OM = 0.2689680157
 SECTION_18_38_NEG_N1_OM = 0.2689680157
 
-# Paper 1 FF-P1 confirmed-real mode 7 (archive / Sec. 17 units writeup).
+# Paper 1 FF-P1 mode 7. LAM2 is the Kirchhoff conversion printed in
+# Paper 1 Table 6 (4*pi**2 * native at b/a=0.5 steel). The FEM column
+# of that row is 53.828 (0.45%), not this constant. The previous name
+# ANSYS_LIT and the value 54.0755 sat 0.01% from the conversion and
+# were not the finite-element frequency.
 FFP1_MODE7_NATIVE = 1.369611
-FFP1_MODE7_ANSYS_LIT = 54.0755
+FFP1_MODE7_LAM2 = 54.070
 
 SIGNFLIP_DELTAS = (1.0e-2, 1.0e-3, 1.0e-4, 1.0e-5, 1.0e-6)
 SIGNFLIP_KS = (-2, -1, 1, 2)
@@ -94,10 +98,11 @@ class DiskPathError(RuntimeError):
 # ---------------------------------------------------------------------------
 
 def flexural_lambda2(Omega_native, geom, mat):
-    """Map Seok Omega_native to lambda^2 = omega a^2 sqrt(rho / D).
+    """Map Seok Omega_native to lambda^2 = omega a^2 sqrt(rho * H / D).
 
-    a = R_o, H = 2h (full thickness), D = c11_bar H^3 / 12. Delegates to
-    `_kbar_wbar` / `_omega_lit` (part=1). Do not bake 4*pi**2 in.
+    a = R_o, H = 2h (full thickness), rho the volume density,
+    D = c11_bar H^3 / 12. Delegates to `_kbar_wbar` / `_omega_lit`
+    (part=1). Do not bake 4*pi**2 in.
     """
     k_bar, w_bar = _kbar_wbar(geom, mat)
     _f_hz, om_lit = _omega_lit(Omega_native, geom, mat, w_bar, k_bar, part=1)
