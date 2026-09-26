@@ -8,7 +8,8 @@
 %   S.3.4 / S.3.5 = extensional close-pairs / Shi OOP isolation
 %   S.3.6 = raw-to-physical conversion constants (moved from main-text §6.12)
 %   S.3.7 = SUBDOM numerical procedure and gate detail
-%   S.3.8 = cantilever replication: OOP basis-size convergence (Table S.9, 2026-09-23) and
+%   S.3.8 = cantilever replication: OOP basis-size convergence (Table S.9, 2026-09-23; n=44 rows
+%           corrected on count-certified bases 2026-09-26) and
 %           IP finite-element check + split double root (Tables S.10, S.11, 2026-09-24)
 %   Tables S.1--S.11 sit in S.3 (S.8 = flexural spurious zeros, was main Table 7; S.9 = OOP cantilever
 %           convergence; S.10 = IP cantilever vs FE; S.11 = IP split-pair convergence)
@@ -1180,24 +1181,26 @@ out-of-plane and $n=14$ in-plane).
 
 \paragraph{Out-of-plane rows.} Table~\ref{tab:cantilever-conv} re-runs
 every out-of-plane row at larger bases. For each row, a fresh
-transverse-wavenumber search is done at the printed frequency. At each
+transverse-wavenumber search is done at the printed frequency, and its
+completeness is certified by an argument-principle count of the zeros
+of the arc determinant, so no transverse branch is skipped at any basis
+size. At each
 basis size the production fill rule then selects the basis, which is
 tracked in $\Omega$, and $\log_{10}\sigma_{\min}$ of the boundary matrix
 is minimised by golden section over $[0.99,1.01]$ times the printed
 value. At the production size this fixed-basis re-run reproduces every
 printed value to within $0.03\%$. ``Last step'' is the change between
-the two largest bases; a value above about $0.05\%$ means the row is
-still moving at the largest basis tried.
+the two largest bases; it is at most $0.023\%$ on every row, so every
+converged value is settled at the largest basis tried.
 
 The clamped edge converges more slowly with basis size than the free
 edges of the main study. Across the 20 rows the printed values move by
-$0.01$--$0.90\%$ (median $0.26\%$). Every row moves upward except
+$0.01$--$0.83\%$ (median $0.26\%$). Every row moves upward except
 $2\Theta/\pi=0.25$, mode~2. Each mode jumps once, when the transverse
 branch that shapes it enters the basis, and then plateaus. The converged
-values agree with \cite{seok1} to within $2.14\%$. The largest residual
-is the narrowest sector's fundamental, which is still changing by
-$0.07\%$ per four added coordinates at $n=44$; every other row is within
-$1.51\%$. The published values are themselves finite-truncation results,
+values agree with \cite{seok1} to within $2.07\%$. The largest residual
+is the narrowest sector's fundamental, whose last step is below
+$0.001\%$; every other row is within $1.51\%$. The published values are themselves finite-truncation results,
 so a converged row's residual measures both truncations together, not an
 error of either.
 
@@ -1211,11 +1214,11 @@ the two largest bases (\%). Err: signed deviation from \cite{seok1} (\%).}
 \label{tab:cantilever-conv}
 \begin{tabular}{cccccccccc}
 \toprule $r_0/(2b)$ & $2\Theta/\pi$ & Mode & $n_{\mathrm{p}}$ & Printed & Converged & $n_{\max}$ & Last step & Err printed & Err conv.\\ \midrule
-1.25 & 0.25 & 1 & 20 & 0.345324 & 0.348425 & 44 & $+0.070$ & $+1.23$ & $+2.14$\\
-1.25 & 0.25 & 2 & 20 & 1.018530 & 1.016853 & 44 & $-0.001$ & $+0.50$ & $+0.34$\\
-1.25 & 0.25 & 3 & 20 & 1.722434 & 1.724811 & 44 & $+0.008$ & $+0.22$ & $+0.35$\\
-1.25 & 0.50 & 1 & 20 & 0.099419 & 0.099942 & 44 & $+0.036$ & $+0.36$ & $+0.89$\\
-1.25 & 0.50 & 2 & 20 & 0.343742 & 0.345096 & 44 & $+0.024$ & $+0.90$ & $+1.30$\\
+1.25 & 0.25 & 1 & 20 & 0.345324 & 0.348176 & 44 & $-0.001$ & $+1.23$ & $+2.07$\\
+1.25 & 0.25 & 2 & 20 & 1.018530 & 1.016507 & 44 & $+0.010$ & $+0.50$ & $+0.30$\\
+1.25 & 0.25 & 3 & 20 & 1.722434 & 1.722662 & 44 & $-0.013$ & $+0.22$ & $+0.23$\\
+1.25 & 0.50 & 1 & 20 & 0.099419 & 0.099911 & 44 & $-0.001$ & $+0.36$ & $+0.86$\\
+1.25 & 0.50 & 2 & 20 & 0.343742 & 0.345055 & 44 & $+0.000$ & $+0.90$ & $+1.29$\\
 1.25 & 0.50 & 3 & 20 & 0.605904 & 0.605980 & 32 & $+0.004$ & $+0.28$ & $+0.29$\\
 1.25 & 0.75 & 1 & 16 & 0.050717 & 0.050906 & 28 & $+0.018$ & $-0.22$ & $+0.15$\\
 1.25 & 0.75 & 2 & 16 & 0.151458 & 0.152134 & 28 & $-0.001$ & $+1.06$ & $+1.51$\\
